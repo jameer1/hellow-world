@@ -1,0 +1,84 @@
+<div ng-if="account.appCodeTemplate['RESOURCE_EMPNONREGULARPAYBLERATES_VIEW']" id="tab-pannel" ng-controller="EmpNonRegularPayController">
+				<div class="tabTable_1_Res_height_topB">
+				 	<table class="table table-striped table-hover table-bordered tabTable_1_height_topB" >
+					<thead id="tab-head">
+						<tr>
+							<th>Project Posting#</th>
+							<th>Effective From</th>
+							<th>EPS Name</th>
+							<th>Project Name</th>
+							<th>Parent Company Name</th>
+							<th>Employee Tax File Number</th>
+							<th>Currency</th>
+							<th>Unit of Pay Rate</th>
+							<th>Credit Cycle<span
+								style="color: red;">*</span></th>
+							<th>Basic Pay Rate</th>
+							<th>Pay Roll Status</th>
+							<th>Non Regular Pay and Allowances</th>
+							<th>Upload</th>
+							<th>Download</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr fixed-header="" ng-repeat ="nonRegularPay in empNonRegularPayTOs ">
+							<td>{{nonRegularPay.projEmpRegisterTO.deploymentId}}</td>
+							<td>{{nonRegularPay.projEmpRegisterTO.enrollmentDate}}</td>
+							<td>{{nonRegularPay.projEmpRegisterTO.parentName}}</td>
+							<td>{{nonRegularPay.projEmpRegisterTO.name}}</td>
+							<td>{{selectedEmployeeData.cmpName}}</td>
+							<td>{{nonRegularPay.projEmpRegisterTO.taxFileNum}}</td>
+							<td>{{projGeneralLabelTO.displayNamesMap['currency']}}</td>
+							<td><select ng-model="nonRegularPay.unitPayRate"
+								ng-required="true"
+								ng-options="unitPayRate for unitPayRate in unitPayRates"
+								ng-disabled="!nonRegularPay.latest && nonRegularPay.id!=null">
+							</select></td>
+							
+							<td><select ng-model="nonRegularPay.payCycle"  data-test='Resources_Employee_NonRegularPayableRates_CreditCycleField'
+								ng-required="true"
+								ng-options="payCycle for payCycle in payCycles"
+								ng-disabled="!nonRegularPay.latest && nonRegularPay.id!=null">
+									<option value="" disabled selected>Select</option>
+							</select></td>
+							<td>{{nonRegularPay.basicPay}}</td>
+							<td>{{nonRegularPay.projEmpRegisterTO.empStatus}}</td>
+							<td><input type="button" class="btn btn-brown btn-sm"
+								ng-click="getNonEmpRegularPayDetails(nonRegularPay, 'Edit')"
+								value="Edit" data-test='Resources_Employee_NonRegularPayableRates_Edit'
+								ng-if="( (nonRegularPay.latest  || nonRegularPay.id==null) && account.appCodeTemplate['RESOURCE_EMPNONREGULARPAYBLERATES_ADD'] )">
+								<input type="button" class="btn btn-primary btn-sm"
+								ng-click="getNonEmpRegularPayDetails(nonRegularPay, 'View')"
+								value="View"
+
+								ng-if="!nonRegularPay.latest  || nonRegularPay.id==null"></td>
+							<!-- 	<td class="input-width1"><pot-Futuredate-Picker dir-index="index"
+									date-name="effectiveDate"
+									ng-model="nonRegularPay.payRollDate"
+									placeholder="PayRoll Run Date"  ng-disabled="!nonRegularPay.latest  && nonRegularPay.id!=null "></td> -->
+
+							<!-- <td><input type="file" name="doc"
+
+								ng-if="((nonRegularPay.latest  || nonRegularPay.id==null))"></td>
+							<td><input type="file" name="doc"
+
+								ng-model="nonRegularPay.doc" tabindex="-1" placeholder="Doc" style="display: inline !important;"
+								ng-disabled="!nonRegularPay.latest  && nonRegularPay.id!=null " ngf-select="fileUpload($file,regpay,$index)"></td> -->
+							<td>
+								<span class="fa fa-upload" ng-click="getRefDocument(nonRegularPay)" title="Click to upload documents">									
+							</td>
+							<td><span class="fa fa-download" ng-click="empDownloadDocuments(nonRegularPay)" title="Click to download documents"></span></td>
+						</tr>
+					</tbody>
+					</table>
+				</div>
+				<div class="panel-footer padL-0">
+					<div class="pull-left">
+						<input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+						<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+						<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+						<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+						<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+					</div>
+				</div>
+</div>

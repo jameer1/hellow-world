@@ -1,0 +1,39 @@
+<div id="tab-pannel" class="panel-group">
+	<div class="panel panel-default" modal-movable>
+		<div class="panel-heading">
+			<h4 class="panel-title">List Of Vendors</h4>
+		</div>
+        <div class="panel-body">
+            <div class="popUpTableResHeight">
+                <table class="table table-striped table-hover table-bordered popUpTableHeight" >
+                    <thead>
+                        <tr>
+                            <th style="width: 50px !important">Select</th>
+                            <th>Company ID</th>
+                            <th>Name of the Company</th>
+                            <th>Include in Transmission List</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr fixed-header="" ng-repeat ="req in precontractCmpTOs">
+                            <td>
+                                <input type="checkbox" ng-model="req.select"
+                                       ng-click="rowSelect(req)" />
+                            </td>
+                            <td>{{preContractCmpMap[req.companyId].cmpCode}}</td>
+                            <td>{{preContractCmpMap[req.companyId].cmpName}}</td>
+                            <td><input type="checkbox" ng-model="req.transmit"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+            <div class="panel-footer">
+                <div class="pull-right">
+                    <input class="btn btn-primary btn-sm" type="button"
+                           ng-click="sendPreContractDocsToCompanies()" value="Send">
+                </div>
+            </div>
+            <div class="ngdialog-close"></div>
+        </div>
+</div>

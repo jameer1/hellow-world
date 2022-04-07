@@ -1,0 +1,115 @@
+<section class="content-header">
+    <h1>Vendor Payment Status</h1>
+</section>
+<section class="content">
+    <div id="tab-pannel" class="panel-group panel panel-default block footer-parent">
+        <div class="panel-body">
+            <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12 no-padding">
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2 padL-0">
+                    <md-input-container>
+                        <label>Profit Center</label>
+                        <input type="text" ng-model="profitCentreName" autocomplete="off" readonly
+                            ng-click="getProfitCentres()">
+                    </md-input-container>
+                </div>
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+                    <md-input-container>
+                        <label>Project</label>
+                        <input type="text" ng-model="searchProject.projName" ng-click="getUserProjects()" autocomplete="off" readonly>
+                    </md-input-container>
+                </div>
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+                    <md-input-container>
+                        <label>Period From(dd-mm-yyyy)</label>
+                        <potdate-picker dir-index="$index" date-name="fromDate" ng-model="fromDate" custom-read-only />
+                    </md-input-container>
+                </div>
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+                    <md-input-container>
+                        <label>Period To(dd-mm-yyyy)</label>
+                        <potdate-picker dir-index="$index" date-name="toDate" ng-model="toDate" custom-read-only />
+                    </md-input-container>
+                </div>
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+                    <md-input-container>
+                        <label>Payment Status</label>
+                        <md-select ng-model="payStatus">
+                            <md-option value="paid">Paid</md-option>
+                            <md-option value="overdue">Over due</md-option>
+                            <md-option value="due">Due</md-option>
+                            <md-option value="all">All</md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2 padR-0">
+                    <div class="pull-right marT15">
+                        <input type="button" ng-click="getDetails()" class="btn  btn-primary btn-sm"
+                            value="Generate Report">
+                        <input type="reset" class="btn  btn-secondary btn-sm" ng-click="resetDetails()" value="Reset" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12 no-padding">
+                <div class="singleTableResHeight_2">
+                    <table class="table table-striped table-hover table-bordered singleTableHeight_2">
+                        <thead>
+                            <tr>
+                                <th colspan="6" class="text-center">Purchase Order Details</th>
+                                <th colspan="7" class="text-center">Invoice Details & Payment Status</th>
+                                <th colspan="8" class="text-center">Paid Amount</th>
+                            </tr>
+                            <tr>
+                                <th>Profit Center</th>
+                                <th>Project</th>
+                                <th>Vendor</th>
+                                <th>PO #</th>
+                                <th>PO Description</th>
+                                <th>Cost Code</th>
+                                <th>Invoice #</th>
+                                <th>Invoice Date</th>
+                                <th>Payment due date</th>
+                                <th>Invoice net amount</th>
+                                <th>Invoice Tax amount</th>
+                                <th>Invoice Total amount</th>
+                                <th>Payment Status</th>
+                                <th>Bank Account Name</th>
+                                <th>Bank Code</th>
+                                <th>Bank AC #</th>
+                                <th>Paid Ref #</th>
+                                <th>Paid Date</th>
+                                <th>Paid Invoice Amount</th>
+                                <th>Paid Tax Amount</th>
+                                <th>Gross Amount Paid</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

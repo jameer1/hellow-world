@@ -1,0 +1,56 @@
+<div ng-if="account.appCodeTemplate['PRJ_PROGRESS_SUMMARY_PLANT_VIEW']" id="tab-pannel">
+	<div class="panel-default">
+		<div class="panel-body">
+			<div class="tabTable_3_Res_height">
+					<div id="grid" ui-grid="gridOptions2" ng-if="stylesSvc.finishedStyling" 
+             ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-resize-columns class="grid"></div>
+				<!-- <table class="table table-striped table-hover table-bordered tabTable_3_height">
+					<thead>
+						<tr>
+							<th class="vert-align">Resource ID</th>
+							<th class="text-center">Resource Name</th>
+							<th class="text-center">Unit of Measure</th>
+							<th class="text-center">Budget Units</th>
+							<th class="text-center">Revised Units</th>
+							<th class="text-center">Actual Units</th>
+							<th class="text-center">Remaining Units</th>
+							<th class="text-center">% Spent</th>
+							<th class="text-center">Estimate to Complete</th>
+							<th class="text-center">Estimate at Completion Quality</th>
+							<th class="text-center">Completion Variance</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr fixed-header="" ng-repeat="plant in plantunits">
+							<td>{{plant.mesureName}}</td>
+							<td>{{plant.plantsName}}</td>
+							<td>{{plant.plantsCode}}</td>
+							<td>{{plant.originalQty | number:2}}</td>
+							<td>{{plant.revisedQty > 0 ? (plant.revisedQty | number:2 ) : '' }}</td>
+							<td>{{plant.actualQty > 0 ? (plant.actualQty | number:2) : ''}}</td>
+							<td>{{plant.remainingQty | number:2}}</td>
+							<td>{{plant.percentageSpent > 0 ? (plant.percentageSpent | number:2) : ''}}</td>
+							<td>{{plant.estimate > 0 ? (plant.estimate | number:2) : '' }}</td>
+							<td>{{plant.completion > 0 ? (plant.completion | number:2) : ''}}</td>
+							<td>{{plant.compVariance > 0 ? (plant.compVariance | number:2) : '' }}</td>
+						</tr>
+					</tbody>
+				</table>
+				<table style="border-top: 2px solid #191970 !important;width:100%;">
+					<tr>
+					 	<td width="18%" style="padding-top: 15px;">&nbsp;</td>
+					 	<td width="8%"><b>Total</b></td>
+					 	<td width="7%"><b>{{columnTotals.originalHrsTotal | number: 2}}</b></td>
+					 	<td width="7%"><b>{{columnTotals.revisedHrsTotal | number: 2}}</b></td>
+					 	<td width="7%"><b>{{columnTotals.actualHrsTotal | number: 2}}</b></td>
+					 	<td width="8%"><b>{{columnTotals.remainingHrsTotal | number: 2}}</b></td>
+					 	<td width="5%"><b>{{columnTotals.percentageSpentTotal | number: 2}}</b></td>
+					 	<td width="11%"><b>{{columnTotals.etcTotal | number: 2}}</b></td>
+					 	<td width="18%"><b>{{columnTotals.estAtCompletionHrsTotal | number: 2}}</b></td>
+					 	<td width="11%"><b>{{columnTotals.compVarianceTotal | number: 2}}</b></td>
+					 </tr>
+				</table> -->
+			</div>
+		</div>
+	</div>
+</div>

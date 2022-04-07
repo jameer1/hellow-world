@@ -1,0 +1,89 @@
+<div id="tab-pannel" class="panel-group" ng-init="getMeasurementMap()">
+	<form name="measureForm" validate autocomplete="off">
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title" ng-if="action ==='Add'">Add Measuring Units</h4>
+				<h4 class="panel-title" ng-if="action !='Add'">Edit Measuring Units</h4>
+			</div>
+			<div class="panel-body">
+				<div class="popUpTableResHeight">
+					<table class="table table-striped table-hover table-bordered popUpTableHeight" >
+						<thead id="tab-head">
+							<tr>
+								<th ng-if="action ==='Add'">Select</th>
+								<th>Measurement Code<span
+									style="color: red; font-sfont-size: '50px'"> *</span></th>
+								<th>Measurement Name<span
+									style="color: red; font-sfont-size: '50px'"> *</span></th>
+								<!--th>Classifications<span
+									style="color: red; font-sfont-size: '50px'"> *</span></th-->
+							</tr>
+						</thead>
+						<tbody>
+							<tr fixed-header="" ng-repeat ="measurement in measureUnits">
+								<td ng-if="action ==='Add'"><input data-test='CentralLibrary_MeasuringUnits_Create_addrows_Checkbox1' type="checkbox"
+									ng-model="measurement.selected"
+									ng-change="popUpRowSelect(measurement)"></td>
+								<td ng-form name="measureform"><input data-test='CentralLibrary_MeasuringUnits_Create_Measurementcode' class="form-control" type="text"
+									ng-click="validation()" ng-tooltip name="code"
+									ng-model="measurement.code"
+									ng-class="{coloumnHighlightColor:measurement.duplicateFlag}"
+									ng-change="checkDuplicate(measurement)"
+									pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+									maxlength="20" placeholder="Measurement  Code"
+									ng-required="true"><span class="procurment-pot-errors"
+									ng-show="measureform.code.$touched && measureform.code.$error.required">This
+										field is required</span> <span class="procurment-pot-errors"
+									ng-show="measureform.code.$error.pattern">Please enter
+										alpha numeric data </span> <span class="procurment-pot-errors"
+									ng-show="measureform.code.$dirty && measureform.code.$error.maxlength">Enter
+										upto 20 chars only</span></td>
+
+								<td ng-form name="measureform1"><input data-test='CentralLibrary_MeasuringUnits_Create_Measurementname' class="form-control" type="text"
+									name="name" ng-model="measurement.name"
+									ng-change="checkDuplicate(measurement)"
+									pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+									maxlength="50" placeholder="Measurement Name"
+									ng-required="true"> <span class="procurment-pot-errors"
+									ng-show="measureform1.name.$touched && measureform1.name.$error.required">This
+										field is required</span> <span class="procurment-pot-errors"
+									ng-show="measureform1.name.$error.pattern">Please enter
+										alpha numeric data </span></td>
+
+								<!--td ng-form name="measureform2"><select class="form-control" data-test='CentralLibrary_MeasuringUnits_Create_classification'
+									ng-change="updateMeasurementCode(measurement.procurementTO,measurement);checkDuplicate(measurement)"
+									ng-options="cat.name  for cat in proCategory track by cat.name"
+									name="classification" ng-model="measurement.procurementTO" ng-required="true"
+									>
+										<option  value="">-select-</option>
+								</select>
+								<span class="procurment-pot-errors"
+								ng-show="measureform2.classification.$error.required">This
+									field is required</span> </td-->
+							</tr>
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="panel-footer">
+				<div class="pull-left">
+					<input data-test='CentralLibrary_MeasuringUnits_Create_addrows' type="submit" ng-click="measureForm.$valid && addRows()"
+						value="Add Rows" class="btn  btn-primary btn-sm"
+						ng-show="action =='Add'"> <input data-test='CentralLibrary_MeasuringUnits_Create_deleterows' type="button"
+						ng-click="deleteRows()" value="Delete Rows"
+						class="btn  btn-secondary btn-sm" ng-show="action =='Add'">
+				</div>
+				<div class="pull-right">
+					<input data-test='CentralLibrary_MeasuringUnits_save' type="submit" class="btn  btn-primary btn-sm" value="Save"
+						ng-click="measureForm.$valid && saveMeasurements()" />
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</form>
+</div>
+
+
+
+

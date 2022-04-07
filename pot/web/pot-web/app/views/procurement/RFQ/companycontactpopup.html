@@ -1,0 +1,20 @@
+<div ng-init="getStocks()">
+	<div id="tab-pannel" class="panel panel-default" modal-movable>
+		<div class="panel-heading">
+			<h4 class="panel-title">Company Contact List</h4>
+		</div>
+		<div id="tabs" class="panel-body">
+            <div class="nv-tabs-custom">
+                <ul class="nav nav-tabs">
+                    <li fixed-header="" ng-repeat ="tab in contactTabs"
+                        ng-class="{active:isContactActiveTab(tab.url)}"
+                        ng-click="contactOnClickTab(tab)"><a data-toggle="tab">{{tab.title}}</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="active" ng-include="contactCurrentTab"></div>
+                </div>
+            </div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</div>
+</div>

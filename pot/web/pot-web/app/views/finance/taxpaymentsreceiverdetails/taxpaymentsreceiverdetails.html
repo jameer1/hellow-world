@@ -1,0 +1,123 @@
+<div id="tab-pannel" class="panel-group">
+    <form name="taxPaymentReciverForm" validate>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">Tax Payments Receiver Details (Government Departments)</h4>
+            </div>
+            <div class="panel-body">
+                <div class="col-sm-12 col-md-12 col-lg-12 no-padding">
+                    <div class="col-sm-5 col-md-5 col-lg-5">
+                        <md-input-container><label readonly="readonly" class="labelName">Country</label> <input
+                                type="text" ng-model="countryName" tabindex=-1 readonly="readonly" />
+                        </md-input-container>
+                    </div>
+                    <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                    <div class="col-sm-5 col-md-5 col-lg-5">
+                        <md-input-container><label readonly="readonly" class="labelName">Province</label> <input
+                                type="text" tabindex=-1 ng-model="provisionName" readonly="readonly" />
+                        </md-input-container>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-12 no-padding">
+                    <div class="col-sm-5 col-md-5 col-lg-5">
+                        <md-input-container><label readonly="readonly" class="labelName">Effective Date </label> <input
+                                type="text" tabindex=-1 ng-model="effectiveDate" name="yard" readonly="readonly" />
+                        </md-input-container>
+                    </div>
+                    <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                    <div class="col-sm-5 col-md-5 col-lg-5">
+                        <md-input-container><label readonly="readonly" class="labelName">Tax Codes & Tax Rules ID
+                            </label> <input type="text" tabindex=-1 ng-model="taxPaymentReceiverDisplayId" name="TaxPaymentsReceiverCodeId"
+                                readonly="readonly" disabled />
+                        </md-input-container>
+                    </div>
+                </div>
+
+                <div class="popUpTableResHeight">
+                    <table class="table table-striped table-hover table-bordered popUpTableHeight">
+                        <thead>
+                            <tr>
+                                <th>Select</th>
+                                <th>Tax Code</th>
+                                <th>Tax Code Description</th>
+                                <th>Name of Department</th>
+                                <th>Registered Address</th>
+                                <th>Account Number</th>
+                                <th>Bank/Institute Name</th>
+                                <th>Bank Code</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                      
+                           <tr ng-repeat="taxPaymentsReceiver in taxPaymentsReceivers">
+                                <td>
+                                     <input type="checkbox" value="taxPaymentsReceiver.id" ng-model="taxPaymentsReceiver.selected" ng-change="taxPaymentsReceiverPopupRowSelect(taxPaymentsReceiver)" data-test="TaxPaymentReciver_Code"></td>
+                                <td ng-if="taxPaymentsReceiver.actionType == 'View'">{{taxPaymentsReceiver.code}}</td>
+                                <td ng-if="taxPaymentsReceiver.actionType != 'View'" ng-form name="classform">
+                                    <input class="form-control" type="text" name="code" ng-model="taxPaymentsReceiver.code" pattern="^[a-zA-Z\d\s.,]+$" minlength="1" maxlength="20" placeholder="Code" required="required">
+                                    <span ng-show="classform.code.$dirty && classform.code.$error.required">This field is required</span>
+                                    <span ng-show="classform.code.$error.minlength">Too Short!</span>
+                                    <span ng-show="classform.code.$error.pattern">Must enter required format</span>
+                                    <span ng-show="classform.code.$error.maxlength">You reached max length</span>
+                                </td>
+                                <td ng-if="taxPaymentsReceiver.actionType == 'View'">{{taxPaymentsReceiver.description}}</td>
+                                <td ng-if="taxPaymentsReceiver.actionType != 'View'" ng-form name="classform">
+									<input class="form-control" type="text" name="name"
+										ng-model="taxPaymentsReceiver.description" pattern="^[a-zA-Z\d\s.,]+$" minlength="2"
+										maxlength="50" placeholder="Description" required="required" data-test="TaxPaymentReciver_Description">
+									<span ng-show="classform1.name.$dirty && classform1.name.$error.required">This field
+										is mandatory</span>
+									<span ng-show="classform1.name.$error.pattern">Must enter required format</span>
+									<span ng-show="classform1.name.$error.maxlength">You reached max length</span>
+								</td>
+								 <td ng-if="taxPaymentsReceiver.actionType == 'View'">{{taxPaymentsReceiver.nameofDepartment}}</td>
+                                <td ng-if="taxPaymentsReceiver.actionType != 'View'" ng-form name="classform">
+                                    <input class="form-control" type="text" name="name" ng-model="taxPaymentsReceiver.nameofDepartment"
+                                        pattern="^[a-zA-Z\d\s.,]+$" minlength="2" maxlength="50"
+                                        placeholder="Name of Department" required="required" data-test="TaxPaymentReciver_NameofDepartment">
+                                </td>
+                                 <td ng-if="taxPaymentsReceiver.actionType == 'View'">{{taxPaymentsReceiver.registerdAddress}}</td>
+                                <td ng-if="taxPaymentsReceiver.actionType != 'View'" ng-form name="classform">
+                                    <input class="form-control" type="text" name="name" ng-model="taxPaymentsReceiver.registerdAddress"
+                                        pattern="^[a-zA-Z\d\s.,]+$" minlength="2" maxlength="50"
+                                        placeholder="Registered Address" required="required" data-test="TaxPaymentReciver_RegisterdAddress">
+                                </td>
+                                 <td ng-if="taxPaymentsReceiver.actionType == 'View'">{{taxPaymentsReceiver.accountNumber}}</td>
+                                <td ng-if="taxPaymentsReceiver.actionType != 'View'" ng-form name="classform">
+                                    <input class="form-control" type="text" name="name" ng-model="taxPaymentsReceiver.accountNumber"
+                                        pattern="^[a-zA-Z\d\s.,]+$" minlength="2" maxlength="50"
+                                        placeholder="Account Number" required="required" data-test="TaxPaymentReciver_AccountNumber">
+                                </td>
+                                 <td ng-if="taxPaymentsReceiver.actionType == 'View'">{{taxPaymentsReceiver.bankInstituteName}}</td>
+                                <td ng-if="taxPaymentsReceiver.actionType != 'View'" ng-form name="classform">
+                                    <input class="form-control" type="text" name="name" data-test="TaxPaymentReciver_BankInstituteName" ng-model="taxPaymentsReceiver.bankInstituteName"
+                                        pattern="^[a-zA-Z\d\s.,]+$" minlength="2" maxlength="50"
+                                        placeholder="Bank/Institute Name" required="required">
+                                </td>
+                                 <td ng-if="taxPaymentsReceiver.actionType == 'View'">{{taxPaymentsReceiver.bankCode}}</td>
+                                <td ng-if="taxPaymentsReceiver.actionType != 'View'" ng-form name="classform">
+                                    <input class="form-control" type="text" name="name" data-test="TaxPaymentReciver_BankCode" ng-model="taxPaymentsReceiver.bankCode"
+                                        pattern="^[a-zA-Z\d\s.,]+$" minlength="2" maxlength="50" placeholder="Bank Code"
+                                        required="required">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <div class="pull-left">
+                    <input type="submit" ng-click="taxPaymentReciverForm.$valid && addRows()" class="btn btn-primary btn-sm"  value="Add" ng-show="action =='Add' || action =='Edit'" validate data-test="TaxPaymentReciver_Add">
+                    <input type="button" ng-click="deleteRows()" value="Delete" ng-show="action =='Add' || action =='Edit'"  class="btn  btn-secondary btn-sm" validate data-test="TaxPaymentReciver_Delete">
+                </div>
+
+                <div class="pull-right" ng-if="actionTypeSave != 'View' ">
+                    <input type="submit" ng-click="viewpastrecords()" value="View Past Records" class="btn btn-primary btn-sm" data-test="TaxPaymentReciver_ViewPastRecords"/>
+                    <input type="submit" ng-click="taxPaymentReciverForm.$valid && saveTaxPaymentsReceiver()" value="Save"  class="btn btn-primary btn-sm" data-test="TaxPaymentReciver_Save"/>
+                </div>
+				
+            </div>
+            <div class="ngdialog-close"></div>
+        </div>
+    </form>
+</div>

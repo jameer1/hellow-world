@@ -1,0 +1,154 @@
+<div id="tab-pannel">
+    <div class="panel-group">
+        <div class="panel panel-default" modal-movable>
+            <div class="panel-heading">
+                <h4 class="panel-title">Invoice to Project Owner</h4>
+            </div>
+            <div class="panel-body">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+                    <div class="col-md-1 col-lg-1 col-sm-1 col-xs-1 padL-0">
+                        <md-input-container>
+                            <label>Claim #</label>
+                            <input type="text" autocomplete="off">
+                        </md-input-container>
+                    </div>
+                    <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+                        <md-input-container>
+                            <label>Date Of Claim</label>
+                            <potdate-picker dir-index="$index" date-name="dateOfClaim" ng-model="date|date"
+                                custom-read-only />
+                        </md-input-container>
+                    </div>
+                    <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+                        <md-input-container>
+                            <label>Progress Claim Period From</label>
+                            <potdate-picker dir-index="$index" date-name="fromDate" ng-model="fromDate"
+                                custom-read-only />
+                        </md-input-container>
+                    </div>
+                    <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+                        <md-input-container>
+                            <label>Progress Claim Period To</label>
+                            <potdate-picker dir-index="$index" date-name="toDate" ng-model="toDate" custom-read-only />
+                        </md-input-container>
+                    </div>
+                    <div class="col-md-1 col-lg-1 col-sm-1 col-xs-1">
+                        <md-input-container>
+                            <label>Vendor</label>
+                            <input type="text" autocomplete="off">
+                        </md-input-container>
+                    </div>
+                    <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+                        <md-input-container>
+                            <label>Project</label>
+                            <input type="text" ng-model="searchProject.projName" ng-click="getUserProjects()" readonly>
+                        </md-input-container>
+                    </div>
+                    <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+                        <md-input-container>
+                            <label>Contract #</label>
+                            <input type="text" autocomplete="off">
+                        </md-input-container>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12 no-padding">
+                    <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2 padL-0">
+                        <md-input-container>
+                            <label>Invoice #</label>
+                            <input type="text" autocomplete="off">
+                        </md-input-container>
+                    </div>
+                    <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+                        <md-input-container>
+                            <label>Invoice Date</label>
+                            <potdate-picker dir-index="$index" date-name="invoiceDate" ng-model="invoiceDate"
+                                custom-read-only />
+                        </md-input-container>
+                    </div>
+                    <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+                        <md-input-container>
+                            <label>Project Owner</label>
+                            <input type="text" ng-model="generalValues.userLabelKeyTO.name" ng-click="getProjectOwner()"
+                                readonly>
+                        </md-input-container>
+                    </div>
+                    <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+                        <md-input-container>
+                            <label>Originator</label>
+                            <input type="text" ng-click="getProjectEmployeeDetails()" readonly>
+                        </md-input-container>
+                    </div>
+                    <div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+                        <md-input-container>
+                            <label>Internal Approval Required</label>
+                            <md-select ng-model="">
+                                <md-option value="yes">Yes</md-option>
+                                <md-option value="no">No</md-option>
+                            </md-select>
+                        </md-input-container>
+                    </div>
+                    <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+                        <md-input-container>
+                            <label>Internal Approver</label>
+                            <input type="text" ng-click="" readonly>
+                        </md-input-container>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12 no-padding">
+                    <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2 padL-0">
+                        <md-input-container>
+                            <label>Project Owner-Approver</label>
+                            <input type="text" ng-click="" readonly>
+                        </md-input-container>
+                    </div>
+                    <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+                        <md-input-container>
+                            <label>Profit Center</label>
+                            <input type="text" autocomplete="off">
+                        </md-input-container>
+                    </div>
+                    <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+                        <md-input-container>
+                            <label>Due for Payment</label>
+                            <input type="text" ng-click="" readonly>
+                        </md-input-container>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+                    <div class="popUpTableResHeight" style="height: 254.41776px; overflow: auto;">
+                        <table class="table table-striped table-hover table-bordered popUpTableHeight">
+                            <thead>
+                                <tr>
+                                    <th>Item #</th>
+                                    <th>Description</th>
+                                    <th>Currency</th>
+                                    <th>Amount</th>
+                                    <th>Comments</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr fixed-header="" ng-repeat=" ">
+                                    <td>{{ }}</td>
+                                    <td>{{ }}</td>
+                                    <td>{{ }}</td>
+                                    <td>{{ }}</td>
+                                    <td>{{ }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <div class="pull-left">
+                    <input type="button" ng-click="print()" value="Print" class="btn btn-primary btn-sm" />
+                    <input type="button" ng-click="export()" value="Export" class="btn btn-primary btn-sm" />
+                </div>
+                <div class="pull-right">
+                    <input type="submit" ng-click="save()" value="Save" class="btn  btn-primary btn-sm" />
+                </div>
+            </div>
+            <div class="ngdialog-close"></div>
+        </div>
+    </div>
+</div>

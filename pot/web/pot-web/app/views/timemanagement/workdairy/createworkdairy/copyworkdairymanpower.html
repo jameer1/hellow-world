@@ -1,0 +1,38 @@
+<div class="panel-body">
+    <div class="tabTable_5_Res_Height overflow-auto">
+        <table class="table table-hover table-bordered tabTable_5_Height">
+            <thead>
+                <tr>
+                    <th class="text-center"><input type="checkbox" ng-model="selectAll" ng-change="selectAllEmps(selectAll)"></th>
+                    <th class="text-center" rowspan="3">Employee ID</th>
+                    <th class="text-center" rowspan="3">First Name</th>
+                    <th class="text-center" rowspan="3">Last Name</th>
+                    <th class="text-center" rowspan="3">Designation</th>
+                    <th class="text-center" rowspan="3">Category</th>
+                    <th class="text-center" rowspan="3">UOM</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat ="emp in workDairyEmpDtlTOs">
+                    <td style="width: 30px !important;">
+                        <input type="checkbox" ng-model="emp.select"
+                               ng-change="selectEmp(emp)">
+                    </td>
+                    <td>{{emp.code}}</td>
+                    <td>{{emp.firstName}}</td>
+                    <td>{{emp.lastName}}</td>
+                    <td>{{emp.classType}}</td>
+                    <td>{{emp.procureCatg}}</td>
+                    <td>{{emp.unitOfMeasure}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+
+
+        <div ng-show="workDairyEmpDtlTOs <= 0">
+            <h5 align="center" style="color: red">No Employee Records for selected search criteria</h5>
+        </div>
+
+    </div>
+</div>

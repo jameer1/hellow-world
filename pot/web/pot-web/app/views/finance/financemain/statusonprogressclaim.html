@@ -1,0 +1,112 @@
+<section class="content-header">
+	<h1>Status On Progress Claim</h1>
+</section>
+<section class="content">
+	<div id="tab-pannel" class="panel-group panel panel-default block footer-parent">
+		<div class="panel-body">
+			<div class="col-sm-12 col-xs-12 col-md-12 col-lg-12 no-padding">
+				<div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+					<md-input-container>
+						<label>EPS ID/Name</label>
+						<input type="text" ng-model="searchProject.parentName" ng-click="getUserProjects()"
+							autocomplete="off" readonly>
+					</md-input-container>
+				</div>
+				<div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+					<md-input-container>
+						<label>Project ID/Name</label>
+						<input type="text" ng-model="searchProject.projName" ng-click="getUserProjects()"
+							autocomplete="off" readonly>
+					</md-input-container>
+				</div>
+				<div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+					<md-input-container>
+						<label>Project Owner</label>
+						<input type="text" autocomplete="off" readonly>
+					</md-input-container>
+				</div>
+				<div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+					<md-input-container>
+						<label>Claim Status</label>
+						<md-select ng-model="claimStatus">
+							<md-option value="claimStatus" ng-repeat="claimStatus in claims track by claimStatus">
+								{{claimStatus}}
+							</md-option>
+						</md-select>
+					</md-input-container>
+					<!-- <span class="labelName">Invoice Status</span> 
+					<select style="width: 100%;" ng-model="claimStatus"
+						ng-options="claimStatus for claimStatus in claims track by claimStatus">
+						<option value="">select</option>
+					</select> -->
+					<!--   <select style="min-width: 170px;"><option fixed-header="" ng-repeat ="status in claims" >{{status}}</option></select> -->
+				</div>
+				<div class="col-md-4 col-lg-4 col-sm-4 col-xs-4">
+					<div class="pull-right marT15">
+						<input type="button" ng-click="getDetails()" class="btn  btn-primary btn-sm" value="Search">
+						<input type="reset" class="btn  btn-secondary btn-sm" ng-click="resetDetails()" value="Reset" />
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-12 col-xs-12 col-md-12 col-lg-12 no-padding">
+				<div class="singleTableResHeight_2">
+					<table class="table table-striped table-hover table-bordered singleTableHeight_2">
+						<thead>
+							<tr>
+								<th rowspan="2">Select</th>
+								<th rowspan="2">EPS</th>
+								<th rowspan="2">Project</th>
+								<th rowspan="2">Project Owner</th>
+								<th rowspan="2">Profit Center</th>
+								<th rowspan="2">Claim Originator</th>
+								<th rowspan="2">Internal Approver</th>
+								<th rowspan="2">Owner Approver</th>
+								<th rowspan="2">Date Of Claim</th>
+								<th rowspan="2">Claim</th>
+								<th colspan="2" class="text-center">Claim Period</th>
+								<th rowspan="2">Currency</th>
+								<th rowspan="2">Amount</th>
+								<th rowspan="2">Current Status</th>
+								<th rowspan="2">View Progress Claim</th>
+							</tr>
+							<tr>
+								<th>From</th>
+								<th>To</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr fixed-header="" ng-repeat="progress in progressClaim ">
+								<td><input type="checkbox" ng-model="progress.selected"
+										ng-change="progressClaimRowSelect(progress)"></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="panel-footer">
+			<div class="pull-right">
+				<input type="button" class="btn btn-primary btn-sm" value="Create" ng-click="addProgressClaim()">
+			</div>
+			<div class="pull-left">
+				<input type="button" class="btn btn-secondary btn-sm" value="Deactivate"
+					ng-click="deactiveProgreeClaim()">
+			</div>
+		</div>
+	</div>
+</section>

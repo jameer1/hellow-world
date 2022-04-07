@@ -1,0 +1,278 @@
+<div id="tab-pannel" class="panel-group">
+	<form name="empLeaveApprForm" validate ng-init="getProjSettingsEmpDetailsCheck()">
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Requisition</h4>
+			</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-sm-12 col-md-9 col-lg-8">
+							<table id="input-width4" class="table table-hover table-bordered" >
+								<thead id="tab-head">
+									<tr>
+										<th>Date of Request</th>
+										<th>Requisition ID</th>
+										<th>Origin Project</th>
+										<th>Destination Project</th>
+										<th>Notification ID</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td class="input-width0"><input type="text" class="form-control"
+											ng-model="addNewRequestData.reqDate " tabindex=-1
+											ng-disabled="true"></td>
+
+										<td><input type="text" class="form-control" ng-disabled="true"
+											ng-model="addNewRequestData.reqCode"
+											placeholder="Requistion ID"></td>
+
+										<td><input type="text" class="form-control" ng-disabled="true"
+											ng-model="addNewRequestData.fromProjName"
+											placeholder="EPS Name" ng-click="getUserProjects(1)"></td>
+
+										<td><input type="text" class="form-control" ng-disabled="true"
+											ng-model="addNewRequestData.toProjName"
+											placeholder="Project Name" ng-click="getUserProjects(2)"></td>
+
+
+										<td><input type="text" class="form-control" ng-disabled="true"
+											ng-model="addNewRequestData.reqNotifyCode"
+											placeholder="Notification ID"></td>
+
+									</tr>
+								</tbody>
+							</table>
+					</div>
+					<div class="col-sm-12 col-md-3 col-lg-4">
+						<table id="input-width4" class="table table-hover table-bordered" >
+							<thead id="tab-head">
+								<tr>
+									<th>Approval Date<span
+										style="color: red; font-size:6px;"> *</span></th>
+									<th>Approval ID</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td class="input-width0"><potdate-picker class="form-control"
+											ng-model="addNewRequestData.apprDate" ng-disabled="true"
+											dir-index="apprlDate1" date-name="apprDate"
+											placeholder="dd-mm-yyyy" ng-required="true"></td>
+
+									<td><input type="text" class="form-control" ng-disabled="true"
+										ng-model="addNewRequestData.apprCode" placeholder="Approval ID"></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="panel-heading">
+				<h4 class="panel-title">Request</h4>
+			</div>
+			<div class="panel-body">
+					<div class="row">
+							<div class="col-sm-12 col-md-12 col-lg-12">
+							<div class="overflow-auto">
+				<table class="table table-hover table-bordered">
+					<thead>
+						<tr>
+							<th>Employee ID</th>
+							<th>First Name</th>
+							<th>Last Name</th>
+							<th>Designation</th>
+							<th>Current Project</th>
+							<th>Phone Number</th>
+							<th>Email Address</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+
+							<td class="input-width4"><input type="text" class="form-control"
+								ng-click="getUserEmployees('SUBMIT')"
+								ng-model="addNewRequestData.reqUserTO.empCode"
+								ng-disabled="true" placeholder="Employee ID"></td>
+
+							<td class="input-width4"><input type="text" class="form-control"
+								ng-model="addNewRequestData.reqUserTO.firstName"
+								ng-disabled="true" placeholder="First Name"></td>
+
+							<td class="input-width4"><input type="text" class="form-control"
+								ng-model="addNewRequestData.reqUserTO.lastName"
+								ng-disabled="true" placeholder="Last Name"></td>
+
+							<td class="input-width4"><input type="text" class="form-control"
+								ng-model=" addNewRequestData.reqUserTO.empDesg "
+								ng-disabled="true" placeholder="Designation"
+								style="width: 115px !important"></td>
+
+							<td class="input-width4"><input type="text" class="form-control"
+								ng-model="addNewRequestData.reqCurrentProj" ng-disabled="true"
+								placeholder="Current Project"></td>
+
+							<td class="input-width4"><input type="text" class="form-control"
+								ng-disabled="true" ng-model="addNewRequestData.reqUserTO.phone"
+								placeholder="Phone Number"></td>
+
+							<td class="input-width4"><input type="text" class="form-control"
+								ng-model="addNewRequestData.reqUserTO.email" ng-disabled="true"
+								placeholder="Email ID"></td>
+
+						</tr>
+					</tbody>
+				</table>
+				</div>
+				</div>
+				</div>
+			</div>
+
+			<div class="panel-heading">
+				<h4 class="panel-title">Approver</h4>
+			</div>
+			<div class="panel-body">
+					<div class="row">
+							<div class="col-sm-12 col-md-12 col-lg-12">
+							<div class="overflow-auto">
+				<table class="table table-hover table-bordered">
+					<thead>
+						<tr>
+							<th>Employee ID</th>
+							<th>First Name</th>
+							<th>Last Name</th>
+							<th>Designation</th>
+							<th>Current Project</th>
+							<th>Phone Number</th>
+							<th>Email Address</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+
+							<td class="input-width4"><input type="text" class="form-control"
+								ng-click="getUserEmployees('APPROVE')" ng-disabled="true"
+								ng-model="addNewRequestData.apprUserTO.empCode"
+								placeholder="Employee ID"></td>
+
+							<td class="input-width4"><input type="text" class="form-control"
+								ng-model="addNewRequestData.apprUserTO.firstName"
+								ng-disabled="true" placeholder="First Name"></td>
+
+							<td class="input-width4"><input type="text" class="form-control"
+								ng-model="addNewRequestData.apprUserTO.lastName"
+								ng-disabled="true" placeholder="Last Name"></td>
+							<td class="input-width4"><input type="text" class="form-control"
+								ng-model="addNewRequestData.apprUserTO.empDesg"
+								ng-disabled="true" placeholder="Designation"></td>
+
+							<td class="input-width4"><input type="text" class="form-control"
+								ng-model="addNewRequestData.apprCurrentProj" ng-disabled="true"
+								placeholder="Current Project"></td>
+
+							<td class="input-width4"><input type="text" class="form-control"
+								ng-model="addNewRequestData.apprUserTO.phone" ng-disabled="true"
+								placeholder="Phone Number"></td>
+
+							<td class="input-width4"><input type="text" class="form-control"
+								ng-model="addNewRequestData.apprUserTO.email" ng-disabled="true"
+								placeholder="Email ID"></td>
+
+						</tr>
+					</tbody>
+				</table>
+				</div>
+				</div>
+				</div>
+			</div>
+
+			<div class="panel-heading">
+				<h4 class="panel-title">Employee List</h4>
+			</div>
+			<div class="panel-body">
+					<div class="tabTable_1_Res_height overflow-auto">
+					<table class="table table-hover table-bordered tabTable_1_height">
+					<thead>
+						<tr>
+							<th>Select</th>
+							<th>Employee ID</th>
+							<th>First Name</th>
+							<th>Last Name</th>
+							<th>Designation</th>
+							<th>Parent Company</th>
+							<th>Expected Date of Availability for Transfer</th>
+							<th>Required Date of Transfer</th>
+							<th>Approver Decision</th>
+							<th>Approver Date of Transfer</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat ="empRegisterDtlTO in addNewRequestData.empTransReqApprDetailTOs">
+
+							<td><input type="checkbox" ng-model="emp.select" ng-disabled="true"
+								ng-change="empRowSelect(empRegisterDtlTO)"></td>
+
+							<td><input type="text" class="form-control" ng-disabled="true"
+								ng-model="empRegisterDtlTO.empCode"
+								placeholder="Asset ID"></td>
+
+							<td><input type="text" class="form-control" ng-disabled="true" ng-disabled="true"
+								ng-model="empRegisterDtlTO.empFirstName"
+								placeholder="First Name"></td>
+
+							<td><input type="text" class="form-control" ng-disabled="true" ng-disabled="true"
+								ng-model="empRegisterDtlTO.empLastName"
+								placeholder="Last Name"></td>
+
+							<td><input type="text" class="form-control" ng-disabled="true"
+								ng-model="empRegisterDtlTO.empClassType"
+								ng-disabled="true" placeholder="Resource ID"></td>
+
+							<td><input type="text" class="form-control" ng-disabled="true"
+								ng-model="empRegisterDtlTO.empCmpName"
+								ng-disabled="true" placeholder="Company ID"></td>
+							<td class="input-width0"><pot-futuredate-picker class="form-control"
+									ng-model="empRegisterDtlTO.expectedTransDate"
+									ng-disabled="true" dir-index="expectedTrasnferDate1"
+									date-name="expectedTrasnferDate" placeholder="dd-mm-yyyy"
+									ng-required="true"></td>
+
+							<td class="input-width0"><pot-futuredate-picker class="form-control"
+									ng-disabled="true" ng-model="empRegisterDtlTO.transDate"
+									dir-index="transferDate1" date-name="transferDate"
+									placeholder="dd-mm-yyyy"></td>
+
+							<td><input type="text" class="form-control" ng-disabled="true"
+								ng-model="addNewRequestData.apprStatus"
+								placeholder="Approver Decision"></td>
+
+							<td class="input-width0"><pot-futuredate-picker class="form-control"
+									ng-model="addNewRequestData.apprDate"
+									dir-index="transferDate2" date-name="apprDate"
+									placeholder="dd-mm-yyyy" ng-disabled="true"></td>
+
+						</tr>
+					</tbody>
+				</table>
+				</div>
+			</div>
+
+			<div class="panel-footer">
+				<div class="pull-right" ng-if="apprStatus=='Pending For Approval'">
+					<input data-test='Resources_Employee_ApprovalForTransfer_RequestForAdditionalTime' type="button" class="btn btn-primary btn-sm"
+						ng-click="addAdditionalForEmployee()" ng-if="account.appCodeTemplate['RESOURCE_EMPAPPROVALTRANSFER_REQFORADDTIME'] || account.appCodeTemplate['APPROVE_EMPAPPROVALTRANSFER_REQFORADDTIME']"
+						value="Request For Additional Time" ng-show="reqForAdtlTime">
+					<input ng-if="account.appCodeTemplate['RESOURCE_EMPAPPROVALTRANSFER_APPROVE'] || account.appCodeTemplate['APPROVE_EMPAPPROVALTRANSFER_APPROVE']" 
+						data-test='Resources_Employee_ApprovalForTransfer_Approve' type="submit" class="btn btn-primary btn-sm"
+						ng-click="empLeaveApprForm.$valid && saveEmptrasnferRequest('Approved')"
+						value="Approve" ng-disabled="timeFlag">
+					<input data-test='Resources_Employee_ApprovalForTransfer_Reject'
+						type="submit" class="btn btn-secondary btn-sm" ng-if="account.appCodeTemplate['RESOURCE_EMPAPPROVALTRANSFER_REJECT'] || account.appCodeTemplate['APPROVE_EMPAPPROVALTRANSFER_REJECT']"
+						ng-click="empLeaveApprForm.$valid && saveEmptrasnferRequest('Rejected')"
+						value="Reject" ng-disabled="timeFlag">
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</form>
+</div>

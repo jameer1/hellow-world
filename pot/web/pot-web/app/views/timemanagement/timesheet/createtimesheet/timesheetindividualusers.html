@@ -1,0 +1,42 @@
+<div id="tab-pannel">
+	<div class="panel-group">
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Employee List</h4>
+			</div>
+			<div class="panel-body">
+				<div>
+					<div class="popUpTableResHeight">
+						<table class="table table-striped table-hover table-bordered popUpTableHeight">
+							<thead id="tab-head">
+								<tr>
+									<th>Employee ID</th>
+									<th>First Name</th>
+									<th>Last Name</th>
+									<th>Designation</th>
+									<th>Parent Company</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr fixed-header="" ng-repeat="emp in empRegLabelKeyTOs"
+									ng-dblclick="selectIndividualUser(emp)">
+									<td>{{emp.code}}</td>
+									<td>{{emp.displayNamesMap['firstName']}}</td>
+									<td>{{emp.displayNamesMap['lastName']}}</td>
+									<td>{{emp.displayNamesMap['classType']}}</td>
+									<td>{{emp.displayNamesMap['cmpCatgName']}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div ng-show="empRegLabelKeyTOs.length<=0">
+						<br> <br>
+						<h5 align="center" style="color: red">No Employee Records for
+							selected project</h5>
+					</div>
+				</div>
+				<div class="panel-footer"></div>
+				<div class="ngdialog-close"></div>
+			</div>
+		</div>
+	</div>

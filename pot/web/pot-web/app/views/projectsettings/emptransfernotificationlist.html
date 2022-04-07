@@ -1,0 +1,35 @@
+<div id="tab-pannel" class="panel-group">
+	<div id="tab-pannel" class="panel panel-default" modal-movable>
+		<div class="panel-heading">
+			<h4 class="panel-title">Notifications</h4>
+		</div>
+		<div class="panel-body">
+			<div>
+				<table class="table table-striped table-hover table-bordered">
+					<thead>
+						<tr>
+							<th>Requisition Number</th>
+							<th>Requisition Date</th>
+						</tr>
+
+					</thead>
+					<tbody>
+						<tr ng-repeat="notification in notifications"
+							ng-dblclick="empTransferNotificationPopup(notification)">
+							<td>{{notification.code}}</td>
+							<td>{{notification.date}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<br> <br>
+			<div ng-show="notifications.length <= 0">
+				<h5 align="center" style="color: red">Notifications details are
+					not found for selected project</h5>
+			</div>
+		</div>
+
+		<div class="panel-footer"></div>
+		<div class="ngdialog-close"></div>
+	</div>
+</div>

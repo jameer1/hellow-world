@@ -1,0 +1,68 @@
+<div id="tab-pannel" class="panel-body17">
+	<div class="panel-body">
+		<div class="tabTable_5_Res_Height" style="overflow:auto">
+			<table class="table table-striped table-hover table-bordered tabTable_5_Height">
+				<thead>
+					<tr>
+						<th class="text-center" rowspan="3">Plant ID</th>
+						<th class="text-center" rowspan="3">Description</th>
+						<th class="text-center" rowspan="3">Registration No</th>
+						<th class="text-center" rowspan="3">Trade</th>
+						<th class="text-center" rowspan="3">Plant Make</th>
+						<th class="text-center" rowspan="3">Plant Model</th>
+						<th class="text-center" rowspan="3">Parent Company</th>
+						<th class="text-center" rowspan="3">Procure Category</th>
+						<th class="text-center" rowspan="3">Unit Of Measure</th>
+						<th class="text-center" rowspan="3">Approval Type</th>
+						<th class="text-center" colspan="{{workDairyCostCodeList.length*2+3}}">Cost Code
+							Wise Plant Utilization</th>
+					</tr>
+					<tr>
+						<th colspan="{{workDairyCostCodeList.length}}" class="text-center">Used Time</th>
+						<th colspan="{{workDairyCostCodeList.length}}" class="text-center">Idle Time</th>
+						<th colspan="2" class="text-center">Total Time</th>
+					</tr>
+					<tr>
+						<th fixed-header="" ng-repeat="workDairyCostCode in  workDairyCostCodeList">
+							{{workDairyCostCode.code}}</th>
+						<th fixed-header="" ng-repeat="workDairyCostCode in  workDairyCostCodeList">
+							{{workDairyCostCode.code}}</th>
+						<th>Used Total</th>
+						<th>Idle Total</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="plant in workDairyPlantDtlTOs"
+					ng-class="{coloumnHighlightColor3:workDairyTO.apprStatus==null,coloumnHighlightColor1:workDairyTO.apprStatus=='Approved',coloumnHighlightColor2:workDairyTO.apprStatus=='Client Approved'}">
+						<td>{{plant.code}}</td>
+						<td>{{plant.name}}</td>
+						<td>{{plant.plantRegNum}}</td>
+						<td>{{plant.classType}}</td>
+						<td>{{plant.manufacture}}</td>
+						<td>{{plant.model}}</td>
+						<td>{{plant.cmpCategoryName}}</td>
+						<td>{{plant.procureCatg}}</td>
+						<td>{{plant.measureUnit}}</td>
+						<td>{{workDairyTO.apprStatus==null?'Under Preparation':workDairyTO.apprStatus}}</td>
+						<td colspan="{{(workDairyCostCodeList.length * 2)+2}}">
+							<table class="table table-striped table-bordered">
+								<tr ng-repeat="plantCost in getWorkDairyRecordsByStatus(plant.workDairyPlantStatusTOs,
+								'workDairyPlantCostDtlTOs')">
+									<td ng-repeat="workDairyUsedCostCode in plantCost">
+										{{workDairyUsedCostCode.usedTime}}
+									</td>
+									<td ng-repeat="workDairyUsedCostCode in plantCost">
+										{{workDairyUsedCostCode.idleTime}}
+									</td>
+									<td>{{calculatePlantTotal(plantCost,'usedTime')}}</td>
+									<td>{{calculatePlantTotal(plantCost,'idleTime')}}</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+</div>

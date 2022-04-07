@@ -1,0 +1,195 @@
+<div id="tab-pannel" class="panel-group">
+	<form name="enrollmentpromotionForm" validate>
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title" ng-show="action=='Add'">Employee
+					Details</h4>
+				<h4 class="panel-title" ng-show="action=='Edit'">Employee
+					Details</h4>
+			</div>
+			<div class="panel-body">
+				<div class="">
+					<table class="table table-striped table-hover table-bordered" >
+						<thead>
+							<tr>
+
+								<th>Employee ID</th>
+								<th>First Name</th>
+								<th>Last Name</th>
+								<th>Company ID</th>
+								<th>Company Name</th>
+								<th>Gender</th>
+								<th>Date of Birth</th>
+								<th>Designation</th>
+								<th>Local/Non-Local</th>
+								<th>Employment Type</th>
+								<th>Existing or New</th>
+							</tr>
+						</thead>
+						<tbody id="vert-align">
+							<tr>
+								<td class="input-width"><input type="text" name="empId" ng-model="employee.empCode" class="form-control"
+									 placeholder="Emp Id" ng-disabled="true">
+								</td>
+
+								<td class="input-width"><input type="text" name="firstName" ng-model="employee.firstName" class="form-control"
+									 ng-disabled="true"></td>
+
+								<td class="input-width"><input type="text" name="lastName" ng-model="employee.lastName" class="form-control"
+									 ng-disabled="true"></td>
+
+								<td class="input-width"><input type="text" placeholder="Company Id" name="cmpId" class="form-control" ng-model="employee.cmpCode"
+									 ng-disabled="true"></td>
+
+								<td class="input-width1"><input type="text" placeholder="Company Name" name="cmpName" class="form-control"
+									 ng-model="employee.cmpName" ng-disabled="true"></td>
+
+								<td><select ng-model="employee.gender" ng-disabled="true" ng-options="gender for gender in genderList" class="form-control">
+										<option value="">-- Select --</option>
+									</select></td>
+
+								<td class="input-width1"><input type="text" ng-model="employee.dob" ng-disabled="true" class="form-control"></td>
+
+								<td class="input-width3"><input type="text" ng-model="employee.empClassName" ng-disabled="true"
+									 name="designationNames" class="form-control"></td>
+
+								<td><select ng-model="employee.location" ng-disabled="true" ng-options="locality for locality in empLocalityList"
+									 class="form-control">
+										<option value="">-- Select --</option>
+									</select></td>
+
+								<td><select ng-options="category.name for category in procureCatgMap  track by category.id" name="empType"
+									 ng-model="employee.procureLabelKeyTO" ng-disabled="true" class="form-control">
+										<option value="">-- Select --</option>
+									</select></td>
+
+								<td><select ng-model="employee.empStatus" ng-disabled="true" ng-options="empType for empType in employeeTypeList"
+									 class="form-control">
+										<option value="">-- Select --</option>
+									</select></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<div class="panel-heading spacer0">
+				<h4 class="panel-title" ng-show="action=='Add'">Employee Enrollment(s) / Promotion(s) Details</h4>
+				<h4 class="panel-title" ng-show="action=='Edit'">Employee Enrollment(s) / Promotion(s) Details</h4>
+			</div>
+			<div class="panel-body">
+				<div class="popUpTableResHeight" style="overflow: auto;">
+					<table class="table table-striped table-hover table-bordered popUpTableHeight">
+						<thead>
+							<tr>
+								<th>EPS Name <span style="color: red; ">*</span></th>
+								<th>Project Name<span style="color: red; ">*</span></th>
+								<th ng-if="selectedEmployeeData.empStatus =='New Employee'">Purchase
+									Order Number<span style="color: red; ">*</span></th>
+								<th ng-if="selectedEmployeeData.empStatus =='New Employee'">Schedule
+									Item ID<span style="color: red; ">*</span></th>
+								<th>Resource Classification Name<span class="procurment-pot-errors">*</span></th>
+								<th>New Employee Enrollment Date<span class="procurment-pot-errors">*</span></th>
+								<th>Enrollment Place/Location<span style="color: red; ">*</span></th>
+								<th>Reporting to-Employee ID and Name</th>
+								<th>Employee Contract Date<span style="color: red; ">*</span></th>
+								<th>Employee Contract Number<span style="color: red; ">*</span></th>
+								<th>Employee Contract Document<span style="color: red; ">*</span></th>
+
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat ="promotion in employeeProjDtlTOs">
+								
+								<td class="input-width3"><input type="text" name="epsName" ng-model="promotion.parentName"
+									data-test='Resources_Employee_EnrollmentTab_Edit_EpsName'
+									placeholder="EPS Name" ng-disabled="{{ promotion.disableGup }}" ng-click="getUserProjects(promotion)" ng-required="true"
+									class="form-control"></td>
+
+								<td class="input-width3"><input type="text" name="projName" ng-model="promotion.name"
+									data-test='Resources_Employee_EnrollmentTab_Edit_ProjectName' ng-disabled="{{ promotion.disableGup }}" ng-click="getUserProjects(promotion)" placeholder="Project Name" ng-required="true"
+									class="form-control"></td>
+
+								<td class="input-width3" ng-if="selectedEmployeeData.empStatus =='New Employee'"><input type="text" name="purchaseOrderId" ng-required="true"
+									 ng-model="promotion.projectPOTO.purchaseLabelKeyTO.code" placeholder="Purchase Order Number" ng-click="getProjectPoDetails(promotion)"
+									 style="width: 109px !important" ng-disabled="promotion.latest !='Y'" custom-read-only class="form-control"></td>
+
+								<td class="input-width1" ng-if="selectedEmployeeData.empStatus =='New Employee'"><input type="text" name="POItemId" ng-required="true"
+									 ng-model="promotion.projectPOTO.purchaseSchLabelKeyTO.code" placeholder="Schedule Item ID" ng-click="getScheduleItems(promotion)"
+									 ng-disabled="promotion.latest !='Y'" custom-read-only class="form-control"></td>
+
+								<td class="input-width3"><input type="text" name="resourceClassName" ng-model="promotion.empClassName"
+									data-test='Resources_Employee_Edit_EnrollmentTab_ResourceClassificationName'
+									placeholder="Resource Class Name" ng-required="true" ng-click="empDesignation(promotion)" style="width: 123px !important"
+									ng-disabled="promotion.latest !='Y'" custom-read-only class="form-control">
+									<!-- <span class="procurment-pot-errors"
+									ng-show="enrollmentpromotionForm.enrollmentLoc.$error.required && enrollmentpromotionForm.enrollmentLoc.$touched">
+											This field is mandatory
+									</span> -->
+								</td>
+
+								<td class="input-width1">
+									<potdate-picker dir-index="1" date-name="fromDate" ng-model="promotion.effectiveFrom" placeholder="Enrollment Date"
+										data-test='Resources_Employee_Edit_EnrollmentTab_EnrollmentDate' ng-required="true" min-date="employee.dob"
+										 ng-disabled="promotion.latest !='Y'" class="form-control" custom-read-only></potdate-picker>
+										 <!-- <span class="procurment-pot-errors"
+									ng-show="enrollmentpromotionForm.enrollmentLoc.$error.required && enrollmentpromotionForm.enrollmentLoc.$touched">
+											This field is mandatory
+									</span> -->
+								</td>
+
+								<td class="input-width3"><ng-form name="enrollloc"><input type="text" name="enrollmentLoc" ng-model="promotion.empLocation"
+									placeholder="Enrollment Location" data-test='Resources_Employee_EnrollmentTab_Edit_EnrollmentPlace'
+									maxlength="50" ng-required="true" ng-disabled="promotion.latest !='Y'" class="form-control"
+									pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))>
+									<span class="procurment-pot-errors" ng-show="enrollloc.enrollmentLoc.$error.pattern">Atleast One Alphabet is mandatory
+									</span></ng-form>
+								</td>
+
+								<td class="input-width1"><input type="text" name="empIdName" class="form-control" ng-model="promotion.reportingManagerLabelKeyTO.name"
+									data-test='Resources_Employee_EnrollmentTab_Edit_ReportingTo'
+									placeholder="Reporting Manager Name" ng-click="employeeDetails(promotion)" ng-disabled="promotion.latest !='Y'"
+									readonly="readonly"></td>
+
+								<td class="input-width1">
+									<potdate-picker dir-index="1" class="form-control" date-name="promotionContractDate" ng-model="promotion.contractDate"
+									 	data-test='Resources_Employee_EnrollmentTab_Edit_ContractDate' ng-required="true" min-date="employee.dob"
+									 	placeholder="Contract Date" ng-disabled="promotion.latest !='Y'" custom-read-only></potdate-picker>
+								</td>
+
+								<td class="input-width1"><input type="text" class="form-control" name="contractNumber"
+									ng-model="promotion.contractNumber"  ng-required="true"
+									data-test='Resources_Employee_EnrollmentTab_Edit_ContractNumber'
+									placeholder="Contract Number" ng-disabled="promotion.latest !='Y'">
+									<!-- <span class="procurment-pot-errors"
+									ng-show="enrollmentpromotionForm.contractNumber.$error.required && enrollmentpromotionForm.contractNumber.$touched">
+											This field is mandatory
+
+									</span> -->
+								</td>
+
+								<td ng-form name='contractdocumentForm'>
+									<input ng-disabled="promotion.latest !='Y'" type="file"  fileread="promotion.contractDocument" name="file" ng-required="true"
+										ngf-select="checkFile($file, promotion)" ngf-accept="'*'" tabindex="20" novalidate>
+										<span style="padding-left:5px;color: rgb(212, 61, 61) !important;"  ng-show="contractdocumentForm.file.$error.required && contractdocumentForm.file.$touched">This Field Mandatory</span>
+									<span class="help-block" style="color: red"
+										ng-show="!promotion.isValidDoc">{{promotion.docErrorMessage}}</span>	
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<div class="panel-footer footer parent">
+				<div class="pull-right padR-0">
+					<input type="submit" class="btn btn-primary btn-sm"
+						ng-click="enrollmentpromotionForm.$valid && saveEmpEnrollements()"
+						data-test='Resources_Employee_EnrollmentTab_Edit_Save' value="Save">
+				</div>
+
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</form>
+</div>

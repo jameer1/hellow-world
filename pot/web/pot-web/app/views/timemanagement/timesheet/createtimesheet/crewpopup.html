@@ -1,0 +1,27 @@
+<div id="tab-pannel" class="panel-group">
+	<div class="panel panel-default" modal-movable>
+		<div class="panel-heading">
+			<h4 class="panel-title">Crew List</h4>
+		</div>
+		<div class="panel-body">
+			<div class="popUpTableResHeight">
+				<table class="table table-striped table-hover table-bordered popUpTableHeight">
+					<thead>
+						<tr>
+							<th>Crew ID</th>
+							<th>Crew Name</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr fixed-header="" ng-repeat="crewTO in projCrewTOs" ng-click="crewPopUp(crewTO)">
+							<td>{{crewTO.code}}</td>
+							<td>{{crewTO.desc}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="panel-footer"></div>
+		<div class="ngdialog-close"></div>
+	</div>
+</div>

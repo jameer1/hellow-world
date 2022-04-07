@@ -1,0 +1,34 @@
+
+	<div class="panel panel-default" modal-movable>
+		<div class="panel-heading">
+			<h4 class="panel-title">Working Shift</h4>
+		</div>
+		<div class="panel-body">
+			<div class="popUpTableResHeight">
+                <table class="table table-striped table-hover table-bordered popUpTableHeight">
+                    <thead id="tab-head">
+                        <tr>
+                            <th>Shift</th>
+                            <th>Start Hour</th>
+                            <th>Duration in Hours</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-test='AsbuiltRecords_WorkDiary_CreateWorkDiary_WorkShiftSelect' fixed-header="" ng-repeat ="shift in shifts"
+                            ng-dblclick="workShiftpopup(shift)">
+                            <td>{{shift.code}}</td>
+                            <td>
+                                {{shift.startHours}} <span>:</span>{{shift.startMinutes}}
+                            </td>
+                            <td>
+                                {{shift.finishHours}}<span>:</span>{{shift.finishMinutes}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+			</div>
+		</div>
+		<div class="panel-footer"></div>
+		<div class="ngdialog-close"></div>
+	</div>
+</div>

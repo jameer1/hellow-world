@@ -1,0 +1,162 @@
+<div id="tab-pannel" class="panel-group">
+<!--<style>
+		.procurment-pot-errors-parent{
+			position: relative;
+		}
+
+		.procurment-pot-errors-parent .procurment-pot-errors{
+			position: absolute;
+			top: calc(40% + 2px);
+		}
+	</style> -->
+	<form name="serviceHistoryForm" validate ng-init="getEmployeeDeMobDate();">
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Employee Service History Details</h4>
+			</div>
+			<div class="panel-body">
+				<table class="table table-striped table-hover table-bordered">
+					<thead>
+						<tr>
+							<th>Project Posting</th>
+							<th>EPS</th>
+							<th>Project</th>
+							<th>Designation as per Pay Roll</th>
+							<th>Designation as per Project Contract</th>
+							<th>Designation as per Trade Union</th>
+							<th>Category</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr id="prerequisiteParent">
+							<td><input type="text" class="form-control"
+								data-test='Resources_Employee_ServiceHistoryTab_Edit_ProjectPosting'
+								name="projectPosting" ng-model="servicehistory.deploymentId"
+								placeholder="Project Posting" ng-required="true"
+								ng-disabled="true"></td>
+
+
+							<td><input type="text" name="epsName"
+								data-test='Resources_Employee_ServiceHistoryTab_Edit_EpsName'
+								ng-model="servicehistory.parentName" class="form-control"
+								placeholder="EPS Name" ng-required="true" ng-disabled="true"
+								readonly="readonly"></td>
+
+
+							<td><input type="text" name="projName"
+								data-test='Resources_Employee_ServiceHistoryTab_Edit_ProjectName'
+								ng-model="servicehistory.name" class="form-control"
+								placeholder="Project Name" ng-required="true" ng-disabled="true"
+								readonly="readonly"></td>
+
+							<td><input type="text" name="tradeName"
+								data-test='Resources_Employee_ServiceHistoryTab_Edit_Designation'
+								ng-model="servicehistory.empClassifyName" class="form-control"
+								ng-disabled="true" placeholder="Pay Roll Desg"></td>
+
+							<td class="procurment-pot-errors-parent">
+								<input type="text"
+								data-test='Resources_Employee_ServiceHistoryTab_Edit_DesignationAsPerContract'
+								name="projectContract" class="form-control"
+								ng-model="servicehistory.empContractName"
+								ng-disabled="true" placeholder="Proj Contract Desg">
+								<span class="procurment-pot-errors empContractName hide">This field is mandatory</span>
+							</td>
+
+							<td class="procurment-pot-errors-parent">
+								<input type="text"
+								name="tradeUnion" class="form-control"
+								data-test='Resources_Employee_ServiceHistoryTab_Edit_DesignationAsPerTrade'
+								ng-model="servicehistory.empWorkUnionName"
+								ng-disabled="true" placeholder="Trade Union Desg">
+								<span class="procurment-pot-errors empWorkUnionName hide">This field is mandatory</span>
+							</td>
+
+							<td class="procurment-pot-errors-parent">
+								<input type="text" name="category"
+								data-test='Resources_Employee_ServiceHistoryTab_Edit_Category'
+								ng-model="servicehistory.empCatgName" class="form-control"
+								ng-disabled="true" placeholder="Category">
+								<span class="procurment-pot-errors empCatgName hide">This field is mandatory</span>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<br/><br/>
+				<table class="table table-striped table-responsive table-bordered">
+					<thead>
+						<tr>
+							<th>Employee Tax File Number <span
+									style="color: red;">*</span></th>
+							<th>Actual Mobilization Date <span
+								style="color: red;">*</span></th>
+							<th>Expected De-Mobilization Date</th>
+							<th>Actual De-Mobilization Date</th>
+							<th>Responsibilities in Brief<span
+								style="color: red;">*</span></th>
+							<th>Post De-Mobilization Status
+							<!-- <span style="color: red;">*</span> -->
+							</th>
+							<th>Notes</th> 
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><input type="text" class="form-control"
+									name="taxFileNum" ng-model="servicehistory.taxFileNum"
+									data-test='Resources_Employee_ServiceHistoryTab_Edit_TaxFileNumber'
+									placeholder="Tax File Number" ng-required="true"></td>
+							<td><potdate-picker class="form-control"
+									ng-model="servicehistory.mobilaizationDate"
+									dir-index="$index" date-name="mobilaizationDate" min-date="minDate"
+									data-test='Resources_Employee_ServiceHistoryTab_Edit_MobilizationDate'
+									placeholder="dd-mm-yyyy" custom-read-only ng-required="true"/></td>
+
+							<td><potdate-picker class="form-control"
+									data-test='Resources_Employee_ServiceHistoryTab_Edit_ExpectedDemobilizationDate'
+									ng-model="servicehistory.expecteddeMobilaizationDate" min-date="servicehistory.mobilaizationDate"
+									dir-index="$index" date-name="expecteddeMobilaizationDate"
+									placeholder="dd-mm-yyyy" custom-read-only /></td>
+
+							<td><potdate-picker class="form-control"
+									data-test='Resources_Employee_ServiceHistoryTab_Edit_ActualDemobilizationDate'
+									ng-model="servicehistory.deMobilaizationDate" min-date="servicehistory.mobilaizationDate"
+									dir-index="$index" date-name="deMobilaizationDate" name="date"
+									placeholder="dd-mm-yyyy" custom-read-only/>
+
+							</td>
+
+							<td><textarea cols="20" rows="2" name="workType" class="form-control"
+									data-test='Resources_Employee_ServiceHistoryTab_Edit_Responsibilities'
+									ng-model="servicehistory.workType" maxlength="50"
+									placeholder="Responsibilities" ng-required="true"></textarea></td>
+
+							<td><select
+								data-test='Resources_Employee_ServiceHistoryTab_Edit_DemobilizationStatus'
+								ng-model="servicehistory.empStatus" class="form-control"  ng-disabled="!servicehistory.deMobilaizationDate"
+								ng-options="serviceType for serviceType in empServiceType">
+
+							</select></td>
+							<td><textarea cols="20" rows="2" name="notes" class="form-control"
+									data-test='Resources_Employee_ServiceHistoryTab_Edit_Notes'
+									ng-model="servicehistory.notes" placeholder="Comments" maxlength="50"></textarea></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<div class="panel-footer">
+				<div class="col-xs-12">
+					<input type="submit" class="pull-right btn btn-primary btn-sm" data-test='Resources_Employee_ServiceHistoryTab_Save'
+							ng-click="serviceHistoryForm.$valid && saveEmpServiceHistory()"
+							value="Save" validate>
+					<span class="pull-right">&nbsp;&nbsp;&nbsp;</span>
+					<span id="prerequisiteError" class="procurment-pot-errors pull-right hide">
+						Please fill {{ prerequisiteErrors }} in Project Library -> Employee Classification module for selected Resource
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</form>
+</div>

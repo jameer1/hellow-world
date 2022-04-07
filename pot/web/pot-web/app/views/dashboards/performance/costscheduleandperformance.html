@@ -1,0 +1,153 @@
+<div id="grid" ui-grid="gridOptions" class="singleTableResHeight_3" ng-if="stylesSvc.finishedStyling" 
+   ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-resize-columns class="grid"></div>
+<!-- <table class="table table-striped table-hover table-bordered">
+    <thead>
+        <tr>
+            <th>EPS Name</th>
+            <th>Project Name</th>
+            <th>Actual Start</th>
+            <th>Actual Finish</th>
+            <th>Base Line Start</th>
+            <th>Base Line Finish</th>
+            <th>Progress %</th>
+            <th>Original Cost</th>
+            <th>Revised Budget</th>
+            <th>Estimate At Completion Cost</th>
+            <th>Actual Cost</th>
+            <th>Planned Cost</th>
+            <th>Earned Value</th>
+            <th>Cost Variance</th>
+            <th>Schedule Variance</th>
+            <th>SPI</th>
+            <th>CPI</th>
+            <th>TCPI</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat ="costSchedule in costSchedPerformanceData">
+            <td>{{costSchedule.epsName}}</td>
+            <td>{{costSchedule.projName}}</td>
+            <td>{{costSchedule.actualStartDate}}</td>
+            <td>{{costSchedule.actualFinishDate}}</td>
+            <td>{{costSchedule.baselineStartDate}}</td>
+            <td>{{costSchedule.baselineFinishDate}}</td>
+            <td>{{costSchedule.progressOfWorkPercentage | number: 2}}</td>
+            <td>{{costSchedule.originalBudgetTotal}}</td>
+            <td>{{costSchedule.revisedBudgetTotal}}</td>
+            <td>{{costSchedule.estAtCompletionTotal}}</td>
+            <td>{{costSchedule.actualCostTotal}}</td>
+            <td>{{costSchedule.plannedCost | number: 2}}</td>
+            <td>{{costSchedule.earnedValueTotal}}</td>
+            <td>
+            	<span ng-if="costSchedule.cvExceptional == true" class="exceptional">
+            		<i class="fa fa-star"></i>
+            		{{costSchedule.costVarience | number: 2}}
+            		Under Budget
+            	</span>
+            	<span ng-if="costSchedule.cvAcceptable == true" class="acceptable">
+            		<i class="fa fa-square"></i>
+            		{{costSchedule.costVarience | number: 2}}
+            		Under Budget
+            	</span>
+            	<span ng-if="costSchedule.cvWarning == true" class="warning">
+            		<i class="fa fa-exclamation-triangle"></i>
+            		{{costSchedule.costVarience | number: 2}}
+            		Over Budget
+            	</span>
+            	<span ng-if="costSchedule.cvCritical == true" class="critical">
+            		<img src="images/critical.png" style="padding-left:5px !important;"> 
+            		{{costSchedule.costVarience | number: 2}}
+            		Over Budget
+            	</span>
+            </td>
+            <td>
+            	<span ng-if="costSchedule.svExceptional == true" class="exceptional">
+            		<i class="fa fa-star"></i>
+            		{{costSchedule.scheduleVarienceCost | number: 2}}
+            		Ahead of Schedule
+            	</span>
+            	<span ng-if="costSchedule.svAcceptable == true" class="acceptable">
+            		<i class="fa fa-square"></i>
+            		{{costSchedule.scheduleVarienceCost | number: 2}}
+            		Ahead of Schedule
+            	</span>
+            	<span ng-if="costSchedule.svWarning == true" class="warning">
+            		<i class="fa fa-exclamation-triangle"></i>
+            		{{costSchedule.scheduleVarienceCost | number: 2}}
+            		Behind Schedule
+            	</span>
+            	<span ng-if="costSchedule.svCritical == true" class="critical">
+            		<img src="images/critical.png" style="padding-left:5px !important;"> 
+            		{{costSchedule.scheduleVarienceCost | number: 2}}
+            		Behind Schedule
+            	</span>
+            </td>
+            <td>
+            	<span ng-if="costSchedule.spiExceptional == true" class="exceptional">
+            		<i class="fa fa-star"></i>
+            		{{costSchedule.schedulePerformanceIndex | number: 2}}
+            		Project in Acceleration
+            	</span>
+            	<span ng-if="costSchedule.spiAcceptable == true " class="acceptable">
+            		<i class="fa fa-square"></i>
+            		{{costSchedule.schedulePerformanceIndex | number: 2}}
+            		On Schedule
+            	</span>
+            	<span ng-if="costSchedule.spiWarning == true " class="warning">
+            		<i class="fa fa-exclamation-triangle"></i>
+            		{{costSchedule.schedulePerformanceIndex | number: 2}}
+            		Project is Delayed
+            	</span>
+            	<span ng-if="costSchedule.spiCritical == true " class="critical">
+            		<img src="images/critical.png" style="padding-left:5px !important;"> 
+            		{{costSchedule.schedulePerformanceIndex | number: 2}}
+            		Project is Delayed
+            	</span>
+            </td>
+            <td>
+            	<span ng-if="costSchedule.cpiExceptional == true" class="exceptional">
+             	<i class="fa fa-star"></i>
+             	{{costSchedule.costPerformanceIndex | number: 2}}
+             	Project in Acceleration
+            	</span>
+            	<span ng-if="costSchedule.cpiAcceptable == true" class="acceptable">
+             	<i class="fa fa-square"></i>
+             	{{costSchedule.costPerformanceIndex | number: 2}}
+             	Project in Acceleration
+            	</span>
+            	<span ng-if="costSchedule.cpiWarning == true" class="warning">
+             	<i class="fa fa-exclamation-triangle"></i>
+             	{{costSchedule.costPerformanceIndex | number: 2}}
+             	Project is Delayed
+            	</span>
+            	<span ng-if="costSchedule.cpiCritical == true" class="critical">
+             	<img src="images/critical.png" style="padding-left:5px !important;">
+             	{{costSchedule.costPerformanceIndex | number: 2}}
+             	Project is Delayed
+            	</span>
+            </td>
+            <td>
+            	<span ng-if="costSchedule.TcpiExceptional == true" class="exceptional">
+            		<i class="fa fa-star"></i>
+            		{{costSchedule.toCompleteCostPerformanceIndex | number: 2}}
+            		No need for budget revision
+            	</span>
+            	<span ng-if="costSchedule.TcpiAcceptable == true" class="acceptable">
+            		<i class="fa fa-square"></i>
+            		{{costSchedule.toCompleteCostPerformanceIndex | number: 2}}
+            		No need for budget revision
+            	</span>
+            	<span ng-if="costSchedule.TcpiWarning == true" class="warning">
+            		<i class="fa fa-exclamation-triangle"></i>
+            		{{costSchedule.toCompleteCostPerformanceIndex | number: 2}}
+            		Need for budget revision
+            	</span>
+            	<span ng-if="costSchedule.TcpiCritical == true" class="critical">
+            		<img src="images/critical.png" style="padding-left:5px !important;">
+            		{{costSchedule.toCompleteCostPerformanceIndex | number: 2}}
+            		Need for budget revision
+            	</span>
+            </td>
+        </tr>
+    </tbody>
+</table> -->

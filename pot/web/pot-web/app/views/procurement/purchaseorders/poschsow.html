@@ -1,0 +1,70 @@
+<div ng-if="account.appCodeTemplate['PROCURMT_PURCHASEORDR_POSCHEDULESUBCONTRACT_VIEW']" class="tab-pannel" ng-controller="PurchaseGenerateController">
+    <form name="manpowerForm" ng-show="subcontractTabEnabled" validate >
+        <div class="tabTable_3_Res_height" style="height: 158.91036px !important">
+            <table id="vert-align" class="table table-hover table-bordered tabTable_3_height" >
+        <thead>
+          <tr>
+
+            <th>Item ID</th>
+            <th>Item Description</th>
+            <th>SOE Item</th>
+            <th>SOR Item</th>
+            <th>Unit Of Measure</th>
+            <th>Qty</th>
+            <th>Estimate<br>({{preContractObj.currencyTO.code}})
+            </th>
+            <th>Amount</th>
+            <th>Cost Code</th>
+            <th>Delivery Place</th>
+            <th>Start Date</th>
+            <th>Finish Date</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr fixed-header="" ng-repeat ="item in preContractData.precontractSowDtlTOs" ng-init="getTotals(item)">
+
+            <td><span>{{projSOWMap[item.sowId].code}}</span></td>
+            <td><span>{{projSOWMap[item.sowId].name}}</span></td>
+            <td><span>{{projSOWMap[item.sowId].displayNamesMap.soeCode}}</span></td>
+            <td><span>{{projSOWMap[item.sowId].displayNamesMap.sorCode}}</span></td>
+            <td><span>{{projSOWMap[item.sowId].unitOfMeasure}}</span></td>
+            <td><span>{{item.quantity}}</span></td>
+            <td><span>{{item.estimateCost}}</span></td>
+            <td class="input-width"><span ng-repeat="data in item.precontractSowCmpTOs">{{data.quantity * data.rate}}<span></td>
+            <td><span>{{projSOWMap[item.sowId].displayNamesMap.costCode}}</span></td>
+            <td><span> {{item.deliveryPlace}}</span></td>
+            <td>{{item.startDate}}</td>
+            <td>{{item.finishDate}}</td>
+        </tbody>
+
+        <tfoot ng-if="preContractData.precontractSowDtlTOs.length>0">
+            <tr>
+                <th colspan="5">Total</th>
+                <td>{{totalQuantity}}</td>
+                <td>{{totalEstimated}}</td>
+                <td>{{totalAmount}}</td>
+                <td colspan="4"></td>
+              </tr>
+        </tfoot>
+      </table>
+    </div>
+    <div class="panel-footer">
+      <div class="pull-left">
+        <input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+        <input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+        <input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+        <input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+        <input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+      </div>
+    </div>
+    <!--  <div class="panel-footer">
+
+      <div class="pull-right" ng-hide="preContractObj.workFlowStatusTO.value ==5 || preContractObj.workFlowStatusTO.value ==6">
+        <input type="Submit" value="Save" ng-click="manpowerForm.$valid && saveManPowerDetails()" class="btn  btn-brown btn-sm" validate />
+      </div>
+
+
+    </div> -->
+  </form>
+</div>

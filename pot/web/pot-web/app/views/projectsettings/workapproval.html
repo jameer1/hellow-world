@@ -1,0 +1,93 @@
+<div ng-if="account.appCodeTemplate['PRJ_PRJSTG_WRKDIRYSTGADDITIONALTIME_VIEW']" id="tab-pannel" class="noTableInBottomBlockWithTabs"
+	ng-init="workDairyOnLoadRecords()">
+	<div class="bottomNestedTabTableResHeight no-border">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padL-0">
+						<md-input-container class="md-block">
+							<label>Request Notification#</label>
+							<input data-test='Projects_ProjectSettings_WorkDiaryTab_AdditionalTimeTab_RequestNotification' type="text" ng-model="workDiaryAppr.notification" 
+								class="form-control"
+								ng-click="workDairyNotificationList(workDiaryAppr)">
+						</md-input-container>
+					</div>
+					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+							<md-input-container class="md-block">
+								<label>Crew</label>
+								<input data-test='Projects_ProjectSettings_WorkDiaryTab_AdditionalTimeTab_crewname' type="text" 
+									class="form-control" 
+									ng-model="workDiaryAppr.crewName">
+							</md-input-container>
+					</div>
+					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+							<md-input-container class="md-block">
+								<label>From Date</label>
+								<potdate-picker data-test='Projects_ProjectSettings_WorkDiaryTab_AdditionalTimeTab_daterangeFromdate' dir-index="$index" class="form-control"
+									ng-model="workDiaryAppr.fromDate" 
+									date-name="finishDate" required="true" />
+							</md-input-container>
+					</div>
+					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+							<md-input-container class="md-block">
+								<label>To Date</label>
+								<potdate-picker data-test='Projects_ProjectSettings_WorkDiaryTab_AdditionalTimeTab_daterangeTodate' dir-index="$index" ng-model="workDiaryAppr.toDate"
+									date-name="finishDate" required="true"
+									class="form-control"/>
+							</md-input-container>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+					<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+						<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padL-0">
+							<md-input-container class="md-block">
+								<label>Supervisor</label>
+								<input data-test='Projects_ProjectSettings_WorkDiaryTab_AdditionalTimeTab_SupervisorName' type="text" ng-model="workDiaryAppr.supervisor" class="form-control"/>
+							</md-input-container>
+						</div>
+					</div>
+			</div>
+			<div class="row horizontalSpace">
+					<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+						<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padL-0">
+							<span>Additional Time</span>
+						</div>
+					</div>
+			</div>
+			<div class="row">
+					<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+						<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padL-0">
+							<md-checkbox data-test='Projects_ProjectSettings_WorkDiaryTab_AdditionalTimeTab_originalsubmission' ng-disabled="true" ng-model="workDiaryAppr.originalType">
+									Original Submission
+							</md-checkbox>
+						</div>
+						<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+							<md-checkbox data-test='Projects_ProjectSettings_WorkDiaryTab_AdditionalTimeTab_internalapproval' ng-disabled="true" ng-model="workDiaryAppr.internalType">
+									Internal Approval
+							</md-checkbox>
+						</div>
+						<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+							<md-checkbox data-test='Projects_ProjectSettings_WorkDiaryTab_AdditionalTimeTab_externalapproval' ng-disabled="true" ng-model="workDiaryAppr.externalType">
+									External Approval
+							</md-checkbox>
+						</div>
+						
+					</div>
+			</div>
+	</div>
+	<div class="panel-footer">
+			<div class="pull-right">
+					<input data-test='Projects_ProjectSettings_WorkDiaryTab_AdditionalTimeTab_Approve' type="button" 
+						class="btn btn-primary btn-sm" value="Approve" ng-click="saveWorkDairyApprs()"
+						title="{{ account.appCodeTemplate['PRJ_PRJSTG_WRKDIRYSTG_APPROVE'] ? '' : '! Permission Denied. Contact your admin.'}}"
+						ng-disabled="!account.appCodeTemplate['PRJ_PRJSTG_WRKDIRYSTG_APPROVE']">
+				</div>
+				<div class="pull-left">
+                    <input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+                </div>
+	</div>
+</div>

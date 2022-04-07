@@ -1,0 +1,172 @@
+<div ng-if="account.appCodeTemplate['PRJ_PROJBUDGET_MANPOWER_VIEW']" id="tab-pannel" ng-init="getProjManpowerMap()">
+	<div class="bottomTabTableResHeight">
+		<div id="grid" ui-grid="gridOptions2" class="singleTableResHeight_3" style="height:300px"; ng-if="stylesSvc.finishedStyling" ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize
+                                     ui-grid-resize-columns class="grid" ></div>
+		<!-- <table class="table table-striped table-hover table-bordered bottomTabTableHeight">
+			<thead id="tab-head">
+				<tr>
+					<th align="center">Select</th>
+					<th align="center" title="Resource ID">ID</th>
+					<th align="center" title="Resource Name">Name</th>
+					<th align="center" title="Employee Category">Category</th>
+					<th align="center" title="Unit of Measure">Unit of Measure</th>
+					<th align="center" title="Original Budget Hours">Original Hrs</th>
+					<th align="center" title="Revised Budget Hours">Revised Hrs</th>
+					<th align="center" title="Actual Hours to Date">Actual Hrs</th>
+					<th align="center" title="Remaining Hours">Remaining Hrs</th>
+					<th align="center" title="Estimate to Complete">Estimate to Complete</th>
+					<th width="13%" align="center" title="Estimation at Completion Hours">Estimation at Completion Hours</th>
+					<th align="center" title="Schedule Start">Start Date</th>
+					<th align="center" title="Schedule Finish">Finish Date</th>
+					<th align="center" title="Schedule Start">Baseline Start Date</th>
+					<th align="center" title="Schedule Finish">Baseline Finish Date</th>
+					<th ng-show="disableBtnsJson.returnBtn">&nbsp;</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr fixed-header="" ng-repeat="manpower in projManpowerDetails">
+					<td><input type="checkbox" ng-model="manpower.select" ng-change="manPowerRowSelect(manpower)"></td>
+					<td>{{manpower.empClassTO.code}}</td>
+					<td>{{manpower.empClassTO.name}}</td>
+					<td>{{manpower.projEmpCategory}}</td>
+					<td>{{manpower.measureUnitTO.name}}</td>
+					<td>{{manpower.originalQty > 0 ? manpower.originalQty : '' }}</td>
+					<td>{{manpower.revisedQty > 0 ? manpower.revisedQty : '' }}</td>
+					<td>
+						<span ng-show="(manpower.revisedQty ? manpower.revisedQty : manpower.originalQty) < manpower.actualQty">
+							<span style="color:red;font-weight:bold;">{{manpower.actualQty}}</span>
+						</span>
+						<span ng-show="(manpower.revisedQty ? manpower.revisedQty : manpower.originalQty) > manpower.actualQty">
+							{{manpower.actualQty > 0 ? manpower.actualQty : '' }}
+						</span>
+					</td>
+					<td ng-init="remQty=(manpower.revisedQty ? manpower.revisedQty : manpower.originalQty) - manpower.actualQty">
+						{{remQty}}</td>
+					<td>
+						<span ng-init="remQty1=(manpower.revisedQty ? manpower.revisedQty : manpower.originalQty) - manpower.actualQty;" 
+							ng-if="manpower.estimateType == 'Remaining Units'">
+							{{ remQty1}}
+						</span>
+						<span ng-init="bac_ev=(manpower.revisedQty ? manpower.revisedQty : manpower.originalQty) - manpower.earnedValue" 
+							ng-if="manpower.estimateType == 'BAC-EV'">
+							{{ bac_ev > 0 ? bac_ev : '' }}
+						</span>
+						<span ng-init="bac_ev_pf=(manpower.earnedValue==0 || manpower.actualQty==0)  ? ((manpower.revisedQty ? manpower.revisedQty : manpower.originalQty) - manpower.earnedValue)   
+								: (((manpower.revisedQty ? manpower.revisedQty : manpower.originalQty) - manpower.earnedValue) / manpower.productivityFactor)";
+							ng-if="manpower.estimateType == '(BAC-EV)/PF'">
+								<span ng-if="bac_ev_pf > 0 ">
+									{{ bac_ev_pf | number:2}}
+								</span>
+						</span>
+						<span ng-init="bac_ev=((manpower.revisedQty ? manpower.revisedQty : manpower.originalQty) - manpower.earnedValue);
+							pf=(manpower.earnedValue==0 || manpower.earnedValue==null || manpower.actualQty==0) ? 0 : (manpower.earnedValue / manpower.actualQty);
+							spi=(manpower.earnedValue==0 || manpower.earnedValue==null || manpower.plannedValue==0) ? 0 : (manpower.earnedValue / manpower.plannedValue);
+							bac_ev_pf_spi=(pf==0 || spi == 0)  ? bac_ev : (bac_ev)/(pf*spi)";
+							ng-if="manpower.estimateType == '(BAC-EV)/(PF*SPI)'">
+							<span ng-if="bac_ev_pf_spi > 0 ">
+								{{ bac_ev_pf_spi | number: 2 }}
+							</span>
+						</span>
+						<span ng-init="etc = manpower.estimateComplete" >
+							<span ng-if="manpower.estimateType == 'New Estimate' && etc >= 0">
+								{{ etc }}
+							</span>
+						</span>
+					{{ manpower.estimateComplete >= 0 ? (manpower.estimateComplete) : ''  }}</td>
+					<td style="width: 80px !important;">
+						<span ng-init="etcRemQty=(manpower.revisedQty ? manpower.revisedQty : manpower.originalQty) - manpower.actualQty;"
+							ng-if="manpower.estimateType == 'Remaining Units'" >
+							<span ng-init="etcRemQty > 0 ? etcRemQty : etcRemQty=0 ">
+								{{manpower.actualQty + etcRemQty }}
+								{{etcRemQty}}
+							</span>
+						</span>
+						<span ng-init="etcBAC_EV=(manpower.revisedQty ? manpower.revisedQty : manpower.originalQty) - manpower.earnedValue"
+							ng-if="manpower.estimateType == 'BAC-EV'" >
+							<span ng-init="etcBAC_EV > 0 ? etcBAC_EV : etcBAC_EV=0 ">
+								{{manpower.actualQty + etcBAC_EV | number: 2}}
+								{{etcRemQty}}
+							</span>
+						</span>
+						<span ng-init="etcBAC_EV_PF=(manpower.earnedValue==0 || manpower.actualQty==0)  ? ((manpower.revisedQty ? manpower.revisedQty : manpower.originalQty) - manpower.earnedValue)   
+								: (((manpower.revisedQty ? manpower.revisedQty : manpower.originalQty) - manpower.earnedValue) / manpower.productivityFactor)"
+							ng-if="manpower.estimateType == '(BAC-EV)/PF'" >
+							<span ng-init="etcBAC_EV_PF > 0 ? etcBAC_EV_PF : etcBAC_EV_PF=0 ">
+								{{manpower.actualQty + etcBAC_EV_PF | number: 2}}
+								{{etcRemQty}}
+							</span>
+						</span>
+						<span ng-init="bac_ev=((manpower.revisedQty ? manpower.revisedQty : manpower.originalQty) - manpower.earnedValue);
+							pf=(manpower.earnedValue==0 || manpower.earnedValue==null || manpower.actualQty==0) ? 0 : (manpower.earnedValue / manpower.actualQty);
+							spi=(manpower.earnedValue==0 || manpower.earnedValue==null || manpower.plannedValue==0) ? 0 : (manpower.earnedValue / manpower.plannedValue);
+							etcBAC_EV_PF_SPI=(pf==0 || spi == 0)  ? bac_ev : (bac_ev)/(pf*spi)"
+							ng-if="manpower.estimateType == '(BAC-EV)/(PF*SPI)'" >
+							<span ng-init="etcBAC_EV_PF_SPI > 0 ? etcBAC_EV_PF_SPI : etcBAC_EV_PF_SPI=0 ">
+								{{manpower.actualQty + etcBAC_EV_PF_SPI | number: 2}}
+								{{etcRemQty}}
+							</span>
+						</span>
+						<span  ng-init="manpower.estimateComplete > 0 ? manpower.estimateComplete : manpower.estimateComplete=0 " 
+							ng-if="manpower.estimateType == 'New Estimate'" >
+							<span ng-init="etscNewEstimate=manpower.actualQty + manpower.estimateComplete">
+								<span ng-if="etscNewEstimate > 0">
+									{{etscNewEstimate | number: 2}}
+								</span>
+							</span>
+						</span>
+					</td>
+					<td style="white-space:nowrap;text-align:center;">{{manpower.startDate | date}}</td>
+					<td style="white-space:nowrap;text-align:center;">{{manpower.finishDate | date}}</td>
+					<td>{{manpower.minStartDateOfBaseline | date}}</td>
+					<td>{{manpower.maxFinishDateOfBaseline | date}}</td>
+					<td ng-show="disableBtnsJson.returnBtn"><input type="button" value="Return" ng-click="returnWithComments('Manpower',manpower)"/></td>
+				</tr>
+				<span ng-init="remQty+=remQty">
+					{{remQty}}
+				</span>
+			</tbody>
+		</table> -->
+		<!-- <table style="border-top: 2px solid #191970 !important;width:100%;">
+			<tr>
+			 	<td colspan="4" width="18%" style="padding-top: 15px;">&nbsp;</td>
+			 	<td width="5%"><b>Total</b></td>
+			 	<td width="3%"><b>{{columnTotal.originalHrsTotal | number: 2}}</b></td>
+			 	<td width="2%"><b>{{columnTotal.revisedHrsTotal | number: 2}}</b></td>
+			 	<td width="2%"><b>{{columnTotal.actualHrsTotal | number: 2}}</b></td>
+			 	<td width="2%"><b>{{columnTotal.remainingHrsTotal | number: 2}}</b></td>
+			 	<td width="5%"><b>{{columnTotal.etcTotal | number: 2}}</b></td>
+			 	<td width="4%"><b>{{columnTotal.estAtCompletionHrsTotal | number: 2}}</b></td>
+			 	<td colspan="7" width="20%">&nbsp;</td>
+			 </tr>
+		</table> -->
+	</div>
+	<div class="panel-footer">
+	<div class="pull-right">
+		<input type="button" class="btn  btn-primary btn-sm" value="Create" ng-click="editManPowerDetails('Add',null)"
+			data-test='Projects_ProjectBudgets_ManPower_Add'
+			ng-if="account.appCodeTemplate['PRJ_PROJBUDGET_MANPOWER_ADD']">
+	</div>
+	<div class="pull-left">
+	<input type="button" class="btn  btn-primary btn-sm" data-test='Projects_ProjectBudgets_ManPower_Edit'
+			ng-click="editManPowerDetails('Edit',null)" value="Edit"
+			ng-if="account.appCodeTemplate['PRJ_PROJBUDGET_MANPOWER_ADD']">
+</div>
+</div>
+<br/><br/>
+<!-- <div class="panel-footer">
+	<div class="pull-right">
+		<input type="button" class="btn  btn-primary btn-sm" value="Create" ng-click="editManPowerDetails('Add',null)"
+			data-test='Projects_ProjectBudgets_ManPower_Add'
+			ng-if="account.appCodeTemplate['PRJ_PROJBUDGET_MANPOWER_ADD']">
+	</div> -->
+	<div class="pull-left">
+		<!-- <input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+		<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+		<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+		<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+		<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();"> -->
+		<!-- <input type="button" class="btn  btn-primary btn-sm" data-test='Projects_ProjectBudgets_ManPower_Edit'
+			ng-click="editManPowerDetails('Edit',null)" value="Edit"
+			ng-if="account.appCodeTemplate['PRJ_PROJBUDGET_MANPOWER_ADD']" -->>
+	</div>
+</div>

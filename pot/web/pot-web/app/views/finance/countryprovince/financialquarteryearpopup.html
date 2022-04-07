@@ -1,0 +1,132 @@
+<div id="tab-pannel" class="panel-group" ng-init="goToDate()">
+	<div id="tab-pannel" class="panel panel-default" modal-movable>
+		<div class="panel-heading">
+			<h4 class="panel-title">Financial Quarter Year</h4>
+		</div>
+		<div class="panel-body">
+			<h4>Quarter 1</h4>	
+			<table class="table table-striped table-bordered">
+				<thead>
+					<tr>
+					        <th>From Date</th>
+					        <th>To Date</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat ="item in FinancialQuarterYearDetails" >
+					<td ng-if="item.actionType == 'View' ">{{item.quarterOneFromDate}}</td>
+					<td ng-if="item.actionType == 'View' ">{{item.quarterOneToDate}}</td>
+						<td ng-if="item.actionType != 'View' "><ng-form name="dateForm"> <potdate-picker
+								ng-model="item.quarterOneFromDate" date-name="date" data-test="CountryProvinceCodes_FinancialQuarterYear_FromDate1"
+								ng-change="goToDate(item)" min-mode="year" datepicker-mode="'year'" max-date="item.quarterOneToDate"
+								placeholder="dd-mm-yyyy" readonly="readonly"
+								class="form-control" 
+							/></ng-form></td>
+						<td ng-if="item.actionType != 'View' "><ng-form name="dateForm"> <potdate-picker
+								ng-model="item.quarterOneToDate" date-name="date"  data-test="CountryProvinceCodes_FinancialQuarterYear_FromDate2"
+								min-mode="year" datepicker-mode="'year'" min-date="item.quarterOneFromDate"
+								placeholder="dd-mm-yyyy" readonly="readonly"
+								class="form-control" 
+							/></ng-form></td>
+
+					</tr>
+				</tbody>
+			</table>
+			<br>
+			<h4>Quarter 2</h4>	
+			<table class="table table-striped table-bordered">
+				<thead>
+					<tr>
+					        <th>From Date</th>
+					        <th>To Date</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat ="item in FinancialQuarterYearDetails" >
+					 	<td ng-if="item.actionType == 'View' ">{{item.quarterSecondFromDate}}</td>
+					<td ng-if="item.actionType == 'View' ">{{item.quarterSecondToDate}}</td> 
+						<td ng-if="item.actionType != 'View' "><ng-form name="dateForm"> <potdate-picker
+								ng-model="item.quarterSecondFromDate" date-name="date"
+								min-mode="year" datepicker-mode="'year'" min-date="item.quarterOneToDate"
+								placeholder="dd-mm-yyyy" readonly="readonly" data-test="CountryProvinceCodes_FinancialQuarterYear_FromDate3"
+								class="form-control" 
+							/></ng-form></td>
+						<td ng-if="item.actionType != 'View' "><ng-form name="dateForm"> <potdate-picker
+								ng-model="item.quarterSecondToDate" date-name="date" data-test="CountryProvinceCodes_FinancialQuarterYear_FromDate4"
+								min-mode="year" datepicker-mode="'year'" min-date="item.quarterSecondFromDate"
+								placeholder="dd-mm-yyyy" readonly="readonly"
+								class="form-control" 
+							/></ng-form></td>
+
+					</tr>
+				</tbody>
+			</table>
+			<br>
+				<h4>Quarter 3</h4>	
+			<table class="table table-striped table-bordered">
+				<thead>
+					<tr>
+					        <th>From Date</th>
+					        <th>To Date</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat ="item in FinancialQuarterYearDetails" >
+					<td ng-if="item.actionType == 'View' ">{{item.quarterThirdFromDate}}</td>
+					<td ng-if="item.actionType == 'View' ">{{item.quarterThirdToDate}}</td>
+						<td ng-if="item.actionType != 'View' "><ng-form name="dateForm"> <potdate-picker
+								ng-model="item.quarterThirdFromDate" date-name="date" data-test="CountryProvinceCodes_FinancialQuarterYear_ToDate1"
+								min-mode="year" datepicker-mode="'year'" min-date="item.quarterSecondToDate"
+								placeholder="dd-mm-yyyy" readonly="readonly"
+								class="form-control" 
+							/></ng-form></td>
+						<td ng-if="item.actionType != 'View' "><ng-form name="dateForm"> <potdate-picker
+								ng-model="item.quarterThirdToDate" date-name="date" data-test="CountryProvinceCodes_FinancialQuarterYear_ToDate2"
+								min-mode="year" datepicker-mode="'year'" min-date="item.quarterThirdFromDate"
+								placeholder="dd-mm-yyyy" readonly="readonly"
+								class="form-control" 
+							/></ng-form></td>
+
+					</tr>
+				</tbody>
+			</table>
+			<br>
+				<h4>Quarter 4</h4>	
+			<table class="table table-striped table-bordered">
+				<thead>
+					<tr>
+					        <th>From Date</th>
+					        <th>To Date</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat ="item in FinancialQuarterYearDetails" >
+					<td ng-if="item.actionType == 'View' ">{{item.quarterFourthFromDate}}</td>
+					<td ng-if="item.actionType == 'View' ">{{item.quarterFourthToDate}}</td>
+						<td ng-if="item.actionType != 'View' "><ng-form name="dateForm"> <potdate-picker
+								ng-model="item.quarterFourthFromDate" date-name="date" data-test="CountryProvinceCodes_FinancialQuarterYear_ToDate3"
+								min-mode="year" datepicker-mode="'year'" min-date="item.quarterThirdToDate"
+								placeholder="dd-mm-yyyy" readonly="readonly"
+								class="form-control" 
+							/></ng-form></td>
+						<td ng-if="item.actionType != 'View' "><ng-form name="dateForm"> <potdate-picker
+								ng-model="item.quarterFourthToDate" date-name="date" data-test="CountryProvinceCodes_FinancialQuarterYear_ToDate4"
+								min-mode="year" datepicker-mode="'year'" min-date="item.quarterFourthFromDate"
+								placeholder="dd-mm-yyyy" readonly="readonly"
+								class="form-control" 
+							/></ng-form></td>
+
+					</tr>
+				</tbody>
+			</table>
+			
+		</div>
+		<div class="panel-footer">
+		<div class="pull-right" ng-if="actionTypeSave != 'View' ">
+				 <input type="submit" class="btn  btn-primary btn-sm" value="Save" data-test="CountryProvinceCodes_FinancialQuarterYear_Date_Save"
+					ng-click="saveFinancialQuarterYear()" /> 
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</div>
+</div>

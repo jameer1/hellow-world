@@ -1,0 +1,252 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml2/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"  ng-controller="HelpAndTutorialController">
+
+    <head >
+        <title></title>
+        <link rel="stylesheet" type="text/css" href="style.css" />
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+
+        <script type="text/javascript" src="js/ddaccordion.js">
+
+            /***********************************************
+             * Accordion Content script- (c) Dynamic Drive DHTML code library (www.dynamicdrive.com)
+             * Visit http://www.dynamicDrive.com for hundreds of DHTML scripts
+             * This notice must stay intact for legal use
+             ***********************************************/
+
+        </script>
+
+
+        <script type="text/javascript">
+
+
+            ddaccordion.init({
+                headerclass: "submenuheader", //Shared CSS class name of headers group
+                contentclass: "submenu", //Shared CSS class name of contents group
+                revealtype: "click", //Reveal content when user clicks or onmouseover the header? Valid value: "click", "clickgo", or "mouseover"
+                mouseoverdelay: 200, //if revealtype="mouseover", set delay in milliseconds before header expands onMouseover
+                collapseprev: true, //Collapse previous content (so only one open at any time)? true/false 
+                defaultexpanded: [], //index of content(s) open by default [index1, index2, etc] [] denotes no content
+                onemustopen: false, //Specify whether at least one header should be open always (so never all headers closed)
+                animatedefault: false, //Should contents open by default be animated into view?
+                persiststate: true, //persist state of opened contents within browser session?
+                toggleclass: ["", ""], //Two CSS classes to be applied to the header when it's collapsed and expanded, respectively ["class1", "class2"]
+                togglehtml: ["suffix", "<img src='images/plus.gif' class='statusicon' />", "<img src='images/minus.gif' class='statusicon' />"], //Additional HTML added to the header when it's collapsed and expanded, respectively  ["position", "html1", "html2"] (see docs)
+                animatespeed: "fast", //speed of animation: integer in milliseconds (ie: 200), or keywords "fast", "normal", or "slow"
+                oninit: function(headers, expandedindices) { //custom code to run when headers have initalized
+                    //do nothing
+                },
+                onopenclose: function(header, index, state, isuseractivated) { //custom code to run whenever a header is opened or closed
+                    //do nothing
+                }
+            })
+
+
+        </script>
+
+
+    </head>
+
+    <body>
+        <div class="main_container">
+            <div class="header"><img src="images/logo1.png" width="300px" height="69px"/></div>
+            <div class="v_line"></div>
+            <div class="left_pannel">
+                <div class="glossymenu">
+                    <a class="menuitem" href="./Enterprise.html" target="body_loder">Enterprise</a>
+                    <a class="menuitem" href="./Projects.html" target="body_loder">Projects</a>
+
+                    <a class="menuitem submenuheader" href="#">Work Dairy</a>
+                    <div class="submenu">
+                        <ul>
+                            <li><a href="./CreateWorkDairy.html" target="body_loder">Create Work Dairy</a></li>
+                            <li><a href="#">Approve Work Dairy </a></li>
+
+                        </ul>
+                    </div>
+                    <a class="menuitem submenuheader" href="#">Staff Time Sheet</a>
+                    <div class="submenu">
+                        <ul>
+                            <li><a href="./CreateTimeSheet.html"  target="body_loder">Create Time Sheet</a></li>
+                            <li><a href="./ApproveStaffTimeSheet.html"  target="body_loder">Approve Staff Time</a></li>
+
+                        </ul>
+                    </div><a class="menuitem submenuheader" href="#">Attendance Records</a>
+                    <div class="submenu">
+                        <ul>
+                            <li><a href="./EmployeeAttendance.html" target="body_loder">Employee Attendance</a></li>
+                            <li><a href="./PlantAttendance.html" target="body_loder">Plant Attendance</a></li>
+
+                        </ul>
+                    </div>
+                    <a class="menuitem submenuheader" href="#">Project Invoices</a>
+                    <div class="submenu">
+                        <ul>
+                            <li><a href="./ProjectInvoices.html" target="body_loder">Project Invoices</a></li>
+                            <li><a href="./InvoiceReport.html"  target="body_loder">Invoices Reports</a></li>
+
+                        </ul>
+                    </div> 
+                    <a class="menuitem" href="./DashBoard.html" target="body_loder">Dash Boards</a>
+                    <a class="menuitem submenuheader" href="#">Common Reports</a>
+                    <div class="submenu">
+                        <ul>
+                            <li><a href="./DailyResourcesSummary.html" target="body_loder">Daily Resources Summary</a></li>
+                            <li><a href="./AttendanceRecords.html" target="body_loder">Attendance Records</a></li>
+                            <li><a href="./PlantAttendanceRecords.html" target="body_loder">Plant Attendance Records</a></li>
+                        </ul>
+                    </div>
+                    <a class="menuitem submenuheader" href="#">Work Diary Reports</a>
+                    <div class="submenu">
+                        <ul>
+                            <li><a href="./WDDailyReport.html" target="body_loder">Daily Report</a></li>
+                            <li><a href="./WDApprovalStatus.html" target="body_loder">Approval Status</a></li>
+                            
+                        </ul>
+                    </div> 
+                    <a class="menuitem submenuheader" href="#">Time Sheet Reports</a>
+                    <div class="submenu">
+                        <ul>
+                            <li><a href="./TSDailyReport.html" target="body_loder">Daily Report</a></li>
+                            <li><a href="./TSApprovalStatus.html" target="body_loder">Approval Status</a></li>
+                            
+                        </ul>
+                    </div> 
+                    <a class="menuitem submenuheader" href="#">Man Power Reports</a>
+                    <div class="submenu">
+                        <ul>
+                            <li><a href="./MPPeriodicalReports.html" target="body_loder">Periodical Reports</a></li>
+                            <li><a href="./MPDailyEmployeesList.html" target="body_loder">Daily Employee List</a></li>
+                            <li><a href="./MPUtilisationAnalysis.html" target="body_loder">Utilization Analysis</a></li>
+                            <li><a href="./MPIdleTimeRecords.html" target="body_loder">Idle Time Records</a></li>
+                            <li><a href="./MPStatistics.html" target="body_loder">Statistics</a></li>
+                             <li><a href="./MPMobilizationStatus.html" target="body_loder">Mobilization Status</a></li>
+                            <li><a href="./MPEmployeeSearch.html" target="body_loder">Employee Search</a></li>
+                            <li><a href="./MPPeriodicalManHourReports.html" target="body_loder">Periodical Man Hour Reports</a></li>
+                        </ul>
+                    </div>
+                    <a class="menuitem submenuheader" href="#">Plant Reports</a>
+                    <div class="submenu">
+                        <ul>
+                            <li><a href="./Periodical.html" target="body_loder">Periodical</a></li>
+                            <li><a href="./PlantList.html" target="body_loder">Plant List</a></li>
+                            <li><a href="./UtilisationAnalysis.html" target="body_loder">Utilization Analysis</a></li>
+                            <li><a href="./IdleTimeRecords.html" target="body_loder">Idle Time Records</a></li>
+                            <li><a href="./PlantSearch.html" target="body_loder">Plant Search</a></li>
+                        </ul>
+                    </div>
+                    <a class="menuitem submenuheader" href="#">Material Reports</a>
+                    <div class="submenu">
+                        <ul>
+                            <li><a href="./PeriodicalConsumption.html" target="body_loder">Periodical Consumption</a></li>
+                            <li><a href="./InventoryReports.html" target="body_loder">Inventory Reports</a></li>
+                           
+                        </ul>
+                    </div>
+                    <a class="menuitem submenuheader" href="#">Progress Reports</a>
+                    <div class="submenu">
+                        <ul>
+                            <li><a href="./TangibleQuantities.html" target="body_loder">Tangible Quantities</a></li>
+                            <li><a href="./ProgressPlannedActual.html" target="body_loder">Progress  Planned Vs Actual</a></li>
+                           
+                        </ul>
+                    </div>
+                    <a class="menuitem submenuheader" href="#">Cost&Performance&nbsp;Reports</a>
+                    <div class="submenu">
+                        <ul>
+                            <li><a href="./ActualCostDetails.html" target="body_loder">Actual Cost Details</a></li>
+                            <li><a href="./EarnedValueAndPerformance.html" target="body_loder">Earned Value & Performance</a></li>
+                            <li><a href="./ProgressClaim.html" target="body_loder">Progress Claim </a></li>
+                            <li><a href="./CostScheduleVariance.html" target="body_loder">Cost Schedule Variance</a></li>
+                            <li><a href="./CostSchedulePerformance.html" target="body_loder">Cost Schedule Performance</a></li>
+                            <li><a href="./ItemWiseBudget.html" target="body_loder">Item Wise Budget</a></li>
+                            <li><a href="./ItemWisePeriodicalCost.html" target="body_loder">Item Wise Periodical Cost</a></li>
+                        </ul>
+                    </div>
+                    <a class="menuitem submenuheader" href="#">Admin</a>
+                    <div class="submenu">
+                        <ul>
+                            <li><a href="./AdminUserList.html" target="body_loder">User List</a></li>
+                            <li><a href="./UsersPrivileges.html" target="body_loder">User Priveleges</a></li>                    
+                            <li><a href="./AdminSettings.html" target="body_loder">Settings</a></li>
+
+                        </ul>
+                    </div>
+
+                    <a class="menuitem submenuheader" href="#">Central Library</a>
+                    <div class="submenu">
+                        <ul>
+                            <li><a href="./ClCompanyList.html" target="body_loder">Company List</a></li>
+                            <li><a href="./CLMeasuringUnits.html" target="body_loder">Measuring Units</a></li> 
+                            <li><a href="./CLWeatherClassification.html" target="body_loder">Weather Classification</a></li> 
+                            <li><a href="./CLEmployeeClassification.html" target="body_loder">Employee Classification</a></li>
+                            <li><a href="./ClPlantClassification.html" target="body_loder">Plant Classification</a></li> 
+                            <li><a href="./CLMaterialClassification.html" target="body_loder">Materials Classification</a></li> 
+                            <li><a href="#" >Cost Code Classification</a></li>
+                            <li><a href="#">Employee wages Rate Factors</a></li> 
+                            <li><a href="#" >Procurement Category</a></li> 
+                        </ul>
+                    </div>
+                    <a class="menuitem submenuheader" href="#">Project library</a>
+                    <div class="submenu">
+                        <ul>
+                            <li><a href="./PLEmployeeClassification.html" target="body_loder">Employee Classification</a></li>
+                            <li><a href="./PlPlantClassification.html" target="body_loder">Plant Classification</a></li>
+                            <li><a href="./PlLeaveTypeCodes.html" target="body_loder">Leave Type and Attendance Records Code</a></li>     
+                            <li><a href="./PLWorkingShift.html" target="body_loder">Working Shifts</a></li>
+                            <li><a href="./PLCrewList.html" target="body_loder">Crew List</a></li>
+                            <li><a href="./PLSOE.html" target="body_loder">Schedule Of Estimated Quantities(SOE)</a></li>
+                            <li><a href="PLSOR.html" target="body_loder">Schedule Of Rates(SOR)</a></li>
+                            <li><a href="./PLCostCodeSchedule.html" target="body_loder">Cost Code Schedule</a></li>
+                            <li><a href="./PLScopeOfWork.html" target="body_loder">Scope Of Works(SOW)</a></li>
+                        </ul>
+                    </div>
+                    <a class="menuitem submenuheader" href="#">Procurement</a>
+                    <div class="submenu">
+                        <ul>
+                            <li><a href="./PreContracts.html" target="body_loder">Pre-Contracts</a></li>
+                            <li><a href="./PurchaseOrders.html" target="body_loder">Purchase Orders</a></li> 
+
+                        </ul>
+                    </div>
+                    <a class="menuitem submenuheader" href="#">Central Resources</a>
+                    <div class="submenu">
+                        <ul>
+                            <li><a href="./CREmployeeRegister.html" target="body_loder">Employee Registers</a></li>
+                            <li><a href="./CRPlantRegister.html" target="body_loder">Plant Registers</a></li> 
+                            <li><a href="./CRMaterialRegister.html" target="body_loder">Material Registers</a></li>  
+                        </ul>
+                    </div>
+                    <a class="menuitem submenuheader" href="#">Project Resources</a>
+                    <div class="submenu">
+                        <ul>
+                            <li><a href="./PREmployeRegister.html" target="body_loder">Employee Registers</a></li>
+                            <li><a href="./PlantRegister.html" target="body_loder">Plant Registers</a></li> 
+                            <li><a href="./MaterialRegister.html" target="body_loder">Material Registers</a></li>  
+                        </ul>
+                    </div>
+                    <a class="menuitem submenuheader" href="#">Tools</a>
+                    <div class="submenu">
+                        <ul>
+                            <li><a href="./Calendars.html" target="body_loder">Calendars</a></li>
+                            <li><a href="./ResourceCurves.html" target="body_loder">Resource Curves</a></li> 
+
+                        </ul>
+                    </div>
+                    <a class="menuitem " href="./Notifications.html" target="body_loder">Notification</a>
+
+                    <a class="menuitem" href="MyAccount.html" target="body_loder">My Account</a>
+                </div>
+            </div>
+            <div class="v_line"></div>
+            <div class="right_pannel">   
+                <iframe name="body_loder" ></iframe>
+            </div>
+            <div class="v_line"></div>
+            <div class="clear"></div>
+            <div class="footer"></div>
+        </div>
+
+    </body>
+</html>
+

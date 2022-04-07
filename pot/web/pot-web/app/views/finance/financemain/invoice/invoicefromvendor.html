@@ -1,0 +1,99 @@
+<section class="content-header">
+	<h1>Project Invoices</h1>
+</section>
+<section class="content" id="tab-pannel">
+	<div class="panel panel-default twinBlock footer-parent">
+		<div class="panel-body">
+			<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 no-padding">
+				<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+					<md-input-container class="md-block">
+						<label>EPS ID/Name</label>
+						<input data-test='PlantandEquipment_EpsID' type="text" ng-model="searchProject.parentName"
+							ng-click="getUserProjects()" readonly />
+					</md-input-container>
+				</div>
+				<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+					<md-input-container>
+						<label>Project ID/Name</label>
+						<input data-test='PlantandEquipment_ProjectName' type="text" ng-model="searchProject.projName"
+							ng-click="getUserProjects()" readonly>
+					</md-input-container>
+				</div>
+				<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+					<md-input-container>
+						<label>PO Status</label>
+						<md-select ng-model="poStatus">
+							<md-option ng-repeat="poStatus in poStatusList" ng-value="poStatus">
+								{{poStatus.name}}
+							</md-option>
+						</md-select>
+					</md-input-container>
+
+					<!-- old code -->
+					<!-- <select ng-model="poStatus" class="form-control"
+						ng-options="poStatus.name for poStatus in poStatusList track by poStatus.name">
+						<option value="" readonly="readonly">Select</option>
+					</select> -->
+
+				</div>
+				<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+					<div class="pull-right right-padding marT15">
+						<input type="button" ng-click="getPurchaseInvoices(searchProject.projId)"
+							class="btn btn-primary btn-sm" value="Search">
+						<input type="reset" class="btn btn-secondary btn-sm" ng-click="reset()" value="Reset">
+					</div>
+				</div>
+			</div>
+			<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 no-padding">
+				<div class="firstTableResHeight">
+					<table id="table" class="table table-striped table-hover table-bordered firstTableHeight">
+						<thead>
+							<tr>
+								<th>Eps Name</th>
+								<th>Project Name</th>
+								<th>Profit Center</th>
+								<th>PO Number</th>
+								<th>PO Description</th>
+								<th>Vendor/Supplier Id</th>
+								<th>Vendor/Supplier Name</th>
+								<th>PO Amount</th>
+								<th>Payment Processing Period</th>
+								<th>PO or SubContract Current Status</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr fixed-header="" ng-repeat="invoice in purchaseOrderTOs" ng-click="go(invoice,$index);"
+								ng-class="{selected: $index ==selectedRow}">
+								<td>{{userProjMap[invoice.projId].code}}</td>
+								<td>{{userProjMap[invoice.projId].name}}</td>
+								<td>{{}}</td>
+								<td>{{invoice.code }}</td>
+								<td>{{invoice.preContractCmpTO.preContractTO.desc}}</td>
+								<td>{{companyMap[invoice.preContractCmpTO.companyId].code}}</td>
+								<td>{{companyMap[invoice.preContractCmpTO.companyId].name}}</td>
+								<td>{{invoice.amount }}</td>
+								<td>{{invoice.paymentInDays}}</td>
+								<td>{{poStatus.name}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="tabs" class="panel panel-default twinBlock footer-parent">
+		<div class="panel-body">
+			<div class="nav-tabs-custom">
+				<ul class="nav nav-tabs">
+					<li fixed-header="" ng-repeat="tab in tabs" ng-class="{active:isActiveTab(tab.url)}"
+						ng-click="onClickTab(tab)">
+						<a data-toggle="tab">{{tab.title}}</a>
+					</li>
+				</ul>
+				<div class="tab-content">
+					<div ng-include="currentTab"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

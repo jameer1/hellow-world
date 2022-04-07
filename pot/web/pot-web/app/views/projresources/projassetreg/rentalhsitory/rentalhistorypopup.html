@@ -1,0 +1,337 @@
+<div id="tab-pannel" class="panel-group">
+	<form name="rentalhistoryForm" validate>
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Long Term Leasing/Rental History</h4>
+			</div>
+			<div class="panel-body">
+				<div class="topTableResHeight overflow-auto">
+					<table class="table table-striped table-bordered  topTableHeight">
+						<thead id="tab-head">
+							<tr>
+								<!-- <th class="text-center" ng-if="action ==='Add'">Select</th> -->
+								<th>Lease Agreement</th>
+								<th>Lease Start
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th>Lease Finish</th>
+								<th>Tenant ID</th>
+								<th>Tenant Name</th>
+								<th>Tenant Address & Contact Details
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th>Payment Cycle
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th>Net Rent Amount per Cycle
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th>Maintenance Charges
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th>Asset Maintenance Charges</th>
+							</tr>
+						</thead>
+						<tbody>
+
+							<tr ng-repeat="addRentalHsitoryData in rentalHistory">
+
+								<!-- <td ng-if="action =='Add'">
+									<ng-form name="selectboxForm">
+										<input type="checkbox" ng-model="asset.selected"
+											data-test="TermLeasingRentalHistory_Create_Checkbox"
+											ng-change="assetRentalHistoryPopUpRowSelect(asset)"></ng-form>
+								</td> -->
+
+								<td>
+									<ng-form name="leaseNumberForm"> <input type="text" name="leaseNumber"
+											ng-model="addRentalHsitoryData.leaseAgreement"
+											placeholder="Lease Agreement Number" disabled class="form-control">
+									</ng-form>
+								</td>
+
+								<td>
+									<ng-form name="leaseStartForm">
+										<potdate-picker data-test="TermLeasingRentalHistory_Create_LeaseStart"
+											ng-model="addRentalHsitoryData.leaseStart" dir-index="$index"
+											date-name="leaseStart" placeholder="dd-mm-yyyy" class="form-control"
+											ng-required="true" custom-read-only  min-date="addRentalHsitoryData.plantCommissioningDate"/> <span class="procurment-pot-errors"
+											ng-show="leaseStartForm.leaseStart.$dirty && leaseStartForm.leaseStart.$error.required">This
+											field is mandatory</span></ng-form>
+								</td>
+
+								<td>
+									<ng-form name="leaseFinishForm">
+									<!--	<potdate-picker data-test="TermLeasingRentalHistory_Create_LeaseFinish"
+											ng-model="addRentalHsitoryData.leaseFinish" dir-index="$index" custom-read-only
+											date-name="leaseFinish" placeholder="dd-mm-yyyy" class="form-control" readonly
+											 /> -->
+											 <input type="text" name="leaseFinish" ng-model="addRentalHsitoryData.leaseFinish"
+												 placeholder="dd-mm-yyyy" class="form-control" readonly  data-test="TermLeasingRentalHistory_Create_LeaseFinish">
+										  </ng-form>
+								</td>
+
+								<td>
+									<ng-form name="tenantid">
+										<input type="text" name="tenantId" ng-model="addRentalHsitoryData.tenantid"
+											placeholder="Tenant ID" class="form-control" readonly>
+									</ng-form>
+								</td>
+
+								<td>
+									<ng-form name="tenantNameForm"> <input type="text" name="tenantName"
+											data-test="TermLeasingRentalHistory_Create_TenantName"
+											ng-model="addRentalHsitoryData.tenantName" placeholder="Tenant Name"
+											maxlength="10" pattern="[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))"
+											minlength="2" class="form-control"> <span class="procurment-pot-errors"
+											ng-show="tenantNameForm.tenantName.$error.pattern">Alpha
+											numeric data should be allowed</span> <span class="procurment-pot-errors"
+											ng-show="tenantNameForm.tenantName.$dirty && tenantNameForm.tenantName.$error.required">Mortgage
+											Name is mandatory</span> <span class="procurment-pot-errors"
+											ng-show="tenantNameForm.tenantName.$error.maxlength">Enter
+											length between 2 to 50 characters only</span> <span class="procurment-pot-errors"
+											ng-show="tenantNameForm.tenantName.$error.minlength">Too
+											short!</span> </ng-form>
+								</td>
+
+								<td>
+									<ng-form name="tenantAddressForm"> <input type="text" name="tenantAddress"
+											data-test="TermLeasingRentalHistory_Create_TenantAddress_Contacts"
+											ng-model="addRentalHsitoryData.tenantAddress" placeholder="Tenant Address"
+											maxlength="10" pattern="[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))"
+											ng-required="true" minlength="2" class="form-control"> <span class="procurment-pot-errors"
+											ng-show="tenantAddressForm.tenantAddress.$error.pattern">Alpha
+											numeric data should be allowed</span> <span class="procurment-pot-errors"
+											ng-show="tenantAddressForm.tenantAddress.$dirty && tenantAddressForm.tenantAddress.$error.required">Mortgage
+											Name is mandatory</span> <span class="procurment-pot-errors"
+											ng-show="tenantAddressForm.tenantAddress.$error.maxlength">Enter
+											length between 2 to 50 characters only</span> <span class="procurment-pot-errors"
+											ng-show="tenantAddressForm.tenantAddress.$error.minlength">Too
+											short!</span> </ng-form>
+								</td>
+
+								<td><select ng-model="addRentalHsitoryData.paymentCycle"
+										data-test="TermLeasingRentalHistory_Create_PaymentCycle" ng-required="true"
+										class="form-control">
+										<option value="">-Select-</option>
+										<option fixed-header="" ng-repeat="paymentCycle in paymentCycles" ng-value="paymentCycle">
+											{{paymentCycle}}</option>
+									</select></td>
+
+								<td>
+									<ng-form name="netRentForm"> <input valid-number
+											data-test="TermLeasingRentalHistory_Create_NetRentAmountperCycle"
+											type="text" ng-model="addRentalHsitoryData.netRentAmountPerCycle"
+											name="netRentAmountPerCycle" placeholder="Net Rent Amount"
+											pattern="^[\d\.,%]+$" maxlength="4" ng-required="true"
+											class="form-control" ng-change="assetMaintenanceRentTaxAmount(addRentalHsitoryData)" /> <span class="procurment-pot-errors"
+											ng-show="netRentForm.netRentAmountPerCycle.$dirty && netRentForm.netRentAmountPerCycle.$error.required">Estimated
+											Rent is mandatory</span> <span class="procurment-pot-errors"
+											ng-show="netRentForm.netRentAmountPerCycle.$error.pattern">Enter only
+											numbers</span> <span class="procurment-pot-errors"
+											ng-show="netRentForm.netRentAmountPerCycle.$error.minlength">Too
+											Short!</span> </ng-form>
+								</td>
+
+								<td><select ng-model="addRentalHsitoryData.maintenanceCharges"
+										data-test="TermLeasingRentalHistory_Create_MaintenanceCharges"
+										ng-required="true" class="form-control">
+										<option value="">-Select-</option>
+										<option fixed-header="" ng-repeat="maintenanceCharges in maintenances">
+											{{maintenanceCharges}}</option>
+									</select></td>
+
+								<td>
+									<ng-form name="maintenanceChargesForm"> <input type="text"
+											ng-model="addRentalHsitoryData.assetMaintenanceCharges"
+											name="maintenanceCharges" placeholder="Miantenance Charges"
+											data-test="TermLeasingRentalHistory_Create_AssetMaintenanceCharges"
+											pattern="^[\d\.,%]+$" maxlength="4" valid-number
+											class="form-control" ng-change="assetMaintenanceRentTaxAmount(addRentalHsitoryData)" /> <span class="procurment-pot-errors"
+											ng-show="maintenanceChargesForm.assetMaintenanceCharges.$dirty && maintenanceChargesForm.assetMaintenanceCharges.$error.required">Estimated
+											Rent is mandatory</span> <span class="procurment-pot-errors"
+											ng-show="maintenanceChargesForm.assetMaintenanceCharges.$error.pattern">Enter
+											only numbers</span> <span class="procurment-pot-errors"
+											ng-show="maintenanceChargesForm.assetMaintenanceCharges.$error.minlength">Too
+											Short!</span> </ng-form>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="topTableResHeight" style="overflow: auto">
+					<table class="table table-striped table-bordered topTableHeight">
+						<thead id="tab-head">
+							<tr>
+								<th>Taxable Amount
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th>Tax%</th>
+								<th>Tax Amount</th>
+								<th>Gross Rent
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th>Payment Cycle Due Date</th>
+								<th>Lease Extended Finish Date(if any)</th>
+								<th>Lease Actual Finish Date</th>
+								<th>Lease Documents</th>
+								<th>Current Status
+									<span class="procurment-pot-errors">*</span>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="addRentalHsitoryData in rentalHistory">
+								<td>
+									<ng-form name="taxableAmountForm"> <input type="text"
+											ng-model="addRentalHsitoryData.taxableAmount" name="taxableAmount"
+											placeholder="Taxable Amount" valid-number
+											data-test="TermLeasingRentalHistory_Create_TaxableAmount"
+											pattern="^[\d\.,%]+$" maxlength="4" ng-required="true"
+											class="form-control" /> <span class="procurment-pot-errors"
+											ng-show="taxableAmountForm.taxableAmount.$dirty && taxableAmountForm.taxableAmount.$error.required">Estimated
+											Rent is mandatory</span> <span class="procurment-pot-errors"
+											ng-show="taxableAmountForm.taxableAmount.$error.pattern">Enter
+											only numbers</span> <span class="procurment-pot-errors"
+											ng-show="taxableAmountForm.taxableAmount.$error.minlength">Too
+											Short!</span> </ng-form>
+								</td>
+
+								<td>
+									<ng-form name="taxPercentForm"> <input type="text"
+											ng-model="addRentalHsitoryData.tax"
+											data-test="TermLeasingRentalHistory_Create_TaxPercentage" name="taxPercent"
+											placeholder="Tax%" pattern="^[\d\.,%]+$" maxlength="2"
+											class="form-control" /> <span class="procurment-pot-errors"
+											ng-show="taxPercentForm.tax.$dirty && taxPercentForm.taxPercent.$error.required">Estimated
+											Rent is mandatory</span> <span class="procurment-pot-errors"
+											ng-show="taxPercentForm.tax.$error.pattern">Enter
+											only numbers</span> <span class="procurment-pot-errors" ng-show="taxPercentForm.tax.$error.minlength">Too
+											Short!</span> </ng-form>
+								</td>
+
+								<td>
+									<ng-form name="taxAmountForm"> <input type="text"
+											ng-model="addRentalHsitoryData.taxAmount" valid-number
+											data-test="TermLeasingRentalHistory_Create_TaxAmount" name="taxAmount"
+											placeholder="Tax Amount" pattern="^[\d\.,%]+$" maxlength="4"
+											class="form-control" ng-change="assetMaintenanceRentTaxAmount(addRentalHsitoryData)" /> <span class="procurment-pot-errors"
+											ng-show="taxAmountForm.taxAmount.$dirty && taxAmountForm.taxAmount.$error.required">Estimated
+											Rent is mandatory</span> <span class="procurment-pot-errors"
+											ng-show="taxAmountForm.taxAmount.$error.pattern">Enter
+											only numbers</span> <span class="procurment-pot-errors"
+											ng-show="taxAmountForm.taxAmount.$error.minlength">Too
+											Short!</span> </ng-form>
+								</td>
+
+								<td>
+									<ng-form name="grossRentForm"> <input type="text"
+											ng-model="addRentalHsitoryData.grossRent" valid-number
+											data-test="TermLeasingRentalHistory_Create_GrossRent" name="grossRent"
+											placeholder="Gross Rent" pattern="^[\d\.,%]+$" maxlength="4"
+											ng-required="true" class="form-control" /> <span class="procurment-pot-errors"
+											ng-show="grossRentForm.grossRent.$dirty && grossRentForm.grossRent.$error.required">Estimated
+											Rent is mandatory</span> <span class="procurment-pot-errors"
+											ng-show="grossRentForm.grossRent.$error.pattern">Enter
+											only numbers</span> <span class="procurment-pot-errors"
+											ng-show="grossRentForm.grossRent.$error.minlength">Too
+											Short!</span> </ng-form>
+								</td>
+
+
+								<td>
+									<ng-form name="dueDateForm12">
+										<!-- <potdate-picker data-test="TermLeasingRentalHistory_Create_PaymentCycleDueDate"
+											ng-model="addRentalHsitoryData.paymentCycleDueDate" dir-index="$index"
+											date-name="paymentCycleDueDate" placeholder="dd-mm-yyyy"
+											class="form-control" custom-read-only /> <span class="procurment-pot-errors"
+											ng-show="dueDateForm.paymentCycleDueDate.$dirty && dueDateForm.paymentCycleDueDate.$error.required">This
+											field is mandatory</span> -->
+										<select name="weekly" class="form-control" ng-show="addRentalHsitoryData.paymentCycle=='Weekly' || addRentalHsitoryData.paymentCycle=='Fortnightly' " 
+											ng-model="addRentalHsitoryData.paymentCycleDueDate" ng-disabled="addRentalHsitoryData.paymentCycle=='Daily'">
+											<option value="">--SELECT--</option>
+											<option ng-repeat="weeklist in weekTOs" ng-value="weeklist">
+												{{weeklist}}
+											</option>
+										</select>
+										
+										<!-- <input type="text" ng-show="addRentalHsitoryData.paymentCycle=='Monthly'"
+											name="monthly" ng-model="addRentalHsitoryData.paymentCycleDueDate" class="form-control" ng-required="true" pattern="^(3[01]|[12][0-9]|[1-9])$">
+											<span style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="dueDateForm12.monthly.$error.max">Month should starts starts from 1 and ends at 31</span>
+											<span style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="dueDateForm12.monthly.$error.pattern">Month should starts starts from 1 and ends at 31, only numbers</span> -->
+											<select name="monthly" class="form-control" ng-show="addRentalHsitoryData.paymentCycle=='Monthly'" ng-model="addRentalHsitoryData.paymentCycleDueDate" class="form-control" >
+												<option value="">--Select--</option>
+												<option ng-repeat="month in monthsTOs" ng-value="month">
+													{{month}}
+												</option>
+											</select>
+ 								
+										<select name="quartely" class="form-control" ng-show="addRentalHsitoryData.paymentCycle=='Quarterly' || addRentalHsitoryData.paymentCycle=='Half Yearly' || addRentalHsitoryData.paymentCycle=='Yearly' "
+										ng-model="addRentalHsitoryData.paymentCycleDueDate" data-test="MortgagePayments_Create_PaymentCycleDueDate">
+											<option value="">-Select-</option>
+											<option fixed-header="" ng-repeat="month in monthTOs" ng-value="month">
+												{{month}}
+											</option>
+										</select>
+										
+									</ng-form>
+								</td>
+
+								<td>
+									<ng-form name="extendFinishDateForm">
+										<potdate-picker
+											data-test="TermLeasingRentalHistory_Create_LeaseExtendedFinishDate"
+											ng-model="addRentalHsitoryData.leaseExtendedFinshDate" dir-index="$index"
+											date-name="leaseExtendedFinshDate" placeholder="dd-mm-yyyy"
+											class="form-control" custom-read-only /> <span class="procurment-pot-errors"
+											ng-show="extendFinishDateForm.leaseExtendedFinshDate.$dirty && extendFinishDateForm.leaseExtendedFinshDate.$error.required">This
+											field is mandatory</span></ng-form>
+								</td>
+
+
+								<td>
+									<ng-form name="actualFinishDateForm">
+										<potdate-picker
+											data-test="TermLeasingRentalHistory_Create_LeaseActualFinishDate"
+											ng-model="addRentalHsitoryData.leaseActualFinishFinshDate"
+											dir-index="$index" date-name="leaseActualFinishFinshDate"
+											placeholder="dd-mm-yyyy" class="form-control" custom-read-only ng-change="selectactualdate(addRentalHsitoryData)" /> <span class="procurment-pot-errors"
+											ng-show="actualFinishDateForm.leaseActualFinishFinshDate.$dirty && actualFinishDateForm.leaseActualFinishFinshDate.$error.required">This
+											field is mandatory</span></ng-form>
+								</td>
+
+								<td><input data-test='TermLeasingRentalHistory_Create_LeaseDocuments' style="width: 150px !important;"
+										ng-disabled="isDisabled" type="file" fileread="rentalHistoryDoc" name="file"
+										ngf-select="checkFile($file)" ngf-accept="'*'" tabindex="20">
+									<span class="help-block" style="color: red" ng-show="!rentalHistoryDoc.isValid">
+										{{rentalHistoryDoc.errorMessage}}</span>
+								</td>
+
+								<td><select ng-model="addRentalHsitoryData.currentStatus" style="width: 60px !important;"
+										data-test="TermLeasingRentalHistory_Create_CurrentStatus" ng-required="true"
+										class="form-control" ng-disabled="addRentalHsitoryData.currentStatus=='Inactive'">
+										<option value="">-Select-</option>
+										<option fixed-header="" ng-repeat="currentStatus in status">{{currentStatus}}
+										</option>
+									</select></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="panel-footer">
+				<!-- <div class="pull-left">
+					<input type="submit" class="btn btn-primary  btn-sm" ng-click="addRows()" value="Add"
+						data-test="TermLeasingRentalHistory_Create_Add" ng-show="action =='Add'"> <input type="button"
+						class="btn btn-secondary  btn-sm" ng-click="deleteRows()" value="Delete"
+						ng-show="action =='Add'" data-test="TermLeasingRentalHistory_Create_Delete">
+				</div> -->
+				<div class="pull-right">
+					<input type="submit" class="btn btn-primary  btn-sm" ng-click="rentalhistoryForm.$valid && saveRentalHistory()" value="Save"
+						data-test="TermLeasingRentalHistory_Create_Save">
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</form>
+</div>

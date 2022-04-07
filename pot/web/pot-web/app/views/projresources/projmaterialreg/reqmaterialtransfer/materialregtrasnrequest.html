@@ -1,0 +1,71 @@
+<div ng-if="account.appCodeTemplate['RESOURCE_MATRLREQFORMATTRANSFER_VIEW']" class="marT15" 
+	ng-controller="MaterialTransferReqApprController">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+				<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padL-0">
+					<md-input-container class="md-block">
+						<label>From Date(dd-mm-yyyy)</label>
+						<pot-currentdate-picker data-test='Resources_Materials_RequestForMaterialTransfer_FromDate' dir-index="$index" ng-model="requestTransfer.fromDate"	ng-model="fromDate" date-name="fromDate" />
+					</md-input-container>
+				</div>
+				<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+					<md-input-container class="md-block">
+							<label>To Date(dd-mm-yyyy)</label>
+						<pot-currentdate-picker data-test='Resources_Materials_RequestForMaterialTransfer_ToDate' dir-index="$index" ng-model="requestTransfer.toDate" date-name="toDate" />
+					</md-input-container>
+				</div>
+				<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+					<md-radio-group ng-model="requestTransfer.userType" layout="row" class="md-primary">
+								<md-radio-button data-test='Resources_Materials_RequestForMaterialTransfer_LoginUserRecords' value="1" name="request">Login User Records </md-radio-button>
+								<md-radio-button data-test='Resources_Materials_RequestForMaterialTransfer_AllUserRecords' value="2" name="request">All User Records </md-radio-button>
+							  </md-radio-group>
+				</div>
+				<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padR-0">
+					<div class="pull-right marT15">
+							<input data-test='Resources_Materials_RequestForMaterialTransfer_Search' type="button" ng-click="getMaterialTransfers(false)"
+							class="btn  btn-primary btn-sm" value="Search">
+							<input data-test='Resources_Materials_RequestForMaterialTransfer_Reset' type="button" ng-click="reset()" class="btn  btn-default btn-sm" value="Reset">
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+			<div class="singleTableResHeight_3">
+				<table class="table table-striped table-bordered">
+					<thead id="tab-head">
+						<tr>
+							<th>Date of Request</th>
+							<th>Requester</th>
+							<th>Approver</th>
+							<th>Origin Project</th>
+							<th>Destination Project</th>
+							<th>Requisition ID</th>
+							<th>Notification ID</th>
+							<th>Approval Status</th>
+							<th>More Details</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr fixed-header="" ng-repeat ="request in materialTransferReqApprTOs">
+							<td>{{request.reqDate}}</td>
+							<td>{{request.reqUserTO.empCode}}</td>
+							<td>{{request.apprUserTO.empCode}}</td>
+							<td>{{request.fromProjName}}</td>
+							<td>{{request.toProjName}}</td>
+							<td>{{request.reqCode}}</td>
+							<td>{{request.notifyCode}}</td>
+							<td>{{request.apprStatus}}</td>
+							<td><input type="button" data-test='RequestForMaterialTransfer_ViewMore'
+								class="btn bottomaligned btn-primary btn-sm"
+								ng-click="createOrEditTransRequest('Edit',request)"
+								value="View More" /></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			</div>
+			<div class="panel-footer">
+				<div class="pull-right padR-0">
+					<input ng-if="account.appCodeTemplate['RESOURCE_MATRLREQFORMATTRANSFER_SUBMIT']" data-test='Resources_Materials_RequestForMaterialTransfer_NewRequest' type="button" class="btn btn-primary btn-sm"
+						ng-click="createOrEditTransRequest('Add','')" value="New Request">
+				</div>
+			</div>
+</div>

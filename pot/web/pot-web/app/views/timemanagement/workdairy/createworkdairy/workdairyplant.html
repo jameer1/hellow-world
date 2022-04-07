@@ -1,0 +1,158 @@
+<ng-form name="plantForm">
+    <div class="panel-body">
+        <div class="tabTable_5_Res_Height overflow-auto" style="height: 265.137168px;">
+            <table class="table table-hover table-bordered tabTable_5_Height">
+                <thead>
+                    <tr>
+                        <th rowspan="3">Select</th>
+                        <th class="text-center" rowspan="3">Plant ID</th>
+                        <th class="text-center" rowspan="3">Description</th>
+                        <th class="text-center" rowspan="3" ng-show="flag == 0">
+                            Reg No
+                        </th>
+                        <th class="text-center" rowspan="3" ng-show="flag == 0">Classification</th>
+                        <th class="text-center" rowspan="3" ng-show="flag == 0">
+                            Make
+                        </th>
+                        <th class="text-center" rowspan="3" ng-show="flag == 0">
+                            Model
+                        </th>
+                        <th class="text-center" rowspan="3" ng-show="flag == 0">
+                            Company
+                        </th>
+                        <!-- <th class="text-center" rowspan="3" ng-show="flag == 0">
+                            Category
+                        </th> -->
+                        <th class="text-center" title="Charge Out Category" rowspan="3" ng-show="flag == 0">
+                            C.O.C
+                            <span class="procurment-pot-errors">*</span>
+                        </th>
+                        <th class="text-center" rowspan="3" ng-show="flag == 0" title="Unit Of Measure">
+                            Unit of Measure <span class="fa fa-caret-right"
+                                style="float: right; font-size: 25px; color: #337ab7 !important;"
+                                ng-click="clickForwardData(flag);"
+                                data-test='AsbuiltRecords_WorkDiary_CreateWorkDiary_PlantUtilization_ForwardArrow'></span>
+                        </th>
+
+                        <th colspan="{{(workDairyCostCodeList.length * 2) + 2}}" class="text-center"
+                            ng-show="flag == 1">
+                            <span class="fa fa-caret-left"
+                                style="float: left; font-size: 25px; color: #337ab7 !important;"
+                                ng-click="clickBackwardData(flag);"
+                                data-test='AsbuiltRecords_WorkDiary_CreateWorkDiary_PlantUtilization_BackwardArrow'></span>
+                            Cost Code Wise Plant Utilisation
+                        </th>
+                        <th rowspan="3" ng-show="flag == 1" class="text-center">Total</th>
+                        <th class="text-center" rowspan="3" ng-show="flag == 1">Comments</th>
+                    </tr>
+                    <tr ng-show="flag == 1">
+                        <th colspan="{{workDairyCostCodeList.length + 1}}" class="text-center">Used Time</th>
+                        <th colspan="{{workDairyCostCodeList.length + 1}}" class="text-center">Idle Time</th>
+                    </tr>
+                    <tr ng-show="flag == 1">
+                        <th ng-repeat="workDairyCostCode in  workDairyCostCodeList">{{workDairyCostCode.code}}</th>
+                        <th>Used Total</th>
+                        <th ng-repeat="workDairyCostCode in  workDairyCostCodeList">{{workDairyCostCode.code}}</th>
+                        <th>Idle Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="plant in workDairyPlantDtlTOs">
+                        <td>
+                            <input type="checkbox" ng-change="plantRowSelect(plant)" ng-model="plant.select"
+                                data-test='AsbuiltRecords_WorkDiary_CreateWorkDiary_PlantUtilization_Plantselect'>
+                        </td>
+                        <td>{{plant.code}}</td>
+                        <td>{{plant.name}}</td>
+                        <td ng-show="flag == 0">{{plant.plantRegNum}}</td>
+                        <td ng-show="flag == 0">
+                            {{plant.classType}}
+                        </td>
+                        <td ng-show="flag == 0">{{plant.manufacture}}</td>
+                        <td ng-show="flag == 0">{{plant.model}}</td>
+                        <td ng-show="flag == 0">{{plant.cmpCategoryName}}</td>
+                        <!-- <td ng-show="flag == 0">{{plant.procureCatg}}</td> -->
+                        <td ng-show="flag == 0" width="7%">
+                            <select class="form-control" ng-required="true" name="shift" ng-model="plant.shiftName" custom-read-only
+                                data-test='AsbuiltRecords_WorkDiary_CreateWorkDiary_PlantUtilization_ChargeOutCategory'>
+                                <option value="">-Shift-</option>
+                                <option>Single</option>
+                                <option>Double</option>
+                            </select>
+                        </td>
+                        <td ng-show="flag == 0">{{plant.measureUnit}}</td>
+                        <td ng-repeat="userCostObj in plant.workDairyPlantStatusTOs[0].workDairyPlantCostDtlTOs"
+                            id="input-width" ng-show="flag == 1">
+                            <input valid-number
+                                ng-class="{coloumnHighlightColor:(userCostObj.errorFlag || 	(plant.workDairyPlantStatusTOs[0].apprStatus==null && plant.workDairyPlantStatusTOs.length > 1)),coloumnHighlightColor1:plant.workDairyPlantStatusTOs[0].apprStatus=='Approved'}"
+                                ng-change="checkDecimalPlant(userCostObj,1,workDairySearchReq.plantMaxHrs);
+                                            calculatePlantUsedTotal(plant.workDairyPlantStatusTOs[0],workDairySearchReq.plantMaxHrs);
+                                            getTotalCount(plant.workDairyPlantStatusTOs[0].usedTotal,plant.workDairyPlantStatusTOs[0].idleTotal,plant.workDairyPlantStatusTOs[0]);"
+                                maxlength="5" placeholder=HH.MM type="text"
+                                data-test="{{workDairyCostCodeMap[workDairyCostCode.costId].code}}_PlantUtilization_UsedTime"
+                                ng-disabled="disableButton" ng-model="userCostObj.usedTime" class="form-control" />
+                        </td>
+                        <td id="input-width" ng-show="flag == 1">
+                            <input type="text" ng-disabled="disableButton"
+                                ng-model="plant.workDairyPlantStatusTOs[0].usedTotal"
+                                ng-class="{coloumnHighlightColor:(plant.workDairyPlantStatusTOs[0].apprStatus==null && plant.workDairyPlantStatusTOs.length > 1 ||   plant.workDairyPlantStatusTOs[0].usedTotal > workDairySearchReq.plantMaxHrs),coloumnHighlightColor1:plant.workDairyPlantStatusTOs[0].apprStatus=='Approved'}"
+                                readonly="readonly" class="form-control">
+                        </td>
+                        <td ng-repeat="idleCostObj in plant.workDairyPlantStatusTOs[0].workDairyPlantCostDtlTOs"
+                            id="input-width" ng-show="flag == 1">
+                            <input placeholder=HH.MM type="text" ng-disabled="disableButton" valid-number
+                                ng-class="{coloumnHighlightColor:(idleCostObj.errorFlag || (plant.workDairyPlantStatusTOs[0].apprStatus==null && plant.workDairyPlantStatusTOs.length > 1)),coloumnHighlightColor1:plant.workDairyPlantStatusTOs[0].apprStatus=='Approved'}"
+                                ng-change="checkDecimalPlant(idleCostObj,2,workDairySearchReq.plantMaxHrs);
+                                            calculatePlantIdleTotal(plant.workDairyPlantStatusTOs[0],workDairySearchReq.plantMaxHrs);
+                                            getTotalCount(plant.workDairyPlantStatusTOs[0].usedTotal,plant.workDairyPlantStatusTOs[0].idleTotal,plant.workDairyPlantStatusTOs[0]);"
+                                data-test="{{workDairyCostCodeMap[workDairyCostCode.costId].code}}_PlantUtilization_IdleTime"
+                                maxlength="5" ng-model="idleCostObj.idleTime" class="form-control" />
+                        </td>
+                        <td id="input-width" ng-show="flag == 1">
+                            <input type="text"
+                                ng-class="{coloumnHighlightColor:(plant.workDairyPlantStatusTOs[0].apprStatus==null && plant.workDairyPlantStatusTOs.length > 1 || plant.workDairyPlantStatusTOs[0].idleTotal > workDairySearchReq.plantMaxHrs),coloumnHighlightColor1:plant.workDairyPlantStatusTOs[0].apprStatus=='Approved'}"
+                                ng-disabled="disableButton"
+                                ng-model="plant.workDairyPlantStatusTOs[0].idleTotal" readonly="readonly"
+                                class="form-control">
+                        </td>
+                        <td id="input-width" ng-show="flag == 1">
+                            <input type="text" readonly="readonly"
+                                ng-class="{coloumnHighlightColor:(plant.workDairyPlantStatusTOs[0].apprStatus==null && plant.workDairyPlantStatusTOs.length > 1 ||   plant.workDairyPlantStatusTOs[0].usedTotal+plant.workDairyPlantStatusTOs[0].idleTotal > workDairySearchReq.plantMaxHrs),coloumnHighlightColor1:plant.workDairyPlantStatusTOs[0].apprStatus=='Approved'}"
+                                ng-disabled="disableButton"
+                                ng-model="plant.workDairyPlantStatusTOs[0].total"
+                                ng-value="getTotalCount(plant.workDairyPlantStatusTOs[0].usedTotal,plant.workDairyPlantStatusTOs[0].idleTotal,plant.workDairyPlantStatusTOs[0]);"
+                                class="form-control">
+                        </td>
+                        <td id="input-width" ng-show="flag == 1">
+                            <input type="text"
+                                ng-class="{coloumnHighlightColor:(plant.workDairyPlantStatusTOs[0].apprStatus==null && plant.workDairyPlantStatusTOs.length > 1),coloumnHighlightColor1:plant.workDairyPlantStatusTOs[0].apprStatus=='Approved'}"
+                                ng-disabled="disableButton" ng-model="plant.workDairyPlantStatusTOs[0].comments"
+                                data-test='AsbuiltRecords_WorkDiary_CreateWorkDiary_PlantUtilization_Comments'
+                                class="form-control">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="panel-footer" ng-if="!disableButton && workDairySearchReq.workDairyId > 0 && activeFlag">
+        <div class="pull-right">
+            <input type="button" class="btn btn-primary btn-sm"
+                ng-if="account.appCodeTemplate['ASBUILTRCRD_WRKDIRY_CREATWRKDIRY_ADD']" ng-click="addPlantRegDetails()"
+                value="Add" data-test='AsbuiltRecords_WorkDiary_CreateWorkDiary_PlantUtilization_Add'
+                ng-show="workDairySearchReq.apprStatus==null">
+            <input type="button" class="btn btn-primary btn-sm"
+                ng-if="account.appCodeTemplate['ASBUILTRCRD_WRKDIRY_CREATWRKDIRY_ADD']"
+                ng-click="saveWorkDairyPlantDetails()" value="Save"
+                data-test='AsbuiltRecords_WorkDiary_CreateWorkDiary_PlantUtilization_Save'
+                ng-show="workDairySearchReq.apprStatus==null">
+        </div>
+        <div class="pull-left">
+            <input ng-if="account.appCodeTemplate['ASBUILTRCRD_WRKDIRY_CREATWRKDIRY_ADD']" type="button"
+                ng-click="deletePlantRecords()" value="Delete"
+                data-test='AsbuiltRecords_WorkDiary_CreateWorkDiary_PlantUtilization_Delete'
+                style="width: 64px !important" class="btn btn-secondary btn-sm"
+                ng-show="workDairySearchReq.apprStatus==null">
+        </div>
+    </div>
+</ng-form>

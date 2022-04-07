@@ -1,0 +1,40 @@
+<div id="tab-pannel" class="panel-group"  ng-init="getTangibleDetails()">
+	<div class="panel panel-default" modal-movable>
+		<div class="panel-heading">
+			<h4 class="panel-title">Tangible Item</h4>
+		</div>
+		<div class="panel-body22 table-responsive">
+			<div class="popUpTableResHeight">
+				<table id="tree" class="table table-striped popUpTableHeight">
+					<thead id="tab-head">
+						<tr>
+							<th>Tangible Item Id</th>
+							<th>Tangible Item Name</th>
+							<th>Unit of Measure</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr fixed-header="" ng-repeat="tab in TangibleData" ng-dblclick="tab.item && selectTangibleDetails(tab)"
+							class="abc{{tab.level}}" ng-show="!tab.collapse">
+							<td>
+								<span ng-repeat="level in [].constructor(tab.level) track by $index"
+                                                class="xyz" style="padding-left: 30px;"></span>
+                                <span ng-show="(tab.expand || (!tab.item  && tab.childTangibleItemTOs.length <= 0))"
+                                      ng-click="tangibleFactoryItemClick(tab,true);" class="fa fa-minus" title="Collapse Tangible Items"></span>
+                                  <span ng-show="(!tab.expand && tab.childTangibleItemTOs.length > 0)" title="Expand Tangible Items"
+                                      ng-click="tangibleFactoryItemClick(tab,false);" class="fa fa-plus"></span>
+                                  <i class="fa fa-leaf" ng-show="(tab.item)"> </i>
+                                  <span style="padding-left: 10px; color: black !important;">{{tab.code}}
+                                      <span style="padding-left: 5px;"></span>
+                                  </span>
+							</td>
+							<td>{{tab.name}}</td>
+							<td>{{tab.measureUnitTO.name}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</div>
+</div>

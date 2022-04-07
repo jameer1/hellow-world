@@ -1,0 +1,208 @@
+<section class="content-header">
+	<h1>Immovable Assets List</h1>
+	<!-- <input type="submit" value ="Help !"
+		ng-click="helpPage();" class="pull-right btn  btn-primary btn-sm help-each-page"> -->
+		<button class="pull-right btn btn-primary btn-sm help-each-page" 
+	onclick="window.open('views/helptutorials/ImmovableAssets.html', '_blank', 
+		'toolbar=yes,scrollbars=yes,resizable=no,top=50,left=100,width=1400,height=700')">
+		Help
+	</button>
+</section>
+<section class="content" ng-init="getSearchAssetRegisters();getCountries();">
+	<div id="tab-pannel" class="panel panel-default twinBlock footer-parent">
+		<div class="panel-body">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-top: -2px;">
+				<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padL-0">
+					<md-input-container class="md-block">
+						<label>Country</label>
+						<!--  <input data-test='ASsetDetails_Country' type="text" ng-model="search.country"
+							class="form-control" ng-click="getCountryDetailsByIdres();">-->
+							
+								<select class="form-control" data-test="ImmovableAssets_Create_Country"
+									ng-options="coun.countryName as coun.countryName for coun in countries"
+									fixed-header=""
+									placeholder="Country"
+									ng-change="getCountryDetailsByIdres(coun.countryName,$index);"
+									ng-model="coun.countryName" ng-required="true">
+									<option value="" disabled selected>Country</option>
+								</select>
+													
+					</md-input-container>
+				</div>
+				<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padL-0">
+					<md-input-container class="md-block">
+						<label>State</label>
+						<!--  <input data-test='ASsetDetails_State' type="text" ng-model="search.state" class="form-control"> -->
+						<select class="form-control" data-test="ImmovableAssets_Create_Provision" placeholder="State"
+									ng-options="provision.name as provision.name for provision in provisionTOs"
+									ng-model="provisionName" 
+									ng-required="true">
+									<option value="" disabled selected>State</option>
+									</select>
+					</md-input-container>
+				</div>
+				<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+					<md-input-container class="md-block">
+						<label>Profit Center</label>
+						<input data-test='ASsetDetails_profitCenter' type="text" ng-model="profitCentre"     
+							class="form-control" ng-click="getprofit();">
+					</md-input-container>
+				</div>
+				<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padR-0">
+					<div class="pull-right marT15">
+						<input type="button" ng-click="getSearchAssetRegisters1(coun.countryName,provisionName,profitCentre)" class="btn btn-primary btn-sm" value="Search"
+							ng-model="searchText">
+						<input type="reset" class="btn btn-secondary btn-sm" ng-click="resetData();" value="Reset">
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-top: -5px; overflow-x: hidden; position: relative; ">
+				<div class="firstTableResHeight b-sh" style="height: 177.638732px !important">
+					<table id="tree" class="table table-hover table-bordered firstTableHeight overflow-auto">
+						<thead>
+							<tr>
+								<th style="width: 50px !important">Select</th>
+								<th>Asset ID</th>
+								<th>Sub Asset ID</th>
+								<th>Asset Description</th>
+								<th>Sub Asset Description</th>
+								<th>Asset Owner</th>
+								<th>Asset Category</th>
+								<th>Asset Sub Category</th>
+								<th>Country</th>
+								<th>Province</th>
+								<th>Address</th>
+								<th>Currency</th>
+								<th>Profit Center</th>
+								<th>Project</th>
+								<th>Year Build</th>
+								<th>Date Commissioned</th>
+								<th>Asset Life Status</th>
+								<th>Revenue status</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr fixed-header="" ng-repeat="item in assetData | orderBy:'+assetId' " class="abc{{item.level}}" 
+								ng-hide="item.collapse">
+								<td>
+									<label class="checkboxcontainer">
+										<input type="checkbox" ng-model="item.selected" ng-change="assetEditDeleteSelect(item)"
+											data-test="ImmovableAssets_Checkbox">
+										<span class="checkmark"></span>
+									</label>
+								</td>
+
+								<td style="width: 10%;" ng-click="assetRowSelect($event, item)">
+									<span ng-repeat="level in [].constructor(item.level) track by $index" class="xyz"
+										style="padding-left: 30px;"></span>
+									<span ng-show="((item.expand) || (!item.item  && item.childProjs.length <= 0))"
+										ng-click="itemClick(item,true);" data-test="ImmovableAssets_MinusIcon"
+										class="fa fa-minus" title="Collapse Assets"></span>
+									<span ng-show="(!item.expand && item.childProjs.length > 0)"
+										ng-click="itemClick(item,false);" class="fa fa-plus" title="Expand Assets"
+										data-test="ImmovableAssets_PlusIcon"></span>
+									<span ng-show="(item.item)" class="fa fa-leaf"></span>
+
+									<span ng-show="item.level == 0" style="padding-left: 10px; color: black !important;">{{ item.assetId }}
+										<span style="padding-left: 5px;"></span>
+									</span>
+									<span ng-show="item.level > 0"style="padding-left: 10px; color: black !important;">{{ item.assetId|trimParent }}
+
+										<span style="padding-left: 5px;"></span>
+									</span>
+									<span>
+										<i class="fa fa-edit fa-fw" ng-if="item.level==0 && !item.item"
+											data-test='ImmovableAssets_SubAsset_EditIcon' title="Edit Asset"
+											ng-click="editTreeDetails('Edit',item)"></i>
+									</span>
+								</td>
+								<td ng-click="assetRowSelect($event, item)">{{item.level > 0 ? item.assetId : ''}}</td>
+								<td ng-click="assetRowSelect($event, item)">{{item.assetDescription}}</td>
+								<td ng-click="assetRowSelect($event, item)">{{item.subAssetDescription}}</td>
+								<td ng-click="assetRowSelect($event, item)">{{item.companyName}}</td>
+								<td ng-click="assetRowSelect($event, item)">{{item.assetCategoryName}}</td>
+								<td ng-click="assetRowSelect($event, item)">{{item.subAssetCategory}}</td>
+								<td ng-click="assetRowSelect($event, item)">{{item.countryName}}</td>
+								<td ng-click="assetRowSelect($event, item)">{{item.provisionName}}</td>
+								<td ng-click="assetRowSelect($event, item)">{{item.address}}</td>
+								<td ng-click="assetRowSelect($event, item)">{{item.currency}}</td>
+								<td ng-click="assetRowSelect($event, item)">{{item.profitCentre}}</td>
+								<td ng-click="assetRowSelect($event, item)">{{item.projectName}}</td>
+								<td ng-click="assetRowSelect($event, item)">{{item.yearBuild}}</td>
+								<td ng-click="assetRowSelect($event, item)">{{item.dateCommissioned}}</td>
+								<td ng-init="getAssetStatus(item)">{{item.assetCurrentLifeSataus}}</td>
+								<td>{{item.owenerShipStatus}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="panel-footer twin-top-panel-footer" style="margin-top: 30px;">
+			<div class="pull-right">
+				<input type="button" class="btn  btn-secondary btn-sm marR10" ng-click="deactivateAssetDetails()"
+					value="Deactivate" data-test="ImmovableAssets_Deactivate"
+					ng-if="account.appCodeTemplate['ENTRPRSE_EPS_DELETE'] " />
+				<input type="button" class="btn btn-primary btn-sm btn-create marginLeft10" style="float: right;"
+					ng-click="editTreeDetails('Add',null)" ng-if="account.appCodeTemplate['ENTRPRSE_EPS_ADD'] "
+					value="Create" data-test="ImmovableAssets_Create">
+
+			</div>
+		</div>
+	</div>
+	<div id="tabs" class="panel panel-default twinBlock footer-parent">
+		<div class="panel-body" id="res-asset">
+			<div class="nav-tabs-custom">
+				<ul class="nav nav-tabs" ng-show="moreFlag==0">
+					<li ng-repeat="tab in assetDetailsTabs | slice:0:6" ng-class="{'active':isActiveTab(tab.url)}"><a
+							data-toggle="tab" ng-click="onClickTab(tab)"
+							data-test="{{tab.SelenumLocator}}">{{tab.title}}</a></li>
+					<li style="border-bottom: 0">
+						<!-- <p class="arrow-font" ng-click="clickMore1(moreFlag);">&#x00BB;</p> -->
+						<span class="btn btn-secondary btn-sm" ng-click="clickMore1(moreFlag);"
+							data-test="ImmovableAssets_RightArrow">
+							<i class="fa fa-angle-double-right"></i>
+						</span>
+					</li>
+				</ul>
+
+				<ul class="nav nav-tabs " ng-show="moreFlag==1">
+					<li style="border-bottom: 0">
+						<!-- <p class="arrow-font" ng-click="clickMore(moreFlag);">&#x00AB;</p> -->
+						<span class="btn btn-secondary btn-sm" ng-click="clickMore(moreFlag);"
+							data-test="ImmovableAssets_LeftArrow">
+							<i class="fa fa-angle-double-left"></i>
+						</span>
+					</li>
+					<li ng-repeat="tab in assetDetailsTabs | slice:6:10" ng-class="{active:isActiveTab(tab.url)}"><a
+							data-toggle="tab" ng-click="onClickTab(tab)"
+							data-test="{{tab.SelenumLocator}}">{{tab.title}}</a></li>
+					<li style="border-bottom: 0">
+						<!-- <p class="arrow-font" ng-click="clickMore2(moreFlag);">&#x00BB;</p> -->
+						<span class="btn btn-secondary btn-sm" ng-click="clickMore2(moreFlag);"
+							data-test="ImmovableAssets_RightArrow2">
+							<i class="fa fa-angle-double-right"></i>
+						</span>
+					</li>
+				</ul>
+
+				<ul class="nav nav-tabs" ng-show="moreFlag==2">
+					<li style="border-bottom: 0">
+						<span class="btn btn-secondary btn-sm" ng-click="clickMore(moreFlag);"
+							data-test="ImmovableAssets_LeftArrow2">
+							<i class="fa fa-angle-double-left"></i>
+						</span>
+					</li>
+					<li ng-repeat="tab in assetDetailsTabs | slice:10:15" ng-class="{active:isActiveTab(tab.url)}"><a
+							data-toggle="tab" ng-click="onClickTab(tab)"
+							data-test="{{tab.SelenumLocator}}">{{tab.title}}</a></li>
+				</ul>
+
+				<div class="tab-content">
+					<div ng-include="currentTab"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</section>

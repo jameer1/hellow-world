@@ -1,0 +1,10 @@
+<div ng-repeat="acutlaCostByProjectManagerTab in acutlaCostByProjectManagerTabs">
+    <div class="dbmodulecard">
+        <p class="ngdialog-close dbdclose" style="font-size: 26px; margin-right: 10px;"
+            ng-click="acutlaCostByProjectManagerTabs.splice($index,1)"></p>
+        <canvas class="chart chart-base" chart-data="acutlaCostByProjectManagerTab.data"
+            chart-labels="acutlaCostByProjectManagerTab.labels"
+            chart-series="acutlaCostByProjectManagerTab.series" height="70" chart-type="chart_type"
+            chart-colors="colors" chart-options="options" context-menu="menuOptions"></canvas>
+    </div>
+</div>

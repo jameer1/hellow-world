@@ -1,0 +1,19 @@
+  <div class="panel-body">
+  <!-- <div class="panel-heading">
+      <h4 class="panel-title">Purchase Order/Contract-Schedule Of Items</h4>
+    </div> -->
+      <form name="procureForm" validate>
+      </form>
+      <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs">
+          <li fixed-header="" ng-repeat ="tab in tabs[0].scheduleOfItemsTabs"  ng-show="tab.enabled" ng-class="{'active':account.appCodeTemplate[tab.purchaseorderappCodeTemplateKey] && isActiveScheduleTab(tab.url),
+          'disabled': !account.appCodeTemplate[tab.purchaseorderappCodeTemplateKey]}">
+          <a ng-if="account.appCodeTemplate[tab.purchaseorderappCodeTemplateKey]" data-test="{{tab.purchaseorderSeleniumLocator}}" data-toggle="tab" ng-click="onClickScheduleTab(tab, 'click')">{{tab.title}}</a>
+          <a ng-if="!account.appCodeTemplate[tab.purchaseorderappCodeTemplateKey]">{{tab.name}}</a>	</li>
+					
+        </ul>
+        <div class="tab-pane fade in active">
+          <div ng-include="currentScheduleTab"></div>
+        </div>
+      </div>
+  </div>

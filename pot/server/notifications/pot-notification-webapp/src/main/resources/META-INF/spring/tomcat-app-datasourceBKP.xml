@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+			http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.1.xsd">
+
+    <import resource="classpath:META-INF/spring/jpa-persistence-conf.xml"/>
+    <import resource="classpath:META-INF/spring/jdbc-persistence-conf.xml"/>
+
+
+    <bean class="com.zaxxer.hikari.HikariConfig" id="hikariConfig"
+          p:driverClassName="com.mysql.cj.jdbc.Driver"
+          p:jdbcUrl="jdbc:mysql://192.168.1.250:3306/pot_db"  p:username="rpcuser1" p:password="rpcuser1@123"/>
+          
+     <!--        <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig"
+          p:driverClassName="${db.jdbc.driver}" p:jdbcUrl="${db.jdbc.url}"
+          p:username="${db.jdbc.user}" p:password="${db.jdbc.password}"/> -->
+
+    <bean id="transactionManager" class="org.springframework.transaction.jta.JtaTransactionManager"
+          depends-on="atomikosTransactionManager,atomikosUserTransaction">
+        <property name="transactionManager" ref="atomikosTransactionManager"/>
+        <property name="userTransaction" ref="atomikosUserTransaction"/>
+    </bean>
+    <bean id="atomikosTransactionManager" class="com.atomikos.icatch.jta.UserTransactionManager"
+          init-method="init" destroy-method="close">
+        <property name="forceShutdown" value="false"/>
+    </bean>
+
+    <bean id="atomikosUserTransaction" class="com.atomikos.icatch.jta.J2eeUserTransaction">
+        <property name="transactionTimeout" value="3000000"/>
+    </bean>
+
+    <bean id="appDataSource"
+          class="com.zaxxer.hikari.HikariDataSource">
+        <constructor-arg ref="hikariConfig"/>
+    </bean>
+
+    <bean parent="dataSource" id="defaultJDBCDataSource"/>
+
+    <bean id="dataSource" primary="true"
+          class="com.rjtech.rjs.persistence.datasources.DatasourceRouter"
+          lazy-init="true">
+        <property name="targetDataSources">
+            <map>
+                <entry key="RODS" value-ref="appDataSource"/>
+                <entry key="RWDS" value-ref="appDataSource"/>
+                <entry key="XADS" value-ref="appDataSource"/>
+            </map>
+        </property>
+        <property name="defaultTargetDataSource" ref="appDataSource"/>
+    </bean>
+    
+
+    <bean id="entityManagerFactory"
+          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+          parent="abstractEntityManagerFactory" lazy-init="true">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="persistenceUnitName" value="mysql_pu"/>
+    </bean>
+
+    <bean id="defaultEntityManagerFactory"
+          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+          parent="abstractEntityManagerFactory" lazy-init="true">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="persistenceUnitName" value="mysql_pu"/>
+    </bean>
+
+    <util:map id="entityMangerFactoryMap">
+    </util:map>
+
+    <!-- <alias name="defaultEntityManagerFactory" alias="entityManagerFactory"/>-->
+
+    <util:properties id="jpaProperties">
+        <prop key="hibernate.show_sql">true</prop>
+        <prop key="hibernate.format_sql">true</prop>
+        <prop key="hibernate.transaction.manager_lookup_class">
+            com.atomikos.icatch.jta.hibernate3.TransactionManagerLookup
+        </prop>
+        <prop key="hibernate.transaction.factory_class">
+            org.hibernate.engine.transaction.internal.jta.CMTTransactionFactory
+        </prop>
+        <!--<prop key="hibernate.transaction.factory_class">org.hibernate.engine.transaction.internal.jta.CMTTransactionFactory</prop>
+        <prop key="hibernate.connection.autocommit">false</prop>-->
+        <!--<prop key="hibernate.transaction.jta.platform">com.atomikos.icatch.jta.hibernate4.AtomikosPlatform</prop>-->
+        <!--<prop key="hibernate.transaction.jta.platform">org.hibernate.service.jta.platform.internal.JBossAppServerJtaPlatform</prop>-->
+        <prop key="hibernate.transaction.flush_before_completion">false</prop>
+        <prop key="hibernate.transaction.auto_close_session">true</prop>
+        <prop key="hibernate.current_session_context_class">jta</prop>
+        <prop key="hibernate.connection.release_mode">auto</prop>
+    </util:properties>
+
+</beans>

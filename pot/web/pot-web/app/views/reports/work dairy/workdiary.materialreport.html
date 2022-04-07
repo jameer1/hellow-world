@@ -1,0 +1,96 @@
+<div id="tab-pannel" class="panel-body">
+
+	<div class="tab-content tabTable_5_Res_Height" style="overflow:auto">
+		<table class="table table-striped table-hover table-bordered tabTable_5_Height">
+			<thead>
+				<tr>
+					<th rowspan="2">Source Of Material</th>
+					<th rowspan="2">Docket Type</th>
+					<th rowspan="2">Docket Number</th>
+					<th rowspan="2">Docket Date</th>
+					<th rowspan="2">Purchase Order</th>
+					<th rowspan="2">Schedule Item</th>
+					<th rowspan="2">Resource Name</th>
+					<th rowspan="2">Supplier</th>
+					<th rowspan="2">Unit of Rate</th>
+					<th rowspan="2">Unit Of Measure</th>
+					<th rowspan="2">Received Qty</th>
+					<th rowspan="2">Delivery Location</th>
+					<th rowspan="2">Defects If Any</th>
+					<th rowspan="2">Approval Type</th>
+					<th colspan="{{workDairyCostCodeList.length+1}}" class="text-center">
+						Cost Code Wise Material Utilization</th>
+					<th rowspan="2">Total Consumption Quantity</th>
+				</tr>
+				<tr>
+					<th ng-repeat="workDairyCostCode in  workDairyCostCodeList" class="text-center">
+						{{workDairyCostCode.code}}</th>
+					
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="materialObj in workDairyMaterialDtlTOs"
+				ng-class="{coloumnHighlightColor3:workDairyTO.apprStatus==null,coloumnHighlightColor1:workDairyTO.apprStatus=='Approved',coloumnHighlightColor2:workDairyTO.apprStatus=='Client Approved'}">
+					<td class="input-width0">{{materialObj.sourceType}}</td>
+					<td class="input-width0">{{materialObj.docketType}}</td>
+					<td class="input-width0">{{materialObj.docketNum}}</td>
+					<td class="input-width0">{{materialObj.docketDate}}</td>
+					<td class="input-width0">
+						{{materialObj.materialProjDtlTO[0].purchaseSchLabelKeyTO.displayNamesMap.purCode}}</td>
+					<td class="input-width0">
+						{{materialObj.materialProjDtlTO[0].purchaseSchLabelKeyTO.code}}</td>
+					<td class="input-width0">
+						{{materialObj.materialProjDtlTO[0].purchaseSchLabelKeyTO.name}}</td>
+					<td class="input-width0">
+						{{materialObj.materialProjDtlTO[0].purchaseSchLabelKeyTO.displayNamesMap.cmpName}}</td>
+					<td class="input-width0">
+						{{materialObj.materialProjDtlTO[0].purchaseSchLabelKeyTO.displayNamesMap.unitOfRate}}</td>
+					<td class="input-width0">
+						{{materialObj.materialProjDtlTO[0].purchaseSchLabelKeyTO.displayNamesMap.purClassUnitOfMeasure}}
+					</td>
+					<td class="input-width0">
+						{{materialObj.receivedQty}}
+					</td>
+					<td class="input-width0">
+						{{materialObj.deliveryPlace}}
+					</td>
+					<td class="input-width0">
+						{{materialObj.defectComments}}
+					</td>
+					<td class="input-width0">
+						{{workDairyTO.apprStatus==null?'Under Preparation':workDairyTO.apprStatus}}
+					</td>
+					<td colspan="{{workDairyCostCodeList.length+1}}">
+						<table id="tableBorder0" class="table">
+							<tr ng-repeat="materialObjStatusTO in materialObj.workDairyMaterialStatusTOs">
+								<td
+									ng-repeat="usedMaterialObj in  materialObjStatusTO.workDairyMaterialCostTOs"
+									id="input-width">
+									<input readonly="readonly" class="form-control" type="text"
+										ng-model="usedMaterialObj.quantity" />
+								</td>
+								<!-- <td ng-show="displayStatus.code.includes(materialObjStatusTO.apprStatus)"
+									class="input-width0">
+									<input type="text" readonly="readonly" class="form-control"
+										ng-model="materialObjStatusTO.total" />
+								</td> -->
+							</tr>
+						</table>
+					</td>
+					<td colspan="{{workDairyCostCodeList.length+1}}">
+						<table class="table table-striped table-bordered" >
+							<tr ng-repeat="materialObjStatusTO in materialObj.workDairyMaterialStatusTOs">
+							<td
+									class="input-width0">
+									<input type="text" readonly="readonly" class="form-control"
+										ng-model="materialObjStatusTO.total" />
+								</td>
+								</tr>
+								</table>
+								</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+</div>

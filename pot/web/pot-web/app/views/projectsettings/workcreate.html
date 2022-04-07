@@ -1,0 +1,50 @@
+<div ng-if="account.appCodeTemplate['PRJ_PRJSTG_WRKDIRYSTGNORMALTIME_VIEW']" id="tab-pannel" class="noTableInBottomBlockWithTabs">
+  <form name="workForm">
+    <div class="bottomNestedTabTableResHeight no-border overflow-auto" style="overflow-x: hidden !important;">
+      <div class="row" ng-repeat="work in projWorkDairys">
+        <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+          <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+            <md-input-container class="md-block">
+              <label>{{work.apprType}} Cut off Days</label>
+              <input data-test='{{work.apprType}}_Projects_ProjectSettings_WorkDiaryTab_Cutoffdays' class="form-control" type="text" ng-model="work.cutOffDays" ng-required="true" name="days" pattern="\d+"
+                maxlength="11" />
+              <span ng-show="workForm1.days.$dirty && workForm1.days.$error.required">This field is mandatory</span>
+              <span ng-show="workForm1.days.$error.pattern">Enter only numbers </span>
+              <span ng-show="workForm1.days.$error.maxlength">You reached max length </span>
+            </md-input-container>
+          </div>
+          <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+            <md-input-container class="md-block">
+              <label>{{work.apprType}} Cut off Hours</label>
+              <input data-test='{{work.apprType}}_Projects_ProjectSettings_WorkDiaryTab_Cutoffhours' type="number" min=0 max=23 name="cutoffHours" ng-model="work.cutOffHours" ng-required="true"
+                maxlength=2 class="form-control" />
+            </md-input-container>
+          </div>
+          <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+            <md-input-container class="md-block">
+              <label>{{work.apprType}} Cut off Minutes</label>
+              <input data-test='{{work.apprType}}_Projects_ProjectSettings_WorkDiaryTab_Cutoffminutes' type="number" min=0 max=59 name="cutoffMinutes" ng-required="true" ng-model="work.cutOffMinutes"
+                class="form-control" />
+            </md-input-container>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+    <div class="panel-footer">
+				<div class="pull-right">
+            <input data-test='Projects_ProjectSettings_WorkDiaryTab_NormalTimeTab_Save' 
+              type="submit" class="btn btn-primary btn-sm" value="Save" ng-click="workForm.$valid && saveWorkDairy()"
+              title="{{ account.appCodeTemplate['PRJ_PRJSTG_WRKDIRYSTG_ADD'] ? '' : '! Permission Denied. Contact your admin.'}}"
+              ng-disabled="!account.appCodeTemplate['PRJ_PRJSTG_WRKDIRYSTG_ADD']">
+          </div>
+          <div class="pull-left">
+            <input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+            <input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+            <input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+            <input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+            <input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+        </div>
+		</div>
+  </form>
+</div>

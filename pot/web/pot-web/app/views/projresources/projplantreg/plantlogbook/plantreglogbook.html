@@ -1,0 +1,86 @@
+<div ng-if="account.appCodeTemplate['RESOURCE_PLANTLONGBOOK_VIEW']" id="tab-pannel" class="panel-group"
+	ng-controller="PlantLogBookController">
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			<div class="col-sm-3 col-xs-3 col-md-3 ">
+				<md-input-container class="md-block">
+					<label>From Date(dd-mm-yyyy)</label>
+					<pot-currentdate-display data-test='PlantandEquipment_LogBookRecords_LogBook_fromdate'
+						dir-index="$index" ng-model="fromDate" date-name="fromDate" readonly />
+				</md-input-container>
+			</div>
+			<div class="col-sm-3 col-xs-3 col-md-3 ">
+				<md-input-container class="md-block">
+					<label>To Date(dd-mm-yyyy)</label>
+					<pot-currentdate-display data-test='PlantandEquipment_LogBookRecords_LogBook_todate'
+						dir-index="$index" ng-model="toDate" date-name="toDate" readonly />
+				</md-input-container>
+			</div>
+			<div class="col-lg-6 col-md-6 col-xs-6 col-sm-6 padR-0">
+				<div class="pull-right marT15">
+					<input data-test='PlantandEquipment_LogBookRecords_LogBook_search' type="button"
+						ng-click="getPlantLogSearch()" class="btn  btn-secondary btn-sm"
+						value="Search"> <!-- ng-if="logbookbuttonshow" --> 
+					<input data-test='PlantandEquipment_LogBookRecords_LogBook_search' type="button"
+						ng-click="resetLogBook()" class="btn  btn-secondary btn-sm"
+						value="Reset">	
+				</div>
+			</div>
+		</div>	
+	</div>
+	<div class="nestedTabTable_0_Res_Height" ng-if="plantLogBookTable">
+	<div id="grid" ui-grid="gridOptions" ng-if="stylesSvc.finishedStyling" 
+            ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-resize-columns class="grid emp-subtabs"></div>
+		<!-- <table class="table table-hover table-bordered nestedTabTable_0_Height">
+			<thead>
+				<tr>
+					<th rowspan="2">Select</th>
+					<th rowspan="2">Date</th>
+					<th rowspan="2">Asset ID</th>
+					<th rowspan="2">EPS</th>
+					<th rowspan="2">Project</th>
+					<th class="text-center" colspan="2">Driver or Operator</th>
+					<th rowspan="2">Start Meter Reading</th>
+					<th rowspan="2">End Meter Reading</th>
+					<th rowspan="2">Net Unit Used</th>
+					<th rowspan="2">Purpose</th>
+				</tr>
+				<tr>
+					<th>ID</th>
+					<th>Name</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr fixed-header="" ng-repeat="plantLogBookTO in plantLogRecordsTOs">
+					ng-if="plantLogBookTO.plantRegProjTO.postDeMobStatus!='Salveged'">
+					<td><input type="checkbox" ng-model="plantLogBookTO.select"
+							ng-change="logBookRowSelect(plantLogBookTO)"
+							ng-disabled="!plantLogBookTO.latest"></td>
+					<td>{{ plantLogBookTO.fromDate }}</td>
+					<td>{{ selectedPlantData.assertId }}</td>
+					<td>{{ selectedPlantData.plantRegProjTO.parentName }}</td>
+					<td>{{ selectedPlantData.plantRegProjTO.name }}</td>
+					<td>{{ plantLogBookTO.empLabelKeyTO.code }}</td>
+					<td>{{ plantLogBookTO.empLabelKeyTO.name }}</td>
+					<td>{{ plantLogBookTO.startMeter }}</td>
+					<td>{{ plantLogBookTO.endMeter }}</td>
+					<td>{{ plantLogBookTO.netUnits }}</td>
+					<td><span name="comment" flip="horizontal"
+							ng-click="showplantLogBookTO(plantLogBookTO.comments)">{{(plantLogBookTO.comments.length>0)?(plantLogBookTO.comments | limitTo: 10) + (plantLogBookTO.comments.length > 10 ? '...' : '') : ''}}</span></td>
+				</tr>
+			</tbody>
+		</table> -->
+	</div>
+	<div class="panel-footer">
+		<div class="pull-left padL-0">
+			<!-- <input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+			<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+			<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+			<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+			<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();"> -->
+			<input data-test='PlantandEquipment_LogBookRecords_LogBook_edit' type="button"
+				class="btn btn-primary btn-sm"
+				ng-if="logbookbuttonshow && account.appCodeTemplate['RESOURCE_PLANTLONGBOOK_ADD']"
+				ng-click="getLogBookDetails()" value="Edit">
+		</div>
+	</div>

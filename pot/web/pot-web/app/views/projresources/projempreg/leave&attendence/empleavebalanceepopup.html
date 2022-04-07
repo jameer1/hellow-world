@@ -1,0 +1,43 @@
+<div id="tab-pannel" class="panel-group">
+	<div class="panel panel-default" modal-movable>
+		<div class="panel-heading">
+			<h4>Employee Leave Balance Details</h4>
+		</div>
+		<div class="table-responsive panel-body12 popUpTableResHeight">
+			<table class="table table-striped table-bordered popUpTableHeight">
+				<thead>
+					<tr>
+						<th rowspan=2>Period (Calendar Year)</th>
+						<th rowspan=2>Unit</th>
+						<th colspan="{{leaveCodeTypeTOs.length+1}}" class="text-center">Employee
+							Leave Balance</th>
+					</tr>
+					<tr>
+						<th ng-if="leaveBalance.catagory==2" title="{{leaveBalance.desc}}"
+							ng-repeat ="leaveBalance in leaveCodeTypeTOs | orderBy:'displayOrder'">{{leaveBalance.code}}</th>
+						<th>Total Days</th>
+					</tr>
+				</thead>
+				<tbody>
+				<tbody>
+					<tr ng-repeat ="empLeaveBalance in empLeaveAttendanceYearTOs">
+
+						<td class="input-width0"><input type="text" class="form-control"
+							ng-model="empLeaveBalance.year" readonly></td>
+
+
+						<td><input type="text" name="period" class="form-control"
+							ng-model="empLeaveBalance.period" placeholder="period" readonly></td>
+
+						<td ng-repeat ="leaveAttendanceTO in empLeaveBalance.empLeaveAccuredTOs | orderBy:'leaveTypeTO.displayOrder'">
+							{{leaveAttendanceTO.totalLeaves-empLeaveBalance.empLeaveAttendanceMap[leaveAttendanceTO.leaveCode].displayNamesMap['total']}}
+						</td>
+
+						<td> {{ total }} </td>
+
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="ngdialog-close"></div>
+	</div>

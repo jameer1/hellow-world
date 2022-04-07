@@ -1,0 +1,13 @@
+<div class="nav-tabs-custom">
+  <ul class="nav nav-tabs">
+    <li fixed-header="" ng-repeat="tab in plantDetailsTabs[5].logBookSubTabs"
+      ng-class="{'active':account.appCodeTemplate[tab.plantappCodeTemplateKey] &&  isActiveLogBookTab(tab.url), 'disabled': !account.appCodeTemplate[tab.plantappCodeTemplateKey]}">
+      <a data-toggle="tab" ng-if="account.appCodeTemplate[tab.plantappCodeTemplateKey]"
+        data-test="{{tab.SelenumLocator}}" ng-click="onClickLogBookTab(tab)">{{tab.title}}</a>
+    </li>
+
+  </ul>
+  <div class="tab-pane fade in active">
+    <div ng-include="currentLogBookTab"></div>
+  </div>
+</div>

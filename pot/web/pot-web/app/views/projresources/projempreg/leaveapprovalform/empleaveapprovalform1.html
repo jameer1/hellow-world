@@ -1,0 +1,97 @@
+<div
+	ng-if="account.appCodeTemplate['RESOURCE_EMPLEAVEAPPROVAL_VIEW'] || account.appCodeTemplate['APPROVE_EMPLEAVEAPPROVAL_VIEW']">
+	<div ng-init="getAllApproveddetails();" ng-controller="EmpLeaveApprovalController" id="tab-pannel">
+
+			<form name="leaveRequestForm">
+				<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 no-padding">
+					<div class="col-lg-2 col-md-2 col-xs-2 col-sm-2 padL-0">
+						<md-input-container class="md-block">
+							<label>From Date(dd-mm-yyyy)</label>
+							<pot-currentdate-display data-test='Resources_Employee_LeaveApproval_Search_FromDate'
+								dir-index="$index" ng-model="leaveApproval.fromDate" date-name="fromDate" />
+						</md-input-container>
+					</div>
+					<div class="col-lg-2 col-md-2 col-xs-2 col-sm-2">
+						<md-input-container class="md-block">
+							<label>To Date(dd-mm-yyyy)</label>
+							<pot-currentdate-display data-test='Resources_Employee_LeaveApproval_Search_ToDate'
+								dir-index="$index" ng-model="leaveApproval.toDate" date-name="toDate" />
+						</md-input-container>
+					</div>
+					<div class="col-lg-2 col-md-2 col-xs-2 col-sm-2">
+						<md-input-container>
+							<label>Approval Type</label>
+							<md-select data-test='Resources_Employee_LeaveApproval_Search_ApprovalStatus'
+								ng-model="approvalType">
+								<md-option ng-repeat="approvalType in approvalTypeList" value="{{approvalType}}">
+									{{approvalType}}</md-option>
+							</md-select>
+						</md-input-container>
+					</div>
+					<div class="col-lg-6 col-md-6 col-xs-6 col-sm-6 padR-0">
+						<div class="pull-right marT15">
+							<input data-test='Resources_Employee_LeaveApproval_Search' type="button"
+								ng-click="getAllApproveddetails();" class="btn btn-primary btn-sm" value="Search">
+							<input type="button" ng-click="reset()" class="btn btn-default btn-sm" value="Reset">
+						</div>
+					</div>
+				</div>
+			</form>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+				<div class="tabTable_2_Res_height_12_topB">
+				<!-- <div id="grid" ui-grid="gridOptions" ng-if="stylesSvc.finishedStyling" 
+             ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-resize-columns class="grid emp-subtabs"></div> -->
+					 <table class="table table-striped table-hover table-bordered tabTable_2_height_12_topB">
+						<thead id="tab-head">
+							<tr>
+								<th>Select</th>
+								<th>Date of Request</th>
+								<th>Leave Application ID</th>
+								<th>Start Date</th>
+								<th>Finish Date</th>
+								<th>Number of work Days</th>
+								<th>Approver Name</th>
+								<th>Notification ID</th>
+								<th>Approval Status</th>
+								<th>Leave Availed or Not availed</th>
+								<th class="text-center">More Details</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr fixed-header="" ng-repeat="approval in empLeaveReqApprTOs">
+								<td><input type="checkbox" value="id"
+										data-test='Resources_Employee_LeaveApproval_SelectEmployee'
+										ng-model="approval.select" ng-change="newRequestRowSelect(approval)">
+								</td>
+								<td>{{approval.reqDate}}</td>
+								<td>{{approval.reqCode}}</td>
+								<td>{{approval.startDate}}</td>
+								<td>{{approval.endDate}}</td>
+								<td>{{approval.totalDays}}</td>
+								<td>{{approval.apprUserTO.firstName}}
+									{{approval.apprUserTO.lastName}}</td>
+								<td>{{approval.notifyCode}}</td>
+								<td>{{approval.apprStatus}}</td>
+								<td>{{approval.leaveAvailed}}</td>
+								<td class="text-center"><input type="button" class="btn btn-primary btn-sm"
+										data-test='Resources_Employee_LeaveApproval_MoreDetailsView'
+										ng-click="editLeaveapproval(approval)" value="View" /></td>
+							</tr>
+						</tbody>
+					</table>
+					<script type="text/ng-template" id="template.html">
+				<button ng-click="grid.appScope.editLeaveapproval(row.entity, approval)" data-test="Resources_Employee_LeaveApproval_MoreDetailsView" class="btn btn-primary btn-sm">View</button>
+			</script>
+				</div>
+			</div>
+		<!-- <div class="panel-footer padR-0">
+			<div class="pull-left">
+				<input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+				<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+				<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+				<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+				<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+			</div>
+		</div> -->
+	</div>
+</div>

@@ -1,0 +1,60 @@
+<div ng-if="account.appCodeTemplate['PRJ_PRJSTG_PROCURSTGNORMALTIME_VIEW']" id="tab-pannel" class="noTableInBottomBlockWithTabs">
+	<form name="procureForm">
+		<div class="bottomNestedTabTableResHeight no-border">
+			
+				<div class="row" ng-repeat ="procure in projProcureDetails | orderBy : 'id'">
+						<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+							<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padL-0">
+								<md-input-container class="md-block">
+									<label>{{procure.procureType}} Cut Off Days</label>
+									<ng-form name="procureform1"> 
+										<input class="form-control"
+										type="text" 
+										data-test='{{procure.procureType}}_Projects_ProjectSettings_ProcurementTab_NormalTime_Cutoffdays' 
+										ng-model="procure.cutOffDays" name="time"
+										pattern="\d+"> <span
+										ng-show="procureform1.time.$error.pattern">Enter only
+										numbers</span> </ng-form>
+								</md-input-container>
+							</div>
+							<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+									<md-input-container class="md-block">
+										<label>{{procure.procureType}} Cut Off Hours</label>
+										<input 
+										data-test='{{procure.procureType}}_Projects_ProjectSettings_ProcurementTab_NormalTime_Cutoffhours' 
+										type="number" min=0 max=23 class="form-control"
+										name="cutoffHours"
+										ng-model="procure.cutOffHours" 
+										ng-required="true" maxlength=2 />
+									</md-input-container>
+							</div>
+							<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+									<md-input-container class="md-block">
+										<label>{{procure.procureType}} Cut Off Minutes</label>
+										<input data-test='{{procure.procureType}}_Projects_ProjectSettings_ProcurementTab_NormalTime_Cutoffminutes' 
+										type="number" min=0 max=59 class="form-control"
+										name="cutoffMinutes"
+										ng-model="procure.cutOffMinutes" />
+									</md-input-container>
+							</div>
+						
+						</div>
+				</div>
+		</div>
+		<div class="panel-footer">
+				<div class="pull-right">
+					<input type="submit" class="btn btn-primary btn-sm" value="Save" ng-click="procureForm.$valid && saveProjProcurements()"
+						data-test='Projects_ProjectSettings_ProcurementTab_NormalTime_Save'
+						title="{{ account.appCodeTemplate['PRJ_PRJSTG_PROCURSTG_ADD'] ? '' : '! Permission Denied. Contact your admin.'}}"
+						ng-disabled ="!account.appCodeTemplate['PRJ_PRJSTG_PROCURSTG_ADD']">
+				</div>
+				<div class="pull-left">
+                    <input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+                </div>
+		</div>
+	</form>
+</div>

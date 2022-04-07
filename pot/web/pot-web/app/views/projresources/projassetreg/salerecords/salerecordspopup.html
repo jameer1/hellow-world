@@ -1,0 +1,207 @@
+<div id="tab-pannel" class="panel-group">
+	<form name="saleRecordsForm" validate>
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Asset Sale Records</h4>
+			</div>
+			<div class="panel-body">
+				<div class="topTableResHeight" style="overflow:auto">
+					<table class="table table-striped table-bordered topTableHeight">
+						<thead id="tab-head">
+							<tr>
+								<!-- <th class="text-center" ng-if="action ==='Add'">Select</th> -->
+								<th>Date of Sale
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th>Sale Type
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th>Buyer Name
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th>Buyer Address
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th>Land Register Office Details
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th>Land Valuation
+									<span class="procurment-pot-errors">*</span>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="asset in saleRecord">
+								<!-- <td ng-if="action =='Add'">
+									<ng-form name="selectboxForm">
+										<input type="checkbox" ng-model="asset.selected"
+											data-test="AssetSaleRecords_Create_Checkbox"
+											ng-change="assetSaleRecordPopUpRowSelect(asset)"></ng-form>
+								</td> -->
+								<td>
+									<ng-form name="dateForm">
+										<potdate-picker data-test="AssetSaleRecords_Create_Date" custom-read-only
+											ng-model="asset.dateOfSale" dir-index="$index" date-name="date"
+											placeholder="dd-mm-yyyy" class="form-control" ng-required="true" min-date="asset.plantCommissioningDate" />
+									</ng-form>
+								</td>
+
+								<td><select ng-model="asset.saleType" ng-required="true" class="form-control"
+										data-test="AssetSaleRecords_Create_SaleType" >
+										<option value="">-Select-</option>
+										<option fixed-header="" ng-repeat="saleType in saleTypesList">{{saleType}}
+										</option>
+									</select>
+								</td>
+
+								<td>
+									<ng-form name="buyerNameForm">
+										<input data-test="AssetSaleRecords_Create_BuyerName" type="text"
+											name="buyerName" ng-model="asset.buyerName" class="form-control"
+											placeholder="Buyer Name"  ng-required="true"
+											pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))>
+									</ng-form>
+								</td>
+
+								<td>
+									<ng-form name="buyerAddressForm">
+										<input data-test="AssetSaleRecords_Create_BuyerAddress" type="text"
+											name="buyerAddress" ng-model="asset.buyerAddress" class="form-control"
+											placeholder="Buyer Address"  ng-required="true"
+											pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))>
+									</ng-form>
+								</td>
+
+								<td>
+									<ng-form name="regOfficeDetailsForm">
+										<input data-test="AssetSaleRecords_Create_LandRegOfficeDetails" type="text"
+											name="landRegisterOfficeDetails" class="form-control"
+											ng-model="asset.landRegisterOfficeDetails" ng-required="true"
+											placeholder="Register Office Details" 
+											pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))>
+									</ng-form>
+								</td>
+
+								<td>
+									<ng-form name="landValuationForm">
+										<input data-test="AssetSaleRecords_Create_LandValuation" type="text"
+											name="landValudation" ng-change="calcTotalSaleAmount(asset)" valid-number
+											ng-model="asset.landValudation" class="form-control" ng-required="true" maxlength="16.2"
+											placeholder="Land Valuation"  pattern="^[\d\.,%]+$">
+									</ng-form>
+								</td>
+
+
+
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="topTableResHeight" style="overflow:auto">
+					<table class="table table-striped table-bordered topTableHeight">
+						<thead id="tab-head">
+							<tr>
+								<th>Structure Valuation
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th>Plant & Equipment Valuation
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th>Total Valuation</th>
+								<th>Total Sale Amount
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th>Buyer Solicitor</th>
+								<th>Vendor Solicitor</th>
+								<th>Sale Records(Upload & View)</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="asset in saleRecord">
+
+								<td>
+									<ng-form name="structureValuationForm">
+										<input data-test="AssetSaleRecords_Create_StructureValuation" type="text"
+											ng-model="asset.structureValuation" class="form-control" valid-number maxlength="16.2"
+											name="structureValuation" ng-change="calcTotalSaleAmount(asset)"
+											 placeholder="Structure Valuation" pattern="^[\d\.,%]+$"
+											ng-required="true" />
+									</ng-form>
+								</td>
+
+								<td>
+									<ng-form name="plantValuationForm">
+										<input data-test="AssetSaleRecords_Create_PlantEquipmentValuation" type="text"
+											ng-model="asset.plantEquipmentValutaion" name="plantEquipmentValutaion" maxlength="16.2"
+											ng-change="calcTotalSaleAmount(asset)" placeholder="Plant Valuation"
+											class="form-control" pattern="^[\d\.,%]+$"  valid-number
+											ng-required="true" />
+									</ng-form>
+								</td>
+
+								<td>
+									<ng-form name="totalValuationForm">
+										<input type="text" ng-model="asset.totalValuation" name="totalValuation"
+											placeholder="TotalValuation" class="form-control" pattern="^[\d\.,%]+$"
+											 disabled />
+									</ng-form>
+								</td>
+
+								<td>
+									<ng-form name="totalSaleAmountForm">
+										<input data-test="AssetSaleRecords_Create_TotalSaleAmount" type="text" ng-required="true"
+											ng-model="asset.totalSalesAmount" name="totalSaleAmount" valid-number maxlength="16.2"
+											placeholder="Total Sale Amount" class="form-control" pattern="^[\d\.,%]+$"
+											 />
+									</ng-form>
+								</td>
+
+								<td>
+									<ng-form name="buyerSolicitorForm">
+										<input type="text" name="buyerSolicitor"
+											data-test="AssetSaleRecords_Create_BuyerSolicitor"
+											ng-model="asset.buyerSolicitor"  class="form-control"
+											placeholder="Buyer Solicitor"
+											pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))>
+									</ng-form>
+								</td>
+
+								<td>
+									<ng-form name="vendorSolicitorForm">
+										<input data-test="AssetSaleRecords_Create_VendorSolicitor" type="text"
+											name="vendorSolicitor" class="form-control" ng-model="asset.vendorSolicitor"
+											placeholder="Vendor Solicitor" 
+											pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))>
+									</ng-form>
+								</td>
+
+								<td>
+									<ng-form name="vendorSolicitorForm">
+										<input data-test='AssetSaleRecords_Create_SaleRecordsUploadView_ChooseFile'
+											ng-disabled="isDisabled" type="file" fileread="saleRecDoc" name="file"
+											ngf-select="checkFile($file)" ngf-accept="'*'" >
+										<span class="help-block" style="color: red" ng-show="!saleRecDoc.isValid">
+											{{saleRecDoc.errorMessage}}</span>
+									</ng-form>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="panel-footer">
+				<!-- <div class="pull-left">
+					<input type="submit" class="btn btn-secondary btn-sm" ng-click="addRows()" value="Add"
+						ng-show="action =='Add'" data-test="AssetSaleRecords_Create_Add"> <input type="button"
+						class="btn btn-secondary btn-sm" ng-click="deleteRows()" value="Delete" ng-show="action =='Add'"
+						data-test="AssetSaleRecords_Create_Delete">
+				</div> -->
+				<div class="pull-right">
+					<input type="submit" class="btn btn-primary btn-sm" ng-click="saleRecordsForm.$valid && save()"
+						value="Save" data-test="AssetSaleRecords_Create_Save">
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</form>
+</div>

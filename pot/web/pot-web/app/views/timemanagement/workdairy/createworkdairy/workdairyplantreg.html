@@ -1,0 +1,70 @@
+<div id="tab-pannel">
+	<div class="panel-group">
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Plant List</h4>
+			</div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+                        <span class="labelName">
+                            Select Crew : <input  type="text" placeholder="Select Crew" class="form-control"
+                                                 ng-click="getCrewList(crewLabelKeyTO)"
+                                                 ng-model="crewLabelKeyTO.code" data-test='AsbuiltRecords_WorkDiary_CreateWorkDiary_PlantUtilization_Add_Crew'>
+                            Plant Search : <input type="text" class="form-control" ng-model="regNumber" placeholder="Plant Search" data-test='AsbuiltRecords_WorkDiary_CreateWorkDiary_PlantUtilization_Add_PlantSearch'>
+                        </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="popUpTableResHeight">
+                    <table class="table table-hover table-bordered popUpTableHeight">
+                        <thead>
+                            <tr>
+                                <th>Select</th>
+                                <th>Plant ID</th>
+                                <th>Description</th>
+                                <th>Registration No</th>
+                                <th>Classification</th>
+                                <th>Plant Make</th>
+                                <th>Plant Model</th>
+                                <th>Parent Company</th>
+                                <th>Unit Of Measure</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat ="plant in plantRegLabelKeyTOs | filter:regNumber" ng-if="plantMap[plant.id]==null">
+                                <td>
+                                    <input type="checkbox" ng-model="plant.select"
+                                           ng-change="selectPlant(plant)" data-test='AsbuiltRecords_WorkDiary_CreateWorkDiary_PlantUtilization_Add_addselect'>
+                                </td>
+                                <td>{{plant.code}}</td>
+                                <td>{{plant.name}}</td>
+                                <td>{{plant.displayNamesMap['plntRegNo']}}</td>
+                                <td>{{plant.displayNamesMap['classType']}}</td>
+                                <td>{{plant.displayNamesMap['plntManfature']}}</td>
+                                <td>{{plant.displayNamesMap['plntModel']}}</td>
+                                <td>{{plant.displayNamesMap['cmpCatgName']}}</td>
+                                <td>{{plant.unitOfMeasure}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div ng-show="plantRegLabelKeyTOs.length <= 0">
+                        <br> <br>
+                        <h5 align="center" style="color: red">
+                            No Plants for selected
+                            project
+                        </h5>
+                    </div>
+                </div>
+            </div>
+                <div class="panel-footer">
+                    <div class="pull-right">
+                        <input type="button" class="btn btn-primary btn-sm"
+                               ng-click="addPlantsToWorkDairy()" value="Save" data-test='AsbuiltRecords_WorkDiary_CreateWorkDiary_PlantUtilization_Add_Save'>
+                    </div>
+                </div>
+            </div>
+		<div class="ngdialog-close"></div>
+	</div>
+</div>

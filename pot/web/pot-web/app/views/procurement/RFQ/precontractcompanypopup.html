@@ -1,0 +1,40 @@
+<div id="tab-pannel" class="panel-group">
+	<form name="ApproverTransferForm" validate>
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Company Details</h4>
+			</div>
+            <div class="panel-body">
+                <div class="popUpTableResHeight">
+                    <table class="table table-striped table-hover table-bordered popUpTableHeight" >
+                        <thead>
+                            <tr>
+                                <th>Select</th>
+                                <th>Company ID</th>
+                                <th>Company Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr fixed-header="" ng-repeat ="companyTO in companyTOs"
+                                ng-if="existingPrecontactCompanyMap[companyTO.id]==null">
+                                <td>
+                                    <input type="checkbox" ng-model="companyTO.select"
+                                           ng-change="companyRowSelect(companyTO)" data-test='RFQ_AddBidders_addcompany_selectcheckbox'>
+                                </td>
+                                <td>{{companyTO.cmpCode}}</td>
+                                <td>{{companyTO.cmpName}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+			<div class="panel-footer">
+				<div class="pull-right">
+					<input class="btn btn-primary btn-sm" type="button" data-test="RFQ_AddBidders_addcompany_addtoprecontract"
+						ng-click="addTOPrecontract()" value="Add To Precontract">
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</form>
+</div>

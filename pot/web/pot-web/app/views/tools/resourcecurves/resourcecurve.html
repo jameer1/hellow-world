@@ -1,0 +1,103 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+	<h1>Resource Curves</h1>
+	<!-- <input type="submit" value ="Help !"
+		ng-click="helpPage();" class="pull-right btn  btn-primary btn-sm help-each-page"> -->
+	<button class="pull-right btn btn-primary btn-sm help-each-page" 
+		onclick="window.open('views/helptutorials/ResourceCurves.html', '_blank', 
+		'toolbar=yes,scrollbars=yes,resizable=no,top=50,left=100,width=1400,height=700')">
+		Help
+	</button> 
+</section>
+<!-- Main content -->
+<section class="content" ng-init="getData()">
+	<div class="panel panel-default twinBlock footer-parent">
+		<div class="panel-body">
+			<div id="tableHeight6" class="TripleHeaderTableResHeight">
+				<table id="table" class="table table-bordered table-hover firstTableHeight">
+					<thead id="tab-head">
+						<tr>
+							<th rowspan="2" class="vert-align" ng-hide="action =='Edit'">Select</th>
+							<th rowspan="2" class="vert-align">Resource Curve Name</th>
+							<th rowspan="2" class="vert-align">Curve Category</th>
+							<th colspan="11" class="text-center">Duration Percentage</th>
+						</tr>
+						<tr>
+							<th class="text-center">0 - 10</th>
+							<th class="text-center">10 - 20</th>
+							<th class="text-center">20 - 30</th>
+							<th class="text-center">30 - 40</th>
+							<th class="text-center">40 - 50</th>
+							<th class="text-center">50 - 60</th>
+							<th class="text-center">60 - 70</th>
+							<th class="text-center">70 - 80</th>
+							<th class="text-center">80 - 90</th>
+							<th class="text-center">90 - 100</th>
+							<th class="text-center">Total%</th>
+						</tr>
+						<tr>
+							<th rowspan="2" class="vert-align" ng-hide="action =='Edit'"></th>
+							<th rowspan="2" class="vert-align"></th>
+							<th rowspan="2" class="vert-align"></th>
+							<th colspan="11" class="text-center">Curve Value Percentage</th>
+						</tr>
+						<tr>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr fixed-header="" ng-repeat="resource in resourcecurves" style="width:100%;">
+							<td><input type="checkbox" ng-model="resource.selected" ng-change="resourcerowselect(resource)" ng-disabled="resource.defaultFlag"></td>
+							<td ng-click="getResourceCurve('Edit',resource)" data-toggle="tooltip" title="Click Here to get curve">{{resource.curveType}}</td>
+							<td class="text-center">{{resource.catg}}</td>
+							<td class="text-center">{{resource.range1}}</td>
+							<td class="text-center"> {{resource.range2}}</td>
+							<td class="text-center">{{resource.range3}}</td>
+							<td class="text-center">{{resource.range4}}</td>
+							<td class="text-center">{{resource.range5}}</td>
+							<td class="text-center">{{resource.range6}}</td>
+							<td class="text-center">{{resource.range7}}</td>
+							<td class="text-center">{{resource.range8}}</td>
+							<td class="text-center">{{resource.range9}}</td>
+							<td class="text-center">{{resource.range10}}</td>
+							<td class="text-center">{{resource.total}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="panel-footer">
+			<div class="pull-right">
+				<input data-test='ResourceCurves_Create' type="button" class="btn  btn-primary btn-sm" value="Create" ng-click="addResourceCurve('Add')">
+			</div>
+			<div class="pull-left">
+				<input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+				<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+				<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+				<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+				<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+				<input data-test='ResourceCurves_edit' type="button" class="btn  btn-primary btn-sm" value="Edit" ng-click="addResourceCurve('Edit')">
+			</div>
+		</div>
+	</div>
+	<div id="tab-pannel" class="panel panel-default twinBlock footer-parent">
+		<div class="row">
+			<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+				<div class="chart" style="margin-top: 5px;">
+					<canvas id="base" class="chart-bar" chart-dataset-override="datasetOverride" chart-data="data" chart-labels="labels"
+					 height="58" chart-colors="colors" chart-options="options"></canvas>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

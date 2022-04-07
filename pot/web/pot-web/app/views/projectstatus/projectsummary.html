@@ -1,0 +1,18 @@
+<div class="panel-body">
+	<div class="nav-tabs-custom">
+			<ul class="nav nav-tabs">
+				<li ng-class="{'active': account.appCodeTemplate[tab.appCodeTemplateKey] && projSummaryActiveTab(tab.url),
+				'disabled': !account.appCodeTemplate[tab.appCodeTemplateKey]}"
+					fixed-header="" ng-repeat ="tab in projTabs[1].childTabs">
+					<a ng-if="account.appCodeTemplate[tab.appCodeTemplateKey]" data-toggle="tab"
+					ng-click="clickProjSummaryTab(tab)" data-test="{{tab.SelenumLocator}}">{{tab.title}}</a>
+					<a ng-if="!account.appCodeTemplate[tab.appCodeTemplateKey]" data-test="{{tab.SelenumLocator}}">{{tab.name}}</a>
+				</li>
+			</ul>
+			<div class="tab-content">
+				<div class="tab-pane fade in active">
+					<div ng-include="projSummaryTab"></div>
+				</div>
+			</div>
+	</div>
+</div>

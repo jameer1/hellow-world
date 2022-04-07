@@ -1,0 +1,97 @@
+<section class="content-header">
+	<h1>Employee Transfer Approval</h1>
+	<!-- <input type="submit" value ="Help !"
+		ng-click="helpPage();" class="pull-right btn  btn-primary btn-sm help-each-page"> -->
+		<button class="pull-right btn btn-primary btn-sm help-each-page" 
+	onclick="window.open('views/helptutorials/EmployeeTransfer1.html', '_blank', 
+		'toolbar=yes,scrollbars=yes,resizable=no,top=50,left=100,width=1400,height=700')">
+		Help
+	</button>
+</section>
+<section class="content">
+	<div class="panel panel-default block footer-parent">
+		<div class="panel-body">
+			<div class="col-xs-12 col-sm-12 col-md-12 no-padding">
+				<div class="col-lg-2 col-md-2 col-xs-2 col-sm-2 padL-0">
+					<md-input-container class="md-block">
+						<label class="labelName">From Date(dd-mm-yyyy)</label>
+						<pot-currentdate-display dir-index="$index" ng-model="apprTransfer.fromDate" date-name="fromDate" readonly="readonly" data-test="EmpTransferApproval_FromDate" />
+					</md-input-container>
+				</div>
+				<div class="col-lg-2 col-md-2 col-xs-2 col-sm-2">
+					<md-input-container class="md-block">
+						<label class="labelName">To Date(dd-mm-yyyy)</label>
+						<pot-currentdate-display dir-index="$index" ng-model="apprTransfer.toDate" date-name="toDate" readonly="readonly" data-test="EmpTransferApproval_ToDate"/>
+					</md-input-container>
+				</div>
+
+				<div class="col-lg-2 col-md-2 col-xs-2 col-sm-2">
+					<md-input-container class="md-block">
+						<label class="labelName">Approval Status</label>
+						<md-select ng-model="apprTransfer.approvalType" ng-required="true" data-test="EmpTransferApproval_AppStatus"/>
+							<md-option ng-repeat="approvalType in approvalTypeList" ng-value="approvalType">{{approvalType}}</md-option>
+						</md-select>
+					</md-input-container>
+				</div>
+
+				<div class="col-lg-4 col-md-4 col-xs-4 col-sm-4">
+					<md-radio-group ng-model="apprTransfer.userType" layout="row">
+						<md-radio-button value="1" class="md-primary" name="request" data-test="EmpTransferApproval_LoginUserRecords">Login User Records</md-radio-button>
+						<md-radio-button value="2" class="md-primary" name="request" data-test="EmpTransferApproval_AllUserRecords">All User Records</md-radio-button>
+					</md-radio-group>
+				</div>
+				<div class="col-lg-2 col-md-2 col-xs-2 col-sm-2 padR-0">
+					<div class="pull-right marT15">
+						<input type="button" ng-click="getEmpTransfers(false);" class="btn btn-primary btn-sm" value="Search" ng-model="searchText" data-test="EmpTransferApproval_Search">
+						<input type="reset" class="btn btn-default btn-sm" ng-click="reset()" value="Reset" data-test="EmpTransferApproval_Reset">
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+				<div class="singleTableResHeight_2">
+					<!-- <table class="table table-striped table-hover table-bordered singleTableHeight_2">
+						<thead id="tab-head">
+							<tr>
+								<th>Date of Request</th>
+								<th>Requester ID</th>
+								<th>Approver ID</th>
+								<th>Origin Project</th>
+								<th>Destination Project</th>
+								<th>Requisition ID</th>
+								<th>Requisition Notification</th>
+								<th class="text-center">Approval Status</th>
+								<th class="text-center">More Details</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr fixed-header="" ng-repeat="approve in empReqTransTOs">
+								<td>{{approve.reqDate | date}}</td>
+								<td>{{approve.reqUserTO.empCode}}</td>
+								<td>{{approve.apprUserTO.empCode}}</td>
+								<td>{{approve.fromProjName}}</td>
+								<td>{{approve.toProjName}}</td>
+								<td>{{approve.reqCode}}</td>
+								<td>{{approve.reqNotifyCode}}</td>
+								<td class="text-center">{{approve.apprStatus}}</td>
+								<td class="text-center"><span class="btn-primary btn-sm btn" ng-click="getEmpTransRequestDetails(approve);" data-test="EmpTransferApproval_View">View</label></td>
+							</tr>
+						</tbody>
+					</table> -->
+					<div id="grid" ui-grid="gridOptions" class="singleTableResHeight_3"
+				ng-if="stylesSvc.finishedStyling" ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize
+				ui-grid-resize-columns ui-grid-grouping class="grid">
+			</div>
+				</div>
+			</div>
+		</div>
+		<!-- <div class="panel-footer">
+			<div class="pull-left">
+				<input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+				<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+				<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+				<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+				<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+			</div>
+		</div> -->
+	</div>
+</section>

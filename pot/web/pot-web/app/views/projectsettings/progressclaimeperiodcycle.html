@@ -1,0 +1,95 @@
+<div ng-if="account.appCodeTemplate['PRJ_PRJSTG_PROGRESCLIAMPERIODCYCLE_VIEW']" id="tab-pannel" class="noTableInBottomBlockWithTabs" ng-init="projProgressClaimePeriodCycleOnload()">
+ <form name="attendanceForm">
+  <div class="bottomNestedTabTableResHeight no-border">
+    <div class="row">
+		<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+			<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padL-0">
+						<md-input-container class="md-block">
+							<label>{{projProgressClaimePeriodTOs[0].projType}} start day count</label>
+                            <md-select data-test='Projects_ProjectSettings_ProgressClaimsTab_PeriodCycle_weeklystartdaycount' 
+                                ng-model="projProgressClaimePeriodTOs[0].startDay">
+                                <md-option ng-repeat="weekly in  weeakDays" ng-value="weekly">{{weekly}}</md-option>
+                            </md-select>
+						</md-input-container>
+            </div>
+            <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+                    <md-input-container class="md-block">
+                            <label>{{projProgressClaimePeriodTOs[0].projType}} finish day count</label>
+                            <md-select data-test='Projects_ProjectSettings_ProgressClaimsTab_PeriodCycle_weeklyfinishdaycount' 
+                                ng-model="projProgressClaimePeriodTOs[1].startDay">
+                                <md-option ng-repeat="weekly in  weeakDays" ng-value="weekly">{{weekly}}</md-option>
+                            </md-select>                            
+                        </md-input-container>
+            </div>
+        </div>
+    </div>
+    <div class="row horizontalSpace">
+            <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+                <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padL-0">
+                        <md-input-container class="md-block">
+                                <label>{{projProgressClaimePeriodTOs[1].projType}} start day count</label>
+                                <md-select data-test='Projects_ProjectSettings_ProgressClaimsTab_PeriodCycle_fortnightlystartdaycount' 
+                                    ng-model="projProgressClaimePeriodTOs[0].startDay">
+                                    <md-option ng-repeat="weekly in  weeakDays" ng-value="weekly">{{weekly}}</md-option>
+                                </md-select>
+                            </md-input-container>
+                </div>
+                <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+						<md-input-container class="md-block">
+                            <label>{{projProgressClaimePeriodTOs[1].projType}} finish day count</label>
+                            <md-select data-test='Projects_ProjectSettings_ProgressClaimsTab_PeriodCycle_fortnightlyfinishdaycount' 
+                            ng-model="projProgressClaimePeriodTOs[1].finishDay">
+                                <md-option ng-repeat="weekly in  weeakDays" ng-value="weekly">{{weekly}}</md-option>
+                            </md-select>
+						</md-input-container>
+                </div>
+            </div>
+    </div>
+    <div class="row horizontalSpace">
+            <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+                <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padL-0">
+                        <md-input-container class="md-block">
+                                <label>{{projProgressClaimePeriodTOs[2].projType}} start day count</label>
+                                <md-select data-test='Projects_ProjectSettings_ProgressClaimsTab_PeriodCycle_monthlystartdaycount' 
+                                    ng-model="projProgressClaimePeriodTOs[2].startDay">
+                                    <md-option ng-repeat="monthly in  monthly" ng-value="monthly">{{monthly}}</md-option>
+                                </md-select>
+                            </md-input-container>                    
+                </div>
+                
+                <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+						<md-input-container class="md-block">
+                            <label>{{projProgressClaimePeriodTOs[2].projType}} finish day count</label>
+                            <md-select data-test='Projects_ProjectSettings_ProgressClaimsTab_PeriodCycle_monthlyfinishdaycount' 
+                            ng-model="projProgressClaimePeriodTOs[2].finishDay">
+                                <md-option ng-repeat="monthly in  monthly" ng-value="monthly">{{monthly}}</md-option>
+                            </md-select>
+						</md-input-container>
+                </div>
+                <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 sameRowBtn">
+                       
+                </div>
+                <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 sameRowBtn">
+                      
+                </div>
+               
+            </div>
+    </div>
+  </div>
+  <div class="panel-footer">
+    <div class="pull-right">
+        <input data-test='Projects_ProjectSettings_ProgressClaimsTab_PeriodCycle_Save' 
+            type="submit" class="btn  btn-primary btn-sm" value="Save" ng-click="saveProjProgressClaimePeriodCycle()" 
+            title="{{ account.appCodeTemplate['PRJ_PRJSTG_PROGRESCLIAMPERIODCYCLE_ADD'] ? '' : '! Permission Denied. Contact your admin.'}}"
+            ng-disabled ="!account.appCodeTemplate['PRJ_PRJSTG_PROGRESCLIAMPERIODCYCLE_ADD']"> 
+    </div>
+    <div class="pull-left">
+        <input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+        <input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+        <input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+        <input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+        <input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+    </div>
+  </div>
+ </form>
+</div>

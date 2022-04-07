@@ -1,0 +1,83 @@
+<div ng-if="account.appCodeTemplate['PRJ_PRJSTG_PROGRESCLIAMADDITIONALTIME_VIEW']" id="tab-pannel" class="noTableInBottomBlockWithTabs">
+	<div class="bottomNestedTabTableResHeight no-border">
+		<div class="row">
+			<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+				<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padL-0">
+					<md-input-container class="md-block">
+						<label>Claim Period</label>
+						<input data-test='Projects_ProjectSettings_ProgressClaimsTab_AdditionalTimeTab_ClaimPeriod' 
+							type="text" 
+							ng-model="projctClaimAppr.claimPeriod">		
+					</md-input-container>
+				</div>
+				<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+						<md-input-container class="md-block">
+							<label>Project</label>
+							<input data-test='Projects_ProjectSettings_ProgressClaimsTab_AdditionalTimeTab_Project' 
+							type="text"  ng-model="projctClaimAppr.name"
+							ng-click="project(projctClaimAppr)">		
+						</md-input-container>
+				</div>
+				<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+						<md-input-container class="md-block">
+							<label>Originator Name</label>
+							<input data-test='Projects_ProjectSettings_ProgressClaimsTab_AdditionalTimeTab_OriginatorName' 
+							type="text" 
+							ng-model="projctClaimAppr.apprUserCode"
+							ng-click="approversList(projctClaimAppr)">		
+						</md-input-container>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+				<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padL-0">
+					<span>Additional Time</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+				<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padL-0">
+						<md-checkbox data-test='Projects_ProjectSettings_ProgressClaimsTab_AdditionalTimeTab_OriginalSubmission' 
+							ng-model="projctClaimAppr.originalType" 
+							ng-change="progressClaimOriginalType(projctClaimAppr)">
+									Original Submission
+						</md-checkbox>
+					</div>
+					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+						<md-checkbox data-test='Projects_ProjectSettings_ProgressClaimsTab_AdditionalTimeTab_InternalApproval' 
+						ng-model="projctClaimAppr.internalType"
+						ng-change="progressClaimInternalType(projctClaimAppr)" />
+							Internal Approval						
+						</md-checkbox>
+					</div>
+					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+							<md-checkbox data-test='Projects_ProjectSettings_ProgressClaimsTab_AdditionalTimeTab_ProjectOwnerApproval' 
+								ng-model="projctClaimAppr.externalType"
+								ng-change="progressClaimExternalType(projctClaimAppr)" />
+								Project Owner Approval
+							</md-checkbox>
+					</div>
+				
+				</div>
+		</div>
+	</div>
+	<div class="panel-footer">
+		<div class="pull-right">
+			<input data-test='Projects_ProjectSettings_ProgressClaimsTab_AdditionalTimeTab_Approve' 
+				type="button" class="btn btn-primary btn-sm" value="Approve" ng-click="saveProgressClaimAppr()"
+				title="{{ account.appCodeTemplate['PRJ_PRJSTG_PROGRESCLIAMADDTIONAL_ADD'] ? '' : '! Permission Denied. Contact your admin.'}}"
+				ng-disabled ="!account.appCodeTemplate['PRJ_PRJSTG_PROGRESCLIAMADDTIONAL_ADD']">
+		</div>
+		<div class="pull-left">
+			<input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+			<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+			<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+			<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+			<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+		</div>
+	</div>
+</div>

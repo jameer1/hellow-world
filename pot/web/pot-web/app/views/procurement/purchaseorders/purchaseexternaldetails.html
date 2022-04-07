@@ -1,0 +1,17 @@
+<div id="tab-pannel">
+  <div id="tab-pannel" class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">External Stage2 Approval</h4>
+    </div>
+    <div class=" panel-body8-2">
+      <div>
+        <ul class="nav nav-tabs">
+          <li fixed-header="" ng-repeat ="tab in tabs[2].externalSubTabs" ng-class="{active:isActiveExternalTab(tab.url)}"><a data-toggle="tab" ng-click="onClickExternalTab(tab)">{{tab.title}}</a></li>
+        </ul>
+        <div class="tab-pane fade in active">
+          <div ng-include="currentExternalTab"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

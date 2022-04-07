@@ -1,0 +1,38 @@
+<div id="tab-pannel" class="panel-group" s>
+    <form name="ApproverTransferForm" validate>
+        <div class="panel panel-default" modal-movable>
+            <div class="panel-heading">
+                <h4 class="panel-title">Plant Details</h4>
+            </div>
+            <div class="panel-body">
+                <div class="popUpTableResHeight" style="overflow: auto;">
+                    <table class="table table-hover table-bordered popUpTableHeight">
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" ng-model="selectAll" ng-change="selectAllPlants(selectAll)">
+                                </th>
+                                <th>Asset ID</th>
+                                <th>Plant Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="plant in plantData" data-test="Plant_Checkbox">
+                                <td>
+                                    <input type="checkbox" ng-model="plant.select" ng-change="selectedPlants(plant)">
+                                </td>
+                                <td>{{plant.assertId}}</td>
+                                <td>{{plant.desc}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <div class="pull-right">
+                    <input type="button" class="btn btn-primary btn-sm" ng-click="addPlants()" value="Add" data-test="Plant_Add">
+                </div>
+            </div>
+            <div class="ngdialog-close"></div>
+        </div>
+    </form>
+</div>

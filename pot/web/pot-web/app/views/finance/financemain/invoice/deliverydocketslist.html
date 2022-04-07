@@ -1,0 +1,29 @@
+<div id="tab-pannel" class="panel-group">
+	<div class="panel-group ">
+		<div class="panel-body21">
+			<table class="table table-striped table-hover table-bordered" style="height:365px !important;" >
+				<thead>
+					<tr>
+						<th>Docket Date</th>
+						<th>Docket Number</th>
+						<th>Currency</th>
+						<th>Calculated Amount</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr fixed-header="" ng-repeat ="docket in deliveryDocketDetails">
+						<td>{{docket.invoicedate}}</td>
+						<td>{{docket.number}}</td>
+						<td>{{docket.amount }}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="panel-footer">
+		<div class="pull-left">
+			<input type="Submit" ng-click="addDocketDetails()" value="Add"
+				class="btn  btn-brown btn-sm" />
+		</div>
+	</div>
+</div>

@@ -1,0 +1,76 @@
+
+<style>
+#builder .btn
+{
+	padding-left: 4px !important;
+}
+#builder .form-builder-panel
+{
+	border: 1px solid #ddd;
+	padding: 4px;
+}
+#builder #group-container-basic span, #builder #group-container-advanced span, #builder #group-container-layout span, #builder #group-container-data span, #builder #group-container-premium span
+{
+	background-color: #2780e3;
+	border-color: #2780e3;
+}
+#builder #group-container-basic span:hover, #builder #group-container-advanced span:hover, #builder #group-container-layout span:hover
+, #builder #group-container-data span:hover, #builder #group-container-premium span:hover
+{
+	background-color: #2e2ed1;
+}
+#builder .formarea{
+	border: 1px solid red;
+	min-height:520px;
+}
+#builder .formio-component.formio-component-label-hidden {
+	max-height : 610px;
+	overflow-y : auto;
+	width : 99.3%;
+	margin-top: 10px;
+}
+#builder .drag-container {
+	width: 99%;
+}
+</style>
+<section class="content-header">
+	<h1>Create Template</h1>
+	<input type="submit" value ="Help !" ng-click="helpPage();" class="pull-right btn  btn-primary btn-sm help-each-page">
+</section>
+<!-- Main content -->
+<section class="content">
+	<!-- <div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			<input type="button" class="btn btn-primary btn-sm pull-right" value="Save" id="submit" ng-click="SaveTemplate();"/>
+		</div>
+		<div id="builder"></div>
+	</div> -->
+	<div class="row">
+		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+			<span>{{wfApprovalStatus}}</span>
+		</div>
+		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+			<input type="hidden" name="template_category_id" id="template_category_id" value="templateCategoryId"/>			
+			<input type="button" class="btn btn-primary btn-sm pull-right" value="Save" ng-click="updateTemplate()" ng-disabled="disableSaveBtn"/>
+		</div>		
+	</div>
+	<div class="row" ng-if="templateType=='WORKFLOW' && templateType != null && (mode!='INTERNAL_APPROVAL' && mode!='EXTERNAL_APPROVAL')">
+		<div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+			<div ng-repeat="item in inputs"><div class="pull-left" style="width:20%"><input type="text" name="stages" ng-model="item.value"/></div></div>
+		</div>
+		<!-- <div class="col-xs-2 col-sm-2 col-md-1 col-lg-1"><input type="button" name="add" class="btn btn-primary" value="Add" ng-click="addInputField()"/></div> -->
+		<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+			<input type="button" name="add" class="btn btn-primary" value="Add" ng-disabled="disableAddBtn" ng-click="addInputField()"/>&nbsp;&nbsp;&nbsp;
+			<input type="button" name="submit_approval" class="btn btn-primary" value="Submit For Approval" ng-click="submitApproval()" ng-disabled="disableSubmitForApprovalBtn"/>
+			<input type="button" name="approval_template" class="btn btn-primary" value="Approve" ng-if="isTemplateApprover==true && displayApproveBtn==true" ng-disabled="disableApproveBtn" ng-click="approve()"/> 
+		</div>
+	</div>
+	<div class="row" ng-if="mode=='INTERNAL_APPROVAL'||mode=='EXTERNAL_APPROVAL'">
+		<div class="pull-right">
+			<input type="button" name="add" class="btn btn-primary" value="Approve" ng-click="approveTemplate(templateApprovalMode)"/>
+		</div>
+	</div>
+	<div class="row" ng-init="doGreeting()">
+		<div id="builder"></div>
+	</div>
+</section>

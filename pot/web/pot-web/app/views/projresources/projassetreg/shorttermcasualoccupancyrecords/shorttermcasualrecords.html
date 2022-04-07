@@ -1,0 +1,107 @@
+<div id="tab-pannel" class="panel-group" ng-controller="ShortTermCasualRecordsController">
+	<div class="col-md-12 col-lg-12 no-padding">
+		<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padL-0">
+			<md-input-container class="md-block">
+				<label>From Date(dd-mm-yyyy)</label>
+				<pot-currentdate-display data-test='ShortTermCasualOccupancyRecords_FromDate'
+					dir-index="$index" ng-model="fromDate" date-name="fromDate" readonly="readonly">
+			</md-input-container>
+		</div>
+		<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+			<md-input-container class="md-block">
+				<label>To Date(dd-mm-yyyy)</label>
+				<pot-currentdate-display dir-index="$index"
+					data-test='ShortTermCasualOccupancyRecords_ToDate' ng-model="toDate" date-name="toDate"
+					readonly="readonly">
+			</md-input-container>
+		</div>
+		<div class="col-lg-6 col-md-6 col-xs-6 col-sm-6 padR-0">
+			<div class="pull-right marT15">
+				<input type="button" ng-click="getShortTermRecordsSearch(fromDate,toDate)"
+					class="btn  btn-primary btn-sm" value="Search" data-test="ShortTermCasualOccupancyRecords_Search">
+			</div>
+		</div>
+	</div>
+	<div class="table-responsive tabTable_2_Res_height">
+	<div id="grid" ui-grid="gridOptions"  ng-if="stylesSvc.finishedStyling" 
+             ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-resize-columns class="grid resou-asset"></div>
+		<!-- <table class="table table-striped table-bordered tabTable_2_height" >
+			<thead id="tab-head">
+				<tr>
+					<th rowspan="2">Select</th>
+					<th>Start Date</th>
+					<th>Finish Date</th>
+					<th>Tenant ID</th>
+					<th>Tenant Name</th>
+					<th>Tenant Registered Address</th>
+					<th>Email Address</th>
+					<th>Tenant Phone Number</th>
+					<th>Check In(Date)</th>
+					<th>Check Out(Date)</th>
+					<th>Number Of Days</th>
+					<th>Daily Net Rent</th>
+					<th>Tax %</th>
+					<th>Rent Amount Receivable</th>
+					<th>Tax Amount Receivable</th>
+					<th>Gross Rent Amount Receivable</th>
+					<th>Advance Rent Paid</th>
+					<th>Subsequent Rent Paid</th>
+					<th>Refund Of Remaining Advance Amount</th>
+					<th>Net Tax Amount Received</th>
+					<th>Net Amount Of Rent Received</th>
+					<th>Tenant Records if any</th>
+					<th>Current Status</th>
+				</tr>
+
+			</thead>
+			<tbody>
+				<tr ng-repeat="shortterm in stcorrReturnsDtlTOs">
+					<td><input type="checkbox" ng-model="shortterm.selected" data-test="ShortTermCasualOccupancyRecords_Checkbox"
+							ng-change="shortTermPopUpRowSelect(shortterm)"></td>
+					<td>{{shortterm.startDate}}</td>
+					<td>{{shortterm.finishDate}}</td>
+					<td>{{shortterm.tenantId}}</td>
+					<td>{{shortterm.tenantName}}</td>
+					<td>{{shortterm.tenantRegisteredAddress}}</td>
+					<td>{{shortterm.emailAddrees}}</td>
+					<td>{{shortterm.tenantPhoneNumber}}</td>
+					<td>{{shortterm.checkIn}}</td>
+					<td>{{shortterm.checkOut}}</td>
+					<td>{{shortterm.noOfDays}}</td>
+					<td>{{shortterm.dailyNetRent}}</td>
+					<td>{{shortterm.tax}}</td>
+					<td>{{shortterm.rentAmountReceivable}}</td>
+					<td>{{shortterm.taxAmount}}</td>
+					<td>{{shortterm.grossAmount}}</td>
+					<td>{{shortterm.advancePaid}}</td>
+					<td>{{shortterm.subsequentRentalRecepits}}</td>
+					<td>{{shortterm.refundofRemainingAdvanceamount}}</td>
+					<td>{{shortterm.netTaxAmountReceived}}</td>
+					<td>{{shortterm.netAmountOfRentRecived}}</td>
+					<td><a class="fa fa-download" ng-if="shortterm.tenantRecordDetailsFileName"
+							href="{{shortterm.docUrl}}"
+							title="Click To Download {{shortterm.tenantRecordDetailsFileName}}"></a></td>
+					<td><span class="fa fa-download" ng-if="shortterm.tenantRecordDetailsFileName" ng-click="downloadShortTermRecordFile(shortterm.id,shortterm.tenantRecordDetailsFileName)" title="Click To Download {{shortterm.tenantRecordDetailsFileName}}"></span></td>
+					<td>{{shortterm.currentStatus}}</td>
+				</tr>
+			</tbody>
+		</table> -->
+		<div class="panel-footer">
+		<div class="pull-right padR-0">
+			<input type="button" class="btn btn-primary btn-sm"
+				ng-click="addShortTermRecords('Add')" value="Add" data-test="ShortTermCasualOccupancyRecords_Create">
+		</div>
+		<div class="pull-left padL-0">
+			<!-- <input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+			<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+			<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+			<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+			<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();"> -->
+			<input type="button" class="btn btn-primary btn-sm"
+				ng-click="addShortTermRecords('Edit')" value="Edit" data-test="ShortTermCasualOccupancyRecords_Edit"> <input
+				type="button" class="btn btn-default btn-sm" data-test="ShortTermCasualOccupancyRecords_Deactivate"
+				ng-click="deleteShortTermRecord()" value="Deactivate">
+			</div>
+		</div>
+	</div>
+</div>		

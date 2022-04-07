@@ -1,0 +1,48 @@
+<div id="tab-pannel" class="panel-group">
+    <div class="panel panel-default" modal-movable>
+        <div class="panel-heading">
+            <h4 class="panel-title">Material Classification</h4>
+        </div>
+        <div class="panel-body">
+            <div class="popUpTableResHeight" style="overflow: auto">
+                <table id="tree" class="table table-hover table-bordered popUpTableHeight">
+                    <thead id="tab-head">
+                        <tr>
+                            <th><input type="checkbox" ng-change="selectAllMaterials(tabData)" ng-model="selectAll">
+                            </th>
+                            <th>Material Id</th>
+                            <th>Material Name</th>
+                        </tr>
+                    </thead>
+                    <tbody class="popUpTableHeight">
+                        <tr ng-repeat="tab in tabData" class=" abc{{tab.level}}" ng-show="!tab.collapse" data-test="Material_checkbox">
+                            <td>
+                                <input type="checkbox" ng-show="(tab.item)" ng-change="selectMaterialItem(tab)" data-test="material_common_checkbox"
+                                    ng-model="tab.select">
+                            </td>
+                            <td>
+                                <span ng-repeat="level in [].constructor(tab.level) track by $index" class="xyz"
+                                    style="padding-left: 30px;"></span>
+                                <span ng-show="((!tab.item && tab.expand) || (!tab.item  && tab.childMaterialItemTOs.length <= 0))"
+                                    ng-click="itemClick(tab,true);" class="fa fa-minus"></span>
+                                <span ng-show="(!tab.expand && tab.childMaterialItemTOs.length > 0)"
+                                    ng-click="itemClick(tab,false);" class="fa fa-plus"></span>
+                                <span ng-show="(tab.item)" class="fa fa-leaf"> </span> 
+                                <span style="padding-left: 10px;">
+                                    {{tab.code}} <span style="padding-left: 5px;"></span>
+                                </span> </span>
+                            </td>
+                            <td>{{tab.name}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <div class="pull-right">
+                <input type="button" class="btn btn-primary btn-sm" ng-click="addMaterialItems()" value="Add" data-test="Material_Add">
+            </div>
+        </div>
+        <div class="ngdialog-close"></div>
+    </div>
+</div>

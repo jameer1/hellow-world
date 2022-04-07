@@ -1,0 +1,316 @@
+<div ng-if="stateParamsRequestPage===true && ($root.account.appCodeTemplate['PROCURMT_INTRNLSTAGE1MANPOWER_VIEW'] ||
+$root.account.appCodeTemplate['REQUEST_REQPROC_INTRNLSTAGE1MANPOWER_VIEW'])" class="tab-pannel">
+  <form name="manpowerInternalForm" validate>
+    <div class="tabTable_3_Res_height overflow-auto">
+      <table class="table table-hover table-bordered tabTable_3_height">
+        <thead>
+          <tr>
+            <th>Select</th>
+            <th>Schedule<br>Item ID</th>
+            <th>Item<br>Description
+              <span class="procurment-pot-errors">*</span>
+            </th>
+            <th>Procurement<br>SubCategory
+              <span class="procurment-pot-errors">*</span>
+            </th>
+            <th>Employee Class
+              <span class="procurment-pot-errors">*</span>
+            </th>
+           
+            <th>Cost Code
+              <span class="procurment-pot-errors">*</span>
+            </th>
+            <th>Delivery Place</th>
+
+            <th>Start Date
+              <span class="procurment-pot-errors">*</span>
+            </th>
+            <th>Finish Date
+              <span class="procurment-pot-errors">*</span>
+            </th>
+             <th>Unit Of Measure</th>
+            <th>Qty
+              <span class="procurment-pot-errors">*</span>
+            </th>
+            <th>Estimated Rate<br>({{preContractObj.currencyCode}})
+              <span class="procurment-pot-errors">*</span>
+
+            </th>
+            <th>Estimated Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+       
+          <tr ng-repeat="item in preContractObj.preContractEmpDtlTOs">
+            <td><input data-test='Stage1Request_viewedit_Manpower_addrows_Checkbox1' type="checkbox" value="manpowerId"
+                class="ng-pristine ng-valid" ng-model="item.select" ng-change="rowSelect(item)"
+                ng-disabled="item.id > 0"></td>
+
+            <td ng-form name="myForm"><input type="text" class="form-control" ng-model="item.itemCode" name="icode"
+                placeHolder="Item Code" tabindex="-1" readonly="readonly" maxlength="100" /></td>
+
+            <td ng-form name="myForm1"><input data-test='Stage1Request_viewedit_Manpower_itemdescription'
+                type="text" class="form-control" ng-model="item.itemDesc"
+                placeHolder="Item Description" name="desc" tabindex="-1" required="required"
+                ng-disabled="preContractObj.workFlowStatusTO.value ==5 " maxlength="400" pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+                >
+                <span class="procurment-pot-errors"
+                ng-show="myForm1.desc.$error.pattern">Atleast one alphabet is mandatory</span></td>
+
+            <td ng-form name="myFormsub"><input data-test='Stage1Request_viewedit_Manpower_procurementsubcategory'
+                type="text" class="form-control" ng-model="procureCategoryMap[item.procureSubCatgId].name"
+                ng-click="selectProcureSubCategory('Manpower',item);" tabindex="-1" placeHolder="SubCategory" name="subCategory"
+                required="required" onkeypress="return false;" custom-read-only
+                ng-disabled="preContractObj.workFlowStatusTO.value ==5 " /></td>
+
+            <td><input data-test='Stage1Request_viewedit_Manpower_employeeclass' type="text" class="form-control"
+                ng-model="projEmpClassmap[item.projEmpLabelKey.id].name"
+                ng-click="projEmpClassDetails(item.projEmpLabelKey);" name="empType" placeHolder="Employee Class"
+                tabindex="-1" required="required" onkeypress="return false;" custom-read-only
+                ng-disabled="preContractObj.workFlowStatusTO.value ==5 " /></td>
+
+            
+            <td class="form-control0"><input type="text" data-test='Stage1Request_viewedit_Manpower_costcode'
+                class="form-control" ng-model="item.projCostLabelKey.name"
+                ng-click="projCostCodeDetails(item.projCostLabelKey)" onkeypress="return false;" required="required"
+                tabindex="-1" ng-disabled="preContractObj.workFlowStatusTO.value ==5 " custom-read-only />
+
+            </td>
+            
+            <!--  <td class="input-width"><input data-test='Stage1Request_viewedit_Manpower_deliveryplase' type="text"
+               name="deliveryPlace" class="form-control" ng-if="item.storeLabelKey.id > 0"
+                ng-model="storeClassmap[item.storeLabelKey.id].name"
+                ng-click="selectDeliveryPlace(item.storeLabelKey,item.projStoreLabelKey);" readonly="readonly"
+                ng-disabled="preContractObj.workFlowStatusTO.value ==5 " /> 
+                <input type="text" class="form-control"
+                ng-if="item.storeLabelKey.id <= 0 || item.projStoreLabelKey.id > 0"
+                ng-model="projStoreClassmap[item.projStoreLabelKey.id].code"
+                ng-click="selectDeliveryPlace(item.storeLabelKey,item.projStoreLabelKey);" readonly="readonly" /></td> -->
+
+             <td ng-form="delivery"> <!-- < ng-model="item.deliveryPlace  -->
+              <input type="text" name="deliveryPlace" data-test='Stage1Request_viewedit_Manpower_deliveryplase'
+                class="form-control" tabindex="-1" ng-if="item.storeLabelKey.id > 0"
+                ng-model="item.deliveryPlace = storeClassmap[item.storeLabelKey.id].name"
+                ng-click="selectDeliveryPlace(item.storeLabelKey,item.projStoreLabelKey);" readonly="readonly"
+                ng-disabled="preContractObj.workFlowStatusTO.value ==5 " maxlength="400"/>
+                <input type="text" class="form-control"
+                ng-if="item.storeLabelKey.id <= 0 || item.projStoreLabelKey.id > 0"
+                ng-model="item.deliveryPlace = projStoreClassmap[item.projStoreLabelKey.id].name"
+                ng-click="selectDeliveryPlace(item.storeLabelKey,item.projStoreLabelKey);" readonly="readonly" />
+             </td> 
+
+            <td>
+              <potdate-picker data-test='Stage1Request_viewedit_Manpower_startdate' class="form-control"
+                ng-model="item.startDate" dir-index="$index" max-date="item.finishDate" date-name="manstartDate"
+                placeholder="dd-mm-yyyy" tabindex="-1" ng-disabled="preContractObj.workFlowStatusTO.value ==5 "
+                prevent-events="true" required>
+                </pot-date-picker>
+            </td>
+            
+            <td>
+              <potdate-picker data-test='Stage1Request_viewedit_Manpower_finishdate' class="form-control"
+                ng-model="item.finishDate" dir-index="$index" min-date="item.startDate" date-name="manfinishDate"
+                placeholder="dd-mm-yyyy" tabindex="-1" ng-disabled="preContractObj.workFlowStatusTO.value ==5 "
+                prevent-events="true" required></potdate-picker>
+            </td>
+            
+            <td>
+			<select  ng-form="unitmeasuree" ng-model="item.unitMeasure" data-test='Stage1Request_viewedit_Manpower_unitofmeasure' class="form-control" name="unitm" placeHolder="Unit Of Measure" ng-if="procureCategoryMap[item.procureSubCatgId].name != 'Full Time'">
+					<option value="Hours">Hours</option>
+				    <option value="Daily">Daily</option>
+					<option value="Monthly">Monthly</option>
+			</select>
+			<select ng-form="unitmeasuree" ng-model="item.unitMeasure" data-test='Stage1Request_viewedit_Manpower_unitofmeasure' class="form-control" name="unitm" placeHolder="Unit Of Measure" ng-if="procureCategoryMap[item.procureSubCatgId].name == 'Full Time'">
+					<option value="Numbers">Numbers</option>
+			</select>
+			
+            </td> 
+             
+            <!-- <td><input data-test='Stage1Request_viewedit_Manpower_unitofmeasure' type="text" class="form-control"
+                ng-model="projEmpClassmap[item.projEmpLabelKey.id].unitOfMeasure" name="empType"
+                placeHolder="Unit Of Measure" tabindex="-1" readonly="readonly" />
+            </td> -->
+
+
+            <td ng-form name="myForm3"><input data-test='Stage1Request_viewedit_Manpower_qty' type="text"
+                class="form-control" style="min-width:50px !important;width:50px !important;" ng-model="item.quantity"
+                placeHolder="Quantity" valid-number name="quan" tabindex="-1" maxlength="20" required="required"
+                ng-disabled="preContractObj.workFlowStatusTO.value ==5 " /> <span style="color: red"
+                ng-show="myForm3.quan.$dirty && myForm3.quan.$error.required">This field is mandatory</span> <span
+                style="color: red" ng-show="myForm3.quan.$error.maxlength">You reached max
+                length</span></td>
+
+            <td ng-form name="myForm4"><input data-test='Stage1Request_viewedit_Manpower_estimatedrate' type="text"
+                class="form-control" style="min-width:50px !important;width:50px !important;" placeHolder="EstimateCost"
+                name="escost" ng-model="item.estimateCost" tabindex="-1" valid-number required="required"
+                ng-disabled="preContractObj.workFlowStatusTO.value ==5 " /> <span style="color: red"
+                ng-show="myForm4.escost.$dirty && myForm4.escost.$error.required">This field is mandatory</span><span
+                style="color: red" ng-if="myForm4.escost.$error.maxlength">You reached max
+                length</span></td>
+
+            <td><span>{{item.quantity * item.estimateCost}}<span></td>
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+
+    <div class="panel-footer"
+      ng-hide="preContractObj.workFlowStatusTO.value ==4 || preContractObj.workFlowStatusTO.value ==5 || preContractObj.workFlowStatusTO.value ==6">
+      <div class="pull-left">
+        <input type="Submit"
+          ng-if="showActionButtons && (account.appCodeTemplate['PROCURMT_INTRNLSTAGE1MANPOWER_ADD'] || account.appCodeTemplate['REQUEST_REQPROC_INTRNLSTAGE1MANPOWER_ADD'])"
+          data-test='Stage1Request_viewedit_Manpower_addrows'
+          ng-click="manpowerInternalForm.$valid && addManPowerRows()" value="Add Rows" class="btn btn-primary btn-sm" />
+        <input data-test='Stage1Request_viewedit_Manpower_deleterows'
+          ng-if="showActionButtons && account.appCodeTemplate['PROCURMT_INTRNLSTAGE1MANPOWER_DEACTIVE']" type="button"
+          class="btn btn-secondary btn-sm" ng-click="deleteManPowerDetails()"
+          ng-if="account.appCodeTemplate['PROCURMT_INTRNLSTAGE1MANPOWER_DEACTIVE'] || account.appCodeTemplate['REQUEST_REQPROC_INTRNLSTAGE1MANPOWER_DEACTIVE']"
+          value="Delete Rows" />
+      </div>
+
+      <div class="pull-right">
+        <input data-test='Stage1Request_viewedit_Manpower_save' type="Submit"
+          ng-if="showActionButtons && (account.appCodeTemplate['PROCURMT_INTRNLSTAGE1MANPOWER_ADD'] || account.appCodeTemplate['REQUEST_REQPROC_INTRNLSTAGE1MANPOWER_ADD'])"
+          value="Save" ng-click="manpowerInternalForm.$valid  &&  saveManPowerDetails(item)"
+          class="btn btn-primary btn-sm" validate />
+      </div>
+    </div>
+  </form>
+</div>
+
+
+<div ng-if="stateParamsRequestPage==false && ($root.account.appCodeTemplate['PROCURMT_INTRNLSTAGE1APPROVALMANPOWER_VIEW']
+|| $root.account.appCodeTemplate['APPROVE_INTRNLSTAGE1APPROVALMANPOWER_VIEW'])" class="tab-pannel">
+  <form name="manpowerInternalForm" validate>
+    <div class="tabTable_3_Res_height overflow-auto">
+      <table class="table table-hover table-bordered tabTable_3_height">
+        <thead>
+          <tr>
+            <th>Select</th>
+            <th>Schedule<br>Item ID</th>
+            <th>Item<br>Description
+            </th>
+            <th>Procurement<br>SubCategory
+            </th>
+            <th>Employee Class</th>
+            <th>Cost Code</th>
+            <th>Delivery Place</th>
+            <th>Start Date</th>
+            <th>Finish Date</th>
+             <th>Unit Of Measure</th>
+            <th>Qty</th>
+            <th>Estimated Rate<br>({{preContractObj.currencyCode}})
+            </th>
+            <th>Estimated Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="item in preContractObj.preContractEmpDtlTOs">
+            <td><input data-test='Stage1Approval_viewedit_Manpower_addrows_Checkbox1' type="checkbox" value="manpowerId"
+                class="ng-pristine ng-valid" ng-model="item.select" ng-change="rowSelect(item)"
+                ng-disabled="item.id > 0"></td>
+
+            <td ng-form name="myForm"><input type="text" class="form-control" ng-model="item.itemCode" name="icode"
+                placeHolder="Item Code" tabindex="-1" readonly="readonly" maxlength="100" /></td>
+
+            <td ng-form name="myForm1"><input data-test='Stage1Approval_viewedit_Manpower_itemdescription'
+                required="required" type="text" class="form-control" ng-model="item.itemDesc"
+                placeHolder="Item Description" name="desc" tabindex="-1" pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+                ng-disabled="preContractObj.workFlowStatusTO.value ==5 " maxlength="400">
+                <span class="procurment-pot-errors"
+                ng-show="myForm1.desc.$error.pattern">Atleast one
+                  alphabet is mandatory</span></td>
+            
+            <td ng-form name="myFormsub"><input data-test='Stage1Request_viewedit_Manpower_procurementsubcategory'
+                type="text" class="form-control" ng-model="procureCategoryMap[item.procureSubCatgId].name"
+                ng-click="selectProcureSubCategory('Manpower',item);" tabindex="-1" placeHolder="SubCategory" name="subCategory"
+                required="required" onkeypress="return false;" custom-read-only
+                ng-disabled="preContractObj.workFlowStatusTO.value ==5 " /></td>
+
+            <td><input data-test='Stage1Approval_viewedit_Manpower_employeeclass' type="text" class="form-control"
+                ng-model="projEmpClassmap[item.projEmpLabelKey.id].code"
+                ng-click="projEmpClassDetails(item.projEmpLabelKey);" name="empType" placeHolder="Employee Class"
+                tabindex="-1" required="required" onkeypress="return false;"
+                ng-disabled="preContractObj.workFlowStatusTO.value ==5 " /></td>
+
+            
+
+            <td class="form-control0"><input data-test='Stage1Approval_viewedit_Manpower_costcode' type="text"
+                class="form-control" ng-model="item.projCostLabelKey.name"
+                ng-click="projCostCodeDetails(item.projCostLabelKey)" onkeypress="return false;" required="required"
+                tabindex="-1" ng-disabled="preContractObj.workFlowStatusTO.value ==5 " />
+
+            </td>
+
+            <td ng-form="delivery"><input type="text" data-test='Stage1Approval_viewedit_Manpower_deliveryplase' class="form-control"
+                ng-model="item.deliveryPlace" tabindex="-1" ng-disabled="preContractObj.workFlowStatusTO.value ==5 "
+                maxlength="400" />
+                
+              </td>
+
+            <td>
+              <potdate-picker data-test='Stage1Approval_viewedit_Manpower_startdate' class="form-control"
+                ng-model="item.startDate" dir-index="$index" max-date="item.finishDate" date-name="manstartDate"
+                placeholder="dd-mm-yyyy" tabindex="-1" ng-disabled="preContractObj.workFlowStatusTO.value ==5 "
+                readonly="readonly">
+                </pot-date-picker>
+            </td>
+            <td>
+              <potdate-picker data-test='Stage1Approval_viewedit_Manpower_finishdate' class="form-control"
+                ng-model="item.finishDate" dir-index="$index" min-date="item.startDate" date-name="manfinishDate"
+                placeholder="dd-mm-yyyy" tabindex="-1" ng-disabled="preContractObj.workFlowStatusTO.value ==5 "
+                readonly="readonly"></potdate-picker>
+            </td>
+            
+            <td><input data-test='Stage1Approval_viewedit_Manpower_unitofmeasure' type="text" class="form-control"
+                ng-model="projEmpClassmap[item.projEmpLabelKey.id].unitOfMeasure" name="empType"
+                placeHolder="Unit Of Measure" tabindex="-1" readonly="readonly" /></td>
+
+
+            <td ng-form name="myForm3"><input type="text" data-test='Stage1Approval_viewedit_Manpower_qty'
+                class="form-control" style="min-width:50px !important;width:50px !important;" ng-model="item.quantity"
+                placeHolder="Quantity" name="quan" tabindex="-1" maxlength="20" required="required" valid-number
+                ng-disabled="preContractObj.workFlowStatusTO.value ==5 " /> <span style="color: red"
+                ng-show="myForm3.quan.$dirty && myForm3.quan.$error.required">This field is mandatory</span> <span
+                style="color: red" ng-show="myForm3.quan.$error.maxlength">You reached max length</span></td>
+
+            <td ng-form name="myForm4"><input data-test='Stage1Approval_viewedit_Manpower_estimatedrate' type="text"
+                class="form-control" style="min-width:50px !important;width:50px !important;" placeHolder="EstimateCost"
+                name="escost" ng-model="item.estimateCost" tabindex="-1" valid-number required="required"
+                ng-disabled="preContractObj.workFlowStatusTO.value ==5 " /> <span style="color: red"
+                ng-show="myForm4.escost.$dirty && myForm4.escost.$error.required">This field is mandatory</span><span
+                style="color: red" ng-if="myForm4.escost.$error.maxlength">You reached max
+                length</span></td>
+
+            <td><span>{{item.quantity * item.estimateCost}}<span></td>
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+
+    <div class="panel-footer"
+      ng-hide="preContractObj.workFlowStatusTO.value ==4 || preContractObj.workFlowStatusTO.value ==5 || preContractObj.workFlowStatusTO.value ==6">
+      <div class="pull-left">
+        <input type="Submit" data-test='Stage1Approval_viewedit_Manpower_addrows'
+          ng-if="account.appCodeTemplate['PROCURMT_INTRNLSTAGE1APPROVALMANPOWER_ADD'] || account.appCodeTemplate['APPROVE_INTRNLSTAGE1APPROVALMANPOWER_ADD']"
+          ng-click="manpowerInternalForm.$valid && addManPowerRows()" value="Add Rows" class="btn btn-primary btn-sm" />
+        <input ng-if="account.appCodeTemplate['PROCURMT_INTRNLSTAGE1MANPOWER_DEACTIVE']"
+          data-test='Stage1Approval_viewedit_Manpower_deleterows' type="button" class="btn btn-secondary btn-sm"
+          ng-click="deleteManPowerDetails()"
+          ng-if="account.appCodeTemplate['PROCURMT_INTRNLSTAGE1APPROVALMANPOWER_DEACTIVE'] || account.appCodeTemplate['APPROVE_INTRNLSTAGE1APPROVALMANPOWER_DEACTIVE']"
+          value="Delete Rows" />
+      </div>
+
+      <div class="pull-right">
+        <input type="Submit" data-test='Stage1Approval_vieweditManpower_save'
+          ng-if="account.appCodeTemplate['PROCURMT_INTRNLSTAGE1APPROVALMANPOWER_ADD'] || account.appCodeTemplate['APPROVE_INTRNLSTAGE1APPROVALMANPOWER_ADD']"
+          value="Save" ng-click="manpowerInternalForm.$valid  &&  saveManPowerDetails(item)"
+          class="btn btn-primary btn-sm" validate />
+      </div>
+    </div>
+  </form>
+</div>

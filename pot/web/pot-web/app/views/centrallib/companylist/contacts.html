@@ -1,0 +1,47 @@
+<div id="tab-pannel" ng-if="account.appCodeTemplate['CMPLIST_CONTACTS_VIEW']">
+  <div id='views/companylist/contacts.html'>
+    <form id="contacts" autocomplete="off">
+        <div class="firstTableResHeight b-sh" class="col-xs-12 col-sm-12 col-md-12 col-lg-12" >
+          <!-- <table class="table table-striped table-hover table-bordered tabTable_1_height" >
+          <thead>
+            <tr>
+              <th style="width: 50px !important">Select</th>
+              <th class="text-center">Contact Name</th>
+              <th class="text-center">Email</th>
+              <th class="text-center">Mobile</th>
+              <th class="text-center">Phone</th>
+              <th class="text-center">Fax</th>
+              <th class="text-center">Designation</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr fixed-header="" ng-repeat ="cont in contacts">
+              <td><input type="checkbox" ng-model="cont.selected" ng-change="contactsRowSelect(cont)" /></td>
+              <td class="text-center">{{cont.contactName}}</td>
+              <td class="text-center">{{cont.email}}</td>
+              <td class="text-center">{{cont.mobile}}</td>
+              <td class="text-center">{{cont.phone}}</td>
+              <td class="text-center">{{cont.fax}}</td>
+              <td class="text-center">{{cont.designation}}</td>
+            </tr>
+          </tbody>
+        </table> -->
+        <div id="grid" ui-grid="gridOptions2" ng-if="stylesSvc.finishedStyling" ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize class="grid grid-tabs"></div>
+      </div>
+      <div class="panel-footer tab-footer">
+        <div class="pull-right">
+          <input data-test='Companylist_Contact_Create' type="button" class="btn btn-primary btn-sm" ng-click="addContacts('Add')" value="Create" ng-if="account.appCodeTemplate['CMPLIST_CONTACTS_ADD']" />
+        </div>
+        <div class="pull-left">
+          <!-- <input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+          <input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+          <input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+          <input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+          <input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();"> -->
+          <input data-test='Companylist_Contact_Edit' type="button" class="btn btn-primary btn-sm" ng-click="addContacts('Edit')" value="Edit" ng-if="account.appCodeTemplate['CMPLIST_CONTACTS_ADD']" /> <input data-test='Companylist_Contact_Deactivate' type="button"
+            class="btn btn-secondary btn-sm" ng-click="deleteContacts()" value="Deactivate" ng-if="account.appCodeTemplate['CMPLIST_CONTACTS_DELETE']" />
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

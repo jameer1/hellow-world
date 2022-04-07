@@ -1,0 +1,40 @@
+<div id="tab-pannel" class="panel-group">
+	<div id="tab-pannel" class="panel panel-default">
+		<div class="panel-heading">
+            <h4 class="panel-title">Purchase Order Schedule Items</h4>
+        </div>
+		<div class="panel-body">
+            <div class="row spacer0 b-sh panel-body-res">
+                <table class="table table-striped table-hover table-bordered" >
+                    <thead>
+                        <tr>
+                            <th>Select</th>
+                            <th>Schedule Item ID</th>
+                            <th>Schedule Item Desc</th>
+                            <th>Schedule Item Qty</th>
+                            <th>Schedule Item Rate</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr fixed-header="" ng-repeat ="labelKeyTO in labelKeyTOs">
+                            <td>
+                                <input type="checkbox" ng-model="labelKeyTO.select"
+                                       ng-change="selectRecord(labelKeyTO)">
+                            </td>
+                            <td>{{labelKeyTO.code}}</td>
+                            <td>{{labelKeyTO.name}}</td>
+                            <td>{{labelKeyTO.displayNamesMap['QTY']}}</td>
+                            <td>{{labelKeyTO.displayNamesMap['UNIT_OF_RATE']}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
+            </div>
+		<div class="panel-footer">
+			<div class="pull-right">
+				<input type="button" class="btn  btn-brown btn-sm"
+					ng-click="addToWorkDairy()" value="Add To WorkDairy">
+			</div>
+		</div>
+	</div>
+</div>

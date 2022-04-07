@@ -1,0 +1,258 @@
+<div id="tab-pannel" class="panel-group">
+	<form name="mortgageForm" validate>
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Mortgage Payments</h4>
+			</div>
+			<div class="panel-body">
+				<div class="topTableResHeight overflow-auto">
+					<table class="table table-hover table-bordered topTableHeight">
+						<thead id="tab-head">
+							<tr>
+								<!-- <th class="text-center" ng-if="action ==='Add'">Select</th> -->
+								<th>Effective Date
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th>Mortgage Name
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th>Mortgage Address & Contact Details
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th>Original Loan Principal Amount</th>
+								<th>Remaining Loan Principal Amount</th>
+								<th>Rate of Interest per Annum</th>
+								<th>Payment Cycle
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th>Payment Cycle Due Date
+									<span style="color: red;">*</span><!-- class="procurment-pot-errors" -->
+								</th>
+
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="asset in mortgageeValue">
+								<!-- <td ng-if="action =='Add'">
+									<ng-form name="selectboxForm">
+										<input type="checkbox" ng-model="asset.selected"
+											data-test="MortgagePayments_Create_Checkbox"
+											ng-change="assetMortgageeValuePopUpRowSelect(asset)"></ng-form>
+								</td> -->
+
+								<td>
+									<ng-form name="dateForm">
+										<potdate-picker data-test="MortgagePayments_Create_EffectiveDate" ng-required="true"
+											ng-model="asset.effectiveDate" dir-index="$index" date-name="date" custom-read-only
+											placeholder="dd-mm-yyyy" class="form-control" min-date="asset.plantCommissioningDate"/>
+									</ng-form>
+								</td>
+
+
+								<td>
+									<ng-form name="mortgageNameForm">
+										<input data-test="MortgagePayments_Create_MortgageName" type="text"
+											name="mortgageName" ng-model="asset.mortgageeName" ng-required="true"
+											placeholder="Mortgage Name" class="form-control"
+											pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))>
+									</ng-form>
+								</td>
+
+								<td>
+									<ng-form name="mortgageAddressForm">
+										<input data-test="MortgagePayments_Create_AddressContactDetails" type="text"
+											name="mortgageAddress" ng-model="asset.mortgageeAdress" class="form-control"
+											placeholder="Mortgage Address" ng-required="true"
+											pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))>
+									</ng-form>
+								</td>
+
+								<td>
+									<ng-form name="originalLoanForm">
+										<input data-test="MortgagePayments_Create_OriginalLoanPrincipalAmount" maxlength=8
+											type="text" name="originalLoan" class="form-control" valid-number
+											ng-model="asset.originalLoanPrincipalAmount" placeholder="Original Loan"
+											pattern="^[\d\.,%]+$">
+									</ng-form>
+								</td>
+
+								<td>
+									<ng-form name="remainingLoanForm">
+										<input data-test="MortgagePayments_Create_RemainingLoanPrincipalAmount"  maxlength=8
+											type="text" ng-model="asset.remainingLoanPrinicipalAmount" valid-number
+											name="remainingLoan" placeholder="Remaining Loan" pattern="^[\d\.,%]+$"
+											class="form-control" ng-change="validateRemainingQuantity()"/>
+									</ng-form>
+								</td>
+
+								<td>
+									<ng-form name="rateofinterestForm">
+										<input data-test="MortgagePayments_Create_RateofInterestperAnnum" type="text" maxlength=8
+											ng-model="asset.rateOfInterestPerAnnum" name="rateofinterest"
+											placeholder="Rate of Interest" pattern="^[\d\.,%]+$" 
+											valid-number class="form-control" />
+									</ng-form>
+								</td>
+
+								<td><select ng-model="asset.paymentCycle"
+										data-test="MortgagePayments_Create_PaymentCycle" ng-required="true"
+										class="form-control">
+										<option value="">-Select-</option>
+										<option fixed-header="" ng-repeat="paymentCycle in paymentCycles" ng-value="paymentCycle">
+											{{paymentCycle}}</option>
+									</select>
+								</td>
+
+								<td>
+									<ng-form name="dateForm12">
+										<!-- <potdate-picker data-test="MortgagePayments_Create_PaymentCycleDueDate" custom-read-only
+											ng-model="asset.paymentCycleDueDate" dir-index="$index" date-name="date" min-date="asset.effectiveDate"
+											placeholder="dd-mm-yyyy" class="form-control" ng-required="true" /> -->
+											<select name="weekly" class="form-control" ng-show="asset.paymentCycle=='Weekly' || asset.paymentCycle=='Fortnightly' "
+											ng-model="asset.paymentCycleDueDate"  data-test="MortgagePayments_Create_PaymentCycleDueDate" ng-disabled="asset.paymentCycle=='Daily'"> <!-- asset.paymentCycle=='Daily' || -->
+												<option value="">-Select-</option>
+												<option fixed-header="" ng-repeat="weeklist in weekTOs" ng-value="weeklist">
+														{{weeklist}}
+												</option>
+											</select>
+											
+											<!-- <input type="text" ng-show="asset.paymentCycle=='Monthly' "
+											  name="monthly" max="31" min="1" ng-model="asset.paymentCycleDueDate" class="form-control" ng-required="true" pattern="^(3[01]|[12][0-9]|[1-9])$">pattern="^[\d\.,%]+$"
+											  <span style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="dateForm12.monthly.$touched && dateForm12.monthly.$error.max">Month should start from  1 and ends at 31</span>
+											  <span style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="dateForm12.monthly.$touched && dateForm12.monthly.$error.pattern">Month should start from  1 and ends at 31</span> -->
+											  <select name="monthly" class="form-control" ng-show="asset.paymentCycle=='Monthly' " ng-model="asset.paymentCycleDueDate" class="form-control" >
+											  	<option value="">--Select--</option>
+											  	<option ng-repeat="month in monthsTOs" ng-value="month">
+											  		{{month}}
+											  	</option>
+											  </select>
+											
+											<select name="quartely" class="form-control" ng-show="asset.paymentCycle=='Quarterly' || asset.paymentCycle=='Half Yearly' || asset.paymentCycle=='Yearly'"
+											ng-model="asset.paymentCycleDueDate" data-test="MortgagePayments_Create_PaymentCycleDueDate">
+												<option value="">-Select-</option>
+												<option fixed-header="" ng-repeat="month in monthTOs" ng-value="month">
+													{{month}}
+												</option>
+											</select>
+									</ng-form>
+								</td>
+
+
+
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="topTableResHeight overflow-auto">
+					<table class="table table-hover table-bordered topTableHeight">
+						<thead id="tab-head">
+							<tr>
+								<th>Gross Payment Amount per Cycle
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th>Tax Amount(With Held)
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th>Net Amount
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th>Receiver Bank
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th>Receiver Bank Code #
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th>Receiver Bank AC #
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th>Account Status
+									<span class="procurment-pot-errors">*</span>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="asset in mortgageeValue">
+								<td>
+									<ng-form name="paymentAmountPerCycleForm">
+										<input data-test="MortgagePayments_Create_GrossPaymentAmountperCycle"
+											type="text" ng-model="asset.paymentAmountPerCycel" valid-number
+											name="paymentAmountPerCycle" placeholder="Payement Amount"
+											ng-blur="calNetAmount(asset)" pattern="^[\d\.,%]+$" 
+											ng-required="true" class="form-control" />
+									</ng-form>
+								</td>
+
+								<td>
+									<ng-form name="taxAmountForm">
+										<input data-test="MortgagePayments_Create_TaxAmount" type="text"
+											ng-model="asset.taxAmount" ng-blur="calNetAmount(asset)" valid-number
+											placeholder="Tax Amount" pattern="^[\d\.,%]+$" 
+											ng-required="true" class="form-control" ng-change="validateNetAmount()" />
+									</ng-form>
+								</td>
+
+								<td>
+									<ng-form name="netAmountForm">
+										<input data-test="MortgagePayments_Create_NetAmount" type="text"
+											ng-model="asset.netAmount" readonly placeholder="Net Amount"
+											pattern="^[\d\.,%]+$"  ng-required="true" valid-number
+											class="form-control" />
+									</ng-form>
+								</td>
+
+								<td>
+									<ng-form name="receiverBankForm">
+										<input data-test="MortgagePayments_Create_ReceiverBank" type="text"
+											name="receiverBank" ng-model="asset.receiverBank" ng-required="true"
+											placeholder="Receiver Bank" class="form-control" >
+									</ng-form>
+								</td>
+
+								<td>
+									<ng-form name="receiverBankCodeForm">
+										<input data-test="MortgagePayments_Create_ReceiverBankCode" type="text" pattern="^[1-9]+[0-9]*$"
+											name="receiverBankCode" ng-model="asset.receiverBankCode" maxlength=16
+											placeholder="Receiver Bank Code" class="form-control" ng-required="true">
+											<span style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="receiverBankCodeForm.$error.pattern">only numbers required</span>
+									</ng-form>
+								</td>
+								<!-- && receiverBankCodeForm.$error.required -->
+								<td>
+									<ng-form name="receiverBankAccountForm">
+										<input data-test="MortgagePayments_Create_ReceiverBankAccount" type="text"
+											name="receiverBankAccount" ng-model="asset.receiverBankAC" pattern="^[0-9]+$" maxlength=16
+											class="form-control" placeholder="Receiver Bank Account Number" ng-required="true">
+											<span style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="receiverBankAccountForm.receiverBankAccount.$error.pattern">only numbers allowed</span>
+									</ng-form>
+								</td>
+
+								<td>
+									<select ng-model="asset.accountStatus" ng-required="true"
+										data-test="MortgagePayments_Create_AccountStatus"
+										class="form-control" ng-disabled="asset.accountStatus=='Inactive' ">
+										<option value="">-Select-</option>
+										<option fixed-header="" ng-repeat="accountStatus in accountStatusTypes">
+											{{accountStatus}}</option>
+									</select>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="panel-footer">
+				<!-- <div class="pull-left">
+					<input type="submit" class="btn btn-primary  btn-sm" ng-click="mortgageForm.$valid && addRows()"
+						value="Add" ng-show="action =='Add'" data-test="MortgagePayments_Create_Add"> <input
+						type="button" class="btn btn-secondary  btn-sm" ng-click="deleteRows()" value="Delete"
+						ng-show="action =='Add'" data-test="MortgagePayments_Create_Delete">
+				</div> -->
+				<div class="pull-right">
+					<input type="submit" class="btn btn-primary  btn-sm" ng-click="mortgageForm.$valid && save()"
+						value="Save" data-test="MortgagePayments_Create_Save">
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</form>
+</div>

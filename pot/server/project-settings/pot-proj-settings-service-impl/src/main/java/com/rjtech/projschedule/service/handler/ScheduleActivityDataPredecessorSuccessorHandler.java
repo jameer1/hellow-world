@@ -1,0 +1,19 @@
+package com.rjtech.projschedule.service.handler;
+
+import com.rjtech.projschedule.dto.ScheduleActivityDataPredecessorSuccessorTO;
+import com.rjtech.projschedule.model.ScheduleActivityDataPredecessorSuccessorEntity;
+
+public class ScheduleActivityDataPredecessorSuccessorHandler {
+
+	public static ScheduleActivityDataPredecessorSuccessorTO convertEntityToPOJO(ScheduleActivityDataPredecessorSuccessorEntity scheduleActivityDataPredecessorSuccessorEntity) {
+		ScheduleActivityDataPredecessorSuccessorTO scheduleActivityDataPredecessorSuccessorTO = new ScheduleActivityDataPredecessorSuccessorTO();
+		
+		return scheduleActivityDataPredecessorSuccessorTO;
+	}
+	
+	public static ScheduleActivityDataPredecessorSuccessorEntity convertPOJOToEntity(ScheduleActivityDataPredecessorSuccessorTO scheduleActivityDataPredecessorSuccessorTO) {
+		ScheduleActivityDataPredecessorSuccessorEntity scheduleActivityDataPredecessorSuccessorEntity = new ScheduleActivityDataPredecessorSuccessorEntity();
+		
+		return scheduleActivityDataPredecessorSuccessorEntity;
+	}
+}

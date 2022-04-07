@@ -1,0 +1,38 @@
+<div id="tab-pannel" class="panel-group" ng-init="getProvisionDetails">
+	<div id="tab-pannel" class="panel panel-default" modal-movable>
+		<div class="panel-heading">
+			<h4 class="panel-title">Province List</h4>
+		</div>
+		<div class="panel-body12">
+			<table class="table table-striped table-bordered">
+				<thead>
+					<tr>
+
+						<th>Code</th>
+						<th>Province</th>
+						<th>fromDate</th>
+						<th>toDate</th>
+						<th>dueDate</th>
+
+
+					</tr>
+				</thead>
+				<tbody>
+					<tr fixed-header="" ng-repeat ="detail in provinceDetails"
+						ng-click="provincePopUp(detail)">
+
+						<td>{{detail.code}}</td>
+						<td>{{detail.Province}}</td>
+						<td>{{detail.fromDate}}</td>
+						<td>{{detail.toDate}}</td>
+						<td>{{detail.dueDate}}</td>
+
+
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="panel-footer"></div>
+		<div class="ngdialog-close"></div>
+	</div>
+</div>

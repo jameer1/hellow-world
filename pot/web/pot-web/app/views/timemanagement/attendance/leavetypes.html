@@ -1,0 +1,32 @@
+<div id="tab-pannel" ng-init="getLeaveTypes()">
+	<div class="panel-group">
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Attendance and Leave Codes</h4>
+			</div>
+			<div class="panel-body">
+					<div class="popUpTableResHeight">
+				<table class="table table-striped table-hover popUpTableHeight"  >
+					<thead id="tab-head">
+						<tr>
+							<th>Leave Type ID</th>
+							<th>Leave Type Name</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr
+							fixed-header="" ng-repeat ="leaveTypeTO in leaveTypes | orderBy:['leaveTypeTO.code']"
+							ng-click="selectdType(leaveTypeTO)">
+							<td>{{leaveTypeTO.code}}</td>
+							<td>{{leaveTypeTO.desc}}</td>
+						</tr>
+					</tbody>
+				</table>
+				</div>
+				
+			</div>
+			<div class="panel-footer"></div>
+			<div class="ngdialog-close"></div>
+		</div>
+	</div>
+</div>

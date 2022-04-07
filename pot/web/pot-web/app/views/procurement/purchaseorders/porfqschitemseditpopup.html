@@ -1,0 +1,74 @@
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h4 class="panel-title">RFQ Tendering Schedule Items</h4>
+		</div>
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-xs-2 col-sm-2 col-md-2">
+						<md-input-container class="md-block">
+					<span>PreContract Code</span><input type="text"
+						ng-model="preContractObj.code" placeholder="PreContract Code"
+						readonly="readonly"></md-input-container>
+				</div>
+				<div class="col-xs-2 col-sm-2 col-md-2">
+						<md-input-container class="md-block">
+					<span>Contract Description</span> <input type="text"
+						ng-model="preContractObj.desc" placeholder="Contract Description"
+						readonly="readonly"></md-input-container>
+				</div>
+				<div class="col-xs-2 col-sm-2 col-md-2">
+						<md-input-container class="md-block">
+					<span>Company</span><input type="text" ng-model="companyMap.name"
+						placeholder="Company" readonly="readonly"></md-input-container>
+				</div>
+				<div class="col-xs-2 col-sm-2 col-md-2">
+						<md-input-container class="md-block">
+					<span>RFQ Ref Code</span><input type="text"
+						ng-model="preContractObj.desc" placeholder="RFQ Ref Code"
+						readonly="readonly"></md-input-container>
+				</div>
+				<div class="col-xs-2 col-sm-2 col-md-2 ">
+						<md-input-container class="md-block">
+					<span>RFQ Issue Date</span>
+					<pot-currentdate-picker dir-index="$index"
+						ng-model="fromDate | date " date-name="intlFromDate"
+						placeholder="dd-mm-yyyy" readonly="readonly" ng-disabled="true" /></md-input-container>
+				</div>
+				<div class="col-xs-2 col-sm-2 col-md-2">
+						<md-input-container class="md-block">
+					<span>Vendor</span><input type="text"
+						ng-model="preContractObj.desc" placeholder="RFQ Ref Code"
+						readonly="readonly"></md-input-container>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-2 col-sm-2 col-md-2">
+						<md-input-container class="md-block">
+					<span>Quotation Date</span>
+					<pot-currentdate-picker dir-index="$index"
+						ng-model="toDate | date " date-name="intlToDate"
+						placeholder="dd-mm-yyyy" readonly="readonly" ng-disabled="true" /></md-input-container>
+				</div>
+				<div class="col-xs-2 col-sm-2 col-md-2">
+						<md-input-container class="md-block">
+					<span>Quote Ref</span><input type="text"
+						ng-model="preContractObj.desc" placeholder="RFQ Ref Code"
+						readonly="readonly" ng-disabled="true"></md-input-container>
+				</div>
+			</div>
+	<div class="row">
+	<div class="nav-tabs-custom">
+		<ul class="nav nav-tabs">
+			<li fixed-header="" ng-repeat ="preContarctDetailTab in preContrctDetailTabs"
+				ng-class="{active:isActiveTab1(preContarctDetailTab.url)}"><a
+				data-toggle="tab" ng-click="onClickTab1(preContarctDetailTab)">{{preContarctDetailTab.title}}</a></li>
+		</ul>
+		<div class="tab-content">
+			<div ng-include="currentTab1"></div>
+		</div>
+	</div>
+	</div>
+	</div>
+	<div class="ngdialog-close"></div>
+	</div>
+	

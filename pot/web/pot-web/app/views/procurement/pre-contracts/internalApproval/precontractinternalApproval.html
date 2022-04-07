@@ -1,0 +1,37 @@
+<div id="tab-pannel" class="panel-group">
+  <div class="panel panel-default" modal-movable>
+    <div class="panel-heading">
+      <h4 class="panel-title">Request Approval Details</h4>
+    </div>
+
+    <div class="panel-body">
+      <div class="popUpTableResHeight">
+        <table class="table table-striped table-hover table-bordered popUpTableHeight" >
+        <thead>
+          <tr>
+            <th>Requester</th>
+            <th>Requester Comments</th>
+            <th>Date Of Request</th>
+            <th>Approver</th>
+            <th>Approver Comments</th>
+            <th>Date Of Response</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr  ng-repeat ="reqApprObj in preContractReqApprTOs">
+            <td style="width:66px !important;">{{reqApprObj.reqUserLabelkeyTO.code}}</td>
+            <td style="width:116px !important;">{{reqApprObj.reqComments}}</td>
+            <td style="width:88px !important;">{{reqApprObj.reqDate | date}}</td>
+            <td style="width:61px !important;">{{reqApprObj.apprUserLabelkeyTO.code}}</td>
+            <td style="width:250px !important;">{{reqApprObj.apprComments}}</td>
+            <td style="width:77px">{{reqApprObj.apprDate | date}}</td>
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    </div>
+    <div class="panel-footer"></div>
+    <div class="ngdialog-close" data-test="PurchaseOrders_Stage1Requestapprovedetailsviewinto"></div>
+  </div>
+</div>

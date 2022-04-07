@@ -1,0 +1,110 @@
+<section class="content">
+     <div id="tab-pannel" class="panel-group" ng-controller="CoCostController">
+         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding table-responsive">
+             <table id="tree" class="table table-striped table-hover table-bordered bottomTabTableHeight_14">
+                 <thead>
+                     <tr>
+                         <th colspan="4" class="text-center">List of Cost Codes</th>
+                         <th ng-show="disableBtnsJson.returnBtn">&nbsp;&nbsp;&nbsp;</th>
+                         <th colspan="5" class="text-center">
+                             <span ng-show="costDatamoreFlag==0">
+                                 <span class="fa fa-caret-right" style="float: right; font-size: 35px; color: #337ab7 !important;"
+                                     ng-click="clickForwardCostData1(costDatamoreFlag);"></span>
+                             </span>
+							Approved Amount up to previous order
+                             <span ng-show="costDatamoreFlag==1">
+                                 <span class="fa fa-caret-left" style="float: left; font-size: 35px; color: #337ab7 !important;"
+                                     ng-click="clickBackwardCostData1(costDatamoreFlag);">
+                                 </span>
+                                 Amount - Pending Approval of Changed Orders
+                                 <span class="fa fa-caret-right" style="float: right; font-size: 35px; color: #337ab7 !important;"
+                                     ng-click="clickForwardCostData1(costDatamoreFlag);">
+                                 </span>
+                             </span>    
+                             <span ng-show="costDatamoreFlag==2">
+                                 <span class="fa fa-caret-left" style="float: left; font-size: 35px; color: #337ab7 !important;"
+                                     ng-click="clickBackwardCostData1(costDatamoreFlag);">
+                                 </span>
+                                 Original Budget
+                                 <span class="fa fa-caret-right" style="float: right; font-size: 35px; color: #337ab7 !important;"
+                                     ng-click="clickForwardCostData1(costDatamoreFlag);">
+                                 </span>
+                             </span>   
+                             <span ng-show="costDatamoreFlag==3">
+                                 <span class="fa fa-caret-left" style="float: left; font-size: 35px; color: #337ab7 !important;"
+                                     ng-click="clickBackwardCostData1(costDatamoreFlag);">
+                                 </span>
+                                 Cumulative Amount
+                             </span>
+                         </th>
+                     </tr>
+                     <tr>
+                        <!-- <th class="text-center">Select</th> -->
+                   		<th class="text-center">Exg Item or New Item</th>
+                        <th class="text-center">Cost Code ID</th>
+                        <th class="text-center">Cost Code ID Descrption</th>
+                        <th class="text-center">Currency</th>
+
+                        <th class="text-center">Labour Cost
+                             <span ng-show="costDatamoreFlag == 0 || costDatamoreFlag == 1 || costDatamoreFlag == 2 || costDatamoreFlag == 3"></span>
+                        </th>                           
+                        <th class="text-center">
+                             <span ng-show="costDatamoreFlag == 0 || costDatamoreFlag == 1 || costDatamoreFlag == 2 || costDatamoreFlag == 3">Materials Cost</span>
+                        </th>
+                        <th class="text-center">
+                             <span ng-show="costDatamoreFlag == 0 || costDatamoreFlag == 1 || costDatamoreFlag == 2 || costDatamoreFlag == 3">Plant and Ewquipment Cost</span>
+                        </th>
+                        <th class="text-center">
+                             <span ng-show="costDatamoreFlag == 0 || costDatamoreFlag == 1 || costDatamoreFlag == 2 || costDatamoreFlag == 3">Other Items (Sub Contracts) Cost</span>
+                        </th>
+                        <th class="text-center">
+                             <span ng-show="costDatamoreFlag == 0 || costDatamoreFlag == 1 || costDatamoreFlag == 2 || costDatamoreFlag == 3">Total Cost</span>
+                        </th>
+                     </tr>
+                 </thead>
+                 <tbody>
+                     <tr ng-repeat="row in coCostCodeRows">
+						<!-- <td class="text-center"><input type="checkbox" ng-change="progressRowSelect(progress)" ng-model="progress.select"></td> --><!--Check box select delete row-->
+						<td class="text-center">
+							<select name="plantItems" ng-options="costItem.name for costItem in costCodeItemList" ng-change="coChangeCostCodeItemType(row,row.itemType)" ng-model="row.itemType">
+								<option value="">--Select--</option>
+							</select>
+		                </td>
+                        <!--  Selecting Exg or New  Item ( Drop Down List)-->
+                        <td class="text-center"><input style="width: 7em !important;" type="text" ng-click="selectCoCostCodeClassification(row)" ng-model="coCostCodeCode"/></td><!-- Select Item ID from project Manpower Budget table and central library Manpower table -->
+						<td class="text-center"><input type="text" ng-model="coCostCodeDescription" ng-readonly="true"/></td> <!-- project Manpower Budget table and central library Manpower table Item Description -->
+                        <td class="text-center"><input type="text" ng-model="currencyProjCostStatements"/></td> <!--  Project Base Currency as per Project Settings -->
+                        <td ng-show="costDatamoreFlag == 0" class="text-center"><input type="text" ng-model="row.approvedLabourCost" ng-readonly="true"/></td>	<!--  Approved Labour Cost from labour budget cost    -->
+						<td ng-show="costDatamoreFlag == 0" class="text-center"><input type="text" ng-model="row.approvedMaterialsCost" ng-readonly="true"/></td><!--  Approved Labour Cost from materials budget cost -->
+                        <td ng-show="costDatamoreFlag == 0" class="text-center"><input type="text" ng-model="row.approvedPlantCost" ng-readonly="true"/></td><!-- Approved Plant and equipment Cost from plant and equipment budget cost -->
+                        <td ng-show="costDatamoreFlag == 0" class="text-center"><input type="text" ng-model="row.approvedOtherCost" ng-readonly="true"/></td><!-- Approved Other Items ( Sub Contracts )  Cost from other item budget cost -->
+                        <td ng-show="costDatamoreFlag == 0" class="text-center"><input type="text" ng-model="row.approvedTotalCost" ng-readonly="true"/></td><!-- Approved Total Cost from total budget cost -->
+                          
+                        <td ng-show="costDatamoreFlag == 1" class="text-center"><input type="text" ng-model="row.pendingLabourCost" ng-readonly="true"/></td>	<!--  Pending approval Labour Cost from labour budget cost    -->
+						<td ng-show="costDatamoreFlag == 1" class="text-center"><input type="text" ng-model="row.pendingMaterialsCost" ng-readonly="true"/></td><!-- Pending approval Labour Cost from materials budget cost -->
+                        <td ng-show="costDatamoreFlag == 1" class="text-center"><input type="text" ng-model="row.pendingPlantCost" ng-readonly="true"/></td><!-- Pending approval Plant and equipment Cost from plant and equipment budget cost -->
+                        <td ng-show="costDatamoreFlag == 1" class="text-center"><input type="text" ng-model="row.pendingOtherCost" ng-readonly="true"/></td><!-- Pending approval Other Items ( Sub Contracts )  Cost from other item budget cost -->
+                        <td ng-show="costDatamoreFlag == 1" class="text-center"><input type="text" ng-model="row.pendingTotalCost" ng-readonly="true"/></td><!--  Pending approval Total Cost from total budget cost -->
+
+                        <td ng-show="costDatamoreFlag == 2" class="text-center"><input type="text" ng-model="row.currentLabourCost" ng-readonly="true"/></td>	<!--  current Order Labour Cost from labour budget cost    -->
+						<td ng-show="costDatamoreFlag == 2" class="text-center"><input type="text" ng-model="row.currentMaterialsCost" ng-readonly="true"/></td><!-- current Order Labour Cost from materials budget cost -->
+                        <td ng-show="costDatamoreFlag == 2" class="text-center"><input type="text" ng-model="row.currentPlantCost" ng-readonly="true"/></td><!-- current Order Plant and equipment Cost from plant and equipment budget cost -->
+                        <td ng-show="costDatamoreFlag == 2" class="text-center"><input type="text" ng-model="row.currentOtherCost" ng-readonly="true"/></td><!-- current Order Other Items ( Sub Contracts )  Cost from other item budget cost -->
+                        <td ng-show="costDatamoreFlag == 2" class="text-center"><input type="text" ng-model="row.currentTotalCost" ng-readonly="true"/></td><!-- current Order Total Cost from total budget cost -->
+
+                        <td ng-show="costDatamoreFlag == 3" class="text-center"><input type="text" ng-model="row.cumulativeLabourCost" ng-readonly="true"/></td>	<!--   Cumulative Amount Labour Cost from labour budget cost    -->
+						<td ng-show="costDatamoreFlag == 3" class="text-center"><input type="text" ng-model="row.cumulativeMaterialsCost" ng-readonly="true"/></td><!--  Cumulative Amount Labour Cost from materials budget cost -->
+                        <td ng-show="costDatamoreFlag == 3" class="text-center"><input type="text" ng-model="row.cumulativePlantCost" ng-readonly="true"/></td><!--  Cumulative Amount Plant and equipment Cost from plant and equipment budget cost -->
+                        <td ng-show="costDatamoreFlag == 3" class="text-center"><input type="text" ng-model="row.cumulativeOtherCost" ng-readonly="true"/></td><!--  Cumulative Amount Other Items ( Sub Contracts )  Cost from other item budget cost -->
+                        <td ng-show="costDatamoreFlag == 3" class="text-center"><input type="text" ng-model="row.cumulativeTotalCost" ng-readonly="true"/></td><!--  Cumulative Amount Total Cost from total budget cost -->
+
+				
+                     </tr>
+                 </tbody>
+             </table>
+         </div>
+         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+         	<input type="button" class="btn btn-primary" value="Add Rows" ng-click="addCoCostCodeRows()"/>
+         </div>
+     </div>
+</section>

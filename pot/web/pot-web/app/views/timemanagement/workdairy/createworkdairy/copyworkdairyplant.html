@@ -1,0 +1,50 @@
+<div class="panel-body">
+    <div class="tabTable_5_Res_Height overflow-auto">
+        <table class="table table-hover table-bordered tabTable_5_Height">
+            <thead>
+                <tr>
+                    <th><input type="checkbox" ng-model="selectAll" ng-change="selectAllPlants(selectAll)"></th>
+                    <th class="text-center" rowspan="3">Plant ID</th>
+                    <th class="text-center" rowspan="3">Description</th>
+                    <th class="text-center" rowspan="3">Registration No</th>
+                    <th class="text-center" rowspan="3">Trade</th>
+                    <th class="text-center" rowspan="3">Plant Make</th>
+                    <th class="text-center" rowspan="3">Plant Model</th>
+                    <th class="text-center" rowspan="3">Parent Company</th>
+                    <th class="text-center" rowspan="3">Procure Category</th>
+                    <th class="text-center" rowspan="3">Charge Out Category</th>
+                    <th class="text-center" rowspan="3">UOM</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat ="plant in workDairyPlantDtlTOs" ng-if="existingPlantMap[plant.id]==null">
+                    <td>
+                        <input type="checkbox" ng-change="selectPlant(plant)" ng-model="plant.select"
+                               value="id">
+                    </td>
+                    <td>{{plant.code}}</td>
+                    <td>{{plant.name}}</td>
+                    <td>{{plant.plantRegNum}}</td>
+                    <td>{{plant.classType}}</td>
+                    <td>{{plant.manufacture}}</td>
+                    <td>{{plant.model}}</td>
+                    <td>{{plant.cmpCategoryName}}</td>
+                    <td>{{plant.procureCatg}}</td>
+                    <td style="width: 50px;">
+                        <select ng-model="plant.shiftName">
+                            <option value="">Select Shift</option>
+                            <option>Single Shift</option>
+                            <option>Double Shift</option>
+                        </select>
+                    </td>
+                    <td>{{plant.measureUnit}}</td>
+                </tr>
+
+            </tbody>
+
+        </table>
+        <div ng-show="workDairyPlantDtlTOs <= 0">
+            <h5 align="center" style="color: red">No Employee Records for selected search criteria</h5>
+        </div>
+    </div>
+</div>

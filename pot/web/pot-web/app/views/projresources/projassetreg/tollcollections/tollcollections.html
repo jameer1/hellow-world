@@ -1,0 +1,69 @@
+<div id="tab-pannel" class="panel-group" ng-controller="TollCollectionController">
+	<div class="tabTable_1_Res_height">
+	<div id="grid" ui-grid="gridOptions" ng-if="stylesSvc.finishedStyling" 
+             ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-resize-columns class="grid"></div>
+		<!-- <table class="table table-striped table-bordered tabTable_1_height">
+			<thead id="tab-head">
+				<tr>
+					<th>Select</th>
+					<th>Date</th>
+					<th>Mode of Payment</th>
+					<th>Bank Name</th>
+					<th>Bank Code</th>
+					<th>Bank AC</th>
+					<th>Transfer Receipt No</th>
+					<th>Net amount</th>
+					<th>Tax amount</th>
+					<th>Cumulative Net Amount</th>
+					<th>Cumulative Tax Amount</th>
+					<th>Forecast - Cumulative Net amount</th>
+					<th>Forecast - Cumulative Tax amount</th>
+					<th>Cumulative Net Revenue</th>
+					<th>Cumulative tax amount</th>
+					<th>Car Parking Toll Records(Upload & View)</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr fixed-header="" ng-repeat="carparking in CarParkingTollCollectionDtlTO">
+					<td><input type="checkbox" value="id" data-test="CarParkingTollCollections_CheckBox"
+							ng-model="carparking.selected" ng-change="carParkingTollSelect(carparking)"></td>
+					<td>{{carparking.date}}</td>
+					<td>{{carparking.modeOfPayment}}</td>
+					<td>{{carparking.bankName}}</td>
+					<td>{{carparking.bankCode}}</td>
+					<td>{{carparking.bankAc}}</td>
+					<td>{{carparking.transferReceiptNo}}</td>
+					<td>{{carparking.netAmount}}</td>
+					<td>{{carparking.taxAmount}}</td>
+					<td>{{carparking.cumulativeNetAmount}}</td>
+					<td>{{carparking.cumulativeTaxAmount}}</td>
+					<td>{{carparking.forecastNetAmt}}</td>
+					<td>{{carparking.forecastTaxAmt}}</td>
+					<td>{{carparking.cumulativeNetRevenue}}</td>
+					<td>{{carparking.cumulativeTax}}</td>
+					<td><a class="fa fa-download" ng-if="carparking.carParkingTollFileName" href="{{carparking.docUrl}}"
+							title="Click To Download {{carparking.carParkingTollFileName}}"></a></td> supports for the AWS 
+					<td><span class="fa fa-download" ng-if="carparking.tollFileName" ng-click="downloadTollCollectionFile(carparking.id,carparking.tollFileName)" title="Click To Download {{carparking.carParkingTollFileName}}"></span></td>
+				</tr>
+			</tbody>
+		</table> -->
+		<div class="panel-footer">
+		<div class="pull-right padR-0">
+			<input type="button" class="btn btn-primary btn-sm" data-test="CarParkingTollCollections_Create"
+				ng-click="createTollCollection('Add','Toll Collections')" value="Add">
+		</div>
+		<div class="pull-left padL-0">
+			<!-- <input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+			<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+			<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+			<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+			<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();"> -->
+			<input type="button" class="btn btn-primary btn-sm" data-test="CarParkingTollCollections_Edit"
+				ng-click="createTollCollection('Edit','Toll Collections')" value="Edit"> <input type="button"
+				class="btn btn-default btn-sm" data-test="CarParkingTollCollections_Deactivate"
+				ng-click="deleteCarParkingToll()" value="Deactivate">
+		</div>
+	</div>
+	</div>
+	
+</div>

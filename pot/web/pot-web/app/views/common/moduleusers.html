@@ -1,0 +1,29 @@
+<div id="tab-pannel" class="panel-group">
+ <div class="panel panel-default">
+  <div class="panel-heading">
+   <h4 class="panel-title">User Details</h4>
+  </div>
+  <div class="panel-body">
+        <div class="b-sh popUpTableResHeight">
+				<table class="table table-striped table-hover table-bordered popUpTableHeight"  >
+    <thead>
+     <tr>
+      <th>User Name</th>
+      <th>Email</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr ng-dblclick="selectedUser(userTO)" fixed-header="" ng-repeat ="userTO in userList">
+      <td>{{userTO.name}}</td>
+      <td>{{userTO.email}}</td>
+     </tr>
+     <tr ng-show="userList.length<=0">
+      <td></td>
+      <td colspan="2" style="color: red">No User Records for selected project</td>
+     </tr>
+    </tbody>
+   </table>
+   </div>
+  </div>
+ </div>
+</div>

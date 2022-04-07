@@ -1,0 +1,53 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>pot-proj-settings-service-impl</artifactId>
+	<packaging>jar</packaging>
+	<name>POT-PROJ-SETTINGS-SERVICE-IMPL</name>
+
+	<parent>
+		<groupId>pot</groupId>
+		<artifactId>pot-proj-settings-root</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+
+	<dependencies>
+	
+
+		<dependency>
+			<groupId>pot</groupId>
+			<artifactId>pot-admin-service-impl</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>pot</groupId>
+			<artifactId>pot-proj-settings-dto</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>pot</groupId>
+			<artifactId>pot-project-lib-dto</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>pot</groupId>
+			<artifactId>pot-time-management-dao</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>pot</groupId>
+			<artifactId>pot-proj-settings-dao</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		
+		<!-- Dependency for HQL query validation related tests -->
+		<!-- Tests are refering H2 database which is not in use currently <module>pot-common-test</module> -->
+		<!-- <dependency> <groupId>pot</groupId> <artifactId>pot-common-test</artifactId> 
+			<version>1.0.0-SNAPSHOT</version> <classifier>test-jar-with-dependencies</classifier> 
+			<type>test-jar</type> <scope>test</scope> </dependency> -->
+
+	</dependencies>
+
+</project>

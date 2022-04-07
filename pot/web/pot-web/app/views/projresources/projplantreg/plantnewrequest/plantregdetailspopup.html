@@ -1,0 +1,45 @@
+<div id="tab-pannel" class="panel-group"
+	ng-init="getPlantMasterDetails()">
+	<form name="ApproverTransferForm" validate>
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Plant Details</h4>
+			</div>
+			<div class="panel-body">
+				<div class="popUpTableResHeight">
+					<table class="table table-striped table-bordered popUpTableHeight">
+						<thead>
+							<tr>
+								<th>Select</th>
+								<th>Asset ID</th>
+								<th>Registration Number</th>
+								<th>Plant Description</th>
+								<th>Make</th>
+								<th>Model</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr fixed-header="" ng-repeat ="plantDetails in labelKeyTOs"
+								ng-if="plantTransferExistingMap[plantDetails.id]==null">
+								<td><input type="checkbox" ng-model="plantDetails.select"
+									ng-change="popUpRowSelect(plantDetails)"></td>
+								<td>{{plantDetails.code}}</td>
+								<td>{{plantDetails.displayNamesMap['plntRegNo']}}</td>
+								<td>{{plantDetails.name}}</td>
+								<td>{{plantDetails.displayNamesMap['plntManfature']}}</td>
+								<td>{{plantDetails.displayNamesMap['plntModel']}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="panel-footer">
+				<div class="pull-right">
+					<input type="button" data-test='PlantandEquipment_RequestForTransfer_newrequest_add_Popup_Add' class="btn  btn-primary btn-sm"
+						ng-click="addToTransferRequest()" value="Add">
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</form>
+</div>

@@ -1,0 +1,34 @@
+<div id="tab-pannel" class="panel-group"
+	ng-init="getPlantCategoryDetails()">
+	<div id="tab-pannel" class="panel panel-default" modal-movable>
+		<div class="panel-heading">
+			<h4 class="panel-title">Plant Category List</h4>
+		</div>
+		<div class="panel-body">
+		<div class="popUpTableResHeight">
+			<table class="table table-striped table-bordered popUpTableHeight">
+				<thead>
+					<tr>
+					    <th><input type="checkbox" ng-model="selectAll" ng-change="selectAllPlants()"></th>
+						<th>Category ID</th>
+						<th>Category Name</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat ="detail in plantCategoryDetails">
+						<td><input type="checkbox" ng-model="detail.select"></td>
+						<td>{{detail.code}}</td>
+						<td>{{detail.desc}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+		<div class="panel-footer">
+		    <div class="pull-right">
+                <input type="submit" ng-click="addPlants()" value="Add" class="btn btn-primary btn-sm" data-test="Company_Add"/>
+            </div>
+        </div>    
+	</div>
+	<div class="ngdialog-close"></div>
+</div>

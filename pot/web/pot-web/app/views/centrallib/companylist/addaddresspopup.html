@@ -1,0 +1,87 @@
+<div id="tab-pannel">
+	<form name="addressForm" validate>
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title" ng-show="action =='Add'">Add Address</h4>
+				<h4 class="panel-title" ng-show="action =='Edit'">Edit Address</h4>
+			</div>
+			<div class="panel-body">
+					<div class="tabTable_2_Res_height">
+				<table class="table table-striped table-hover table-bordered tabTable_2_height">
+					<thead>
+						<tr>
+							<th><span ng-hide="action =='Edit'">Select</span></th>
+							<th>Address<span style="color: red; font-sfont-size: '50px'">
+								*</span></th>
+							<th>City<span style="color: red; font-sfont-size: '50px'">
+									*</span></th>
+							<th>State<span style="color: red; font-sfont-size: '50px'">
+									*</span></th>
+							<th>Pin Code<span
+								style="color: red; font-sfont-size: '50px'"> *</span></th>
+						</tr>
+					</thead>
+					<tr fixed-header="" ng-repeat ="address in addressList">
+						<td><input data-test='Companylist_Address_Create_addrows_Checkbox1' ng-disabled="action =='Edit'" type="checkbox"
+							ng-model="address.selected"
+							ng-change="addressPopUpRowSelect(address)"></td>
+						<td><ng-form name="addrForm"> <input data-test='Companylist_Address_Create_Address' type="text" 
+							class="form-control"
+								ng-model="address.address" name="addre"
+								pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*)) minlength="2"
+								maxlength=200 placeholder="Address" ng-required="true" /> 
+								<span class="procurment-pot-errors"
+								ng-show="addrForm.addre.$touched && addrForm.addre.$error.required">
+								Address is mandatory</span> 
+								<span class="procurment-pot-errors"
+								ng-show="addrForm.addre.$error.pattern">Alpha numeric
+								data should be allowed </span> </ng-form>
+							</td>
+
+						<td ng-form name="cityForm"><input data-test='Companylist_Address_Create_City' type="text" class="form-control"
+							ng-model="address.city" name="city" ng-trim="false"
+							placeholder="City"
+							pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*)) minlength="2"
+							maxlength=50 ng-required="true" /> <span class="procurment-pot-errors"
+							ng-show="cityForm.city.$touched && cityForm.city.$error.required">City
+								is mandatory</span> <span class="procurment-pot-errors"
+								ng-show="cityForm.city.$error.pattern">Alpha
+								numeric data should be allowed </span> </td>
+						<td ng-form="stateForm"><input type="text" data-test='Companylist_Address_Create_State' class="form-control"
+							ng-model="address.state" name="state" ng-trim="false"
+							placeholder="State"
+							pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*)) minlength="2"
+							maxlength=50 ng-required="true" /> <span class="procurment-pot-errors"
+							ng-show="stateForm.state.$touched && stateForm.state.$error.required">State
+								is mandatory</span> </td>
+						<td ng-form="pcForm"><input data-test='Companylist_Address_Create_PinCode' type="text" class="form-control"
+							ng-model="address.pincode" name="pinCode" ng-trim="false"
+							placeholder="Pin Code" valid-number
+							ng-pattern="/^(?!\s)(?!.*\s$)(?=.*[0-9])[0-9-]{5,}$/"
+							minlength="2" maxlength=11 ng-required="true" /> 
+							<span class="procurment-pot-errors"
+							ng-show="pcForm.pinCode.$touched && pcForm.pinCode.$error.required">Pin
+								Code Is Mandatory </span> <span class="procurment-pot-errors"
+							ng-show="pcForm.pinCode.$error.minlength">Please enter
+								valid pin</span></td>
+					</tr>
+				</table>
+				</div>
+			</div>
+			<div class="panel-footer">
+				<div class="pull-left">
+					<input data-test='Companylist_Address_Create_addrows' type="submit" class="btn btn-primary btn-sm"
+						ng-click="addressForm.$valid && addRows()" value="Add Rows"
+						ng-show="action =='Add'" /> <input data-test='Companylist_Address_Create_deleterows' type="button"
+						class="btn btn-secondary btn-sm" ng-click="deleteAddressRows()"
+						value="Delete Rows" ng-show="action =='Add'" />
+				</div>
+				<div class="pull-right">
+					<input data-test='Companylist_Address_Save' type="submit" class="btn btn-primary btn-sm" value="Save"
+						ng-click="addressForm.$valid && saveAddress()" />
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</form>
+</div>

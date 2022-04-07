@@ -1,0 +1,31 @@
+<section class="content">
+	<div class="panel panel-default block footer-parent">
+		<div class="panel-body">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+				<table class="table table-striped table-hover table-bordered tabTable_5_Height">
+		            <thead>
+		                <tr>
+		                    <th>Select</th>
+		                    <th class="text-center">Name</th>
+		                    <th class="text-center">Category</th>
+		                    <th class="text-center">Unit Of Measure</th>
+		                    <th class="text-center">Original Hrs</th>
+		                </tr>
+		            </thead>
+		            <tbody>
+		                <tr ng-repeat="manpowerRow in projManpowerData" ng-click="projManpowerSelection(manpowerRow)">		                    
+		                    <td>{{manpowerRow.id}}</td>
+		                    <td>{{manpowerRow.empClassTO.code}}</td>
+		                    <td>{{manpowerRow.empClassTO.name}}</td>
+		                    <td>{{manpowerRow.measureUnitTO.name}}</td>
+		                    <td>{{manpowerRow.originalQty}}</td>		                                      
+		                </tr>
+		            </tbody>
+		        </table>
+			</div>
+			<!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+				<input type="button" class="btn btn-primary" value="Add" ng-click="addManpowerRowToCo()"/>
+			</div> -->		
+		</div>
+	</div>
+</section>

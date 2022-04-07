@@ -1,0 +1,43 @@
+<div id="tab-pannel" ng-init="getProjStoreStocks()">
+	<div class="panel-group">
+			<div class="popUpTableSmallResHeight" style="overflow: auto">
+				<table class="table table-striped table-hover table-bordered popUpTableSmallHeight" ng-if="!multiSelect">
+					<thead>
+						<tr>
+							<th>Project Store ID</th>
+							<th>Project Store Name</th>
+						</tr>
+					</thead>
+					<tbody>
+					<tr data-test='Resources_Materials_ProjectDockets_GenerateDocket_DestinationYardProjStoreStackSelect' ng-repeat ="projStoreStockTO in projStoreYardData"
+						ng-dblclick="deliveryPlacePopup(projStoreStockTO,2)">
+						<td>{{projStoreStockTO.code}}</td>
+						<td>{{projStoreStockTO.desc}}</td>
+					</tr>
+				</tbody>
+				</table>
+
+				<table class="table table-striped table-hover table-bordered popUpTableSmallHeight" ng-if="multiSelect">
+						<thead>
+							<tr>
+								<th><input type="checkbox" 
+									ng-change="selectAllProjStoreItems(selectAllProjItems)" 
+									ng-model="selectAllProjItems"></th>
+								<th>Project Store ID</th>
+								<th>Project Store Name</th>
+							</tr>
+						</thead>
+						<tbody>
+						<tr data-test='Resources_Materials_ProjectDockets_GenerateDocket_DestinationYardProjStoreStackSelect' 
+							ng-repeat ="projStoreStockTO in projStoreYardData">
+							<td><input type="checkbox" ng-change="selectProjStoreItem(projStoreStockTO)"  data-test="store_stock_proj_checkbox"
+								ng-model="projStoreStockTO.select"></td>
+							<td>{{projStoreStockTO.code}}</td>
+							<td>{{projStoreStockTO.desc}}</td>
+						</tr>
+					</tbody>
+				</table>
+
+			</div>
+		</div>
+	</div>

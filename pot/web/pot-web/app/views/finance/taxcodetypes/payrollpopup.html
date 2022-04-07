@@ -1,0 +1,76 @@
+<div id="tab-pannel" class="panel-group">
+	<form name="payRollForm" validate>
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Pay Roll Cycle / Credit Cycle - Period</h4>
+			</div>
+			<div class="panel-body15">
+				<table class="table table-striped table-hover table-bordered" style="height: 200px !important;" >
+					<thead>
+						<tr>
+							<th ng-show="action=='Add'">Select</th>
+							<!--  <th>Tax Code</th>
+       <th>Description</th> -->
+							<th>Employee Type</th>
+							<th>Employee Category</th>
+							<th>Pay Roll Cycle</th>
+							<th>Explanatory notes</th>
+						</tr>
+					</thead>
+					<tr fixed-header="" ng-repeat ="payRoll in addPayRoll">
+						<td ng-show="action=='Add'"><input type="checkbox"
+							value="payRoll.id" ng-model="payRoll.selected"
+							ng-change="payRollPopupRowSelect(payRoll)"></td>
+						<!-- <td><input type="text" placeholder="Tax Code" ng-click="getTaxCodes(payRoll)" ng-model="payRoll.taxCode" ng-required="true"></td>      
+     
+      <td><input type="text" placeholder="Description" ng-click="getTaxCodes(payRoll)" ng-model="payRoll.taxDesc"></td>     -->
+
+						<td><select style="min-width: 150px;"
+							ng-model="payRoll.procureCatgLabelKey"
+							ng-options="payRoll.name for payRoll  in procureCategoryMap track by payRoll.id"
+							ng-required="true">
+								<option value="">Select</option>
+						</select></td>
+
+
+						<td><select style="width: 154px;"
+							ng-model="payRoll.projEmpLabelKey"
+							ng-options="payRoll.name for payRoll in projEmpClassMap track by payRoll.id"
+							ng-required="true">
+								<option value="" ng-disabled="true">Select</option>
+						</select></td>
+
+						<td><select style="min-width: 150px;" id="payRoll"
+							name="payRoll" ng-model="payRoll.payRollCycleLabelKeyTO"
+							ng-options="payRoll.code for payRoll in payPeriodCycleMap track by payRoll.id"
+							ng-required="true">
+								<option value="" ng-disabled="true">Select</option>
+						</select></td>
+
+						<td><input type="text" name="notes"
+							ng-model="payRoll.comments" placeholder="Notes"></td>
+					</tr>
+				</table>
+			</div>
+			<div class="panel-footer">
+				<div class="pull-left">
+					<input type="submit" ng-click="payRollForm.$valid && addRows()"
+						class="btn  btn-brown btn-sm" value="Add" ng-show="action =='Add'"
+						validate> <input type="button" ng-click="deleteRows()"
+						value="Delete" ng-show="action =='Add'"
+						class="btn  btn-brown btn-sm" validate>
+				</div>
+				<div class="pull-right">
+					<input type="submit" ng-click="payRollForm.$valid && savePayRoll()"
+						value="Save" class="btn  btn-brown btn-sm" validate />
+				</div>
+			</div>
+			<div class="ngdialog-close"></div>
+		</div>
+	</form>
+</div>
+
+
+
+
+

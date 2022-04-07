@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml2/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+    <head>
+        <title>Proconsys</title>
+        <link rel="stylesheet" type="text/css" href="style.css" />
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+
+        <script type="text/javascript" src="js/ddaccordion.js">
+
+            /***********************************************
+             * Accordion Content script- (c) Dynamic Drive DHTML code library (www.dynamicdrive.com)
+             * Visit http://www.dynamicDrive.com for hundreds of DHTML scripts
+             * This notice must stay intact for legal use
+             ***********************************************/
+
+        </script>
+
+
+        <script type="text/javascript">
+
+
+            ddaccordion.init({
+                headerclass: "submenuheader", //Shared CSS class name of headers group
+                contentclass: "submenu", //Shared CSS class name of contents group
+                revealtype: "click", //Reveal content when user clicks or onmouseover the header? Valid value: "click", "clickgo", or "mouseover"
+                mouseoverdelay: 200, //if revealtype="mouseover", set delay in milliseconds before header expands onMouseover
+                collapseprev: true, //Collapse previous content (so only one open at any time)? true/false 
+                defaultexpanded: [], //index of content(s) open by default [index1, index2, etc] [] denotes no content
+                onemustopen: false, //Specify whether at least one header should be open always (so never all headers closed)
+                animatedefault: false, //Should contents open by default be animated into view?
+                persiststate: true, //persist state of opened contents within browser session?
+                toggleclass: ["", ""], //Two CSS classes to be applied to the header when it's collapsed and expanded, respectively ["class1", "class2"]
+                togglehtml: ["suffix", "<img src='images/plus.gif' class='statusicon' />", "<img src='images/minus.gif' class='statusicon' />"], //Additional HTML added to the header when it's collapsed and expanded, respectively  ["position", "html1", "html2"] (see docs)
+                animatespeed: "fast", //speed of animation: integer in milliseconds (ie: 200), or keywords "fast", "normal", or "slow"
+                oninit: function(headers, expandedindices) { //custom code to run when headers have initalized
+                    //do nothing
+                },
+                onopenclose: function(header, index, state, isuseractivated) { //custom code to run whenever a header is opened or closed
+                    //do nothing
+                }
+            })
+
+
+        </script>
+
+
+    </head>
+
+    <body>
+        <div class="right_pannel">  
+              <h3 class="h3_header">CENTRAL RESOURCES</h3>
+
+              <h3 class="h3_header">EMPLOYEE REGISTER:</h3>
+
+              <p>Employee register in Central Resources holds all the employee details of complete Project (in All EPS Ids). At the time of registering the employee, he can be assigned to any project in an EPS.
+              </p>
+              <h4 class="h4_header">Action Buttons:</h4>
+
+            <p><font class="h4_header1">Search:</font> Search button will displays the employees list present for selected EPS and Project Names.</p>
+           <p><font class="h4_header1"> Fetch:</font> Fetch will display the employees list irrespective of the EPS and Project Ids. It returns the entire employees list present in the Complete Project/Application.</p>
+           <p><font class="h4_header1"> Set Columns: </font>Set Columns is used to display the customized list Employees. User can select the desired fields to be visible and unwanted fields to be hidden.</p>
+            <p><font class="h4_header1">Request for Employee Transfer:</font> After completion of his job in a project, employee needs to be transferred to another project. By clicking the request for employee transfer, after selecting an employee row, a notification will be sent to the approver to transfer the employee to the inter project. </p>
+            <p><font class="h4_header1">Transfer Employee: </font>Transfer of employee will be done by clicking this button. After requesting for transfer of an employee, approver transfers the employee by clicking transfer button. After transferring employee, the employee's Inter Project will become his current project and current project will become his past experience. </p> 
+            <p><font class="h4_header1">Resend:</font> Requesting additional time for the transfer of employee if the Actual date of transfer expires.  </p>
+
+            <p>Action buttons Add, Delete, Import, Export, Group, Un group and sort are used for adding, deleting, importing, exporting, grouping, ungrouping and sorting the data (Project Employee List) respectively for a particular project.</p>
+           <p><font class="h4_header1"> Discard: </font>Use this action button to discard any changes while editing before the data is saved to the system.</p>
+
+          <h3 class="h3_header"> Employee Contact Details:</h3>
+          <p>The tab Employee Contact Details holds the contact details of the employee like Address, Phone Number and email.</p>
+
+          <h4 class="h4_header">Action Buttons:</h4>
+          <p>Select an employee from the list and click Add button to add contact details. Select a record from Address and click Delete button for deleting a record. 
+
+          </p>
+
+            <h3 class="h3_header">Employee Next of Kin Contact Details:</h3>
+            <p>This tab contains the employee's family members or relatives contact details. This is maintained for contacting the employee's family in case of any emergency. 
+            </p> <h4 class="h4_header">Action Buttons:</h4>
+            <p> Select an employee from the list and click Add button to add kin's contact details. Select a record from kin's Address and click Delete button for deleting a record. 
+           </p> <h3 class="h3_header">Past Project Experience:</h3>
+          <p>  This tab contains the past project experience of the employee. User can not add or delete the data in this tab. The past project exp' will be transferred to here after the employee transfers to another project.
+</p>
+        </div>
+    </body>
+</html>

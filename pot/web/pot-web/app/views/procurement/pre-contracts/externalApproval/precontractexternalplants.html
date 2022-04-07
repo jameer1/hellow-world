@@ -1,0 +1,51 @@
+<div class="tab-pannel">
+  <form name="plantForm1" validate>
+      <!--<div class="panel panel-default">
+    <div class="panel-body">-->
+        <div class="tabTable_1_Res_height">
+            <table class="table table-striped table-hover table-bordered tabTable_1_height" >
+        <thead>
+          <tr>
+            <th>Item ID</th>
+            <th width= "18%;">Item Description</th>
+            <th>Plant Type</th>
+            <th>Unit Of Measure</th>
+            <th>Procurement<br>SubCategory
+            </th>
+            <th>Cost Code</th>
+            <th>Delivery Place</th>
+            <th>Start Date</th>
+            <th>Finish Date</th>
+            <th>Qty</th>
+            <th>Estimate Rate<br> ({{preContractObj.currencyCode}})</th>
+            <th>Estimate Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat ="item in preContractObj.preContractPlantDtlTOs">
+            <td><span>{{item.itemCode}} </span></td>
+            <td><span>{{item.itemDesc}} </span></td>
+            <td><span>{{projPlantClassmap[item.projPlantLabelKey.id].code}}</span></td>
+            <td><span>{{projPlantClassmap[item.projPlantLabelKey.id].unitOfMeasure}}</span></td>
+            <td><span>{{procureCategoryMap[item.procureSubCatgId].code}}</span></td>
+            <td><span>{{item.costCode}}</span></td>
+						<td><span> {{item.deliveryPlace}}</span></td>
+            <td>{{item.startDate | date}}</td>
+            <td>{{item.finishDate | date}}</td>
+            <td><span>{{item.quantity}} </span></td>
+            <td><span>{{item.estimateCost}} </span></td>
+            <td class="input-width"><span>{{item.quantity * item.estimateCost}}<span></td>
+
+          </tr>
+        </tbody>
+      </table>
+      </div>
+     <!--</div>
+    <div class="panel-footer">
+      <div class="pull-right" ng-hide="preContractObj.workFlowStatusTO.value ==5 || preContractObj.workFlowStatusTO.value ==6">
+        <input type="Submit" value="Save" ng-click="plantForm1.$valid && savePlantDetails()" class="btn  btn-brown btn-sm" validate />
+      </div>
+    </div> 
+</div>-->
+  </form>
+</div>

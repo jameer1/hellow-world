@@ -1,0 +1,33 @@
+<div ng-init="getProjScheduleBaseLines()">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="popUpTableResHeight">
+                <table class="table table-hover table-bordered popUpTableHeight" >
+                    <thead>
+                        <tr>
+                            <th>Select</th>
+                            <th>Code</th>
+                            <th style="width: 250px !important;">Name</th>
+                            <th>Status Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr fixed-header="" ng-repeat ="baseLine in projScheduleBaseLines">
+                            <td>
+                                <input type="checkbox" ng-model="baseLine.selected" ng-change="rowSelect(baseLine)"
+                                data-test="Projects_ProjectSettings_CreateBaseLineTab_ViewTab_Checkbox"></td>
+                            <td>{{baseLine.code}}</td>
+                            <td>{{baseLine.name}}</td>
+                            <td>{{baseLine.date}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <div class="pull-left">
+                <input type="button" data-test='Projects_ProjectSettings_CreateBaseLineTab_ViewTab_Deactive' ng-click="deleteProjScheduleBaseLines()" class="btn btn-secondary btn-sm" value="Deactivate" />
+            </div>
+        </div>
+    </div>
+</div>

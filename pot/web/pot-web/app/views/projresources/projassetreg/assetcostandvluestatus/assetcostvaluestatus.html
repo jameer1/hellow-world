@@ -1,0 +1,79 @@
+<div id="tab-pannel" class="panel-group" ng-controller="AssetCostValueStatusController">
+	<div class="tabTable_1_Res_height">
+	<div ng-init="purchaseRecords();assetLifeStatusRecords()" id="grid" ui-grid="gridOptions" ng-if="stylesSvc.finishedStyling" 
+             ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-resize-columns class="grid"></div>
+		<!-- <table class="table table-striped table-bordered tabTable_1_height" ng-init="purchaseRecords();assetLifeStatusRecords()">
+			<thead id="tab-head">
+				<tr>
+					<th>Select</th>
+					<th>Effective Date(Start date of Financial Year)</th>
+					<th>Currency</th>
+					<th>Land Cost</th>
+					<th>Structure Cost</th>
+					<th>Plant & Equipment Cost</th>
+					<th>Total Cost of Asset</th>
+					<th>Asset Market Value</th>
+					<th>Structure Scrap Value</th>
+					<th>Plant & Equipment Scrap Value</th>
+					<th>Cumulative Depreciation value for Structure</th>
+					<th>Cumulative Depreciation value for Plant</th>
+					<th>Cumulative Depreciation for Asset</th>
+					<th>Yearly Depreciation for Structure</th>
+					<th>Yearly Depreciation for Plant</th>
+					<th>Yearly Total Depreciation amount</th>
+					<th>Remaining - Asset Cost</th>					
+					<th>Valuation & Depreciation Records</th>
+				</tr>
+			</thead>
+			<tbody>
+			<tr fixed-header="" ng-repeat ="assetcost in assetCostValueStatusDtlTOs">
+				<td><input type="checkbox" ng-model="assetcost.selected" ng-change="assetCostLifeStatusRowSelect(assetcost)" data-test="AssetCostandValueStatus_Checkbox"></td>			
+					<td>{{assetcost.effectiveDate}}</td>
+					<td>{{assetcost.currency}}</td>
+					<td>{{assetcost.landCost}}</td>
+					<td>{{assetcost.structureCost}}</td>
+					<td>{{assetcost.plantEquipmentCost}}</td>
+					<td>{{assetcost.totalCost}}</td>
+					<td>{{assetcost.assetMarket}}</td>
+					<td>{{assetcost.structureScrap}}</td>
+					<td>{{assetcost.equipmentScrapValue}}</td>
+					<td>{{assetcost.cummStructure}}</td>
+					<td>{{assetcost.cummPlant}}</td>
+					<td>{{assetcost.cummAsset}}</td>
+					<td>{{assetcost.yearlyStructure}}</td>
+					<td>{{assetcost.yearlyPlant}}</td>
+					<td>{{assetcost.yearlyTotalAmount}}</td>
+					<td>{{assetcost.remainAssetCost}}</td>					
+					<td><a class="fa fa-download" ng-if="assetcost.assetCostValueDocumentFileName" href="{{assetcost.docUrl}}" title="Click To Download {{lifestatus.assetCostValueDocumentFileName}}"></a></td>
+					<td>
+						<span class="fa fa-download" ng-if="assetcost.assetCostValueDocumentFileName" ng-click="downloadAssetCostValueStatusFile(assetcost.id,assetcost.assetCostValueDocumentFileName)" title="Click To Download {{assetcost.assetCostValueDocumentFileName}}"></span>
+					</td>
+				</tr>
+			</tbody>
+		</table> -->
+		<div class="panel-footer">
+		<div class="pull-right padR-0">
+			<input type="button" class="btn btn-primary btn-sm"
+			data-test="AssetCostandValueStatus_Create"
+				ng-click="addAssetCostValueStatus('Add')" value="Add">
+		</div>
+		<div class="pull-left padL-0">
+			<!-- <input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+			<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+			<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+			<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+			<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();"> -->
+			<input type="button" class="btn btn-primary btn-sm"
+			data-test="AssetCostandValueStatus_Edit"
+				ng-click="addAssetCostValueStatus('Edit')" value="Edit"> <input
+				type="button" class="btn btn-secondary btn-sm"
+				data-test="AssetCostandValueStatus_Deactivate"
+				ng-click="deleteAssetCostValueStatus()" value="Deactivate">
+		</div>
+	</div>
+	</div>
+	
+
+</div>
+
+

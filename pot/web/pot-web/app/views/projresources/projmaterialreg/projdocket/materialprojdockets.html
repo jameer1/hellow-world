@@ -1,0 +1,56 @@
+<div ng-if="account.appCodeTemplate['RESOURCE_MATRLPROJDOCK_VIEW']" id="tab-pannel" ng-controller="MaterialProjDocketController">
+				<div class="singleTableResHeight_3">
+				<div id="grid" ui-grid="gridOptions" class="singleTableResHeight_3" ng-if="stylesSvc.finishedStyling"
+             ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-resize-columns class="grid"></div>
+					<!-- <table class="table table-striped table-bordered singleTableHeight_3" >
+						<thead id="tab-head"> 
+							<tr>
+								<th>Select</th>
+								<th>Docket Date</th>
+								<th>Project Docket #</th>
+								<th>Origin Project</th>
+								<th>Destination Project</th>
+								<th>Materials Issued By</th>
+								<th>Materials Received By</th>
+								<th>Docket Status</th>
+								<th>View Docket</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr fixed-header="" ng-repeat ="storedocket in materialProjDocketTOs">
+								<td><input type="checkbox" value="id"
+									ng-model="storedocket.selected"
+									ng-disabled="storedocket.projdocketNum != null"
+									ng-click="storeDocketRowSelect(storedocket)"></td>
+								<td>{{storedocket.projdocketDate}}</td>
+								<td>{{storedocket.projdocketNum}}</td>
+								<td>{{storedocket.fromProjLabelkeyTO.name}}</td>
+								<td>{{storedocket.toProjLabelkeyTO.name}}</td>
+								<td>{{storedocket.issuedByLabelkeyTO.code}},{{storedocket.issuedByLabelkeyTO.name}}</td>
+								<td>{{storedocket.receivedByLabelkeyTO.code}},{{storedocket.receivedByLabelkeyTO.name}}</td>
+								<td>{{storedocket.apprStatus}}</td>
+								<td><input type="button" ng-if="account.appCodeTemplate['RESOURCE_MATRLPROJDOCK_ADD']" data-test='Resources_Materials_ProjectDockets_vieweditdocket'
+									class="btn bottomaligned btn-secondary btn-sm"
+									ng-click="projDocketDetails('Edit',storedocket)"
+									value="View/Edit Docket" /></td>
+							</tr>
+						</tbody>
+					</table> -->
+					<script type="text/ng-template" id="template.html">
+			<button data-test="Resources_Materials_ProjectDockets_vieweditdocket" ng-click="grid.appScope.projDocketDetails('Edit', row.entity, storedocket)"  class="btn bottomaligned btn-secondary btn-sm" >View/Edit Docket</button>
+			</script>
+				</div>
+			<div class="panel-footer">
+				<div class="pull-right">
+					<input ng-if="account.appCodeTemplate['RESOURCE_MATRLPROJDOCK_ADD']" data-test='Resources_Materials_ProjectDockets_GenerateDocket' type="button" class="btn btn-primary btn-sm"
+						ng-click="projDocketDetails('Add','')" value="Generate Docket">
+				</div>
+				<!-- <div class="pull-left">
+					<input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+					<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+					<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+					<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+					<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+				</div> -->
+			</div>
+</div>

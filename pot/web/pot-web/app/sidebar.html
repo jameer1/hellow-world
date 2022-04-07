@@ -1,0 +1,1768 @@
+<section class="sidebar">
+	<ul class="sidebar-menu" data-widget="tree">
+		<li class="treeview">
+			<a ng-if="account.appCodeTemplate['ENTERPRISE_VIEW']" data-test='Enterprise_Module_click'>
+				<i class="fa fa-building"></i>
+				<span>Enterprise</span>
+				<span class="pull-right-container">
+					<i class="fa fa-angle-left pull-right"></i> 
+				</span>
+			</a>
+			<ul class="treeview-menu" style="display: none;">
+				<li>
+					<a data-test='Enterprise_EPS' ng-if="account.appCodeTemplate['ENTRPRSE_EPS_VIEW']"
+						ng-selected="true" ui-sref="enterprise" ui-sref-opts="{reload: true}">
+						Enterprise Project Structure</a>
+				</li>
+				<li class="treeview">
+					<a data-test='EnterPrise_CentralLibrary' ng-if="account.appCodeTemplate['ENTRPRSE_CENTLIB_VIEW']">
+						<span>Central Library</span>
+						<span class="pull-right-container">
+							<i class="fa fa-angle-left pull-right"></i>
+						</span>
+					</a>
+					<ul class="treeview-menu">
+						<li ng-if="account.appCodeTemplate['ENTRPRSE_CENTLIB_CMPLIST_VIEW']">
+							<a data-test='CentralLibrary_Companylist' ui-sref="company" ui-sref-opts="{reload: true}"
+								ng-click="hoverme = !hoverme">Company List</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['ENTRPRSE_CENTLIB_MEASUREUNIT_VIEW']">
+							<a data-test='CentralLibrary_MeasuringUnits' ui-sref="measure"
+								ui-sref-opts="{reload: true}">Measuring Units
+							</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['ENTRPRSE_CENTLIB_WEATHRCLSFY_VIEW']">
+							<a data-test='CentralLibrary_WeatherClassification' ui-sref="weather"
+								ui-sref-opts="{reload: true}">Weather Classification
+							</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['ENTRPRSE_CENTLIB_EMPCLSFY_VIEW']">
+							<a data-test='CentralLibrary_Employeclassification' ui-sref="employee"
+								ui-sref-opts="{reload: true}">Central Employee Classification
+							</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['ENTRPRSE_CENTLIB_PLANTCLSFY_VIEW']">
+							<a data-test='CentralLibrary_PlantClassification' ui-sref="plant"
+								ui-sref-opts="{reload: true}">Central Plant Classification
+							</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['ENTRPRSE_CENTLIB_MATERIALCLS_VIEW']">
+							<a data-test='CentralLibrary_MaterialClassification' ui-sref="materialclass"
+								ui-sref-opts="{reload: true}">Central Material Classification</a>
+						</li>
+						<!-- Tangible Item menu -->
+						<li ng-if="account.appCodeTemplate['ENTRPRSE_CENTLIB_TANGIBLECLS_VIEW']">
+							<a  ui-sref="tangibleclass"
+								ui-sref-opts="{reload: true}">Tangible Item Classification</a>
+						</li>
+						<!-- end -->
+						<li ng-if="account.appCodeTemplate['ENTRPRSE_CENTLIB_COSTCODCLSFY_VIEW']">
+							<a data-test='CentralLibrary_CostcodeClassification' ui-sref="costcode"
+								ui-sref-opts="{reload: true}">Cost Code Classification
+							</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['ENTRPRSE_CENTLIB_EMPWGEFCTR_VIEW']">
+							<a data-test='CentralLibrary_EmployeeWagesClassification' ui-sref="empwage"
+								ui-sref-opts="{reload: true}">Employee Wage Rate Factors</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['ENTRPRSE_CENTLIB_PROCURCATGRY_VIEW']">
+							<!--Procurement Category-->
+							<a data-test='CentralLibrary_ProcurementCategory' ui-sref="procurecatg"
+								ui-sref-opts="{reload: true}">Procurement Category
+							</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['ENTRPRSE_CENTLIB_SERVCECLSFY_VIEW']">
+							<a data-test='CentralLibrary_ServiceClassification' ui-sref="serviceclass"
+								ui-sref-opts="{reload: true}">Project Services Classification 
+							</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['ENTRPRSE_CENTLIB_STORANDSTOK_VIEW']">
+							<a data-test='CentralLibrary_WareHouseStockYardList' ui-sref="store"
+								ui-sref-opts="{reload: true}">Warehouse and Stockyard List</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['PRJ_PRJLIB_LEAVETYPEATNDCE_VIEW']">
+							<a ui-sref="projleavetype" data-test='CentralLibrary_LeaveTypeClassification'
+								ui-sref-opts="{reload: true}">Leave Types & Attendance <br /> Record Codes</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['ENTRPRSE_CENTLIB_PLANTSERVICEHISTORY_VIEW']">
+							<a data-test='CentralLibrary_PlantServiceHistory' ui-sref="plantservicehistory"
+								ui-sref-opts="{reload: true}">
+								Plant Service History</a>
+						</li>
+						<li class="treeview">
+							<a ng-if="account.appCodeTemplate['ENTERPRISE_CENTLIB_FINANCECODE_VIEW']" data-test="FinanceCodes_Click">
+								<span>Finance Codes</span>
+								<span class="pull-right-container">
+									<i class="fa fa-angle-left pull-right"></i>
+								</span>
+							</a>
+
+							<ul class="treeview-menu">
+								<li ng-if="account.appCodeTemplate['FINANCE_PROVINCE_VIEW']">
+									<a ui-sref="countryprovincecodes" ui-sref-opts="{reload: true}" data-test="FinanceCodes_CountryProvinceCodes_Click">Country & Province Codes</a>
+								</li>
+								<li ng-if="account.appCodeTemplate['FINANCE_FINANCE_VIEW']">
+									<a ui-sref="financecentre" ui-sref-opts="{reload: true}" data-test="FinanceCodes_FinanceCenter_Click">Finance Center</a>
+								</li>
+								<!--
+								we are not using this code,there is some code duplication is there.
+							     <li>
+									<a ui-sref="unitofpayrates" ui-sref-opts="{reload: true}"
+										ng-click="hoverme = !hoverme"
+										ng-if="account.appCodeTemplate['ENTERPRISE_CENTLIB_FINANCECODE_UNITOFPAYRATE_VIEW']">
+										Unit of Pay Rates</a>
+								</li>
+								<li>
+									<a ui-sref="taxcodes" ui-sref-opts="{reload: true}"
+										ng-if="account.appCodeTemplate['ENTERPRISE_CENTLIB_FINANCECODE_TAXCODES_VIEW']">Tax
+										Codes
+									</a>
+								</li>
+								<li>
+									<a ui-sref="taxcountryprovison" ui-sref-opts="{reload: true}"
+										ng-if="account.appCodeTemplate['ENTERPRISE_CENTLIB_FINANCECODE_TAXCOUNTRYPROVISION_VIEW']">Tax
+										Country Provisions</a>
+								</li>
+								<li>
+									<a ui-sref="taxtypes" ui-sref-opts="{reload: true}"
+										ng-if="account.appCodeTemplate['ENTERPRISE_CENTLIB_FINANCECODE_TAXTYPES_VIEW']">Tax
+										Types
+									</a>
+								</li>
+								<li>
+									<a ui-sref="taxcodetypes" ui-sref-opts="{reload: true}"
+										ng-if="account.appCodeTemplate['ENTERPRISE_CENTLIB_FINANCECODE_TAXCODETYPES_VIEW']">Tax
+										Code Types</a>
+								</li> -->
+								<li ng-if="account.appCodeTemplate['FINANCE_PROFIT_VIEW']">
+									<a ui-sref="profitcentre" ui-sref-opts="{reload: true}" data-test="FinanceCodes_ProfitCenter_Click"> Profit Center</a>
+								</li>
+							</ul>
+						</li>
+						<li ng-if="account.appCodeTemplate['ENTERPRISE_CENTLIB_COUNTRYCODE_VIEW']">
+							<a data-test='CentralLibrary_CountryStateProvinceCodes' ui-sref="country"
+								ui-sref-opts="{reload: true}">Country Codes</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['ENTERPRISE_CENTLIB_IMMOVASSETCATEG_VIEW']">
+							<a data-test='CentralLibrary_ImmovableAssertsCategory' ui-sref="assetscategory"
+								ui-sref-opts="{reload: true}">Immovable Assets Category</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['ENTERPRISE_CENTLIB_ASSETMAINTEN_VIEW']">
+							<a data-test='CentralLibrary_AssetMaintenanceCategory' ui-sref="assetsmaintenancecategory"
+								ui-sref-opts="{reload: true}">Asset Maintenance & Repair <br />Category</a>
+						</li>
+					</ul>
+				</li>
+				<li class="treeview">
+					<a ng-if="account.appCodeTemplate['ENTRPRSE_TOOLS_VIEW']" data-test='Enterprise_Tools'>
+						<span>Tools</span>
+						<span class="pull-right-container">
+							<i class="fa fa-angle-left pull-right"></i>
+						</span>
+					</a>
+					<ul class="treeview-menu">
+						<li ng-if="account.appCodeTemplate['ENTRPRSE_TOOLS_CALANDERS_VIEW']">
+							<a data-test='Tools_Calendars' ui-sref="calendar"
+								ui-sref-opts="{reload: true}">Calendars</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['ENTRPRSE_TOOLS_RESOURCECURVES_VIEW']">
+							<a data-test='Tools_ResourceCurves' ui-sref="resourcecurves"
+								ui-sref-opts="{reload: true}">Resource Curves
+							</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</li>
+		<li class="treeview">
+			<a data-test='Projects' ng-if="account.appCodeTemplate['PROJECT_VIEW']">
+				<!-- <img src="images/project.png" class="project"> -->
+				<i class="fa fa-folder"></i>
+				<span>Projects</span>
+				<span class="pull-right-container">
+					<i class="fa fa-angle-left pull-right"></i>
+				</span>
+			</a>
+			<ul class="treeview-menu">
+				<li ng-if="account.appCodeTemplate['ENTRPRSE_EPSPRJCT_VIEW']">
+					<a data-test='Projects_ProjectList' ui-sref="epsproject" ui-sref-opts="{reload: true}">Project List
+					</a>
+				</li>
+				<li ng-if="account.appCodeTemplate['PRJ_PRJSTG_VIEW']">
+					<a data-test='Projects_ProjectSettings' ui-sref="projsettings" ui-sref-opts="{reload: true}">Project
+						Settings
+					</a>
+				</li>
+				<li class="treeview">
+					<a data-test='Projects_ProjectLibrary' ng-if="account.appCodeTemplate['PRJ_PRJLIB_VIEW']">
+						<span>Project Library</span>
+						<span class="pull-right-container">
+							<i class="fa fa-angle-left pull-right"></i>
+						</span>
+					</a>
+					<ul class="treeview-menu">
+						<li ng-if="account.appCodeTemplate['PRJ_PRJLIB_PRJEMPCLSFY_VIEW']">
+							<a data-test='Projects_ProjectLibrary_EmployeeClassification' ui-sref="projempclass"
+								ui-sref-opts="{reload: true}">Project Employee Classification
+							</a>
+						</li>
+						<li data-test='Projects_ProjectLibrary_MaterialTransferRestrictionList'
+							ng-if="account.appCodeTemplate['PRJ_PRJLIB_PRJMATRLCLSFY_VIEW']">
+							<a ui-sref="projmaterial" ui-sref-opts="{reload: true}">Project Material Transfer Restriction List</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['PRJ_PRJLIB_STOREANDSTOKITM_VIEW']">
+							<a data-test='Projects_ProjectLibrary_WarehouseandStockYardList' ui-sref="projstore"
+								ui-sref-opts="{reload: true}">Project Warehouse and Stockyard List </a>
+						</li>
+						<li ng-if="account.appCodeTemplate['PRJ_PRJLIB_PRJPLANTCLSFY_VIEW']">
+							<a data-test='Projects_ProjectLibrary_PlantClassification' ui-sref="projplantclass"
+								ui-sref-opts="{reload: true}">Project Plant Classification
+							</a>
+						</li>
+
+						<li ng-if="account.appCodeTemplate['PRJ_PRJLIB_WRKGSHFT_VIEW']">
+							<a data-test='Projects_ProjectLibrary_WorkingShifts' ui-sref="projworkshift"
+								ui-sref-opts="{reload: true}">Working Shifts </a>
+						</li>
+						<li ng-if="account.appCodeTemplate['PRJ_PRJLIB_CRWLIST_VIEW']">
+							<a data-test='Projects_ProjectLibrary_CrewList' ui-sref="projcrewlist"
+								ui-sref-opts="{reload: true}">Crew List </a>
+						</li>
+						<li ng-if="account.appCodeTemplate['PRJ_PRJLIB_SCHEDOFESTQTY_VIEW']">
+							<a data-test='Projects_ProjectLibrary_ScheduleOfEstimatedQuantities' ui-sref="projsoe"
+								ui-sref-opts="{reload: true}">Schedule of Estimates</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['PRJ_PRJLIB_SCHEDOFRATE_VIEW']">
+							<a data-test='Projects_ProjectLibrary_ScheduleOfRates' ui-sref="projsor"
+								ui-sref-opts="{reload: true}">Schedule of Rates</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['PRJ_PRJLIB_COSTCODESCHED_VIEW']">
+							<a data-test='Projects_ProjectLibrary_CostCodeSchedules' ui-sref="projcostcode"
+								ui-sref-opts="{reload: true}">Cost Code Schedule</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['PRJ_PRJLIB_SCOPEOFWRK_VIEW']">
+							<a data-test='Projects_ProjectLibrary_ScopeOfWork' ui-sref="projsow"
+								ui-sref-opts="{reload: true}">Scope of Works</a>
+						</li>
+					</ul>
+				</li>
+				<li ng-if="account.appCodeTemplate['PRJ_PROJBUDGET_VIEW']">
+					<a ui-sref="projbudgets" data-test='Projects_ProjectBudgets' ui-sref-opts="{reload: true}">Project
+						Budgets
+					</a>
+				</li>
+
+				<!-- New Module Progress Measure Menu -->
+				<li class="treeview">
+					<a>
+						<span>Progress Measure</span>
+						<span class="pull-right-container">
+							<i class="fa fa-angle-left pull-right"></i>
+						</span>
+					</a>
+					<ul class="treeview-menu">
+						<li ng-if="account.appCodeTemplate['PRJ_PROGRESS_MEASURE_SOR_VIEW']">
+							<a ui-sref="progressmeasureprojstatus" ui-sref-opts="{reload: true}">
+								Progress Based on Schedule<br/> of Rates
+							</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['PRJ_PROGRESS_MEASURE_CONTRACT_VIEW']">
+							<a ui-sref="progressmeasurecontractmilestones" ui-sref-opts="{reload: true}">
+								Progress Measure Based on<br/> Contract Milestones
+							</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['PRJ_PROGRESS_MEASURE_COST_VIEW']">
+							<a ui-sref="progressmeasurecostplus" ui-sref-opts="{reload: true}">
+								Progress Measure Based on<br/> Cost Plus %
+							</a>
+						</li>
+					</ul>
+				</li>
+
+				<!-- end -->
+
+				<li ng-if="account.appCodeTemplate['PRJ_PROJSTATUS_VIEW']">
+					<a data-test='Projects_ProjectStatus' ui-sref="projstatus" ui-sref-opts="{reload: true}">Project
+						Status
+					</a>
+				</li>
+				<li ng-if="account.appCodeTemplate['PRJ_PRJSTG_NOTEBK_VIEW']">
+					<a data-test='Projects_Notes' ui-sref="notes" ui-sref-opts="{reload: true}">Notes</a>
+				</li>
+			</ul>
+		</li>
+		<li class="treeview">
+			<a data-test='Documents' ng-if="account.appCodeTemplate['DOCMTT_VIEW']">
+				<!-- <img src="images/document1.png" class="documents" ng-if="account.appCodeTemplate['DOCMTT_VIEW']"> -->
+				<i class="glyphicon glyphicon-folder-open glyphstyle"></i>
+				<span>Documents</span>
+				<span class="pull-right-container">
+					<i class="fa fa-angle-left pull-right"></i>
+				</span>
+			</a>
+			<ul class="treeview-menu">
+				<li>
+					<a data-test='Documents_ProjectFolders' ui-sref="folder" ui-sref-opts="{reload: true}"
+						ng-if1="account.appCodeTemplate['PROJECT_FOLDER_DOCMTT_VIEW']">Project
+						Folders
+					</a>
+				</li>
+				<li>
+					<a data-test='Documents_ProjectDocuments' ui-sref="document" ui-sref-opts="{reload: true}"
+						ng-if1="account.appCodeTemplate['PROJECT_DOCUMENTS_DOCMTT_VIEW']">Project
+						Documents
+					</a>
+				</li>
+				<li class="treeview">
+					<a ng-if="account.appCodeTemplate['PROJECT_DOCUMENTS_DOCMTT_VIEW']">		
+						<span>Templates & Forms</span>
+						<span class="pull-right-container">
+							<i class="fa fa-angle-left pull-right"></i>
+						</span>
+					</a>
+					<ul class="treeview-menu">
+						<li ng-if="account.appCodeTemplate['PROJECT_DOCUMENTS_DOCMTT_VIEW']" >
+							<a ui-sref="templates" ui-sref-opts="{reload: true}">Sample Templates
+							</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['PROJECT_DOCUMENTS_DOCMTT_VIEW']" >
+							<a ui-sref="centraltemplates" ui-sref-opts="{reload: true}">Central Templates</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['PROJECT_DOCUMENTS_DOCMTT_VIEW']" >
+							<a ui-sref="projecttemplates" ui-sref-opts="{reload: true}">Project Templates</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['PROJECT_DOCUMENTS_DOCMTT_VIEW']" >
+							<a ui-sref="projectforms" ui-sref-opts="{reload: true}">Project Forms</a>
+						</li>
+						<!-- <li ng-if="account.appCodeTemplate['PROJECT_DOCUMENTS_DOCMTT_VIEW']" >
+							<a ui-sref="plugin" ui-sref-opts="{reload: true}">Plugin</a>
+						</li> -->
+					</ul>
+				</li>
+			</ul>
+		</li>
+
+		<li class="treeview">
+			<a ng-if="account.appCodeTemplate['SCHED_VIEW']" data-test='Schedules'>
+				<!-- <img src="images/schedules.png" class="schedule"> -->
+				<i class="glyphicon glyphicon-calendar glyphstyle"></i>
+				<span>Schedules</span>
+				<span class="pull-right-container">
+					<i class="fa fa-angle-left pull-right"></i>
+				</span>
+			</a>
+			<ul class="treeview-menu">
+				<li ng-if="account.appCodeTemplate['SCHED_DATA5TABLE_VIEW']" >
+					<a ui-sref="activityscheduledatatable" ui-sref-opts="{reload: true}">Activity Schedule Data Table
+					</a>
+				</li>
+				<li ng-if="account.appCodeTemplate['SCHED_SCHEDULES']" >
+					<a data-test='Schedules_ActivitySchedules'
+						ui-sref="actschedules" ui-sref-opts="{reload: true}">Activity Schedule
+					</a>
+				</li>
+				<li ng-if="account.appCodeTemplate['SCHED_SOW_VIEW']" >
+					<a data-test='Schedules_WBSSchedules'
+						ui-sref="wbsschedules" ui-sref-opts="{reload: true}">SOW Schedule
+					</a>
+				</li>
+				<li ng-if="account.appCodeTemplate['SCHED_RESOURCE5ASSIGNMENT_VIEW']" >
+					<a ui-sref="resourceassignment" ui-sref-opts="{reload: true}">Resource Assignment Data Table
+					</a>
+				</li>
+				<li ng-if="account.appCodeTemplate['SCHED_RESOURCE5SCHEDULES_VIEW']" >
+					<a data-test='Schedules_ProjectSchedules'
+						ui-sref="projschedules" ui-sref-opts="{reload: true}">Resource Schedule
+					</a>
+				</li>
+				<li ng-if="account.appCodeTemplate['SCHED_TANGIBLE_VIEW']" >
+					<a data-test='Schedules_TangibleItemsSchedules'
+						ui-sref="tanschedules" ui-sref-opts="{reload: true}">Tangible Items Schedule
+					</a>
+				</li>
+				<li ng-if="account.appCodeTemplate['SCHED_SOR_SCHEDULES']" >
+					<a data-test='Schedules_SOR_Schedules'
+						ui-sref="sorschedules" ui-sref-opts="{reload: true}">SOR Items Schedule
+					</a>
+				</li>
+			</ul>
+		</li>
+		<li class="treeview">
+			<a data-test='Procurement' ng-if="account.appCodeTemplate['PROCURMT_VIEW']">
+				<!-- <img src="images/procurement1.png" class="procurement"> -->
+				<i class="glyphicon glyphicon-shopping-cart glyphstyle"></i>
+				<span>Procurement</span>
+				<span class="pull-right-container">
+					<i class="fa fa-angle-left pull-right"></i>
+				</span>
+			</a>
+			<ul class="treeview-menu">
+				<li class="treeview" ng-if="account.appCodeTemplate['PRE_CONTRACTS_VIEW']">
+					<a data-test='Procurement_PreContracts'>
+						<span>Pre-Contracts</span>
+						<span class="pull-right-container">
+							<i class="fa fa-angle-left pull-right"></i>
+						</span>
+					</a>
+
+					<ul class="treeview-menu">
+						<li>
+							<a data-test='Procurement_PreContracts_PreContractList'
+								ng-if="account.appCodeTemplate['PROCURMT_PRECONTRCT_VIEW']" ui-sref="precontractlist"
+								ui-sref-opts="{reload: true}">Pre-Contract List
+							</a>
+						</li>
+
+						<li ng-if="account.appCodeTemplate['PROCURMT_INTRNLSTAGE1REQUEST_VIEW']">
+							<!-- PROCURMT_INTRNLSTAGE1REQUEST_VIEW -->
+							<a data-test='PreContracts_Stage1Request' ui-sref="internalApproval({request: 'request'})"
+								ui-sref-opts="{reload: true}">Stage 1 Request</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['PROCURMT_INTRNLSTAGE1APRVL_VIEW']">
+							<a data-test='Precontracts_Stage1Approve' ui-sref="internalApproval({request: 'approval'})"
+								ui-sref-opts="{reload: true}">Stage 1 Approval</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['PROCURMT_PROCURMTRFQ_VIEW']">
+							<a data-test='Precontracts_RFQ' ui-sref="rfq" ui-sref-opts="{reload: true}">RFQ </a>
+						</li>
+						<!-- <li
+														ng-if="account.appCodeTemplate['PROCURMT_INTRNLSTAGE1APRVL_VIEW']"><a
+														ui-sref="externalRequest">Bid Analysis & Stage 2 Request</a></li> -->
+						<li>
+							<a data-test='Procurement_Stage2Request'
+								ng-if="account.appCodeTemplate['PROCURMT_EXTRNLSTAGE2REQUEST_VIEW']"
+								ui-sref="externalApproval({request: 'request'})" ui-sref-opts="{reload: true}">Stage 2
+								Request</a>
+						</li>
+						<li>
+							<a data-test='Procurement_Stage2Approval'
+								ng-if="account.appCodeTemplate['PROCURMT_EXTRNLSTAGE2APRVL_VIEW']"
+								ui-sref="externalApproval({request: 'approval'})" ui-sref-opts="{reload: true}">Stage 2
+								Approval</a>
+						</li>
+					</ul>
+				</li>
+				<li ng-if="account.appCodeTemplate['PROCURMT_PURCHASEORDR_VIEW']">
+					<a data-test='Procurement_PurchaseOrders' ui-sref="purchaseorder"
+						ui-sref-opts="{reload: true}">Purchase
+						Orders
+					</a>
+				</li>
+			</ul>
+		</li>
+		<li class="treeview">
+			<a data-test='Resources' ng-if="account.appCodeTemplate['RESOURCE_VIEW']">
+				<!-- <img src="images/resource.png" class="resource"> -->
+				<i class="fa fa-users"></i>
+				<span>Resources</span>
+				<span class="pull-right-container">
+					<i class="fa fa-angle-left pull-right"></i>
+				</span>
+			</a>
+			<ul class="treeview-menu">
+				<li ng-if="account.appCodeTemplate['RESOURCE_EMPREGLIST_VIEW']">
+					<a data-test='Resources_Employee' ui-sref="empregister" ui-sref-opts="{reload: true}">Employee</a>
+				</li>
+				<li ng-if="account.appCodeTemplate['RESOURCE_PLANTEQUIPMENT_VIEW']">
+					<a data-test='Resources_PlantandEquipment' ui-sref="plantregistor"
+						ui-sref-opts="{reload: true}">Plant &
+						Equipments </a>
+				</li>
+				<li ng-if="account.appCodeTemplate['RESOURCE_MATRLLIST_VIEW']">
+					<a ui-sref="materialregistor" data-test='Resources_Materials'
+						ui-sref-opts="{reload: true}">Materials</a>
+				</li>
+				<li>
+					<a ui-sref="assetregister" ui-sref-opts="{reload: true}"
+					data-test="Resources_ImmovableAssets">Immovable Assets </a>
+				</li>
+			</ul>
+		</li>
+
+		<li class="treeview">
+			<a data-test='AsbuiltRecords' ng-if="account.appCodeTemplate['ASBUILTRCRD_VIEW']">
+				<!-- <img src="images/records.jpg" class="records"> -->
+				<i class="fa fa-database"></i>
+				<span>Asbuilt Records</span>
+				<span class="pull-right-container">
+					<i class="fa fa-angle-left pull-right"></i>
+				</span>
+			</a>
+			<ul class="treeview-menu">
+				<li class="treeview">
+					<a data-test='AsbuiltRecords_AttendanceRecords'
+						ng-if="account.appCodeTemplate['ASBUILTRCRD_ATNDNCERCRDS_VIEW']">
+						<span> Attendance Records</span>
+						<span class="pull-right-container">
+							<i class="fa fa-angle-left pull-right"></i>
+						</span>
+					</a>
+					<ul class="treeview-menu">
+						<li ng-if="account.appCodeTemplate['ASBUILTRCRD_ATNDNCERCRDS_LIST_EMPATNDNCE_VIEW']">
+							<a data-test='AsbuiltRecords_AttendanceRecords_ListOfEmployeeAttendance' ui-sref="listofempattendence"
+								ui-sref-opts="{reload: true}">List of Employee Attendance <br/> Record Sheets
+							</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['ASBUILTRCRD_ATNDNCERCRDS_LIST_PLANTATNDNCE_VIEW']">
+							<a data-test='AsbuiltRecords_AttendanceRecords_ListOfPlantAttendance' ui-sref="listofplantattendence"
+								ui-sref-opts="{reload: true}">List of Plant Attendance Record <br/> Sheets
+							</a>
+						</li>
+					</ul>
+				</li>
+
+				<li class="treeview">
+					<a data-test='AsbuiltRecords_WorkDiary' ng-if="account.appCodeTemplate['ASBUILTRCRD_WRKDIRY_VIEW']">
+						<span>Work Diary</span>
+						<span class="pull-right-container">
+							<i class="fa fa-angle-left pull-right"></i>
+						</span>
+					</a>
+					<ul class="treeview-menu">
+						<li ng-if="account.appCodeTemplate['ASBUILTRCRD_WRKDIRY_CREATWRKDIRY_VIEW']">
+							<a data-test='AsbuiltRecords_WorkDiary_CreateWorkDiary' ui-sref="listofcreatedworkdairy"
+								ui-sref-opts="{reload: true}">List of Created Work Diaries</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['ASBUILTRCRD_WRKDIRY_APRVEWRKDIRY_VIEW']">
+							<a ui-sref="listofapproveworkdiary" data-test='AsbuiltRecords_WorkDiary_ApproveWorkDiary'
+								ui-sref-opts="{reload: true}">List of Work Diaries for Approval</a>
+						</li>
+					</ul>
+				</li>
+
+				<li class="treeview">
+					<a ng-if="account.appCodeTemplate['ASBUILTRCRD_TIMSHET_VIEW']"
+						data-test='AsbuiltRecords_TimeSheets'>
+						<span> Time sheets</span>
+						<span class="pull-right-container">
+							<i class="fa fa-angle-left pull-right"></i>
+						</span>
+					</a>
+					<ul class="treeview-menu">
+						<li data-test='AsbuiltRecords_TimeSheets_CreateTimeSheets'
+							ng-if="account.appCodeTemplate['ASBUILTRCRD_TIMSHET_CREATTIMESHET_VIEW']">
+							<a ui-sref="listofcreatetimesheet" ui-sref-opts="{reload: true}">List of Created Time Sheets</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['ASBUILTRCRD_TIMSHET_APRVETIMESHET_VIEW']">
+							<a data-test='AsbuiltRecords_TimeSheets_ApproveTimeSheet' ui-sref="listofapprovetimesheet"
+								ui-sref-opts="{reload: true}">List of Time Sheets for Approval</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</li>
+		<li class="treeview" ng-if="account.appCodeTemplate['FINANCE_VIEW']">
+			<a>
+				<!-- <img src="images/finance.jpg" class="finance"> -->
+				<i class="glyphicon glyphicon-piggy-bank glyphstyle"></i>
+				<!-- <span>Finance</span> -->
+				<span>Accounting & Finance</span>
+				<span class="pull-right-container">
+					<i class="fa fa-angle-left pull-right"></i>
+				</span>
+			</a>
+			<!-- New Finance Menu -->
+			<ul class="treeview-menu">
+				<li class="treeview" ng-if="account.appCodeTemplate['FINANCE_REVENUE_VIEW']">
+					<a>
+						<span>Revenue (Receivables)</span>
+						<span class="pull-right-container">
+							<i class="fa fa-angle-left pull-right"></i>
+						</span>
+					</a>
+					<ul class="treeview-menu">
+						<li class="treeview " ng-if="account.appCodeTemplate['FINANCE_REVENUE_PROJECTS_VIEW']">
+							<a>
+								<span>Projects</span>
+								<span class="pull-right-container">
+									<i class="fa fa-angle-left pull-right"></i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+								<li ng-if="account.appCodeTemplate['FINANCE_REVENUE_PROJECTS_SCHEDULE_VIEW']">
+									<a ui-sref="generateprogressclaimratesbasis" ui-sref-opts="{reload: true}">Generate Progress Claim - <br/>Schedule of Rates basis</a>
+								</li>
+								<li ng-if="account.appCodeTemplate['FINANCE_REVENUE_PROJECTS_COST_VIEW']">
+									<a ui-sref="generateprogressclaimcostbasis" ui-sref-opts="{reload: true}">Generate Progress Claim - <br/>Cost plus % basis</a>
+								</li>
+								<li ng-if="account.appCodeTemplate['FINANCE_REVENUE_PROJECTS_MILESTONE_VIEW']">
+									<a ui-sref="generateprogressclaimmilestone" ui-sref-opts="{reload: true}">Generate Progress Claim - <br/>Payment Milestones basis</a>
+								</li>
+								<li ng-if="account.appCodeTemplate['FINANCE_REVENUE_PROJECTS_STATUS_VIEW']">
+									<a ui-sref="statusonprogressclaim" ui-sref-opts="{reload: true}">Status on Progress Claims</a>
+								</li>
+								<li ng-if="account.appCodeTemplate['FINANCE_REVENUE_PROJECTS_INVOICE_VIEW']">
+									<a ui-sref="statusoninvoicetoprojectowner" ui-sref-opts="{reload: true}">Project Owner Invoices</a>
+								</li>
+							</ul>
+						</li>
+						<li class="treeview" ng-if="account.appCodeTemplate['FINANCE_REVENUE_IMMOVABLE_VIEW']">
+							<a>
+								<span>Immovable Assets</span>
+								<span class="pull-right-container">
+									<i class="fa fa-angle-left pull-right"></i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+								<li ng-if="account.appCodeTemplate['FINANCE_REVENUE_IMMOVABLE_RENT_VIEW']">
+									<a ui-sref="revenuefromrentslease" ui-sref-opts="{reload: true}">Revenue receipts from Rents <br/> and Leasing</a>
+								</li>
+								<li ng-if="account.appCodeTemplate['FINANCE_REVENUE_IMMOVABLE_PARKING_VIEW']">
+									<a ui-sref="revenuethroughtollorparking" ui-sref-opts="{reload: true}">Revenue through Toll or <br/> Parking collections</a>
+								</li>
+								<li ng-if="account.appCodeTemplate['FINANCE_REVENUE_IMMOVABLE_SALES_VIEW']">
+									<a ui-sref="revenuethroughassetsales" ui-sref-opts="{reload: true}">Revenue through Asset Sales</a>
+								</li>
+								<li ng-if="account.appCodeTemplate['FINANCE_REVENUE_IMMOVABLE_SERVICE_SALES_VIEW']">
+									<a ui-sref="revenuethroughservicessales" ui-sref-opts="{reload: true}">Revenue through Services <br/>Sales</a>
+								</li>
+							</ul>
+						</li>
+						<li ng-if="account.appCodeTemplate['FINANCE_REVENUE_GOODS_VIEW']">
+							<a ui-sref="revenuethroughgoodsprod" ui-sref-opts="{reload: true}">Goods and Services</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['FINANCE_REVENUE_PLANTS_VIEW']">
+							<a ui-sref="revenuethroughplantequipsales" ui-sref-opts="{reload: true}">Plant and Equipment</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['FINANCE_REVENUE_RECEIPTS_VIEW']">
+							<a ui-sref="actualrevenuereceipts" ui-sref-opts="{reload: true}">Actual Revenue Receipts</a>
+						</li>
+					</ul>
+				</li>
+				<li class="treeview " ng-if="account.appCodeTemplate['FINANCE_COST_VIEW']">
+					<a>
+						<span>Cost (Payables)</span>
+						<span class="pull-right-container">
+							<i class="fa fa-angle-left pull-right"></i>
+						</span>
+					</a>
+					<ul class="treeview-menu">
+						<li class="treeview " ng-if="account.appCodeTemplate['FINANCE_COST_EMPLOYEE_VIEW']">
+							<a>
+								<span>Employee</span>
+								<span class="pull-right-container">
+									<i class="fa fa-angle-left pull-right"></i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+								<li ng-if="account.appCodeTemplate['FINANCE_COST_EMPLOYEE_CALCULATIONS5SHEET_VIEW']">
+									<a ui-sref="emppaycalculationsheet" ui-sref-opts="{reload: true}">Pay Calculations Sheet</a>
+								</li>
+								<li ng-if="account.appCodeTemplate['FINANCE_COST_EMPLOYEE_PAYROLL5RUN_VIEW']">
+									<a ui-sref="generatepayroll" ui-sref-opts="{reload: true}">Pay Roll Run</a>
+								</li>
+								<li ng-if="account.appCodeTemplate['FINANCE_COST_EMPLOYEE_CALCULATIONS5SHEET5RECORDS_VIEW']">
+									<a ui-sref="paycalsheetrecords" ui-sref-opts="{reload: true}">Pay Calculations Sheet<br/> Records</a>
+								</li>
+								<li ng-if="account.appCodeTemplate['FINANCE_COST_EMPLOYEE_PAYROLL5RUN5RECORDS_VIEW']">
+									<a ui-sref="payrollrunrecords" ui-sref-opts="{reload: true}">Pay Roll Run Records</a>
+								</li>
+								<li ng-if="account.appCodeTemplate['FINANCE_COST_EMPLOYEE_PROVIDENT5FUND_VIEW']">
+									<a ui-sref="superfundcreditrun" ui-sref-opts="{reload: true}">Super Fund/ Provident <br/>Fund- Credit Run</a>
+								</li>
+							</ul>
+						</li>
+						<li ng-if="account.appCodeTemplate['FINANCE_COST_PLANTS_VIEW']">
+							<a ui-sref="plantandequipment" ui-sref-opts="{reload: true}">Plant & Equipments</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['FINANCE_COST_MATERIALS_VIEW']">
+							<a ui-sref="materialstoreitemscost" ui-sref-opts="{reload: true}">Materials and Store Items</a>
+						</li>
+						<li class="treeview " ng-if="account.appCodeTemplate['FINANCE_COST_PLANTS_VIEW']" ng-if="account.appCodeTemplate['FINANCE_COST_VENDOR_VIEW']">
+							<a>
+								<span>Sub Contractor  or  Vendors</span>
+								<span class="pull-right-container">
+									<i class="fa fa-angle-left pull-right"></i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+								<li ng-if="account.appCodeTemplate['FINANCE_COST_VENDOR_INVOICE_VIEW']">
+									<a ui-sref="vendorinvoices" ui-sref-opts="{reload: true}"> Invoices from Vendors /<br/> Subcontractors</a>
+								</li>
+								<li ng-if="account.appCodeTemplate['FINANCE_COST_VENDOR_PAYMENTS_VIEW']">
+									<a ui-sref="vendorsubcontractpayment" ui-sref-opts="{reload: true}">Vendors / Sub Contractor<br/> Payment - Credit Run</a>
+								</li>
+							</ul>
+						</li>
+						<li class="treeview " ng-if="account.appCodeTemplate['FINANCE_COST_FIXED5ASSET_VIEW']">
+							<a>
+								<span>Immovable Assets</span>
+								<span class="pull-right-container">
+									<i class="fa fa-angle-left pull-right"></i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+								<li ng-if="account.appCodeTemplate['FINANCE_COST_FIXED5ASSET_ACQUISITION_VIEW']">
+									<a ui-sref="aquisitioncosts" ui-sref-opts="{reload: true}">Acquisition Costs</a>
+								</li>
+								<li ng-if="account.appCodeTemplate['FINANCE_COST_FIXED5ASSET_MORTAGE_VIEW']">
+									<a ui-sref="mortgagepayments" ui-sref-opts="{reload: true}">Mortgage Payments</a>
+								</li>
+							</ul>
+						</li>
+						<li class="treeview " ng-if="account.appCodeTemplate['FINANCE_COST_BANK_VIEW']">
+							<a>
+								<span>Bank Finance</span>
+								<span class="pull-right-container">
+									<i class="fa fa-angle-left pull-right"></i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+								<li ng-if="account.appCodeTemplate['FINANCE_COST_BANK_OD5LIST_VIEW']">
+									<a ui-sref="bankfinanceoverdraftlist" ui-sref-opts="{reload: true}">Over Draft List</a>
+								</li>
+								<li ng-if="account.appCodeTemplate['FINANCE_COST_BANK_OD5PAYMENT_VIEW']">
+									<a ui-sref="bankfinanceoverdraftpaymentschedule" ui-sref-opts="{reload: true}">Over Draft - Payment <br/>Schedule</a>
+								</li>
+							</ul>
+						</li>
+						<li class="treeview " ng-if="account.appCodeTemplate['FINANCE_COST_TAX5PAYMENTS_VIEW']">
+							<a>
+								<span>Tax Payments</span>
+								<span class="pull-right-container">
+									<i class="fa fa-angle-left pull-right"></i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+								<li ng-if="account.appCodeTemplate['FINANCE_COST_TAX5PAYMENTS_ALLOWANCES_VIEW']">
+									<a ui-sref="emppayallowtax" ui-sref-opts="{reload: true}">Employee Pay & Allowances <br/>Tax - Credit Run</a>
+								</li>
+								<li ng-if="account.appCodeTemplate['FINANCE_COST_TAX5PAYMENTS_SUPERFUND_VIEW']">
+									<a ui-sref="empsuperfundtax" ui-sref-opts="{reload: true}">Employee Superfund Tax -<br/> Credit Run</a>
+								</li>
+								<li ng-if="account.appCodeTemplate['FINANCE_COST_TAX5PAYMENTS_PAYROLL_VIEW']">
+									<a ui-sref="emppayrolltax" ui-sref-opts="{reload: true}">Employee - Pay Roll Tax <br/>Credit Run</a>
+								</li>
+								<li ng-if="account.appCodeTemplate['FINANCE_COST_TAX5PAYMENTS_SUPPLIER_VIEW']">
+									<a ui-sref="supsubconttax" ui-sref-opts="{reload: true}">Supplier & Sub Contractor <br/>Tax - Credit Run</a>
+								</li>
+								<li ng-if="account.appCodeTemplate['FINANCE_COST_TAX5PAYMENTS_GST_VIEW']">
+									<a ui-sref="gstpaymentscreditrun" ui-sref-opts="{reload: true}">GST Payments Credit Run</a>
+								</li>
+								<li ng-if="account.appCodeTemplate['FINANCE_COST_TAX5PAYMENTS_COMPANY5TAX_VIEW']">
+									<a ui-sref="companytaxrun" ui-sref-opts="{reload: true}">Company Tax</a>
+								</li>
+							</ul>
+						</li>
+						<li class="treeview " ng-if="account.appCodeTemplate['FINANCE_COST_INSURANCE_VIEW']">
+							<a>
+								<span>Insurance</span>
+								<span class="pull-right-container">
+									<i class="fa fa-angle-left pull-right"></i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+								<li ng-if="account.appCodeTemplate['FINANCE_COST_INSURANCE_POLICY_VIEW']">
+									<a ui-sref="insurancepolicylist" ui-sref-opts="{reload: true}">Insurance Policy List</a>
+								</li>
+								<li ng-if="account.appCodeTemplate['FINANCE_COST_INSURANCE_PAYMENT_VIEW']">
+									<a ui-sref="insurancepaymentsschedule" ui-sref-opts="{reload: true}">Insurance Payments - <br />Credit Run</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li class="treeview " ng-if="account.appCodeTemplate['FINANCE_ASSET_VIEW']">
+					<a>
+						<span>Assets Value</span>
+						<span class="pull-right-container">
+							<i class="fa fa-angle-left pull-right"></i>
+						</span>
+					</a>
+					<ul class="treeview-menu">
+						<li ng-if="account.appCodeTemplate['FINANCE_ASSET_PLANTS_VIEW']">
+							<a ui-sref="plantsbookvalue" ui-sref-opts="{reload: true}">Plants - Book Value</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['FINANCE_ASSET_MATERIALS_VIEW']">
+							<a ui-sref="materialsstockvalue" ui-sref-opts="{reload: true}">Materials - Stock  Value</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['FINANCE_ASSET_FA_VIEW']">
+							<a ui-sref="fixedassetsmarketvalue" ui-sref-opts="{reload: true}">Immovable Assets - Market <br/>Value</a>
+						</li>
+					</ul>
+				</li>
+				<li class="treeview " ng-if="account.appCodeTemplate['FINANCE_PROFIT_VIEW']">
+					<a>
+						<span>Profit</span>
+						<span class="pull-right-container">
+							<i class="fa fa-angle-left pull-right"></i>
+						</span>
+					</a>
+					<ul class="treeview-menu">
+						<li ng-if="account.appCodeTemplate['FINANCE_PROFIT_PROFITS_VIEW']">
+							<a ui-sref="profitcenterwiseprofits" ui-sref-opts="{reload: true}">Profit Center Wise Profits <br />(Revenue-Expenses)</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['FINANCE_PROFIT_ASBUILT_VIEW']">
+							<a ui-sref="profitwisecostbasedasbuilt" ui-sref-opts="{reload: true}">Profit Center Wise Costs - <br />Based on Asbuilt Records</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['FINANCE_PROFIT_FINANCE_VIEW']">
+							<a ui-sref="profitwisecostbasedfinance" ui-sref-opts="{reload: true}">Profit Center Wise Costs - <br />Based on Finance Records</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['FINANCE_PROFIT_REVENUE_VIEW']">
+							<a ui-sref="profitwiserevenuestatus" ui-sref-opts="{reload: true}">Profit Center Wise Revenue<br /> Status</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+			<!-- End of New Finance Menu -->
+			<!-- Start of Previous Finance Menu -->
+			<!-- <ul class="treeview-menu">
+				<li class="treeview ">
+					<a>
+						<span>Receivables</span>
+						<span class="pull-right-container">
+							<i class="fa fa-angle-left pull-right"></i>
+						</span>
+					</a>
+					<ul class="treeview-menu">
+						<li>
+							<a ui-sref="generateprogress" ui-sref-opts="{reload: true}">Generate Progress Claim</a>
+						</li>
+						<li>
+							<a ui-sref="statusonprogress" ui-sref-opts="{reload: true}">Progress Claims</a>
+						</li>
+						<li>
+							<a ui-sref="statusoninvoice" ui-sref-opts="{reload: true}">Project Owner Invoices
+							</a>
+						</li>
+					</ul>
+				</li>
+				<li class="treeview ">
+					<a>
+						<span>Payables</span>
+						<span class="pull-right-container">
+							<i class="fa fa-angle-left pull-right"></i>
+						</span>
+					</a>
+					<ul class="treeview-menu">
+						<li>
+							<a ui-sref="invoicefromvendor" ui-sref-opts="{reload: true}">Vendor Invoices
+							</a>
+						</li>
+						<li>
+							<a ui-sref="empcalculation">Employee Payables</a>
+						</li>
+						<li>
+							<a ui-sref="emppayrollrun" ui-sref-opts="{reload: true}">Employee Payroll</a>
+						</li>
+						<li>
+							<a ui-sref="empcalrecord" ui-sref-opts="{reload: true}">Employee Payments</a>
+						</li>
+						<li>
+							<a ui-sref="emppayrollrecord" ui-sref-opts="{reload: true}">Employee Payrolls</a>
+						</li>
+						<li>
+							<a ui-sref="providentfund" ui-sref-opts="{reload: true}">Superfund credit</a>
+						</li>
+						<li>
+							<a ui-sref="taxpayments" ui-sref-opts="{reload: true}">Tax Payments</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a ui-sref="plantbook" ui-sref-opts="{reload: true}">Plants Book Value</a>
+				</li>
+				<li>
+					<a ui-sref="materialstock" ui-sref-opts="{reload: true}">Materials Stock value</a>
+				</li>
+			</ul> -->
+			<!-- End of Previous Finance Menu -->
+		</li>
+
+
+		<li class="treeview" ng-if="account.appCodeTemplate['DASHBOARD_VIEW']">
+			<a data-test="Dashboard_Module_Click">
+				<!-- <img src="images/dashboards.png" class="dash-bords"> -->
+				<i class="glyphicon glyphicon-dashboard glyphstyle"></i>
+				<span>Dashboard</span>
+				<span class="pull-right-container">
+					<i class="fa fa-angle-left pull-right"></i>
+				</span>
+			</a>
+			<ul class="treeview-menu">
+				<li ng-if="account.appCodeTemplate['DASHBOARD_MASTER_VIEW']">
+					<a ui-sref="masterdashboards" ui-sref-opts="{reload: true}" data-test="Dashboard_MasterDashboard">Master Dashboard</a>
+				</li>
+				<li class="treeview " ng-if="account.appCodeTemplate['DASHBOARD_PERFORMANCE_VIEW']">
+					<a href="performance" data-test="Dashboard_Performance">
+						<span>Performance</span>
+						<span class="pull-right-container">
+							<i class="fa fa-angle-left pull-right"></i>
+						</span>
+					</a>
+					<ul class="treeview-menu">
+						<li ng-if="account.appCodeTemplate['DASHBOARD_PERFORMANCE_PROGRESS_VIEW']">
+							<a ui-sref="performanceindices" ui-sref-opts="{reload: true}" data-test="Dashboard_Performance_ProgressPerformance">Progress & Performance</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['DASHBOARD_PERFORMANCE_COST5PERFORMANCE_VIEW']">
+							<a ui-sref="costandscheduleperformance" ui-sref-opts="{reload: true}" data-test="Dashboard_Performance_CostSchedulePerformance">Cost Schedule &
+								Performance
+							</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['DASHBOARD_PERFORMANCE_COST5UNITS_VIEW']">
+							<a ui-sref="costandschedulevarianceunits" ui-sref-opts="{reload: true}" data-test="Dashboard_Performance_CostSchedule_Units">Cost &
+								Schedule(Units)
+							</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['DASHBOARD_PERFORMANCE_COST5PERCENT_VIEW']">
+							<a ui-sref="costschedulevariancepercentage" ui-sref-opts="{reload: true}" data-test="Dashboard_Performance_CostSchedule_Percentage">Cost and
+								Schedule(%) </a>
+						</li>
+						<li ng-if="account.appCodeTemplate['DASHBOARD_PERFORMANCE_COST5INDICES_VIEW']">
+							<a ui-sref="costscheduleperformanceindices" ui-sref-opts="{reload: true}" data-test="Dashboard_Performance_CostSchedule_Performance_Indices">Cost Schedule &
+								Performance <br />
+								Indices
+							</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['DASHBOARD_PERFORMANCE_INDEX_VIEW']">
+							<a ui-sref="tocompleteperformanceindex" ui-sref-opts="{reload: true}" data-test="Dashboard_Performance_PerformanceIndex">Performance Index
+							</a>
+						</li>
+					</ul>
+				</li>
+				<li class="treeview " ng-if="account.appCodeTemplate['DASHBOARD_PROGRESS_VIEW']">
+					<a href="progress" data-test="Dashboard_Progress">
+						<span>Progress</span>
+						<span class="pull-right-container">
+							<i class="fa fa-angle-left pull-right"></i>
+						</span>
+					</a>
+					<ul class="treeview-menu">
+						<li ng-if="account.appCodeTemplate['DASHBOARD_PROGRESS_PLANS5ACTUAL_VIEW']">
+							<a ui-sref="planvsactualprogress" data-test="Dashboard_Progress_PlanVsActual">Plans Vs Actual
+							</a>
+						</li>
+						<!-- New Pages for Dashboards-Progress -->
+						<li ng-if="account.appCodeTemplate['DASHBOARD_PROGRESS_S5CURVE5COST_VIEW']">
+							<a ui-sref="progressscurvecost" data-test="">S Curve - Cost
+							</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['DASHBOARD_PROGRESS_S5CURVE5LABOUR_VIEW']">
+							<a ui-sref="progressscurvelabour" data-test="">S Curve - Labour
+							</a>
+						</li>
+						<!-- End of New pages -->
+					</ul>
+				</li>
+				<li class="treeview " ng-if="account.appCodeTemplate['DASHBOARD_TIME_VIEW']">
+					<a href="time" data-test="Dashboard_Time">
+						<span>Time</span>
+						<span class="pull-right-container">
+							<i class="fa fa-angle-left pull-right"></i>
+						</span>
+					</a>
+					<ul class="treeview-menu">
+						<li ng-if="account.appCodeTemplate['DASHBOARD_TIME_BUBBLE_VIEW']">
+							<a ui-sref="costandschedulevariancebubblechart" ui-sref-opts="{reload: true}" data-test="Dashboard_Time_CostSchedule_Bubble_Chart">CV and SV for
+								Man Hours<br/> (Bubble Chart)
+							</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['DASHBOARD_TIME_PERCENTAGE_VIEW']">
+							<a ui-sref="currentdatesandprogresspercentage" ui-sref-opts="{reload: true}" data-test="Dashboard_Time_CurrentProgress_Percentage">Current
+								Progress(%)</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['DASHBOARD_TIME_UNITS_VIEW']">
+							<a ui-sref="costschedulevarianceunits" ui-sref-opts="{reload: true}" data-test="Dashboard_Time_CostSchedule_Units">Cost & Schedule(Units)
+							</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['DASHBOARD_TIME_GANTT_VIEW']">
+							<a ui-sref="projectsganttchart" ui-sref-opts="{reload: true}" data-test="Dashboard_Time_ProjectsGanttChart">Projects Gantt Chart</a>
+						</li>
+					</ul>
+				</li>
+				<li class="treeview " ng-if="account.appCodeTemplate['DASHBOARD_BUDGET_VIEW']">
+					<a href="budget" data-test="Dashboard_Budget">
+						<span>Budget</span>
+						<span class="pull-right-container">
+							<i class="fa fa-angle-left pull-right"></i>
+						</span>
+					</a>
+					<ul class="treeview-menu">
+						<li ng-if="account.appCodeTemplate['DASHBOARD_BUDGET_COUNTRY_VIEW']">
+							<a ui-sref="budgetbycountry" ui-sref-opts="{reload: true}" data-test="Dashboard_Budget_Country">Budget by Country</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['DASHBOARD_BUDGET_PROVINCE_VIEW']">
+							<a ui-sref="budgetbyprovince" ui-sref-opts="{reload: true}" data-test="Dashboard_Budget_Province">Budget by Province</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['DASHBOARD_BUDGET_PROJECT_VIEW']">
+							<a ui-sref="budgetbyproject" ui-sref-opts="{reload: true}" data-test="Dashboard_Budget_Project">Budget by Project</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['DASHBOARD_BUDGET_PM_VIEW']">
+							<a ui-sref="budgetbyprojectmanager" ui-sref-opts="{reload: true}" data-test="Dashboard_Budget_ProjectManager">Budget by Project Manager</a>
+						</li>
+					</ul>
+				</li>
+				<li class="treeview " ng-if="account.appCodeTemplate['DASHBOARD_COST_VIEW']">
+					<a href="cost" data-test="Dashboard_Cost">
+						<span>Cost</span>
+						<span class="pull-right-container">
+							<i class="fa fa-angle-left pull-right"></i>
+						</span>
+					</a>
+					<ul class="treeview-menu">
+						<li ng-if="account.appCodeTemplate['DASHBOARD_COST_HEALTH_VIEW']">
+							<a ui-sref="costhealthcheck" ui-sref-opts="{reload: true}" data-test="Dashboard_Cost_CostHealthCheck">Cost Health Check</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['DASHBOARD_COST_BUBBLE_VIEW']">
+							<a ui-sref="cvandsvforcostbubblechart" ui-sref-opts="{reload: true}" data-test="Dashboard_Cost_CVandSVforCost_BubleChart">CV and SV for
+								Cost(Bubble <br/> Chart)
+							</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['DASHBOARD_COST_ESTIMATE_VIEW']">
+							<a ui-sref="originalvsestimateatcompletioncost" ui-sref-opts="{reload: true}" data-test="Dashboard_Cost_OriginalVsEstimate_Cost">Original Vs
+								Estimate(Cost)</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['DASHBOARD_COST_EARNED_VIEW']">
+							<a ui-sref="planvsactualvsearnedvalue" ui-sref-opts="{reload: true}" data-test="Dashboard_Cost_PlanVsActualVsEarned_Cost">Plan Vs Actual Vs
+								Earned(Cost)
+							</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['DASHBOARD_COST_WORKSHEET_VIEW']">
+							<a ui-sref="costworksheet" ui-sref-opts="{reload: true}" data-test="Dashboard_Cost_CostWorkSheet">Cost Work Sheet</a>
+						</li>
+					</ul>
+				</li>
+				<li class="treeview " ng-if="account.appCodeTemplate['DASHBOARD_LABOUR_VIEW']">
+					<a href="labour" data-test="Dashboard_Labour">
+						<span>Labour</span>
+						<span class="pull-right-container">
+							<i class="fa fa-angle-left pull-right"></i>
+						</span>
+					</a>
+					<ul class="treeview-menu">
+						<li ng-if="account.appCodeTemplate['DASHBOARD_LABOUR_HEALTH_VIEW']">
+							<a ui-sref="labourhourhealthcheck" ui-sref-opts="{reload: true}" data-test="Dashboard_Labour_LabourHealthCheck">Labour Health Check</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['DASHBOARD_LABOUR_BUBBLE_VIEW']">
+							<a ui-sref="cvandsvforlaboursbubblechart" ui-sref-opts="{reload: true}" data-test="Dashboard_Labour_CVandSVforLabour_BubbleChart">CV and SV for Labour
+								<br />(Bubble
+								Chart)</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['DASHBOARD_LABOUR_ESTIMATE_VIEW']">
+							<a ui-sref="originalvsestimateatcompletionmanhours" ui-sref-opts="{reload: true}" data-test="Dashboard_Labour_OriginalVsEstimateAtCompletion_ManHours">Original
+								Vs Estimate at<br />
+								Completion - Manhours</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['DASHBOARD_LABOUR_MANHOURS_VIEW']">
+							<a ui-sref="planvsactualvsearnedvaluedirectmanhours" ui-sref-opts="{reload: true}" data-test="Dashboard_Labour_PlanVsActualVsEarned_DirectManHours">Plan Vs
+								Actual Vs Earned -<br />
+								Direct Manhours</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['PRODUCTIVITY_RATES_MAJOR_ITEMS_OF_WORK']">
+							<a ui-sref="productivityratesmajoritemsofwork" ui-sref-opts="{reload: true}">Productivity Rates <br/>- Major Items of Work</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['PERIODICAL_PRODUCTIVITY_RATES_MAJOR__ITEMS_OF_WORK']">
+							<a ui-sref="periodicalproductivityratesmajoritemsofwork" ui-sref-opts="{reload: true}">Periodical Productivity Rates <br/>- Major Items of Work</a>
+						</li>
+					</ul>
+				</li>
+				<li class="treeview " ng-if="account.appCodeTemplate['DASHBOARD_ACTUAL5COST_VIEW']">
+					<a href="actualcost" data-test="Dashboard_ActualCost">
+						<span>Actual Cost</span>
+						<span class="pull-right-container">
+							<i class="fa fa-angle-left pull-right"></i>
+						</span>
+					</a>
+					<ul class="treeview-menu">
+						<li ng-if="account.appCodeTemplate['DASHBOARD_ACTUAL5COST_COUNTRY_VIEW']">
+							<a ui-sref="actualcostbycountry" ui-sref-opts="{reload: true}" data-test="Dashboard_ActualCost_ByCountry">Actual Cost by Country</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['DASHBOARD_ACTUAL5COST_PROVINCE_VIEW']">
+							<a ui-sref="actualcostbyprovince" ui-sref-opts="{reload: true}" data-test="Dashboard_ActualCost_ByProvince">Actual Cost by
+								Province</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['DASHBOARD_ACTUAL5COST_PROJECT_VIEW']">
+							<a ui-sref="actualcostbyproject" ui-sref-opts="{reload: true}" data-test="Dashboard_ActualCost_ByProject">Actual Cost by Project </a>
+						</li>
+						<li ng-if="account.appCodeTemplate['DASHBOARD_ACTUAL5COST_PM_VIEW']">
+							<a ui-sref="actualcostbyprojectmanager" ui-sref-opts="{reload: true}" data-test="Dashboard_ActualCost_ByProjectManager">Actual Cost by
+								Project Manager </a>
+						</li>
+					</ul>
+				</li>
+				<li class="treeview " ng-if="account.appCodeTemplate['DASHBOARD_EARNED5VALUE_VIEW']">
+					<a href="earnedvalue" data-test="Dashboard_EarnedValue">
+						<span>Earned Value</span>
+						<span class="pull-right-container">
+							<i class="fa fa-angle-left pull-right"></i>
+						</span>
+					</a>
+					<ul class="treeview-menu">
+						<li ng-if="account.appCodeTemplate['DASHBOARD_EARNED5VALUE_COUNTRY_VIEW']">
+							<a ui-sref="earnedvaluebycountry" ui-sref-opts="{reload: true}" data-test="Dashboard_EarnedValue_ByCountry">Earned Value by
+								Country</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['DASHBOARD_EARNED5VALUE_PROVINCE_VIEW']">
+							<a ui-sref="earnedvaluebyprovince" ui-sref-opts="{reload: true}" data-test="Dashboard_EarnedValue_ByProvince">Earned Value by
+								Province</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['DASHBOARD_EARNED5VALUE_PROJECT_VIEW']">
+							<a ui-sref="earnedvaluebyproject" ui-sref-opts="{reload: true}" data-test="Dashboard_EarnedValue_ByProject">Earned Value by Project
+							</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['DASHBOARD_EARNED5VALUE_PM_VIEW']">
+							<a ui-sref="earnedvaluebyprojectmananger" ui-sref-opts="{reload: true}" data-test="Dashboard_EarnedValue_ByProjectManager">Earned Value by
+								Project Manager
+							</a>
+						</li>
+					</ul>
+				</li>
+				<li class="treeview " ng-if="account.appCodeTemplate['DASHBOARD_REMAINING5BUDGET_VIEW']">
+					<a href="remainingbudget" data-test="Dashboard_RemainingBudget">
+						<span>Remaining Budget
+						</span>
+						<span class="pull-right-container">
+							<i class="fa fa-angle-left pull-right"></i>
+						</span>
+					</a>
+					<ul class="treeview-menu">
+						<li ng-if="account.appCodeTemplate['DASHBOARD_REMAINING5BUDGET_COUNTRY_VIEW']">
+							<a ui-sref="remainingbudgetbycountry" ui-sref-opts="{reload: true}" data-test="Dashboard_RemainingBudget_ByCountry">Remaining Budget by
+								Country</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['DASHBOARD_REMAINING5BUDGET_PROVINCE_VIEW']">
+							<a ui-sref="remainingbudgetbyprovince" ui-sref-opts="{reload: true}" data-test="Dashboard_RemainingBudget_ByProvince">Remaining Budget by
+								Province
+							</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['DASHBOARD_REMAINING5BUDGET_PROJECT_VIEW']">
+							<a ui-sref="remainingbudgetbyproject" ui-sref-opts="{reload: true}" data-test="Dashboard_RemainingBudget_ByProject">Remaining Budget by
+								Project</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['DASHBOARD_REMAINING5BUDGET_PM_VIEW']">
+							<a ui-sref="remainingbudgetbyprojectmanager" ui-sref-opts="{reload: true}" data-test="Dashboard_RemainingBudget_ByProjectManager">Remaining Budget
+								by <br />Project
+								Manager
+							</a>
+						</li>
+					</ul>
+				</li>
+				<li class="treeview " ng-if="account.appCodeTemplate['DASHBOARD_TO5COMPLETE_VIEW']">
+					<a href="estimatetocomplete" data-test="Dashboard_EstimatetoComplete">
+						<span>Estimate to Complete
+						</span>
+						<span class="pull-right-container">
+							<i class="fa fa-angle-left pull-right"></i>
+						</span>
+					</a>
+					<ul class="treeview-menu">
+						<li ng-if="account.appCodeTemplate['DASHBOARD_TO5COMPLETE_COUNTRY_VIEW']">
+							<a ui-sref="estimatetocompletebycountry" ui-sref-opts="{reload: true}" data-test="Dashboard_EstimatetoComplete_ByCountry">Estimate to Complete
+								by <br />Country
+							</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['DASHBOARD_TO5COMPLETE_PROVINCE_VIEW']">
+							<a ui-sref="estimatetocompletebyprovince" ui-sref-opts="{reload: true}" data-test="Dashboard_EstimatetoComplete_ByProvince">Estimate to Complete
+								by <br />Province
+							</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['DASHBOARD_TO5COMPLETE_PROJECT_VIEW']">
+							<a ui-sref="estimatetocompletebyproject" ui-sref-opts="{reload: true}" data-test="Dashboard_EstimatetoComplete_ByProject">Estimate to Complete
+								by <br />Project
+							</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['DASHBOARD_TO5COMPLETE_PM_VIEW']">
+							<a ui-sref="estimatetocompleteprojectmanager" ui-sref-opts="{reload: true}" data-test="Dashboard_EstimatetoComplete_ByProjectManager">Estimate to
+								Complete by <br />Project
+								Manager</a>
+						</li>
+					</ul>
+				</li>
+				<li class="treeview " ng-if="account.appCodeTemplate['DASHBOARD_AT5COMPLETE_VIEW']">
+					<a href="estimateatcompletion" data-test="Dashboard_EstimateAtCompletion">
+						<span>Estimate At Completion
+						</span>
+						<span class="pull-right-container">
+							<i class="fa fa-angle-left pull-right"></i>
+						</span>
+					</a>
+					<ul class="treeview-menu">
+						<li ng-if="account.appCodeTemplate['DASHBOARD_AT5COMPLETE_COUNTRY_VIEW']">
+							<a ui-sref="estimateatcompletionbycountry" ui-sref-opts="{reload: true}" data-test="Dashboard_EstimateAtCompletion_ByCountry">Estimate At
+								Completion by<br /> Country
+							</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['DASHBOARD_AT5COMPLETE_PROVINCE_VIEW']">
+							<a ui-sref="estimateatcompletionbyprovince" ui-sref-opts="{reload: true}" data-test="Dashboard_EstimateAtCompletion_ByProvince">Estimate At
+								Completion by <br />Province
+							</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['DASHBOARD_AT5COMPLETE_PROJECT_VIEW']">
+							<a ui-sref="estimateatcompletionbyproject" ui-sref-opts="{reload: true}" data-test="Dashboard_EstimateAtCompletion_ByProject">Estimate At
+								Completion by <br />Project
+							</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['DASHBOARD_AT5COMPLETE_PM_VIEW']">
+							<a ui-sref="estimateatcompletionbyprojectmanager" ui-sref-opts="{reload: true}" data-test="Dashboard_EstimateAtCompletion_ByProjectManager">Estimate At
+								Completion by<br />
+								Project Manager</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</li>
+		<li class="treeview">
+			<a data-test="Reportsclick">
+				<i class="glyphicon glyphicon-list glyphstyle"></i>
+				<span>Reports</span>
+				<span class="pull-right-container">
+					<i class="fa fa-angle-left pull-right"></i>
+				</span>
+			</a>
+			<ul class="treeview-menu">
+				<li class="treeview " ng-if="account.appCodeTemplate['REPORTS_PROGRESS_VIEW']">
+					<a data-test="Reports_Progress">
+						<span>Procurement</span>
+						<span class="pull-right-container">
+							<i class="fa fa-angle-left pull-right"></i>
+						</span>
+					</a>
+					<ul class="treeview-menu">
+						<!-- New menu for periodical progress claim - Progress Measure design Review date 10 Mar 20 -->
+						<li class="treeview " ng-if="account.appCodeTemplate['REPORTS_PROGRESS_CLAIM_VIEW']">
+							<a>
+								<span>Precontracts  Phase</span>
+								<span class="pull-right-container">
+									<i class="fa fa-angle-left pull-right"></i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+								<li ng-if="account.appCodeTemplate['REPORTS_PROGRESS_CLAIM_VIEW_ACTUAL_COST']">
+									<a ui-sref="PrecontractslistCurrentStatus" ui-sref-opts="{reload: true}" data-test="PrecontractslistCurrentStatus">Precontracts list  -<br/>   Status Count</a>
+								</li>
+								<li ng-if="account.appCodeTemplate['REPORTS_PROGRESS_CLAIM_VIEW_SOR']">
+									<a ui-sref="precontractsEstimatedBudget" ui-sref-opts="{reload: true}" data-test="precontractsEstimatedBudget">Precontracts -<br/>Estimated Budget</a>
+								</li>
+								<li ng-if="account.appCodeTemplate['REPORTS_PROGRESS_CLAIM_VIEW_CONT_MILE']">
+									<a ui-sref="precontractslistEmployeeTask" ui-sref-opts="{reload: true}" data-test="precontractslistEmployeeTask">Precontracts -<br/>Employee  Task wise  Count</a>
+								</li>
+								<li ng-if="account.appCodeTemplate['REPORTS_PROGRESS_CLAIM_VIEW_CONT_MILE']">
+									<a ui-sref="precontractslistCostCodeTask" ui-sref-opts="{reload: true}" data-test="precontractslistCostCodeTask">Precontracts  -<br/> Cost Code Wise   Status</a>
+								</li>
+							</ul>
+						</li>
+						<li class="treeview " >
+							<a>
+								<span>Post Contracts Phase</span>
+								<span class="pull-right-container">
+									<i class="fa fa-angle-left pull-right"></i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+								<li ng-if="account.appCodeTemplate['REPORTS_PROGRESS_CLAIM_VIEW_ACTUAL_COST']">
+									<a ui-sref="#" ui-sref-opts="{reload: true}" data-test="#">PO / Subcontracts - List</a>
+								</li>
+								<li ng-if="account.appCodeTemplate['REPORTS_PROGRESS_CLAIM_VIEW_SOR']">
+									<a ui-sref="#" ui-sref-opts="{reload: true}" data-test="#">PO/ Sub Contract  <br/>Budget  Cost</a>
+								</li>
+								<li ng-if="account.appCodeTemplate['REPORTS_PROGRESS_CLAIM_VIEW_CONT_MILE']">
+									<a ui-sref="#" ui-sref-opts="{reload: true}" data-test="#">Vendor Invoices  Status</a>
+								</li>
+								
+							</ul>
+						</li>
+					</ul>
+				
+				</li>
+				
+				
+				
+				
+			
+				<li class="treeview " ng-if="account.appCodeTemplate['REPORTS_ATTENDANCE_VIEW']">
+					<a data-test="Attendancerecordsclick">
+						<span>Attendance Records</span>
+						<span class="pull-right-container">
+							<i class="fa fa-angle-left pull-right"></i>
+						</span>
+					</a>
+					<ul class="treeview-menu">
+						<li ng-if="account.appCodeTemplate['REPORTS_ATTENDANCE_DAILY5EMPLOYEE_VIEW']">
+							<a ui-sref="dailyemprecords" ui-sref-opts="{reload: true}" data-test="Dailyemployeerecordsclick">Daily Employee Records</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['REPORTS_ATTENDANCE_DAILY5CREW_VIEW']">
+							<a ui-sref="crewwiseemp" ui-sref-opts="{reload: true}" data-test="CrewwisedialyDeploymentList">Crew Wise Daily Deployment <br/>List</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['REPORTS_ATTENDANCE_DAILY5PLANT_VIEW']">
+							<a ui-sref="dailyplant" ui-sref-opts="{reload: true}" data-test="DialyPlantAttendanceRecords">Daily Plant Records</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['REPORTS_ATTENDANCE_MONTHLY5EMPLOYEE_VIEW']">
+							<a ui-sref="monthlyemp" ui-sref-opts="{reload: true}"data-test="MonthlyEmployeeAttendanceRecords">Monthly Employee Records</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['REPORTS_ATTENDANCE_MONTHLY5PLANT_VIEW']">
+							<a ui-sref="monthlyplant" ui-sref-opts="{reload: true}" data-test="MonthlyPlantAttendanceRecords">Monthly Plant Records </a>
+						</li>
+						<li ng-if="account.appCodeTemplate['REPORTS_ATTENDANCE_STATUS_VIEW']">
+							<a ui-sref="empdailyresourcestatus" ui-sref-opts="{reload: true}" data-test="EmpDialyResourcesStatus">Employee Daily Resources
+								Status</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['REPORTS_ATTENDANCE_PLANT5STATUS_VIEW']">
+							<a ui-sref="plantdailyresourcestatus" ui-sref-opts="{reload: true}" data-test="PlantDialyResourcesStatus">Plant Daily Resources
+								Status</a>
+						</li>
+					</ul>
+				</li>
+				<li class="treeview " ng-if="account.appCodeTemplate['REPORTS_WORKDIARY_VIEW']">
+					<a data-test="Reports_WorkDiary">
+						<span>Work Diary</span>
+						<span class="pull-right-container">
+							<i class="fa fa-angle-left pull-right"></i>
+						</span>
+					</a>
+					<ul class="treeview-menu">
+						<li ng-if="account.appCodeTemplate['REPORTS_WORKDIARY_SEARCH_VIEW']">
+							<a ui-sref="workdairydailysearch" ui-sref-opts="{reload: true}" data-test="WorkDiarySearchandItsRecords">Work Diary Search & Its
+								Records
+							</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['REPORTS_WORKDIARY_SUBMIT_VIEW']">
+							<a ui-sref="workdiarysubmitappr" ui-sref-opts="{reload: true}" data-test="SubmissionandApprovalStatus">Submission & Approval
+								Status</a>
+						</li>
+					</ul>
+				</li>
+				<li class="treeview " ng-if="account.appCodeTemplate['REPORTS_TIMESHEETS_VIEW']">
+					<a data-test="Reports_TimeSheet">
+						<span>Time Sheets </span>
+						<span class="pull-right-container">
+							<i class="fa fa-angle-left pull-right"></i>
+						</span>
+					</a>
+					<ul class="treeview-menu">
+						<li ng-if="account.appCodeTemplate['REPORTS_TIMESHEETS_SEARCH_VIEW']">
+							<a ui-sref="timesheetsearch" ui-sref-opts="{reload: true}" data-test="TimeSheetSearchandItsRecords">Time Sheet Search & Its Records
+							</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['REPORTS_TIMESHEETS_SUBMIT_VIEW']">
+							<a ui-sref="timesheetsubmitappr" ui-sref-opts="{reload: true}" data-test="TimesheetSubmissionandApprovalStatus">Submission & Approval
+								Status</a>
+						</li>
+					</ul>
+				</li>
+				<li class="treeview " ng-if="account.appCodeTemplate['REPORTS_MANPOWER_VIEW']">
+					<a data-test="Reports_ManPower">
+						<span>Manpower</span>
+						<span class="pull-right-container">
+							<i class="fa fa-angle-left pull-right"></i>
+						</span>
+					</a>
+					<ul class="treeview-menu">
+					<li>
+						<a ui-sref="manpoweremployeemasterlist" ui-sref-opts="{reload: true}" data-test="Manpower_EmployeeMaster">Employee - Master List</a>
+					</li>
+						<li ng-if="account.appCodeTemplate['REPORTS_MANPOWER_PERIODICAL_VIEW']">
+							<a ui-sref="manpowerperiodical" ui-sref-opts="{reload: true}" data-test="PeriodicalActualHours">Periodical - Actual Hours</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['REPORTS_MANPOWER_DATEWISE_VIEW']">
+							<a ui-sref="manpowerdatewise" ui-sref-opts="{reload: true}" data-test="Manpower_DatewiseActualHours">Date Wise - Actual Hours</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['REPORTS_MANPOWER_COSTCODE_VIEW']">
+							<a ui-sref="manpowercostwise" ui-sref-opts="{reload: true}" data-test="Manpower_CostCodeWiseDialyDeploymentList">Cost Code Wise - Daily
+								<br/>Deployment List</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['REPORTS_MANPOWER_ACTUAL5STANDARD_VIEW']">
+							<a ui-sref="manpoweractualvsstandhrs" ui-sref-opts="{reload: true}" data-test="Manpower_ActualStandardHours">Actual Vs Standard
+								Hours</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['REPORTS_MANPOWER_IDLE_VIEW']">
+							<a ui-sref="manpoweridlehrs" ui-sref-opts="{reload: true}" data-test="Manpower_IdleHoursRecords">Idle Hours Records</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['REPORTS_MANPOWER_GENDER_VIEW']">
+							<a ui-sref="genderstats" ui-sref-opts="{reload: true}" data-test="Manpower_GenderStatistics">Gender Statistics </a>
+						</li>
+						<li ng-if="account.appCodeTemplate['REPORTS_MANPOWER_MOBILIZATION_VIEW']">
+							<a ui-sref="manpowermobistats" ui-sref-opts="{reload: true}" data-test="Manpower_PeriodicalMobilisationStatistics">Periodical - Mobilisation
+								<br/>Statistics
+							</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['REPORTS_MANPOWER_CURRENT5EMPLOYEE_VIEW']">
+							<a ui-sref="currentemplist" ui-sref-opts="{reload: true}" data-test="Manpower_CurrentEmployeeList">Current Employee List</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['REPORTS_MANPOWER_PRODUCTIVITY_ANALYSIS']">
+							<a ui-sref="manpowerproductivityanalysis" ui-sref-opts="{reload: true}">Manpower - Productivity <br/>Analysis</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['REPORTS_MANPOWER_EARNED_VIEW']">
+							<a ui-sref="manpowerplanedactualearned" ui-sref-opts="{reload: true}" data-test="Manpower_PlanActualEarnedHours">Plan Vs Actual Vs
+								Earned Hours
+							</a>
+						</li>
+						<!-- New report page: ref doc: RPC Design - Dashboard Design dated 23 Aug 15 -->
+						<li ng-if="account.appCodeTemplate['REPORTS_MANPOWER_S_CURVE_MANPOWER']">
+							<a ui-sref="manpowerscurvemanpower" ui-sref-opts="{reload: true}" data-test="Manpower_ProgressSCurveManpower">Progress S Curve - Manpower
+							</a>
+						</li>
+					</ul>
+				</li>
+				<li class="treeview " ng-if="account.appCodeTemplate['REPORTS_PLANT_VIEW']">
+					<a data-test="Reports_Plant">
+						<span>Plant</span>
+						<span class="pull-right-container">
+							<i class="fa fa-angle-left pull-right"></i>
+						</span>
+					</a>
+					<ul class="treeview-menu">
+					    <li>
+							<a ui-sref="plantmasterlist" ui-sref-opts="{reload: true}" data-test="Plant_MasterList">Plants Master List</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['REPORTS_PLANT_PERIODICAL_VIEW']">
+							<a ui-sref="plantperiodical" ui-sref-opts="{reload: true}" data-test="Plnat_PeriodicalActualHours">Periodical - Actual Hours</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['REPORTS_PLANT_DATEWISE_VIEW']">
+							<a ui-sref="plantdatewise" ui-sref-opts="{reload: true}" data-test="Plant_DatewiseActualHours">Date Wise - Actual Hours</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['REPORTS_PLANT_COSTCODE_VIEW']">
+							<a ui-sref="plantcostcodewise" ui-sref-opts="{reload: true}" data-test="Plant_CostCodeWiseDialyDeploymentList">Cost Code Wise - Daily
+								<br/>Deployment List</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['REPORTS_PLANT_IDLE_VIEW']">
+							<a ui-sref="plantidlehrs" ui-sref-opts="{reload: true}" data-test="Plant_IdleHoursRecords">Plant Idle Hours</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['REPORTS_PLANT_ACTUAL_VIEW']">
+							<a ui-sref="plantactualvsstandardhrs" ui-sref-opts="{reload: true}" data-test="Plant_ActualStandardHours">Actual Vs Standard
+								Hours</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['REPORTS_PLANT_CURRENT_VIEW']">
+							<a ui-sref="plantlist" ui-sref-opts="{reload: true}" data-test="Plant_CurrentPlantList">Current Plant List</a>
+						</li>
+					</ul>
+				</li>
+				<li class="treeview " ng-if="account.appCodeTemplate['REPORTS_MATERIALS_VIEW']">
+					<a data-test="Reports_Materials">
+						<span>Materials</span>
+						<span class="pull-right-container">
+							<i class="fa fa-angle-left pull-right"></i>
+						</span>
+					</a>
+					<ul class="treeview-menu">
+						<li ng-if="account.appCodeTemplate['REPORTS_MATERIALS_DELIVERY_VIEW']">
+							<a ui-sref="matdeliverysupplyreport" ui-sref-opts="{reload: true}" data-test="Materials_DeliveryandSupplyDetails">Delivery and Supply
+								Details</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['REPORTS_MATERIALS_DAILY_VIEW']">
+							<a ui-sref="matdailyissuereport" ui-sref-opts="{reload: true}" data-test="Materials_DialyIssueRecords">Daily Issue Records</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['REPORTS_MATERIALS_STORE_VIEW']">
+							<a ui-sref="matstorestockreport" ui-sref-opts="{reload: true}" data-test="Materials_StoreStockBalanceInTransit">Store Stock Balance in
+								Transit
+							</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['REPORTS_MATERIALS_STOCK_VIEW']">
+							<a ui-sref="matstockpilesreport" ui-sref-opts="{reload: true}" data-test="Materials_StockPilesStockBalance">Stock Piles - Stock
+								Balance</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['REPORTS_MATERIALS_PERIODICAL_VIEW']">
+							<a ui-sref="matperiodicalconsumptionreport" ui-sref-opts="{reload: true}" data-test="Materials_PeriodicalConsumption">Periodical
+								Consumption</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['REPORTS_MATERIALS_DATEWISE_VIEW']">
+							<a ui-sref="matdatewisereport" ui-sref-opts="{reload: true}" data-test="Materials_DatewiseConsumption">Date Wise Consumption </a>
+						</li>
+						<li ng-if="account.appCodeTemplate['REPORTS_MATERIALS_INVENTORY_VIEW']">
+							<a ui-sref="matinventoryreport" ui-sref-opts="{reload: true}" data-test="Materials_InventoryRecords">Inventory Records </a>
+						</li>
+					</ul>
+				</li>
+				<li class="treeview " ng-if="account.appCodeTemplate['REPORTS_PROGRESS_VIEW']">
+					<a data-test="Reports_Progress">
+						<span>Progress</span>
+						<span class="pull-right-container">
+							<i class="fa fa-angle-left pull-right"></i>
+						</span>
+					</a>
+					<ul class="treeview-menu">
+
+						<li ng-if="account.appCodeTemplate['REPORTS_PROGRESS_PERIODICAL_VIEW']">
+							<a ui-sref="periodicalprogress" ui-sref-opts="{reload: true}" data-test="Progress_PeriodicalProgress">Periodical Progress</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['REPORTS_PROGRESS_DATEWISE_VIEW']">
+							<a ui-sref="datewiseprogress" ui-sref-opts="{reload: true}" data-test="Progress_DateWiseProgress">Date Wise Progress</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['REPORTS_PROGRESS_PROGRESS_VIEW']">
+							<a ui-sref="progressplanvsactual" ui-sref-opts="{reload: true}" data-test="Progress_PlanVsActual">Progress - Plan Vs
+								Actual</a>
+						</li>
+						<!-- <li ng-if="account.appCodeTemplate['REPORTS_PROGRESS_CLAIM_VIEW']">
+							<a ui-sref="periodicalprogressclaim" ui-sref-opts="{reload: true}" data-test="Progress_PeriodicalProgressClaim">Periodical - Progress
+								Claim</a>
+						</li> -->
+						<!-- New menu for periodical progress claim - Progress Measure design Review date 10 Mar 20 -->
+						<li class="treeview " ng-if="account.appCodeTemplate['REPORTS_PROGRESS_CLAIM_VIEW']">
+							<a>
+								<span>Periodical Progress Claim</span>
+								<span class="pull-right-container">
+									<i class="fa fa-angle-left pull-right"></i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+								<li ng-if="account.appCodeTemplate['REPORTS_PROGRESS_CLAIM_VIEW_ACTUAL_COST']">
+									<a ui-sref="periodicalprogressclaimactualcost" ui-sref-opts="{reload: true}" data-test="Progress_PeriodicalProgressClaimActualCost">Progress Claim Based on <br/>Actual Cost Plus % Basis</a>
+								</li>
+								<li ng-if="account.appCodeTemplate['REPORTS_PROGRESS_CLAIM_VIEW_SOR']">
+									<a ui-sref="periodicalprogressclaim" ui-sref-opts="{reload: true}" data-test="Progress_PeriodicalProgressClaimSor">Progress Claim Based on <br/>Schedule of Rates</a>
+								</li>
+								<li ng-if="account.appCodeTemplate['REPORTS_PROGRESS_CLAIM_VIEW_CONT_MILE']">
+									<a ui-sref="periodicalprogressclaimcontmilestone" ui-sref-opts="{reload: true}" data-test="Progress_PeriodicalProgressClaimContractMilestone">Progress Measure Based on <br/>Contract Milestones</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li class="treeview " ng-if="account.appCodeTemplate['REPORTS_COST_VIEW']">
+					<a data-test="Reports_CostandPerformance">
+						<span>Cost and Performance </span>
+						<span class="pull-right-container">
+							<i class="fa fa-angle-left pull-right"></i>
+						</span>
+					</a>
+					<ul class="treeview-menu">
+						<li ng-if="account.appCodeTemplate['REPORTS_COST_DATEWISE_VIEW']">
+							<a ui-sref="costperformancedatewise" ui-sref-opts="{reload: true}" data-test="CostandPerformance_Datewiseactaulcostdetails">Date Wise - Actual Cost
+								Details
+							</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['REPORTS_COST_PERIODICAL_VIEW']">
+							<a ui-sref="costperformanceperiodical" ui-sref-opts="{reload: true}" data-test="Periodical_PlanActualEarnedvalues">Periodical - Plan Vs
+								Actual Vs <br/> Earned
+								Value</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['REPORTS_COST_ACTUAL_VIEW']">
+							<a ui-sref="costperformancedatewiseplantandactual" ui-sref-opts="{reload: true}" data-test="DateWise_PlanActualEarnedvalues">Date Wise -
+								Plan Vs Actual
+								Vs<br/> Earned Value</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['REPORTS_COST_COST_VIEW']">
+							<a ui-sref="costperformancecostschedulevariance" ui-sref-opts="{reload: true}" data-test="CostPerformance_CostandScheduleVariance">Cost &
+								Schedule Variance</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['REPORTS_COST_INDEX_VIEW']">
+							<a ui-sref="costperformancecostscheduleperformanceindex" ui-sref-opts="{reload: true}" data-test="CostPerformance_CostandSchedulePerfomanceIndex">Cost
+								& Schedule
+								Performance <br/> Index
+							</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['REPORTS_COST_BUDGET_VIEW']">
+							<a ui-sref="costperformanceitemwisebudgetprovision" ui-sref-opts="{reload: true}" data-test="CostPerformance_ItemWiseBudgetProvision">Item Wise
+								- Budget Provision</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['REPORTS_COST_ITEM_VIEW']">
+							<a ui-sref="costperformanceitemwiseplantactualcost" ui-sref-opts="{reload: true}" data-test="CostPerformance_ItemWiseplanvsActualCost">Item Wise
+								- Plan Vs Actual
+								Cost
+							</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['REPORTS_COST_SCURVE_VIEW']">
+							<a ui-sref="periodicalprogressscurvecost" ui-sref-opts="{reload: true}" >Progress S Curve - Cost</a>
+						</li>
+					</ul>
+				</li>
+
+				<!-- New menu ref doc: finance dated 19 nov 2019-reports tab -->
+				<li class="treeview " ng-if="account.appCodeTemplate['REPORTS_FINANCE_VIEW']">
+					<a>
+						<span>Finance</span>
+						<span class="pull-right-container">
+							<i class="fa fa-angle-left pull-right"></i>
+						</span>
+					</a>
+					<ul class="treeview-menu">
+						<li class="treeview " ng-if="account.appCodeTemplate['REPORTS_FINANCE_BUDGET_VIEW']">
+							<a>
+								<span>Budget</span>
+								<span class="pull-right-container">
+									<i class="fa fa-angle-left pull-right"></i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+								<li ng-if="account.appCodeTemplate['REPORTS_FINANCE_BUDGET_ORIG_VIEW']">
+									<a ui-sref="orgorrevbudget" ui-sref-opts="{reload: true}">Original or Revised</a>
+								</li>
+								<li ng-if="account.appCodeTemplate['REPORTS_FINANCE_BUDGET_EOC_VIEW']">
+									<a ui-sref="esttocompbudget" ui-sref-opts="{reload: true}">Estimate to Complete</a>
+								</li>
+								<li ng-if="account.appCodeTemplate['REPORTS_FINANCE_BUDGET_EAC_VIEW']">
+									<a ui-sref="estatcompbudget" ui-sref-opts="{reload: true}">Estimate At Completion</a>
+								</li>
+								<li ng-if="account.appCodeTemplate['REPORTS_FINANCE_BUDGET_FORECAST_VIEW']">
+									<a ui-sref="forecastbudget" ui-sref-opts="{reload: true}">Forecast</a>
+								</li>
+							</ul>
+						</li>
+						<li class="treeview " ng-if="account.appCodeTemplate['REPORTS_FINANCE_COST_VIEW']">
+							<a>
+								<span>Costs</span>
+								<span class="pull-right-container">
+									<i class="fa fa-angle-left pull-right"></i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+								<li ng-if="account.appCodeTemplate['REPORTS_FINANCE_COST_VENDOR_VIEW']">
+									<a ui-sref="vendorpaystatus" ui-sref-opts="{reload: true}">Vendor Payment Status</a>
+								</li>
+								<li ng-if="account.appCodeTemplate['REPORTS_FINANCE_COST_ASBUILT_VIEW']">
+									<a ui-sref="actcostasbuiltrecords" ui-sref-opts="{reload: true}">Actual Cost - Based on <br/>Asbuilt Records</a>
+								</li>
+								<li ng-if="account.appCodeTemplate['REPORTS_FINANCE_COST_FINANCE_VIEW']">
+									<a ui-sref="actcostfinancerecords" ui-sref-opts="{reload: true}">Actual Cost - Based on <br/>Finance Records</a>
+								</li>
+							</ul>
+						</li>
+						<li class="treeview " ng-if="account.appCodeTemplate['REPORTS_FINANCE_REVENUE_VIEW']">
+							<a>
+								<span>Revenue</span>
+								<span class="pull-right-container">
+									<i class="fa fa-angle-left pull-right"></i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+								<li ng-if="account.appCodeTemplate['REPORTS_FINANCE_REVENUE_PMEASURE_VIEW']">
+									<a ui-sref="revenueprogmeastatus" ui-sref-opts="{reload: true}">Progress Measure Status</a>
+								</li>
+								<li ng-if="account.appCodeTemplate['REPORTS_FINANCE_REVENUE_FORECAST_VIEW']">
+									<a ui-sref="revenueforecastproj" ui-sref-opts="{reload: true}">Revenue Forecast</a>
+								</li>
+								<li ng-if="account.appCodeTemplate['REPORTS_FINANCE_REVENUE_ACTUAL_VIEW']">
+									<a ui-sref="revenueactual" ui-sref-opts="{reload: true}">Revenue - Actual</a>
+								</li>
+							</ul>
+						</li>
+						<li class="treeview " ng-if="account.appCodeTemplate['REPORTS_FINANCE_PSTATUS_VIEW']">
+							<a>
+								<span>Profit Status</span>
+								<span class="pull-right-container">
+									<i class="fa fa-angle-left pull-right"></i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+								<li ng-if="account.appCodeTemplate['REPORTS_FINANCE_PSTATUS_ASBUILT_VIEW']">
+									<a ui-sref="profitstatusasbuilt" ui-sref-opts="{reload: true}">Profit Status Based on <br/>Asbuilt Records</a>
+								</li>
+								<li ng-if="account.appCodeTemplate['REPORTS_FINANCE_PSTATUS_FINANCE_VIEW']">
+									<a ui-sref="profitstatusfinance" ui-sref-opts="{reload: true}">Profit Status Based on <br/>Finance Records</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+
+				</li>
+				<!-- End of Finance in Reports menu side bar -->
+			</ul>
+		</li>
+		<li class="treeview">
+			<a ng-if="account.appCodeTemplate['REQANDAPRVL_VIEW']" data-test="Requests&Approvals_Click">
+				<!-- <img src="images/request-approved.png" class="request"> -->
+				<i class="glyphicon glyphicon-check glyphstyle"></i>
+				<span>Requests & Approvals</span>
+				<span class="pull-right-container">
+					<i class="fa fa-angle-left pull-right"></i>
+				</span>
+			</a>
+			<ul class="treeview-menu">
+				<li class="treeview">
+					<a ng-if="account.appCodeTemplate['REQUEST_FORALLMODULE_VIEW']" data-test="Requests&Approvals_Requests">
+						<span>Requests</span>
+						<span class="pull-right-container">
+							<i class="fa fa-angle-left pull-right"></i>
+						</span>
+					</a>
+					<ul class="treeview-menu">
+						<li ng-if="account.appCodeTemplate['REQUEST_EMPTRNASFER_VIEW']">
+							<a ui-sref="empreqtransfer1" ui-sref-opts="{reload: true}" data-test="Requests&Approvals_Requests_EmployeeTransfer">Employee Transfer </a>
+						</li>
+						<li ng-if="account.appCodeTemplate['REQUEST_PLANTTRANSFER_VIEW']">
+							<a ui-sref="planttransferrequest1" ui-sref-opts="{reload: true}" data-test="Requests&Approvals_Requests_PlantTransfer">Plant Transfer </a>
+						</li>
+						<li ng-if="account.appCodeTemplate['REQUEST_MATERIALTRANSFER_VIEW']">
+							<a ui-sref="materialtransferrequest1" ui-sref-opts="{reload: true}" data-test="Requests&Approvals_Requests_Materials"> Materials Transfer </a>
+						</li>
+						<li ng-if="account.appCodeTemplate['REQUEST_REQPROC_INTRNLSTAGE1REQUEST_VIEW']">
+							<a ui-sref="internalApproval({request: 'request'})" ui-sref-opts="{reload: true}" data-test="Requests&Approvals_Requests_Procurement_Stage1">
+								Procurement Stage 1 </a>
+						</li>
+						<li ng-if="account.appCodeTemplate['REQUEST_REQPROC_EXTRNLSTAGE2REQUEST_VIEW']">
+							<a ui-sref="externalApproval({request: 'request'})" ui-sref-opts="{reload: true}" data-test="Requests&Approvals_Requests_Procurement_Stage2">
+								Procurement Stage 2 </a>
+						</li>
+						<li>
+							<a ng-if="account.appCodeTemplate['REQUEST_EMPLEAVEREQUEST_VIEW']" ui-sref="empleaverequest"
+								ui-sref-opts="{reload: true}" data-test="Requests&Approvals_Requests_LeaveRequest"> Leave Request </a>
+						</li>
+					</ul>
+				</li>
+
+				<li class="treeview">
+					<a ng-if="account.appCodeTemplate['APPROVE_FORALLMODULE_VIEW']" data-test="Requests&Approvals_Approvals">
+						<span>Approvals</span>
+						<span class="pull-right-container">
+							<i class="fa fa-angle-left pull-right"></i>
+						</span>
+					</a>
+					<ul class="treeview-menu">
+						<li ng-if="account.appCodeTemplate['APPROVE_ASBUILTRCRD_WRKDIRY_APRVEWRKDIRY_VIEW']">
+							<a ui-sref="approveworkdiary" ui-sref-opts="{reload: true}" data-test="Requests&Approvals_Approvals_Workdiary">Work Diary </a>
+						</li>
+						<li ng-if="account.appCodeTemplate['APPROVE_ASBUILTRCRD_TIMSHET_APRVETIMESHET_VIEW']">
+							<a ui-sref="approvetimesheet" ui-sref-opts="{reload: true}" data-test="Requests&Approvals_Approvals_TimeSheet"> Time Sheet </a>
+						</li>
+						<li ng-if="account.appCodeTemplate['APPROVE_EMPAPPROVALTRANSFER_VIEW']">
+							<a ui-sref="emptransferapprove1" ui-sref-opts="{reload: true}" data-test="Requests&Approvals_Approvals_EmployeeTransfer"> Employee Transfer </a>
+						</li>
+						<li ng-if="account.appCodeTemplate['APPROVE_PLANTAPPRFORTRANSFER_VIEW']">
+							<a ui-sref="planttransferapprove1" ui-sref-opts="{reload: true}" data-test="Requests&Approvals_Approvals_PlantTransfer"> Plant Transfer </a>
+						</li>
+						<li ng-if="account.appCodeTemplate['APPROVE_MATRLAPPRFORTRANSFER_VIEW']">
+							<a ui-sref="materialtransferapproval1" ui-sref-opts="{reload: true}" data-test="Requests&Approvals_Approvals_MaterialsTransfer"> Materials Transfer
+							</a>
+						</li>
+						<li ng-if="account.appCodeTemplate['APPROVE_INTRNLSTAGE1APRVL_VIEW']">
+							<a ui-sref="internalApproval({request: 'approval'})" ui-sref-opts="{reload: true}" data-test="Requests&Approvals_Approvals_Procurement_Stage1">
+								Procurement Stage 1 </a>
+						</li>
+						<li ng-if="account.appCodeTemplate['APPROVE_EXTRNLSTAGE2APRVL_VIEW']">
+							<a ui-sref="externalApproval({request: 'approval'})" ui-sref-opts="{reload: true}" data-test="Requests&Approvals_Approvals_Procurement_Stage2">
+								Procurement Stage 2 </a>
+						</li>
+						<li>
+							<a ng-if="account.appCodeTemplate['APPROVE_EMPLEAVEAPPROVAL_VIEW']" data-test="Requests&Approvals_Approvals_LeaveApprovals"
+								ui-sref="empleaveapproval1" ui-sref-opts="{reload: true}">Leave Approvals </a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</li>
+
+		<li class="treeview">
+			<a ng-if="account.appCodeTemplate['ADMIN_VIEW']" data-test='Admin'>
+				<!-- <img src="images/admin.png" class="admin"> -->
+				<i class="fa fa-user"></i>
+				<span>Admin</span>
+				<span class="pull-right-container">
+					<i class="fa fa-angle-left pull-right"></i>
+				</span>
+			</a>
+			<ul class="treeview-menu">
+				<li ng-if="!account.clientId && account.appCodeTemplate['ADMIN_CLIENTREG_VIEW']">
+					<a data-test='Admin_ClientRegistration' ui-sref="clientreg" ui-sref-opts="{reload: true}">Client
+						Registration</a>
+				</li>
+				<li ng-if="account.appCodeTemplate['ADMIN_USRLIST_VIEW']">
+					<a data-test='Admin_ClientUser_UserList' ui-sref="clientusers" ui-sref-opts="{reload: true}">User
+						List</a>
+				</li>
+				<li ng-if="account.appCodeTemplate['ADMIN_USRPRFLANDPRVLG_VIEW']">
+					<a data-test='Admin_ClientUser_UserProfiles' ui-sref="clientroles" ui-sref-opts="{reload: true}">
+						User Profiles & Privileges</a>
+				</li>
+				<li ng-if="account.clientId && account.appCodeTemplate['ADMIN_EMAILSTG_VIEW']">
+					<a data-test='Admin_ClientUser_EmailHosting' ui-sref="emailSettings"
+						ui-sref-opts="{reload: true}">Email
+						Hosting Details </a>
+				</li>
+				<li ng-if="account.appCodeTemplate['ADMIN_EMAILSTG_VIEW']">
+					<a data-test='Admin_ClientUser_AuditTrail' ui-sref="auditAndTrail"
+						ui-sref-opts="{reload: true}">Audit
+						Trail Records </a>
+				</li>
+			</ul>
+		</li>
+	</ul>
+</section>

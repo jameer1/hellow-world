@@ -1,0 +1,13 @@
+<div>
+	<ul class="nav nav-tabs">
+		<li
+			fixed-header="" ng-repeat ="tab in plantDetailsTabs[0].innerTabs[8].approvalForTransferTabs"
+			ng-class="{active:isActiveApprovalTransferTab(tab.url)}"><a
+			data-toggle="tab" ng-click="onClickApprovalTransferTab(tab)">{{tab.title}}</a></li>
+	</ul>
+
+	<div class="tab-pane fade in active">
+		<div ng-include="currentApprovalTransferTab"></div>
+	</div>
+
+</div>

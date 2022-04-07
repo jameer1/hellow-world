@@ -1,0 +1,72 @@
+<div ng-if="account.appCodeTemplate['RESOURCE_PLANTDEPRANDSALVEVALUE_VIEW']" id="tab-pannel" class="panel-group"
+	ng-controller="PlantDepreciationController"
+	ng-init="getPlantDeprisiationRecords()">
+	<div class="tabTable_1_Res_height" ng-if="plantDepreciationTable">
+	<div id="grid" ui-grid="gridOptions" ng-if="stylesSvc.finishedStyling" 
+            ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-resize-columns class="grid"></div>
+			<!-- <table class="table table-hover table-bordered tabTable_1_height" >
+			<thead>
+				<tr>
+					<th rowspan=2>Select</th>
+					<th rowspan=2>Project Deployment#</th>
+					<th rowspan=2>Effective From</th>
+					<th rowspan=2>EPS Name</th>
+					<th rowspan=2>Project Name</th>
+					<th rowspan=2>Asset ID</th>
+					<th rowspan=2>Commissioning Date</th>
+					<th rowspan=2>Mobilization Date</th>
+					<th rowspan=2>De-mobilization Date</th>
+					<th class="text-center" colspan=4>Plants Life Status</th>
+					<th class="text-center" colspan=5>Asset Value Status</th>
+					<th rowspan=2>Notes</th>
+				</tr>
+				<tr>
+					<th>Unit of Measure</th>
+					<th>Estimated Use Full Life</th>
+					<th>Upto Date Usage</th>
+					<th>Remaining Use Full Life</th>
+					<th>Currency</th>
+					<th>Plant Original Value</th>
+					<th>Salvage Value</th>
+					<th>Depreciation Value</th>
+					<th>Remaining Use Full Life</th>
+
+				</tr>
+			</thead>
+			<tbody>
+				<tr fixed-header="" ng-repeat ="depreciation in depreciationData">
+					<td><input type="checkbox" value="id"
+						ng-model="depreciation.selected"
+						ng-disabled="!depreciation.latest"
+						ng-change="depreciationRowSelect(depreciation)"></td>
+					<td class="text-right">{{depreciation.plantRegProjTO.deploymentId}}</td>
+					<td>{{depreciation.effectiveFrom}}</td>
+					<td>{{ depreciation.plantRegProjTO.parentName }}</td>
+					<td>{{ depreciation.plantRegProjTO.name }}</td>
+					<td>{{selectedPlantData.assertId}}</td>
+					<td>{{depreciation.plantRegProjTO.commissionDate}}</td>
+					<td>{{depreciation.plantRegProjTO.mobDate}}</td>
+					<td>{{depreciation.plantRegProjTO.deMobDate}}</td>
+					<td>{{ selectedPlantData.plantClassMeasureName }}</td>
+					<td class="text-right">{{depreciation.estimateLife}}</td>
+					<td class="text-right">{{depreciation.endMeterReading}}</td>
+					<td class="text-right">{{depreciation.remainingLife}}</td>
+					<td>{{projGenCurrencyLabelKeyTO.code}}</td>
+					<td class="text-right">{{depreciation.orginalValue}}</td>
+					<td class="text-right">{{depreciation.salvageValue}}</td>
+					<td class="text-right">{{depreciation.depriciationValue |
+						number: 2}}</td>
+					<td class="text-right">{{depreciation.remaining | number: 2}}</td>
+					<td class="text-left"><span name="comment" flip="horizontal"
+							ng-click="showDepreciation(depreciation.comments)"></span></td>
+				</tr>
+			</tbody>
+		</table> -->
+		<div class="panel-footer">
+		<div class="pull-left">
+			<input ng-if="account.appCodeTemplate['RESOURCE_PLANTDEPRANDSALVEVALUE_ADD']" data-test='PlantandEquipment_DepreciationandSalvageValue_Edit' type="button" class="btn btn-primary btn-sm"
+				ng-click="addDepreciation('Edit')" value="Edit">
+		</div>
+	</div>
+	</div>
+</div>

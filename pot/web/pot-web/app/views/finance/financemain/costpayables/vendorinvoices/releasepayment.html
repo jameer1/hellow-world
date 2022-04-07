@@ -1,0 +1,103 @@
+<div id="tab-pannel">
+    <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12 no-padding">
+        <div class="col-sm-4 col-xs-4 col-md-4 col-lg-4">
+            <md-radio-group ng-model="userType" layout="row">
+                <md-radio-button value="1" class="md-primary">Login User List</md-radio-button>
+                <md-radio-button value="2" class="md-primary">All User List</md-radio-button>
+            </md-radio-group>
+        </div>
+        <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3">
+            <md-input-container>
+                <label>Invoice Current Status</label>
+                <md-select ng-model="">
+                    <md-option value="pending">Pending for Approval</md-option>
+                    <md-option value="approved">Approved</md-option>
+                    <md-option value="hold">Approval on Hold</md-option>
+                    <md-option value="paid">Paid</md-option>
+                    <md-option value="all">All</md-option>
+                </md-select>
+            </md-input-container>
+        </div>
+        <div class="col-sm-3 col-xs-3 col-md-3 col-lg-3">
+            <md-input-container>
+                <label>Payment Status</label>
+                <md-select ng-model="payStatus">
+                    <md-option value="released">Released</md-option>
+                    <md-option value="yettorelease">Yet to Release</md-option>
+                </md-select>
+            </md-input-container>
+        </div>
+        <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+            <div class="pull-right marT15">
+                <input type="submit" ng-click="" class="btn btn-primary btn-sm" value="Search" ng-model="searchText">
+                <input type="reset" class="btn btn-secondary btn-sm" ng-click="" value="Reset">
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 no-padding">
+        <div class="tabTable_2_Res_height">
+            <table class="table table-striped table-hover table-bordered tabTable_2_height">
+                <thead id="tab-head">
+                    <tr>
+                        <th>Select</th>
+                        <th>Invoice Date</th>
+                        <th>Invoice Number</th>
+                        <th>Net Invoice Amount</th>
+                        <th>GST or Tax Amount</th>
+                        <th>Total Invoice Amount Incl Tax</th>
+                        <th>Invoice Received Date</th>
+                        <th>Payment Processing Period</th>
+                        <th>Payment Due Date</th>
+                        <th>Procurement Category</th>
+                        <th>Procurement Sub Category</th>
+                        <th>Originator Employee Name</th>
+                        <th>Approver Employee Name</th>
+                        <th>Finance Controller (Name)</th>
+                        <th>Cost Code</th>
+                        <th>Invoice Current Status</th>
+                        <th>Payment Release</th>
+                        <th>Remittance Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr fixed-header="">
+                        <td>
+                            <input type="checkbox" value="invoice">
+                        </td>
+                        <td>{{ }}</td>
+                        <td>{{ }}</td>
+                        <td>{{ }}</td>
+                        <td>{{ }}</td>
+                        <td>{{ }}</td>
+                        <td>{{ }}</td>
+                        <td>{{ }}</td>
+                        <td>{{ }}</td>
+                        <td>{{ }}</td>
+                        <td>{{ }}</td>
+                        <td>{{ }}</td>
+                        <td>{{ }}</td>
+                        <td>{{ }}</td>
+                        <td>{{ }}</td>
+                        <td>{{ }}</td>
+                        <td>{{ }}</td>
+                        <td>{{ }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="panel-footer">
+        <div class="pull-right">
+            <input type="submit" class="btn btn-primary btn-sm" ng-click="addReleasePaymentDetails('Edit')"
+                value="Release Payment">
+        </div>
+        <div class="pull-left">
+            <input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+            <input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+            <input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+            <input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+            <input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+        </div>
+    </div>
+</div>

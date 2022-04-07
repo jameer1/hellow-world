@@ -1,0 +1,30 @@
+<div id="tab-pannel" class="panel-group" ng-init="getPlantTypes()">
+	<div id="tab-pannel" class="panel panel-default" modal-movable>
+		<div class="panel-heading">
+			<h4 class="panel-title">Plant Type List</h4>
+		</div>
+		<div class="panel-body">
+			<div class="popUpTableResHeight">
+			<table class="table table-hover table-bordered popUpTableHeight">
+				<thead>
+					<tr>
+						<th>Plant ID</th>
+						<th>Plant Name</th>
+						<th>Unit Of Measure</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr fixed-header="" ng-repeat ="detail in projPlantTypeDetails"
+						ng-click="plantDetailsPopUp(detail)">
+						<td>{{detail.code}}</td>
+						<td>{{detail.name}}</td>
+						<td>{{detail.measureUnitTO.name}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+		<div class="panel-footer"></div>
+	</div>
+	<div class="ngdialog-close"></div>
+</div>

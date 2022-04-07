@@ -1,0 +1,105 @@
+<div id="tab-pannel" class="panel-group"
+	ng-init="payPeriodCycle();taxTypes();">
+	<form name="nonRegularPayForm" validate>
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Non Regular Pay and Allowances - Codes</h4>
+			</div>
+			<div class="panel-body9">
+				<table class="table table-striped table-hover table-bordered" style="height: 200px !important;" >
+					<thead>
+						<tr>
+							<th ng-show="action =='Add'">Select</th>
+							<th>Code</th>
+							<th>Name</th>
+							<th>Taxable or Not</th>
+							<th>Tax Type</th>
+							<th>Notes</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr fixed-header="" ng-repeat ="nonRegularPay in addNonRegularPayTOs">
+							<td ng-show="action =='Add'"><input type="checkbox"
+								ng-model="nonRegularPay.selected"
+								ng-change="popUpRowSelect(nonRegularPay)"></td>
+
+							<td ng-form name="classform"><input type="text" name="code"
+								ng-model="nonRegularPay.code"
+								pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+								minlength="2" maxlength="20" placeholder="Code"
+								required="required"> <span
+								ng-show="classform.code.$dirty && classform.code.$error.required">This
+									field is mandatory</span> <span
+								ng-show="classform.code.$error.pattern">Must enter
+									required format</span> <span ng-show="classform.code.$error.maxlength">You
+									reached max length</span></td>
+
+							<td ng-form name="classform1"><input type="text" name="name"
+								ng-model="nonRegularPay.name"
+								pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+								minlength="3" maxlength="50" placeholder="Description"
+								required="required"> <span
+								ng-show="classform1.name.$dirty && classform1.name.$error.required">This
+									field is mandatory</span>  <span
+								ng-show="classform1.name.$error.pattern">Must enter
+									required format</span> <span
+								ng-show="classform1.name.$error.maxlength">You reached
+									max length</span></td>
+
+							<td><select id="nonRegularPay" name="Taxable"
+								ng-change="updateNonRegularPay(nonRegularPay)"
+								ng-model="nonRegularPay.nonRegularLabelKeyTO"
+								ng-options="nonRegularPay.name for nonRegularPay in nonRegularPayList track by nonRegularPay.name"
+								ng-required="true">
+									<option value="">Select</option>
+							</select></td>
+
+							<td><select name="taxName"
+								ng-show="nonRegularPay.nonRegularLabelKeyTO.name=='Yes'"
+								ng-options="taxName.name for taxName in taxNamesList track by taxName.name"
+								ng-model="taxName.taxType">
+									<option value="">Tax Type</option>
+							</select></td>
+
+							<td><input type="text" name="notes"
+								ng-model="nonRegularPay.comments" placeholder="Notes"></td>
+						</tr>
+						<tr ng-show="addNonRegularPayTOs.length <=0">
+							<td colspan="5" class="text-center" style="color: red;">Tax
+								codes not defined for the selected country</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="panel-footer">
+				<div class="pull-left">
+					<input type="submit"
+						ng-click="nonRegularPayForm.$valid && addRows()" value="Add"
+						ng-show="action =='Add'" class="btn  btn-brown btn-sm" value="Add" />
+					<input type="button" ng-click="deleteRows()" value="Delete"
+						ng-show="action =='Add'" class="btn  btn-brown btn-sm">
+				</div>
+				<div class="pull-right">
+					<input type="submit"
+						ng-click="nonRegularPayForm.$valid && saveNonRegularPay()"
+						class="btn  btn-brown btn-sm" value="Save" />
+				</div>
+			</div>
+			<div class="ngdialog-close"></div>
+		</div>
+	</form>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

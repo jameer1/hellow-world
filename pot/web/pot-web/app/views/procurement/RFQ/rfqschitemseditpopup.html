@@ -1,0 +1,109 @@
+<div id="tab-pannel">
+    <div class="panel panel-default" modal-movable>
+        <div class="panel-heading">
+            <h4 class="panel-title"> Edit Quotes From Vendor</h4>
+        </div>
+
+        <div class="panel-body">
+            <div class="">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+                    <div class="col-sm-2 col-xs-2 col-md-2 col-lg-2 padL-0">
+                        <md-input-container class="md-block">
+                            <label>PreContract Code</label>
+                            <input type="text" data-test='RFQ_EditQuotesfromVendor_ViewEdit_Precontractcode'
+                                ng-model="preContractObj.code" placeholder="PreContract Code"
+                                ng-disabled="preContractObj.id > 0" />
+                        </md-input-container>
+                    </div>
+                    <div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+                        <md-input-container class="md-block">
+                            <label>Contract Description</label>
+                            <input type="text" data-test='RFQ_EditQuotesfromVendor_ViewEdit_contractdescription'
+                                ng-model="preContractObj.desc" placeholder="Contract Description"
+                                ng-disabled="preContractObj.id > 0" />
+                        </md-input-container>
+                    </div>
+                    <div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+                        <md-input-container class="md-block">
+                            <label>Company</label>
+                            <input type="text" data-test='RFQ_EditQuotesfromVendor_ViewEdit_company'
+                                ng-model="companyMap[preContractCmpTO.companyId].code" placeholder="Company"
+                                ng-disabled="preContractObj.id > 0" />
+                        </md-input-container>
+                    </div>
+                    <div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+                        <md-input-container class="md-block">
+                            <label>RFQ Ref Code</label>
+                            <input type="text" data-test='RFQ_EditQuotesfromVendor_ViewEdit_RFQrefcode'
+                                ng-model="preContractCmpTO.rfqCode" placeholder="RFQ Ref Code"
+                                ng-disabled="preContractObj.id > 0" />
+                        </md-input-container>
+                    </div>
+                    <div class="col-sm-2 col-xs-2 col-md-2 col-lg-2 ">
+                        <md-input-container class="md-block">
+                            <label>RFQ Issue Date</label>
+                            <pot-currentdate-picker dir-index="$index"
+                                data-test='RFQ_EditQuotesfromVendor_ViewEdit_RFQissuedate'
+                                ng-model="preContractCmpTO.rfqIssueDate" date-name="intlFromDate"
+                                placeholder="dd-mm-yyyy" ng-disabled="preContractObj.id > 0" />
+                        </md-input-container>
+                    </div>
+                    <div class="col-sm-2 col-xs-2 col-md-2 col-lg-2 padR-0">
+                        <md-input-container class="md-block">
+                            <label>Vendor Code</label>
+                            <input type="text" data-test='RFQ_EditQuotesfromVendor_ViewEdit_vendarcode'
+                                ng-model="companyMap[preContractCmpTO.companyId].name" placeholder="Vendor Code"
+                                ng-disabled="preContractObj.id > 0" />
+                        </md-input-container>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+                    <div class="col-sm-2 col-xs-2 col-md-2 col-lg-2 padL-0">
+                        <md-input-container class="md-block">
+                            <label>Quotation Date</label>
+                            <pot-currentdate-picker dir-index="$index" ng-model="date"
+                                data-test='RFQ_EditQuotesfromVendor_ViewEdit_Quotationdate' date-name="date"
+                                placeholder="dd-mm-yyyy" ng-disabled="true"></pot-currentdate-picker>
+                        </md-input-container>
+                    </div>
+                    <div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+                        <md-input-container class="md-block">
+                            <label>Quote Ref</label>
+                            <input type="text" ng-model="preContractCmpTO.quoteRefCode" placeholder="Quote Ref" required
+                                ng-disabled="preContractCmpTO.biddingStatus=='Closed'" />
+                        </md-input-container>
+                    </div>
+                    <div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+                        <md-input-container class="md-block">
+                            <label>Tender Close Date</label>
+                            <input type="text" data-test='RFQ_EditQuotesfromVendor_ViewEdit_tendarclosedate'
+                                ng-model="preContractObj.closeDate" ng-disabled="true" />
+                        </md-input-container>
+                    </div>
+                    <div class="col-sm-6 col-xs-6 col-md-6 col-lg-6 padR-0">
+                        <div class="pull-right marT15" ng-if="preContractObj.contractStageStatus!='Purchase Order'">
+                            <input type="Submit" value="Submit Quote" data-test='Procurement_RfQ_EditQuote_Submitquote'
+                                ng-click="submitQuotation()" class="btn btn-primary btn-sm" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+                    <div class="nav-tabs-custom">
+                        <ul class="nav nav-tabs">
+                            <li fixed-header="" ng-repeat="preContarctDetailTab in preContrctDetailTabs"
+                                ng-class="{active:isActiveTab1(preContarctDetailTab.url)}"><a data-toggle="tab"
+                                    ng-click="onClickTab1(preContarctDetailTab)"
+                                    data-test="{{preContarctDetailTab.rfqscheduleSeleniumLocator}}">{{preContarctDetailTab.title}}</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div ng-include="currentTab1"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ngdialog-close" data-test="PurchaseOrders_RFQ_editquotesviewinto"></div>
+    </div>
+
+</div>

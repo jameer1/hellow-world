@@ -1,0 +1,64 @@
+<style>
+.errorMsgStyl
+{
+	color: red
+}
+</style>
+<div id="tab-pannel">
+	<div class="panel panel-default" modal-movable>
+		<div class="panel-heading">
+			<h4 class="panel-title">Add Documents</h4>
+		</div>
+		<div class="panel-body" ng-init="getDocumentDetails()">
+			<div class="b-sh popUpTableResHeight overflow-auto">
+				<table class="table table-striped table-hover table-bordered popUpTableHeight"  >
+					<thead>
+						<tr>
+							  <th>Date</th>
+							  <th>Document ID</th>
+							  <th>Description</th>
+							  <th>Version</th>
+							  <th>Upload / View File</th>
+							  <th>Type of File</th>
+							  <th>Size of File</th>
+							  <th>Status</th>
+						</tr>
+					</thead>
+					<tbody>
+						 <tr fixed-header="" ng-repeat ="reference in refdocuments1">
+				              <td class="input-width0">Date</td>
+				              <td><input type="text" ng-model="reference.code" placeholder="Auto Generate" readonly="readonly" style="width: 115px !important"></td>	
+				
+				              <td class="input-width2"><input type="text" ng-disabled="reference.id > 0" name="description" ng-model="reference.description" placeholder="description" required="required"></td>
+				
+				              <td class="input-width2"><input type="text" name="version" ng-disabled="reference.id > 0" ng-model="reference.version" placeholder="version" required="required">
+				              	<span ng-hide="reference.displayVersionError" class="errorMsgStyl">This field is mandatory</span>
+				              	<span ng-hide="reference.displayDuplicateVersionError" class="errorMsgStyl">Please choose different version</span>
+				              </td>
+				              <td class="input-width3"><input type="file" name="doc" ngf-select="fileUpload($file,reference,$index)" tabindex="-1" placeholder="Doc"
+				                style="display: inline !important;"><span ng-hide="reference.displayUploadError" class="errorMsgStyl">This field is mandatory</span></td>
+				
+				              <td class="input-width2"><input type="text" ng-disabled="reference.id > 0" name="typeofFile" ng-model="reference.fileType" placeholder="Type of File" readonly="readonly"></td>
+				
+				              <td class="input-width2"><input type="text" name="sizeofFile" ng-model="reference.fileSize" placeholder="Sizeof File" readonly="readonly"></td>
+				
+				              <td class="input-width2"><span>{{reference.version >1 ? 'Superseded' : 'Current'}}</span></td>	
+	            		</tr> 
+					</tbody>
+				</table>
+			</div>
+		</div>
+			<div class="panel-footer">
+				<div class="pull-left">
+					<input type="submit" class="btn btn-primary btn-sm" ng-click="addRows()" value="Add Rows" />
+				</div>
+				<div class="pull-left" ng-hide="hideDeleteButtonDiv">
+					<input type="submit" class="btn btn-primary btn-sm" ng-click="deleteRows()" value="Delete Rows" />
+				</div>
+				<div class="pull-right">
+					<input type="submit" class="btn btn-primary btn-sm" ng-click="saveReferenceDocumentList()" value="Save" />
+				</div>
+			</div>
+			<div class="ngdialog-close"></div>
+		</div>
+</div>

@@ -1,0 +1,94 @@
+<div id="tab-pannel" class="panel-group"
+	ng-controller="TaxTypeController">
+	<form name="taxPaymentForm" validate>
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Tax Payment Details</h4>
+			</div>
+			<div class="panel-body9">
+				<table class="table table-striped table-hover table-bordered" style="height: 200px !important;" >
+					<thead>
+						<tr>
+							<th ng-show="action=='Add'">Select</th>
+							<th>Tax Code</th>
+							<th>Description</th>
+							<th>Department Name</th>
+							<th>Registered Address</th>
+							<th>Account Number</th>
+							<th>Bank Name</th>
+							<th>Bank Code</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr fixed-header="" ng-repeat ="taxdetails in addTaxdetails">
+							<td ng-show="action=='Add'"><input type="checkbox"
+								value="taxdetails.id" ng-model="taxdetails.selected"
+								ng-change="popupRowSelect(taxdetails)"></td>
+
+							<td><input type="text" placeholder="Tax code"
+								ng-click="getTaxCodes(taxdetails)" ng-model="taxdetails.taxCode"></td>
+							<td><input type="text" placeholder="Description"
+								ng-click="getTaxCodes(taxdetails)" ng-model="taxdetails.taxDesc"></td>
+
+							<td ng-form name="classform"><input type="text"
+								name="deptName" ng-model="taxdetails.deptName"
+								pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+								" required="required" placeholder="department Name"> <span
+								ng-show="classform.deptName.$error.pattern">Must enter
+									required format</span></td>
+							<td ng-form name="classform1"><input type="text"
+								name="regAddr" ng-model="taxdetails.regAddr"
+								placeholder="address"
+								pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+								required="required"> <span
+								ng-show="classform1.regAddr.$error.pattern">Must enter
+									required format</span></td>
+							<td ng-form name="classform2"><input type="text"
+								name="accNumber" ng-model="taxdetails.accNumber"
+								placeholder="acc Num" pattern="^\S$|^\S[0-9]*\S$" minlength="10"
+								maxlength="20" required="required"> <span
+								ng-show="classform2.accNumber.$error.pattern">Enter Only
+									Numbers</span> <span
+								ng-show="classform2.accNumber.$dirty && classform2.accNumber.$error.required">Bank
+									account number is  mandatory</span></td>
+							<td ng-form name="classform3"><input type="text"
+								name="bankName" ng-model="taxdetails.bankName"
+								placeholder="bank Name"
+								ng-pattern="/^(?!\s)(?!.*\s$)(?=.*[A-Za-z0-9])[A-Za-z0-9-,/&\s]{3,50}$/"
+								minlength=3 maxlength=50 required="required"> <span
+								ng-show="classform3.bankName.$error.pattern">Must enter
+									required format</span> </td>
+							<td ng-form name="classform4"><input type="text"
+								name="bankCode" ng-model="taxdetails.bankCode"
+								placeholder="bank Code"
+								pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+								required="required"> <span
+								ng-show="classform4.bankCode.$error.pattern">Must enter
+									required format</span></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="panel-footer">
+				<div class="pull-left">
+					<input type="submit" ng-click="taxPaymentForm.$valid && addRows()"
+						class="btn  btn-brown btn-sm" value="Add" ng-show="action =='Add'"
+						validate> <input type="button" ng-click="deleteRows()"
+						value="Delete" ng-show="action =='Add'"
+						class="btn btn-brown btn-sm" validate>
+				</div>
+				<div class="pull-right">
+					<input type="submit"
+						ng-click="taxPaymentForm.$valid && saveTaxPayment()" value="Save"
+						class="btn btn-brown btn-sm" />
+				</div>
+			</div>
+			<div class="ngdialog-close"></div>
+		</div>
+	</form>
+</div>
+
+
+
+
+

@@ -1,0 +1,226 @@
+<div id="tab-pannel" class="panel-group" ng-init="projSorifOnLoad()">
+  <form name="sorForm" validate>
+    <div class="panel panel-default" modal-movable>
+      <div class="panel-heading">
+        <h4 class="panel-title">Progress Measure Based on Contract Milestones</h4>
+      </div>
+      <div id="input-width" class="panel-body">
+        <div class="popUpTableResHeight">
+          <table id="tree" class="table table-hover table-bordered popUpTableHeight">
+            <thead>
+            <tr>
+              <th>Milestone Group ID
+                <span style="color: red;"> *</span>
+              </th>
+              <th width="4%">Milestone Group Name
+                <span style="color: red;"> *</span>
+              </th>
+              <th>Cost CodeID
+              </th>
+              <th>Cost CodeDescription
+              </th>
+              <th>Currency
+              </th>
+              <th>Status Date
+              </th>
+              <th>Contract Amount
+              </th>
+              <th>Schedule Finish Date
+              </th>
+              <th>Progress Status
+              </th>
+              <th>Actual Finish Date
+              </th>
+              <th>Included in Previous Progress Claim</th>
+              <th>Claimed Amount</th>
+              <th>Balance Amount</th>
+              <th>Comments
+                <span style="color: red;"> *</span>
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr fixed-header="" ng-repeat="tab in addSORData" ng-init="editOnLoadDefaultValues(tab)" class="abc{{tab.level}}"
+                ng-hide="tab.collapse">
+              <td ng-form name="sorForm1" width="25%">
+									<span ng-repeat="level in [].constructor(tab.level) track by $index" class="xyz"
+                        style="padding-left: 30px;">
+									</span>
+                <span ng-click="projSorPopupItemClick(tab,true);" ng-show="!tab.item && tab.expand"
+                      class="fa fa-minus">
+									</span>
+                <span ng-click="projSorPopupItemClick(tab,false);"
+                      ng-show="!tab.item && !tab.expand" class="fa fa-plus">
+									</span>
+                <i class="fa fa-leaf" ng-show="tab.item"> </i>
+                <input data-test='Projects_ProjectLibrary_SOR_Create_GroupId' type="text"
+                       ng-if="tab.level <= 0" placeholder="{{tab.item ? 'Item ID' : 'Group ID'}}"
+                       name="sorId" maxlength="50" ng-model="tab.code" milength=3
+                       style="max-width: 50px;" ng-blur="checkDataValidationRecursively(tab)"
+                       class="form-control" pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+                       ng-required="true">
+                <input data-test='Projects_ProjectLibrary_SOR_Create_SubGroupId' type="text"
+                       ng-if="tab.level >  0" class="form-control" style="max-width: 50px;"
+                       placeholder="{{tab.item ? 'Item ID' : 'Sub Group ID'}}" name="sorId"
+                       maxlength="50" ng-model="tab.code" milength=3
+                       pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+                       ng-blur="checkDataValidationRecursively(tab)" ng-required="true">
+                <span data-test='Projects_ProjectLibrary_SOR_Create_SubGroupIcon'
+                      ng-click="addSORSUBGroup(tab,searchProject.projId,$index)"
+                      ng-show="!tab.item && tab.level < 3" class="fa fa-plus-square" title="Add Sub Group">
+									</span>
+                <span style="padding-left: 5px;">
+										<span data-test='Projects_ProjectLibrary_SOR_Create_ItemIdIcon'
+                          ng-click="addSORItem(tab,searchProject.projId,$index)" ng-hide="tab.item"
+                          class="fa fa-plus-square-o" title="Add item">
+										</span>
+									</span>
+                <span style="padding-left: 5px;">
+										<span data-test='Projects_ProjectLibrary_SOR_Create_DeleteIcon' title="Delete"
+                          ng-click="deleteSOR($index)" ng-show="tab.level>0 && !tab.edit"
+                          class="fa fa-trash">
+										</span>
+									</span>
+                <span ng-show="sorForm1.sorId.$touched && sorForm1.sorId.$error.required" style="color: red!important;"> This Field
+										is Mandatory</span>
+                <br>
+                <div style="padding-left:{{tab.level * 30 + 20}}px;color: red!important;"
+                     ng-if="tab.invalidField && !tab.code">Mandatory and must contain Alphabets
+                </div>
+              </td>
+              <td ng-form name="sorForm2">
+                <input data-test='Projects_ProjectLibrary_SOR_Create_GroupName'
+                       data-toggle="tooltip" ng-if="tab.level <= 0" title="{{tab.name}}" type="text"
+                       class="form-control" placeholder="{{tab.item ? 'Item Name' : 'Group Name'}}"
+                       name="itemName" maxlength="100" ng-blur="checkDataValidationRecursively(tab)"
+                       pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*)) ng-model="tab.name"
+                       ng-required="true">
+                <input data-test='Projects_ProjectLibrary_SOR_Create_SubGroupName'
+                       data-toggle="tooltip" ng-if="tab.level > 0" title="{{tab.name}}" type="text"
+                       ng-blur="checkDataValidationRecursively(tab)"
+                       placeholder="{{tab.item ? 'Item Name' : 'Sub Group Name'}}" name="itemName"
+                       maxlength="100" class="form-control"
+                       pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*)) ng-model="tab.name"
+                       ng-required="true">
+                <br>
+                <div class="procurment-pot-errors"
+                     ng-if="tab.invalidField && !tab.name">Mandatory and must contain Alphabets!</div>
+              </td>
+
+              <td ng-form name='sorForm4'><input type="text"
+                                                data-test='Resources_Employee_ChargeOutRatesTab_Edit_PmCostCodeId'
+                                                name="pmCostCodeId" class="form-control"
+                                                ng-model="tab.pmCostCodeId" ng-click="getCostCode(tab)" ng-blur="checkDataValidationRecursively(tab)"
+                                                ng-show="tab.item" maxlength="11" class="form-control"
+                                                placeholder="Cost Code" readonly="readonly"></td>
+              <td ng-form name='sorForm5'><!--<input data-test='Projects_ProjectLibrary_SOR_PmCostCodeName'
+                                                 type="text" ng-blur="checkDataValidationRecursively(tab)"
+                                                 ng-show="tab.item" maxlength="11" class="form-control"
+                                                 name="pmCostCodeName"ng-disabled="true" ng-required="false"
+                                                 ng-model="tab.pmCostCodeName" ng-value={{projCostItemEntitiesMap[tab.pmCostCodeId]}}>-->
+                <span ng-show="tab.item" ng-disabled="true" readonly="readonly">{{projCostItemEntitiesMap[tab.pmCostCodeId]}}</span></td>
+              </td>
+
+              <td ng-form name='sorForm6'><input data-test='Projects_ProjectLibrary_SOR_PmCurrency'
+                                                 type="text" ng-blur="checkDataValidationRecursively(tab)" class="form-control"
+                                                 ng-model="tab.pmCurrency" ng-show="tab.item" maxlength="11" name="pmCurrency"
+                                                 ng-required="false" ng-disabled="true" valid-number>
+              </td>
+              <td ng-form name='sorForm3'><input data-test='Projects_ProjectLibrary_SOR_PmStatusDate'
+                                                 type="text" ng-blur="checkDataValidationRecursively(tab)" class="form-control"
+                                                 ng-model="tab.pmStatusDate" ng-show="tab.item" maxlength="11" name="pmStatusDate"
+                                                 ng-required="false" ng-disabled="true" >
+              </td>
+              <td ng-form name='sorForm7'><input data-test='Projects_ProjectLibrary_SOR_Create_Plant'
+                                                 type="text" ng-change="checkDataValidationRecursively(tab); updatebalanceamount(tab,tab.pmContractAmount);" 
+                                                 class="form-control"
+                                                 ng-model="tab.pmContractAmount" ng-show="tab.item" maxlength="11" name="plantrate"
+                                                 pattern="^[\d\.,%]+$" ng-required="false" valid-number><!--<br>
+                <div class="procurment-pot-errors"
+                     ng-if="tab.item && tab.invalidField && !tab.pmContractAmount">
+                  Digits!</div>-->
+              </td>
+              <td ng-form name='sorForm8'>
+                <potdate-picker dir-index="$index" date-name="pmSchedFinishDate" ng-model="tab.pmSchedFinishDate" type="date"
+                                ng-blur="checkDataValidationRecursively(tab)" class="form-control"  ng-show="tab.item" custom-read-only>
+                </potdate-picker>
+              </td>
+              <td ng-form name='sorForm9'>
+                <select data-test='Projects_ProjectLibrary_SOR_Create_PmProgressStatus'
+                        name="pmProgressStatus" ng-show="tab.item" ng-model="tab.pmProgressStatus"
+                        ng-blur="checkDataValidationRecursively(tab)" required
+                        ng-change="updateProgressStatus(tab,tab.pmProgressStatus);" class="form-control"
+                        ng-required="false">
+                  <option value="" ></option>
+                  <option value="inProgress" >In Progress</option>
+                  <option value="complete" >Complete</option>
+                </select>
+              </td>
+              <td ng-form name='sorForm10'>
+                <potdate-picker dir-index="$index" date-name="pmActualFinishDate" ng-model="tab.pmActualFinishDate" type="date"
+                                ng-disabled="isFinishDateAllowed"
+                                ng-blur="checkDataValidationRecursively(tab)" class="form-control"  ng-show="tab.item" >
+                </potdate-picker>
+              </td>
+              <td ng-form name='sorForm11'>
+                <select data-test='Projects_ProjectLibrary_SOR_Create_PmPrevProgClaim'
+                        name="pmPrevProgClaim" ng-show="tab.item" ng-model="tab.pmPreviousProgClaim" 
+                        ng-blur="checkDataValidationRecursively(tab)" required
+                        ng-disabled="isStatusInprogress"
+                        ng-change="updatePrevProgClaim(tab,tab.pmPreviousProgClaim);" class="form-control"
+                        ng-required="false">
+                  <option value="" ></option>
+                  <option value="No" >No</option>
+                  <option value="Yes" >Yes</option>
+                </select>
+              </td>
+              <!-- <td ng-form name='sorForm11'>
+                <select data-test='Projects_ProjectLibrary_SOR_Create_PmPrevProgClaim'
+                        name="pmPrevProgClaim" ng-show="tab.item" ng-model="selected.id" 
+                        ng-blur="checkDataValidationRecursively(tab)" required
+                        ng-disabled="isStatusInprogress"
+                        ng-change="updatePrevProgClaim(tab,tab.pmPrevProgClaim);" class="form-control"
+                        ng-required="false">
+                  <option value="" ></option>
+                  <option data-ng-repeat="data in leaveTypes" value="{{data.id}}" >{{data.name}}</option>
+                  <option value="0" >No</option>
+                  <option value="1" >Yes</option>
+                </select>
+              </td> -->
+              <td ng-form name='sorForm12'><input data-test='Projects_ProjectLibrary_PMCM_ClaimedAmount'
+                                                  type="text" ng-blur="checkDataValidationRecursively(tab)" class="form-control"
+                                                  ng-model="tab.pmClaimedAmount" ng-show="tab.item" maxlength="11" name="pmClaimedAmount"
+                                                  ng-change="updatePmClaimedAmount(tab,tab.pmPrevProgClaim);" ng-disabled="true"
+                                                  pattern="^[\d\.,%]+$" ng-required="false" valid-number><!--<br>
+                <div class="procurment-pot-errors"
+                     ng-if="tab.item && tab.invalidField && !tab.pmClaimedAmount">
+                  Digits!</div>-->
+              </td>
+              <td ng-form name='sorForm13'><input data-test='Projects_ProjectLibrary_PmBalanceAmount'
+                                                  type="text" ng-blur="checkDataValidationRecursively(tab)" class="form-control"
+                                                  ng-model="tab.pmBalanceAmount" ng-show="tab.item" maxlength="11" name="pmBalanceAmount"
+                                                  ng-required="false" ng-disabled="true" valid-number
+                                                  >
+              </td>
+              <td ng-form name='sorForm14'><input
+                data-test='Projects_ProjectLibrary_SOR_Create_Comments' type="text"
+                ng-blur="checkDataValidationRecursively(tab)" ng-model="tab.comments"
+                ng-show="tab.item" maxlength="244" class="form-control" name="comments"
+                 >
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="panel-footer">
+        <div class="pull-right">
+          <input data-test='Projects_ProjectLibrary_SOR_Save' data-test='Projects_ProjectLibrary_SOR_Save'
+                 type="submit" class="btn btn-primary btn-sm" ng-click="saveSORDetails()" value="Save" />
+
+        </div>
+      </div>
+    </div>
+    <div class="ngdialog-close"></div>
+  </form>
+</div>

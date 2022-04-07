@@ -1,0 +1,61 @@
+<div ng-if="account.appCodeTemplate['PROCURMT_PURCHASEORDR_POSCHEDULESERVICE_VIEW']" class="tab-pannel" ng-controller="PurchaseGenerateController">
+  <form name="plantForm" ng-show="servicesTabEnabled" validate>
+        <div class="tabTable_3_Res_height" style="height: 158.91036px !important">
+            <table id="vert-align" class="table table-hover table-bordered tabTable_3_height" >
+        <thead>
+          <tr>
+            <th>Item ID</th>
+            <th>Item Description</th>
+            <th>Procurement<br>SubCategory
+            </th>
+            <th>Service Type</th>
+            <th>Qty</th>
+            <th>Estimate({{preContractObj.currencyTO.code}})</th>
+            <th>Amount</th>
+            <th>Cost Code</th>
+            <th>Start Date</th>
+            <th>Finish Date</th>
+            <th>Delivery Place</th>
+            <th fixed-header="" ng-repeat ="cmp in companyList"><span style="text-align: center"> {{companyMap[cmp.companyId].code}}</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr fixed-header="" ng-repeat ="item in preContractData.preContractServiceDtlTOs" ng-init="getTotals(item)">
+            <td><span>{{item.itemCode}}</span></td>
+            <td><span>{{item.itemDesc}}</span></td>
+            <td><span>{{procureCategoryMap[item.procureSubCatgId].code}}</span></td>
+            <td><span>{{projServiceClassmap[item.projServiceLabelKey.id].code}}</span></td>
+            <td><span>{{item.quantity}}</span></td>
+            <td><span>{{item.estimateCost}}</span></td>
+            <td><span ng-repeat="data in item.preContractServiceCmpTOs">{{data.quantity * data.rate}}</span></td>
+            <td><span>{{item.costCode}}</span></td>
+            <td>{{item.startDate | date}}</td>
+            <td>{{item.finishDate | date}}</td>
+            <td>{{item.deliveryPlace}}</td>
+            <td fixed-header="" ng-repeat ="cmp in companyList"><span fixed-header="" ng-repeat ="itemCompany in item.preContractServiceCmpTOs"><input ng-show="cmp.id==itemCompany.preContractCmpId" style="width: 60px;"
+                type="text" ng-model="itemCompany.rate"></span></td>
+          </tr>
+        </tbody>
+
+        <tfoot ng-if="preContractData.preContractServiceDtlTOs.length>0">
+            <tr>
+                <th colspan="4">Total</th>
+                <td>{{totalQuantity}}</td>
+                <td>{{totalEstimated}}</td>
+                <td>{{totalAmount}}</td>
+                <td colspan="4"></td>
+              </tr>
+        </tfoot>
+      </table>
+      </div>
+      <div class="panel-footer">
+        <div class="pull-left">
+          <input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+          <input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+          <input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+          <input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+          <input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+        </div>
+      </div>
+  </form>
+</div>

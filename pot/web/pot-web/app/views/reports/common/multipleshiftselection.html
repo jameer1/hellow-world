@@ -1,0 +1,43 @@
+<div id="tab-pannel" class="panel-group">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">WOrking Shift List</h4>
+        </div>
+        <div class="panel-body">
+            <div class="popUpTableResHeight" style="overflow: auto;">
+                <table class="table table-hover table-bordered popUpTableHeight">
+                    <thead>
+                        <tr>
+                            <th>
+                                <input type="checkbox" ng-change="selectAllShifts(selectAll)" ng-model="selectAll">
+                            </th>
+                            <th>Shift</th>
+                            <th>Start Hour</th>
+                            <th>Shift Duration</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-test='AsbuiltRecords_AttendanceRecords_PlantAttendance_WorkingShiftSelect'
+                            ng-repeat="workShift in workShifts">
+                            <td>
+                                <input type="checkbox" ng-model="workShift.select"
+                                    ng-change="selectedShifts(workShift)">
+                            </td>
+                            <td>{{workShift.code}}</td>
+                            <td>{{workShift.startHours}} <span>:</span>{{workShift.startMinutes}}
+                            </td>
+                            <td>{{workShift.finishHours}}<span>:</span>{{workShift.finishMinutes}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <div class="pull-right">
+                <input type="submit" ng-click="addWorkShifts()" value="Add" class="btn btn-primary btn-sm" />
+            </div>
+        </div>
+        <div class="ngdialog-close"></div>
+    </div>
+</div>

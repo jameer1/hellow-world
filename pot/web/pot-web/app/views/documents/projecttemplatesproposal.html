@@ -1,0 +1,58 @@
+<link rel="stylesheet" href="../../styles/templates.css"></link>
+<!-- Main content -->
+<section class="content" ng-init="getSampleCategories('Sample Templates')">
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			<div class="panel panel-default block footer-parent">
+				<div class="panel-body">				
+                	<div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 no-padding">
+                    	<div class="tab-content">
+                    		<div>Project Templates List</div>
+                    		<div class="row" style="margin-bottom:15px;">
+                    			<div class="col-md-12">
+									<md-input-container class="md-block">
+			                            <label>Select Approver User</label>
+			                            <md-select ng-model="approverUserId">
+									    	<md-option ng-value="user.userId" ng-repeat="user in users">{{user.empCode}}-{{user.dispName}}</md-option>
+									    </md-select>
+		                        	</md-input-container>
+			                    </div>
+                    		</div>
+	                        <div id="sregisterview" class="tab-pane fade in active">
+	                            <div class="singleTableResHeight_2 overflow">
+	                                <table class="table table-striped table-hover table-bordered singleTableHeight_2" ng-if="templates_list_count!=0">
+	                                    <thead>
+	                                        <tr>
+	                                            <th><input type="checkbox" ng-model="selectedAll" ng-click="selectAll()"></th>
+	                                            <th>Template Id</th>
+	                                            <th>Template Name</th>
+	                                            <th>Form Name</th>
+	                                            <th>Version</th>
+	                                            <th>Created Date</th>
+	                                        </tr>
+	                                    </thead>
+	                                    <tbody>
+	                                        <tr ng-repeat="template in projNewTemplatesList">
+	                                            <td><input type="checkbox" ng-model="template.selected" ng-value="{{template.templateId}}" value="{{template.templateId}}" ng-change="updateTemplCb()"></td>
+	                                            <td>{{template.templateId}}</td>
+	                                            <td>{{template.templateName}}</td>
+	                                            <td>{{template.formName}}</td>
+	                                            <td>V{{template.versionStatus}}</td>
+	                                            <td>{{template.createdOn | date:'dd-MMM-yyyy'}}</td>
+	                                        </tr>
+	                                    </tbody>
+	                                </table>
+	                                <div ng-if="templates_list_count==0">No templates to display</div>
+	                            </div>
+	                        </div>
+	                        <ul class="nav nav-tabs gridExamples">	                           
+	                            <li class="pull-right"> <input type="button" class="btn btn-primary btn-sm" value="Request" ng-disabled="btnVisible" ng-click="request()"></li>	                            
+	                        </ul>
+                    	</div>
+                	</div>
+                					
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

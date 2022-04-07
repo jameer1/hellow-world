@@ -1,0 +1,75 @@
+<div id="tab-pannel" ng-controller="AssetRentalHistoryController">
+	<div class="tabTable_1_Res_height">
+	<div id="grid" ui-grid="gridOptions"  ng-if="stylesSvc.finishedStyling"
+             ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-resize-columns class="grid"></div>
+		<!-- <table class="table table-hover table-bordered tabTable_1_height" >
+			<thead id="tab-head">
+            <tr>
+                    <th rowspan="2">Select</th>
+               		<th>Lease Agreement</th>
+					<th>Lease Start</th>
+					<th>Lease Finish</th>
+					<th>Tenant ID</th>
+					<th>Tenant Name</th>
+					<th>Tenant Address & Contact Details</th>
+					<th>Payment Cycle</th>
+					<th>Net Rent Amount per Cycle</th>
+					<th>Maintenance Charges</th>
+					<th>Asset Maintenance Charges</th>
+					<th>Taxable Amount </th>
+					<th>Tax%</th>
+					<th>Tax Amount</th>
+					<th>Gross Rent</th>
+					<th>Payment Cycle Due Date</th>
+					<th>Lease Extended Finish Date(if any)</th>
+					<th>Lease Actual Finish Date</th>
+					<th>Lease Documents</th>
+					<th>Current Status</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat =" status in longTermLeasingDtlTOs">
+					<td><input type="checkbox" ng-model="status.selected" ng-change="rentalHistoryPopUpRowSelect(status)" data-test="TermLeasingRentalHistory_Checkbox"></td>
+					<td>{{status.leaseAgreement}}</td>
+					<td>{{status.leaseStart}}</td>
+					<td>{{status.leaseFinish}}</td>
+					<td>{{status.tenantid}}</td>
+					<td>{{status.tenantName}}</td>
+					<td>{{status.tenantAddress}}</td>
+					<td>{{status.paymentCycle}}</td>
+                    <td>{{status.netRentAmountPerCycle}}</td>
+                    <td>{{status.maintenanceCharges}}</td>
+                    <td>{{status.assetMaintenanceCharges}}</td>
+                     <td>{{status.taxableAmount}}</td>
+                     <td>{{status.tax}}</td>
+                     <td>{{status.taxAmount}}</td>
+                     <td>{{status.grossRent}}</td>
+                     <td>{{status.paymentCycleDueDate}}</td>
+                     <td>{{status.leaseExtendedFinshDate}}</td>
+                     <td >{{status.leaseActualFinishFinshDate}}</td>
+                    <td><a class="fa fa-download" ng-if="status.leaseDocumentDetailsFileName" href="{{status.docUrl}}" title="Click To Download {{status.leaseDocumentDetailsFileName}}"></a></td>
+                    <td><span class="fa fa-download" ng-if="status.leaseDocumentDetailsFileName" ng-click="downloadRentalHistoryFile(status.id,status.leaseDocumentDetailsFileName)" title="Click To Download {{status.leaseDocumentDetailsFileName}}"></span></td>
+					 <td >{{status.currentStatus}}</td>
+				</tr>
+			</tbody>
+		</table> -->
+		<div class="panel-footer">
+		<div class="pull-right padR-0">
+			<input type="button" class="btn btn-primary btn-sm"
+				ng-click="addRentalHistoryList('Add')" value="Add" data-test="TermLeasingRentalHistory_Create">
+		</div>
+		<div class="pull-left padL-0">
+			<!-- <input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+			<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+			<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+			<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+			<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();"> -->
+			<input type="button" class="btn btn-primary btn-sm" data-test="TermLeasingRentalHistory_Edit"
+				ng-click="addRentalHistoryList('Edit')" value="Edit"> <input
+				type="button" class="btn btn-secondary btn-sm" data-test="TermLeasingRentalHistory_Deactivate"
+				ng-click="deleteRentalHistory()" value="Deactivate">
+		</div>
+	</div>
+		</div>
+	
+</div>

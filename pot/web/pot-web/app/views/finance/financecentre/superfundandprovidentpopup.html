@@ -1,0 +1,79 @@
+<div id="tab-pannel" class="panel-group">
+	<form name="companyForm" autocomplete="off">
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Super Fund / Provident Fund Codes</h4>
+			</div>
+			<div class="panel-body2">
+				<div class="row input-height padding-left">
+					<div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+						<span class="labelName">Country</span> <input type="text" ng-model=""
+							placeholder="Country" tabindex=-1 readonly="readonly" class="form-control"/>
+					</div>
+					<div class=" col-md-2 col-lg-2 col-sm-2 col-xs-2">
+						<span class="labelName">Province</span> <input type="text" tabindex=-1 ng-model=""
+							placeholder="Province" readonly="readonly" class="form-control"/>
+					</div>
+					<div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+						<span class="labelName">Effective Date </span> <input type="text" tabindex=-1
+							ng-model="" name="yard" placeholder="Effective Date "
+							readonly="readonly" class="form-control"/>
+					</div>
+					<div class="col-lg-4 col-sm-4 col-xs-4 col-md-4">
+						<span class="labelName">Super Fund / Provident Fund Codes ID :</span><input
+							type="text" tabindex=-1 ng-model="" name="employees List ID"
+							placeholder="employees List ID" readonly="readonly" class="form-control w-45"/>
+					</div>
+				</div>
+			</div>
+
+			<div class="panel-body12">
+				<div class="panel-collapse collapse in">
+					<table class="table table-striped table-hover table-bordered" style="height:200px !important;" >
+						<thead id="tab-head">
+							<tr>
+								<th>Code</th>
+								<th>Description</th>
+								<th>Taxable or Not</th>
+								<th>Fund Credit Run Cycle</th>
+								<th>Due Date for Credit</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr
+								fixed-header="" ng-repeat ="employees in employeesClassification | orderBy:sortType:sortReverse">
+								<td>{{ }}</td>
+								<td>{{ }}</td>
+								<td>{{}}</td>
+								<td>{{}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+
+			<div class="panel-footer ">
+				<div class="pull-right">
+					<input type="button" ng-click="viewPastrecords()"
+						class="btn btn-brown btn-sm" value="view Past Records" />
+				</div>
+				<div class="pull-left">
+					<input type="button" ng-click="newFinanceCentre('Add')"
+						class="btn btn-brown btn-sm" value="Sort" /> <input type="button"
+						ng-print print-element-id="printThisElement"
+						class="btn btn-brown btn-sm" value="print" print-btn> <a
+						ng-click='csv.generate()' ng-href="{{ csv.link() }}"
+						download="progressAttendance.csv">
+						<button class="btn btn-brown btn-sm">Export</button>
+					</a> <input type="button" ng-click="newFinanceCentre('Add')"
+						class="btn btn-brown btn-sm" value="Modify" /> <input
+						type="button" ng-click="newFinanceCentre('Add')"
+						class="btn btn-brown btn-sm" value="Save" />
+
+				</div>
+			</div>
+			<div class="ngdialog-close"></div>
+		</div>
+	</form>
+</div>

@@ -1,0 +1,150 @@
+<section class="content-header">
+    <h1>Status on Invoice to Project Owners</h1>
+</section>
+<section class="content">
+    <div id="tab-pannel" class="panel-group panel panel-default block footer-parent">
+        <div class="panel-body">
+            <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12 no-padding">
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2 padL-0">
+                    <md-input-container>
+                        <label>Country</label>
+                        <md-select ng-model="" ng-change="getCountryDetailsById(item,$index);">
+                            <md-option fixed-header="" ng-repeat="" ng-value="">
+                                {{  }}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+                    <md-input-container>
+                        <label>Province</label>
+                        <md-select ng-model="" ng-change="getCountryDetailsById(item,$index);">
+                            <md-option fixed-header="" ng-repeat="" ng-value="">
+                                {{  }}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+                    <md-input-container>
+                        <label>Project</label>
+                        <input type="text" ng-model="" ng-click="getUserProjects()" autocomplete="off" readonly>
+                    </md-input-container>
+                </div>
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+                    <md-input-container>
+                        <label>Project Owner</label>
+                        <input type="text" autocomplete="off" readonly>
+                    </md-input-container>
+                </div>
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+                    <md-input-container>
+                        <label>Invoice Status</label>
+                        <md-select ng-model="">
+                            <md-option value="pendinterappr">Pending Internal Approval</md-option>
+                            <md-option value="pendownappr">Pending Owner Approval</md-option>
+                            <md-option value="pendownapproved">Pending Owner Approved</md-option>
+                            <md-option value="all">All</md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+                    <div class="pull-right marT15">
+                        <input type="button" ng-click="getDetails()" class="btn  btn-primary btn-sm" value="Search">
+                        <input type="reset" class="btn  btn-secondary btn-sm" ng-click="resetDetails()" value="Reset" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12 no-padding">
+                <div class="singleTableResHeight_2" style="overflow: auto;">
+                    <table class="table table-striped table-hover table-bordered singleTableHeight_2">
+                        <thead>
+                            <tr>
+                                <th rowspan="2">Country</th>
+                                <th rowspan="2">Province</th>
+                                <th rowspan="2">EPS</th>
+                                <th rowspan="2">Project</th>
+                                <th rowspan="2">Project Owner</th>
+                                <th rowspan="2">Profit Center</th>
+                                <th rowspan="2">Originator</th>
+                                <th rowspan="2">Internal Approver</th>
+                                <th rowspan="2">Owner Approver</th>
+                                <th rowspan="2">Claim #</th>
+                                <th colspan="2" class="text-center">Claim Period</th>
+                                <th rowspan="2">Invoice #</th>
+                                <th rowspan="2">Date of Invoice</th>
+                                <th rowspan="2">Currency</th>
+                                <th colspan="3" class="text-center">Original or Internal Approved amount</th>
+                                <th rowspan="2">Due date for Payment</th>
+                                <th rowspan="2">Current Invoice Status</th>
+                                <th rowspan="2">View Invoice</th>
+                                <th rowspan="2">Payment Status</th>
+                                <th colspan="6" class="text-center">Paid amount</th>
+                                <th rowspan="2">Upload Money Release/ Transfer Letter</th>
+                            </tr>
+                            <tr>
+                                <th>From</th>
+                                <th>To</th>
+                                <th>Net Amount</th>
+                                <th>Tax Amount(GST)</th>
+                                <th>Gross Amount</th>
+                                <th>Date Paid</th>
+                                <th>Mode of Payment</th>
+                                <th>Receipt Number</th>
+                                <th>Net Amount</th>
+                                <th>Tax Amount(GSTR)</th>
+                                <th>Gross Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>
+                                    <input type="button" class="btn btn-primary btn-sm" value="View Invoice" />
+                                </td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>
+                                    <input type="button" class="btn btn-primary btn-sm" value="Upload" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <div class="pull-left">
+                <input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+                <input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+                <input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+                <input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+                <input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,22 @@
+<form name="approveForm" validate>
+<div id="tab-pannel">
+	<div class="panel-group panel panel-default">
+		<div class="panel-heading">
+			<h4 class="panel-title">WorkDairy Client Approval</h4>
+		</div>
+		<div class="panel-body">
+			<div class="col-xs-12 col-sm-12 col-md-12 left-padding spacer2 ">
+				<div>Comments</div>
+				<div></div>
+				<textarea type="text" style="width: 154px; height: 65px;"
+					ng-model="comments" placeholder="Comments" required="required"></textarea>
+			</div>
+			<div class="pull-right right-padding">
+				<input type="button" class="btn  btn-primary btn-sm"
+					ng-click="approveForm.$valid && clientApproveWorkDairyDetails()"
+					value="Approve" validate>
+			</div>
+		</div>
+	</div>
+</div>
+</form>

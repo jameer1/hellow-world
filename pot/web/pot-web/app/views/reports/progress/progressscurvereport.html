@@ -1,0 +1,103 @@
+<section class="content-header">
+    <h1>Progress S Curve - Cost</h1>
+   <!-- <input type="submit" value ="Help !"
+		ng-click="helpPage();" class="pull-right btn  btn-primary btn-sm help-each-page"> -->
+	<button class="pull-right btn btn-primary btn-sm help-each-page" 
+		onclick="window.open('views/helptutorials/ProgressSCurve-Cost.html', '_blank', 
+		'toolbar=yes,scrollbars=yes,resizable=no,top=50,left=100,width=1400,height=700')">
+		Help
+	</button>
+</section>
+<section id="tab-pannel" class="content ui-rid-customization-pot">
+    <div class="panel panel-default block">
+        <div class="panel-body">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 padL-0">
+                    <md-input-container>
+                        <label>EPS ID/Name</label>
+                        <input type="text" ng-model="searchFilter.parentName" ng-click="getUserProjects();" readonly>
+                    </md-input-container>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 ">
+                    <md-input-container>
+                        <label>Project ID/Name</label>
+                        <input type="text" ng-model="searchFilter.projName" ng-click="getUserProjects();" readonly>
+                    </md-input-container>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 ">
+					<md-input-container>
+						<label>From Date</label>
+						<potdate-picker ng-model="searchFilter.fromDate" dir-index="$index" date-name="fromDate" readonly>
+					</md-input-container>
+				</div>
+				<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 ">
+					<md-input-container>
+						<label>To Date</label>
+						<potdate-picker ng-model="searchFilter.toDate" dir-index="$index" date-name="toDate" min-date="searchFilter.fromDate" readonly>
+					</md-input-container>
+				</div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <md-radio-group ng-model="type" layout="row">
+                        <md-radio-button id="chart" value="chart" name="content" ng-true-value="1" ng-false-value="0"
+                            class="md-primary">Chart</md-radio-button>
+                        <md-radio-button id="table" value="table" name="content" ng-true-value="1" ng-false-value="0"
+                            class="md-primary">Table</md-radio-button>
+                        <md-radio-button id="chartTable" value="chartTable" name="content" ng-true-value="1"
+                            ng-false-value="0" class="md-primary">Chart
+                            & Table</md-radio-button>
+                    </md-radio-group>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <md-input-container>
+                        <label class="labelName">Periodic Report</label>
+                        <md-select ng-model="periodicReport" ng-change="periodicReportChanged()">
+                            <md-option ng-value="periodicReport" ng-repeat="periodicReport in periodicReports">
+                                {{periodicReport.name}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                	<div class="marT15" ng-if="scheduleDate">Schedule Date: {{scheduleDate | date}}</div>
+                </div>
+                <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 padR-0">
+                    <div class="pull-right">
+                        <input type="button" ng-click="generateReport()" class="btn btn-primary btn-sm" value="Generate Report">
+                        <input type="reset" class="btn btn-secondary btn-sm" ng-click="reset();" value="Reset">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+                <div ng-if="type == 'chart'" class="singleTableResHeight_3">
+                    <canvas class="chart chart-line" chart-data="chartData" chart-labels="chartLabels" chart-series="chartSeries"
+                        chart-options="chartOptions" chart-colors="colors" height="90" chart-dataset-override="datasetOverride"></canvas>
+                </div>
+                <div ng-if="type == 'chartTable'" class="chartResHeight">
+                    <canvas class="chart chart-line" chart-data="chartData" chart-labels="chartLabels" chart-series="chartSeries"
+                        chart-options="chartOptions" chart-colors="colors" height="50" chart-dataset-override="datasetOverride"></canvas>
+                </div>
+                <div ng-if="type == 'chartTable'">
+					<div id="grid" ui-grid="gridOptions" class="tableWithChartResHeight"
+						ng-if="stylesSvc.finishedStyling" ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize>
+					</div>
+				</div>
+				<div ng-if="type == 'table'">
+					<div id="grid" ui-grid="gridOptions" class="singleTableResHeight_3"
+						ng-if="stylesSvc.finishedStyling" ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize>
+					</div>
+				</div>
+            </div>
+        </div>
+        <div class="panel-footer">
+			<div class="pull-left">
+				<input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+				<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+				<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+				<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+				<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+			</div>
+		</div>
+    </div>
+</section>

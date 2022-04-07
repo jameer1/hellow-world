@@ -1,0 +1,112 @@
+<section class="content">
+	<div class="panel panel-default block footer-parent">
+		<div class="panel-body">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding" ng-if="type=='MANPOWER'">
+				<table class="table table-striped table-hover table-bordered tabTable_5_Height">
+		            <thead>
+		                <tr>
+		                    <th>Select</th>
+		                    <!-- <th class="text-center">{{projManpowerData.length}}</th> -->
+		                    <!-- <th class=""></th> -->
+		                    <th class="text-center">Name</th>
+		                    <th class="text-center">Category</th>
+		                    <th class="text-center">Unit Of Measure</th>
+		                    <th class="text-center">Original Hrs</th>
+		                </tr>
+		            </thead>
+		            <tbody>
+		                <tr ng-repeat="manpowerRow in projManpowerData" ng-click="projManpowerSelection(manpowerRow)">		                    
+		                    <td>{{manpowerRow.id}}</td>
+		                    <td>{{manpowerRow.empClassTO.code}}</td>
+		                    <td>{{manpowerRow.empClassTO.name}}</td>
+		                    <td>{{manpowerRow.measureUnitTO.name}}</td>
+		                    <td>{{manpowerRow.originalQty}}</td>		                                      
+		                </tr>
+		            </tbody>
+		        </table>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding" ng-if="coProjType=='PLANT'">
+				<table class="table table-striped table-hover table-bordered tabTable_5_Height">
+		            <thead>
+		                <tr>
+		                    <th>Select</th>
+		                    <!-- <th class="text-center">{{projManpowerData.length}}</th> -->
+		                    <!-- <th class=""></th> -->
+		                    <th class="text-center">Name</th>
+		                    <th class="text-center">Category</th>
+		                    <th class="text-center">Unit Of Measure</th>
+		                    <th class="text-center">Original Hrs</th>
+		                </tr>
+		            </thead>
+		            <tbody>
+		                <!-- <tr > -->
+		                <tr ng-repeat="plantRow in projPlantData" ng-click="projPlantClassificationSelection(plantRow)">		                    
+		                    <td>{{plantRow.id}}</td>
+		                    <td>{{plantRow.plantClassTO.code}}</td>
+		                    <td>{{plantRow.plantClassTO.name}}</td>
+		                    <td>{{plantRow.measureUnitTO.name}}</td>
+		                    <td>{{plantRow.originalQty}}</td>		                                      
+		                </tr>
+		            </tbody>
+		        </table>
+			</div>
+			<div class="popUpTableResHeight" ng-if="coProjType=='MATERIAL' && coItemType=='NEW'">
+				<table id="tree" class="table table-striped table-hover table-bordered popUpTableHeight" >
+					<thead id="tab-head">
+						<tr>
+							<!-- <th>Select</th> -->
+							<th>Material Group ID</th>
+							<th>Material Group Name</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr fixed-header="" ng-repeat ="tab in materialClassTOs | procurementMaterialClassFilterTree:itemId:isExpand:exitingSchMaterilMap"
+							class="abc{{tab.level}}" ng-click="centralMaterialItemSelection(tab)">
+							<td><span ng-repeat="level in [].constructor(tab.level) track by $index" class="xyz" style="padding-left: 30px;"></span>
+								<fa
+									ng-if="((!tab.leaf && tab.expand) || (!tab.leaf  && tab.childMaterialItemTOs.length <= 0))"
+									ng-click="itemClick(tab.id,tab.expand);" name="fa fa-minus"></fa>
+								<fa
+									ng-if="((!tab.leaf && !tab.expand) && (tab.childMaterialItemTOs.length > 0))"
+									ng-click="itemClick(tab.id,tab.expand);" name="fa fa-plus"></fa>
+								<fa ng-if="(tab.leaf)" name="leaf"> </fa> <span style="padding-left: 10px; color: black !important;">{{tab.code}}
+									<span style="padding-left: 5px;"></span>
+							</span></td>
+							<td>{{tab.name}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="popUpTableResHeight" ng-if="coProjType=='MATERIAL' && coItemType=='EXISTING'">
+				<table id="tree" class="table table-striped table-hover table-bordered popUpTableHeight" >
+					<thead id="tab-head">
+						<tr>
+							<th title="Resource ID">Material ID</th>
+							<th title="Resource Name">Material Name</th>
+						</tr>
+					</thead>
+						<tbody>
+							<tr fixed-header="" ng-repeat ="tab in projectMaterialDtlTOs" ng-click="tab.item && materialRowSelect(tab)" class="abc{{tab.level}}" ng-show="!tab.collapse">
+								<td style="padding:0 !important;"><span ng-repeat="level in [].constructor(tab.level) track by $index" class="xyz" style="padding-left: 30px;"></span>
+									<span
+										ng-show="((!tab.item && tab.expand) || (!tab.item  && tab.projectMaterialDtlTOs.length <= 0))"
+										ng-click="materialItemClick(tab, true);" class="fa fa-minus" title="Collapse Materials"></span>
+									<span title="Expand Materials"
+										ng-show="((!tab.item && !tab.expand) && (tab.projectMaterialDtlTOs.length > 0))"
+										ng-click="materialItemClick(tab, false);" class="fa fa-plus"></span>
+									<span ng-show="(tab.item)" class="fa fa-leaf" name="leaf"> </span> <span style="padding-left: 10px;color: black !important;">{{tab.code}}
+										<span style="padding-left: 5px;"></span>
+								</span></td>
+
+								<td>{{tab.name}}</td>
+								<!-- <td>{{tab.materialClassTO.measureUnitTO.name}}</td> -->
+							</tr>
+						</tbody>
+					</table>
+			</div>			
+			<!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+				<input type="button" class="btn btn-primary" value="Add" ng-click="addManpowerRowToCo()"/>
+			</div> -->		
+		</div>
+	</div>
+</section>

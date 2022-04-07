@@ -1,0 +1,82 @@
+<div id="tab-pannel" class="panel-group" ng-init="getWorkingShiftMap()">
+	<form name="workShiftForm" validate>
+		<div id="tab-pannel" class="panel-group modal-movable">
+			<div id="tab-pannel" class="panel panel-default">
+				<div class="panel-heading">
+					<h4 class="panel-title">Working Shifts</h4>
+				</div>
+				<div class="panel-body">
+					<div class="table-responsive popUpTableResHeight">
+						<table class="table popUpTableHeight">
+							<thead>
+								<tr>
+									<th ng-show="action=='Add'">Select</th>
+									<th>Shift
+										<span class="procurment-pot-errors">*</span>
+									</th>
+									<th>Start Hour
+										<span class="procurment-pot-errors">*</span>
+									</th>
+									<th>Duration in Hours
+										<span class="procurment-pot-errors">*</span>
+									</th>
+								</tr>
+							</thead>
+							<tr fixed-header="" ng-repeat ="tab in addTableData ">
+								<td ng-show="action=='Add'"><input data-test='Projects_ProjectLibrary_WorkingShifts_Crerate_Shift_Create_checkbox' type="checkbox"
+									value="tab.id" name="id" ng-model="tab.select"
+									ng-change="popUpRowSelect(tab)" /></td>
+								<td ng-form name="workshiftform"><input data-test='Projects_ProjectLibrary_WorkingShifts_Edit_Entershift' type="text" class="form-control"
+									ng-class="{coloumnHighlightColor:tab.duplicateFlag}"
+									ng-change="checkDuplicate(tab)" name="code" ng-model="tab.code"
+									placeholder="Enter Shift" ng-required="true"
+									pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+									maxlength="20" /> <span
+									ng-show="workshiftform.code.$error.required"></span> <span style="color: red"
+									ng-show="workshiftform.code.$error.pattern">Alpha
+									numeric data should be allowed</span></td>
+								<td ng-form name="workshiftform1"><input type="number" class="form-control"
+									min=0 max=24 style="width: 60px;display: unset !important" placeholder="hr" value=""
+									name="startHours" data-test='Projects_ProjectLibrary_WorkingShifts_Crerate_StartHour' ng-model="tab.startHours" value="{{tab.startHours || 0}}" ng-required="true"
+									maxlength=2 /> 
+									<input data-test='Projects_ProjectLibrary_WorkingShifts_Crerate_StartMinutes' type="number" name="StartMintues" min=0 class="form-control"
+									max=59 style="width: 60px;display: unset !important" placeholder="min" value=""
+									ng-model="tab.startMinutes" ng-required="true" maxlength=2 />
+								</td>
+
+								<td ng-form name="workshiftform2"><input type="number" class="form-control"
+									min=0 max=24 style="width: 60px;display: unset !important" placeholder="hr" value=""
+									name="finishHours" data-test='Projects_ProjectLibrary_WorkingShifts_Crerate_DurationHours' ng-model="tab.finishHours" value="{{tab.finishHours || 0}}"
+									ng-required="true" maxlength=2 /> 
+									<input data-test='Projects_ProjectLibrary_WorkingShifts_Crerate_DurationMinutes' type="number" min=0 
+									max=59 style="width: 60px;display: unset !important" placeholder="min" class="form-control"
+									name="finishMinutes" ng-model="tab.finishMinutes" value=""
+									ng-required="true" maxlength=2 /></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<div class="panel-footer">
+					<div class="pull-left">
+						<input type="submit" ng-click="workShiftForm.$valid && addRows()" data-test='Projects_ProjectLibrary_WorkingShifts_Crerate_Shift_Create_AddRows' 
+							value="Add Rows" ng-show="action =='Add'"
+							class="btn bottomaligned btn-primary btn-sm" validate> <input
+							type="button" ng-click="deleteRows()"  data-test='Projects_ProjectLibrary_WorkingShifts_Create_DeleteRows' value="Delete Rows"
+							ng-show="action =='Add'"
+							class="btn bottomaligned btn-default btn-sm" validate>
+					</div>
+					<div class="pull-right">
+						<input type="submit" data-test='Projects_ProjectLibrary_WorkingShifts_Save'
+							ng-click="workShiftForm.$valid && saveProjWorkShifts()"
+							value="Save" class="btn bottomaligned btn-primary btn-sm" />
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</form>
+</div>
+
+
+
+

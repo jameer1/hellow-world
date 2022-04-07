@@ -1,0 +1,217 @@
+<section class="content-header">
+	<h1 ng-if="!subReport.name">Time Sheet - Records</h1>
+	<h1 ng-if="subReport.name">Time Sheet - Records - {{subReport.name}}</h1>
+	<!-- <input type="submit" value ="Help !"
+		ng-click="helpPage();" class="pull-right btn  btn-primary btn-sm help-each-page"> -->
+	<button class="pull-right btn btn-primary btn-sm help-each-page" 
+		onclick="window.open('views/helptutorials/TimeSheetSearchItsRecords.html', '_blank', 
+		'toolbar=yes,scrollbars=yes,resizable=no,top=50,left=100,width=1400,height=700')">
+		Help
+	</button>
+</section>
+<!-- Main content -->
+<section class="content ui-rid-customization-pot">
+	<div class="panel panel-default block">
+		<div class="panel-body">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+				<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 padL-0">
+					<md-input-container>
+						<label>EPS Name</label>
+						<input type="text" ng-model="timeSheetSearchReq.projectLabelKeyTO.parentName" data-test="TimeSheetSearchandItsRecords_Epsname"
+							ng-click="getUserProjects()" readonly>
+					</md-input-container>
+				</div>
+				<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+					<md-input-container><label>Project Name</label>
+						<input type="text" ng-model="timeSheetSearchReq.projectLabelKeyTO.projName"
+							ng-click="getUserProjects()" readonly>
+					</md-input-container>
+				</div>
+				<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+					<md-input-container><label>Commencing Day</label>
+						<day-picker commence-start-day="timeSheetSearchReq.weekCommenceDay" data-test="TimeSheetSearchandItsRecords_Commencingdate"
+							week-commence-Day="projWeekStartNo" ng-model="timeSheetSearchReq.weekCommenceDay"
+							ng-click="clearSubReportDetails()" readonly></day-picker>
+					</md-input-container>
+				</div>
+				<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+					<md-input-container title="Crew/Individual">
+						<label>Crew/Individual </label>
+						<md-select ng-model="crew" ng-click="selectCrewType(crew)" data-test="TimeSheetSearchandItsRecords_Crewindividual"
+							ng-required="true">
+							<md-option ng-repeat="crew in crews track by crew.name" ng-value="crew">{{crew.name}}
+							</md-option>
+						</md-select>
+					</md-input-container>
+				</div>
+				<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+					<md-input-container ng-if="crew.id==1">
+						<label class="labelName">Crew</label>
+						<input type="text" readonly data-test="TimeSheetSearchandItsRecords_Crew"
+							ng-click="getCrewList(timeSheetSearchReq.projectLabelKeyTO.projId)"
+							ng-model="timeSheetSearchReq.crewLabelKeyTO.code">
+					</md-input-container>
+					<md-input-container ng-if="crew.id==2">
+						<label class="labelName">Individual</label>
+						<input type="text" readonly data-test="TimeSheetSearchandItsRecords_Individual"
+							ng-click="getIndividualTimeSheetsUsers(timeSheetSearchReq)"
+							ng-model="timeSheetSearchReq.timesheetUserLabelKeyTO.name ">
+					</md-input-container>
+				</div>
+				<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+					<md-input-container title="Status">
+						<label>Status</label>
+						<md-select ng-model="status" ng-required="true" ng-change="statusChanged()" data-test="TimeSheetSearchandItsRecords_Status">
+							<md-option ng-repeat="status in displayStatusList track by status.code" ng-value="status">
+								{{status.code}}</md-option>
+						</md-select>
+					</md-input-container>
+				</div>
+				<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+					<md-input-container>
+						<label>Time Sheet</label>
+						<md-select ng-model="timeSheetSearchReq.timeSheetLabelKeyTo" ng-required="true" data-test="TimeSheetSearchandItsRecords_Displaydata"
+							ng-change="selectTimesheet(timeSheetSearchReq.timeSheetLabelKeyTo)">
+							<md-option ng-repeat="timeSheet in timeSheetList track by timeSheet.code"
+								ng-value="timeSheet">{{timeSheet.timeSheetCode}}</md-option>
+						</md-select>
+					</md-input-container>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+				<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 padL-0">
+					<md-input-container>
+						<label>Originator</label>
+						<input type="text" ng-model="timeSheetSearchReq.timeSheetLabelKeyTo.reqUserDisplayName"
+							ng-disabled="true">
+					</md-input-container>
+				</div>
+				<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+					<md-input-container>
+						<label>Approver</label>
+						<input type="text" ng-model="timeSheetSearchReq.timeSheetLabelKeyTo.apprUserDisplayName"
+							ng-disabled="true">
+					</md-input-container>
+				</div>
+				<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+					<md-input-container><label>Sub Reports</label>
+						<md-select ng-model="subReport" ng-change="changeSubReport()" data-test="TimeSheetSearchandItsRecords_Subreports">
+							<md-option value="">None</md-option>
+							<md-option ng-repeat="subReport in subReports" ng-value="subReport">{{subReport.name}}
+							</md-option>
+						</md-select>
+					</md-input-container>
+				</div>
+				<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+					<md-radio-group ng-model="type" layout="row" ng-show="subReport.name">
+						<md-radio-button id="chart" ng-click="selectType()" value="chart" name="content" data-test="TimeSheetSearchandItsRecords_Chart"
+							ng-true-value="1" ng-false-value="0" class="md-primary">Chart</md-radio-button>
+						<md-radio-button id="table" ng-click="selectType()" value="table" name="content" data-test="TimeSheetSearchandItsRecords_Table"
+							ng-true-value="1" ng-false-value="0" class="md-primary">Table</md-radio-button>
+						<md-radio-button id="chartTable" ng-click="selectType()" value="chartTable" name="content" data-test="TimeSheetSearchandItsRecords_ChartTable"
+							ng-true-value="1" ng-false-value="0" class="md-primary">Chart
+							& Table</md-radio-button>
+					</md-radio-group>
+				</div>
+				<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 padR-0">
+					<div class="pull-right">
+						<input type="button" ng-click="getTimeSheetDailyReport()" class="btn btn-primary btn-sm" data-test="TimeSheetSearchandItsRecords_Generatereportbutton"
+							value="Generate report">
+						<input type="reset" class="btn  btn-secondary btn-sm" ng-click="resetTimeSheetDetails()" data-test="TimeSheetSearchandItsRecords_Reset"
+							value="Reset">
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+				<div ng-hide="subReport && subReport.code" class="singleTableResHeight_3" >
+					<table class="table table-striped table-hover table-bordered table-responsive singleTableHeight_3" export-csv="csv">
+						<thead>
+							<tr>
+								<th rowspan="2">Employee ID</th>
+								<th rowspan="2">First Name</th>
+								<th rowspan="2">Last Name</th>
+								<th rowspan="2">Trade</th>
+								<th rowspan="2">Parent Company</th>
+								<th colspan={{timeSheetDays.length+4}} class="text-center">Date Wise Hours Worked & Task
+									Performed</th>
+							</tr>
+							<tr ng-if="timeSheetDays.length>0">
+								<th class="vert-align text-center">Wage Factor</th>
+								<th class="vert-align text-center">Cost Code</th>
+								<th ng-repeat="day in  timeSheetDays" class="text-center">{{day}}
+								</th>
+								<th rowspan=2>Total</th>
+								<th rowspan=2>View Tasks/Expenses</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="timeSheet in timeSheetData" export-csv="csv1"
+								ng-init="workDetails = timeSheet.timeSheetEmpWorkDtlTOs[0]">
+								<td>{{timeSheet.empDetailLabelKeyTO.code}}</td>
+								<td>{{timeSheet.empDetailLabelKeyTO.displayNamesMap.firstName}}</td>
+								<td>{{timeSheet.empDetailLabelKeyTO.displayNamesMap.lastName}}</td>
+								<td>{{timeSheet.empDetailLabelKeyTO.displayNamesMap.className}}</td>
+								<td>{{timeSheet.empDetailLabelKeyTO.displayNamesMap.cmpCatgName}}</td>
+								<td class="text-center" colspan={{timeSheetDays.length+3}}>
+									<table id="tableBorder0" class="table table-striped table-bordered">
+										<tr ng-repeat="workDetails in timeSheet.timeSheetEmpWorkDtlTOs"
+											ng-if="workDetails.apprStatus === status.code">
+											<td>{{workDetails.wageCode}}</td>
+											<td>{{workDetails.costCode}}</td>
+											<td>{{workDetails.day1Hrs}}</td>
+											<td>{{workDetails.day2Hrs}}</td>
+											<td>{{workDetails.day3Hrs}}</td>
+											<td>{{workDetails.day4Hrs}}</td>
+											<td>{{workDetails.day5Hrs}}</td>
+											<td>{{workDetails.day6Hrs}}</td>
+											<td>{{workDetails.day7Hrs}}</td>
+											<td>{{updateTotal(workDetails)}}</td>
+										</tr>
+									</table>
+								</td>
+								<td>
+									<input type="button" class="btn btn-primary btn-sm" value="View"
+										title="View Task/Expenses" ng-click="getTimesheetEmpExpenses(timeSheet)">
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding" ng-if="subReport.code">
+
+					<div ng-if="type == 'chart'" class="singleTableResHeight_3">
+						<canvas class="chart-base" chart-data="data" chart-labels="labels" chart-series="series"
+							height="90" chart-type="chart_type" chart-colors="colors" chart-options="options"
+							context-menu="menuOptions" chart-dataset-override="datasetOverride"></canvas>
+					</div>
+					<div ng-if="type == 'chartTable'" class="chartResHeight">
+						<canvas class="chart-base" chart-data="data" chart-labels="labels" chart-series="series"
+							height="50" chart-type="chart_type" chart-colors="colors" chart-options="options"
+							context-menu="menuOptions" chart-dataset-override="datasetOverride"></canvas>
+					</div>
+
+					<div ng-if="type == 'chartTable'">
+						<div id="grid" ui-grid="gridOptions" class="tableWithChartResHeight"
+							ng-if="stylesSvc.finishedStyling" ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize>
+						</div>
+					</div>
+					<div ng-if="type == 'table'">
+						<div id="grid" ui-grid="gridOptions" class="singleTableResHeight_3"
+							ng-if="stylesSvc.finishedStyling" ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize>
+						</div>
+					</div>
+
+				</div>
+		</div>
+		<!-- <div class="panel-footer">
+			<div class="pull-left">
+				<input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+				<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+				<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+				<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+				<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+			</div>
+		</div> -->
+	</div>
+</section>

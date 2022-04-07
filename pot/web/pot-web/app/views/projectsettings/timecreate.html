@@ -1,0 +1,73 @@
+<div ng-if="account.appCodeTemplate['PRJ_PRJSTG_TIMESHEETSTGNORMALTIME_VIEW']" id="tab-pannel" class="noTableInBottomBlockWithTabs">
+	<form name="timeForm">
+		<div class="bottomNestedTabTableResHeight no-border">
+				<div class="row horizontalSpace">
+						<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+							<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padL-0">
+								<md-input-container class="md-block">
+									<label>Week Commencing Day</label>
+									<md-select data-test='Projects_ProjectSettings_TimeSheetTab_NormalTime_weekCommencingDay' ng-model="projCommencingDays.weekStartDay">
+										<md-option ng-repeat="week in  weekDays" ng-value="week">{{week}}</md-option>
+									</md-select>
+								</md-input-container>
+							</div>
+							<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+									<md-input-container class="md-block">
+										<label>Week Ending Day</label>
+										<md-select data-test='Projects_ProjectSettings_TimeSheetTab_NormalTime_weekEndingDay' ng-model="projCommencingDays.weekEndDay">
+											<md-option ng-repeat="week in  weekDays" ng-value="week">{{week}}</md-option>
+										</md-select>
+									</md-input-container>
+								</div>
+						</div>
+				</div>
+				<div class="row" ng-repeat ="timesheet in projTimeSheetData">
+						<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+							<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padL-0">
+								<md-input-container class="md-block">
+									<label>{{timesheet.type}} Cut Off Days</label>
+									<ng-form name="timeform1"> 
+									<input data-test='{{timesheet.type}}_Projects_ProjectSettings_TimeSheetTab_Cutoffdays' class="form-control"
+										type="text" ng-model="timesheet.cutOffDays" name="time"
+										pattern="\d+"> <span
+										ng-show="timeform1.time.$error.pattern">Enter only
+									numbers</span> </ng-form>
+								</md-input-container>
+							</div>
+							<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+									<md-input-container class="md-block">
+										<label>{{timesheet.type}} Cut Off Hours</label>
+										<input data-test='{{timesheet.type}}_Projects_ProjectSettings_TimeSheetTab_Cutoffhours' type="number" min=0 max=23
+											name="cutoffHours" class="form-control"
+											ng-model="timesheet.cutOffHours" ng-required="true" /> 
+									</md-input-container>
+							</div>
+							<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+									<md-input-container class="md-block">
+										<label>{{timesheet.type}} Cut Off Minutes</label>
+										<input data-test='{{timesheet.type}}_Projects_ProjectSettings_TimeSheetTab_Cutoffminutes' type="number" min=0 max=59 
+											name="cutoffMinutes" ng-model="timesheet.cutOffMinutes" 
+											class="form-control" /> 
+									</md-input-container>
+							</div>
+							
+						</div>
+				</div>
+		</div>
+		<div class="panel-footer">
+				<div class="pull-right">
+					<input data-test='Projects_ProjectSettings_TimeSheetTab_NormalTime_Save' type="button" class="btn btn-primary btn-sm"
+						value="Save" ng-click="saveProjTimeSheet()" 
+						title="{{ account.appCodeTemplate['PRJ_PRJSTG_TIMSHETSTG_ADD'] ? '' : '! Permission Denied. Contact your admin.'}}"
+						ng-disabled ="!account.appCodeTemplate['PRJ_PRJSTG_TIMSHETSTG_ADD']">
+				</div>
+				<div class="pull-left">
+                    <input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+                </div>
+		</div>
+	</form>
+</div>

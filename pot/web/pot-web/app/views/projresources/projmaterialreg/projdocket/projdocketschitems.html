@@ -1,0 +1,49 @@
+<div id="tab-pannel" class="panel-group">
+  <div class="panel panel-default">
+   <div class="panel-heading">
+    <h4 class="panel-title">Project Schedule Items </h4>
+   </div>
+   <div class="panel-body12">
+    <div id="tableHeight" class="table-responsive">
+
+     <table class="table table-striped table-bordered" >
+      <thead id="tab-head">
+       <tr>
+       
+        <th>Project Name</th>
+        <th>Resource Id</th>
+        <th>Resource Name</th>
+        <th>PO Number</th>
+        <th>Schedule Item Id</th>
+        <th>Supplier Id</th>
+        <th>Supplier Name</th>
+        <th>Unit Of Measure</th>
+        <th>Quantity</th>
+        <th>Rate</th>
+
+       </tr>
+      </thead>
+
+      <tbody>
+       <tr fixed-header="" ng-repeat ="storedocket in addStoreIssueDocket" >
+        <td>{{userProjMap[storedocket.projId].name}}</td>
+        <td>{{classificationMap[storedocket.purchaseSchLabelKeyTO.displayNamesMap['purClassId']].code}}</td>
+        <td>{{classificationMap[storedocket.purchaseSchLabelKeyTO.displayNamesMap['purClassId']].name}}</td>
+        <td>{{storedocket.purchaseSchLabelKeyTO.displayNamesMap['purCode']}}</td>
+        <td>{{storedocket.purchaseSchLabelKeyTO.name}}</td>
+        <td>{{companyMap[storedocket.purchaseSchLabelKeyTO.displayNamesMap['cmpId']].code}}</td>
+        <td>{{companyMap[storedocket.purchaseSchLabelKeyTO.displayNamesMap['cmpId']].name}}</td>
+        <td>{{classificationMap[storedocket.purchaseSchLabelKeyTO.displayNamesMap['purClassId']].displayNamesMap['UnitOfMeasure']}}</td>
+        <td>{{storedocket.issueQty}}</td>
+        <td>{{storedocket.purchaseSchLabelKeyTO.displayNamesMap['unitOfRate']}}</td>
+
+       </tr>
+      </tbody>
+     </table>
+    </div>
+   </div>
+  
+
+  </div>
+
+</div>

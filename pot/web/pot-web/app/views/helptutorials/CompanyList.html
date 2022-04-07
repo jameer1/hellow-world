@@ -1,0 +1,570 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="generator" content="HelpNDoc Personal Edition 7.0.0.199">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" href="favicon.ico"/>
+
+  <title>Company List</title>
+  <meta name="description" content="" /> 
+  <meta name="keywords" content="">
+
+
+
+  
+
+  <!-- Twitter Card data -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Company List">
+  <meta name="twitter:description" content="">
+
+  <!-- Open Graph data -->
+  <meta property="og:title" content="Company List" />
+  <meta property="og:type" content="article" />
+  <meta property="og:description" content="" />
+  <meta property="og:site_name" content="Online Help for Project On Track" /> 
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendors/bootstrap-3.4.1/css/bootstrap.min.css" rel="stylesheet"/>
+
+  <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+  <link href="vendors/bootstrap-3.4.1/css/ie10-viewport-bug-workaround.css" rel="stylesheet"/>
+
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+      <script src="vendors/html5shiv-3.7.3/html5shiv.min.js"></script>
+      <script src="vendors/respond-1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+  <!-- JsTree styles -->
+  <link href="vendors/jstree-3.3.10/themes/default/style.min.css" rel="stylesheet"/>
+
+  <!-- Hnd styles -->
+  <link href="css/layout.min.css" rel="stylesheet" />
+  <link href="css/effects.min.css" rel="stylesheet" />
+  <link href="css/theme-light-blue.min.css" rel="stylesheet" />
+  <link href="css/print.min.css" rel="stylesheet" media="print" />
+  <style type="text/css">nav { width: 350px} @media screen and (min-width:769px) { body.md-nav-expanded div#main { margin-left: 350px} body.md-nav-expanded header { padding-left: 364px} }</style>
+
+  <!-- Content style -->
+  <link href="css/hnd.content.css" rel="stylesheet" />
+
+  
+
+
+
+</head>
+
+<body class="md-nav-expanded">
+
+
+
+  <div id="skip-link">
+    <a href="#main-content" class="element-invisible">Skip to main content</a>
+  </div>
+
+  <header class="headroom">
+    <button class="hnd-toggle btn btn-default">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>        
+    </button>
+    <h1>Online Help for Project On Track</h1>
+    <img src="_logo.png" alt="logo" class="logo"/>
+  </header>
+
+  <nav id="panel-left" class="md-nav-expanded">
+    <!-- Nav tabs -->
+    <ul class="tab-tabs nav nav-tabs" role="tablist">
+      <li id="nav-close"> 
+        <button class="hnd-toggle btn btn-default">
+          <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+        </button>
+      </li>
+      
+	  
+        <li role="presentation" class="tab active">
+            <a href="#contents" id="tab-contents" aria-controls="contents" role="tab" data-toggle="tab">
+                <i class="glyphicon glyphicon-list"></i>
+                Contents
+            </a>
+        </li>
+      
+        <li role="presentation" class="tab">
+            <a href="#index" id="tab-index" aria-controls="index" role="tab" data-toggle="tab">
+                <i class="glyphicon glyphicon-asterisk"></i>
+                Index
+            </a>
+        </li>
+      
+        <li role="presentation" class="tab">
+            <a href="#search" id="tab-search" aria-controls="search" role="tab" data-toggle="tab">
+                <i class="glyphicon glyphicon-search"></i>
+                Search
+            </a>
+        </li>
+      
+    </ul>  <!-- /Nav tabs -->
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+	  
+      <div role="tabpanel" class="tab-pane active" id="contents">
+        <div id="toc" class="tree-container unselectable"
+            data-url="_toc.json"
+            data-openlvl="1"
+        >
+            
+        </div>
+      </div>  <!-- /contents-->
+      
+      <div role="tabpanel" class="tab-pane" id="index">
+        <div id="keywords" class="tree-container unselectable"
+            data-url="_keywords.json"
+            data-openlvl="1"
+        >
+            
+        </div>
+      </div>  <!-- /index-->
+      
+      <div role="tabpanel" class="tab-pane" id="search">
+        <div class="search-content">
+          <div class="search-input">
+            <form id="search-form">
+              <div class="form-group">
+                <div class="input-group">
+                  <input type="text" class="form-control" id="input-search" name="input-search" placeholder="Search..." />
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" type="submit">
+                      <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                    </button>
+                  </span>
+                </div>
+              </div>
+            </form>
+          </div>  <!-- /search-input -->
+          <div class="search-result">
+            <div id="search-info"></div>
+            <div class="tree-container unselectable" id="search-tree"></div>
+          </div>  <!-- /search-result -->
+        </div>  <!-- /search-content -->
+      </div>  <!-- /search-->
+      
+    </div>  <!-- /Tab panes -->
+
+  </nav>
+
+  <div id="main">
+
+    <article>
+        <div id="topic-content" class="container-fluid" 
+		  data-hnd-id="CompanyList"
+		  data-hnd-context="1"
+		  data-hnd-title="Company List"
+		>
+            
+                <div class="navigation">
+                    <ol class="breadcrumb">
+                        <li><a href="Enterprise.html">Enterprise</a></li><li><a href="CentralLibrary.html">Central Library</a></li>
+                    </ol>
+                    <div class="nav-arrows">
+                        <div class="btn-group btn-group-xs" role="group"><a class="btn btn-default" href="CentralLibrary.html" title="Central Library" role="button"><span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span></a><a class="btn btn-default" href="CentralLibrary.html" title="Central Library" role="button"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></a><a class="btn btn-default" href="MeasuringUnits.html" title="Measuring Units" role="button"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a></div>
+                    </div>
+                </div> 
+            
+
+            <a id="main-content"></a>
+
+            
+
+            <div class="main-content">
+                
+<p></p>
+<p class="rvps4"><span class="rvts14">Company List:</span></p>
+<p class="rvps16"><span class="rvts17">This page holds all the details of the Companies that provide various services like Man Power, Plant, Material, and Services to our organization.</span></p>
+<p class="rvps16"><span class="rvts17">You can perform the following in the Company List Section:</span></p>
+<ul style="text-indent: 0px; padding: 0; margin: 0 0 0 48px; list-style-position: outside; list-style-type: disc;">
+ <li class="rvps17"><span class="rvts19">Create a New Company on the List</span></li>
+ <li class="rvps17"><span class="rvts19">Edit Company Details</span></li>
+ <li class="rvps17"><span class="rvts19">Activate a Company</span></li>
+ <li class="rvps17"><span class="rvts19">Deactivate a Company</span></li>
+ <li class="rvps17"><span class="rvts19">Search the Company Details</span></li>
+ <li class="rvps17"><span class="rvts19">Enter/Create the Company Address Details</span></li>
+ <li class="rvps17"><span class="rvts19">Edit the Company Address Details</span></li>
+ <li class="rvps17"><span class="rvts19">Deactivate the Company Address Details</span></li>
+ <li class="rvps17"><span class="rvts19">Enter/Create the Company Contact Details</span></li>
+ <li class="rvps17"><span class="rvts19">Edit the Company Contact Details</span></li>
+ <li class="rvps17"><span class="rvts19">Deactivate the Company Contact Details</span></li>
+ <li class="rvps17"><span class="rvts19">Create Current Projects</span></li>
+ <li class="rvps17"><span class="rvts19">Edit the Current Projects</span></li>
+ <li class="rvps17"><span class="rvts19">Deactivate the Current Projects</span></li>
+ <li class="rvps17"><span class="rvts19">View the Current Projects</span></li>
+ <li class="rvps17"><span class="rvts19">Move to Closed Projects</span></li>
+ <li class="rvps17"><span class="rvts19">View the Closed projects</span></li>
+</ul>
+<p class="rvps11"><a name="_Toc35872434"></a><span class="rvts16">Create a New Company in the List:</span></p>
+<p class="rvps16"><span class="rvts17">This section helps you to create a new company on the list.</span></p>
+<p class="rvps16"><span class="rvts18">To create a new company on the list, do the following.</span></p>
+<ol style="text-indent: 0px; padding: 0; margin: 0 0 0 72px; list-style-position: outside; list-style-type: decimal;">
+ <li value="1" style="margin-left: 0px" class="rvps18"><span class="rvts19">Click</span><img alt="" style="padding : 1px;" src="lib/NewItem719.png"><span class="rvts19"> and the </span><span class="rvts20">Add Company</span><span class="rvts19"> window opens as shown in the figure.</span></li>
+</ol>
+<p class="rvps19"><img width="1384" height="122" alt="" style="padding : 1px;" src="lib/NewItem718.png"></p>
+<ol style="text-indent: 0px; padding: 0; margin: 0 0 0 72px; list-style-position: outside; list-style-type: decimal;">
+ <li value="2" style="margin-left: 0px" class="rvps18"><span class="rvts19">On the </span><span class="rvts20">Add Company</span><span class="rvts19"> window, enter the following details:</span></li>
+</ol>
+<ul style="text-indent: 0px; padding: 0; margin: 0 0 0 96px; list-style-position: outside; list-style-type: disc;">
+ <li style="margin-left: 0px" class="rvps20"><span class="rvts20">Company ID: </span><span class="rvts19">Enter the company ID.</span></li>
+ <li style="margin-left: 0px" class="rvps20"><span class="rvts20">Company Name: </span><span class="rvts19">Enter the company name.</span></li>
+ <li style="margin-left: 0px" class="rvps20"><span class="rvts20">Company Category: </span><span class="rvts19">Select the company category from the dropdown menu.</span></li>
+ <li style="margin-left: 0px" class="rvps20"><span class="rvts20">Business Category: </span><span class="rvts19">Select the business category from the dropdown menu.</span></li>
+ <li style="margin-left: 0px" class="rvps20"><span class="rvts20">Business Activity: </span><span class="rvts19">Enter the business activity under which the company falls into.</span></li>
+ <li style="margin-left: 0px" class="rvps20"><span class="rvts20">Company Reg. No.: </span><span class="rvts19">Enter the company registration number.</span></li>
+ <li style="margin-left: 0px" class="rvps20"><span class="rvts20">Company Tax File No.: </span><span class="rvts19">Enter the company tax file number.</span></li>
+</ul>
+<ol style="text-indent: 0px; padding: 0; margin: 0 0 0 72px; list-style-position: outside; list-style-type: decimal;">
+ <li value="3" style="margin-left: 0px" class="rvps18"><span class="rvts19">Click </span><img alt="" style="padding : 1px;" src="lib/NewItem717.png"><span class="rvts19"> to save the company details.</span></li>
+</ol>
+<p class="rvps16"><span class="rvts21">Note:&nbsp;</span></p>
+<ul style="text-indent: 0px; padding: 0; margin: 0 0 0 48px; list-style-position: outside; list-style-type: disc;">
+ <li class="rvps17"><span class="rvts22">Click </span><img alt="" style="padding : 1px;" src="lib/NewItem716.png"><span class="rvts22"> to add multiple company records.</span></li>
+ <li class="rvps17"><span class="rvts22">Select the company and click </span><img alt="" style="padding : 1px;" src="lib/NewItem715.png"><span class="rvts22"> to delete the selected company’s record.</span></li>
+ <li class="rvps17"><span class="rvts22">Use the </span><span class="rvts23">Create </span><span class="rvts22">button available on the middle right of the screen, for this section only. For other sections, use the </span><span class="rvts23">Create</span><span class="rvts22"> button available on the bottom right of the screen.</span></li>
+</ul>
+<p class="rvps16"><span class="rvts17">You have successfully created a new company on the list.</span></p>
+<p class="rvps11"><a name="_Toc35872435"></a><span class="rvts16">Edit Company Details:</span></p>
+<p class="rvps16"><span class="rvts17">This section helps you to edit the company details.</span></p>
+<p class="rvps16"><span class="rvts18">To edit the company details, do the following.</span></p>
+<ol style="text-indent: 0px; padding: 0; margin: 0 0 0 72px; list-style-position: outside; list-style-type: decimal;">
+ <li value="1" style="margin-left: 0px" class="rvps18"><span class="rvts19">Select the company you need to edit and click</span><img alt="" style="padding : 1px;" src="lib/NewItem714.png"><span class="rvts19">.</span></li>
+ <li value="2" style="margin-left: 0px" class="rvps18"><span class="rvts19">The </span><span class="rvts20">Edit Company</span><span class="rvts19"> window opens as shown in the figure.</span></li>
+</ol>
+<p class="rvps19"><img width="1384" height="118" alt="" style="padding : 1px;" src="lib/NewItem713.png"></p>
+<ol style="text-indent: 0px; padding: 0; margin: 0 0 0 72px; list-style-position: outside; list-style-type: decimal;">
+ <li value="3" style="margin-left: 0px" class="rvps18"><span class="rvts19">Edit the company details.</span></li>
+ <li value="4" style="margin-left: 0px" class="rvps18"><span class="rvts19">Click</span><img alt="" style="padding : 1px;" src="lib/NewItem712.png"><span class="rvts19">to save the edited company details.</span></li>
+</ol>
+<p class="rvps16"><span class="rvts17">You have successfully edited the company details.&nbsp;</span></p>
+<p class="rvps11"><a name="_Toc35872436"></a><span class="rvts16">Search the Company Details:</span></p>
+<p class="rvps16"><span class="rvts17">This section helps you to search the created company details.</span></p>
+<p class="rvps16"><span class="rvts18">To search the created company details, do the following.</span></p>
+<ol style="text-indent: 0px; padding: 0; margin: 0 0 0 48px; list-style-position: outside; list-style-type: decimal;">
+ <li value="1" class="rvps17"><span class="rvts19">Enter the </span><span class="rvts20">Company ID</span><span class="rvts19"> or </span><span class="rvts20">Company Name</span><span class="rvts19"> and select the status from the </span><span class="rvts20">Select Status</span><span class="rvts19"> dropdown menu as shown in the figure.</span></li>
+</ol>
+<p class="rvps16"><img width="1496" height="214" alt="" style="padding : 1px;" src="lib/NewItem711.png"></p>
+<ol style="text-indent: 0px; padding: 0; margin: 0 0 0 48px; list-style-position: outside; list-style-type: decimal;">
+ <li value="2" class="rvps17"><span class="rvts19">Click </span><span class="rvts20">Search</span><span class="rvts19"> available on the right side of the screen.</span></li>
+ <li value="3" class="rvps17"><span class="rvts19">The search results are shown on the screen.</span></li>
+</ol>
+<p class="rvps21"><span class="rvts21">Note:&nbsp;</span><span class="rvts21"> &nbsp; &nbsp; &nbsp; &nbsp;</span></p>
+<ul style="text-indent: 0px; padding: 0; margin: 0 0 0 48px; list-style-position: outside; list-style-type: disc;">
+ <li class="rvps17"><span class="rvts22">Both </span><span class="rvts23">Company ID</span><span class="rvts22"> and </span><span class="rvts23">Company Name </span><span class="rvts22">can be entered to search the company details.</span></li>
+ <li class="rvps17"><span class="rvts22">Click </span><span class="rvts23">Reset</span><span class="rvts22"> to reset the screen to the default view.</span></li>
+</ul>
+<p class="rvps16"><span class="rvts17">You have successfully searched the company details and viewed the search results.&nbsp;</span></p>
+<p class="rvps11"><a name="_Toc35872437"></a><span class="rvts16">Deactivate a Company:</span></p>
+<p class="rvps16"><span class="rvts17">This section helps you to deactivate a company.</span></p>
+<p class="rvps16"><span class="rvts18">To deactivate a company, do the following.</span></p>
+<ol style="text-indent: 0px; padding: 0; margin: 0 0 0 48px; list-style-position: outside; list-style-type: decimal;">
+ <li value="1" class="rvps17"><span class="rvts19">Select the company you need to deactivate and click</span><img alt="" style="padding : 1px;" src="lib/NewItem710.png"><span class="rvts19">.</span></li>
+ <li value="2" class="rvps17"><span class="rvts19">A </span><span class="rvts20">Warning</span><span class="rvts19"> window opens.</span></li>
+ <li value="3" class="rvps17"><span class="rvts19">Click </span><img alt="" style="padding : 1px;" src="lib/NewItem709.png"><span class="rvts19"> if you want to deactivate.</span></li>
+ <li value="4" class="rvps17"><span class="rvts19">A confirmation </span><span class="rvts20">Info</span><span class="rvts19"> window opens.</span></li>
+</ol>
+<p class="rvps16"><span class="rvts17">You have successfully deactivated the company.&nbsp;</span></p>
+<p class="rvps16"><span class="rvts21">Note:</span></p>
+<p class="rvps16"><span class="rvts28">On the </span><span class="rvts21">Warning</span><span class="rvts28"> window, click </span><img alt="" style="padding : 1px;" src="lib/NewItem708.png"><span class="rvts28"> if you do not want to deactivate the company.&nbsp;</span></p>
+<p class="rvps11"><a name="_Toc35872438"></a><span class="rvts16">Activate a Company:</span></p>
+<p class="rvps16"><span class="rvts17">This section helps you to activate a deactivated company.</span></p>
+<p class="rvps16"><span class="rvts18">To activate a company, do the following.</span></p>
+<ol style="text-indent: 0px; padding: 0; margin: 0 0 0 48px; list-style-position: outside; list-style-type: decimal;">
+ <li value="1" class="rvps17"><span class="rvts19">Select </span><span class="rvts20">In Active</span><span class="rvts19"> from the </span><span class="rvts20">Select Status</span><span class="rvts19"> dropdown menu.</span></li>
+ <li value="2" class="rvps17"><span class="rvts19">Click </span><span class="rvts20">Search</span><span class="rvts19"> available on the right side of the screen.</span></li>
+ <li value="3" class="rvps17"><span class="rvts19">A list of deactivated companies is shown if any exist.</span></li>
+ <li value="4" class="rvps17"><span class="rvts19">Select the company you need to activate and click </span><img alt="" style="padding : 1px;" src="lib/NewItem707.png"><span class="rvts19">.</span></li>
+ <li value="5" class="rvps17"><span class="rvts19">A </span><span class="rvts20">Warning</span><span class="rvts19"> window opens.</span></li>
+ <li value="6" class="rvps17"><span class="rvts19">Click </span><img alt="" style="padding : 1px;" src="lib/NewItem706.png"><span class="rvts19"> if you want to activate.</span></li>
+ <li value="7" class="rvps17"><span class="rvts19">A confirmation </span><span class="rvts20">Info</span><span class="rvts19"> window opens.</span></li>
+</ol>
+<p class="rvps16"><span class="rvts17">You have successfully activated the company.</span></p>
+<p class="rvps11"><a name="_Toc35872439"></a><span class="rvts16">Enter/Create the Company Address Details:</span></p>
+<p class="rvps16"><span class="rvts17">This section helps you to enter the company address details.</span></p>
+<p class="rvps16"><span class="rvts18">To enter the company address details, do the following.</span></p>
+<ol style="text-indent: 0px; padding: 0; margin: 0 0 0 48px; list-style-position: outside; list-style-type: decimal;">
+ <li value="1" class="rvps17"><span class="rvts19">Select the Company ID as shown in the figure.</span></li>
+</ol>
+<p class="rvps16"><img width="1179" height="530" alt="" style="padding : 1px;" src="lib/NewItem705.png"></p>
+<ol style="text-indent: 0px; padding: 0; margin: 0 0 0 48px; list-style-position: outside; list-style-type: decimal;">
+ <li value="2" class="rvps17"><span class="rvts19">Select the </span><span class="rvts20">Address</span><span class="rvts19"> tab as shown in the figure.</span></li>
+</ol>
+<p class="rvps19"><img width="1179" height="530" alt="" style="padding : 1px;" src="lib/NewItem704.png"></p>
+<ol style="text-indent: 0px; padding: 0; margin: 0 0 0 48px; list-style-position: outside; list-style-type: decimal;">
+ <li value="3" class="rvps17"><span class="rvts19">Click </span><img alt="" style="padding : 1px;" src="lib/NewItem703.png"><span class="rvts19"> and the </span><span class="rvts20">Add Address</span><span class="rvts19"> window opens as shown in the figure.</span></li>
+</ol>
+<p class="rvps16"><img width="1077" height="145" alt="" style="padding : 1px;" src="lib/NewItem702.png"></p>
+<ol style="text-indent: 0px; padding: 0; margin: 0 0 0 48px; list-style-position: outside; list-style-type: decimal;">
+ <li value="4" class="rvps17"><span class="rvts19">On the </span><span class="rvts20">Add Address</span><span class="rvts19"> window, enter the following details:</span></li>
+</ol>
+<ul style="text-indent: 0px; padding: 0; margin: 0 0 0 72px; list-style-position: outside; list-style-type: disc;">
+ <li style="margin-left: 0px" class="rvps18"><span class="rvts20">Address: </span><span class="rvts19">Enter the company address.</span></li>
+ <li style="margin-left: 0px" class="rvps18"><span class="rvts20">City: </span><span class="rvts19">Enter the city.</span></li>
+ <li style="margin-left: 0px" class="rvps18"><span class="rvts20">State: </span><span class="rvts19">Enter the State.</span></li>
+ <li style="margin-left: 0px" class="rvps18"><span class="rvts20">Pin Code: </span><span class="rvts19">Enter the pin code.</span></li>
+</ul>
+<ol style="text-indent: 0px; padding: 0; margin: 0 0 0 48px; list-style-position: outside; list-style-type: decimal;">
+ <li value="5" class="rvps17"><span class="rvts19">Click </span><img alt="" style="padding : 1px;" src="lib/NewItem701.png"><span class="rvts19"> to save the company address.</span></li>
+</ol>
+<p class="rvps16"><span class="rvts21">Note:&nbsp;</span></p>
+<ul style="text-indent: 0px; padding: 0; margin: 0 0 0 48px; list-style-position: outside; list-style-type: disc;">
+ <li class="rvps17"><span class="rvts22">Click </span><img alt="" style="padding : 1px;" src="lib/NewItem700.png"><span class="rvts22"> to add multiple records.</span></li>
+ <li class="rvps17"><span class="rvts22">Select the company address and click </span><img alt="" style="padding : 1px;" src="lib/NewItem699.png"><span class="rvts22"> to delete the selected record.</span></li>
+</ul>
+<p class="rvps16"><span class="rvts17">You have successfully entered the company address details.&nbsp;</span></p>
+<p class="rvps11"><a name="_Toc35872440"></a><span class="rvts16">Edit the Company Address Details:</span></p>
+<p class="rvps16"><span class="rvts17">This section helps you to edit the company address details.</span></p>
+<p class="rvps16"><span class="rvts18">To edit the company address details, do the following.</span></p>
+<ol style="text-indent: 0px; padding: 0; margin: 0 0 0 48px; list-style-position: outside; list-style-type: decimal;">
+ <li value="1" class="rvps17"><span class="rvts19">Select the record you need to edit and click </span><img alt="" style="padding : 1px;" src="lib/NewItem698.png"><span class="rvts19">.</span></li>
+ <li value="2" class="rvps17"><span class="rvts19">The </span><span class="rvts20">Edit Address</span><span class="rvts19"> window opens as shown in the figure.</span></li>
+</ol>
+<p class="rvps16"><img width="766" height="182" alt="" style="padding : 1px;" src="lib/NewItem697.png"></p>
+<ol style="text-indent: 0px; padding: 0; margin: 0 0 0 48px; list-style-position: outside; list-style-type: decimal;">
+ <li value="3" class="rvps17"><span class="rvts19">Edit the company address details.</span></li>
+ <li value="4" class="rvps17"><span class="rvts19">Click</span><img alt="" style="padding : 1px;" src="lib/NewItem696.png"><span class="rvts19">to save the edited company address details.</span></li>
+</ol>
+<p class="rvps16"><span class="rvts17">You have successfully edited the company address details.&nbsp;</span></p>
+<p class="rvps11"><a name="_Toc35872441"></a><span class="rvts16">Deactivate the Company Address Details:</span></p>
+<p class="rvps16"><span class="rvts17">This section helps you to deactivate the company address details.</span></p>
+<p class="rvps16"><span class="rvts18">To deactivate the company address details, do the following.</span></p>
+<ol style="text-indent: 0px; padding: 0; margin: 0 0 0 48px; list-style-position: outside; list-style-type: decimal;">
+ <li value="1" class="rvps17"><span class="rvts19">Select the company address details you need to deactivate and click</span><img alt="" style="padding : 1px;" src="lib/NewItem695.png"><span class="rvts19">.</span></li>
+ <li value="2" class="rvps17"><span class="rvts19">A </span><span class="rvts20">Warning</span><span class="rvts19"> window opens.</span></li>
+ <li value="3" class="rvps17"><span class="rvts19">Click </span><img alt="" style="padding : 1px;" src="lib/NewItem694.png"><span class="rvts19"> if you want to deactivate.</span></li>
+ <li value="4" class="rvps17"><span class="rvts19">A confirmation </span><span class="rvts20">Info</span><span class="rvts19"> window opens.</span></li>
+</ol>
+<p class="rvps16"><span class="rvts17">You have successfully deactivated the company address details.&nbsp;</span></p>
+<p class="rvps16"><span class="rvts21">Note:</span></p>
+<p class="rvps16"><span class="rvts28">On the </span><span class="rvts21">Warning</span><span class="rvts28"> window, click </span><img alt="" style="padding : 1px;" src="lib/NewItem693.png"><span class="rvts28"> if you do not want to deactivate the company </span><span class="rvts17">address details</span><span class="rvts28">.&nbsp;</span></p>
+<p class="rvps11"><a name="_Toc35872442"></a><span class="rvts16">Enter/Create the Company Contact Details:</span></p>
+<p class="rvps16"><span class="rvts17">This section helps you to create the company contact details.</span></p>
+<p class="rvps16"><span class="rvts18">To create the company contact details, do the following.</span></p>
+<ol style="text-indent: 0px; padding: 0; margin: 0 0 0 48px; list-style-position: outside; list-style-type: decimal;">
+ <li value="1" class="rvps17"><span class="rvts19">Select the Company record as shown in the figure.</span></li>
+</ol>
+<p class="rvps16"><img width="1537" height="777" alt="" style="padding : 1px;" src="lib/NewItem692.png"></p>
+<ol style="text-indent: 0px; padding: 0; margin: 0 0 0 48px; list-style-position: outside; list-style-type: decimal;">
+ <li value="2" class="rvps17"><span class="rvts19">Select the </span><span class="rvts20">Contacts</span><span class="rvts19"> tab as shown in the figure.</span></li>
+</ol>
+<p class="rvps16"><img width="1537" height="776" alt="" style="padding : 1px;" src="lib/NewItem691.png"></p>
+<ol style="text-indent: 0px; padding: 0; margin: 0 0 0 48px; list-style-position: outside; list-style-type: decimal;">
+ <li value="3" class="rvps17"><span class="rvts19">Click </span><img alt="" style="padding : 1px;" src="lib/NewItem690.png"><span class="rvts19"> and the </span><span class="rvts20">Add Contacts</span><span class="rvts19"> window opens as shown in the figure.</span></li>
+</ol>
+<p class="rvps16"><img width="1384" height="469" alt="" style="padding : 1px;" src="lib/NewItem689.png"></p>
+<ol style="text-indent: 0px; padding: 0; margin: 0 0 0 48px; list-style-position: outside; list-style-type: decimal;">
+ <li value="4" class="rvps17"><span class="rvts19">On the </span><span class="rvts20">Add Contacts</span><span class="rvts19"> window, enter the following details:</span></li>
+</ol>
+<ul style="text-indent: 0px; padding: 0; margin: 0 0 0 72px; list-style-position: outside; list-style-type: disc;">
+ <li style="margin-left: 0px" class="rvps18"><span class="rvts20">Contact Name: </span><span class="rvts19">Enter the name of the contact person.</span></li>
+ <li style="margin-left: 0px" class="rvps18"><span class="rvts20">Email: </span><span class="rvts19">Enter the email address of the contact person.</span></li>
+ <li style="margin-left: 0px" class="rvps18"><span class="rvts20">Mobile: </span><span class="rvts19">Enter the mobile number of the contact person.</span></li>
+ <li style="margin-left: 0px" class="rvps18"><span class="rvts20">Phone: </span><span class="rvts19">Enter the phone number of the contact person.</span></li>
+ <li style="margin-left: 0px" class="rvps18"><span class="rvts20">Fax: </span><span class="rvts19">Enter the fax number of the contact person.</span></li>
+ <li style="margin-left: 0px" class="rvps18"><span class="rvts20">Designation: </span><span class="rvts19">Enter the designation of the contact person.</span></li>
+</ul>
+<ol style="text-indent: 0px; padding: 0; margin: 0 0 0 48px; list-style-position: outside; list-style-type: decimal;">
+ <li value="5" class="rvps17"><span class="rvts19">Click </span><img alt="" style="padding : 1px;" src="lib/NewItem688.png"><span class="rvts19"> to save the contact details.</span></li>
+</ol>
+<p class="rvps16"><span class="rvts21">Note:&nbsp;</span></p>
+<ul style="text-indent: 0px; padding: 0; margin: 0 0 0 48px; list-style-position: outside; list-style-type: disc;">
+ <li class="rvps17"><span class="rvts22">Click </span><img alt="" style="padding : 1px;" src="lib/NewItem687.png"><span class="rvts22"> to add multiple records.</span></li>
+ <li class="rvps17"><span class="rvts22">Select the company </span><span class="rvts19">contact details</span><span class="rvts22"> and click </span><img alt="" style="padding : 1px;" src="lib/NewItem686.png"><span class="rvts22"> to delete the selected record.</span></li>
+</ul>
+<p class="rvps16"><span class="rvts17">You have successfully entered the company contact details.&nbsp;</span></p>
+<p class="rvps11"><a name="_Toc35872443"></a><span class="rvts16">Edit the Company Contact Details:</span></p>
+<p class="rvps16"><span class="rvts17">This section helps you to edit the company contact details.</span></p>
+<p class="rvps16"><span class="rvts18">To edit the company contact details, do the following.</span></p>
+<ol style="text-indent: 0px; padding: 0; margin: 0 0 0 72px; list-style-position: outside; list-style-type: decimal;">
+ <li value="1" style="margin-left: 0px" class="rvps18"><span class="rvts19">Select the record you need to edit and click</span><img alt="" style="padding : 1px;" src="lib/NewItem685.png"><span class="rvts19">.</span></li>
+ <li value="2" style="margin-left: 0px" class="rvps18"><span class="rvts19">The </span><span class="rvts20">Edit Contacts</span><span class="rvts19"> window opens as shown in the figure.</span></li>
+</ol>
+<p class="rvps16"><img width="1384" height="120" alt="" style="padding : 1px;" src="lib/NewItem684.png"></p>
+<ol style="text-indent: 0px; padding: 0; margin: 0 0 0 72px; list-style-position: outside; list-style-type: decimal;">
+ <li value="3" style="margin-left: 0px" class="rvps18"><span class="rvts19">Edit the company contact details.</span></li>
+ <li value="4" style="margin-left: 0px" class="rvps18"><span class="rvts19">Click </span><img alt="" style="padding : 1px;" src="lib/NewItem683.png"><span class="rvts19"> to save the edited company contact details.</span></li>
+</ol>
+<p class="rvps16"><span class="rvts17">You have successfully edited the company contact details.&nbsp;</span></p>
+<p class="rvps11"><a name="_Toc35872444"></a><span class="rvts16">Deactivate the Company Contact Details:</span></p>
+<p class="rvps16"><span class="rvts17">This section helps you to deactivate the company contact details.</span></p>
+<p class="rvps16"><span class="rvts18">To deactivate the company contact details, do the following.</span></p>
+<ol style="text-indent: 0px; padding: 0; margin: 0 0 0 48px; list-style-position: outside; list-style-type: decimal;">
+ <li value="1" class="rvps17"><span class="rvts19">Select the company contact details you need to deactivate and click </span><img alt="" style="padding : 1px;" src="lib/NewItem682.png"><span class="rvts19">.</span></li>
+ <li value="2" class="rvps17"><span class="rvts19">A </span><span class="rvts20">Warning</span><span class="rvts19"> window opens.</span></li>
+ <li value="3" class="rvps17"><span class="rvts19">Click </span><img alt="" style="padding : 1px;" src="lib/NewItem681.png"><span class="rvts19"> if you want to deactivate.</span></li>
+ <li value="4" class="rvps17"><span class="rvts19">A confirmation </span><span class="rvts20">Info</span><span class="rvts19"> window opens.</span></li>
+</ol>
+<p class="rvps16"><span class="rvts17">You have successfully deactivated the company contact details.</span></p>
+<p class="rvps16"><span class="rvts21">Note:</span></p>
+<p class="rvps16"><span class="rvts28">On the </span><span class="rvts21">Warning</span><span class="rvts28"> window, click </span><img alt="" style="padding : 1px;" src="lib/NewItem680.png"><span class="rvts28"> if you do not want to deactivate the company</span><span class="rvts17"> contact details</span><span class="rvts28">.&nbsp;</span></p>
+<p class="rvps11"><a name="_Toc35872445"></a><span class="rvts16">Create Current Projects:</span></p>
+<p class="rvps16"><span class="rvts17">This section helps you to create current project details.</span></p>
+<p class="rvps16"><span class="rvts18">To create current project details, do the following.</span></p>
+<ol style="text-indent: 0px; padding: 0; margin: 0 0 0 72px; list-style-position: outside; list-style-type: decimal;">
+ <li value="1" style="margin-left: 0px" class="rvps18"><span class="rvts19">Select the Company ID as shown in the figure.</span></li>
+</ol>
+<p class="rvps16"><img width="1164" height="523" alt="" style="padding : 1px;" src="lib/NewItem679.png"></p>
+<ol style="text-indent: 0px; padding: 0; margin: 0 0 0 72px; list-style-position: outside; list-style-type: decimal;">
+ <li value="2" style="margin-left: 0px" class="rvps18"><span class="rvts19">Select the </span><span class="rvts20">Current Projects </span><span class="rvts19">tab as shown in the figure.</span></li>
+</ol>
+<p class="rvps16"><img width="1079" height="497" alt="" style="padding : 1px;" src="lib/NewItem678.png"></p>
+<ol style="text-indent: 0px; padding: 0; margin: 0 0 0 72px; list-style-position: outside; list-style-type: decimal;">
+ <li value="3" style="margin-left: 0px" class="rvps18"><span class="rvts19">Click </span><img alt="" style="padding : 1px;" src="lib/NewItem677.png"><span class="rvts19"> and the </span><span class="rvts20">Add Project</span><span class="rvts19"> window opens as shown in the figure.</span></li>
+</ol>
+<p class="rvps16"><img alt="" style="padding : 1px;" src="lib/NewItem676.png"></p>
+<ol style="text-indent: 0px; padding: 0; margin: 0 0 0 72px; list-style-position: outside; list-style-type: decimal;">
+ <li value="4" style="margin-left: 0px" class="rvps18"><span class="rvts19">Enter all the required details in the </span><span class="rvts20">Add Project</span><span class="rvts19"> window.</span></li>
+ <li value="5" style="margin-left: 0px" class="rvps18"><span class="rvts19">Click </span><img alt="" style="padding : 1px;" src="lib/NewItem675.png"><span class="rvts19"> to save the current project details.</span></li>
+</ol>
+<p class="rvps16"><span class="rvts21">Note:&nbsp;</span></p>
+<ul style="text-indent: 0px; padding: 0; margin: 0 0 0 48px; list-style-position: outside; list-style-type: disc;">
+ <li class="rvps17"><span class="rvts22">Click </span><img alt="" style="padding : 1px;" src="lib/NewItem674.png"><span class="rvts22"> to add multiple projects.</span></li>
+ <li class="rvps17"><span class="rvts22">Select the projects and click </span><img alt="" style="padding : 1px;" src="lib/NewItem673.png"><span class="rvts22"> to delete the selected projects.</span></li>
+</ul>
+<p class="rvps16"><span class="rvts17">You have successfully created the current project details.</span></p>
+<p class="rvps11"><a name="_Toc35872446"></a><span class="rvts16">Edit the Current Projects:</span></p>
+<p class="rvps16"><span class="rvts17">This section helps you to edit the current project details.</span></p>
+<p class="rvps16"><span class="rvts18">To edit the current project details, do the following.</span></p>
+<ol style="text-indent: 0px; padding: 0; margin: 0 0 0 48px; list-style-position: outside; list-style-type: decimal;">
+ <li value="1" class="rvps17"><span class="rvts19">Select the</span><span class="rvts11"> record</span><span class="rvts19"> you need to edit and click </span><img alt="" style="padding : 1px;" src="lib/NewItem672.png"><span class="rvts19">.</span></li>
+ <li value="2" class="rvps17"><span class="rvts19">The </span><span class="rvts20">Edit Project</span><span class="rvts19"> window opens as shown in the figure.</span></li>
+</ol>
+<p class="rvps16"><img width="1384" height="118" alt="" style="padding : 1px;" src="lib/NewItem671.png"></p>
+<ol style="text-indent: 0px; padding: 0; margin: 0 0 0 48px; list-style-position: outside; list-style-type: decimal;">
+ <li value="3" class="rvps17"><span class="rvts19">Edit the current project details.</span></li>
+ <li value="4" class="rvps17"><span class="rvts19">Click</span><img alt="" style="padding : 1px;" src="lib/NewItem670.png"><span class="rvts19">to save the edited current project details.</span></li>
+</ol>
+<p class="rvps16"><span class="rvts17">You have successfully edited the current project details.&nbsp;</span></p>
+<p class="rvps11"><a name="_Toc35872447"></a><span class="rvts16">Deactivate the Current Projects:</span></p>
+<p class="rvps16"><span class="rvts17">This section helps you to deactivate the current project details.</span></p>
+<p class="rvps16"><span class="rvts18">To deactivate the current project details, do the following.</span></p>
+<ol style="text-indent: 0px; padding: 0; margin: 0 0 0 48px; list-style-position: outside; list-style-type: decimal;">
+ <li value="1" class="rvps17"><span class="rvts19">Select the current project details you need to deactivate and click </span><img alt="" style="padding : 1px;" src="lib/NewItem669.png"><span class="rvts19">.</span></li>
+ <li value="2" class="rvps17"><span class="rvts19">A </span><span class="rvts20">Warning</span><span class="rvts19"> window opens.</span></li>
+ <li value="3" class="rvps17"><span class="rvts19">Click </span><img alt="" style="padding : 1px;" src="lib/NewItem668.png"><span class="rvts19"> if you want to deactivate.</span></li>
+ <li value="4" class="rvps17"><span class="rvts19">A confirmation </span><span class="rvts20">Info</span><span class="rvts19"> window opens.</span></li>
+</ol>
+<p class="rvps16"><span class="rvts17">You have successfully deactivated the current project details.</span></p>
+<p class="rvps16"><span class="rvts21">Note:</span></p>
+<p class="rvps16"><span class="rvts28">On the </span><span class="rvts21">Warning</span><span class="rvts28"> window, click </span><img alt="" style="padding : 1px;" src="lib/NewItem667.png"><span class="rvts28"> if you do not want to deactivate the current project details.&nbsp;</span></p>
+<p class="rvps11"><a name="_Toc35872448"></a><span class="rvts16">View Current Projects:</span></p>
+<p class="rvps16"><span class="rvts17">This section enables you to view the current projects.</span></p>
+<p class="rvps16"><span class="rvts18">To view the current projects, do the following.</span></p>
+<ol style="text-indent: 0px; padding: 0; margin: 0 0 0 48px; list-style-position: outside; list-style-type: decimal;">
+ <li value="1" class="rvps17"><span class="rvts19">Select the Company ID as shown in the figure.</span></li>
+</ol>
+<p class="rvps16"><img width="1179" height="530" alt="" style="padding : 1px;" src="lib/NewItem666.png"></p>
+<ol style="text-indent: 0px; padding: 0; margin: 0 0 0 48px; list-style-position: outside; list-style-type: decimal;">
+ <li value="2" class="rvps17"><span class="rvts19">Select the </span><span class="rvts20">Current Projects</span><span class="rvts19"> tab.</span></li>
+ <li value="3" class="rvps17"><span class="rvts19">The current projects of the selected company can be viewed as shown in the figure.</span></li>
+</ol>
+<p class="rvps16"><img width="1093" height="503" alt="" style="padding : 1px;" src="lib/NewItem665.png"></p>
+<p class="rvps16"><span class="rvts17">You have successfully viewed the current projects.&nbsp;</span></p>
+<p class="rvps11"><a name="_Toc35872449"></a><span class="rvts16">Move to Closed Projects:</span></p>
+<p class="rvps16"><span class="rvts17">This section helps you to move the current project to closed projects after the completion of the current project.</span></p>
+<p class="rvps16"><span class="rvts18">To move the current project to closed projects, do the following.</span></p>
+<ol style="text-indent: 0px; padding: 0; margin: 0 0 0 48px; list-style-position: outside; list-style-type: decimal;">
+ <li value="1" class="rvps17"><span class="rvts19">Select the current projects, you need to move to closed projects and click </span><img alt="" style="padding : 1px;" src="lib/NewItem664.png"><span class="rvts19">.</span></li>
+ <li value="2" class="rvps17"><span class="rvts19">A confirmation </span><span class="rvts20">Info</span><span class="rvts19"> window opens.</span></li>
+</ol>
+<p class="rvps16"><span class="rvts17">You have successfully moved the current project to closed projects.&nbsp;</span></p>
+<p class="rvps11"><a name="_Toc35872450"></a><span class="rvts16">View Closed Projects:</span></p>
+<p class="rvps16"><span class="rvts17">This section enables you to view the closed projects.</span></p>
+<p class="rvps16"><span class="rvts18">To view the closed projects, do the following.</span></p>
+<ol style="text-indent: 0px; padding: 0; margin: 0 0 0 48px; list-style-position: outside; list-style-type: decimal;">
+ <li value="1" class="rvps17"><span class="rvts19">Select the Company ID as shown in the figure.</span></li>
+</ol>
+<p class="rvps16"><img width="1179" height="530" alt="" style="padding : 1px;" src="lib/NewItem663.png"></p>
+<ol style="text-indent: 0px; padding: 0; margin: 0 0 0 48px; list-style-position: outside; list-style-type: decimal;">
+ <li value="2" class="rvps17"><span class="rvts19">Select the </span><span class="rvts20">Closed Projects</span><span class="rvts19"> tab.</span></li>
+ <li value="3" class="rvps17"><span class="rvts19">The closed projects of the selected company can be viewed as shown in the figure.</span></li>
+</ol>
+<p class="rvps16"><img width="1094" height="502" alt="" style="padding : 1px;" src="lib/NewItem662.png"></p>
+<p class="rvps16"><span class="rvts17">You have successfully viewed the closed projects.</span></p>
+<p></p>
+<p class="rvps12" style="clear: both;"></p>
+
+            </div>
+            
+            <div id="topic_footer"><div id="topic_footer_content">Copyright &copy;  by Raju Tech Pty. Ltd. All Rights Reserved.</div></div>
+        </div>  <!-- /#topic-content -->
+    </article>
+
+    <footer></footer>
+
+  </div>  <!-- /#main -->
+
+  <div class="mask" data-toggle="sm-nav-expanded"></div>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="hndModal" tabindex="-1" role="dialog" aria-labelledby="hndModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="hndModalLabel"></h4>
+        </div>
+        <div class="modal-body">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary modal-btn-close" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Splitter -->
+  <div id="hnd-splitter" style="left: 350px"></div>  
+
+  <!-- Scripts -->
+  <script src="vendors/jquery-3.5.1/jquery.min.js"></script>
+  <script src="vendors/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+  <script src="vendors/bootstrap-3.4.1/js/ie10-viewport-bug-workaround.js"></script>
+  <script src="vendors/markjs-8.11.1/jquery.mark.min.js"></script>
+  <script src="vendors/uri-1.19.2/uri.min.js"></script>
+  <script src="vendors/imageMapResizer-1.0.10/imageMapResizer.min.js"></script>
+  <script src="vendors/headroom-0.11.0/headroom.min.js"></script>
+  <script src="vendors/jstree-3.3.10/jstree.min.js"></script>  
+  <script src="vendors/interactjs-1.9.22/interact.min.js"></script>  
+
+  <!-- HelpNDoc scripts -->
+  <script src="js/polyfill.object.min.js"></script>
+  <script src="_translations.js"></script>
+  <script src="js/hndsd.min.js"></script>
+  <script src="js/hndse.min.js"></script>
+  <script src="js/app.min.js"></script>
+
+  <!-- Init script -->
+  <script>
+    $(function() {
+      // Create the app
+      var app = new Hnd.App();
+      // Update translations
+      hnd_ut(app);
+	  // Instanciate imageMapResizer
+	  imageMapResize();
+	  // Custom JS
+	  
+      // Boot the app
+      app.Boot();
+    });
+  </script>
+
+
+
+</body>
+
+</html>
+

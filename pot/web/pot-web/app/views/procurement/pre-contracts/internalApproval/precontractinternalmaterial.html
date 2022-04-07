@@ -1,0 +1,293 @@
+<div ng-if="stateParamsRequestPage===true && (account.appCodeTemplate['PROCURMT_INTRNLSTAGE1MATERIALS_VIEW'] ||
+account.appCodeTemplate['REQUEST_REQPROC_INTRNLSTAGE1MATERIALS_VIEW'])" class="tab-pannel">
+  <form name="materialForm" validate>
+    <div class="tabTable_3_Res_height overflow-auto"> 
+      <table class="table table-hover table-bordered tabTable_3_height">
+        <thead>
+          <tr>
+            <th>Select</th>
+            <th>Item ID</th>
+            <th>Item Description
+              <span class="procurment-pot-errors">*</span>
+            </th>
+            <th>Procurement<br>SubCategory
+              <span class="procurment-pot-errors">*</span>
+            </th>
+            <th>Material Class
+              <span class="procurment-pot-errors">*</span>
+            </th>
+            <th>Cost Code
+              <span class="procurment-pot-errors">*</span>
+            </th>
+            <th>Delivery Place
+              <span class="procurment-pot-errors">*</span>
+            </th>
+            <th>Start Date
+              <span class="procurment-pot-errors">*</span>
+            </th>
+            <th>Finish Date
+              <span class="procurment-pot-errors">*</span>
+            </th>
+            <th>Unit Of Measure</th>
+
+            <th>Qty
+              <span class="procurment-pot-errors">*</span>
+            </th>
+            <th>Estimated Rate<br>({{preContractObj.currencyCode}})
+              <span class="procurment-pot-errors">*</span>
+            </th>
+            <th>Estimated Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="item in preContractObj.preContractMaterialDtlTOs">
+            <td><input data-test='Stage1Request_viewedit_Maretials_Checkbox' type="checkbox" value="materialId"
+                class="ng-pristine ng-valid" ng-model="item.select" ng-change="rowSelect(item)"
+                ng-disabled="item.id > 0"></td>
+
+            <td class="input-width5"><input type="text" class="form-control" ng-model="item.itemCode" name="code"
+                maxlength="100" placeHolder="Item Code" ng-disabled="true" /></td>
+
+
+            <td class="input-width5" ng-form name="myForm1"><input
+                data-test='Stage1Request_viewedit_Maretials_itemdescription' type="text" class="form-control"
+                ng-model="item.itemDesc" name="desc" maxlength="400" placeHolder="Item Description"
+                pattern="^[a-zA-Z-\&\d\s.,]+$" required="required"
+                ng-disabled="preContractObj.workFlowStatusTO.value ==5" style="width:fit-content;" pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+                 /> <span style="color: red"
+                ng-show="myForm1.desc.$dirty && myForm1.desc.$error.required">This field is mandatory</span> <span
+                style="color: red" ng-show="myForm1.desc.$error.maxlength">You reached
+                Max Length</span> <span style="color: red" ng-show="myForm1.desc.$error.pattern">Atleast one
+                  alphabet is mandatory</span></td>
+
+            <td class="input-width2" ng-form name="myFormsub"><input
+                data-test='Stage1Request_viewedit_Maretials_procurementsubcategory' type="text" class="form-control"
+                ng-model="procureCategoryMap[item.procureSubCatgId].name" ng-click="selectProcureSubCategory('Materials',item);"
+                placeHolder="Item SubCategory" name="subCategory" required="required" onkeypress="return false;" custom-read-only
+                ng-disabled="preContractObj.workFlowStatusTO.value ==5 " style="width:fit-content;"/></td>
+
+            <td class="input-width2" ng-form name="myForm2"><input
+                data-test='Stage1Request_viewedit_Maretials_Materialclass' type="text" class="form-control"
+                ng-model="projMaterialClassmap[item.projMaterialLabelKey.id].name" required="required" custom-read-only
+                onkeypress="return false;" ng-click="projmaterialClassDetails(item.projMaterialLabelKey);"
+                name="material" placeHolder="Material Type" ng-disabled="preContractObj.workFlowStatusTO.value ==5 " />
+            </td>
+
+            <td class="input-width0"><input data-test='Stage1Request_viewedit_Maretials_costcode' type="text"
+                class="form-control" ng-model="item.projCostLabelKey.name" custom-read-only
+                ng-click="projCostCodeDetails(item.projCostLabelKey)" required="required" onkeypress="return false;"
+                ng-disabled="preContractObj.workFlowStatusTO.value ==5 " /></td>
+
+
+            <td class="input-width"><input data-test='Stage1Request_viewedit_Maretials_deliveryplase' type="text"
+                class="form-control" ng-if="item.storeLabelKey.id > 0"
+                ng-model="item.deliveryPlace = storeClassmap[item.storeLabelKey.id].name"
+                ng-click="selectDeliveryPlace(item.storeLabelKey,item.projStoreLabelKey);" readonly="readonly"
+                ng-disabled="preContractObj.workFlowStatusTO.value ==5 " /> 
+                <input type="text" class="form-control"
+                ng-if="item.storeLabelKey.id <= 0 || item.projStoreLabelKey.id > 0"
+                ng-model="item.deliveryPlace = projStoreClassmap[item.projStoreLabelKey.id].name"
+                ng-click="selectDeliveryPlace(item.storeLabelKey,item.projStoreLabelKey);" custom-read-only required="required" /></td>
+
+            <td class="input-width1">
+              <potdate-picker data-test='Stage1Request_viewedit_Maretials_startdate' ng-model="item.startDate"
+                class="form-control" dir-index="$index" min-date="today" max-date="item.finishDate" date-name="matstartDate"
+                placeholder="dd-mm-yyyy" required="required" ng-disabled="preContractObj.workFlowStatusTO.value ==5">
+                <potdate-picker>
+            </td>
+            <td class="input-width1">
+              <potdate-picker data-test='Stage1Request_viewedit_Maretials_finishdate' ng-model="item.finishDate"
+                class="form-control" dir-index="$index" min-date="item.startDate" date-name="matfinishDate"
+                placeholder="dd-mm-yyyy" required="required" ng-disabled="preContractObj.workFlowStatusTO.value ==5 "
+                ></potdate-picker>
+            </td>
+
+            <td class="input-width2"><input type="text" class="form-control"
+                data-test='Stage1Request_viewedit_Maretials_Unitofmeasure'
+                ng-model="projMaterialClassmap[item.projMaterialLabelKey.id].unitOfMeasure"
+                placeHolder="Unit Of Measure" name="unitOfMeasure" readonly="readonly" /></td>
+
+
+            <td ng-form name="myForm3"><input data-test='Stage1Request_viewedit_Maretials_qty' type="text"
+                class="form-control" style="min-width:50px !important;width:50px !important;" ng-model="item.quantity"
+                name="quan" valid-number maxlength="20" placeHolder="Quantity" required="required" style="width: 50px;"
+                ng-disabled="preContractObj.workFlowStatusTO.value ==5 " /> <span style="color: red"
+                ng-show="myForm3.quan.$dirty && myForm3.quan.$error.required">This field is
+                required</span> <span style="color: red" ng-show="myForm3.quan.$error.maxlength">You reached max
+                length</span></td>
+
+            <td ng-form name="myForm4"><input data-test='Stage1Request_viewedit_Maretials_estimatedrate' type="text"
+                class="form-control" placeHolder="EstimateCost" maxlength="20" ng-model="item.estimateCost"
+                name="escost" valid-number required="required" ng-disabled="preContractObj.workFlowStatusTO.value ==5 "
+                style="min-width:50px !important;width:50px !important;" /> <span style="color: red"
+                ng-show="myForm4.escost.$dirty && myForm4.escost.$error.required">This field is mandatory</span> <span
+                style="color: red" ng-show="myForm4.escost.$error.maxlength">You reached max length</span></td>
+
+            <td class="input-width"><span
+                style="min-width:50px !important;width:50px !important;">{{item.quantity * item.estimateCost}}<span>
+            </td>
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="panel-footer"
+      ng-hide="preContractObj.workFlowStatusTO.value ==4 ||preContractObj.workFlowStatusTO.value ==5 || preContractObj.workFlowStatusTO.value ==6">
+      <div class="pull-left">
+        <input type="Submit" data-test='Stage1Request_viewedit_Maretials_addmaterialsitems'
+          ng-if="showActionButtons && (account.appCodeTemplate['PROCURMT_INTRNLSTAGE1MATERIALS_ADD'] || account.appCodeTemplate['REQUEST_REQPROC_INTRNLSTAGE1MATERIALS_ADD'])"
+          ng-click="materialForm.$valid && addMaterialItems()" value="Add Material Items"
+          class="btn btn-primary btn-sm" /> 
+        <input type="button" class="btn btn-secondary btn-sm"
+          ng-click="deleteMaterialDetails()" data-test='Stage1Request_viewedit_Maretials_deleterows'
+          ng-if="showActionButtons && (account.appCodeTemplate['PROCURMT_INTRNLSTAGE1MATERIALS_DEACTIVE'] || account.appCodeTemplate['REQUEST_REQPROC_INTRNLSTAGE1MATERIALS_DEACTIVE'])"
+          value="Delete Rows" />
+      </div>
+      <div class="pull-right">
+        <input type="Submit"
+          ng-if="showActionButtons && (account.appCodeTemplate['PROCURMT_INTRNLSTAGE1MATERIALS_ADD'] || account.appCodeTemplate['REQUEST_REQPROC_INTRNLSTAGE1MATERIALS_ADD'])"
+          data-test='Stage1Request_viewedit_Material_save' value="Save"
+          ng-click="materialForm.$valid && saveMaterialDetails()" class="btn btn-primary btn-sm" validate />
+      </div>
+    </div>
+
+  </form>
+</div>
+
+<div ng-if="stateParamsRequestPage===false && (account.appCodeTemplate['PROCURMT_INTRNLSTAGE1APPROVALMANTERIAL_VIEW'] ||
+account.appCodeTemplate['APPROVE_INTRNLSTAGE1APPROVALMANTERIAL_VIEW'])" class="tab-pannel">
+  <form name="materialForm" validate>
+    <div class="tabTable_3_Res_height overflow-auto">
+      <table class="table table-hover table-bordered tabTable_3_height">
+        <thead>
+          <tr>
+
+            <th>Select</th>
+            <th>Item ID</th>
+            <th>Item Description</th>
+            <th>Procurement<br>SubCategory
+            </th>
+            <th>Material Class</th>
+            <th>Cost Code</th>
+            <th>Delivery Place</th>
+            <th>Start Date</th>
+            <th>Finish Date</th>
+            <th>Unit Of Measure</th>
+            <th>Qty</th>
+            <th>Estimated Rate<br>({{preContractObj.currencyCode}})
+            </th>
+            <th>Estimated Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="item in preContractObj.preContractMaterialDtlTOs">
+            <td><input data-test='Stage1Approval_viewedit_Maretials_Checkbox' type="checkbox" value="materialId"
+                class="ng-pristine ng-valid" ng-model="item.select" ng-change="rowSelect(item)"
+                ng-disabled="item.id > 0"></td>
+
+            <td class="input-width5"><input type="text" class="form-control" ng-model="item.itemCode" name="code"
+                maxlength="100" placeHolder="Item Code" ng-disabled="true" /></td>
+
+
+            <td class="input-width2" ng-form name="myForm1"><input
+                data-test='Stage1Approval_viewedit_Maretials_itemdescription' type="text" class="form-control"
+                ng-model="item.itemDesc" name="desc" maxlength="400" placeHolder="Item Description"
+                pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*)) required="required"
+                ng-disabled="preContractObj.workFlowStatusTO.value ==5 " /> <span style="color: red"
+                ng-show="myForm1.desc.$dirty && myForm1.desc.$error.required">This field is mandatory</span> <span
+                style="color: red" ng-show="myForm1.desc.$error.maxlength">You reached
+                Max Length</span> <span style="color: red" ng-show="myForm1.desc.$error.pattern">Atleast one
+                  alphabet is mandatory</span></td>
+
+            <td class="input-width2" ng-form name="myFormsub"><input
+                data-test='Stage1Approval_viewedit_Maretials_procurementsubcategory' type="text" class="form-control"
+                ng-model="procureCategoryMap[item.procureSubCatgId].code" ng-click="selectProcureSubCategory('Materials',item);"
+                placeHolder="Item SubCategory" name="subCategory" required="required" onkeypress="return false;"
+                ng-disabled="preContractObj.workFlowStatusTO.value ==5 " /></td>
+
+            <td class="input-width2" ng-form name="myForm2"><input
+                data-test='Stage1Approval_viewedit_Maretials_Materialclass' type="text" class="form-control"
+                ng-model="projMaterialClassmap[item.projMaterialLabelKey.id].code" required="required"
+                onkeypress="return false;" ng-click="projmaterialClassDetails(item.projMaterialLabelKey);"
+                name="material" placeHolder="Material Type" ng-disabled="preContractObj.workFlowStatusTO.value ==5 " />
+            </td>
+
+            <td class="input-width0"><input type="text" data-test='Stage1Approval_viewedit_Maretials_costcode'
+                class="form-control" ng-model="item.projCostLabelKey.name"
+                ng-click="projCostCodeDetails(item.projCostLabelKey)" required="required" onkeypress="return false;"
+                ng-disabled="preContractObj.workFlowStatusTO.value ==5 " /></td>
+
+
+            <td class="input-width"><input data-test='Stage1Approval_viewedit_Maretials_deliveryplase' type="text"
+                class="form-control" ng-if="item.storeLabelKey.id > 0"
+                ng-model="storeClassmap[item.storeLabelKey.id].code"
+                ng-click="selectDeliveryPlace(item.storeLabelKey,item.projStoreLabelKey);" readonly="readonly"
+                ng-disabled="preContractObj.workFlowStatusTO.value ==5 " /> <input type="text" class="form-control"
+                ng-if="item.storeLabelKey.id <= 0 || item.projStoreLabelKey.id > 0"
+                ng-model="projStoreClassmap[item.projStoreLabelKey.id].name"
+                ng-click="selectDeliveryPlace(item.storeLabelKey,item.projStoreLabelKey);" readonly="readonly" /></td>
+
+            <td class="input-width1">
+              <potdate-picker data-test='Stage1Approval_viewedit_Maretials_startdate' ng-model="item.startDate"
+                class="form-control" dir-index="$index" min-date="today" max-date="item.finishDate" date-name="matstartDate"
+                placeholder="dd-mm-yyyy" required="required" ng-disabled="preContractObj.workFlowStatusTO.value ==5 "
+                readonly="readonly">
+                <potdate-picker>
+            </td>
+            <td class="input-width1">
+              <potdate-picker data-test='Stage1Approval_viewedit_Maretials_finishdate' ng-model="item.finishDate"
+                class="form-control" dir-index="$index" min-date="item.startDate" date-name="matfinishDate"
+                placeholder="dd-mm-yyyy" required="required" ng-disabled="preContractObj.workFlowStatusTO.value ==5 "
+                readonly="readonly"></potdate-picker>
+            </td>
+
+            <td class="input-width2"><input data-test='Stage1Approval_viewedit_Maretials_Unitofmeasure' type="text"
+                class="form-control" ng-model="projMaterialClassmap[item.projMaterialLabelKey.id].unitOfMeasure"
+                placeHolder="Unit Of Measure" name="unitOfMeasure" readonly="readonly" /></td>
+
+
+            <td ng-form name="myForm3"><input data-test='Stage1Approval_viewedit_Maretials_qty' type="text"
+                class="form-control" style="min-width:50px !important;width:50px !important;" ng-model="item.quantity"
+                name="quan" valid-number maxlength="20" placeHolder="Quantity" required="required" style="width: 50px;"
+                ng-disabled="preContractObj.workFlowStatusTO.value ==5 " /> <span style="color: red"
+                ng-show="myForm3.quan.$dirty && myForm3.quan.$error.required">This field is
+                required</span> <span style="color: red" ng-show="myForm3.quan.$error.maxlength">You reached max
+                length</span></td>
+
+            <td ng-form name="myForm4"><input data-test='Stage1Approval_viewedit_Maretials_estimatedrate' type="text"
+                class="form-control" placeHolder="EstimateCost" maxlength="20" ng-model="item.estimateCost"
+                name="escost" valid-number required="required" ng-disabled="preContractObj.workFlowStatusTO.value ==5 "
+                style="min-width:50px !important;width:50px !important;" /><span style="color: red"
+                ng-show="myForm4.escost.$dirty && myForm4.escost.$error.required">This field is mandatory</span> <span
+                style="color: red" ng-show="myForm4.escost.$error.maxlength">You reached max length</span></td>
+
+            <td class="input-width"><span
+                style="min-width:50px !important;width:50px !important;">{{item.quantity * item.estimateCost}}<span>
+            </td>
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="panel-footer"
+      ng-hide="preContractObj.workFlowStatusTO.value ==4 ||preContractObj.workFlowStatusTO.value ==5 || preContractObj.workFlowStatusTO.value ==6">
+      <div class="pull-left">
+        <input data-test='Stage1Approval_viewedit_Maretials_addmaterialsitems'
+          ng-if="account.appCodeTemplate['PROCURMT_INTRNLSTAGE1APPROVALMANTERIAL_ADD'] || account.appCodeTemplate['APPROVE_INTRNLSTAGE1APPROVALMANTERIAL_ADD']"
+          type="Submit" ng-click="materialForm.$valid && addMaterialItems()" value="Add Material Items"
+          class="btn btn-primary btn-sm" /> <input type="button"
+          data-test='Stage1Approval_viewedit_Maretials_deleterows' class="btn btn-secondary btn-sm"
+          ng-click="deleteMaterialDetails()"
+          ng-if="account.appCodeTemplate['PROCURMT_INTRNLSTAGE1APPROVALMANTERIAL_DEACTIVE'] || account.appCodeTemplate['APPROVE_INTRNLSTAGE1APPROVALMANTERIAL_DEACTIVE']"
+          value="Delete Rows" />
+      </div>
+      <div class="pull-right">
+        <input type="Submit" data-test='Stage1Approval_viewedit_Material_save'
+          ng-if="account.appCodeTemplate['PROCURMT_INTRNLSTAGE1APPROVALMANTERIAL_ADD'] || account.appCodeTemplate['APPROVE_INTRNLSTAGE1APPROVALMANTERIAL_ADD']"
+          value="Save" ng-click="materialForm.$valid && saveMaterialDetails()" class="btn btn-primary btn-sm"
+          validate />
+      </div>
+    </div>
+
+  </form>
+</div>

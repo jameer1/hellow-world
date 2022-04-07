@@ -1,0 +1,62 @@
+<div id="tab-pannel" class="row">
+	<div class="panel panel-default" modal-movable>
+		<div class="panel-heading">
+			<h4 class="panel-title">External Stage2 Request</h4>
+		</div>
+		<div class="panel-body">
+			<form name="procureForm" validate>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+					<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+						<md-input-container>
+							<label>Pre-Contract ID</label>
+							<input type="text" readonly="readonly" ng-show="preContractObj.id > 0"
+								ng-model="preContractObj.code">
+						</md-input-container>
+					</div>
+					<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+						<md-input-container>
+							<label>Contract Description</label>
+							<input type="text" name="desc" ng-model="preContractObj.desc" readonly="readonly">
+						</md-input-container>
+					</div>
+					<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2" ng-form name="form">
+						<md-input-container>
+							<label>Pre-Contract Type</label>
+							<md-select id="contractType" name="contractType" ng-model="preContractObj.preContractType"
+								ng-disabled="true">
+								<md-option ng-value="contract" ng-repeat="contract in contractTypes track by $index">
+									{{contract}}</md-option>
+							</md-select>
+						</md-input-container>
+					</div>
+					<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2" ng-form name="myForm2">
+						<md-input-container>
+							<label>Currency</label>
+							<md-select id="currency" name="currency" ng-model="preContractObj.currencyCode"
+								ng-disabled="true">
+								<md-option ng-value="currency" ng-repeat="currency in currencyList track by $index">
+									{{currency}}</md-option>
+							</md-select>
+						</md-input-container>
+					</div>
+				</div>
+
+			</form>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<div id="tabs1" class="nav-tabs-custom">
+					<ul class="nav nav-tabs">
+						<li fixed-header="" ng-repeat="preContarctDetailTab in preContrctDetailTabs"
+							ng-class="{active:isActiveTab1(preContarctDetailTab.url)}">
+							<a data-toggle="tab" ng-click="onClickTab1(preContarctDetailTab)"
+								data-test="{{preContarctDetailTab.stage2requestSeleniumLocator}}">{{preContarctDetailTab.title}}</a>
+						</li>
+					</ul>
+					<div class="tab-content">
+						<div ng-include="currentTab1"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="ngdialog-close" data-test="PurchaseOrders_stage2request_scheduleitemviewinto"></div>
+</div>

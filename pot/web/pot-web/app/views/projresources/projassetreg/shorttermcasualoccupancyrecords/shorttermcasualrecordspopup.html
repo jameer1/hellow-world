@@ -1,0 +1,234 @@
+<div id="tab-pannel" class="panel-group">
+	<form name="assetshorttermForm" validate>
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Short Term/Casual Occupancy Records & Rental Returns</h4>
+			</div>
+			<div class="panel-body">
+				<div class="topTableResHeight" style="overflow:auto">
+					<table class="table table-striped table-bordered topTableHeight">
+						<thead id="tab-head">
+							<tr>
+								<th class="text-center">Start Date
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th class="text-center">Finish Date
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th class="text-center">Tenant ID</th>
+								<th class="text-center">Tenant Name
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th class="text-center">Tenant Registered Address
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th class="text-center">Email Address
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th class="text-center">Tenant Phone Number
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th class="text-center">Check In(Date)
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th class="text-center">Check Out(Date)</th>
+								<th class="text-center">No Of Days</th>
+								<th class="text-center">Daily Net Rent</th>
+							</tr>
+						</thead>
+
+						<tbody class="short_terms_records">
+							<tr ng-repeat="shortterm in shortTermRecord">
+								<td class="input-width3">
+									<potdate-picker class="form-control" dir-index="$index" custom-read-only
+										date-name="startDate" ng-model="shortterm.startDate" ng-required="true"
+										data-test="ShortTermCasualOccupancyRecords_Create_StartDate"
+										placeholder="dd-mm-yyyy" min-date="shortterm.plantCommissioningDate"></potdate-picker>
+								</td>
+
+								<td class="input-width3">
+									<potdate-picker class="form-control" dir-index="$index" 
+										date-name="finishDate" custom-read-only ng-required="true"
+										data-test="ShortTermCasualOccupancyRecords_Create_FinishDate"
+										ng-model="shortterm.finishDate" placeholder="dd-mm-yyyy" min-date="shortterm.plantCommissioningDate"></potdate-picker>
+								</td>
+
+								<td>
+									<ng-form name="tenantid">
+										<input type="text" name="tenantId" ng-model="shortterm.tenantId"
+											placeholder="Tenant ID" class="form-control" readonly>
+									</ng-form>
+								</td>
+
+								<td><input type="text" name="tenantName" ng-required="true"
+										data-test="ShortTermCasualOccupancyRecords_Create_TenantName"
+										ng-model="shortterm.tenantName" placeholder="Tenant Name"
+										class="form-control"></td>
+
+								<td><input type="text" name="tenantReg"
+										data-test="ShortTermCasualOccupancyRecords_Create_TenantRegisteredAddress"
+										ng-model="shortterm.tenantRegisteredAddress" placeholder="TenantReg Address"
+										class="form-control" ng-required="true"> </textarea></td>
+
+								<td><input type="email" name="email"
+										data-test="ShortTermCasualOccupancyRecords_Create_EmailAddress"
+										ng-model="shortterm.emailAddrees" placeholder="Email" 
+										ng-required="true" class="form-control"></td>
+
+								<td><input type="text" name="tenantPhone" valid-number
+										data-test="ShortTermCasualOccupancyRecords_Create_TenantPhoneNumber" maxlength=10
+										ng-model="shortterm.tenantPhoneNumber" placeholder="Tenant PhoneNumber"
+										ng-required="true" class="form-control"></td>
+
+								<td class="input-width3">
+									<potdate-picker class="form-control" dir-index="$index" 
+										date-name="checkIn" custom-read-only ng-required="true"
+										data-test="ShortTermCasualOccupancyRecords_Create_CheckInDate"
+										ng-model="shortterm.checkIn" placeholder="dd-mm-yyyy"></potdate-picker>
+								</td>
+
+								<td class="input-width3">
+									<potdate-picker class="form-control" dir-index="$index" 
+										date-name="checkOut"
+										data-test="ShortTermCasualOccupancyRecords_Create_CheckOutDate"
+										ng-model="shortterm.checkOut" placeholder="dd-mm-yyyy"></potdate-picker>
+								</td>
+
+								<td><input type="text" name="noOfDays"
+										data-test="ShortTermCasualOccupancyRecords_Create_NoOfDays"
+										ng-model="shortterm.noOfDays" placeholder="No Of Days"
+										ng-click="calNoOfDays(shortterm)" readonly
+										class="form-control"></td>
+
+								<td><input type="text" name="dailyNet"
+										data-test="ShortTermCasualOccupancyRecords_Create_DailyNetRent"
+										ng-model="shortterm.dailyNetRent" placeholder="Daily Net"
+										valid-number class="form-control"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="topTableResHeight" style="overflow: auto">
+					<table class="table table-striped table-bordered topTableHeight">
+						<thead id="tab-head">
+							<tr>
+								<th class="text-center">Tax %</th>
+								<th class="text-center">Rent Amount Receivable
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th class="text-center">Tax Amount
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th class="text-center">Gross Rent Amount
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th class="text-center">Advance Paid</th>
+								<th class="text-center">Subsequent Rental receipts</th>
+								<th class="text-center">Refund of remaining Advance amount</th>
+								<th class="text-center">Net Tax Amount Received
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th class="text-center">Net Amount Of Rent Received</th>
+								<th class="text-center">Tenant Records</th>
+								<th class="text-center">Current Status
+									<span class="procurment-pot-errors">*</span>
+								</th>
+							</tr>
+						</thead>
+						<tbody class="short_terms_records">
+							<tr ng-repeat="shortterm in shortTermRecord">
+								<td><input type="text" name="tax" 
+										data-test="ShortTermCasualOccupancyRecords_Create_TaxPercentage"
+										ng-model="shortterm.tax" placeholder="Tax"  
+										class="form-control" ng-change="calRentamount(shortterm)" ng-blur="calTaxamount(shortterm)"></td>
+
+								<td ng-form="rentAmountForm"><input type="text" name="rentAmount" valid-number
+										data-test="ShortTermCasualOccupancyRecords_Create_RentAmountReceivable" 
+										ng-model="shortterm.rentAmountReceivable"  maxlength="16" readonly
+										placeholder="Rent Amount" ng-required="true" class="form-control" ng-click="calRentamount(shortterm)">
+										<!--<span style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="rentAmountForm.rentAmount.$touched && rentAmountForm.rentAmount.$error.pattern">Only numbers are allowed</span>-->
+										</td>
+
+								<td ng-form="taxAmountForm"><input type="text" name="taxAmount" valid-number
+										data-test="ShortTermCasualOccupancyRecords_Create_TaxAmount" 
+										ng-model="shortterm.taxAmount"  placeholder="Tax Amount" maxlength="16" readonly
+										ng-required="true" class="form-control" ng-click="calTaxamount(shortterm)">
+										<!--<span style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="taxAmountForm.taxAmount.$touched && taxAmountForm.taxAmount.$error.pattern">Only numbers are allowed</span>-->
+										<!-- <div style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="taxAmountForm.taxAmount.$touched && taxAmountForm.taxAmount.$error.maxlength">Cannot pass more than 16 digits</div> -->
+										</td>
+
+								<td><input type="text" name="grossAmount" valid-number
+										data-test="ShortTermCasualOccupancyRecords_Create_GrossAmount"
+										ng-model="shortterm.grossAmount"  placeholder="Gross Amount"
+										ng-required="true" class="form-control"></td>
+
+								<td ng-if="action ==='Add'"><input type="text" name="advancePaid"
+										data-test="ShortTermCasualOccupancyRecords_Create_AdvancePaid"
+										ng-model="shortterm.advancePaid"  readonly
+										ng-click="showAdvancePaidPopup(shortterm)" placeholder="Advance Paid"
+										class="form-control"></td>
+
+								<td ng-if="action ==='Edit'"><input type="text" name="advancePaid"
+										ng-model="shortterm.advancePaid" 
+										ng-click="showAdvancePaidPopup(shortterm)" placeholder="Advance Paid"
+										disabled class="form-control"></td>
+
+								<td><input type="text" name="subsequentRental"
+										data-test="ShortTermCasualOccupancyRecords_Create_SubsequentRentalReceipts"
+										ng-model="shortterm.subsequentRentalRecepits" readonly
+										ng-click="showSubSequentRentalPopup(shortterm)" placeholder="Subsequent Rental"
+										class="form-control"></td>
+
+								<td><input type="text" name="refundOfRemaining"
+										data-test="ShortTermCasualOccupancyRecords_Create_RefundofRemainingAdvanceAmount"
+										ng-model="shortterm.refundofRemainingAdvanceamount" 
+										placeholder="RefundOf Remaining" valid-number class="form-control"></td>
+
+								<td><input type="text" name="netTaxAmount" ng-change="calNetAmountRent(shortterm)" ng-model="shortterm.netTaxAmountReceived"
+										data-test="ShortTermCasualOccupancyRecords_Create_NetTaxAmountReceived"
+										placeholder="Net Tax Amount" valid-number ng-required="true"
+										class="form-control"></td>
+
+								<td><input type="text" name="netAmountRent"
+										data-test="ShortTermCasualOccupancyRecords_Create_NetAmountofRentReceived"
+										ng-model="shortterm.netAmountOfRentRecived"
+										placeholder="Net Amount Of Rent"
+										readonly valid-number class="form-control"></td>
+
+								<td><input data-test='ShortTermCasualOccupancyRecords_Create_ChooseFile' style="width: 150px !important"
+										ng-disabled="isDisabled" type="file" fileread="shortTermRecDoc" name="file"
+										ngf-select="checkFile($file)" ngf-accept="'*'">
+									<span class="help-block" style="color: red" ng-show="!shortTermRecDoc.isValid">
+										{{saleRecDoc.errorMessage}}
+									</span>
+								</td>
+
+								<td><select ng-model="shortterm.currentStatus" style="width: 80px !important"
+										data-test="ShortTermCasualOccupancyRecords_Create_CurrentStatus"
+										name="currentStatusType" ng-required="true" class="form-control">
+										<option value="">-Select-</option>
+										<option fixed-header="" ng-repeat="currentStatus in currentStatusTypes">
+											{{currentStatus}}</option>
+									</select></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="panel-footer">
+				<!-- <div class="pull-left">
+					<input type="submit" class="btn btn-primary btn-sm" ng-click="addRows()" value="Add"
+						data-test="ShortTermCasualOccupancyRecords_Create_Add" ng-show="action =='Add'"> <input
+						type="button" data-test="ShortTermCasualOccupancyRecords_Create_Delete"
+						class="btn btn-secondary btn-sm" ng-click="deleteRows()" value="Delete"
+						ng-show="action =='Add'">
+				</div> -->
+				<div class="pull-right">
+					<input type="submit" class="btn btn-primary btn-sm"
+						data-test="ShortTermCasualOccupancyRecords_Create_Save" ng-click="assetshorttermForm.$valid && saveShortTermRecords()"
+						value="Save">
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+</div>

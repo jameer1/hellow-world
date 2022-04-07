@@ -1,0 +1,8 @@
+<div ng-repeat="costVarSchedVarTab in labourCvSvTabs">
+	<div class="dbmodulecard">
+        <p class="ngdialog-close dbdclose" style="font-size: 26px; margin-right: 10px;"
+            ng-click="labourCvSvTabs.splice($index,1)"></p>
+                    <canvas id="base" class="chart-bubble" chart-options="options" chart-data="costVarSchedVarTab.data"
+                        height="70" chart-colors="colors" chart-series="costVarSchedVarTab.series"></canvas>
+	</div>
+</div>

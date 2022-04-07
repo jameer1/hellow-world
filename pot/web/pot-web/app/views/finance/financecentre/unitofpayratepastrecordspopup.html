@@ -1,0 +1,45 @@
+<div id="tab-pannel" class="panel-group">
+	<form name="companyForm" autocomplete="off">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h4 class="panel-title">Unit Of Pay Rates For Employees</h4>
+			</div>
+			<div class="panel-body">
+                <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12 no-padding">
+					<div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+						<md-input-container><label class="labelName">Country</label>
+						 <input type="text" ng-model="" tabindex=-1 readonly="readonly"/></md-input-container>
+					</div>
+					<div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+						<md-input-container><label class="labelName">Province</label> 
+						<input type="text" tabindex=-1 ng-model="" readonly="readonly"/></md-input-container>
+					</div>
+                </div>
+			<div class="col-sm-12 col-xs-12 col-md-12 col-lg-12 no-padding">
+					<div class="popUpTableResHeight">
+					<table class="table table-striped table-hover table-bordered popUpTableHeight" >
+						<thead id="tab-head">
+							<tr>
+								<th>Effect Date From</th>
+								<th>Unit of Pay Rate for employees - Code ID</th>
+								<th>Current Status</th>
+								<th>More Details</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr fixed-header="">
+								<td ng-click="">{{ }}</td>
+								<td>{{ }}</td>
+								<td ng-click="">{{}}</td>
+								<td ng-click="moreDetails()"><a href="#" class="link" />More Details</a></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			</div>
+			<div class="panel-footer "></div>
+			<div class="ngdialog-close"></div>
+		</div>
+	</form>
+</div>

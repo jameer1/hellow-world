@@ -1,0 +1,524 @@
+<div ng-if="account.appCodeTemplate['PRJ_PROJBUDGET_COSTSTATEMENT_VIEW']" id="tab-pannel" class="panel-group">
+
+	<div class="panel-collapse collapse in bottomTabTableResHeight_14">
+		<table id="tree" class="table table-striped table-hover table-bordered bottomTabTableHeight_14">
+			<thead>
+				<tr>
+					<th rowspan="2">Cost Id</th>
+					<th rowspan="2">Cost Item Name</th>
+					<th rowspan="2">Cost Code Classification Id</th>
+					<th rowspan="2">Cost Code Classification Name</th>
+					<th rowspan="2">Start Date</th>
+					<th rowspan="2">Finish Date</th>
+					<th rowspan="2">Baseline Start Date</th>
+					<th rowspan="2">Baseline Finish Date</th>
+					<th rowspan="2">Original Duration</th>
+					<th rowspan="2">
+						<span style="width: 160px !important;">Actual Start</span>
+					</th>
+					<th rowspan="2">
+						<span style="width: 160px !important;">Actual Finish</span>
+					</th>
+					<th rowspan="2">Actual Duration</th>
+					<th rowspan="2" ng-show="disableBtnsJson.returnBtn">&nbsp;&nbsp;&nbsp;</th>
+					<th colspan="5" class="text-center">
+						<span ng-show="costDatamoreFlag==0">Original Budget
+							<span class="fa fa-caret-right" style="float: right; font-size: 35px; color: #337ab7 !important;"
+                				ng-click="clickForwardCostData(costDatamoreFlag);"></span>
+						</span>
+						<span ng-show="costDatamoreFlag==1">
+							<span class="fa fa-caret-left" style="float: left; font-size: 35px; color: #337ab7 !important;"
+				                data-test='Projects_ProjectBudgets_CostStatement_RevisedAmount_BackWardArrow'
+				                ng-click="clickBackwardCostData(costDatamoreFlag);">
+							</span>
+				            Revised Budget
+							<span class="fa fa-caret-right"
+				                style="float: right; font-size: 35px; color: #337ab7 !important;"
+				                data-test='Projects_ProjectBudgets_CostStatement_BudgetAmount_ForwardArrow'
+				                ng-click="clickForwardCostData(costDatamoreFlag);">
+                			</span>
+						</span>
+						<span ng-show="costDatamoreFlag==2">
+							<span class="fa fa-caret-left" style="float: left; font-size: 35px; color: #337ab7 !important;"
+				                data-test='Projects_ProjectBudgets_CostStatement_ActualAmount_BackWardArrow'
+				                ng-click="clickBackwardCostData(costDatamoreFlag);">
+				            </span>
+							Actual Cost
+							<span class="fa fa-caret-right"
+				                style="float: right; font-size: 35px; color: #337ab7 !important;"
+				                data-test='Projects_ProjectBudgets_CostStatement_RevisedAmount_ForwardArrow'
+				                ng-click="clickForwardCostData(costDatamoreFlag);">
+                			</span>
+						</span>
+						<span ng-show="costDatamoreFlag==3">
+							<span class="fa fa-caret-left" style="float: left; font-size: 35px; color: #337ab7 !important;"
+				                data-test='Projects_ProjectBudgets_CostStatement_RemainingAmount_BackWardArrow'
+				                ng-click="clickBackwardCostData(costDatamoreFlag);">
+				            </span>
+				            Remaining Budget
+							<span
+				                class="fa fa-caret-right" style="float: right; font-size: 35px; color: #337ab7 !important;"
+				                data-test='Projects_ProjectBudgets_CostStatement_RemainingAmount_ForwardArrow'
+				                ng-click="clickForwardCostData(costDatamoreFlag);">
+				            </span>
+						</span>
+						<span ng-show="costDatamoreFlag==4">
+							<span class="fa fa-caret-left" style="float: left; font-size: 35px; color: #337ab7 !important;"
+				                data-test='Projects_ProjectBudgets_CostStatement_EstimateToComplete_BackWardArrow'
+				                ng-click="clickBackwardCostData(costDatamoreFlag);">
+				            </span> 
+				            Estimate to Complete
+							<span
+				                class="fa fa-caret-right" style="float: right; font-size: 35px; color: #337ab7 !important;"
+				                data-test='Projects_ProjectBudgets_CostStatement_EstimateToComplete_ForwardArrow'
+				                ng-click="clickForwardCostData(costDatamoreFlag);">
+				            </span>
+						</span>
+						<span ng-show="costDatamoreFlag==5">
+							<span class="fa fa-caret-left" style="float: left; font-size: 35px; color: #337ab7 !important;"
+				                data-test='Projects_ProjectBudgets_CostStatement_EstimateAtCompletion_BackWardArrow'
+				                ng-click="clickBackwardCostData(costDatamoreFlag);">
+				            </span> 
+				            Estimate at Completion
+							<span
+				                class="fa fa-caret-right" style="float: right; font-size: 35px; color: #337ab7 !important;"
+				                data-test='Projects_ProjectBudgets_CostStatement_EstimateAtCompletion_ForwardArrow'
+				                ng-click="clickForwardCostData(costDatamoreFlag);">
+				            </span>
+						</span>
+						<span ng-show="costDatamoreFlag==6">
+							<span class="fa fa-caret-left" style="float: left; font-size: 35px; color: #337ab7 !important;"
+				                data-test='Projects_ProjectBudgets_CostStatement_Calculations_BackWardArrow'
+				                ng-click="clickBackwardCostData(costDatamoreFlag);">
+				            </span>
+				            Performance
+						</span>
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<span ng-show="costDatamoreFlag != 6 && costDatamoreFlag != 7">Labour</span>
+						<span ng-show="costDatamoreFlag == 6">% Spent Cost</span>
+					</th>
+					<th>
+						<span ng-show="costDatamoreFlag != 6 && costDatamoreFlag != 7">Materials</span>
+						<span ng-show="costDatamoreFlag == 6">% Progress of Work</span>
+					</th>
+					<th>
+						<span ng-show="costDatamoreFlag != 6 && costDatamoreFlag != 7">Plants</span>
+						<span ng-show="costDatamoreFlag == 6">Productivity Factor</span>
+					</th>
+					<th>
+						<span ng-show="costDatamoreFlag != 6 && costDatamoreFlag != 7">Other</span>
+						<span ng-show="costDatamoreFlag == 6">Earned Values</span>
+					</th>
+					<th>
+						<span ng-show="costDatamoreFlag != 6 && costDatamoreFlag != 7">Total</span>
+						<span ng-show="costDatamoreFlag == 6">Notes</span>
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr fixed-header="" ng-repeat="tab in projCostStmtDtls" class="abc{{tab.level}}" ng-show="!tab.collapse">
+          			{{tab.costId}}
+					<td style="padding:0 !important;">
+						<span ng-repeat="level in [].constructor(tab.level) track by $index" class="xyz" style="padding-left: 30px;"></span>
+						<span ng-show="tab.expand && !tab.item" ng-click="costItemClick(tab, true);" class="fa fa-minus" title="Collapse Cost Id"></span>
+						<span ng-show="!tab.expand && !tab.item" ng-click="costItemClick(tab, false);" class="fa fa-plus" title="Expand Cost Id"></span>
+						<span ng-show="(tab.item)" name="item" class="fa fa-leaf"></span>
+						<span style="padding-left: 10px;color: black !important;">
+							{{tab.code}} 
+							<span style="padding-left: 5px;"></span>
+						</span>
+					</td>
+					<td>{{tab.name}}</td>
+					<td>{{tab.costClassId}}</td>
+					<td>{{tab.costClassName}}</td>
+					<td class="text-nowrap">{{tab.startDate | date}}</td>
+					<td class="text-nowrap">{{tab.finishDate | date }}</td>
+					<td class="text-nowrap">{{tab.minStartDateOfBaseline | date}}</td>
+					<td class="text-nowrap">{{tab.maxFinishDateOfBaseline | date }}</td>
+					<td>
+						<span ng-show="(tab.item)">{{originalDuration(tab)}}</span>
+					</td>
+					<td width="8.2%" style="padding:0px 5px 0px 6px !important;">
+						<span ng-show="(tab.item)">
+							<potdate-picker data-test='Projects_ProjectBudgets_CostStatement_ActualStart'
+				                ng-model="tab.actualStartDate" dir-index="$index" readonly="readonly"
+				                ng-change="calculateDurationDays(tab)" max-date="tab.actualFinishDate" date-name="actualStartDate"
+				                placeholder="dd-mm-yyyy" class="form-control" />
+						</span>
+					</td>
+					<td width="8.2%" style="padding:0px 5px 0px 6px !important;">
+						<span ng-show="(tab.item)">
+							<potdate-picker data-test='Projects_ProjectBudgets_CostStatement_ActualFinish'
+				                ng-model="tab.actualFinishDate" dir-index="$index" readonly="readonly"
+				                ng-change="calculateDurationDays(tab)" min-date="tab.actualStartDate" date-name="actualFinishDate"
+				                placeholder="dd-mm-yyyy" class="form-control" />
+						</span>
+					</td>
+					<td>
+						<span ng-show="(tab.item)" ng-init="calculateDurationDays(tab)">{{tab.totalDurationDays }}</span>
+					</td>
+					<td ng-show="disableBtnsJson.returnBtn">
+						<input type="button" value="Return" ng-click="returnWithComments('CostStatement',tab)" ng-show="tab.item"/>
+					</td>
+					<td>
+						<!-- Flag: {{costDatamoreFlag}}- EstType:{{tab.estimateType}}-->
+						<span ng-show="costDatamoreFlag==0">
+							<input data-test='Projects_ProjectBudgets_CostStatement_BudgetAmount_Labour' type="text"
+				                ng-show="(tab.item)" ng-model="tab.originalCostBudget.labourCost" ng-required="true" name="labour"
+				                pattern="^[\d\.,%]+$" maxlength="11" class="form-control" valid-number ng-disabled="disableEditValues"/>
+							<span ng-show="costStatForm1.labour.$dirty && costStatForm1.labour.$error.required">
+								This field is required
+							</span>
+							<span ng-show="costStatForm1.labour.$error.pattern">Enter only numbers </span>
+							<span ng-show="costStatForm1.labour.$error.maxlength">You reached max length </span>
+						</span>
+						<span ng-form="revisedLabourCost" ng-show="costDatamoreFlag==1">
+							<input data-test='Projects_ProjectBudgets_CostStatement_RevisedAmount_Labour' type="text"
+				                ng-show="(tab.item)" class="form-control" ng-model="tab.revisedCostBudget.labourCost" maxlength="11"
+				                valid-number ng-disabled="disableEditValues"/>
+							<span ng-show="revisedLabourCost.labour.$dirty && costStatForm1.labour.$error.required">
+								This field is required
+							</span>
+							<span ng-show="revisedLabourCost.labour.$error.pattern">Enter only numbers </span>
+							<span ng-show="revisedLabourCost.labour.$error.maxlength">You reached max length </span>
+						</span>
+						<span ng-show="costDatamoreFlag==2 " ng-show="(tab.item)">
+							<span ng-show="(tab.revisedCostBudget.labourCost ? tab.revisedCostBudget.labourCost : tab.originalCostBudget.labourCost) 
+								< tab.actualCostBudget.labourCost">
+								<span style="color:red !important;font-weight:bold;">{{tab.actualCostBudget.labourCost | number:2}}</span>
+							</span>
+							<span ng-show="(tab.revisedCostBudget.labourCost ? tab.revisedCostBudget.labourCost : tab.originalCostBudget.labourCost) 
+								> tab.actualCostBudget.labourCost">
+								{{tab.actualCostBudget.labourCost> 0 ? tab.actualCostBudget.labourCost : '' }}
+ 							</span>
+						</span>
+						<span ng-show="costDatamoreFlag==3" ng-init="remLabourCost = (tab.revisedCostBudget.labourCost ? tab.revisedCostBudget.labourCost 
+							: tab.originalCostBudget.labourCost) - tab.actualCostBudget.labourCost">
+              					{{ tab.costClassId == null ? '' : remLabourCost | number:2 }}
+              			</span>
+						<!-- <span ng-show="costDatamoreFlag==4" ng-if="tab.estimateCompleteBudget.estimateType != 'New Estimate'"> -->
+						<span ng-show="costDatamoreFlag==4" ng-if="tab.estimateType != 'New Estimate'">
+              				<!-- {{tab.estimateCompleteBudget.labourCost | number:2}} -->
+              			</span>
+						<!-- <span ng-show="costDatamoreFlag==4" ng-if="tab.estimateCompleteBudget.estimateType == 6"> -->
+						<span ng-show="costDatamoreFlag==4" ng-if="tab.estimateType == 'New Estimate'">
+							<input data-test='Projects_ProjectBudgets_CostStatement_EstimateToComplete_Labour' type="text"
+				                ng-show="(tab.item)" class="form-control" ng-model="tab.estimateCompleteBudget.labourCost"
+				                ng-required="true" name="labour" pattern="^[\d\.,%]+$" maxlength="11" valid-number />
+							<span ng-show="estimateForm1.labour.$dirty && estimateForm1.labour.$error.required">
+								This field is required
+							</span>
+							<span ng-show="estimateForm1.labour.$error.pattern">Enter only numbers </span>
+							<span ng-show="estimateForm1.labour.$error.maxlength">You reached max length </span>
+						</span>
+						<span ng-show="tab.item && costDatamoreFlag==5">
+              				<!-- {{tab.actualCostBudget.labourCost + tab.estimateCompleteBudget.labourCost | number:2}} -->
+              			</span>
+						<span ng-show="costDatamoreFlag==6"
+							ng-init="totalActualCost=(tab.actualCostBudget.labourCost + tab.actualCostBudget.materialCost + tab.actualCostBudget.plantCost 
+								+ tab.actualCostBudget.otherCost);
+								percentageSpent=((totalActualCost / (tab.revisedCostBudget.total ? tab.revisedCostBudget.total : tab.originalCostBudget.total))*100)">
+							{{ percentageSpent > 0 ? (percentageSpent | number: 2) : ''  }}
+						</span>
+					</td>
+					<td>
+						<span ng-show="costDatamoreFlag==0">
+							<input data-test='Projects_ProjectBudgets_CostStatement_BudgetAmount_Materials' type="text"
+				                ng-show="(tab.item)" class="form-control" ng-model="tab.originalCostBudget.materialCost"
+
+				                ng-required="true" name="material" pattern="^[\d\.,%]+$" maxlength="11" valid-number ng-disabled="disableEditValues"/>
+
+
+							<span ng-show="costStatForm2.material.$dirty && costStatForm2.material.$error.required">
+								This field is required
+							</span>
+							<span ng-show="costStatForm2.material.$error.pattern">Enter only numbers </span>
+							<span ng-show="costStatForm2.material.$error.maxlength">You reached max length </span>
+						</span>
+						<span ng-form="revisedMaterialCost" ng-show="costDatamoreFlag==1">
+							<input data-test='Projects_ProjectBudgets_CostStatement_RevisedAmount_Materials' type="text"
+
+				                ng-show="(tab.item)" class="form-control" ng-model="tab.revisedCostBudget.materialCost" maxlength="11"
+				                valid-number ng-disabled="disableEditValues"/>
+
+
+							<span ng-show="revisedMaterialCost.labour.$dirty && costStatForm1.labour.$error.required">
+								This field is required
+							</span>
+							<span ng-show="revisedMaterialCost.labour.$error.pattern">Enter only numbers </span>
+							<span ng-show="revisedMaterialCost.labour.$error.maxlength">You reached max length </span>
+						</span>
+						<span ng-show="costDatamoreFlag==2 ">
+							<span ng-show="(tab.revisedCostBudget.materialCost ? tab.revisedCostBudget.materialCost : tab.originalCostBudget.materialCost) 
+								< tab.actualCostBudget.materialCost">
+								<span style="color:red !important;font-weight:bold;">{{tab.actualCostBudget.materialCost | number:2}}</span>
+							</span>
+							<span ng-show="(tab.revisedCostBudget.materialCost ? tab.revisedCostBudget.materialCost : tab.originalCostBudget.materialCost) 
+								> tab.actualCostBudget.materialCost">
+								{{tab.actualCostBudget.materialCost > 0 ? tab.actualCostBudget.materialCost : '' }}
+							</span>
+						</span>
+						<span ng-show="costDatamoreFlag==3" ng-init="remMaterialCost = (tab.revisedCostBudget.materialCost ? tab.revisedCostBudget.materialCost 
+							: tab.originalCostBudget.materialCost) - tab.actualCostBudget.materialCost">
+              				{{ tab.costClassId == null ? '' : remMaterialCost }}
+              			</span>
+						<!-- <span ng-show="costDatamoreFlag==4" ng-if="tab.estimateCompleteBudget.estimateType != 6"> -->
+						<span ng-show="costDatamoreFlag==4" ng-if="tab.estimateType != 'New Estimate'">
+              				<!-- {{tab.estimateCompleteBudget.materialCost | number:2}} -->
+              			</span>
+						<!-- <span ng-show="costDatamoreFlag==4" ng-if="tab.estimateCompleteBudget.estimateType == 6"> -->
+						<span ng-show="costDatamoreFlag==4" ng-if="tab.estimateType == 'New Estimate'">
+							<input data-test='Projects_ProjectBudgets_CostStatement_EstimateToComplete_Materials' type="text"
+				                ng-show="(tab.item)" class="form-control" ng-model="tab.estimateCompleteBudget.materialCost"
+				                ng-required="true" name="material" pattern="^[\d\.,%]+$" maxlength="11" valid-number />
+							<span ng-show="estimateForm2.material.$dirty && estimateForm2.material.$error.required">
+								This field is required
+							</span>
+							<span ng-show="estimateForm2.material.$error.pattern">Enter only numbers </span>
+							<span ng-show="estimateForm2.material.$error.maxlength">You reached max length </span>
+						</span>
+						<span ng-show="tab.item && costDatamoreFlag==5">
+              				<!-- {{tab.actualCostBudget.materialCost + tab.estimateCompleteBudget.materialCost | number:2}} -->
+              			</span>
+						<span ng-show="costDatamoreFlag==6"
+							ng-init="percentageProgress=((tab.earnedValue / (tab.revisedCostBudget.total ? tab.revisedCostBudget.total : tab.originalCostBudget.total))*100)">
+							{{ percentageProgress > 0 ? (percentageProgress | number:2) : '' }}
+						</span>
+					</td>
+					<td>
+						<span ng-show="costDatamoreFlag==0">
+							<input data-test='Projects_ProjectBudgets_CostStatement_BudgetAmount_Plants' type="text"
+				                ng-show="(tab.item)" class="form-control" ng-model="tab.originalCostBudget.plantCost" ng-required="true"
+				                name="plant" pattern="^[\d\.,%]+$" maxlength="11" valid-number ng-disabled="disableEditValues"/>
+
+							<span ng-show="costStatForm3.plant.$dirty && costStatForm3.plant.$error.required">
+								This field is required
+							</span>
+							<span ng-show="costStatForm3.plant.$error.pattern">Enter only numbers </span>
+							<span ng-show="costStatForm3.plant.$error.maxlength">You reached max length </span>
+						</span>
+						<span ng-form="revisedPlantCost" ng-show="costDatamoreFlag==1">
+							<input data-test='Projects_ProjectBudgets_CostStatement_RevisedAmount_Plants' type="text"
+				                ng-show="(tab.item)" class="form-control" ng-model="tab.revisedCostBudget.plantCost" maxlength="11"
+				                valid-number ng-disabled="disableEditValues"/>
+							<span ng-show="revisedPlantCost.labour.$dirty && costStatForm1.labour.$error.required">
+								This field is required
+							</span>
+							<span ng-show="revisedPlantCost.labour.$error.pattern">Enter only numbers </span>
+							<span ng-show="revisedPlantCost.labour.$error.maxlength">You reached max length </span>
+						</span>
+						<span ng-show="costDatamoreFlag==2 ">
+							<span ng-show="(tab.revisedCostBudget.plantCost ? tab.revisedCostBudget.plantCost : tab.originalCostBudget.plantCost) 
+								< tab.actualCostBudget.plantCost">
+								<span style="color:red !important;font-weight:bold;">{{tab.actualCostBudget.plantCost | number:2}}</span>
+							</span>
+							<span ng-show="(tab.revisedCostBudget.plantCost ? tab.revisedCostBudget.plantCost : tab.originalCostBudget.plantCost) 
+								> tab.actualCostBudget.plantCost">
+								{{tab.actualCostBudget.plantCost > 0 ? tab.actualCostBudget.plantCost : '' }}
+							</span>
+						</span>
+						<span ng-show="costDatamoreFlag==3" ng-init="remPlantCost = (tab.revisedCostBudget.plantCost ? tab.revisedCostBudget.plantCost 
+							: tab.originalCostBudget.plantCost) - tab.actualCostBudget.plantCost">
+              				{{ tab.costClassId == null ? '' : remPlantCost }}
+              			</span>
+						<!-- <span ng-show="costDatamoreFlag==4" ng-if="tab.estimateCompleteBudget.estimateType != 6"> -->
+						<span ng-show="costDatamoreFlag==4" ng-if="tab.estimateType != 'New Estimate'">
+              				<!-- {{tab.estimateCompleteBudget.plantCost | number:2}} -->
+              			</span>
+						<!-- <span ng-show="costDatamoreFlag==4" ng-if="tab.estimateCompleteBudget.estimateType == 6"> -->
+						<span ng-show="costDatamoreFlag==4" ng-if="tab.estimateType == 'New Estimate'">
+							<input data-test='Projects_ProjectBudgets_CostStatement_EstimateToComplete_Plants' type="text"
+				                ng-show="(tab.item)" class="form-control" ng-model="tab.estimateCompleteBudget.plantCost"
+
+				                ng-required="true" name="plant" pattern="^[\d\.,%]+$" maxlength="11" valid-number />
+
+							<span ng-show="estimateForm3.plant.$dirty && estimateForm3.plant.$error.required">
+								This field is required
+							</span>
+							<span ng-show="estimateForm3.plant.$error.pattern">Enter only numbers </span>
+							<span ng-show="estimateForm3.plant.$error.maxlength">You reached max length </span>
+						</span>
+						<span ng-show="tab.item && costDatamoreFlag==5">
+              				<!-- {{tab.actualCostBudget.plantCost + tab.estimateCompleteBudget.plantCost | number:2}} -->
+              			</span>
+						<span ng-show="costDatamoreFlag==6">
+							{{tab.productivityFactor}}
+						</span>
+					</td>
+					<td>
+						<span ng-show="costDatamoreFlag==0">
+							<input data-test='Projects_ProjectBudgets_CostStatement_BudgetAmount_Others' type="text"
+				                ng-show="(tab.item)" class="form-control" ng-model="tab.originalCostBudget.otherCost" ng-required="true"
+				                name="others" pattern="^[\d\.,%]+$" maxlength="10" valid-number ng-disabled="disableEditValues"/>
+							<span ng-show="costStatForm4.others.$dirty && costStatForm4.others.$error.required">
+									This field is required
+							</span>
+							<span ng-show="costStatForm4.others.$error.pattern">Enter only numbers </span>
+							<span ng-show="costStatForm4.others.$error.maxlength">You reached max length </span>
+						</span>
+						<span ng-form="revisedOtherCost" ng-show="costDatamoreFlag==1">
+							<input data-test='Projects_ProjectBudgets_CostStatement_RevisedAmount_Others' type="text"
+				                ng-show="(tab.item)" class="form-control" ng-model="tab.revisedCostBudget.otherCost" maxlength="10"
+				                valid-number ng-disabled="disableEditValues"/>
+							<span ng-show="revisedOtherCost.labour.$dirty && costStatForm1.labour.$error.required">
+								This field is required
+							</span>
+							<span ng-show="revisedOtherCost.labour.$error.pattern">Enter only numbers </span>
+							<span ng-show="revisedOtherCost.labour.$error.maxlength">You reached max length </span>
+						</span>
+						<span ng-show="costDatamoreFlag==2 ">
+							<span ng-show="(tab.revisedCostBudget.otherCost ? tab.revisedCostBudget.otherCost : tab.originalCostBudget.otherCost) 
+								< tab.actualCostBudget.otherCost">
+								<span style="color:red !important;font-weight:bold;">{{tab.actualCostBudget.otherCost | number:2}}</span>
+							</span>
+							<span ng-show="(tab.revisedCostBudget.otherCost ? tab.revisedCostBudget.otherCost : tab.originalCostBudget.otherCost) 
+								> tab.actualCostBudget.otherCost">
+								{{tab.actualCostBudget.otherCost > 0 ? tab.actualCostBudget.otherCost : '' }}
+							</span>
+						</span>
+						<span ng-show="costDatamoreFlag==3" ng-init="remOtherCost = (tab.revisedCostBudget.otherCost ? tab.revisedCostBudget.otherCost 
+							: tab.originalCostBudget.otherCost) - tab.actualCostBudget.otherCost">
+	              			{{ tab.costClassId == null ? '' : remOtherCost }}
+	              		</span>
+						<!-- <span ng-show="costDatamoreFlag==4" ng-if="tab.estimateCompleteBudget.estimateType != 6"> -->
+						<span ng-show="costDatamoreFlag==4" ng-if="tab.estimateType != 'New Estimate'">
+	              			<!-- {{tab.estimateCompleteBudget.otherCost | number:2}} -->
+	              		</span>
+						<!-- <span ng-show="costDatamoreFlag==4" ng-if="tab.estimateCompleteBudget.estimateType == 6"> -->
+						<span ng-show="costDatamoreFlag==4" ng-if="tab.estimateType == 'New Estimate'">
+							<input data-test='Projects_ProjectBudgets_CostStatement_EstimateToComplete_Others' type="text"
+				                ng-show="(tab.item)" class="form-control" ng-model="tab.estimateCompleteBudget.otherCost"
+				                ng-required="true" name="others" pattern="^[\d\.,%]+$" maxlength="10" valid-number />
+							<span ng-show="estimateForm4.others.$dirty && estimateForm4.others.$error.required">
+								This field is required
+							</span>
+							<span ng-show="estimateForm4.others.$error.pattern">Enter only numbers </span>
+							<span ng-show="estimateForm4.others.$error.maxlength">You reached max length </span>
+						</span>
+						<span ng-show="tab.item && costDatamoreFlag==5">
+	              			<!-- {{tab.actualCostBudget.otherCost + tab.estimateCompleteBudget.otherCost | number:2}} -->
+	              		</span>
+						<span ng-show="costDatamoreFlag==6">{{tab.earnedValue}}</span>
+					</td>
+					<td>
+						<span ng-init="bac_ev=((tab.revisedCostBudget.total ? tab.revisedCostBudget.total : tab.originalCostBudget.total) - tab.earnedValue);
+							actualCostTotal=(tab.actualCostBudget.labourCost + tab.actualCostBudget.materialCost 
+									+ tab.actualCostBudget.plantCost + tab.actualCostBudget.otherCost);
+							remTotal = (tab.originalCostBudget.total-actualCostTotal);
+							totalActualCost=(tab.actualCostBudget.labourCost + tab.actualCostBudget.materialCost + tab.actualCostBudget.plantCost 
+								+ tab.actualCostBudget.otherCost);
+							cpi=(tab.earnedValue==0 || tab.earnedValue==null || actualCostTotal==0) ? 0 : (tab.earnedValue / actualCostTotal);
+							spi=(tab.earnedValue==0 || tab.earnedValue==null || tab.plannedValue==0) ? 0 : (tab.earnedValue / tab.plannedValue);
+							etcBAC_EV_CPI=(tab.earnedValue==0 || tab.earnedValue==null || actualCostTotal==0)  ? 
+		            				((tab.revisedCostBudget.total ? tab.revisedCostBudget.total : tab.originalCostBudget.total) - tab.earnedValue)
+									: ((tab.revisedCostBudget.total ? tab.revisedCostBudget.total : tab.originalCostBudget.total) - (tab.earnedValue)) / cpi;
+							etcBAC_EV_CPI_SPI=(tab.earnedValue==0 || tab.earnedValue==null || tab.earnedValue==null || actualCostTotal==0 || tab.plannedValue==0)  ? bac_ev :
+		            				((tab.revisedCostBudget.total ? tab.revisedCostBudget.total : tab.originalCostBudget.total) - tab.earnedValue)/(cpi*spi)">
+							<span ng-show="tab.item && costDatamoreFlag==0">{{tab.originalCostBudget.total}}</span>
+							<span ng-show="tab.item && costDatamoreFlag==1">{{tab.revisedCostBudget.total}}</span>
+							<span ng-show="tab.item && costDatamoreFlag==2" 
+								ng-init="actualCostTotal=tab.actualCostBudget.labourCost + tab.actualCostBudget.materialCost 
+									+ tab.actualCostBudget.plantCost + tab.actualCostBudget.otherCost">
+				              {{actualCostTotal | number:2}}
+				            </span>
+							<span ng-show="tab.item && costDatamoreFlag==3" ng-init="remTotal = (remLabourCost + remMaterialCost + remPlantCost + remOtherCost)">
+		              			{{ tab.costClassId == null ? '' : remTotal | number:2 }}
+		              		</span>
+							<span ng-show="tab.item && costDatamoreFlag==4">
+								<!-- {{tab.estimateCompleteBudget.total}} -->
+								<span ng-if="tab.estimateType == 'Remaining Units'">
+		            		 		{{ tab.costClassId == null ? '' : remTotal | number:2 }}
+		            			</span>
+								<span ng-if="tab.estimateType == 'BAC-EV'">
+		            		 		{{ tab.costClassId == null ? '' : bac_ev | number:2 }}
+		            			</span>
+								<span ng-if="tab.estimateType == '(BAC-EV)/CPI'">
+		            				{{etcBAC_EV_CPI | number: 2}}
+		            			</span>
+								<span ng-if="tab.estimateType == '(BAC-EV)/(CPI*SPI)'">
+									<!-- {{bac_ev | number: 2}} -->
+		            				{{etcBAC_EV_CPI_SPI | number: 2}}
+								</span>
+								<span ng-if="tab.estimateType == 'New Estimate'">
+		            		 		{{ tab.costClassId == null ? '' : tab.estimateCompleteBudget.labourCost  
+				            		 	-- tab.estimateCompleteBudget.materialCost -- tab.estimateCompleteBudget.plantCost 
+				            		 	-- tab.estimateCompleteBudget.otherCost | number:2 }}
+		            			</span>
+							</span>
+							<span ng-show="tab.item && costDatamoreFlag==5 ">
+								<span ng-if="tab.estimateType == 'Remaining Units'">
+		            		 		{{ tab.costClassId == null ? '' : remTotal + totalActualCost | number:2 }}
+		            			</span>
+								<span ng-if="tab.estimateType == 'BAC-EV'">
+		            		 		{{ tab.costClassId == null ? '' : bac_ev + totalActualCost | number:2 }}
+		            			</span>
+								<span ng-if="tab.estimateType == '(BAC-EV)/CPI'">
+		            				{{etcBAC_EV_CPI + totalActualCost | number: 2}}
+		            			</span>
+								<span ng-if="tab.estimateType == '(BAC-EV)/(CPI*SPI)'">
+									<!-- {{bac_ev | number: 2}} -->
+		            				{{etcBAC_EV_CPI_SPI + totalActualCost | number: 2}}
+								</span>
+								<span ng-if="tab.estimateType == 'New Estimate'">
+		            		 		{{ tab.costClassId == null ? '' : tab.estimateCompleteBudget.labourCost  
+				            		 	-- tab.estimateCompleteBudget.materialCost -- tab.estimateCompleteBudget.plantCost 
+				            		 	-- tab.estimateCompleteBudget.otherCost -- totalActualCost| number:2 }}
+		            			</span>
+								
+							</span>
+							<span ng-show="tab.item && costDatamoreFlag==6">
+								<input type="text" ng-show="(tab.item)" class="form-control" ng-model="tab.notes" ng-disabled="disableEditValues"/>
+							</span>
+						</span>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<table style="border-top: 2px solid #191970 !important;width:100%; ">
+			<tr>
+				<td width="9%" style="padding-top: 8px;font-weight:bold">Original Budget</td>
+				<td width="9%" style="padding-top: 8px;font-weight:bold">Revised Budget</td>
+				<td width="9%" style="padding-top: 8px;font-weight:bold">Earned Value</td>
+				<td width="9%" style="padding-top: 8px;font-weight:bold">Actual Cost</td>
+				<td width="9%" style="padding-top: 8px;font-weight:bold">Planned Value</td>
+				<td width="9%" style="padding-top: 8px;font-weight:bold">Remaining Budget</td>
+				<td width="9%" style="padding-top: 8px;font-weight:bold">Estimate to Complete</td>
+				<td width="9%" style="padding-top: 8px;font-weight:bold">Estimate at Completion</td>
+				<td width="9%" style="padding-top: 8px;font-weight:bold">%spent Cost</td>
+				<td width="9%" style="padding-top: 8px;font-weight:bold">% Progress Of Work</td>
+				<td width="9%" style="padding-top: 8px;font-weight:bold">Productivity Factor</td>
+			</tr>
+			<tr>
+				<td style="font-weight:bold">{{columnTotals.originalBudgetTotal}}</td>
+				<td style="font-weight:bold">{{columnTotals.revisedBudgetTotal | number:2}}</td>
+				<td style="font-weight:bold">{{columnTotals.earnedValueTotal | number:2}}</td>
+				<td style="font-weight:bold">{{columnTotals.actualCostTotal | number:2}}</td>
+				<td style="font-weight:bold">{{columnTotals.plannedValueTotal | number:2}}</td>
+				<td style="font-weight:bold">{{columnTotals.remainingBudgetTotal | number:2}}</td>
+				<td style="font-weight:bold">{{columnTotals.etcTotal | number:2}}</td>
+				<td style="font-weight:bold">{{columnTotals.estAtCompletionTotal | number:2}}</td>
+				<td style="font-weight:bold">{{((columnTotals.actualCostTotal)/(columnTotals.revisedBudgetTotal>0?columnTotals.revisedBudgetTotal : columnTotals.originalBudgetTotal))*100  | number:2}}</td>
+				<td style="font-weight:bold">{{((columnTotals.earnedValueTotal)/(columnTotals.revisedBudgetTotal>0?columnTotals.revisedBudgetTotal : columnTotals.originalBudgetTotal))*100  | number:2}}</td>
+				<td style="font-weight:bold">{{((columnTotals.earnedValueTotal)/(columnTotals.actualCostTotal))*100  | number:2}}</td>
+			</tr>
+		</table>
+	</div>
+	<br/>
+	<div class="panel-footer">
+		<div class="pull-right marT5">
+			<input class="btn bottomaligned btn-primary btn-sm" data-test='Projects_ProjectBudgets_CostStatement_Save'
+	        	type="submit" ng-disabled="submitClicked" ng-click="saveCostStmts()" value="Save"
+	       		ng-if="account.appCodeTemplate['PRJ_PROJBUDGET_COSTSTATEMENT_ADD']">
+	    </div>
+	    <div class="pull-left">
+			<input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+			<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+			<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+			<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+			<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+	    </div>
+	</div> 
+</div>

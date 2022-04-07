@@ -1,0 +1,88 @@
+<div id="tab-pannel" class="panel-group">
+	<form name="vendorForm" validate>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h4 class="panel-title">Add / Edit Correspondence from Vendors Documentsssssssss</h4>
+			</div>
+            <div class="panel-body">
+                <div class="popUpTableResHeight overflow-auto">
+                    <table class="table table-striped table-hover table-bordered popUpTableHeight" >
+                        <thead>
+                            <tr>
+                                <th style="width: 50px !important">Select</th>
+                                <th>Date</th>
+                                <th>Document ID</th>
+                                <th>Description</th>
+                                <th>Mode of Communication</th>
+                                <th>Sender Name</th>
+                                <th>Receiver Name</th>
+                                <th>View File</th>
+                                <th>File Type</th>
+                                <th>File Size</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat ="fromVendor in vendorDetails">
+                                <td>
+                                    <input type="checkbox" ng-model="fromVendor.select"
+                                           ng-change="vendorPopupRowSelect(fromVendor)" />
+                                </td>
+                                <td class="input-width0">
+                                    <potdate-picker dir-index="$index" class="form-control"
+                                                    date-name="date" ng-model="fromVendor.date"
+                                                    placeholder="dd-mm-yyyy"></potdate-picker>
+                                </td>
+                                <td class="input-width0">
+                                    <input type="text" class="form-control" name="docId"
+                                           placeholder="Document ID" ng-model="fromVendor.docId"
+                                           ng-required="true"> <!-- <span ng-show="vendorForm.docId.$dirty && vendorForm.docId.$error.required">Document ID is mandatory</span> -->
+                                </td>
+                                <td class="input-width0">
+                                    <input type="text" class="form-control" name="docDesc"
+                                           placeholder="Document Description" ng-model="fromVendor.desc"
+                                           ng-required="true">
+                                </td>
+                                <td class="input-width0">
+                                    <input type="text" class="form-control" name="docMode"
+                                           placeholder="Mode of Communication" ng-model="fromVendor.mode"
+                                           ng-required="true">
+                                </td>
+                                <td class="input-width0">
+                                    <input type="text" class="form-control" name="sender"
+                                           placeholder="Sender" ng-model="fromVendor.sender"
+                                           ng-required="true">
+                                </td>
+                                <td class="input-width0">
+                                    <input type="text" class="form-control" name="receiver"
+                                           placeholder="Receiver" ng-model="fromVendor.receiver"
+                                           ng-required="true">
+                                </td>
+                                <td><span ng-click="getTransmittalDetails(fromVendor)">view</span></td>
+                                <td class="input-width0">
+                                    <input type="text" class="form-control" name="type"
+                                           placeholder="File Type" ng-model="fromVendor.type">
+                                </td>
+                                <td class="input-width0">
+                                    <input type="text" class="form-control" name="size"
+                                           placeholder="File Size" ng-model="fromVendor.size">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+                <div class="panel-footer">
+                    <div class="pull-left">
+                        <input class="btn  btn-secondary btn-sm" type="button"
+                               ng-click="addVendorDocumentRows()" value="Add"> 
+                        <input class="btn  btn-secondary btn-sm" type="button" ng-click="deleteRows()" value="Delete">
+                    </div>
+                    <div class="pull-right">
+                        <input class="btn btn-primary btn-sm" type="submit"
+                               ng-click="vendorForm.$valid && saveVendorDetails()" value="Save">
+                    </div>
+                </div>
+                <div class="ngdialog-close"></div>
+            </div>
+	</form>
+</div>

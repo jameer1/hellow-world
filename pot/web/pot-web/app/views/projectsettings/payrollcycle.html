@@ -1,0 +1,120 @@
+<div class="">
+	<div class="bottomTabTableResHeight no-border">
+		<div class="row">
+			<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+				<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padL-0">
+					<md-input-container class="md-block">
+						<label>Employee Category</label>
+						<md-select data-test='Projects_ProjectSettings_PayRollCycleTab_EmployeeCategory'
+							ng-model="proCat">
+						<md-option ng-repeat="proCat in categories" ng-value="proCat">{{proCat.desc}}</md-option>
+					</md-select>
+					</md-input-container>
+				</div>
+				<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+						<md-input-container class="md-block">
+							<label>Employee Type</label>
+							<md-select data-test='Projects_ProjectSettings_PayRollCycleTab_EmployeeType'
+								ng-model="emp">
+							<md-option ng-repeat="emp in  employeeType" ng-value="emp">{{emp}}</md-option>
+							</md-select>
+						</md-input-container>
+				</div>
+				<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+						<md-input-container class="md-block">
+							<label>Pay Roll Cycle</label>
+							<md-select data-test='Projects_ProjectSettings_PayRollCycleTab_PayRollCycle'
+								ng-model="payCycle">
+							<md-option ng-repeat="payCycle in  payRollCycle" ng-value="payCycle">{{payCycle}}</md-option>
+						</md-select>
+						</md-input-container>
+				</div>
+				<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+						<md-input-container class="md-block">
+							<label>Weekly</label>
+							<md-select data-test='Projects_ProjectSettings_PayRollCycleTab_Weekly'
+							ng-model="weakly">
+							<md-option ng-repeat="week in  weeakDays" ng-value="week">{{week}}</md-option>
+						</md-select>
+						</md-input-container>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row horizontalSpace">
+				<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padL-0">
+						<md-input-container class="md-block">
+							<label>Fortnightly</label>
+							<md-select data-test='Projects_ProjectSettings_PayRollCycleTab_Fortnightly'
+								ng-model="fortnightly">
+							<md-option ng-repeat="week in  weeakDays" ng-value="week">{{week}}</md-option>
+						</md-select>
+						</md-input-container>
+					</div>
+					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+							<md-input-container class="md-block">
+								<label>Monthly</label>
+								<md-select data-test='Projects_ProjectSettings_PayRollCycleTab_Monthly'
+								ng-model="monthDate">
+								<md-option ng-repeat="month in  monthly" ng-value="month">{{month}}</md-option>
+								</md-select>
+							</md-input-container>
+					</div>
+					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+							<md-input-container class="md-block">
+								<label>First Quarter in a year</label>
+								<md-select data-test='Projects_ProjectSettings_PayRollCycleTab_FirstQuarterinayear'
+									ng-model="firstQuart">
+								<md-option ng-repeat="year in  years" ng-value="year">{{year}}</md-option>
+							</md-select>
+							</md-input-container>
+					</div>
+					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+							<md-input-container class="md-block">
+								<label>First Half Year</label>
+								<md-select data-test='Projects_ProjectSettings_PayRollCycleTab_FirstHalfYear'
+								ng-model="firstHalf">
+								<md-option ng-repeat="year in  years" ng-value="year">{{year}}</md-option>
+							</md-select>
+							</md-input-container>
+					</div>
+				</div>
+			</div>
+			<div class="row horizontalSpace">
+					<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+						<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padL-0">
+							<md-input-container class="md-block">
+								<label>Yearly</label>
+								<md-select data-test='Projects_ProjectSettings_PayRollCycleTab_Yearly'
+									ng-model="yearly">
+								<md-option ng-repeat="year in  years" ng-value="year">{{year}}</md-option>
+							</md-select>
+							</md-input-container>
+						</div>
+						<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+								
+						</div>
+						<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+								
+						</div>
+					
+					</div>
+				</div>
+	</div>
+	<div class="panel-footer">
+		<div class="pull-right">
+			<input data-test='Projects_ProjectSettings_PayRollCycleTab_Save' 
+				type="button" class="btn btn-primary btn-sm" value="Save" ng-click="saveProjPayRollCycle()" 
+				title="{{ account.appCodeTemplate['PRJ_PRJSTG_PROGRESCLIAM_ADD'] ? '' : '! Permission Denied. Contact your admin.'}}"
+				ng-disabled ="!account.appCodeTemplate['PRJ_PRJSTG_PROGRESCLIAM_ADD']">
+		</div>
+		<div class="pull-left">
+			<input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+			<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+			<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+			<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+			<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+		</div>
+	</div>
+</div>

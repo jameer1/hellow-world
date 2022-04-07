@@ -1,0 +1,82 @@
+
+<div ng-if="account.appCodeTemplate['RESOURCE_EMPLEAVEREQUEST_VIEW'] || account.appCodeTemplate['REQUEST_EMPLEAVEREQUEST_VIEW']" id="tab-pannel" ng-controller="EmpLeaveRequestController">
+	<form name="leaveRequestForm" ng-init="getEmpLeaveReqApprovals();">
+			<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 no-padding">
+				<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padL-0">
+						<md-input-container class="md-block">
+							<label>From Date(dd-mm-yyyy)
+							</label>
+								<pot-currentdate-display data-test='Resources_Employee_LeaveRequest_Search_FromDate' dir-index="$index" 
+									ng-model="leaveReq.fromDate" date-name="fromDate" readonly/>
+						</md-input-container>
+					</div>
+					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+						<md-input-container>
+								<label>To Date(dd-mm-yyyy)</label>
+								<pot-currentdate-display data-test='Resources_Employee_LeaveRequest_Search_ToDate' dir-index="$index" 
+									ng-model="leaveReq.toDate" date-name="toDate" readonly/>
+						</md-input-container>
+					</div>
+					<div class="col-lg-6 col-md-6 col-xs-6 col-sm-6 padR-0">
+						<div class="pull-right marT15">
+								<input data-test='Resources_Employee_LeaveRequest_Search' type="button" ng-click="getEmpLeaveReqApprovals(true);" class="btn btn-primary btn-sm" value="Search">
+								<input type="button" ng-click="reset(true);" class="btn btn-default btn-sm" value="Reset">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 no-padding">
+					<div class="tabTable_2_Res_height_12_topB">
+				 	<div id="grid" ui-grid="gridOptions"  ng-if="stylesSvc.finishedStyling" 
+                          ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-resize-columns class="grid emp-subtabs"></div>
+						<!-- <table class="table table-striped table-hover table-bordered tabTable_2_height_12_topB">
+							<thead id="tab-head">
+								<tr>
+									<th>Date of Request</th>
+									<th>Leave Application ID</th>
+									<th>Start Date</th>
+									<th>Finish Date</th>
+									<th>Number of work Days</th>
+									<th>Approver Name</th>
+									<th>Notification ID</th>
+									<th>Approval Status</th>
+									<th>Leave Availed or Not availed</th>
+									<th>More Details</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr fixed-header="" ng-repeat="request in empLeaveReqApprTOs">
+									<td>{{request.reqDate}}</td>
+									<td>{{request.reqCode}}</td>
+									<td>{{request.startDate}}</td>
+									<td>{{request.endDate}}</td>
+									<td>{{request.totalDays}}</td>
+									<td>{{request.apprUserTO.firstName}}
+										{{request.apprUserTO.lastName}}</td>
+									<td>{{request.notifyCode}}</td>
+									<td>{{request.apprStatus}}</td>
+									<td>{{request.leaveAvailed}}</td>
+									<td><input data-test='Resources_Employee_LeaveRequest_viewrequesterdetailsbutton' type="button" class="btn btn-primary btn-sm"
+										 ng-click="createOrEditLeaveRequest('Edit',request)" value="View" /></td>
+								</tr>
+							</tbody>
+						</table> -->
+						<script type="text/ng-template" id="template.html">
+				<button ng-click="grid.appScope.createOrEditLeaveRequest('Edit',row.entity)" data-test="Resources_Employee_LeaveRequest_viewrequesterdetailsbutton" class="btn btn-primary btn-sm">View</button>
+			</script>
+		<div class="panel-footer padR-0">
+		<div class="pull-right">
+			<input ng-if="account.appCodeTemplate['RESOURCE_EMPLEAVEREQUEST_SUBMIT'] || account.appCodeTemplate['REQUEST_EMPLEAVEREQUEST_SUBMIT']" data-test='Resources_Employee_LeaveRequest_NewRequest' type="submit" class="btn btn-primary btn-sm" 
+				ng-click="createOrEditLeaveRequest('Add',null)" value="New Request">
+		</div>
+		<!-- <div class="pull-left">
+			<input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+			<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+			<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+			<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+			<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+		</div> -->
+	</div>
+	</div>
+	</div>
+</form>
+</div>

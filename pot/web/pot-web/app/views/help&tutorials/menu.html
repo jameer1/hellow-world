@@ -1,0 +1,98 @@
+<style>/* /*remove list style (circles)*/
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700,700i,900');
+
+ .goo-collapsible {
+	list-style: none;
+	font-family: 'HelveticaNeue', Arial, Helvetica, sans-serif;
+	font-size: 13px
+} 
+.goo-collapsible .sidebar-menu span {
+    font-size: 12px;
+    font-family: 'Lato', sans-serif !important;
+}
+.goo-collapsible li.header {
+	color: #666;
+	padding: 4px 12px;
+	border: 1px solid #bbb;
+}
+
+.goo-collapsible .main-title {
+	border: 1px solid rgba(245, 245, 245, 0.62);
+	border-top: 0;
+	margin: 0;
+	background: #7db9e8;
+}
+
+.goo-collapsible  .main-title {
+	text-decoration: none;
+	
+	display: block;
+	padding: 6px 12px;
+	color: white !important;
+	font-weight: bold !important;
+}
+
+
+.goo-collapsible a {
+	list-style: none;
+	background: #d3d3d3;
+	display: none;
+	margin: 0;
+	padding: 0;
+}
+
+
+.goo-collapsible a {
+	padding: 5px 10px;
+	display: block;
+	padding-left: 33px;
+	background: #7db9e8;
+	/* border: 1px solid rgba(245, 245, 245, 0.62); */
+	border-bottom: 1px solid skyblue !important;
+	background: white !important;
+	color: #7db9e8 !important;
+	font-weight:bold !important;
+	
+}
+
+.goo-collapsible  a:hover {
+	text-decoration: none !important;
+	background: skyblue !Important;
+	color: white !important;
+}
+.goo-collapsible  a:click {
+	text-decoration: none !important;
+	background: white !Important;
+	color: skyblue !important;
+}
+.goo-collapsible .fa {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    float: right;
+}
+ 
+</style>
+<div class="panel-group">
+	<div class="panel-default panel-body27  ">
+		<div class="row goo-collapsible">
+			<div class="col-lg-3 col-xs-3 col-md-3 col-sm-3 left-panel">
+				<div fixed-header="" ng-repeat ="task in tasks">
+					<div  class="main-title" ng-click="$parent.selectedTask = $parent.selectedTask == task ? null : task;subTaskUrl(task.url)" >{{ task.title }}
+					<span ng-show="task.subTasks.length>0" ng-class="{'fa fa-plus-square': $parent.selectedTask!=task, 'fa fa-minus-square': $parent.selectedTask==task}" ></span></div>
+					<div fixed-header="" ng-repeat ="subTask in task.subTasks" ng-show="$parent.selectedTask==task" class="column__list--actions slide">
+						<a href="" ng-click="subTaskUrl(subTask.url)"> {{ subTask.title }}</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-9 col-xs-9 col-md-9 col-sm-9 right-panel">
+				<div ng-include="view"></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+

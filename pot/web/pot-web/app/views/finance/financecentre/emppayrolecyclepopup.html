@@ -1,0 +1,116 @@
+<div id="tab-pannel" class="panel-group">
+    <form name="companyForm" validate> 
+        <div class="panel panel-default" modal-movable>
+            <div class="panel-heading">
+                <h4 class="panel-title">Employee Pay Roll  Cycle/Credit Cycle</h4>
+            </div>
+            <div class="panel-body" ng-init="getEmployeeTypes()">
+                <div class="col-sm-12 col-md-12 col-lg-12 no-padding">
+                    <div class="col-sm-5 col-md-5 col-lg-5">
+                        <md-input-container><label readonly="readonly" class="labelName">Country</label> <input
+                                type="text" ng-model="countryName" tabindex=-1 readonly="readonly" />
+                        </md-input-container>
+                    </div>
+                    <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                    <div class="col-sm-5 col-md-5 col-lg-5">
+                        <md-input-container><label readonly="readonly" class="labelName">Province</label> <input
+                                type="text" tabindex=-1 ng-model="provisionName" readonly="readonly" data-test="PayRoleCycle_Province"/>
+                        </md-input-container>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-12 no-padding">
+                    <div class="col-sm-5 col-md-5 col-lg-5">
+                        <md-input-container><label readonly="readonly" class="labelName">Effective Date </label> <input
+                                type="text" tabindex=-1 ng-model="effectiveDate" name="yard" readonly="readonly" data-test="PayRoleCycle_EffectiveDate"/>
+                        </md-input-container>
+                    </div>
+                    <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                    <div class="col-sm-5 col-md-5 col-lg-5">
+                        <md-input-container><label readonly="readonly" class="labelName">Employee Pay Roll Cycle List ID
+                            </label> <input type="text" tabindex=-1 ng-model="empPayRoleCycleDisplayId" name="EmpPayRollCycleListId"
+                                readonly="readonly" disabled data-test="PayRoleCycle_ListID"/>
+                        </md-input-container>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-12 no-padding">
+                    <div class="popUpTableResHeight">
+                        <table class="table table-striped table-hover table-bordered popUpTableHeight">
+                            <thead id="tab-head">
+                                <tr>
+                                    <th>Select</th>
+                                    <th>Employee Type</th>
+                                    <th>Employee Category</th>
+                                    <th>Pay Roll Cycle</th>
+                                    <th>Cycle Period Start From</th>
+                                    <th>Cycle DueDate</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="emppayRoll in empPayRollCycles">
+                                    <td>
+                                        <input type="checkbox" value="emppayRoll.id" ng-model="emppayRoll.selected"
+                                            ng-change="emppayRollPopupRowSelect(emppayRoll)"></td>
+
+                                    <td ng-if="emppayRoll.actionType != 'View'"><select
+                                            ng-model="emppayRoll.employeeType"  tabindex="-1"
+                                            class="form-control" data-test="PayRoleCycle_EmployeeType">
+                                            <option ng-repeat="employeeType in employeeTypes" ng-value="employeeType">{{employeeType}}</option>
+                                        </select></td>
+
+                                    <td ng-if="emppayRoll.actionType == 'View'">{{emppayRoll.employeeType}}</td>
+
+                                    <td ng-if="emppayRoll.actionType != 'View'"><select
+                                            ng-model="emppayRoll.employeeCategory" ng-required="true" tabindex="-1"
+                                            class="form-control" data-test="PayRoleCycle_EmployeeCategory">
+                                            <option ng-repeat="employeeCategory in employeeCategorys"
+                                                ng-value="employeeCategory.name">{{employeeCategory.name}}</option>
+                                        </select></td>
+
+                                    <td ng-if="emppayRoll.actionType == 'View'">{{emppayRoll.employeeCategory}}</td>
+
+
+                                    <td ng-if="emppayRoll.actionType != 'View'"><select
+                                            ng-model="emppayRoll.payRoleCycle" ng-change="displayCycleStart(emppayRoll)"
+                                            ng-required="true" tabindex="-1" class="form-control" data-test="PayRoleCycle_PayRoleCycle">
+                                            <option ng-repeat="payRoleCycle in payRoleCycles"
+                                                ng-value="payRoleCycle.name">{{payRoleCycle.name}}</option>
+                                        </select></td>
+
+                                    <td ng-if="emppayRoll.actionType == 'View'">{{emppayRoll.payRoleCycle}}</td>
+
+                                    <td ng-if="emppayRoll.actionType != 'View'" ng-form name="classform">
+                                        <input class="form-control" type="text" name="code"
+                                            ng-model="emppayRoll.cyclePeriodStartFrom" minlength="1" maxlength="20"
+                                            disabled>
+                                    </td>
+
+                                    <td ng-if="emppayRoll.actionType == 'View'">{{emppayRoll.cyclePeriodStartFrom}}</td>
+                                    <td ng-if="emppayRoll.actionType != 'View'"><select
+                                            ng-model="emppayRoll.cycleDueDate" ng-required="true" tabindex="-1"
+                                            class="form-control" data-test="PayRoleCycle_CycleDueDate">
+                                            <option ng-repeat="cycleDueDate in emppayRoll.cycleDueDates">
+                                                {{cycleDueDate}}</option>
+                                        </select></td>
+                                    <td ng-if="emppayRoll.actionType == 'View'">{{emppayRoll.cycleDueDate}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <div class="pull-left">
+                    <input type="submit" ng-click="companyForm.$valid && addRows()" class="btn btn-primary btn-sm" value="Add"
+                        ng-show="action =='Add' || action =='Edit'" validate data-test="PayRoleCycle_Add">
+                    <input type="button" ng-click="deleteRows()" value="Delete" ng-show="action =='Add' || action =='Edit'"
+                        class="btn  btn-secondary btn-sm" validate data-test="PayRoleCycle_Delete">
+                </div>
+
+                <div class="pull-right" ng-if="actionTypeSave != 'View' ">
+                    <input type="submit" ng-click=" viewpastrecords()" value="View Past Records" class="btn btn-primary btn-sm" data-test="PayRoleCycle_ViewPastRecords"/>
+                    <input type="submit" ng-click="companyForm.$valid && savePayRollCycle()" value="Save" class="btn btn-primary btn-sm" data-test="PayRoleCycle_Save"/>
+                </div>
+            </div>
+            <div class="ngdialog-close"></div>
+    </form>
+</div>

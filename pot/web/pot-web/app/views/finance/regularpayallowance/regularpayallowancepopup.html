@@ -1,0 +1,108 @@
+<div id="tab-pannel" class="panel-group">
+	<form name="regularPayRateForm" validate>
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Regular Pay Allowance- Codes</h4>
+			</div>
+			<div class="panel-body">
+				<div class="col-sm-12 col-md-12 col-lg-12 no-padding">
+					<div class="col-sm-5 col-md-5 col-lg-5">
+						<md-input-container><label readonly="readonly" class="labelName">Country</label> <input
+								type="text" ng-model="countryName" tabindex=-1 readonly="readonly" />
+						</md-input-container>
+					</div>
+					<div class="col-sm-2 col-md-2 col-lg-2"></div>
+					<div class="col-sm-5 col-md-5 col-lg-5">
+						<md-input-container><label readonly="readonly" class="labelName">Province</label> <input
+								type="text" tabindex=-1 ng-model="provisionName" readonly="readonly" data-test="RegularPay_Province"/>
+						</md-input-container>
+					</div>
+				</div>
+				<div class="col-sm-12 col-md-12 col-lg-12 no-padding">
+					<div class="col-sm-5 col-md-5 col-lg-5">
+						<md-input-container><label readonly="readonly" class="labelName">Effective Date </label> <input
+								type="text" tabindex=-1 ng-model="effectiveDate" name="yard" readonly="readonly" data-test="RegularPay_EffectiveDate"/>
+						</md-input-container>
+					</div>
+					<div class="col-sm-2 col-md-2 col-lg-2"></div>
+					<div class="col-sm-5 col-md-5 col-lg-5">
+						<md-input-container><label readonly="readonly" class="labelName">Regular Pay Allowance - Code List
+								ID </label> <input type="text" tabindex=-1 ng-model="regularPayCycleDisplayId" name="RegularPayAllowanceCodeId"
+								readonly="readonly" disabled data-test="RegularPay_ListID"/>
+						</md-input-container>
+					</div>
+				</div>
+
+				<div class="popUpTableResHeight">
+					<table class="table table-striped table-hover table-bordered popUpTableHeight">
+						<thead>
+							<tr>
+								<th>Select</th>
+								<th>Code</th>
+								<th>Description</th>
+								<th>Is Taxable</th>
+								<th>Notes</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="regularPay in regularPays">
+								<td >
+									<input type="checkbox" value="regularPay" ng-model="regularPay.selected"
+										ng-change="regularPayPopupRowSelect(regularPay)"></td>
+								<!-- 	<td ng-if="unitPay.actionType == 'View' ">{{regularPay.code}}</td>  -->
+								<td ng-if="regularPay.actionType == 'View' ">{{regularPay.code}}</td>
+								<td ng-if="regularPay.actionType != 'View' " ng-form name="classform">
+									<input class="form-control" type="text" name="code" ng-model="regularPay.code"
+										pattern="^[a-zA-Z\d\s.,]+$" minlength="1" maxlength="20" placeholder="Code"
+										required="required" data-test="RegularPay_Code">
+									<span ng-show="classform.code.$dirty && classform.code.$error.required">This field
+										is mandatory</span>
+									<span ng-show="classform.code.$error.pattern">Must enter required format</span>
+									<span ng-show="classform.code.$error.maxlength">You reached max length</span>
+								</td>
+								<td ng-if="regularPay.actionType == 'View' ">{{regularPay.description}}</td>
+								<td ng-if="regularPay.actionType != 'View' " ng-form name="classform">
+									<input class="form-control" type="text" name="name"
+										ng-model="regularPay.description" pattern="^[a-zA-Z\d\s.,]+$" minlength="2"
+										maxlength="50" placeholder="Description" required="required" data-test="RegularPay_Description">
+									<span ng-show="classform1.name.$dirty && classform1.name.$error.required">This field
+										is mandatory</span>
+									<span ng-show="classform1.name.$error.pattern">Must enter required format</span>
+									<span ng-show="classform1.name.$error.maxlength">You reached max length</span>
+								</td>
+								 <td ng-if="regularPay.actionType == 'View' ">{{regularPay.isTaxable}}</td> 
+								<td ng-if="regularPay.actionType != 'View'"><select
+										ng-model="regularPay.isTaxable" ng-required="true" tabindex="-1"
+										class="form-control" data-test="RegularPay_IsTaxable">
+										<option ng-repeat="isTaxable in taxable" ng-value="isTaxable.name">
+											{{isTaxable.name}}</option>
+									</select></td>
+                                <td ng-if="regularPay.actionType == 'View' ">{{regularPay.notes}}</td> 
+								<td ng-if="regularPay.actionType != 'View' " ng-form name="classform">
+									<input type="text" name="notes" ng-model="regularPay.notes" placeholder="Notes"
+										class="form-control" data-test="RegularPay_Notes"/>
+									
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="panel-footer">
+				<div class="pull-left">
+					<input type="submit" ng-click="regularPayRateForm.$valid && addRows()" class="btn btn-primary btn-sm"
+						value="Add" ng-show="action =='Add' || action =='Edit'" validate data-test="RegularPay_Add">
+					<input type="button" ng-click="deleteRows()" value="Delete" ng-show="action =='Add' || action =='Edit'"
+						class="btn  btn-secondary btn-sm" validate data-test="RegularPay_Delete">
+				</div>
+
+				<div class="pull-right" ng-if="actionTypeSave != 'View' ">
+					<input type="submit" ng-click=" viewpastrecords()" value="View Past Records" class="btn btn-primary btn-sm" data-test="RegularPay_ViewPastRecords"/>
+					<input type="submit" ng-click="regularPayRateForm.$valid && saveRegularPayRate()" value="Save" data-test="RegularPay_Save"
+						class="btn btn-primary btn-sm" />
+				</div>
+			</div>
+			<div class="ngdialog-close"></div>
+		</div>
+	</form>
+</div>

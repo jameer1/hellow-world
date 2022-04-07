@@ -1,0 +1,49 @@
+
+<div id="tab-pannel" class="panel-group">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">Details Of Delivery Dockets</h4>
+    </div>
+       <div class="panel-body">
+        <div class="col-md-12 col-lg-12 no-padding">
+            <div class="col-xs-2 col-sm-2 col-md-2 padL-0">
+                <md-input-container><label>Purchase Order</label> <input type="text" ng-model="purCode" placeholder="Purchase Order" ng-disabled="true"></md-input-container>
+            </div>
+            <div class="col-xs-2 col-sm-2 col-md-2">
+                <md-input-container><label>Schedule Item</label> <input type="text" ng-model="code" placeholder="Schedule Item" ng-disabled="true"></md-input-container>
+            </div>
+            <div class="col-xs-2 col-sm-2 col-md-2 padR-0">
+                <md-input-container><label>Vendor</label> <input type="text" ng-model="companyMap[companyId].name" placeholder="Vendor" ng-disabled="true"></md-input-container>
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-12 no-padding">
+            <div class="popUpTableResHeight">
+                <table class="table table-striped table-hover table-bordered popUpTableHeight" >
+        <thead>
+          <tr>
+            <th>Date Of Delivery</th>
+            <th>Document#</th>
+            <th>Docket Date</th>
+            <th>Qty Delivered</th>
+            <th>Received By</th>
+            <th>Defects If Any</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr fixed-header="" ng-repeat ="docket in deliveryDetailsData">
+            <td><span>{{docket.displayNamesMap.supplyDeliveryDate}}</span></td>
+            <td><span>{{docket.displayNamesMap.deliveryDockNo}}</span></td>
+            <td><span>{{docket.displayNamesMap.deliveryDockDate}}</span></td>
+            <td><span>{{docket.displayNamesMap.qty}}</span></td>
+            <td><span>{{docket.displayNamesMap.receivedBy}}</span></td>
+            <td><span>{{docket.displayNamesMap.defectComments}}</span></td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+      </div>
+    </div>
+    <div class = "panel-footer"></div>
+  </div>
+  <div class="ngdialog-close"></div>
+</div>

@@ -1,0 +1,66 @@
+<div id="tab-pannel">
+	<div class="col-sm-12 col-xs-12 col-md-12 col-lg-12 no-padding">
+        <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2 padL-0">
+            <md-input-container>
+                <label>Procurment Category</label>
+                <input type="text" value="Material"  readonly class="form-control">
+            </md-input-container>
+         </div>
+        <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3">
+            <md-input-container>
+                <label>Procurment Sub Category</label>
+                <md-select>
+                    <md-option value="pending">procurmentSubCategory</md-option>
+                 </md-select>
+            </md-input-container>
+        </div>
+         <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3"> <!-- combination of Category and subcategory  -->
+            <md-input-container>
+                <label>Payable Category</label>
+                <md-select>
+                    <md-option value="pending">procurmentSubCategory</md-option>
+                 </md-select>
+            </md-input-container>
+        </div>
+        
+        <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2"> <!-- combination of Category and subcategory and payable  -->
+            <md-input-container>
+                <label>Unit of Measure</label>
+                <md-select>
+                    <md-option value="pending">Unit of Measure</md-option>
+                 </md-select>
+            </md-input-container>
+        </div>
+               
+        
+        <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+            <div class="pull-right marT15">
+                <input type="submit" class="btn btn-primary btn-sm" value="Search">
+            </div>
+        </div> 
+   </div>
+    
+    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 no-padding">
+        <div class="tabTable_2_Res_height">
+            <table class="table table-striped table-hover table-bordered tabTable_2_height">
+                <thead id="tab-head">
+                    <tr>
+                        <th>Select</th>
+                        <th>Schedule Item Id</th>
+                        <th>Schedule Item Description</th>
+                        <th>Measuring Unit</th>
+                        <th>Agreement QTY</th>
+                        <th>Cumulative  Progress QTY <br>to Invoice Period</th>
+                        <th>QTY Cumulative  Claimed<br>for pervious Period</th>
+                        <th>Net Progress QTY</th>
+                        <th>Rate</th>
+                        <th>Amount</th>
+                        <th>Comments</th>
+                    </tr>
+                   
+                </thead>
+            </table>
+       </div>
+   </div>
+
+</div>

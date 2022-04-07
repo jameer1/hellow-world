@@ -1,0 +1,67 @@
+<div id="tab-pannel" class="panel-group" ng-controller="AssetLifeStatusController" >
+  <div class="tabTable_1_Res_height">
+  <div ng-init="assetLifeStatusRecords()" id="grid" ui-grid="gridOptions" ng-if="stylesSvc.finishedStyling"
+     ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-resize-columns class="grid"></div>
+    <!-- <table class="table table-striped table-bordered tabTable_1_height">
+     <thead id="tab-head"> 
+      <tr>
+           <th ng-init="assetLifeStatusRecords()">Select</th>
+           <th>Effective Date</th>
+           <th>Year Build for Structure</th>
+           <th>Plant Commissioning Date</th>
+           <th>Structure Total Use full Life</th>
+           <th>Plant & Equipment Total use full Life</th>
+           <th>Age for Structure</th>
+           <th>Age for Plant & Equipment</th>
+           <th>Remaining Use full Life for Structure</th>
+           <th>Remaining Use full Life for Plant & Equipment</th>
+           <th>Life Assignment Records</th>
+          
+      </tr>
+     </thead>
+     <tbody>
+      <tr fixed-header="" ng-repeat ="lifestatus in assetLifeStatusDtlTOs">
+       <td><input type="checkbox" value="id" ng-model="lifestatus.selected" ng-change="lifestatusRowSelect(lifestatus)" data-test="AssetLifeStatus_Checkbox"></td>
+       <td>{{lifestatus.effectiveDate}}</td>
+       <td>{{lifestatus.buildStructure}}</td>
+       <td>{{lifestatus.plantCommissioningDate}}</td>
+       <td>{{lifestatus.structureTotal}}</td>
+       <td>{{lifestatus.plantEquipmentTotal}}</td>
+       <td>{{lifestatus.ageStructure}}</td>
+       <td>{{lifestatus.ageEquipment}}</td>
+       <td>{{lifestatus.remainingStruture}}</td>
+       <td>{{lifestatus.remainingEquipment}}</td>
+       <td><a class="fa fa-download" ng-if="lifestatus.lifeAssignmentRecordsDocumentFileName" href="{{lifestatus.docUrl}}" title="Click To Download {{lifestatus.lifeAssignmentRecordsDocumentFileName}}"></a></td>
+       <td>
+		<span class="fa fa-download" ng-if="lifestatus.lifeAssignmentRecordsDocumentFileName" ng-click="downloadAssetLifeStatusFile(lifestatus.id,lifestatus.lifeAssignmentRecordsDocumentFileName)" title="Click To Download {{lifestatus.lifeAssignmentRecordsDocumentFileName}}"></span>
+       </td>
+       </tr>
+     </tbody>
+    </table> -->
+    <div class="panel-footer">
+		<div class="pull-right padR-0">
+      <input type="button" class="btn btn-primary btn-sm"
+      data-test="AssetLifeStatus_Create"
+				ng-click="createLifeStatus('Add')" value="Add">
+		</div>
+		<div class="pull-left padL-0">
+      <!-- <input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+      <input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+      <input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+      <input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+      <input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();"> -->
+      <input type="button" class="btn btn-primary btn-sm"
+      data-test="AssetLifeStatus_Edit"
+				ng-click="createLifeStatus('Edit')" value="Edit"> <input
+        type="button" class="btn btn-secondary btn-sm"
+        data-test="AssetLifeStatus_Deactivate"
+				ng-click="deleteAssetLifeStatus()" value="Deactivate">
+		</div>
+	</div>
+   </div>
+ 
+  
+</div>
+
+
+

@@ -1,0 +1,147 @@
+<section class="content-header">
+    <h1>Bank Overdraft - Payment Schedule</h1>
+</section>
+<section class="content">
+    <div class="panel panel-default block footer-parent">
+        <div class="panel-body" ng-init="getCountries();">
+            <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12 no-padding">
+                <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3 padL-0">
+                    <md-input-container>
+                        <label>Country</label>
+                        <md-select ng-model="" ng-change="getCountryDetailsById(item,$index);">
+                            <md-option fixed-header="" ng-repeat="" ng-value="">
+                                {{  }}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+                <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3">
+                    <md-input-container>
+                        <label>Payment Cycle</label>
+                        <input type="text" name="paymentCycle" ng-model="" readonly="readonly" ng-click="">
+                    </md-input-container>
+                </div>
+                <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3">
+                    <md-input-container>
+                        <label>Payment Status</label>
+                        <md-select ng-model="">
+                            <md-option value="paid">Paid</md-option>
+                            <md-option value="due">Due</md-option>
+                            <md-option value="overdue">Over Due</md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+                <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3">
+                    <md-input-container>
+                        <label>Bank Payments Credit Run #</label>
+                        <input type="text" name="bankcreditrun" ng-model="" readonly="readonly">
+                    </md-input-container>
+                </div>
+            </div>
+            <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12 no-padding">
+                <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3  padL-0">
+                    <md-input-container>
+                        <label>Period From (dd-mm-yyyy)</label>
+                        <potdate-picker dir-index="$index" date-name="fromDate" ng-model="progressClaim.fromDate"
+                            custom-read-only />
+                    </md-input-container>
+                </div>
+                <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3">
+                    <md-input-container>
+                        <label>Period To (dd-mm-yyyy)</label>
+                        <potdate-picker dir-index="$index" date-name="toDate" ng-model="progressClaim.toDate"
+                            custom-read-only />
+                    </md-input-container>
+                </div>
+                <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
+                    <div class="pull-right marT15">
+                        <input type="button" class="btn btn-primary btn-sm" value="Trail Run" ng-click="" />
+                        <input type="button" class="btn btn-primary btn-sm" value="Run" ng-click="" />
+                        <input type="button" class="btn btn-primary btn-sm" value="View Past Records" ng-click="" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12 no-padding">
+                <div class="singleTableResHeight_3 overflow-auto">
+                    <table class="table table-hover table-bordered singleTableHeight_3">
+                        <thead>
+                            <tr>
+                                <th>Run Date</th>
+                                <th>Bank Loan #</th>
+                                <th>Country</th>
+                                <th>Province (Bank Location)</th>
+                                <th>Name of the Bank/Institution (Lender)</th>
+                                <th>Bank Address</th>
+                                <th>Bank Reg Number</th>
+                                <th>Bank Tax File Number</th>
+                                <th>Company Name (Borrower)</th>
+                                <th>Type of Loan or Finance</th>
+                                <th>Loan Start Date</th>
+                                <th>Loan Finish Date</th>
+                                <th>Original Loan principal amount</th>
+                                <th>Remaining Loan principal amount</th>
+                                <th>Fixed or variable rate of Interest</th>
+                                <th>If Variable interest, Minimum Repayment amount</th>
+                                <th>If fixed, Rate of Interest per annum</th>
+                                <th>Payment Cycle</th>
+                                <th>Payment Cycle Due Date</th>
+                                <th>Principle repayment amount per cycle</th>
+                                <th>Interest amount per Cycle</th>
+                                <th>Tax Payment per cycle</th>
+                                <th>Total Gross Repayment per cycle</th>
+                                <th>Expenditure Type</th>
+                                <th>Receiver Bank/Institution Name</th>
+                                <th>Receiver Bank Code #</th>
+                                <th>Receiver Bank AC #</th>
+                                <th>Account Status</th>
+                                <th>Approved for Payment Release</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="">
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <div class="pull-left">
+                    <input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

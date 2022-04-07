@@ -1,0 +1,39 @@
+<div id="tab-pannel" class="panel-group">
+	<form name="calendarForm" validate>
+		<div id="tab-pannel" class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Calendars</h4>
+			</div>
+			<div id="tab-pannel" class="panel-body">
+                <div class="popUpTableResHeight">
+                    <table class="table table-striped table-hover table-bordered popUpTableHeight" >
+                        <thead>
+                            <tr>
+                                <th>Calendar Name</th>
+
+                              <th>Project Name</th>
+
+                            </tr>
+                        </thead>
+                        <tr fixed-header="" ng-repeat ="cal in calendarList"
+                            ng-dblclick="selectCalendar(cal)">
+                            <td><span>{{cal.name}}</span></td>
+
+                          <td><span>{{cal.projectName}}</span></td>
+
+                        </tr>
+                        <tr ng-if="calendarList.length<= 0 ">
+                            <td colspan="2" style="color: red; text-align: center">
+                                <span>
+                                    Calendars
+                                    are not defined
+                                </span>
+                            </td>
+                        </tr>
+                    </table>
+                    </div>
+                </div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</form>
+</div>

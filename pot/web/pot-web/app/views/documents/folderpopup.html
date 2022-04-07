@@ -1,0 +1,67 @@
+<div id="tab-pannel" class="panel-group">
+	<form name="epsForm" validate autocomplete="off">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h4 class="panel-title">Add Folder</h4>
+			</div>
+			<div class="panel-body">
+				<div class="popUpTableResHeight overflow-auto">
+					<table id="tree" class="table table-hover table-bordered popUpTableHeight">
+						<thead>
+							<tr>
+								<th>Folder Name</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="item in editTreeData" class="abc{{item.level}}" ng-show="!item.collapse">
+								<td style="display:flex;">
+										<span ng-repeat="level in [].constructor(item.level) track by $index" class="xyz" style="padding-left: 30px;"></span>
+									<span ng-show="item.expand" 
+										ng-click="poupTreeAssetItemClick(item, true);"
+									 	class="fa fa-minus"></span> 
+									<span ng-show="!item.expand"
+									 ng-click="poupTreeAssetItemClick(item, false);" class="fa fa-plus"> </span> 
+									<input type="text" class="form-control" ng-if="!item.proj" placeholder="Folder Name" name="epsId_{{$index}}"
+									 maxlength="20" ng-model="item.name"  watch-change="change()" 
+									 ng-class="{coloumnHighlightColor:(item.duplicateFlag||item.childProjs.duplicateFlag) }" 
+									 ng-blur="checkDuplicate(item)"
+									 readonly="readonly"
+									 ng-show="item.level==0">
+									<input type="text" class="form-control" ng-if="!item.proj" placeholder="Sub Folder Name" name="epsSubId_{{$index}}"
+									 maxlength="20" ng-model="item.name" 
+									 watch-change="change()"
+									 ng-class="{coloumnHighlightColor:(item.duplicateFlag||item.childProjs.duplicateFlag) }"
+									 ng-blur="checkDuplicate(item);checkDataValidationRecursively(item, $index);" ng-show="item.level>0">
+									 <span style="padding-left: 15px;" ng-show="item.level < 3">
+	                                <span data-toggle="tooltip" title="Add Group ID" ng-click="addTreeSubGroup(item,$index)" class="fa fa-plus"> </span>
+									</span> 
+									<span style="padding-left: 10px;"> 
+										<span ng-click="deleteTree($index)" ng-show="item.level>0 && !item.edit"
+										 class="fa fa-trash">
+										</span>
+									</span>
+									<br>
+									<span style="padding-left:{{item.level * 30 + 20}}px;color: red !important;" ng-show="item.invalidField">Folder name is Required</span>
+									<span style="padding-left:{{item.level * 30 + 20}}px;color: red !important;" 
+										ng-show="(epsForm.epsId_{{$index}}.$dirty && epsForm.epsId_{{$index}}.$error.pattern)
+										   || (epsForm.epsSubId_{{$index}}.$dirty && epsForm.epsSubId_{{$index}}.$error.pattern)">
+										   At least one alphabet is mandatory
+									</span>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<!-- <div class="panel-footer"> -->
+			<div class="panel-footer">
+
+				<div class="pull-right">
+					<input type="submit" class="btn btn-primary btn-sm"  ng-click="saveDocFolder(item,epsForm)"
+					 value="Save" />
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</form>
+</div>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>pot-app-models</artifactId>
+	<packaging>pom</packaging>
+	<name>POT-APP-MODELS</name>
+	<groupId>pot</groupId>
+	
+	<properties>
+		<atomikos.version>3.9.3</atomikos.version>
+	</properties>
+	
+	<parent>
+		<groupId>pot</groupId>
+		<artifactId>pot-app-libraries</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+	
+	<dependencies>
+		<dependency>
+			<groupId>javax.persistence</groupId>
+			<artifactId>javax.persistence-api</artifactId>
+			<version>2.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.atomikos</groupId>
+			<artifactId>transactions-jdbc</artifactId>
+			<version>${atomikos.version}</version>
+		</dependency>
+	</dependencies>
+	
+	 <modules>
+		
+		<module>pot-common-model</module>		
+	
+	</modules>
+	
+</project>

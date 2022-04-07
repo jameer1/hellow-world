@@ -1,0 +1,61 @@
+<div id="tab-pannel"  class="panel-group">
+  <!-- <div class="panel-group"> -->
+      <div class="panel panel-default" modal-movable>
+          <div class="panel-heading">
+            <h4 class="panel-title">Employee Copy Template</h4>
+          </div>
+          <div class="panel-body">
+              <div class="row"> 
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="col-xs-3 col-sm-3 col-md-3">
+                <span class="labelName"> Select Crew : <input data-test='AsbuiltRecords_AttendanceRecords_EmployeeAttendance_AddEmployee_CopyTemplate_Crew' type="text" class="form-control" placeholder="Select Crew"
+              ng-click="getCrewList(crewLabelKeyTO)" ng-model="crewLabelKeyTO.code"> Month :
+            <input data-test='AsbuiltRecords_AttendanceRecords_EmployeeAttendance_AddEmployee_CopyTemplate_Month' type="text" class="form-control" ng-model="attendanceKeyTO.attendanceCode | date:'MMM-yyyy'"
+              ng-click="getEmpAttendanceSheets()" placeholder="Select Attendence Id" id = "prevMonth"  disabled ></span>
+            </div>
+            <div class="pull-right right-padding">
+            <input data-test='AsbuiltRecords_AttendanceRecords_EmployeeAttendance_AddEmployee_CopyTemplate_Search' type="button" class="btn btn-primary btn-sm" ng-click="getEmpDetails()" value="Search">
+            </div>
+            </div>
+            </div>
+      <div class="popUpTableResHeight">
+        <table class="table table-striped table-hover popUpTableHeight" >
+        <thead id="tab-head">
+          <tr>
+          <th><input type="checkbox" ng-model="selectAll" ng-change="selectAllEmps()">
+          <th>Employee ID</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Designation</th>
+          
+          <th>Parent Company</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr fixed-header="" ng-repeat ="emp in empRegLabelKeyTOs">
+          <td style="width: 30px !important;"><input type="checkbox" ng-model="emp.select"
+            ng-change="selectEmpRegDtls(emp)"></td>
+          <td>{{emp.code}}</td>
+          <td>{{emp.displayNamesMap['firstName']}}</td>
+          <td>{{emp.displayNamesMap['lastName']}}</td>
+          <td>{{emp.displayNamesMap['classType']}}</td>
+        
+          <td>{{emp.displayNamesMap['cmpCatgName']}}</td>
+          </tr>
+        </tbody>
+        </table>
+        <div ng-show="searchFlag">
+        <h5 align="center" style="color: red">No Employee Records for selected search criteria</h5>
+        </div>
+      </div>
+    </div>
+      <div class="panel-footer">
+        <div class="pull-right">
+              <input data-test='EmployeeAttendanceCopyTemplateSave' type="button" class="btn btn-primary btn-sm"
+                ng-click="saveAttendanceEmpDetails()" value="Save">
+            </div>
+      </div>
+      </div>
+  <!-- </div> -->
+  <div class="ngdialog-close"></div>
+</div>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>pot-app-utils</artifactId>
+	<packaging>pom</packaging>
+	<name>POT-APP-UTILS</name>
+	<groupId>pot</groupId>
+	
+	<parent>
+		<groupId>pot</groupId>
+		<artifactId>pot-app-libraries</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+	
+	<modules>
+		<module>pot-admin-util</module>
+		<module>pot-central-lib-util</module>
+		<module>pot-common-util</module>
+		<module>pot-finance-util</module>
+		<module>pot-notification-util</module>
+		<module>pot-procurement-util</module>
+		<module>pot-proj-settings-util</module>
+		<module>pot-project-lib-util</module>
+		<module>pot-register-util</module>
+		<module>pot-time-management-util</module>
+		<module>rjs-sessionauth-utils2</module>
+	</modules>
+	
+	
+	
+</project>

@@ -1,0 +1,23 @@
+<div id="tab-pannel" class="panel-group">
+  <div class="panel-group spacer0">
+    <div class="panel-body21">
+      <table class="table table-striped table-hover table-bordered" style="height:365px !important;" >
+        <thead>
+          <tr>
+            <th>Net Invoice Amount</th>
+            <th>GST or Tax Amount</th>
+            <th>Total Invoice Amount Incl Tax</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr fixed-header="" ng-repeat ="invoice in releaeInvoiceAmount">
+            <td>{{invoice.invoicedate}}</td>
+            <td>{{invoice.invoiceNo}}</td>
+            <td>{{invoice.invoiceNo}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="panel-footer"></div>
+</div>

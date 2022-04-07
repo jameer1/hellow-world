@@ -1,0 +1,24 @@
+<div id="tab-pannel">
+    <div class="panel panel-default" modal-movable>
+        <div class="panel-heading">
+            <h4 class="panel-title">Bid Analysis Stage2 Approval</h4>
+        </div>
+        <div class="panel-body">
+            <div>Comments</div>
+            <ng-form name="procureForm" validate>
+                <textarea ng-model="preContractObj.preContractReqApprTO.apprComments" name="comments" md-select-on-focus
+                    maxlength="200" class="form-control" data-test="Stage2Approval_Bidanalysis_View_Approvercomments"></textarea>
+                <span ng-if="procureForm.comments.$error.maxlength">
+                    You reached max length
+                </span>
+            </ng-form>
+        </div>
+        <div class="panel-footer">
+            <div class="pull-right">
+                <input type="Submit" value="Submit" ng-click="approveRfq()" class="btn btn-primary btn-sm" data-test="Stage2Approval_Approve_Submit">
+            </div>
+        </div>
+
+    </div>
+    <div class="ngdialog-close"></div>
+</div>

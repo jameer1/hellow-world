@@ -1,0 +1,31 @@
+<div id="tab-pannel" class="panel-group">
+	<div class="panel panel-default" modal-movable>
+		<div class="panel-heading">
+			<h4 class="panel-title">Resource Curves</h4>
+		</div>
+		<div class="panel-body">
+				 <div class="popUpTableResHeight">
+				<table class="table table-striped table-hover table-bordered popUpTableHeight" >
+				<thead>
+					<tr>
+						<th>Resource Curve Name</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr fixed-header="" ng-repeat ="curve in curves"  data-test='Schedules_ProjectSchedules_GetCurve_Select' ng-click="selectCurve(curve)">
+						<td>{{curve.curveType}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+		<div class="panel-footer"></div>
+		<div class="ngdialog-close"></div>
+	</div>
+</div>
+
+
+
+
+

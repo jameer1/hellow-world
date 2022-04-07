@@ -1,0 +1,26 @@
+<div id="tab-pannel" class="panel-group">
+	<div class="panel panel-default" modal-movable>
+		<div class="panel-heading">
+			<h4 class="panel-title">Plant List</h4>
+		</div>
+		<div class="panel-body12">
+			<table class="table table-striped table-hover table-bordered" style="height: 200px !important;" >
+				<thead>
+					<tr>
+						<th>Code</th>
+						<th>Name</th>
+						<th>Plant procure Category</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr fixed-header="" ng-repeat ="plantClassTO in plantClassTOs"
+						ng-click="selectRecord(plantClassTO)">
+						<td>{{plantClassTO.code}}</td>
+						<td>{{plantClassTO.name}}</td>
+						<td>{{plantClassTO.measureUnitTO.procurementTO.name}}</td>
+					</tr>
+			</table>
+		</div>
+		<div class="ngdialog-close"></div>
+	</div>
+</div>

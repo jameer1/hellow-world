@@ -1,0 +1,42 @@
+<section class="content-header">
+    <h1>S Curve - Cost</h1>
+</section>
+<section class="content ui-rid-customization-pot">
+    <div class="panel panel-default block footer-parent">
+        <div class="panel-body">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 padL-0">
+                    <md-input-container>
+                        <label>EPS ID/Name</label>
+                        <input type="text" ng-model="searchFilter.parentName" ng-click="getUserProjects();" readonly>
+                    </md-input-container>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 ">
+                    <md-input-container>
+                        <label>Project ID/Name</label>
+                        <input type="text" ng-model="searchFilter.projName" ng-click="getUserProjects();" readonly>
+                    </md-input-container>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <md-radio-group ng-model="type" layout="row">
+                        <md-radio-button id="chart" value="chart" name="content" ng-true-value="1" ng-false-value="0"
+                            class="md-primary">Chart</md-radio-button>
+                        <!-- <md-radio-button id="table" value="table" name="content" ng-true-value="1" ng-false-value="0"
+                            class="md-primary">Table</md-radio-button> -->
+                        <md-radio-button id="chartTable" value="chartTable" name="content" ng-true-value="1"
+                            ng-false-value="0" class="md-primary">Chart
+                            & Table</md-radio-button>
+                    </md-radio-group>
+                </div>
+                <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+                    <div class="pull-right spacer3 marT15">
+                        <input type="button" ng-click="generateReport()" class="btn btn-primary btn-sm" value="Apply">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+				<div ng-include="'views/dashboards/progress/progress.scurvecost.html'"></div>
+            </div>
+        </div>
+    </div>
+</section>

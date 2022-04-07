@@ -1,0 +1,159 @@
+<div id="tab-pannel" class="panel-group" ng-init="getProjCostItemsOnLoad()">
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title" ng-show="action=='Add'">Add Cost Groups/Items</h4>
+				<h4 class="panel-title" ng-show="action=='Edit'">Edit Cost Groups/Items</h4>
+			</div>
+			<div class="panel-body table-responsive">
+				<div class="popUpTableResHeight">
+					<table id="tree" class="table table-striped popUpTableHeight">
+						<thead>
+							<tr>
+								<th>Cost ID
+									<span style="color: red;"> *</span>
+								</th>
+								<th>Item Name
+									<span style="color: red;"> *</span>
+								</th>
+								<th>Class ID
+									<span style="color: red;"> *</span>
+								</th>
+								<th>Class Name</th>
+								<th class="col-sm-1">Start Date
+									<span ng-show="isPrimaveraIntegrationEnabled=='No'" style="color: red;"> *</span>
+								</th>
+								<th class="col-sm-1">Finish Date
+									<span ng-show="isPrimaveraIntegrationEnabled=='No'" style="color: red;"> *</span>
+								</th>
+								<th>Comments</th>
+								<th class="col-sm-1 justify-center">Work Diary Entry</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr fixed-header="" ng-repeat="tab in editCostData" class="abc{{tab.level}}"
+								ng-show="!tab.collapse">
+								<td>
+								<form name="form1" novalidate>
+								<div style="display:flex;">
+									<span ng-repeat="level in [].constructor(tab.level) track by $index" class="xyz"
+										style="padding-left: 30px;"></span>
+									<span ng-show="tab.expand && !tab.item" ng-click="projCostPopupItemClick(tab,true);"
+										class="fa fa-minus" style="margin-top:14px;"></span>
+									<span ng-show="!tab.expand && !tab.item"
+										ng-click="projCostPopupItemClick(tab,false);" class="fa fa-plus" style="margin-top:14px;"></span>
+									<i class="fa fa-leaf" ng-show="tab.item" style="margin-top:14px;"></i>
+									<div style="width:90%;">
+									<input
+										data-test="{{tab.item ? 'Projects_ProjectLibrary_CostCodeSchedules_Cost_Item_ID':'Projects_ProjectLibrary_CostCodeSchedules_Cost_Group_ID'}}"
+										type="text" ng-if="tab.level <= 0"
+										placeholder="{{tab.item ? 'Cost Item ID' : 'Cost Group ID'}}"
+										name="costId_{{$index}}" ng-model="tab.code"										
+										pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*)) minlength="2"
+										maxlength="50" ng-required="true" class="form-control">
+									<input
+										data-test="{{tab.item ? 'Projects_ProjectLibrary_CostCodeSchedules_Cost_ItemId':'Projects_ProjectLibrary_CostCodeSchedules_Cost_Sub_GroupId'}}"
+										type="text" ng-if="tab.level > 0"
+										placeholder="{{tab.item ? 'Cost Item ID' : 'Cost Sub Group ID'}}"
+										name="costId_{{$index}}" ng-model="tab.code"										
+										pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*)) minlength="2"
+										maxlength="50" ng-required="true" class="form-control">
+									<span style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="form1.costId_{{$index}}.$touched && form1.costId_{{$index}}.$error.required">This Field is Mandatory</span>
+									<div style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="(!(form1.costId_{{$index}}.$touched && form1.costId_{{$index}}.$error.required)) && tab.codeErrorMessage">{{tab.codeErrorMessage}}</div>
+									</div>
+									<span ng-click="addCostSubGroup(tab,tab.projId,$index)"
+										data-test='Projects_ProjectLibrary_CostCodeSchedules_Create_SubGroupIcon'
+										class="fa fa-plus-square" ng-show="!tab.item && tab.level < 3" title="Add Sub Group" style="margin-top:8px;"></span>
+									<span style="padding-left: 5px;">
+										<span ng-hide="tab.item" ng-click="addCostItem(tab,tab.projId,$index)"
+											data-test='Projects_ProjectLibrary_CostCodeSchedules_Create_ItemIdIcon'
+											class="fa fa-plus-square-o" title="Add item" style="margin-top:8px;"></span>
+									</span>
+									<span style="padding-left: 5px;">
+										<span>
+											<i class="fa fa-trash" ng-show="tab.level>0 && !tab.edit" title="Delete"
+												data-test='Projects_ProjectLibrary_CostCodeSchedules_Create_DeleteIcon'
+												ng-click="deleteCostGroup($index);" style="margin-top:8px;"></i>
+										</span>
+									</span>
+								</div>
+								</form>
+								</td>
+								<td ng-form name="form2">
+									<input type="text"
+										data-test="{{tab.item ? 'Projects_ProjectLibrary_CostCodeSchedules_Cost_ItemName':'Projects_ProjectLibrary_CostCodeSchedules_Cost_GroupName'}}"
+										ng-if="tab.level <= 0" 
+										pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+										placeholder="{{tab.item ? 'Cost Item Name' : 'Cost Group Name'}}"
+										name="costName_{{$index}}" ng-model="tab.name" maxlength="100"
+										ng-required="true" class="form-control">
+									<input
+										data-test="{{tab.item ? 'Projects_ProjectLibrary_CostCodeSchedules_Cost_ItemName':'Projects_ProjectLibrary_CostCodeSchedules_Cost_SubGroupName'}}"
+										type="text" ng-if="tab.level > 0" 
+										pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+										placeholder="{{tab.item ? 'Cost Item Name' : 'Cost Sub Group Name'}}"
+										name="costName_{{$index}}" ng-model="tab.name" maxlength="100"
+										ng-required="true" class="form-control">
+									<span style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="form2.costName_{{$index}}.$touched && form2.costName_{{$index}}.$error.required">This Field is Mandatory</span>
+									<span style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="(!(form2.costName_{{$index}}.$touched && form2.costName_{{$index}}.$error.required)) && tab.nameErrorMessage">{{tab.nameErrorMessage}}</span>
+								</td>
+								<td ng-form name="form3">
+									<select name="costUom_{{$index}}" 
+										data-test='Projects_ProjectLibrary_CostCodeSchedules_Create_ClassificationId'
+										ng-options="cost.code  for cost in  costCodeData  track by cost.code"
+										ng-change="updateCostCode(tab.costCodeTO,tab);" 
+										ng-model="tab.costCodeTO" ng-required="true" ng-show="tab.item"
+										class="form-control">
+										<option value="">select</option>
+									</select>
+									<span style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="form3.costUom_{{$index}}.$touched && form3.costUom_{{$index}}.$error.required">This Field is Mandatory</span>
+									<span style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="(!(form3.costUom_{{$index}}.$touched && form3.costUom_{{$index}}.$error.required)) && tab.uomErrorMessage">{{tab.uomErrorMessage}}</span>
+								</td>
+								<td>
+									<input type="text" class="form-control" ng-model="tab.costCodeTO.name"
+										ng-disabled="true" ng-show="tab.item">
+								</td>
+								<td ng-form name="form5">
+									<span ng-show="isPrimaveraIntegrationEnabled!='No'">{{tab.startDate}}</span>
+									<potdate-picker
+										data-test='Projects_ProjectLibrary_CostCodeSchedules_Create_StartDate'
+										ng-model="tab.startDate" max-date="tab.finishDate" dir-index="$index"
+										date-name="startDate" placeholder="dd-mm-yyyy" class="form-control" name="costStartDate_{{$index}}"
+										ng-required="true" ng-show="tab.item" ng-if="isPrimaveraIntegrationEnabled=='No'"></potdate-picker>
+									<span style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="form5.costStartDate_{{$index}}.$touched && form5.costStartDate_{{$index}}.$error.required">This Field is Mandatory</span>
+									<span style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="(!(form5.costStartDate_{{$index}}.$touched && form5.costStartDate_{{$index}}.$error.required)) && tab.startDateErrorMessage">{{tab.startDateErrorMessage}}</span>
+								</td>
+								<td ng-form name="form6">
+									<span ng-show="isPrimaveraIntegrationEnabled!='No'">{{tab.finishDate}}</span>
+									<potdate-picker
+										data-test='Projects_ProjectLibrary_CostCodeSchedules_Create_FinishDate'
+										ng-model="tab.finishDate" min-date="tab.startDate" dir-index="$index"
+										date-name="finishDate" placeholder="dd-mm-yyyy" ng-required="true"
+										ng-show="tab.item"  class="form-control" name="costFinishDate_{{$index}}"
+										ng-if="isPrimaveraIntegrationEnabled=='No'"></potdate-picker>
+									<span style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="form6.costFinishDate_{{$index}}.$touched && form6.costFinishDate_{{$index}}.$error.required">This Field is Mandatory</span>
+									<span style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="(!(form6.costFinishDate_{{$index}}.$touched && form6.costFinishDate_{{$index}}.$error.required)) && tab.finishDateErrorMessage">{{tab.finishDateErrorMessage}}</span>
+								</td>
+								<td ng-form name="costFrm3"><input type="text"										
+										pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+										data-test='Projects_ProjectLibrary_CostCodeSchedules_Create_Comments'
+										ng-show="tab.item" placeholder="Comments" 
+										ng-model="tab.comments" maxlength="100" class="form-control">
+								<td class="justify-center">
+									<input data-test='Projects_ProjectLibrary_CostCodeSchedules_WorkDairyEntry'
+										type="checkbox" ng-model="tab.workdairyEntry" ng-show="tab.item">
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="panel-footer">
+				<div class="pull-right">
+					<input data-test='Projects_ProjectLibrary_CostCodeSchedules_Save' type="submit"
+						class="btn bottomaligned btn-primary btn-sm"
+						ng-click="saveProjCostItems(tab,projCostForm)" value="Save" />
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+</div>

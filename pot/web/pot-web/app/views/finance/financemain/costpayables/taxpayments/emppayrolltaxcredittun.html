@@ -1,0 +1,154 @@
+<section class="content-header">
+    <h1>Employee - Pay Roll Tax Credit Run</h1>
+</section>
+<section class="content">
+    <div class="panel panel-default block footer-parent">
+        <div class="panel-body" ng-init="getCountries();">
+            <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12 no-padding">
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2 padL-0">
+                    <md-input-container>
+                        <label>Country</label>
+                        <md-select ng-model="" ng-change="getCountryDetailsById(item,$index);">
+                            <md-option fixed-header="" ng-repeat="" ng-value="">
+                                {{  }}
+                            </md-option>
+                        </md-select>
+                        <!-- <select ng-options="coun.countryCode as coun.isoAlpha3 for coun in countries"
+                                placeholder="Country" ng-init="getCountries(item);"
+                                ng-change="getCountryDetailsById(item,$index);" ng-model="item.countryCode"
+                                ng-required="true">
+                                <option value="">-select-</option>
+                            </select> -->
+                    </md-input-container>
+                </div>
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+                    <md-input-container>
+                        <label>Province</label>
+                        <md-select ng-model="" ng-change="getCountryDetailsById(item,$index);">
+                            <md-option fixed-header="" ng-repeat="" ng-value="">
+                                {{  }}
+                            </md-option>
+                        </md-select>
+                        <!-- <select class="form-control" 
+                                    ng-options="provision.name as provision.name for provision in item.provisionTOs"
+                                    ng-model="item.provisionName" ng-required="true">
+                                    <option value="">-select-</option>
+                                </select> -->
+                    </md-input-container>
+                </div>
+                <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3">
+                    <md-input-container>
+                        <label>Employee Parent Company</label>
+                        <input type="text" name="empparentcomp" ng-model="" readonly="readonly" ng-click="">
+                    </md-input-container>
+                </div>
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+                    <md-input-container>
+                        <label>Pay Roll Tax Credit Run Cycle</label>
+                        <input type="text" name="taxcreditruncycle" ng-model="" readonly="readonly">
+                    </md-input-container>
+                </div>
+                <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3">
+                    <md-input-container>
+                        <label>Credit run Date</label>
+                        <potdate-picker dir-index="$index" date-name="date" ng-model="" custom-read-only />
+                    </md-input-container>
+                </div>
+            </div>
+            <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12 no-padding">
+                <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3  padL-0">
+                    <md-input-container>
+                        <label>Tax Cycle Period From</label>
+                        <potdate-picker dir-index="$index" date-name="fromDate" ng-model="progressClaim.fromDate"
+                            custom-read-only />
+                    </md-input-container>
+                </div>
+                <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3">
+                    <md-input-container>
+                        <label>Tax Cycle Period To</label>
+                        <potdate-picker dir-index="$index" date-name="toDate" ng-model="progressClaim.toDate"
+                            custom-read-only />
+                    </md-input-container>
+                </div>
+                <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3">
+                    <md-input-container>
+                        <label>Tax Credit Run #</label>
+                        <input type="text" ng-model="" name="taxcreditrun" readonly>
+                    </md-input-container>
+                </div>
+                <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3">
+                    <div class="pull-right marT15">
+                        <input type="button" class="btn btn-primary btn-sm" value="Trail Run" ng-click="" />
+                        <input type="button" class="btn btn-primary btn-sm" value="Run" ng-click="" />
+                        <input type="button" ng-click="" class="btn btn-primary btn-sm" value="View Past Records">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12 no-padding">
+                <div class="singleTableResHeight_3 overflow-auto">
+                    <table class="table table-hover table-bordered singleTableHeight_3">
+                        <thead>
+                            <tr>
+                                <th>Country</th>
+                                <th>Province</th>
+                                <th>Parent Company</th>
+                                <th>Company Registration Number</th>
+                                <th>Company Tax file Number</th>
+                                <th>Pay Calculation sheet run</th>
+                                <th>Pay roll Run #</th>
+                                <th>Pay roll Run date</th>
+                                <th>Pay Period-start date</th>
+                                <th>Pay Period-end date</th>
+                                <th>Currency</th>
+                                <th>Total-Regular Pay</th>
+                                <th>Total-Non Regular Pay</th>
+                                <th>Total Gross Pay & Allowances</th>
+                                <th>Total Deductions</th>
+                                <th>Super Fund-Company Contribution</th>
+                                <th>Super Fund-Employee Contribution</th>
+                                <th>Tax on Superfund</th>
+                                <th>Net Amount Payable</th>
+                                <th>Total Gross Pay and Super Fund amount paid</th>
+                                <th>View for More Details</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="">
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <div class="pull-left">
+                    <input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

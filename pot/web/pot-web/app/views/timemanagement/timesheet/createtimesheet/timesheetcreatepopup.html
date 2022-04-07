@@ -1,0 +1,114 @@
+<div id="tab-pannel" ng-init="getTimeSheetDetails(crewTypeId,timeSheetSearchReq)">
+	<form name="TimeSheetForm" validate>
+		<div class="panel-group panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Time Sheet</h4>
+			</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+						<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+							<span class="labelName">EPS</span>
+						</div>
+						<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+							<span class="labelName">Project</span>
+						</div>
+						<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+							<span class="labelName">Commencing Day</span>
+						</div>
+						<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+							<span ng-show="crewTypeId==1">Crew</span>
+							<!-- <span ng-show="crewTypeId==2">Individual</span> -->
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+						<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+							<input type="text" class="form-control"
+								ng-model="timeSheetSearchReq.projectLabelKeyTO.parentName" placeholder="EPS"
+								ng-click="getUserProjects()" ng-disabled="true">
+						</div>
+						<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+							<input type="text" class="form-control"
+								ng-model="timeSheetSearchReq.projectLabelKeyTO.projName" placeholder="Project"
+								ng-click="getUserProjects()" ng-disabled="true">
+						</div>
+						<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+							<day-picker commence-start-day="timeSheetSearchReq.weekCommenceDay"
+								week-commence-Day="projWeekStartNo" ng-model="timeSheetSearchReq.weekCommenceDay"
+								placeholder="dd-mm-yyyy" ng-disabled="true" class="form-control">
+						</div>
+						<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+							<input type="text" class="form-control" ng-show="crewTypeId==1" readonly="readonly"
+								ng-click="getCrewList(timeSheetSearchReq.projectLabelKeyTO.projId,timeSheetSearchReq.crewLabelKeyTO)"
+								ng-model="timeSheetSearchReq.crewLabelKeyTO.code " placeholder="Select Crew">
+						</div>
+						<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+							<div class="pull-right">
+								<input type="button" ng-click="copyTimeSheetEmpRegDetails()"
+									class="btn btn-secodary btn-sm" value="Copy Template"
+									data-test='AsbuiltRecords_TimeSheets_CreateTimeSheets_Create_CopyTemplate'
+									ng-disabled="timeSheetDetails.length==1&&crewTypeId==2">
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 popUpTableResHeight">
+						<table class="table table-striped table-hover table-bordered popUpTableHeight">
+							<thead>
+								<tr>
+									<th>
+									<input type="checkbox" ng-model="selectAll"
+										ng-change="selectAllEmps()">
+									<th class="vert-align text-center">Employee ID</th>
+									<th class="vert-align text-center">First Name</th>
+									<th class="vert-align text-center">Last Name</th>
+									<th class="vert-align text-center">Designation</th>
+									<th class="vert-align text-center">Parent Company</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr fixed-header="" ng-repeat="emptimesheet in timeSheetDetails">
+									<td class="vert-align text-center">
+										<input type="checkbox" ng-model="emptimesheet.select" tooltips tooltip-template
+											title="check box is for delete" ng-change="empSelect(emptimesheet)"
+											data-test='AsbuiltRecords_TimeSheets_CreateTimeSheets_Create_Add_SelectCrew'>
+									</td>
+									<td ng-click="seletTimeSheetEmpDetails(emptimesheet)"
+										class="vert-align text-center">
+										{{emptimesheet.empDetailLabelKeyTO.code}}
+									</td>
+									<td class="vert-align text-center">
+										{{emptimesheet.empDetailLabelKeyTO.displayNamesMap['firstName']}}
+									</td>
+									<td class="vert-align text-center">
+										{{emptimesheet.empDetailLabelKeyTO.displayNamesMap['lastName']}}
+									</td>
+									<td class="vert-align text-center">
+										{{emptimesheet.empDetailLabelKeyTO.displayNamesMap['classType']}}
+									</td>
+									<td class="vert-align text-center">
+										{{emptimesheet.empDetailLabelKeyTO.displayNamesMap['cmpCatgName']}}
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="panel-footer">
+				<div class="pull-right">
+					<input type="button" class="btn btn-primary btn-sm" value="Additional Employees"
+						data-test='AsbuiltRecords_TimeSheets_CreateTimeSheets_Create_Add' ng-show="crewTypeId==1 "
+						ng-click="addEmpRegDetails(timeSheetSearchReq)"> <input type="button"
+						class="btn  btn-primary btn-sm" value="Add" ng-show="timeSheetDetails <=0 && crewTypeId==2"
+						ng-click="addEmpRegDetails(timeSheetSearchReq)"
+						data-test='AsbuiltRecords_TimeSheets_CreateTimeSheets_Create_Add'> <input type="button"
+						class="btn btn-primary btn-sm" value="Save" ng-click="saveTimeSheetDetails(crewTypeId)"
+						data-test='AsbuiltRecords_TimeSheets_CreateTimeSheets_Create_Save'>
+
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</form>
+</div>

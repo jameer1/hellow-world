@@ -1,0 +1,40 @@
+<div id="tab-pannel" class="panel-group Material Docket Details ">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <th>Material Docket Details</th>
+    </div>
+    <div class="panel-body12">
+      <div class="table-responsive panel-body9">
+        <table class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th>Docket Date</th>
+              <th>Docket Number</th>
+              <th>Location of Delivery</th>
+              <th>Received By</th>
+              <th>Received Qty</th>
+              <th>Comments from Receiver</th>
+              <th>Defects if any</th>
+              <th>Records of Deliver Dockets <br> & other Plant Records
+              </th>
+            </tr>
+
+          </thead>
+          <tbody>
+            <tr fixed-header="" ng-repeat ="detail in materialDocketDetails">
+              <td class="input-width3">{{detail.docketDate | date}}</td>
+              <td class="input-width3">{{detail.docketNumber}}</td>
+              <td class="input-width3" ng-if="detail.stockLabelKeyTO.id != null">{{detail.stockLabelKeyTO.code}}</td>
+              <td class="input-width3" ng-if="detail.projStockLabelKeyTO.id != null">{{detail.projStockLabelKeyTO.code}}</td>
+              <td class="input-width3">{{detail.receivedBy}}</td>
+              <td class="input-width3">{{detail.receivedQty}}</td>
+              <td class="input-width3">{{detail.comments}}</td>
+              <td class="input-width3">{{detail.defectComments}}</td>
+              <td class="text-center"><input type="button" class="btn btn-primary bottomaligned btn-sm" value="View Document" style="width: 115px !important;"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

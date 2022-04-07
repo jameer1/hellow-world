@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>pot-web</artifactId>
+	<packaging>jar</packaging>
+	<name>POT  Web</name>
+
+	<parent>
+		<groupId>pot</groupId>
+		<artifactId>pot-webapp-root</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+
+	<properties>
+		<webpack.outputDirectory>${basedir}/app/dist</webpack.outputDirectory>
+		<final.resource.directiry>${basedir}/target/classes/META-INF/resources</final.resource.directiry>
+	</properties>
+
+	<build>
+		<resources>
+			<resource>
+				<directory>app</directory>
+				<excludes>
+				    <exclude>scripts/**/*</exclude>
+				    <exclude>index.html</exclude>
+				    <exclude>dist/*</exclude>
+				</excludes>
+				<targetPath>${final.resource.directiry}</targetPath>
+			</resource>
+			<resource>
+				<directory>app/dist</directory>
+				<targetPath>${final.resource.directiry}</targetPath>
+			</resource>
+		</resources>
+		<plugins>
+			<plugin>
+				<groupId>com.github.eirslett</groupId>
+				<artifactId>frontend-maven-plugin</artifactId>
+				<version>1.6</version>
+
+				<configuration>
+					<srcdir>${basedir}/scripts</srcdir>
+					<installDirectory>target</installDirectory>
+					<triggerfile>package.json</triggerfile>
+					<outputdir>${webpack.outputDirectory}</outputdir>
+				</configuration>
+
+				<executions>
+					<execution>
+						<!-- optional: you don't really need execution ids, but it looks nice 
+							in your build log. -->
+						<id>install node and npm</id>
+						<goals>
+							<goal>install-node-and-npm</goal>
+						</goals>
+						<configuration>
+							<nodeVersion>${node-version}</nodeVersion>
+							<npmVersion>${npm-version}</npmVersion>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>npm install</id>
+						<goals>
+							<goal>npm</goal>
+						</goals>
+						<!-- Optional configuration which provides for running any npm command -->
+						<configuration>
+							<arguments>install</arguments>
+							<installDirectory>target</installDirectory>
+						</configuration>
+					</execution>
+					<execution>
+						<id>webpack build</id>
+						<goals>
+							<goal>webpack</goal>
+						</goals>
+						<configuration>
+							<environmentVariables>
+								<build_env>prod</build_env>
+								<originUrl>${originUrl}</originUrl>
+							</environmentVariables>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-clean-plugin</artifactId>
+				<configuration>
+					<filesets>
+						<fileset>
+							<directory>app/dist</directory>
+						</fileset>
+						<fileset>
+							<directory>.tmp</directory>
+						</fileset>
+						<fileset>
+							<directory>${project.build.directory}</directory>
+						</fileset>
+					</filesets>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

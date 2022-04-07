@@ -1,0 +1,92 @@
+<div id="tab-pannel" ng-init="getProjEmpClassMap()">
+	<form name="projEmpClassForm" validate>
+		<div class="panel-group">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4 class="panel-title">Employee Classification</h4>
+				</div>
+				<div class="panel-body">
+					<div id="tableHeight13-1" class="table-responsive popUpTableResHeight">
+						<table class="table popUpTableHeight">
+							<thead>
+								<tr>
+									<th ng-show="action == 'Add'">Select</th>
+									<th>Resource ID</th>
+									<th>Resource Name</th>
+									<th>Employee Category</th>
+									<th>Equivalent name as per Project Contract</th>
+									<th>Equivalent Name as per Worker Union</th>
+									<th>Unit of Measure</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr fixed-header="" ng-repeat ="tab in addprojetemp">
+									<td ng-show="action == 'Add'"><input type="checkbox"
+										ng-model="tab.select" ng-change="popUpRowSelect(tab)"></td>
+
+									<td><select
+										ng-options="res.code for res  in resourceData track by res.code"
+										ng-model="tab.empClassTO" ng-required="true" class="form-control">
+											<option value="">-select-</option>
+									</select></td>
+									<td><input type="text" ng-model="tab.empClassTO.name"
+										ng-required="true" readonly="readonly"  class="form-control"/></td>
+
+									<td ng-form name="catgForm"><select data-test="Projects_ProjectLibrary_EmployeeClassification_EmployeeCategory"
+										ng-options="catg.name for catg  in catgData track by catg.name"
+										ng-model="tab.projEmpCatgTO" required="required" name="catg" class="form-control">
+											<option value="">-select-</option>
+											<span ng-show="catgForm.catg.$error.required">This
+												field is required</span>
+									</select></td>
+
+									<td ng-form name="empform"><input type="text"
+										ng-model="tab.tradeContrName" placeholder="Trade Name"
+										name="client" ng-required="true" class="form-control"
+										pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+										maxlength=50> <span
+										ng-show="empform.client.$dirty && empform.client.$error.required">This
+											field is mandatory</span> <span
+										ng-show="empform.client.$error.pattern">Alpha numeric
+											data should be allowed</span></td>
+
+									<td ng-form name="empform1"><input type="text" data-test='Projects_ProjectLibrary_EmployeeClassification_WorkUnionName'
+										ng-model="tab.unionWorkerName" name="union" class="form-control"
+										placeholder="Work Union" maxlength=50
+										pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+										name="clients" ng-required="true"> <span
+										ng-show="empform1.union.$dirty && empform1.union.$error.required"></span>
+										<span ng-show="empform1.union.$error.pattern">At least
+											One Alphabet is mandatory</span></td>
+
+									<td><select
+										ng-options="uom.name  for uom in unitOfMeasures track by uom.name"
+										ng-model="tab.measureUnitTO"
+										ng-change="(tab,tab.measureUnitTO)" ng-required="true" class="form-control">
+											<option value="">-select-</option>
+									</select></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="panel-footer">
+					<div class="pull-left">
+						<input type=submit class="btn btn-secondary btn-sm"
+							ng-click="projEmpClassForm.$valid && addEmpClass()"
+							value="Add Rows" ng-show="action =='Add'"> <input
+							type="button" class="btn btn-secondary btn-sm"
+							ng-click="uiDelete()" value="Delete Rows"
+							ng-show="action =='Add'" />
+					</div>
+					<div class="pull-right">
+						<input type="submit" class="btn bottomaligned btn-primary btn-sm"
+							ng-click="projEmpClassForm.$valid &&  saveEmpClass()"
+							value="Save" />
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</form>
+</div>

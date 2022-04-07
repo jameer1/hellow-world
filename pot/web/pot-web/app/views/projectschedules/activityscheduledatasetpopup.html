@@ -1,0 +1,81 @@
+<div id="tab-pannel" class="panel-group">
+	<form name="baselineform" autocomplete="off">
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Schedule Activity - Add Dataset</h4>
+			</div>
+
+			<div class="panel-body">
+				<div class="col-sm-12">
+					<div class="col-sm-5"></div>
+					<div class="col-sm-2">
+						<md-input-container class="md-block">
+							<input type="file" ng-model="importfile" accept=".csv" data-test='Schedules_ActivitySchedule_Create_UploadFile' ngf-select="parseScheduleFile($file)">
+						</md-input-container>
+					</div>
+					<div class="col-sm-2">
+						<md-input-container>
+	                        <label>Dataset Name</label>
+	                        <input type="text" data-test='Schedules_ActivitySchedule_Add_DatasetName' ng-model="scheduleActivityDataSet.datasetName" autocomplete="off" ng-change= "duplicatename(scheduleActivityDataSet.datasetName)">
+	                    </md-input-container>
+                    </div>
+                    <div class="col-sm-2">
+						<md-input-container class="md-block"><label class="labelName">Schedule Date</label>
+                            <pot-currentdate-display dir-index="$index" ng-model="scheduleActivityDataSet.scheduleDate" data-test='Schedules_ActivitySchedule_ScheduleDate' date-name="scheduleDate" readonly="readonly" />
+                        </md-input-container>
+                    </div>
+                    <div class="col-sm-1">
+                    	<div class="pull-right marT15">
+	                    	<input type="button" class="btn btn-primary btn-sm" ng-click="saveDataset()" value="Save">
+	                    </div>
+                    </div>
+				</div>
+				<div class="singleTableResHeight" style="overflow-y:auto;">
+					<table class="table table-striped table-hover table-bordered sticky-table">
+						<thead>
+							<tr>
+								<th><span class="fa fa-comment fa-flip-horizontal"></span></th>
+								<th>Critical</th>
+								<th>WBS</th>
+								<th>WBS Name</th>
+								<th>WBS Path</th>
+								<th>Activity ID</th>
+								<th>Activity Name</th>
+								<th>SOE ID</th>
+								<th>Original Duration</th>
+								<th>Start</th>
+								<th>Finish</th>
+								<th>Predecessors</th>
+								<th>Successors</th>
+								<th>Physical % Complete</th>
+								<th>Calendar</th>
+								<th>Lag or Lead</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat ="scheduleActivityDataTO in scheduleActivityDataSet.scheduleActivityDataTOs" ng-class="{'danger' : scheduleActivityDataTO.valid==false, 'info' : scheduleActivityDataTO.wbsName + scheduleActivityDataTO.wbsPath + scheduleActivityDataTO.activityCode==selectedUniqueIdentifier}" ng-click="setSelectedRow(scheduleActivityDataTO)">
+								<td><span class="fa fa-comment fa-flip-horizontal" ng-if="scheduleActivityDataTO.validationMessages.length > 0" ng-click="showComments(scheduleActivityDataTO.validationMessages)"></span></td>
+								<td>{{scheduleActivityDataTO.critical | yesnofilter:scheduleActivityDataTO.critical}}</td>
+								<td>{{scheduleActivityDataTO.wbsCode}}</td>
+								<td>{{scheduleActivityDataTO.wbsName}}</td>
+								<td>{{scheduleActivityDataTO.wbsPath}}</td>
+								<td>{{scheduleActivityDataTO.activityCode}}</td>
+								<td>{{scheduleActivityDataTO.activityName}}</td>
+								<td>{{scheduleActivityDataTO.soeCode}}</td>
+								<td>{{scheduleActivityDataTO.originalDuration}}</td>
+								<td>{{scheduleActivityDataTO.startDate | date}}</td>
+								<td>{{scheduleActivityDataTO.finishDate | date}}</td>
+								<td>{{scheduleActivityDataTO.predecessors}}</td>
+								<td>{{scheduleActivityDataTO.successors}}</td>
+								<td>{{scheduleActivityDataTO.physicalComplete}}</td>
+								<td>{{scheduleActivityDataTO.calendar}}</td>
+								<td><div ng-show="scheduleActivityDataTO.leadLag != 0">{{scheduleActivityDataTO.leadLag}}</div></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="ngdialog-close"></div>
+		</div>
+	</form>
+</div>

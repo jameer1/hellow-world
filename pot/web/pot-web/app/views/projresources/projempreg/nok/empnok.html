@@ -1,0 +1,166 @@
+<div ng-if="account.appCodeTemplate['RESOURCE_EMPNOKDETAILS_VIEW']" id="tab-pannel"
+	ng-controller="EmpNextOfKinController">
+	<form name="nokForm">
+
+		<div class="tabTable_1_Res_height_topB">
+			<table class="table table-striped table-hover table-bordered tabTable_1_height_topB">
+				<thead id="tab-head">
+					<tr>
+						<th>Contact Type</th>
+						<th>First Name <span style="color: red;">*</span></th>
+						<th>Last Name</th>
+						<th>Relationship with Employee<span style="color: red;">*</span></th>
+						<th>Residential Address<span style="color: red;">*</span></th>
+						<th>Postal Address<span style="color: red;">*</span></th>
+						<th>Phone Number<span style="color: red;">*</span></th>
+						<th>Alternate Phone Number</th>
+						<th>Email Address<span style="color: red;">*</span></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr fixed-header="" ng-repeat="nok in empNokTOs">
+						<td>{{nok.contactType}}</td>
+						<td class="input-width4">
+							<ng-form name="firstNameForm">
+								<input type="text" class="form-control" ng-model="nok.firstName" ng-required="true"
+									name="fName" data-test='{{nok.contactType}}_Resources_Employee_NOK_FirstName'
+									placeholder="First Name" minlength="2"
+									pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*)) />
+								<span class="procurment-pot-errors"
+									ng-show="firstNameForm.fName.$touched && firstNameForm.fName.$error.required">Name
+									is mandatory
+								</span>
+								<span class="procurment-pot-errors" ng-show="firstNameForm.fName.$error.minlength">Too
+									Short!
+								</span>
+								<span class="procurment-pot-errors" ng-show="firstNameForm.fName.$error.pattern">Alpha
+									numerics should be allowed
+								</span>
+							</ng-form>
+						</td>
+
+						<td class="input-width4">
+							<ng-form name="lastNameForm">
+								<input type="text" class="form-control" ng-model="nok.lastName"
+									data-test='{{nok.contactType}}_Resources_Employee_NOK_LastName'
+									placeholder="Last Name" minlength="2" name="lname"
+									pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*)) />
+								<span class="procurment-pot-errors" ng-show="lastNameForm.lname.$error.minlength">Too
+									Short!
+								</span>
+								<span class="procurment-pot-errors" ng-show="lastNameForm.lname.$error.pattern">Alpha
+									numerics should be allowed
+								</span>
+							</ng-form>
+						</td>
+
+						<td class="input-width4">
+							<ng-form name="relationForm">
+								<input type="text" class="form-control" ng-model="nok.relationWithEmp"
+									ng-required="true"
+									data-test='{{nok.contactType}}_Resources_Employee_NOK_RelationshipWithEmployee'
+									placeholder="Relationship" minlength="2" name="relation"
+									pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*)) />
+								<span class="procurment-pot-errors"
+									ng-show="relationForm.relation.$touched && relationForm.relation.$error.required">Relationship
+									is mandatory
+								</span>
+								<span class="procurment-pot-errors" ng-show="relationForm.relation.$error.minlength">Too
+									Short!
+								</span>
+								<span class="procurment-pot-errors" ng-show="relationForm.relation.$error.pattern">Alpha
+									numerics should be allowed
+								</span>
+							</ng-form>
+						</td>
+
+						<td class="input-width4">
+							<ng-form name="nokresForm">
+							<input type="text" class="form-control" ng-model="nok.residentialAddr"
+								data-test='{{nok.contactType}}_Resources_Employee_NOK_ResidentialAddress'
+								ng-required="true" name="resAdd" placeholder="Residential Address" />
+							<span class="procurment-pot-errors"
+								ng-show="nokresForm.resAdd.$error.required && nokresForm.resAdd.$touched">
+								This field is mandatory
+							</span>
+						</ng-form>
+						</td>
+
+						<td class="input-width4">
+							<ng-form name="nokpostForm">
+							<input type="text" class="form-control"
+								data-test='{{nok.contactType}}_Resources_Employee_NOK_PostalAddress'
+								ng-model="nok.postalAddr" ng-required="true" name="postAdd"
+								placeholder="Postal Address" />
+
+							<span class="procurment-pot-errors"
+								ng-show="nokpostForm.postAdd.$error.required && nokpostForm.postAdd.$touched">
+								This field is mandatory
+							</span>
+						</ng-form>
+						</td>
+
+						<td class="input-width4">
+								<ng-form name="nokphoneForm">
+								<input type="text" class="form-control" ng-model="nok.phoneNumber"
+									name="phone" data-test='{{nok.contactType}}_Resources_Employee_NOK_PhoneNumber'
+									pattern="^[\d\.,]+$" tabindex="9" maxlength="15" minlength=6 valid-number
+									ng-required="true" placeholder="Phone Number" /> <span class="procurment-pot-errors"
+									ng-show="nokphoneForm.phone.$error.pattern">Enter Only Digits
+								</span>
+								 <span class="procurment-pot-errors"
+									ng-show="nokphoneForm.phone.$error.required && nokphoneForm.phone.$touched ">Phone
+									Number is Required</span> 
+									<span ng-show="nokphoneForm.phone.$error.minlength" class="procurment-pot-errors">Mobile
+									PhoneNumber must be minimum 6 digits</span>
+								</ng-form>
+								</td>
+						<td class="input-width4">
+								<ng-form name="nokaltForm">
+								<input type="text" class="form-control"
+									data-test='{{nok.contactType}}_Resources_Employee_NOK_AlternativePhoneNumber'
+									ng-model="nok.alternatePhoneNumber" name="alternum"
+									pattern="^[\d\.,]+$" tabindex="9" maxlength="15" minlength=6
+									placeholder="Alternate Phone Number" valid-number/><span class="procurment-pot-errors"
+									ng-show="nokaltForm.alternum.$error.pattern">Enter Only
+									Digits </span> <span class="procurment-pot-errors" ng-show="nokaltForm.alternum.$error.minlength">Mobile
+									PhoneNumber must be 10 characters</span>
+								</ng-form>
+								</td>
+						
+						<td class="input-width4">
+							<ng-form name="nokemailForm">
+							<input type="email" class="form-control" name="email"
+								data-test='{{nok.contactType}}_Resources_Employee_NOK_EmailAddress'
+								placeholder="Email Address" tabindex="6" ng-model="nok.email"
+								
+								ng-required="true" />
+								<span class="procurment-pot-errors"
+								ng-show="nokemailForm.email.$touched && nokemailForm.email.$error.required">Email
+								ID is Required</span>
+							<span class="procurment-pot-errors" ng-show="nokemailForm.email.$error.email">Your
+								Email ID is Invalid</span>
+							</ng-form>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<div class="panel-footer padR-0">
+			<div class="pull-right">
+				<input ng-if="selectedEmployeeData && account.appCodeTemplate['RESOURCE_EMPNOKDETAILS_ADD']"
+					data-test='Resources_Employee_NOK_Save' type="submit" class="btn btn-primary btn-sm"
+					ng-click="nokForm.$valid && saveEmpNOKDetails()" value="Save">
+			</div>
+			<div class="pull-left">
+				<input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+				<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+				<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+				<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+				<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+			</div>
+		</div>
+
+	</form>
+</div>

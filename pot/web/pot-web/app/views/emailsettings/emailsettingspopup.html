@@ -1,0 +1,99 @@
+<div id="tab-pannel" class="panel-group" ng-init="getEmailServiceMap()">
+	<form name="addEmailSettingsForm" autocomplete="off">
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Email Hosting Details</h4>
+			</div>
+			<div class="panel-body">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<md-input-container>
+						<label>Email Host</label>
+					<input type="text" data-test='Admin_ClientUser_EmailHosting_create_EmailHost' class="form-control" ng-model="emailSetting.host" name="emailHost"
+						ng-required="true" minlength=4
+						maxlength=20 pattern="^[a-zA-Z\d\.,%]+$" ng-disabled="hostDisabled"> <span
+						ng-show="addEmailSettingsForm.emailHost.$dirty && addEmailSettingsForm.emailHost.$error.required">Please
+						enter Host</span> <span
+						ng-show="addEmailSettingsForm.emailHost.$error.pattern">Special
+						characters not allowed</span> <span
+						ng-show="addEmailSettingsForm.emailHost.$error.minlength">Too
+						short!</span>
+					</md-input-container>
+				</div>
+
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<md-input-container>
+							<label>Email Port</label>
+					<input data-test='Admin_ClientUser_EmailHosting_create_EmailPort' type="text" class="form-control" ng-model="emailSetting.port" name="emailPort"
+						pattern="^[\d\.,/]+$" minlength="3"
+						maxlength="4" ng-required="true" ng-disabled="portDisabled"> <span
+						ng-show="addEmailSettingsForm.emailPort.$dirty && addEmailSettingsForm.emailPort.$error.required">Please
+						enter port</span> <span
+						ng-show="addEmailSettingsForm.emailPort.$error.pattern">Enter
+						only numbers</span> <span
+						ng-show="addEmailSettingsForm.emailPort.$error.minlength">Too
+						short!</span>
+						</md-input-container>
+				</div>
+
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<md-input-container>
+							<label>Email</label>
+					<input data-test='Admin_ClientUser_EmailHosting_create_Email' type="email" class="form-control" name="email" ng-model="emailSetting.fromEmail"
+					ng-required="true" maxlength=40
+						ng-change="checkDuplicate(emailSetting)"
+						ng-class="{coloumnHighlightColor:emailSetting.duplicateFlag}"> <span
+						ng-show="addEmailSettingsForm.email.$dirty && addEmailSettingsForm.email.$error.required">Please
+						enter email</span> <span
+						ng-show="addEmailSettingsForm.email.$dirty && addEmailSettingsForm.email.$invalid">Invalid
+						Email </span>
+							</md-input-container>
+				</div>
+
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<md-input-container>
+							<label>User Name</label>
+					<input data-test='Admin_ClientUser_EmailHosting_create_UserName' type="text" class="form-control" ng-model="emailSetting.userName" name="userName"
+						ng-required="true" minlength=3
+						pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+						maxlength=20> <span
+						ng-show="addEmailSettingsForm.userName.$dirty && addEmailSettingsForm.userName.$error.required">Please
+						enter setting user name</span> <span
+						ng-show="addEmailSettingsForm.userName.$error.minlength">Too
+						short!</span>
+
+						 <span
+						ng-show="addEmailSettingsForm.userName.$error.pattern">At
+						least one alphabet is mandatory</span>
+					</md-input-container>
+				</div>
+
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<md-input-container>
+							<label>Email Password</label>
+					<input data-test='Admin_ClientUser_EmailHosting_create_PassWord' type="Password" class="form-control" ng-model="emailSetting.password"
+						name="password" ng-required="true"
+						pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+						minlength=4 maxlength=20 /> <span
+						ng-show="addEmailSettingsForm.password.$dirty && addEmailSettingsForm.password.$error.required">Please
+						enter setting password</span> <span
+						ng-show="addEmailSettingsForm.password.$error.minlength">Too
+						short!</span>
+
+						<span
+						ng-show="addEmailSettingsForm.password.$error.pattern">At
+						least one alphabet is mandatory</span>
+						</md-input-container>
+				</div>
+
+			</div>
+			<div class="panel-footer">
+				<div class="pull-right">
+					<input data-test='Admin_ClientUser_EmailHosting_Save' type="submit"
+						ng-click="addEmailSettingsForm.$valid && saveEmailSettings()"
+						class="btn btn-primary btn-sm" value="Save" />
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</form>
+</div>

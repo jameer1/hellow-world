@@ -1,0 +1,63 @@
+<div ng-if="account.appCodeTemplate['RESOURCE_EMPLEAVEATTENDANCE_VIEW']" id="tab-pannel" ng-controller="EmpAttendanceController">
+		<div class="tabTable_1_Res_height_topB">
+				<table class="table table-striped table-hover table-bordered tabTable_1_height_topB" >
+					<thead>
+						<tr>
+							<th rowspan=2>Select</th>
+							<th rowspan=2>Period (Calendar Year)</th>
+							<th rowspan=2>Unit</th>
+							<th colspan="{{empLeaveAccuredTOs.length+1}}" class="text-center">Leave
+								and Attendance Accrued</th>
+							<th colspan="{{leaveCodeMap.length+1}}" class="text-center">Days
+								Account as per Daily Attendance Records</th>
+							<th rowspan=2>View Balance</th>
+						</tr>
+						<tr>
+							<th ng-repeat ="leaveAccured in empLeaveAccuredTOs | orderBy:'leaveAccured.displayOrder'" title="{{leaveAccured.desc}}" >{{leaveAccured.code}}</th>
+							<th>Total Days</th>
+							<th ng-repeat ="leaveCode in leaveCodeMap | orderBy:'displayOrder'" title="{{leaveCode.desc}}">{{leaveCode.code}}</th>
+							<th>Total Days</th>
+						</tr>
+					</thead>
+					<tbody>
+					<tbody>
+						<tr ng-repeat ="empLeaveAttendance in empLeaveAttendanceYearTOs">
+							<td><input type="checkbox"
+								ng-model="empLeaveAttendance.select"
+								ng-change="empAttendanceRowSelect(empLeaveAttendance)"></td>
+							<td>{{empLeaveAttendance.year}}</td>
+							<td>Days</td>
+							<td ng-repeat ="leaveAttendanceTO in empLeaveAttendance.empLeaveAccuredTOs | orderBy:'leaveTypeTO.displayOrder'">
+								{{leaveAttendanceTO.totalLeaves}}</td>
+							<td class="input-width">{{calculateEmpTotalLeaves(empLeaveAttendance.empLeaveAccuredTOs);}}</td>
+
+							<td class="input-width1"
+								fixed-header="" ng-repeat ="leaveCode in leaveCodeMap | orderBy:'displayOrder'">
+								{{empLeaveAttendance.empLeaveAttendanceMap[leaveCode.code].displayNamesMap['total']}}
+							</td>
+							<td class="input-width">{{calculateEmpLeaveAttendanceTotal(empLeaveAttendance.empLeaveAttendanceMap)}}</td>
+							<td><span class="btn btn-primary btn-sm"
+								ng-click="viewEmpLeaveBalanceDetails(empLeaveAttendance)">View
+									Balance</span></td>
+
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		<div class="panel-footer padR-0 padL-0">
+			<div class="pull-right">
+				<input data-test='Resources_Employee_LeaveandAttendance_Create' type="button" class="btn btn-primary btn-sm"
+					ng-disabled="empLeaveAttendanceYearTOs.length>=3" ng-click="addEmpLeaveAttendance('Add')" value="Add" 
+					ng-if="selectedEmployeeData && account.appCodeTemplate['RESOURCE_EMPLEAVEATTENDANCE_ADD']">
+			</div>
+			<div class="pull-left">
+				<input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+				<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+				<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+				<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+				<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+				<input type="button" class="btn btn-primary btn-sm"  ng-click="addEmpLeaveAttendance('Edit')" value="Edit"
+					ng-if="empLeaveAttendanceYearTOs.length > 0 && account.appCodeTemplate['RESOURCE_EMPLEAVEATTENDANCE_ADD']">
+			</div>
+		</div>
+</div>

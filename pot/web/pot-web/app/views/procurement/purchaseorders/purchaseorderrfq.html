@@ -1,0 +1,64 @@
+<div ng-if="account.appCodeTemplate['PROCURMT_PURCHASEORDR_RFQ_VIEW']" class="panel-group" ng-controller="PurchaseRfqController">
+		<div class="tabTable_3_Res_height">
+		<div id="grid" ui-grid="gridOptions" ng-if="stylesSvc.finishedStyling" 
+		ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-grouping class="grid proc-tabs"></div>
+				<!--<table id="" class="table table-hover table-bordered tabTable_3_height">
+				<thead>
+					<tr>
+						<th class="text-center" rowspan="2">EPS Name</th>
+						<th class="text-center" rowspan="2">Project Name</th>
+						<th class="text-center" rowspan="2">Pre-Contract ID</th>
+						<th class="text-center" rowspan="2">Contract Description</th>
+						<th class="text-center" rowspan="2">Requester</th>
+						<th class="text-center" rowspan="2">Approver</th>
+						<th class="text-center" rowspan="2">Vendor</th>
+						<th class="text-center" rowspan="2">Tender Close Date</th>
+						<th class="text-center" rowspan="2">Schedule of Items</th>
+						<th class="text-center" colspan="2">Correspondence</th>
+						<th>Correspondence to Vendor</th>
+							<th>Correspondence from Vendor</th> 
+						<th class="text-center" rowspan="2">Quotes<br>Received
+						</th>
+						<th class="text-center" rowspan="2">Edit Quotes<br>from
+							Vendor
+						</th>
+						<th class="text-center" rowspan="2">RFQ/Bidding<br>Status
+						</th>
+					</tr>
+					<tr>
+						<th class="text-center">To Vendor</th>
+						<th class="text-center">From Vendor</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr fixed-header="" ng-repeat ="vendor in preContractCmpTOs">
+						<td>{{userProjMap[vendor.preContractTO.projId].code}}</td>
+						<td>{{userProjMap[vendor.preContractTO.projId].name}}</td>
+						<td>{{vendor.preContractTO.code}}</td>
+						<td>{{vendor.preContractTO.desc}}</td>
+						<td>{{vendor.preContractTO.preContractReqApprTO.reqUserLabelkeyTO.code}}</td>
+						<td>{{vendor.preContractTO.preContractReqApprTO.apprUserLabelkeyTO.code}}</td>
+						<td>{{companyMap[vendor.companyId].name}}</td>
+						<td>{{vendor.preContractTO.revisedCloseDate !=null ?
+							vendor.preContractTO.revisedCloseDate :
+							vendor.preContractTO.closeDate | date}}</td>
+						<td class="text-center"><span class="link" ng-if="account.appCodeTemplate['PROCURMT_PURCHASEORDR_RFQSCHEDULEOFITEMS_VIEW']" data-test="PurchaseOrders_RFQ_scheduleofitemsview" ng-click="viewScheduleItemsDetails(vendor)">View</span></td>
+						<td class="text-center"><span class="link" ng-if="account.appCodeTemplate['PROCURMT_PURCHASEORDR_RFQ_TOVENDOR_VIEW']" data-test="PurchaseOrders_RFQ_tovendorview" ng-click="getToVendorDetails(vendor)">View</span></td>
+						<td class="text-center"><span class="link" ng-if="account.appCodeTemplate['PROCURMT_PURCHASEORDR_RFQFROMVENDOR_VIEW']" data-test="PurchaseOrders_RFQ_fromvendorview" ng-click="getFromVendorDetails(vendor)">View</span></td>
+						<td class="text-center">{{vendor.biddingStatus=='Open' ? 'No' : 'Yes'}}</td>
+						<td class="text-center"><span class="link" ng-if="account.appCodeTemplate['PROCURMT_PURCHASEORDR_RFQQUOTESFROMVENDOR_VIEW']" ng-click="editScheduleItemsDetails(vendor)" data-test="PurchaseOrders_RFQ_editquotesview">View/edit</span></td>
+						<td class="text-center">{{vendor.biddingStatus}}</td>
+					</tr>
+				</tbody>
+			</table>-->
+		</div>
+		<div class="panel-footer">
+			<!-- <div class="pull-left">
+			  <input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+			  <input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+			  <input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+			  <input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+			  <input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+			</div> -->
+		  </div>
+</div>

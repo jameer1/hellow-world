@@ -1,0 +1,94 @@
+<section class="content-header">
+	<h1>Profit Center</h1>	
+		<!-- <input type="submit" value ="Help !"
+		ng-click="helpPage();" class="pull-right btn  btn-primary btn-sm help-each-page"> -->
+	<button class="pull-right btn btn-primary btn-sm help-each-page" 
+		onclick="window.open('views/helptutorials/ProfitCenter.html', '_blank', 
+		'toolbar=yes,scrollbars=yes,resizable=no,top=50,left=100,width=1400,height=700')">
+		Help
+	</button>
+</section>
+<section class="content">
+<div id="tab-pannel" ng-init="getProfitCentres()">
+	<div class="panel panel-default block footer-parent">
+		<div class="panel-body">
+			<div class="row">
+					<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+				<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padL-0">
+					<md-input-container class="md-block">
+						<label>Profit Center Code</label>
+						<input type="text" ng-model="profitGetReq.code" class="form-control" data-test="ProfitCenter_Code">
+						</md-input-container>
+				</div>
+				<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+					<md-input-container class="md-block">
+						<label>Profit Center</label>
+						<input type="text" ng-model="profitGetReq.name" class="form-control" data-test="ProfitCenter_ProfitCenter">
+						</md-input-container>
+				</div>
+				<div class="col-lg-6 col-md-6 col-xs-6 col-sm-6 padR-0">
+				<div class="pull-right marT15 marB15">
+					<input type="submit" ng-click="getProfitCentres('click')"
+						class="btn bottomaligned btn-primary btn-sm" value="Search" data-test="ProfitCenter_Search"
+						ng-model="searchText"> <input type="reset"
+						class="btn bottomaligned btn-secondary btn-sm" data-test="ProfitCenter_Reset"
+						ng-click="resetProfitCentres()" value="Reset">
+				</div>
+				</div>
+				</div>
+			
+			
+		</div>
+		<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 no-padding">
+				<div class="singleTableResHeight_2">
+				<table id="tree" class="table table-striped table-hover table-bordered singleTableHeight_2" >
+					<thead id="tab-head">
+						<tr>
+							<th>Select</th>
+							<th>Profit Center Code</th>
+							<th>Profit Center</th>
+							<th>Vendor Invoices-Pay Cycle</th>
+							<th>Vendor Invoices-Cycle Start</th>
+							<th>Vendor-Credit Cycle Due date</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr fixed-header="" ng-repeat="tab in profitCentreTOs | orderBy: 'parent'" class="abc{{tab.level}}" ng-show="!tab.collapse">
+							<td><input type="checkbox" ng-model="tab.select" ng-change="profitSelect(tab)" data-test="ProfitCenter_Select_Checkbox"></td>
+							<td>
+									<span ng-repeat="level in [].constructor(tab.level) track by $index" class="xyz" style="padding-left: 30px;"></span>
+								<span ng-show="(tab.expand || (!tab.item  && tab.childProfitCentreTOs.length <= 0))" class="fa fa-minus" title="Collapse Profit Center" ng-click="profitCentreitemClick(tab,true);" data-test="ProfitCenter_Collapse">
+								</span>
+								<span ng-show="(!tab.expand && tab.childProfitCentreTOs.length > 0)" class="fa fa-plus" ng-click="profitCentreitemClick(tab,false);" data-test="ProfitCenter_Expand" title="Expand Profit Center">
+								</span>
+								<span style="padding-left: 10px; color: black !important;">
+									{{tab.code}} <span style="padding-left: 5px;"></span>
+								</span>
+								<i class="fa fa-edit fa-fw" ng-if="tab.level==0 && (!tab.item)" data-test='ProfitCenter_EditIcon' ng-click="editProfitCentreData('Edit',tab)" title="Edit Profit Center"></i>
+							</td>
+							<td>{{tab.name}}</td>
+							<td>{{tab.vendorPayCycle}}</td>
+							<td>{{tab.cyclePeriodStartFrom}}</td>
+							<td>{{tab.cycleDueDate}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		 </div>
+		</div>
+		<div class="panel-footer">
+			<div class="pull-right">
+				<input class="btn bottomaligned btn-secondary btn-sm" type="button" ng-click="deleteProfitCentres()" value="Deactivate" data-test="ProfitCenter_Deactivate"/>
+				<input type="button" class="btn bottomaligned btn-primary btn-sm" ng-click="editProfitCentreData('Add',null)" value="Create" data-test="ProfitCenter_Create"/>
+			</div>
+			<div class="pull-left">
+				<input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+				<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+				<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+				<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+				<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+			</div>
+		</div>
+	</div>
+</div>
+</section>

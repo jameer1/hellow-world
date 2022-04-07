@@ -1,0 +1,73 @@
+<div id="tab-pannel" class="panel-group" ng-init="getToDate(item)" >
+	<div id="tab-pannel" class="panel panel-default" modal-movable>
+		<div class="panel-heading">
+			<h4 class="panel-title">Financial Half  Year</h4>
+		</div>
+		<div class="panel-body">
+			<h4>Half Year 1</h4>	
+			<table class="table table-striped table-bordered">
+				<thead>
+					<tr>
+					        <th>From Date</th>
+					        <th>To Date</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat ="item in FinancialHalfYearDetails" >
+			<td ng-if="item.actionType == 'View' ">{{item.firstFromDate}}</td>
+					<td ng-if="item.actionType == 'View' ">{{item.firstToDate}}</td> 
+						<td ng-if="item.actionType != 'View' "><ng-form name="dateForm"> <potdate-picker
+								ng-model="item.firstFromDate" date-name="date" max-date="item.firstToDate"
+								min-mode="year" datepicker-mode="'year'" ng-change="getToDate(item)" data-test="CountryProvinceCodes_FinancialHalfYear_FromDate1"
+								placeholder="dd-mm-yyyy" readonly="readonly"
+								class="form-control" 
+							/></ng-form></td>
+						<td ng-if="item.actionType != 'View' "><ng-form name="dateForm"> <potdate-picker
+								ng-model="item.firstToDate" date-name="date" data-test="CountryProvinceCodes_FinancialHalfYear_FromDate2"
+								min-mode="year" datepicker-mode="'year'" min-date="item.firstFromDate"
+								placeholder="dd-mm-yyyy" readonly="readonly"
+								class="form-control" 
+							/></ng-form></td>
+
+					</tr>
+				</tbody>
+			</table>
+			<br>
+			<h4>Half Year 2</h4>
+		<table class="table table-striped table-bordered">
+				<thead>
+					<tr>
+					        <th>From Date</th>
+					        <th>To Date</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat ="item in FinancialHalfYearDetails" >
+					 <td ng-if="item.actionType == 'View' ">{{item.secondFromDate}}</td>
+					<td ng-if="item.actionType == 'View' ">{{item.secondToDate}}</td> 
+						<td ng-if="item.actionType != 'View' "><ng-form name="dateForm"> <potdate-picker
+								ng-model="item.secondFromDate" date-name="date" data-test="CountryProvinceCodes_FinancialHalfYear_ToDate1"
+								min-mode="year" datepicker-mode="'year'"  min-date="item.firstToDate"
+								placeholder="dd-mm-yyyy" readonly="readonly"
+								class="form-control" 
+							/></ng-form></td>
+						<td ng-if="item.actionType != 'View' "><ng-form name="dateForm"> <potdate-picker
+								ng-model="item.secondToDate" date-name="date" data-test="CountryProvinceCodes_FinancialHalfYear_ToDate2"
+								min-mode="year" datepicker-mode="'year'" min-date="item.secondFromDate"
+								placeholder="dd-mm-yyyy" readonly="readonly"
+								class="form-control" 
+							/></ng-form></td>
+
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="panel-footer">
+		 <div class="pull-right" ng-if="actionTypeSave != 'View' " >
+				<input type="submit" class="btn  btn-primary btn-sm" value="Save" data-test="CountryProvinceCodes_FinancialHalfYear_Date_Save"
+					ng-click="saveFinancialHalfYear()" /> 
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</div>
+</div>

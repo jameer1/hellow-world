@@ -1,0 +1,99 @@
+<div id="tab-pannel" class="panel-group">
+	<form name="rentalValueForm" validate>
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Rental Value</h4>
+			</div>
+			<div class="panel-body">
+				<div class="popUpTableResHeight"  style="overflow:auto">
+				<table class="table table-striped table-bordered popUpTableHeight"  >
+					<thead id="tab-head">
+						<tr>
+							<th class="text-center" ng-if="action ==='Add'">Select</th>
+							<th class="text-center">Effective Date
+								<span class="procurment-pot-errors">*</span>
+							</th>
+							<th class="text-center">Asset Current Life Status
+								<span class="procurment-pot-errors">*</span>
+							</th>
+							<th class="text-center">Revenue Status
+								<span class="procurment-pot-errors">*</span>
+							</th>
+							<th class="text-center">Revenue Collection Cycle
+								<span class="procurment-pot-errors">*</span>
+							</th>
+							<th class="text-center">Fixed or Variable Rent/Income
+								<span class="procurment-pot-errors">*</span>
+							</th>
+							<th class="text-center">Estimated Rent per Cycle(Amount)
+								<span class="procurment-pot-errors">*</span>
+							</th>
+							<th class="text-center">Applicable for Revenue Forecast</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat ="asset in rentalValue">
+
+							<td ng-if="action =='Add'"><ng-form name="selectboxForm">
+								<input type="checkbox"  ng-model="asset.selected" data-test="RentalValue_Create_Checkbox"
+									ng-change="assetRentValuePopUpRowSelect(asset)" ></ng-form></td>
+
+							<td class="input-width0"><ng-form
+									name="dateForm"> <potdate-picker data-test="RentalValue_Create_EffectiveDate" ng-required="true"
+									ng-model="asset.effectiveDate" dir-index="$index" date-name="date" custom-read-only
+									placeholder="dd-mm-yyyy" class="form-control"  min-date="asset.plantCommissioningDate"/></ng-form></td>
+
+							<td><select ng-model="asset.assetCurrentLifeSataus" class="form-control" ng-required="true" data-test="RentalValue_Create_AssetCurrentLifeStatus" ng-change="changeSelection(asset.assetCurrentLifeSataus)">
+								<option value="">-Select-</option>
+								<option fixed-header="" ng-repeat ="assetCurrentLifeSataus in assetCurrentLifeSatausList">{{assetCurrentLifeSataus}}</option>
+							</select></td>
+
+							<td><select ng-model="asset.owenerShipStatus" data-test="RentalValue_Create_RevenueStatus" 
+								ng-required="true" class="form-control" ng-change="changeValues(asset.owenerShipStatus)">
+								<option value="">-Select-</option>
+								<option fixed-header="" ng-repeat ="owenerShipStatus in owenerShipStatusList">{{owenerShipStatus}}</option>
+							</select></td>
+
+							<td><select ng-model="asset.revenueCollectionCycle" ng-required="true" class="form-control" data-test="RentalValue_Create_RevenueCollectionCycle">
+								<option value="">-Select-</option>
+								<option fixed-header="" ng-repeat ="revenueCollectionCycle in revenueCollectionCycleList">{{revenueCollectionCycle}}</option>
+							</select></td>
+
+							<td><select ng-model="asset.fixedOrRentIncome" ng-required="true" class="form-control" data-test="RentalValue_Create_FixedorVariableRentIncome">
+								<option value="">-Select-</option>
+								<option fixed-header="" ng-repeat ="fixedOrRentIncome in fixedOrRentIncomeList">{{fixedOrRentIncome}}</option>
+							</select></td>
+
+							<td><ng-form name="estimatedRentForm"> <input data-test="RentalValue_Create_EstimatedRentperCycle_Amount"
+									type="text" ng-model="asset.estimatedRentPerCycle" name="estimatedRent" maxlength="16.2"
+									placeholder="Estimated rent" class="form-control" pattern="^[\d\.,%]+$"
+								    ng-required="true" valid-number/></ng-form></td>
+
+							<td><select ng-model="asset.applicableRevenue" data-test="RentalValue_Create_ApplicableforRevenueForecast"
+								 class="form-control">
+								 <option value="">-Select-</option>
+								 <option fixed-header="" ng-repeat ="applicableRevenue in applicableRevenueList">{{applicableRevenue}}</option>
+							</select></td>
+
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		    </div>
+			<div class="panel-footer">
+				<div class="pull-left">
+					<input type="submit" class="btn btn-secondary  btn-sm"
+						ng-click="addRows()" value="Add"
+						ng-show="action =='Add'" data-test="RentalValue_Create_Add"> <input type="button"
+						class="btn btn-secondary  btn-sm" ng-click="deleteRows()"
+						value="Delete" ng-show="action =='Add'" data-test="RentalValue_Create_Delete">
+				</div>
+				<div class="pull-right">
+					<input type="submit" class="btn btn-primary  btn-sm"
+						ng-click="rentalValueForm.$valid && save()" value="Save" data-test="RentalValue_Create_Save">
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</form>
+</div>

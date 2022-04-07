@@ -1,0 +1,32 @@
+	<div id="tab-pannel" class="panel panel-default" modal-movable>
+		<div class="panel-heading">
+			<h4 class="panel-title">Notifications</h4>
+		</div>
+		<div class="panel-body">
+				<div class="popUpTableResHeight">
+	<table class="table table-striped table-hover table-bordered popUpTableHeight" >
+				<thead>
+					<tr>
+						<th>Notification</th>
+						<th>Crew</th>
+						<th>From Date</th>
+						<th>To Date</th>
+					</tr>
+
+				</thead>
+				<tbody>
+					<tr data-test='Projects_ProjectSettings_Attendance_AdditionalTimeTab_Requestnotification_Select' fixed-header="" ng-repeat ="notification in notifications"
+						ng-dblclick="crewlistpopup(notification)">
+						<td>{{notification.code}}</td>
+						<td>{{notification.crewName}}</td>
+						<td>{{notification.fromDate}}</td>
+						<td>{{notification.toDate}}</td>
+					</tr>
+				</tbody>
+			</table>
+			</div>
+		</div>
+
+		<div class="panel-footer"></div>
+		<div class="ngdialog-close"></div>
+	</div>

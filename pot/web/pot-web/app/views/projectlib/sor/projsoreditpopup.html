@@ -1,0 +1,196 @@
+<div id="tab-pannel" class="panel-group" ng-init="projSorifOnLoad()">
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Schedule of Rates</h4>
+			</div>
+			<div id="input-width" class="panel-body">
+				<div class="popUpTableResHeight">
+					<table id="tree" class="table table-hover table-bordered popUpTableHeight">
+						<thead>
+							<tr>
+								<th>SOR ID<span style="color: red;"> *</span></th>
+								<th>SOR Name<span style="color: red;"> *</span></th>
+								<th>Unit of Measure<span style="color: red;"> *</span></th>
+								<th class="justify-right">Labour Rate<span style="color: red;"> *</span></th>
+								<th class="justify-right">Plant Rate<span style="color: red;"> *</span></th>
+								<th class="justify-right">Material Rate<span style="color: red;"> *</span></th>
+								<th class="justify-right">Others Rate<span style="color: red;"> *</span></th>
+								<th class="justify-right">Total Rate<span ng-if="subCategoryRateNotRequired" style="color: red;"> *</span></th>
+								<th class="justify-right">Quantity<span style="color: red;"> *</span></th>
+								<th class="justify-right">Amount<span style="color: red;"> *</span></th>
+								<th>Manpower Hrs</th>
+								<th class="justify-right">Comments</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr fixed-header="" ng-repeat="tab in addSORData" class="abc{{tab.level}}"
+								ng-hide="tab.collapse">
+								<td>
+								<form name="sorForm1" novalidate>
+								<div style="display:flex;">
+									<span ng-repeat="level in [].constructor(tab.level) track by $index" class="xyz"
+										style="padding-left: 30px;">
+									</span>
+									<span ng-click="projSorPopupItemClick(tab,true);" ng-show="!tab.item && tab.expand"
+										class="fa fa-minus" style="margin-top:14px;">
+									</span>
+									<span ng-click="projSorPopupItemClick(tab,false);"
+										ng-show="!tab.item && !tab.expand" class="fa fa-plus" style="margin-top:14px;">
+									</span>
+									<i class="fa fa-leaf" ng-show="tab.item" style="margin-top:14px;"></i>
+									<div style="width:70%;">
+									<input data-test='Projects_ProjectLibrary_SOR_Create_GroupId' type="text"
+										ng-if="tab.level <= 0" placeholder="{{tab.item ? 'Item ID' : 'SOR Group ID'}}"
+										name="sorId" maxlength="50" ng-model="tab.code"
+										class="form-control" pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+										ng-required="true" autocomplete="off">
+									<input data-test='Projects_ProjectLibrary_SOR_Create_SubGroupId' type="text"
+										ng-if="tab.level >  0" class="form-control"
+										placeholder="{{tab.item ? 'Item ID' : 'SOR Sub Group ID'}}" name="sorId"
+										maxlength="50" ng-model="tab.code" autocomplete="off"
+										pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+										ng-required="true">
+									<div ng-show="sorForm1.sorId.$touched && sorForm1.sorId.$error.required" style="color: red!important;">This Field is Mandatory</div>
+									<div style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="(!(sorForm1.sorId.$touched && sorForm1.sorId.$error.required)) && tab.codeErrorMessage">{{tab.codeErrorMessage}}</div>
+									</div>
+									<span data-test='Projects_ProjectLibrary_SOR_Create_SubGroupIcon'
+										ng-click="addSORSUBGroup(tab,searchProject.projId,$index)"
+										ng-show="!tab.item && tab.level < 3" class="fa fa-plus-square" title="Add Sub Group" style="margin-top:8px;">
+									</span>
+									<span style="padding-left: 5px;">
+										<span data-test='Projects_ProjectLibrary_SOR_Create_ItemIdIcon'
+											ng-click="addSORItem(tab,searchProject.projId,$index)" ng-hide="tab.item"
+											class="fa fa-plus-square-o" title="Add item" style="margin-top:8px;">
+										</span>
+									</span>
+									<span style="padding-left: 5px;">
+										<span data-test='Projects_ProjectLibrary_SOR_Create_DeleteIcon' title="Delete"
+											ng-click="deleteSOR($index)" ng-show="tab.level>0 && !tab.edit"
+											class="fa fa-trash" style="margin-top:8px;">
+										</span>
+									</span>
+								</div>
+								</form>
+								</td>
+								<td ng-form name="sorForm2">
+									<input data-test='Projects_ProjectLibrary_SOR_Create_GroupName'
+										data-toggle="tooltip" ng-if="tab.level <= 0" title="{{tab.name}}" type="text"
+										class="form-control" placeholder="{{tab.item ? 'Item Name' : 'SOR Group Name'}}"
+										name="itemName" maxlength="100" 
+										pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*)) ng-model="tab.name"
+										ng-required="true">
+									<input data-test='Projects_ProjectLibrary_SOR_Create_SubGroupName'
+										data-toggle="tooltip" ng-if="tab.level > 0" title="{{tab.name}}" type="text"
+										placeholder="{{tab.item ? 'Item Name' : 'SOR Sub Group Name'}}" name="itemName"
+										maxlength="100" class="form-control"
+										pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*)) ng-model="tab.name"
+										ng-required="true">
+									<span style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="sorForm2.itemName.$touched && sorForm2.itemName.$error.required">This Field is Mandatory</span>
+									<span style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="(!(sorForm2.itemName.$touched && sorForm2.itemName.$error.required)) && tab.nameErrorMessage">{{tab.nameErrorMessage}}</span>
+								</td>
+								<td ng-form name='sorFormUom'>
+									<select data-test='Projects_ProjectLibrary_SOR_Create_UnitOfMeasure'
+										name="measure" ng-show="tab.item" ng-model="tab.measureUnitTO"
+										ng-change="updateMeasureId(tab,tab.measureUnitTO);" class="form-control"
+										ng-options="measureObj.name for measureObj in ( measurements | orderBy: 'name' | unique:'name' ) track by measureObj.name"
+										ng-required="true">
+										<option value="">select</option>
+									</select>
+									<span style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="sorFormUom.measure.$touched && sorFormUom.measure.$error.required">This Field is Mandatory</span>
+									<span style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="(!(sorFormUom.measure.$touched && sorFormUom.measure.$error.required)) && tab.uomErrorMessage">{{tab.uomErrorMessage}}</span>
+								</td>
+								<td ng-form name='sorForm4'><input data-test='Projects_ProjectLibrary_SOR_Create_Labour'
+										type="text"
+										ng-model="tab.labourRate" ng-show="tab.item && !subCategoryRateNotRequired" maxlength="11" class="form-control justify-right"
+										name="labourrate" pattern="^[\d\.,%]+$"
+										ng-required="true" valid-number>
+									<span style="color: red!important;" ng-show="sorForm4.labourrate.$touched && sorForm4.labourrate.$error.required">This Field is Mandatory</span>
+									<span style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="(!(sorForm4.labourrate.$touched && sorForm4.labourrate.$error.required)) && tab.labourErrorMessage">{{tab.labourErrorMessage}}</span>
+								</td>
+								<td ng-form name='sorForm5'><input data-test='Projects_ProjectLibrary_SOR_Create_Plant'
+										type="text"  class="form-control justify-right" ng-disabled="subCategoryRateNotRequired"
+										ng-model="tab.plantRate" ng-show="tab.item && !subCategoryRateNotRequired" maxlength="11" name="plantrate"
+										pattern="^[\d\.,%]+$" 
+										ng-required="true" valid-number><br>
+									<span style="color: red!important;" ng-show="sorForm5.plantrate.$touched && sorForm5.plantrate.$error.required">This Field is Mandatory</span>
+									<span style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="(!(sorForm5.plantrate.$touched && sorForm5.plantrate.$error.required)) && tab.plantErrorMessage">{{tab.plantErrorMessage}}</span>
+								</td>
+								<td ng-form name='sorForm6'><input
+										data-test='Projects_ProjectLibrary_SOR_Create_Material' type="text"
+										 ng-model="tab.materialRate" ng-disabled="subCategoryRateNotRequired"
+										ng-show="tab.item && !subCategoryRateNotRequired" maxlength="11" class="form-control justify-right" name="materialrate"
+										pattern="^[\d\.,%]+$" 
+										ng-required="true" valid-number><br>
+									<span style="color: red!important;" ng-show="sorForm6.materialrate.$touched && sorForm6.materialrate.$error.required">This Field is Mandatory</span>
+									<span style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="(!(sorForm6.materialrate.$touched && sorForm6.materialrate.$error.required)) && tab.materialErrorMessage">{{tab.materialErrorMessage}}</span>
+								</td>
+								<td ng-form name='sorForm7'><input
+										data-test='Projects_ProjectLibrary_SOR_Create_OthersRate' type="text"
+										 ng-model="tab.othersRate" ng-disabled="subCategoryRateNotRequired"
+										ng-show="tab.item && !subCategoryRateNotRequired" maxlength="11" class="form-control justify-right" name="othersrate"
+										pattern="^[\d\.,%]+$"
+										ng-required="true" valid-number><br>
+									<span style="color: red!important;" ng-show="sorForm7.othersrate.$touched && sorForm7.othersrate.$error.required">This Field is Mandatory</span>
+									<span style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="(!(sorForm7.othersrate.$touched && sorForm7.othersrate.$error.required)) && tab.otherErrorMessage">{{tab.otherErrorMessage}}</span>
+								</td>
+								<td ng-form name='sorFormtotalRateIfNoSubCategory'>
+									<span ng-if="tab.item && !subCategoryRateNotRequired" class="justify-right">
+										{{convertToNumber(tab.labourRate) + convertToNumber(tab.plantRate) + convertToNumber(tab.materialRate)+ convertToNumber(tab.othersRate) | number:2}}
+									</span>
+									<input type="text" ng-if="tab.item && subCategoryRateNotRequired" ng-model="tab.totalRateIfNoSubCategory"
+										maxlength="11" class="form-control justify-right" name="totalRateIfNoSubCategory"
+										pattern="^[\d\.,%]+$" 
+										ng-required="true" valid-number/>
+									<span style="color: red!important;" ng-show="sorFormtotalRateIfNoSubCategory.totalRateIfNoSubCategory.$touched && sorFormtotalRateIfNoSubCategory.totalRateIfNoSubCategory.$error.required">This Field is Mandatory</span>
+									<span style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="(!(sorFormtotalRateIfNoSubCategory.totalRateIfNoSubCategory.$touched && sorFormtotalRateIfNoSubCategory.totalRateIfNoSubCategory.$error.required)) && tab.totalRateIfNoSubCategoryErrorMessage">{{tab.totalRateIfNoSubCategoryErrorMessage}}</span>
+								</td>
+								<td ng-form name='sorForm8'><input
+										data-test='Projects_ProjectLibrary_SOR_Create_Quantity' type="text"
+										 ng-model="tab.quantity"
+										ng-show="tab.item" maxlength="11" class="form-control justify-right" name="quantityrate"
+										pattern="^[\d\.,%]+$" 
+										ng-required="true" valid-number>
+									<span style="color: red!important;" ng-show="sorForm8.quantityrate.$touched && sorForm8.quantityrate.$error.required">This Field is Mandatory</span>
+									<span style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="(!(sorForm8.quantityrate.$touched && sorForm8.quantityrate.$error.required)) && tab.quantityErrorMessage">{{tab.quantityErrorMessage}}</span>
+								</td>
+								<td class="justify-right">
+									<span ng-if="tab.item && !subCategoryRateNotRequired">
+										{{ convertToNumber(tab.quantity) * (convertToNumber(tab.labourRate) +
+											 convertToNumber(tab.plantRate) + convertToNumber(tab.materialRate)
+											 + convertToNumber(tab.othersRate)) || 0 | number:2}}
+									</span>
+									<span ng-if="tab.item && subCategoryRateNotRequired">
+										{{convertToNumber(tab.quantity) * convertToNumber(tab.totalRateIfNoSubCategory) | number:2}}
+									</span>
+								</td>
+								<td ng-form name='sorForm3'><input
+										data-test='Projects_ProjectLibrary_SOR_Create_ManpowerHrs' type="text"
+										 ng-model="tab.manPowerHrs"
+										ng-show="tab.item" maxlength="11" class="form-control justify-right" name="manpower"
+										pattern="^[\d\.,%]+$" 
+										 valid-number><br>
+									<span style="color: red!important;" ng-show="sorForm3.manpower.$touched && sorForm3.manpower.$error.required">This Field is Mandatory</span>
+									<span style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="(!(sorForm3.manpower.$touched && sorForm3.manpower.$error.required)) && tab.manpowerErrorMessage">{{tab.manpowerErrorMessage}}</span> 
+								</td>
+								<td ng-form name='sorForm9'><input
+										data-test='Projects_ProjectLibrary_SOR_Create_Comments' type="text"
+										name="comments" 
+										ng-model="tab.comments" maxlength="30" ng-show="tab.item" class="form-control">
+									<!-- <span style="color: red!important;" ng-show="sorForm9.comments.$touched && sorForm9.comments.$error.required">This Field is Mandatory</span> -->
+								<!-- <span style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="(!(sorForm9.comments.$touched && sorForm9.comments.$error.required)) && tab.commentsErrorMessage">{{tab.commentsErrorMessage}}</span>  -->
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="panel-footer">
+				<div class="pull-right">
+					<input data-test='Projects_ProjectLibrary_SOR_Save' data-test='Projects_ProjectLibrary_SOR_Save'
+						type="submit" class="btn btn-primary btn-sm" ng-click="saveSORDetails()" value="Save" />
+
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+</div>

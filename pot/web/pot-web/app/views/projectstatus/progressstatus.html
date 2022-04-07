@@ -1,0 +1,125 @@
+<div ng-if="account.appCodeTemplate['PRJ_PROJECT_STATUS_PROGRESS_STATUS_VIEW']" id="tab-pannel">
+	<form name="progressStatusForm" validate>
+		<div class="panel-body">
+			<div class="tabTable_3_Res_height">
+				<table class="table table-striped table-bordered table-hover tabTable_3_height">
+					<thead>
+						<tr>
+							<th>Item</th>
+							<th>Schedule</th>
+							<th>Forecast</th>
+							<th>Actual</th>
+							<th>Suspension</th>
+							<th>Resumption</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Start Date</td>
+							<td class="input-width1">
+								<potdate-picker class="form-control"
+									data-test='Projects_ProjectStatus_ProjectStatusTab_ProgressStatusTab_ScheduleStartDate'
+									ng-model="projProgressStatus[0].scheduleStartDate" dir-index="$index"
+									date-name="scheduleStartDate" placeholder="dd-mm-yyyy" readonly="readonly" />
+							</td>
+							<td class="input-width1">
+								<potdate-picker class="form-control"
+									data-test='Projects_ProjectStatus_ProjectStatusTab_ProgressStatusTab_ForecastStartDate'
+									ng-model="projProgressStatus[0].forecastStartDate" dir-index="$index"
+									date-name="forecastStartDate" placeholder="dd-mm-yyyy" readonly="readonly" />
+							</td>
+							<td class="input-width1">
+								<potdate-picker class="form-control"
+									data-test='Projects_ProjectStatus_ProjectStatusTab_ProgressStatusTab_ActualStartDate'
+									ng-model="projProgressStatus[0].startDate" dir-index="$index"
+									date-name="actualstartDate" placeholder="dd-mm-yyyy" readonly="readonly" />
+							</td>
+							<td class="input-width1">
+								<potdate-picker class="form-control"
+									data-test='Projects_ProjectStatus_ProjectStatusTab_ProgressStatusTab_SuspensionStartDate'
+									ng-model="projProgressStatus[0].suspendedDate" dir-index="$index"
+									date-name="suspendedDate" placeholder="dd-mm-yyyy" readonly="readonly"
+									ng-disabled="projProgressStatus[0].startDate == null || projProgressStatus[0].finishDate != null" />
+							</td>
+							<td class="input-width1">
+								<potdate-picker class="form-control"
+									data-test='Projects_ProjectStatus_ProjectStatusTab_ProgressStatusTab_ResumptionStartDate'
+									ng-model="projProgressStatus[0].resumeDate" dir-index="$index"
+									date-name="resumeDate" placeholder="dd-mm-yyyy" readonly="readonly"
+									ng-disabled="projProgressStatus[0].finishDate != null || !projProgressStatus[0].suspendedDate" />
+							</td>
+						</tr>
+						<tr>
+							<td>Finish Date</td>
+							<td class="input-width1">
+								<potdate-picker class="form-control"
+									data-test='Projects_ProjectStatus_ProjectStatusTab_ProgressStatusTab_ScheduleFinishDate'
+									ng-model="projProgressStatus[0].scheduleFinishDate" dir-index="$index"
+									date-name="scheduleFinishDate" placeholder="dd-mm-yyyy" readonly="readonly" />
+							</td>
+							<td class="input-width1">
+								<potdate-picker class="form-control"
+									data-test='Projects_ProjectStatus_ProjectStatusTab_ProgressStatusTab_ForecastFinishDate'
+									ng-model="projProgressStatus[0].forecastFinishDate" dir-index="$index"
+									date-name="forecastFinishDate" placeholder="dd-mm-yyyy" readonly="readonly" />
+							</td>
+							<td class="input-width1">
+								<potdate-picker class="form-control"
+									data-test='Projects_ProjectStatus_ProjectStatusTab_ProgressStatusTab_ActualFinishDate'
+									ng-model="projProgressStatus[0].finishDate" dir-index="$index"
+									ng-disabled="projProgressStatus[0].startDate == null" date-name="actualfinishDate"
+									min-date="projProgressStatus[0].suspendedDate" placeholder="dd-mm-yyyy"
+									readonly="readonly" />
+							</td>
+							<td colspan="2" class="text-center">N/A</td>
+						</tr>
+						<tr>
+							<td>Planned % Progress to Date</td>
+							<td colspan="2" class="text-center">N/A</td>
+							<td
+								data-test='Projects_ProjectStatus_ProjectStatusTab_ProgressStatusTab_PlannedProgressToDate'>
+								{{ (projProgressStatus[0].plannedValue / (resourceStatus.revisedBudget ? resourceStatus.revisedBudget : resourceStatus.originalBudget)) * 100 | number: 2 }}
+							</td>
+							<td colspan="2" class="text-center">N/A</td>
+						</tr>
+						<tr>
+							<td>Actual % Progress to Date</td>
+							<td colspan="2" class="text-center">N/A</td>
+							<td
+								data-test='Projects_ProjectStatus_ProjectStatusTab_ProgressStatusTab_ActualProgressToDate'>
+								{{ (projProgressStatus[0].earnedValue / (resourceStatus.revisedBudget ? resourceStatus.revisedBudget : resourceStatus.originalBudget)) * 100 | number: 2 }}
+							</td>
+							<td colspan="2" class="text-center">N/A</td>
+						</tr>
+						<tr>
+							<td>Project Current Phase</td>
+							<td>
+								<md-input-container class="md-block">
+									<label>{{projProgressClaimePeriodTOs[2].projType}} Project Current Phase</label> 
+									<md-select ng-model="projProgressStatus[0].currentPhase">
+										<md-option ng-repeat="currentPhase in  phases" ng-value = "currentPhase">{{currentPhase}}</md-option>
+									</md-select> 
+								</md-input-container>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="panel-footer">
+			<div class="pull-right padR-0">
+				<input type="submit" data-test='Projects_ProjectStatus_ProjectStatusTab_ProgressStatusTab_Save'
+					ng-click="saveProjProgressStatusDates(projProgressStatus)"
+					class="btn bottomaligned btn-primary btn-sm" value="Save"
+					ng-show="account.appCodeTemplate['PRJ_PROJECT_STATUS_PROGRESS_STATUS_ADD']">
+			</div>
+			<div class="pull-left">
+				<input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+				<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+				<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+				<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+				<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+			</div>
+		</div>
+	</form>
+</div>

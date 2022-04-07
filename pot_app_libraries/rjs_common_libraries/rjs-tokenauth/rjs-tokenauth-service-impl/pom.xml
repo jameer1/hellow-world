@@ -1,0 +1,39 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>rjs-tokenauth-service-impl</artifactId>
+	<packaging>jar</packaging>
+	<name>RJS-TOKENAUTH-SERVICE-IMPL</name>
+	<url>http://rjs/tokenauth/service-impl</url>
+
+	<parent>
+        <groupId>rjtech</groupId>
+		<artifactId>rjs-tokenauth-root</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+	<dependencies>
+		<dependency>
+			<groupId>rjtech</groupId>
+			<artifactId>rjs-xmlservice</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>rjtech</groupId>
+			<artifactId>rjs-tokenauth-service</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>rjtech</groupId>
+			<artifactId>rjs-tokenauth-model</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>pot</groupId>
+			<artifactId>pot-common-dao</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
+
+</project>

@@ -1,0 +1,24 @@
+<div id="tab-pannel" class="panel-group" ng-init="getPlantCategoryDetails()">
+	<div id="tab-pannel" class="panel panel-default">
+		<div class="panel-heading">
+			<th>Plant Category List</th>
+		</div>
+		<div class="table-responsive panel-body9">
+			<table class="table table-striped table-bordered">
+				<thead>
+					<tr>
+						<th>Category ID</th>
+						<th>Category Name</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr fixed-header="" ng-repeat ="detail in plantCategoryDetails"
+						ng-click="plantCategoryPopUp(detail)">
+						<td>{{detail.code}}</td>
+						<td>{{detail.desc}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

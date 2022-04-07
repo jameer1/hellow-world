@@ -1,0 +1,42 @@
+<div id="tab-pannel">
+  <div class="panel-group">
+    <div class="popUpTableSmallResHeight" style="overflow: auto">
+      <table class="table table-striped table-hover table-bordered popUpTableSmallHeight" ng-if="!multiSelect">
+        <thead>
+          <tr>
+            <th>Store ID</th>
+            <th>Store Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr data-test='Resources_Materials_ProjectDockets_GenerateDocket_DestinationYardStoreStackSelect' 
+            ng-repeat ="tab in storeYardData | orderBy:['code']" ng-dblclick="deliveryPlacePopup(tab,1)">
+            <td>{{tab.code}}</td>
+            <td>{{tab.desc}}</td>
+          </tr>
+      </tbody>
+      </table>
+
+      <table class="table table-striped table-hover table-bordered popUpTableSmallHeight" ng-if="multiSelect">
+          <thead>
+            <tr>
+              <th><input type="checkbox" 
+									ng-change="selectAllStoreItems(selectAllItems)" 
+									ng-model="selectAllItems"></th>
+              <th>Store ID</th>
+              <th>Store Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-test='Resources_Materials_ProjectDockets_GenerateDocket_DestinationYardStoreStackSelect' 
+              ng-repeat ="tab in storeYardData | orderBy:['code']">
+              <td><input type="checkbox" ng-change="selectStoreItem(tab)" data-test="store_stock_checkbox"
+                  ng-model="tab.select"></td>
+              <td>{{tab.code}}</td>
+              <td>{{tab.desc}}</td>
+            </tr>
+        </tbody>
+        </table>
+    </div>
+  </div>
+</div>

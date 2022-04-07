@@ -1,0 +1,91 @@
+<div id="tab-pannel" class="panel-group" ng-init="projStockPileOnLoad();getStoreMap();">
+	<form name="myForm" validate autocomplete="off">
+		<div id="tab-pannel" class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title" ng-if="action =='Add'">Add Warehouse & Stockyard</h4>
+				<h4 class="panel-title" ng-if="action !='Add'">Edit Warehouse & Stockyard</h4>
+			</div>
+			<div class="panel-body">
+				<div class="popUpTableResHeight">
+					<table class="table popUpTableHeight">
+						<thead>
+							<tr>
+								<th>Select</th>
+								<th>Store/Location ID
+									<span style="color: red; font-sfont-size: '50px'"> *</span>
+								</th>
+								<th>Store/Location Description
+									<span style="color: red; font-sfont-size: '50px'"> *</span>
+								</th>
+								<th>Category
+									<span style="color: red; font-sfont-size: '50px'"> *</span>
+								</th>
+							</tr>
+						</thead>
+						<tr fixed-header="" ng-repeat="tab in addstoreyard">
+							<td><input ng-disabled="action!='Add'"
+									data-test='Projects_ProjectLibrary_WarehouseandStockYardList_Create_checkbox'
+									type="checkbox" ng-model="tab.select" ng-change="popUpRowSelect(tab)"></td>
+							<td ng-form="myForm1">
+								<input data-test='Projects_ProjectLibrary_WarehouseandStockYardList_Create_LocationId'
+									type="text" ng-model="tab.code" class="form-control" name="code"
+									ng-change="checkDuplicate(tab)" ng-class="{coloumnHighlightColor:tab.duplicateFlag}"
+									maxlength="20" pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+									ng-required="true" placeholder="Enter Location" class="form-control">
+								<span ng-show="(myForm1.code.$touched && myForm1.code.$error.maxlength)">Maximum length
+									only 20</span>
+								<span class="procurment-pot-errors" ng-show="myForm1.code.$error.pattern">At
+									Least One Alphabet Is Mandatory</span>
+
+								<span ng-show="myForm1.code.$error.required && myForm1.code.$touched "
+									class="procurment-pot-errors">
+									This field is
+									required</span>
+							</td>
+							<td ng-form="myForm2"><input
+									data-test='Projects_ProjectLibrary_WarehouseandStockYardList_Create_LocationDescription'
+									type="text" ng-model="tab.desc" class="form-control" name="des" maxlength="50"
+									pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*)) ng-required="true"
+									placeholder="Enter Location Description" class="form-control">
+								<span ng-show="myForm2.des.$error.maxlength">Maximum
+									length only 50</span>
+								<span class="procurment-pot-errors"
+									ng-show="myForm2.des.$error.required && myForm2.des.$touched">This
+									field is required
+								</span>
+								<span ng-show="myForm2.des.$error.pattern" class="procurment-pot-errors">At
+									Least One Alphabet Is Mandatory
+								</span>
+							</td>
+							<td><select data-test='Projects_ProjectLibrary_WarehouseandStockYardList_Create_Category'
+									ng-options="category for category in proCategory " name="category"
+									ng-model="tab.category" ng-required="true" class="form-control">
+									<option value="" selected>-select-</option>
+								</select>
+								<span ng-show="myForm2.category.$error.required && myForm2.category.$touched ">This
+									field is
+									required</span>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div class="panel-footer">
+				<div class="pull-left">
+					<input type="submit" data-test='Projects_ProjectLibrary_WarehouseandStockYardList_Create_AddRows'
+						ng-click="myForm.$valid && addstoreyardClass()" value="Add Rows" ng-show="action =='Add'"
+						class="btn bottomaligned btn-primary btn-sm" validate> <input
+						data-test='Projects_ProjectLibrary_WarehouseandStockYardList_Create_DeleteRows' type="button"
+						ng-click="deleteRows()" value="Delete Rows" ng-show="action =='Add'"
+						class="btn bottomaligned btn-default btn-sm" validate>
+				</div>
+				<div class="pull-right">
+					<input data-test='Projects_ProjectLibrary_WarehouseandStockYardList_Save' type="submit"
+						ng-click="myForm.$valid && saveProjStoreStocks()" value="Save"
+						class="btn bottomaligned btn-primary btn-sm" />
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</form>
+</div>

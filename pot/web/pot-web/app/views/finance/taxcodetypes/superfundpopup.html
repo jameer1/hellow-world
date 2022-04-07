@@ -1,0 +1,81 @@
+<div id="tab-pannel" class="panel-group" ng-init="payPeriodCycle()">
+	<form name="superFundForm" validate>
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Super Fund / Provident Fund Codes</h4>
+			</div>
+			<div class="panel-body10">
+				<table class="table table-striped table-hover table-bordered" style="height: 200px !important;" >
+					<thead>
+						<tr>
+							<th ng-show="action=='Add'">Select</th>
+							<th>Code</th>
+							<th>Description</th>
+							<th>Taxable or Not</th>
+							<th>Credit Cycle</th>
+							<th>Due Date for Credit</th>
+							<th>Notes</th>
+						</tr>
+					</thead>
+					<tr fixed-header="" ng-repeat ="superFund in addSuperFund">
+						<td ng-show="action=='Add'"><input type="checkbox"
+							value="superFund.id" ng-model="superFund.selected"
+							ng-change="superFundPopupRowSelect(superFund)"></td>
+						<td><input type="text" name="code" ng-model="superFund.code"
+							placeholder="Code" ng-required="true"  pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+							maxlength=30> <span
+							ng-show="superFundForm.code.$error.pattern">Only alpha
+								numerics allowed</span> <span
+							ng-show="superFundForm.code.$error.maxlength">You reached
+								max length</span></td>
+						<td><input type="text" name="desc" ng-model="superFund.name"
+							placeholder="Description" ng-required="true"
+							 pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*)) maxlength=30> <span
+							ng-show="superFundForm.desc.$error.pattern">only alphabets
+								allowed</span> <span ng-show="superFundForm.desc.$error.maxlength">You
+								reached max length</span></td>
+
+						<td><select style="min-width: 150px;" id="superFund"
+							name="superFund" ng-change="updateSuperFund(superFund)"
+							ng-model="superFund.superFundLabelKeyTO"
+							ng-options="superFund.name for superFund in dropDownLists.taxableTypeTOs track by superFund.name"
+							ng-required="true">
+								<option value="">Select</option>
+						</select></td>
+						<td><select style="min-width: 150px;" id="superFund"
+							name="superFund" ng-model="superFund.creditCycleLabelKeyTO"
+							ng-options="superFund.creditCycle for superFund in dropDownLists.creditCycleTOs track by superFund.creditCycle"
+							ng-required="true">
+								<option value="">Select</option>
+						</select></td>
+						<td class="input-width1"><potdate-picker
+								ng-model="superFund.creditDate" date-name="creditDate"
+								dir-index="$index" placeholder="dd-MMM-yyyy"></td>
+						<td><input type="text" name="notes"
+							ng-model="superFund.comments" placeholder="Notes"></td>
+					</tr>
+				</table>
+			</div>
+			<div class="panel-footer">
+				<div class="pull-left">
+					<input type="submit" ng-click="superFundForm.$valid && addRows()"
+						class="btn  btn-brown btn-sm" value="Add" ng-show="action =='Add'"
+						validate> <input type="button" ng-click="deleteRows()"
+						value="Delete" ng-show="action =='Add'"
+						class="btn  btn-brown btn-sm" validate>
+				</div>
+				<div class="pull-right">
+					<input type="submit"
+						ng-click="superFundForm.$valid && saveSuperFund()" value="Save"
+						class="btn btn-brown btn-sm" />
+				</div>
+			</div>
+			<div class="ngdialog-close"></div>
+		</div>
+	</form>
+</div>
+
+
+
+
+

@@ -1,0 +1,154 @@
+<div id="tab-pannel">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">Resource Delivery Dockets/Utilisation Records</h4>
+        </div>
+         <div class="panel-body">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+                <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3 padL-0">
+                      <md-input-container>
+                        <label>EPS Name</label>
+                       <input type="text"  readonly class="form-control">
+                    </md-input-container>
+                </div>
+                 <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3 padL-0">
+                      <md-input-container>
+                        <label>Project</label>
+                       <input type="text"  readonly class="form-control">
+                    </md-input-container>
+                </div>
+                <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3 padL-0">
+                    <md-input-container>
+                        <label>PO Description</label>
+                        <input type="text" class="form-control">
+                    </md-input-container>
+                </div>
+                <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3 padL-0">
+                    <md-input-container>
+                        <label>PO Description</label>
+                        <input type="text" ng-model="preContractDtoTOs.preContractTO.desc" readonly class="form-control">
+                    </md-input-container>
+                </div>
+                </div>
+              
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+                
+                <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3 padL-0">
+                    <md-input-container>
+                        <label>Vendor ID</label>
+                        <input type="text" class="form-control">
+                    </md-input-container>
+                </div>
+                
+                <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3 padL-0">
+                    <md-input-container>
+                        <label>Vendor</label>
+                        <input type="text" class="form-control">
+                    </md-input-container>
+                </div>
+                
+                <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3 padL-0">
+                    <md-input-container>
+                        <label>Invoice Number</label>
+                        <input type="text" class="form-control">
+                    </md-input-container>
+                </div>
+                
+                <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3 padL-0">
+                    <md-input-container>
+                        <label>Invoice Date</label>
+                        <input type="text" class="form-control">
+                    </md-input-container>
+                </div>
+                        
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+                 <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3 padL-0">
+                    <md-input-container>
+                        <label>Invoice Period From</label>
+                        <input type="text" class="form-control">
+                    </md-input-container>
+                </div>
+                
+                <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3 padL-0">
+                    <md-input-container>
+                        <label>Invoice Period To</label>
+                        <input type="text" class="form-control">
+                    </md-input-container>
+                </div>
+              
+              </div>
+            </div>
+            
+            <!-- resource delivery dockets/Utilisation records -->
+         <div class="panel-heading">
+            <h4 class="panel-title">Resource Delivery Dockets/Utilisation Records</h4>
+        </div>
+         <div class="panel-body">
+              
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+                
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2 padL-0">
+                    <md-input-container>
+                        <label>Procurment Category</label>
+                         <input type="text" class="form-control">
+                    </md-input-container>
+                </div>
+                
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2 padL-0">
+                    <md-input-container>
+                        <label>Procurment Sub /category</label>
+                        <md-select ng-model="selectedPOStatus">
+                            <md-option value="CAPITAL_EXPEDITURE">ProcurmentSubCat</md-option>
+                            <md-option value="REVENUE_EXPENDITURE">ProcurmentSubCat</md-option>
+                            <md-option value="DEFERRED_REVNUE_EXPENDITURE">ProcurmentSubCat</md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+                
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2 padL-0">
+                    <md-input-container>
+                        <label>Payable Category</label>
+                        <input type="text" class="form-control">
+                    </md-input-container>
+                </div>
+                
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2 padL-0">
+                    <md-input-container>
+                        <label>Unit of Measure</label>
+                        <input type="text" class="form-control">
+                    </md-input-container>
+                </div>
+                
+                <div class="pull-right marT15">
+						<input data-test='procurment_category_search' type="button" 
+							class="btn  btn-primary btn-sm" value="Search">
+				</div>
+                        
+              </div>
+         
+         </div>
+         
+         <!--  table format -->
+        <div class="panel-heading">
+            <h4 class="panel-title">Cost of Materials  delivery  through  various delivery dockets with in the Invoice Period</h4>
+        </div>
+    <div class="panel-body">
+         
+        <form name="materialForm">
+    	<div class="tabTable_3_Res_height overflow-auto"> 
+	        <table class="table table-hover table-bordered tabTable_3_height">
+		        <thead>
+		          <tr>
+		               <th>Select</th>
+          				<th>Item ID</th>
+            			<th>Item Description
+		          </tr>
+		          </thead>
+	          </table>
+          </div>
+         
+         </div>
+          <!-- table end -->
+    </div>
+</div>

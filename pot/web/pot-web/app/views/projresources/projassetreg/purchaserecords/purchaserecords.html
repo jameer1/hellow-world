@@ -1,0 +1,106 @@
+<div id="tab-pannel" class="panel-group" ng-controller="AssetPurchaseRecordController">
+	<div class="table-responsive tabTable_1_Res_height">
+	<div id="grid" ui-grid="gridOptions" ng-if="stylesSvc.finishedStyling" 
+            ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-resize-columns class="grid"></div>
+		<!-- <table class="table table-striped table-bordered tabTable_1_height datatable">
+			<thead id="tab-head">
+				<tr>
+					<th rowspan="2">Select</th>
+					<th colspan="9" class="text-center" ng-if="purchaseRecordsmoreFlag==0"><span class="fa fa-caret-right" style="float: right; font-size: 25px; color: #337ab7 !important;"
+						 ng-click="clickForwardPurchaseRecords(purchaseRecordsmoreFlag);"></span></th>
+
+		
+					<th colspan="16" class="text-center" ng-if="purchaseRecordsmoreFlag==1"><span class="fa fa-caret-left" style="float: left; font-size: 25px; color: #337ab7 !important;"
+
+						 ng-click="clickBackwardPurchaseRecords(purchaseRecordsmoreFlag);"></span></th>
+				</tr>
+				<tr ng-if="purchaseRecordsmoreFlag==0">
+					<th>Date of Purchase</th>
+					<th>Purchase Type</th>
+					<th>Vendor Name</th>
+					<th>Vendor Address</th>
+					<th>Land - Survey LOT Details</th>
+					<th>LOT Identification Details</th>
+					<th>Land Size and Dimensions</th>
+					<th>Structure Details</th>
+					<th>Plant & Equipment Details</th>
+				</tr>
+				<tr ng-if="purchaseRecordsmoreFlag==1">
+					<th>Land Register Office Details</th>
+					<th>Land Valuation</th>
+					<th>Structure Valuation</th>
+					<th>Plant & Equipment Valuation</th>
+					<th>Total Valuation</th>
+					<th>Total Purchase Amount</th>
+					<th>Initial Margin Amount Paid</th>
+					<th>Tax Amount With Held</th>
+					<th>Loan Amount</th>
+					<th>Loan Availed From</th>
+					<th>Loan Period</th>
+					<th>Fixed/Variable Rate</th>
+					<th>Annual RateOf Interest</th>
+					<th>Buyer Solicitor</th>
+					<th>Vendor Solicitor</th>
+					<th>Purchase Records(Upload & View)</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr fixed-header="" ng-repeat="purchase in fixedAssetAqulisitionRecordsDtlTOs">
+			
+					<td><input type="checkbox" ng-model="purchase.selected" ng-change="purchaseRecordPopUpRowSelect(purchase)" data-test="Purchase_AcquisitionRecords_Checkbox"></td>
+					<td ng-if="purchaseRecordsmoreFlag==0">{{purchase.dateOfPurchase}}</td>
+					<td ng-if="purchaseRecordsmoreFlag==0">{{purchase.purchaseType}}</td>
+					<td ng-if="purchaseRecordsmoreFlag==0">{{purchase.vendorName}}</td>
+					<td ng-if="purchaseRecordsmoreFlag==0">{{purchase.vendorAddress}}</td>
+					<td ng-if="purchaseRecordsmoreFlag==0">{{purchase.landSurveyLotDetails}}</td>
+					<td ng-if="purchaseRecordsmoreFlag==0">{{purchase.lotIdentificationDetails}}</td>
+					<td ng-if="purchaseRecordsmoreFlag==0">{{purchase.landSizeAndDimesions}}</td>
+					<td ng-if="purchaseRecordsmoreFlag==0">{{purchase.structureDetails}}</td>
+					<td ng-if="purchaseRecordsmoreFlag==0">{{purchase.plantAndEquipmentDetails}}</td>
+
+					<td ng-if="purchaseRecordsmoreFlag==1">{{purchase.landRegisterOfficeDetails}}</td>
+					<td ng-if="purchaseRecordsmoreFlag==1">{{purchase.landValuation}}</td>
+					<td ng-if="purchaseRecordsmoreFlag==1">{{purchase.structureValuation}}</td>
+					<td ng-if="purchaseRecordsmoreFlag==1">{{purchase.plantAndEquipmentValuation}}</td>
+					<td ng-if="purchaseRecordsmoreFlag==1">{{purchase.totalValuation}}</td>
+					<td ng-if="purchaseRecordsmoreFlag==1">{{purchase.totalPurchaseAmount}}</td>
+					<td ng-if="purchaseRecordsmoreFlag==1">{{purchase.initialMarginAmountPaid}}</td>
+					<td ng-if="purchaseRecordsmoreFlag==1">{{purchase.taxAmountWithHeld}}</td>
+					<td ng-if="purchaseRecordsmoreFlag==1">{{purchase.loanAmount}}</td>
+					<td ng-if="purchaseRecordsmoreFlag==1">{{purchase.loanAvailedFrom}}</td>
+					<td ng-if="purchaseRecordsmoreFlag==1">{{purchase.loanPeriod}}</td>
+					<td ng-if="purchaseRecordsmoreFlag==1">{{purchase.fixedRateOfInterest}}</td>
+					<td ng-if="purchaseRecordsmoreFlag==1">{{purchase.annualRateOfInterest}}</td>
+					<td ng-if="purchaseRecordsmoreFlag==1">{{purchase.buyerSolicitor}}</td>
+					<td ng-if="purchaseRecordsmoreFlag==1">{{purchase.vendorSolicitor}}</td>
+					<td ng-if="purchaseRecordsmoreFlag==1" title="Click To Download" ng-if="
+									purchase.purchaseRecordsDetailsFileName">
+						<a class="fa fa-download" href="{{purchase.docUrl}}"></a>
+					</td>
+					<td>
+						<span class="fa fa-download" ng-if="purchase.purchaseRecordsDetailsFileName" ng-click="downloadRecordPurchaseFile(purchase.id,purchase.purchaseRecordsDetailsFileName)" title="Click To Download {{purchase.purchaseRecordsDetailsFileName}}"></span>
+					</td>
+				</tr>
+			</tbody>
+		</table> -->
+	</div>
+	<div class="panel-footer">
+		<div class="pull-right padR-0">
+			<input type="button" class="btn btn-primary btn-sm" data-test="Purchase_AcquisitionRecords_Create"
+				ng-click="addPurchaseRecordList('Add')" value="Add">
+		</div>
+		<div class="pull-left padL-0">
+			<!-- <input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="groupPage();">
+			<input type="button" class="btn btn-primary btn-sm" value="UnGroup" ng-click="unGroupPage();">
+			<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sortPage();">
+			<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+			<input type="button" class="btn btn-primary btn-sm" value="UnSummary" ng-click="unSummarize();">
+			<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+			<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();"> -->
+			<input type="button" class="btn btn-primary btn-sm"
+				ng-click="addPurchaseRecordList('Edit')" value="Edit" data-test="Purchase_AcquisitionRecords_Edit"> <input
+				type="button" class="btn btn-default btn-sm"
+				ng-click="deletePurchaseRecord()" value="Deactivate" data-test="Purchase_AcquisitionRecords_Deactivate">
+		</div>
+	</div>
+</div>

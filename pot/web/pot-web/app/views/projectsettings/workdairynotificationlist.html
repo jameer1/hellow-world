@@ -1,0 +1,41 @@
+<div id="tab-pannel" class="panel-group">
+	<div id="tab-pannel" class="panel panel-default" modal-movable>
+		<div class="panel-heading">
+			<h4 class="panel-title">Work Diary Notification List</h4>
+		</div>
+		<div class="panel-body">
+			<div class="panel-collapse collapse in popUpTableResHeight">
+	<table class="table table-striped table-hover table-bordered popUpTableHeight" >
+				<thead>
+					<tr>
+						<th>Notification Number</th>
+						<th>Crew Name</th>
+						<th>From Date</th>
+						<th>To Date</th>
+						<th>Supervisor</th>
+					</tr>
+
+				</thead>
+				<tbody>
+					<tr data-test='Projects_ProjectSettings_WorkDiaryTab_AdditionalTimeTab_RequestNotification_Select' fixed-header="" ng-repeat ="notification in notifications"
+						ng-dblclick="workDiaryNotificationPopup(notification)">
+						<td>{{notification.workDairyNumber}}</td>
+						<td>{{notification.crewName}}</td>
+						<td>{{notification.fromDate}}</td>
+						<td>{{notification.toDate}}</td>
+						<td>{{notification.reqUser}}</td>
+					</tr>
+				</tbody>
+			</table>
+			</div>
+			<br> <br>
+			<div ng-show="notifications.length <= 0">
+				<h5 align="center" style="color: red">Notifications details are
+					not found for selected project</h5>
+			</div>
+		</div>
+
+		<div class="panel-footer"></div>
+		<div class="ngdialog-close"></div>
+	</div>
+</div>

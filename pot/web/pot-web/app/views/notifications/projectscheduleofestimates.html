@@ -1,0 +1,107 @@
+<section class="content-header">
+		<h1>Project Schedule Of Estimates</h1>
+	</section>
+	<section class="content" >
+		<div class="panel panel-default block footer-parent">
+			<div class="panel-body">
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+					<div class="col-xs-3 col-sm-3 col-md-2 col-lg-2 padL-0">
+						<md-input-container>
+						<label>EPS ID/EPS Name</label>
+							<input data-test='Notifications_WorkDiary_epsid' type="text" ng-model="searchProject.parentName" ng-click="getUserProjects()" readonly="readonly">
+						</md-input-container>
+					</div>
+					<div class="col-xs-3 col-sm-3 col-md-2 col-lg-2">
+						<md-input-container>
+								<label>Project ID/Project Name </label>
+								<input data-test='Notifications_WorkDiary_project_id' type="text" ng-model="searchProject.projName" ng-click="getUserProjects()" readonly="readonly">
+						</md-input-container>
+					</div>
+					<div class="col-xs-3 col-sm-3 col-md-2 col-lg-2">
+					
+						<md-input-container>
+								<label>From Date(dd-mm-yyyy)</label>
+							<potdate-picker data-test='Notifications_WorkDiary_fromdate' dir-index="$index" date-name="fromDate" ng-model="fromDate"> </potdate-picker>
+						</md-input-container>
+					</div>
+					<div class="col-xs-3 col-sm-3 col-md-2 col-lg-2">
+						<md-input-container>
+								<label>To Date</label>
+							<potdate-picker dir-index="$index" data-test='Notifications_WorkDiary_todate'
+								date-name="toDate" ng-model="toDate"> </potdate-picker>
+						</md-input-container>
+					</div>
+					<div class="col-xs-3 col-sm-3 col-md-2 col-lg-2">
+						<md-input-container>
+							<label>Notification Code</label>
+							<input type="text" data-test='Notifications_WorkDiary_notificationcode' ng-model="code">
+						</md-input-container>
+					</div>
+					<div class="col-xs-3 col-sm-3 col-md-2 col-lg-2 padR-0">
+					
+						<md-input-container>
+							<label>Status</label>
+							<md-select data-test='Notifications_WorkDiary_status' ng-model="notifyStatus" ng-required="true">
+								<md-option name="notifyStatus" ng-repeat="notifyStatus in notificationStatus" ng-value="notifyStatus.title" ng-if="account.appCodeTemplate[notifyStatus.notifyappCodeTemplateKey]">{{notifyStatus.title}}</md-option>
+							</md-select>
+							<md-input-container>
+					</div>
+					</div>
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+					<div class="pull-right marB15">
+						<input type="button" ng-click="getSoeNotificationDetails()" data-test='Notifications_WorkDiary_search' class="btn  btn-primary btn-sm"
+						 value="Search" ng-model="searchText">
+						<input type="reset" data-test='Notifications_WorkDiary_reset' class="btn btn-default btn-sm" ng-click="resetWorkDiaryNotificationDetails()"
+						 value="Reset">
+					</div>
+					</div>
+					<!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+							<div class="singleTableResHeight_3">
+									<table class="table table-hover table-bordered singleTableHeight_3" >
+										<thead>
+											<tr>
+												<th>Date</th>
+												<th>EPS Name</th>
+												<th>Project Name</th>
+												<th>Crew Name</th>
+												<th>Shift</th>
+												<th>Work Diary Number</th>
+												<th>Notification Number</th>
+												<th>Days Between</th>
+												<th>Notification</th>
+												<th>From User</th>
+												<th>To User</th>
+												<th>Status</th>
+												<th>Comments</th>
+											</tr>
+										</thead>
+										<tr ng-repeat ="notify in workDiary | filter : code">
+				
+											<td>{{notify.date}}</td>
+											<td>{{userProjMap[notify.projId].code}}</td>
+											<td>{{notify.parentName}}</td>
+											<td>{{notify.crewName}}</td>
+											<td>{{notify.shift}}</td>
+											<td>{{notify.id}}</td>
+											<td>{{notify.code}}</td>
+											<td>{{notify.Days}}</td>
+											<td>{{notify.notificationMsg}}</td>
+											<td>{{notify.fromUserName}}</td>
+											<td>{{notify.toUserId}}</td>
+											<td>{{notify.notificationStatus}}</td>
+											<td class="text-left"><span name="comment" flip="horizontal"
+													ng-click="show(notify)"></span></td>
+										</tr>
+									</table>
+								</div>
+					</div> -->
+					
+			</div>
+			<div>
+				<div id="grid" ui-grid="gridOptions" class="singleTableResHeight_3"
+					ng-if="stylesSvc.finishedStyling" ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize
+					ui-grid-resize-columns ui-grid-grouping class="grid">
+				</div>
+			</div>
+		</div>
+</section>

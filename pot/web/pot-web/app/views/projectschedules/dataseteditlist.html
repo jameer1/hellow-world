@@ -1,0 +1,46 @@
+<div id="tab-pannel" class="panel-group">
+	<form name="baselineform" autocomplete="off">
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Dataset List</h4>
+			</div>
+
+			<div class="panel-body">
+				<div class="popUpTableResHeight" style="overflow-y:auto;">
+					<table
+						class="table table-striped table-hover table-bordered">
+						<thead>
+							<tr>
+								<th>Created On</th>
+								<th>Name</th>
+								<th>Schedule Date</th>
+								<th class="text-center">Is Current</th>
+								<th class="text-center">Is Baseline</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat ="scheduleActivityDataSetTO in scheduleActivityDataSetTOs">
+								<td>{{scheduleActivityDataSetTO.createdDate | date}}</td>
+								<td>{{scheduleActivityDataSetTO.datasetName}}</td>
+								<td>{{scheduleActivityDataSetTO.scheduleDate | date}}</td>
+								<td class="text-center"><input type="radio" name="current" ng-model="selectedCurrent" ng-value="scheduleActivityDataSetTO.id" ng-change="setCurrent(scheduleActivityDataSetTO.id)"/></td>
+								<td class="text-center"><input type="radio" name="baseline" ng-model="selectedBaseline" ng-value="scheduleActivityDataSetTO.id" ng-change="setBaseline(scheduleActivityDataSetTO.id)"/></td>
+							</tr>
+							<tr ng-show="scheduleActivityDataSetTOs.length<=0" >
+								<td colspan="5" style="color: red">No Records Found</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			
+			<div class="panel-footer">
+				<div class="pull-right">
+					<input type="button" ng-click="save()" class="btn btn-primary btn-sm" value="Save" ng-disabled="!scheduleActivityDataSetTOs.length">
+					<input type="button" ng-click="reset()" class="btn btn-secondary btn-sm" value="Reset" ng-disabled="!scheduleActivityDataSetTOs.length">
+				</div>
+			</div>
+			<div class="ngdialog-close"></div>
+		</div>
+	</form>
+</div>

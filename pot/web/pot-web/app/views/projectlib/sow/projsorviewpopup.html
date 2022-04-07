@@ -1,0 +1,63 @@
+<div id="tab-pannel" class="panel-group" ng-init="getSORDetails()">
+	<div class="panel panel-default" modal-movable>
+		<div class="panel-heading">
+			<h4 class="panel-title">Schedule Of Rates</h4>
+		</div>
+		<div class="panel-body22 table-responsive">
+			<div class="popUpTableResHeight">
+				<table id="tree" class="table table-striped popUpTableHeight">
+					<thead id="tab-head">
+						<tr>
+							<th>SOR Id</th>
+							<th>SOR Name</th>
+							<th>Measurement</th>
+							<th>Man Power Hrs</th>
+							<th>Labour</th>
+							<th>Plant</th>
+							<th>Material</th>
+							<th>Others Rate</th>
+							<th>Amount</th>
+							<th>Quantity</th>
+							<th>Total</th>
+							<th>Comments</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr fixed-header="" ng-repeat="tab in SORData" ng-dblclick="tab.item && selectSORDetails(tab)"
+							class="abc{{tab.level}}" ng-show="!tab.collapse">
+							<td>
+								<span ng-repeat="level in [].constructor(tab.level) track by $index" class="xyz"
+									style="padding-left: 30px;"></span>
+								<span ng-show="tab.expand || (!tab.item  && tab.childSORItemTOs.length <= 0)"
+									ng-click="sorFactoryItemClick(tab,true);" class="fa fa-minus" title="Collapse SOR">
+								</span>
+								<span ng-show="!tab.expand && tab.childSORItemTOs.length > 0"
+									ng-click="sorFactoryItemClick(tab,false);" class="fa fa-plus" title="Expand SOR"
+									ng-show="(!tab.leaf && !tab.expand && tab.childSORItemTOs.length > 0)"></span>
+								<i class="fa fa-leaf" ng-show="tab.item"> </i>
+								<span style="padding-left: 10px; color: black !important;">{{tab.code}}
+									<span style="padding-left: 5px;"></span>
+								</span>
+							</td>
+							<td>{{tab.name}}</td>
+							<td>{{tab.measureUnitTO.name}}</td>
+							<td>{{tab.manPowerHrs}}</td>
+							<td>{{tab.labourRate}}</td>
+							<td>{{tab.plantRate}}</td>
+							<td>{{tab.materialRate}}</td>
+							<td>{{tab.othersRate}}</td>
+							<td>{{tab.amount}}</td>
+							<td>{{tab.quantity}}</td>
+							<td>{{tab.total}}</td>
+							<td class="text-center">
+								<span class="fa fa-comment fa-flip-horizontal" ng-show="tab.item" name="comment" title="Comments"
+									flip="horizontal" ng-click="show(tab.comments)" role="button" tabindex="0"></span>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</div>
+</div>

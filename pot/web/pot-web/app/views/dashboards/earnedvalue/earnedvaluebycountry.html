@@ -1,0 +1,10 @@
+<div ng-repeat="aearnedValueByCountryTab in earnedValueByCountryTabs">
+    <div class="dbmodulecard">
+        <p class="ngdialog-close dbdclose" style="font-size: 26px; margin-right: 10px;"
+            ng-click="aearnedValueByCountryTabs.splice($index,1)"></p>
+        <canvas class="chart chart-base" chart-data="aearnedValueByCountryTab.data"
+            chart-labels="aearnedValueByCountryTab.labels" height="70" chart-type="chart_type"
+            chart-options="options" chart-colors="colors" chart-series="aearnedValueByCountryTab.series"
+            chart-legend="true" context-menu="menuOptions"></canvas>
+    </div>
+</div>

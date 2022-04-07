@@ -1,0 +1,114 @@
+<div id="tab-pannel" class="panel-group" ng-init="getProjSOWItemsById()">
+	<div class="panel panel-default" modal-movable>
+		<div class="panel-heading">
+			<h4 class="panel-title">Edit Scope Of Works</h4>
+		</div>
+	<div class="panel-body">
+			<div class="popUpTableResHeight">
+			<table id="tree" class="table table-striped table-hover table-bordered popUpTableHeight" >
+				<thead id="tab-head">
+					<tr>
+						<th>SOW Item Id</th>
+						<th>SOW Item Desc</th>
+						<th>Unit Of Measure</th>
+						<th>SOE Item Id</th>
+						<th>Tangible Item Id</th>
+						<th>SOR Item Id
+							<span style="color: red;"> *</span>
+						</th>
+						<th>Cost Item Id
+							<span style="color: red;"> *</span>
+						</th>
+						<th style="width:95px;">Start Date
+							<span ng-show="isPrimaveraIntegrationEnabled=='No'" style="color: red;"> *</span>
+						</th>
+						<th style="width:95px;">Finish Date
+							<span ng-show="isPrimaveraIntegrationEnabled=='No'" style="color: red;"> *</span>
+						</th>
+						<th class="justify-right">Original Estimation</th>
+						<th style="width:100px;" class="justify-right">Revised Estimation</th>
+						<th class="justify-right">Actual Quantity</th>
+						<th class="justify-right">Balance</th>
+						<th>SOW Comments</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr fixed-header="" ng-repeat="tab in editSOWData" class="abc{{tab.level}}" ng-show="!tab.collapse">
+						<td>
+								<span ng-repeat="level in [].constructor(tab.level) track by $index" class="xyz" style="padding-left: 30px;"></span>
+							<span ng-show="!tab.item && tab.expand" ng-click="projSowPopupItemClick(tab,true);" class="fa fa-minus" title="Collapse SOW"></span>
+							<span ng-click="projSowPopupItemClick(tab,false);" data-test='Projects_ProjectLibrary_SOW_groueditexpandicon' class="fa fa-plus" title="Expand SOW"
+							 ng-show="!tab.item && !tab.expand"></span>
+							<i class="fa fa-leaf" data-test='Projects_ProjectLibrary_SOW_subgroueditexpandicon' ng-show="tab.item"> </i>
+							{{tab.code}}
+							<span style="padding-left: 10px;">
+								<span style="padding-left: 5px; color: black !important;"></span>
+							</span>
+						</td>
+						<td><span ng-hide="tab.item">{{tab.name}}</span></td>
+						<td>{{tab.measureUnitTO.name}}</td>
+						<td>{{tab.projSOEItemTO.code}}</td>
+						<td>
+							<input ng-show="tab.item" type="text" class="form-control" ng-model="tab.tangibleClassTO.code"
+							readonly="readonly" ng-click="tangibleDetails(tab)"></td>
+						<td ng-form name="form6">
+							<input ng-show="tab.item" type="text" class="form-control" ng-model="tab.projSORItemTO.code" name="soritem"
+							 data-test='Projects_ProjectLibrary_SOW_Edit_SORItemId' ng-required="true" readonly="readonly" ng-click="sorDetails(tab)">
+							<span style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="form6.soritem.$touched && form6.soritem.$error.required" >This is Field is Mandatory</span>
+							<span style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="(!(form6.soritem.$touched && form6.soritem.$error.required)) && tab.sorErrorMessage">{{tab.sorErrorMessage}}</span>
+						</td>
+						<td ng-form name="form7">
+							<input data-test='Projects_ProjectLibrary_SOW_Edit_CostCodeItemId' ng-show="tab.item" type="text" ng-model="tab.projCostItemTO.code"
+							 class="form-control" ng-required="true" readonly="readonly" name="codeitem" ng-click="costDetails(tab)"/>
+							<span style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="form7.codeitem.$touched && form7.codeitem.$error.required" >This is Field is Mandatory</span>
+							<span style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="(!(form7.codeitem.$touched && form7.codeitem.$error.required)) && tab.codeErrorMessage">{{tab.codeErrorMessage}}</span>
+						</td>
+						<td ng-form name="form8">
+							<span ng-show="isPrimaveraIntegrationEnabled!='No'">{{tab.startDate}}</span>
+							<potdate-picker 
+								data-test='Projects_ProjectLibrary_SOW_Edit_StartDate' 
+								ng-model="tab.startDate" max-date="tab.finishDate" dir-index="$index"
+								date-name="startDate" placeholder="dd-mm-yyyy" class="form-control" name="startDate"
+								ng-required="true" ng-show="tab.item" ng-if="isPrimaveraIntegrationEnabled=='No'"></potdate-picker>
+							 <span style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="form8.startDate.$touched && form8.startDate.$error.required">This is Field is Mandatory</span>
+							 <span style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="(!(form8.startDate.$touched && form8.startDate.$error.required)) && tab.startDateErrorMessage">{{tab.startDateErrorMessage}}</span>
+						</td>
+						<td ng-form name="form9">
+							<span ng-show="isPrimaveraIntegrationEnabled!='No'">{{tab.finishDate}}</span>
+							<potdate-picker data-test='Projects_ProjectLibrary_SOW_Edit_FinishDate' ng-model="tab.finishDate" dir-index="$index"
+							 	class="form-control" date-name="finishDate" placeholder="dd-mm-yyyy" name="finishDate"
+							 	required="required" ng-show="tab.item" ng-if="isPrimaveraIntegrationEnabled=='No'"></potdate-picker>
+							<span style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="form9.finishDate.$touched && form9.finishDate.$error.required" >This is Field is Mandatory</span>
+							<span style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="(!(form9.finishDate.$touched && form9.finishDate.$error.required)) && tab.finishDateErrorMessage">{{tab.finishDateErrorMessage}}</span>
+						</td>
+						<td class="justify-right">{{tab.quantity|number:2}}</td>
+						<td ng-form="myForm3">
+							<input data-test='Projects_ProjectLibrary_SOW_RevisedEstimation' ng-show="tab.item" type="text" name="rev" class="form-control justify-right"
+								ng-model="tab.revisedQty" pattern="[:\d/.,]+" ng-required="true"  maxlength='11'>
+							  <span style="color: red!important;" ng-show="myForm3.rev.$error.pattern && myForm3.rev.$touched">Negative values are not allowed</span> 
+							<span style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="myForm3.rev.$error.mxlength">Only 11 digits are allowed</span>
+							<!-- <span style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="myForm3.rev.$touched && myForm3.rev.$error.pattern && tab.revErrorMessage && myForm3.rev.$error.mxlength">{{tab.revErrorMessage}}</span> -->
+						</td>
+						<td class="justify-right">{{totalActualMap[tab.id].actualQuantity|number:2}}</td>
+						<td class="justify-right" ng-init="balance=(tab.revisedQty ? tab.revisedQty : tab.quantity) - totalActualMap[tab.id].actualQuantity">{{
+							tab.projSOEItemTO.code == null ? '' : (balance|number:2) }}</td>
+						<td ng-form name='form10'>
+							<input type="text" name="comments" ng-model="tab.comments" maxlength="30" 
+								ng-show="tab.item" class="form-control" ng-required="true">
+							<span style="color: red!important;" ng-show="form10.comments.$touched && form10.comments.$error.required">This Field is Mandatory</span>
+							<span style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="(!(form10.comments.$touched && form10.comments.$error.required)) && tab.commentsErrorMessage">{{tab.commentsErrorMessage}}</span>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="panel-footer">
+		<div class="pull-right">
+			<input type="button" class="btn btn-primary btn-sm" validate
+				ng-click="saveSOWDetails()" data-test='Projects_ProjectLibrary_SOW_Save'   value="Save">
+		</div>
+	</div>
+	</div>
+	<div class="ngdialog-close"></div>
+</div>

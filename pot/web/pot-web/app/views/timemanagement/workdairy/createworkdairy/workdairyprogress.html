@@ -1,0 +1,96 @@
+<div class="panel-body">
+	<div class="tabTable_5_Res_Height overflow-auto" style="height: 265.137168px;">
+        <table class="table table-striped table-hover table-bordered tabTable_5_Height">
+            <thead>
+                <tr>
+                    <th rowspan="2" style="width: 30px !important">Select</th>
+                    <th rowspan="2" class="text-center">SOW Item ID</th>
+                    <th rowspan="2" class="text-center">SOW Description</th>
+                    <th rowspan="2" class="text-center">SOE Item ID</th>
+                    <th rowspan="2" class="text-center">SOR Item ID</th>
+                    <th rowspan="2" class="text-center">Cost Code ID</th>
+                    <th rowspan="2" class="text-center">Unit Of Measure</th>
+                    <th colspan="{{workDairyCostCodeList.length}}" class="text-center">
+                        Cost
+                        Code Wise Progress Utilisation
+                    </th>
+                    <th rowspan="2">Total</th>
+                    <th rowspan="2" class="text-center">Comments</th>
+                    <th rowspan="2" class="text-center">Site Photos</th>
+                </tr>
+                <tr>
+                    <th ng-repeat ="workDairyCostCode in  workDairyCostCodeList"
+                        class="text-center">{{workDairyCostCode.code}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat ="progress in workDairyProgressDtlTOs">
+                    <td>
+                        <input type="checkbox" 
+                               ng-change="progressRowSelect(progress)" ng-model="progress.select"
+                               data-test='AsbuiltRecords_WorkDiary_CreateWorkDiary_Progress_Sowselect'> 
+                    </td>
+                    <td>{{progress.sowCode}}</td>
+                    <td>{{progress.sowDesc}}</td>
+                    <td>{{progress.soeCode}}</td>
+                    <td>{{progress.sorCode}}</td>
+                    <td>{{progress.costCode}}</td>
+                    <td>{{progress.measureCode}}</td>
+                    <td ng-repeat ="workDairyCostCode in workDairyCostCodeList"
+                        id="input-width">
+                        <input maxlength="5" placeholder=Quantity
+                               readonly="true" type="text"
+                               ng-if="progress.costId != workDairyCostCode.costId "
+                               ng-class="{coloumnHighlightColor:progress.apprStatus=='SubmittedForApproval',coloumnHighlightColor1:progress.apprStatus=='Approved'}"
+                               ng-disabled="true" class="form-control"
+                               ng-change="checkProgressQuantity(workDairySearchReq.revisedquantity,progress);" />
+                        <input maxlength="5" placeholder=Quantity type="text" data-test='AsbuiltRecords_WorkDiary_CreateWorkDiary_Progress_Progressutilization'
+                               ng-model="progress.value" valid-number
+                               ng-if="progress.costId == workDairyCostCode.costId "
+                               ng-disabled="disableButton" class="form-control"
+                               ng-class="{coloumnHighlightColor:progress.errorFlag || progress.apprStatus =='SubmittedForApproval',coloumnHighlightColor1:progress.apprStatus=='Approved'}"
+                               ng-change="checkProgressQuantity(workDairySearchReq.revisedquantity,progress);calculateProgressTotal(progress);" />
+                    </td>
+                    <td id="input-width">
+                        <input type="text" class="form-control"
+                               readonly="readonly"
+                               ng-disabled="disableButton" ng-model="progress.total" ng-value="calculateProgressTotal(progress)">
+                    </td>
+                    <td>
+                        <input type="text" placeholder="Comments" data-test='AsbuiltRecords_WorkDiary_CreateWorkDiary_Progress_Comments'
+                               ng-disabled="disableButton" class="form-control" ng-model="progress.apprComments"
+                               ng-class="{coloumnHighlightColor:progress.apprStatus =='SubmittedForApproval',coloumnHighlightColor1:progress.apprStatus=='Approved'}">
+                    </td>
+                    <td>
+                        <input type="file" placeholder="Site Photos" class="form-control" ngf-select="uploadFile($file,progress,$index)">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+	</div>
+</div>
+<div class="panel-footer"
+	ng-if="!disableButton && workDairySearchReq.workDairyId > 0 && activeFlag">
+	<div class="pull-right">
+		<input type="button" 
+			ng-if="workDairySearchReq.contractType=='Head-Company' && account.appCodeTemplate['ASBUILTRCRD_WRKDIRY_CREATWRKDIRY_ADD']"
+			ng-click="addProgressDetails()" value="Add" data-test='AsbuiltRecords_WorkDiary_CreateWorkDiary_Progress_Add'
+			class="btn btn-primary btn-sm"
+			ng-show="workDairySearchReq.apprStatus== null"> <input
+			type="button" ng-if="workDairySearchReq.contractType=='Head-Company' && account.appCodeTemplate['ASBUILTRCRD_WRKDIRY_CREATWRKDIRY_ADD']"
+			ng-click="addMoreSowItems()" value="Other SOW Cost Codes"  data-test='AsbuiltRecords_WorkDiary_CreateWorkDiary_Progress_OtherSOWcostcodes'
+			class="btn btn-secondary btn-sm"
+			ng-show="workDairySearchReq.apprStatus== null"> <input
+			type="button" ng-if="workDairySearchReq.contractType=='Sub-Contract' && account.appCodeTemplate['ASBUILTRCRD_WRKDIRY_CREATWRKDIRY_ADD']"
+			ng-click="addProgressPOScheduleItems()"
+			ng-show="workDairySearchReq.apprStatus== null" value="Add" 
+			class="btn btn-secondary btn-sm"> <input type="button"
+			class="btn btn-primary btn-sm"
+			ng-click="saveWorkDairyProgressDetails()" ng-if="account.appCodeTemplate['ASBUILTRCRD_WRKDIRY_CREATWRKDIRY_ADD']" value="Save"
+			ng-show="workDairySearchReq.apprStatus== null" data-test='AsbuiltRecords_WorkDiary_CreateWorkDiary_Progress_Save'>
+	</div>
+	<div class="pull-left">
+		<input data-test='AsbuiltRecords_WorkDiary_CreateWorkDiary_Progress_Delete' type="button" ng-click="deleteProgressRecords()" value="Delete" ng-if="account.appCodeTemplate['ASBUILTRCRD_WRKDIRY_CREATWRKDIRY_ADD']"
+			class="btn btn-primary btn-sm" style="width: 64px !important">
+	</div>
+</div>

@@ -1,0 +1,38 @@
+	<div id="tab-pannel" class="panel panel-default" modal-movable>
+		<div class="panel-heading">
+			<h4 class="panel-title" ng-show="title == 'E'">Manpower Baselines</h4>
+			<h4 class="panel-title" ng-show="title == 'P'">Plant & Equipment Baselines</h4>
+			<h4 class="panel-title" ng-show="title == 'M'">Material Baselines</h4>
+			<h4 class="panel-title" ng-show="title == 'C'">Cost Budget Baselines</h4>
+			<h4 class="panel-title" ng-show="title == 'S'">Scope of Work Baselines</h4>
+		</div>
+
+		<div class="panel-body">
+            <div class="popUpTableResHeight">
+				<table class="table table-hover table-bordered popUpTableHeight" >
+				<thead>
+					<tr>
+						<th>Code</th>
+						<th>Name</th>
+						<th>Status Date</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr data-test='Projects_ProjectSettings_AssignBaseLineSelect' fixed-header="" ng-repeat ="baseLine in projScheduleBaseLineTOs"
+						ng-dblclick="assignBaseLine(baseLine)">
+						<td>{{baseLine.code}}</td>
+						<td>{{baseLine.name}}</td>
+						<td>{{baseLine.date}}</td>
+					</tr>
+				</tbody>
+			</table>
+                </div>
+		</div>
+		<div class="panel-footer"></div>
+		<div class="ngdialog-close"></div>
+	</div>
+
+
+
+
+

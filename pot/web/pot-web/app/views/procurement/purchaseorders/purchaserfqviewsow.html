@@ -1,0 +1,37 @@
+<div class="tab-pannel" ng-controller="PurchaseRfqController" ng-init="getRfqDetails()">
+  <form name="sowForm" validate>
+    <div class="panel-body6-1 table-responsive">
+      <table id="vert-align" class="table table-striped table-hover table-bordered" style="height: 200px !important;" >
+        <thead>
+          <tr>
+
+            <th>Item ID</th>
+            <th>Item Description</th>
+            <th>SOE Item</th>
+            <th>SOR Item</th>
+            <th>Cost Code</th>
+            <th>Delivery Place</th>
+            <th>Start Date</th>
+            <th>Finish Date</th>
+            <th>Unit Of Measure</th>
+            <th>Qty</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr fixed-header="" ng-repeat ="item in rfqData.preContractTO.precontractSowDtlTOs">
+
+            <td><span>{{item.itemCode}} </span></td>
+            <td><span>{{item.itemDesc}}</span></td>
+            <td><span>{{projSOWMap[item.sowId].projSOEItemTO.name}}</span></td>
+            <td><span>{{projSOWMap[item.sowId].projSORItemTO.name}}</span></td>
+            <td><span>{{projSOWMap[item.sowId].projCostItemTO.name}}</span></td>
+            <td><span> {{item.deliveryPlace}}</span></td>
+            <td>{{item.startDate | date}}</td>
+            <td>{{item.finishDate | date}}</td>
+            <td><span>{{projSOWMap[item.sowId].unitOfMeasure}}</span></td>
+            <td><span>{{item.quantity}}</span></td>
+        </tbody>
+      </table>
+    </div>
+  </form>
+</div>

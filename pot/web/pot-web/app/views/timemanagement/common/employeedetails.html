@@ -1,0 +1,54 @@
+<div id="tab-pannel" class="container-fluid" ng-init="getEmpRegisters()">
+	<div class="panel-group">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h4 class="panel-title">Employee List</h4>
+			</div>
+			<div class="panel-body">
+					<div class="row"> 
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+								<div class="spacer1">
+										<span class="labelName">Employee Search : <input type="text" class="form-control" ng-model="empId"
+										placeholder="Employee Search"></span>
+
+								</div>
+							</div>
+					</div>
+			
+				<div class="row spacer0 b-sh panel-body18">
+						<table class="table table-striped table-hover panel-body15-1"  > 
+						<thead id="tab-head">
+							<tr>
+								<th>Select</th>
+								<th>Employee ID</th>
+								<th>First Name</th>
+								<th>Last Name</th>
+								<th>Trade</th>
+								<th>Category</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr
+								fixed-header="" ng-repeat ="emp in empDtls | filter: empId || firstName || lastName">
+								<td>{{emp.empId}}</td>
+								<td>{{emp.firstName}}</td>
+								<td>{{emp.lastName}}</td>
+								<td>{{emp.trade}}</td>
+								<td>{{emp.category}}</td>
+								<td><input type="checkbox" ng-model="emp.select"
+									ng-change="popUpRowSelect(emp)"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="panel-footer">
+				<div class="pull-right">
+					<input type="button" class="btn btn-brown "
+						ng-click="saveEmployeeDtls()" value="Save">
+				</div>
+			</div>
+			<div class="ng-dialog-close"></div>
+		</div>
+	</div>
+</div>

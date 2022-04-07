@@ -1,0 +1,45 @@
+<div ng-if="account.appCodeTemplate['PRJ_PRJSTG_PLANTTRANSTGADDITIONALTIME_VIEW']" id="tab-pannel" class="noTableInBottomBlockWithTabs" ng-init="plantTransOnLoadRecords()">
+	<div class="bottomNestedTabTableResHeight no-border">
+		<div class="row">
+			<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+				<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padL-0">
+					<md-input-container class="md-block">
+						<label>Requisition Notification</label>
+						<input data-test='Projects_ProjectSettings_PlantTransferTab_AdditionalTime_RequisitionNotificationNumber' 
+							type="text" 
+							ng-model="plantTransAppr.code"
+							ng-click="getPlantTransferNotifications(plantTransAppr)">		
+					</md-input-container>
+				</div>
+				<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+						<md-input-container class="md-block">
+							<label>Requisition Date</label>
+							<potdate-picker data-test='Projects_ProjectSettings_PlantTransferTab_AdditionalTime_requisitiondate' 
+							dir-index="$index" ng-model="plantTransAppr.requisitionDate"
+							date-name="startDate"
+							ng-disabled="true" required />
+						</md-input-container>
+				</div>
+				<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+						
+				</div>
+				
+			</div>
+		</div>
+	</div>
+	<div class="panel-footer">
+			<div class="pull-right">
+				<input type="button" class="btn  btn-primary btn-sm" 
+					data-test='Projects_ProjectSettings_PlantTransferTab_AdditionalTime_Approve' value="Approve"
+					ng-click="saveProjPlantTransAppr()" ng-disabled ="!account.appCodeTemplate['PRJ_PRJSTG_PLANTTRSFR_APPROVE']"
+					title="{{ account.appCodeTemplate['PRJ_PRJSTG_PLANTTRSFR_APPROVE'] ? '' : '! Permission Denied. Contact your admin.'}}">
+			</div>
+			<div class="pull-left">
+				<input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+				<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+				<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+				<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+				<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+			</div>
+	</div>
+</div>

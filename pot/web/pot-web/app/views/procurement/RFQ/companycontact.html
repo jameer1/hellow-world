@@ -1,0 +1,31 @@
+<div class="panel panel-default" modal-movable>
+    <div class="panel-heading">
+        <h4 class="panel-title">Company Contact Details</h4>
+    </div>
+    <div class="panel-body">
+        <form name="ApproverTransferForm" validate>
+            <div class="popUpTableResHeight">
+                <table class="table table-striped table-bordered table-hover popUpTableHeight">
+                    <thead>
+                        <tr>
+                            <th>Name of Representative</th>
+                            <th>Email</th>
+                            <th>Mobile</th>
+                            <th>Phone</th>
+                            <th>Fax</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="contactTO in contactTOs" ng-click="selectedContact(contactTO)">
+                            <td>{{contactTO.contactName}}</td>
+                            <td>{{contactTO.email}}</td>
+                            <td>{{contactTO.mobile}}</td>
+                            <td>{{contactTO.phone}}</td>
+                            <td>{{contactTO.fax}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </form>
+    </div>
+</div>

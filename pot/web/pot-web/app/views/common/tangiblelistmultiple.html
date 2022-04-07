@@ -1,0 +1,53 @@
+<div id="tab-pannel" class="panel-group">
+	<form name="baselineform" autocomplete="off">
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Tangible List</h4>
+			</div>
+
+			<div class="panel-body">
+				<div class="popUpTableResHeight" style="overflow-y:auto;">
+					<table
+						class="table table-striped table-hover table-bordered">
+						<thead>
+							<tr>
+								<th><input type="checkbox" 
+									ng-change="selectAll(selectAllItems)" 
+									ng-model="selectAllItems"></th>
+								<th>EPS</th>
+								<th>Name</th>
+								<th>Project</th>
+								<th>Name</th>
+								<th>Tangible ID</th>
+								<th>Tangible Name</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="tangibleTO in availableTangibleTOs" ng-click="toggleSelection($event, tangibleTO)">
+								<td>
+									<input type="checkbox" name="tangibleTO[]" ng-checked="isSelected(tangibleTO)" ng-click="toggleSelection($event, tangibleTO)"/>
+								</td>
+								<td>{{tangibleTO.parentCode}}</td>
+								<td>{{tangibleTO.parentName}}</td>
+								<td>{{tangibleTO.code}}</td>
+								<td>{{tangibleTO.name}}</td>
+								<td>{{tangibleTO.tangibleCode}}</td>
+								<td>{{tangibleTO.tangibleName}}</td>
+							</tr>
+							<tr ng-show="availableTangibleTOs.length<=0" >
+								<td colspan="7" style="color: red">No Records Found</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="panel-footer">
+				<div class="pull-right">
+					<input type="button" ng-click="OK()" class="btn btn-primary btn-sm" value="OK" ng-disabled="!selectedTangibleTOs.length">
+					<input type="button" ng-click="reset()" class="btn btn-secondary btn-sm" value="Reset" ng-disabled="!selectedTangibleTOs.length">
+				</div>
+			</div>
+			<div class="ngdialog-close"></div>
+		</div>
+	</form>
+</div>

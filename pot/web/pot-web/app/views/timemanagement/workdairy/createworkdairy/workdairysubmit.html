@@ -1,0 +1,54 @@
+<form name="submitForm" novalidate>
+    <div id="tab-pannel">
+        <div class="panel-group panel panel-default" modal-movable>
+            <div class="panel-heading">
+                <h4 class="panel-title">Work Diary Submit For Approval</h4>
+            </div>
+            <div class="panel-body">
+                <div>
+                    <div>
+                        <div>
+                            <span class="labelName">Approver</span>
+                            <div>
+                                <input type="text" class="form-control" placeholder="Select Approver"
+                                    ng-model="approverTo.name" ng-click="getModuleUserDetails(approverTo,null,'internalApproval')" required
+                                    data-test='AsbuiltRecords_WorkDiary_CreateWorkDiary_SubmitForApproval' 
+                                    style="width : 150px;">
+                            </div>
+                        </div>
+                        <div>
+                            <div class="labelName" style="margin: 10px 10px 10px 0px;">
+                                <input type="checkbox" name="radiobutton" ng-model="clientApproval"
+                                    value="Client Approval" ng-change="changeCLientApproval()"
+                                    data-test='AsbuiltRecords_WorkDiary_CreateWorkDiary_SubmitForApproval_ClientApproval'>
+                                Client Approval
+                            </div>
+                        </div>
+                        <div ng-show="displayClientApproverList">
+                        	<span class="labelName">Client Approver</span>
+                            <input type="text" class="form-control" placeholder="Select Approver"
+                                    ng-model="clientApproveUserLabelKeyTO.name" ng-click="getModuleUserDetails(approverTo,clientApproveUserLabelKeyTO,'clientApproval')" required
+                                    data-test='AsbuiltRecords_WorkDiary_CreateWorkDiary_SubmitForApproval_ClientApprover' style="width : 150px;">
+                        </div>
+                        <div>
+                            <div>
+                                <span class="labelName">Comments</span>
+                                <textarea class="form-control" type="text" style="width: 154px; height: 65px;"
+                                    ng-model="comments" placeholder="Comments"
+                                    data-test='AsbuiltRecords_WorkDiary_CreateWorkDiary_SubmitForApproval_Comments'></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <div class="pull-right right-padding">
+                    <input type="submit" class="btn  btn-primary btn-sm" ng-click="submitWorkDairy()"
+                        value="Submit For Approval" validate
+                        data-test='AsbuiltRecords_WorkDiary_CreateWorkDiary_SubmitForApproval_submitforapprovalbutton'>
+                </div>
+            </div>
+            <div class="ngdialog-close"></div>
+        </div>
+    </div>
+</form>

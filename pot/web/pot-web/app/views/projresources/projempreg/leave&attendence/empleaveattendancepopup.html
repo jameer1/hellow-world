@@ -1,0 +1,93 @@
+<div id="tab-pannel" class="panel-group">
+	<form name="empLeaveAttendanceandAttendanceForm" validate>
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Employee Leave and Attendance Details</h4>
+			</div>
+			<div class="panel-body">
+				<div class="popUpTableResHeight">
+				<table class="table table-striped table-bordered popUpTableHeight">
+					<thead>
+						<tr>
+							<th rowspan=2 ng-show="action=='Add'">Select</th>
+							<th rowspan=2>Period (Calendar Year) <span
+								style="color: red;">*</span></th>
+							<th rowspan=2>Unit</th>
+							<th colspan="{{empLeaveAccuredTOs.length+2}}" class="text-center">Leave
+								and Attendance Accrued <span
+								style="color: red;">*</span>
+							</th>
+						</tr>
+						<tr>
+							<th ng-repeat ="leaveAccured in empLeaveAccuredTOs | orderBy:'leaveTypeTO.displayOrder'">
+								{{leaveAccured.leaveTypeTO.desc}}
+							</th>
+							<th>Total Days</th>
+							<th>Total Days of Years</th>
+						</tr>
+					</thead>
+					<tbody>
+					<tbody>
+						<tr ng-repeat ="empLeaveAttendance in empLeaveAttendanceYearTOs">
+
+							<td ng-show="action=='Add'">
+								<input data-test='Resources_Employee_LeaveandAttendance_Create_addselectbox' type="checkbox"
+								ng-model="empLeaveAttendance.select"
+								ng-change="selectEmpLeaveAttendance(empLeaveAttendance)"></td>
+
+							<td class="input-width0">
+								<select data-test='Resources_Employee_LeaveandAttendance_Create_period'
+									ng-options="year for year in yearTos" class="form-control"
+									ng-model="empLeaveAttendance.year" ng-if="action =='Add'" ng-required="true">
+										<option value="">--Select--</option>
+								</select>
+								<input type="text" ng-model="empLeaveAttendance.year" class="form-control"
+									ng-if="action =='Edit'" ng-disabled="action =='Edit'"></td>
+							<td>Days</td>
+							<td class="input-width1"
+								ng-repeat ="leaveAttendanceTO in empLeaveAttendance.empLeaveAccuredTOs | orderBy:'leaveTypeTO.displayOrder'">
+								<input
+								type="text" name="Leaves" 
+								data-test='Resources_Employee_LeaveandAttendance_Create_{{leaveAttendanceTO.leaveCode}}'
+								ng-change="calculateEmpTotalLeaves(empLeaveAttendance.empLeaveAccuredTOs);"
+								ng-model="leaveAttendanceTO.totalLeaves" maxlength="2" class="form-control" valid-number 
+								placeholder="Leaves" ng-disabled="leaveAttendanceTO.leaveCode=='ML' && selectedEmployeeData.gender!='Female'" ></td>
+
+							 <td class="input-width"><input type="number" data-test='Resources_Employee_LeaveandAttendance_Create_TotalDays'
+								name="totalLeaves" class="form-control"
+								ng-model="leaveCount"
+								placeholder="Total Leaves" readonly="readonly"></td>
+
+							<td class="input-width"><input type="number" data-test='Resources_Employee_LeaveandAttendance_Create_TotalDaysofYears'
+								name="totalLeaves" class="form-control"
+								ng-model="total"
+								placeholder="Total Leaves for Year" readonly="readonly"></td>
+
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+			<div class="panel-footer">
+				<div class="pull-right">
+					<input type="submit" data-test='Resources_Employee_LeaveandAttendance_Create_Save' 
+					class="btn btn-primary btn-sm"
+						ng-click="empLeaveAttendanceandAttendanceForm.$valid && saveEmpLeaveAttendance()"
+						value="Save">
+				</div>
+				<div class="pull-left">
+					<input type="submit" class="btn btn-primary btn-sm" 
+					data-test='Resources_Employee_LeaveandAttendance_Create_Add'
+						ng-disabled="empLeaveAttendanceYearTOs.length >=3"
+						ng-click="empLeaveAttendanceandAttendanceForm.$valid && addRows()"
+						value="Add Rows" ng-show="action =='Add'"> 
+					<input data-test='Resources_Employee_LeaveandAttendance_Create_delete' type="button"
+						class="btn btn-default btn-sm" ng-click="deleteRows()"
+						value="Delete Rows" ng-show="action =='Add'">
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</form>
+</div>
+

@@ -1,0 +1,26 @@
+<div id="tab-pannel" class="panel-group" ng-init="getStocks()">
+	<div id="tab-pannel" class="panel panel-default" modal-movable>
+		<div class="panel-heading">
+			<h4 class="panel-title">Project Delivery Place</h4>
+		</div>
+        <div class="panel-body">
+         <div class="popUpTableResHeight">
+            <div id="tabs" class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    <li fixed-header="" ng-repeat ="tab in storeStockTabs"
+                        ng-class="{active:isStoreStockActiveTab(tab.url)}"
+                        ng-click="storeStockOnClickTab(tab)"><a data-toggle="tab" data-test="{{tab.storeStockSeleniumLocator}}" >{{tab.title}}</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="active" ng-include="storeStockCurrentTab"></div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+                <input type="button" ng-if="multiSelect" class="btn btn-primary btn-sm pull-right" ng-click="addStoreStockItems()" value="Add" data-test="Materials_InventoryRecords_ProjectDelivery_Add">
+            </div>
+        </div>
+           
+            <div class="ngdialog-close"></div>
+        </div>
+</div>

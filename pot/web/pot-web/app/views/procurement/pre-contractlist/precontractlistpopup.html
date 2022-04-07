@@ -1,0 +1,90 @@
+<div id="tab-pannel">
+    <form name="precontractform" validate>
+        <div class="panel panel-default" modal-movable>
+            <div class="panel-heading">
+                <h4 class="panel-title" ng-show="action =='Add'">Add Pre-Contracts</h4>
+                <h4 class="panel-title" ng-show="action =='Edit'">Edit Pre-Contracts</h4>
+            </div>
+            <div class="panel-body">
+                <div class="popUpTableResHeight">
+                    <table class="table table-hover table-bordered popUpTableHeight">
+                        <thead>
+                            <tr>
+                                <th ng-hide="action =='Edit'">Select</th>
+                                <th>EPS</th>
+                                <th>Project</th>
+                                <th>Contract Type</th>
+                                <th>Contract Description</th>
+                                <th>Currency</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="precontract in precontractData">
+                                <td ng-hide="action =='Edit'">
+                                    <input data-test='PreContractList_Create_Add_Checkbox1' type="checkbox"
+                                        ng-model="precontract.select" ng-change="precontractRowSelect(precontract)">
+                                </td>
+                                <td>
+                                    <input data-test='PreContractList_Create_Eps' type="text" class="form-control"
+                                        ng-disabled="action=='Edit'" ng-model="userProjMap[precontract.projId].code"
+                                        placeholder="EPS ID/EPS Name" required custom-read-only
+                                        ng-click="getUserProjects(precontract)">
+                                    <!-- <br><span class="text-danger"
+                                        ng-show="invalidProjectSelectionMap[precontract.projId]">Please select a
+                                        project</span> -->
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" ng-disabled="action=='Edit'"
+                                        ng-model="userProjMap[precontract.projId].name"
+                                        placeholder="Project ID/Project Name" custom-read-only ng-required="true"
+                                        ng-click="getUserProjects(precontract)">
+                                    <!-- <br><span class="text-danger"
+                                        ng-show="invalidProjectSelectionMap[precontract.projId]">Please select a
+                                        project</span> -->
+                                </td>
+                                <td>
+                                    <select data-test='PreContractList_Create_contractType' id="contractType"
+                                        name="contractType" class="form-control" required="required"
+                                        ng-model="precontract.preContractType" ng-disabled="action=='Edit'"
+                                        ng-options="contract for contract in contractTypes">
+                                    </select>
+                                </td>
+                                <td ng-form name="countryCodeForm">
+                                    <input data-test='PreContractList_Create_Contractdescription' type="text"
+                                        class="form-control" ng-model="precontract.desc" ng-disabled="precontract.workFlowStatusTO.desc != 'Draft' && action=='Edit'"
+                                        pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+                                        placeholder="Contract Description" maxlength="400" name="code">
+                                    <br> <span ng-show="countryCodeForm.code.$error.pattern">Alpha numeric data
+                                        allowed</span>
+                                </td>
+
+                                <td>
+                                    <select data-test='PreContractList_Create_currency' class="form-control"
+                                        id="currency" name="currency" required="required" ng-disabled="precontract.workFlowStatusTO.desc != 'Draft' && action=='Edit'"
+                                        ng-model="precontract.currencyCode"
+                                        ng-options="currency for currency in currencyList">
+                                    </select>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <div class="pull-left">
+                    <input data-test='PreContractList_Create_Add' type="submit" class="btn btn-primary btn-sm"
+                        ng-click="precontractform.$valid && addPreContractDetails()" ng-show="action =='Add'"
+                        value="Add Rows"> <input data-test='PreContractList_Create_delete' type="button"
+                        class="btn btn-secondary btn-sm" ng-click="deletePreContractRows()" ng-show="action =='Add'"
+                        value="Delete Rows">
+
+                </div>
+                <div class="pull-right">
+                    <input data-test='PreContractList_save' type="submit" class="btn btn-primary btn-sm"
+                        ng-click="precontractform.$valid && savePreContractList()" value="Save">
+                </div>
+            </div>
+        </div>
+        <div class="ngdialog-close"></div>
+    </form>
+</div>

@@ -1,0 +1,54 @@
+<div ng-if="account.appCodeTemplate['RESOURCE_PLANTWORKINGDAYS_VIEW']" id="tab-pannel" class="panel-group"
+	ng-controller="PlantWokringDayController" >
+	<div class="panel-body">
+			<div class="nestedTabTable_2_Res_Height">
+			<div id="grid" ui-grid="gridOptionss" ng-if="stylesSvc.finishedStyling" 
+   ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-resize-columns ui-grid-grouping class="grid"></div>
+			
+		<!-- <table class="table table-striped table-bordered nestedTabTable_2_Height">
+			<thead>
+				<tr>
+					<th>Period</th>
+					<th>Unit</th>
+					<th>Working</th>
+					<th>Non Working</th>
+					<th>Idle</th>
+					<th>Total</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr fixed-header="" ng-repeat ="plantWokringDayTO in plantWorkingDaysTOs" ng-init="calculateVerticalTotal(plantWorkingDaysTOs)">
+					<td>{{plantWokringDayTO.displayNamesMap.PLANT_YEAR}}</td>
+					<td>Days</td>
+					<td>{{plantWokringDayTO.displayNamesMap.WORKING_DAYS}}</td>
+					<td>{{plantWokringDayTO.displayNamesMap.NONWORKING_DAYS}}</td>
+					<td>{{plantWokringDayTO.displayNamesMap.IDLE_DAYS}}</td>
+					<td>{{plantWokringDayTO.displayNamesMap.WORKING_DAYS--plantWokringDayTO.displayNamesMap.NONWORKING_DAYS--
+					plantWokringDayTO.displayNamesMap.IDLE_DAYS}}</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr >
+					<th>Total</th>
+					<td>Days</td>
+					<td>{{totalobj.workingDays}}</td>
+							
+					<td>{{totalobj.nonworkingDays}}</td>
+					<td>{{totalobj.idleDays}}</td>
+					<td>{{totalobj.workingDays--totalobj.nonworkingDays--totalobj.idleDays}}</td></tr>
+				
+			</tfoot>
+		</table> -->
+	</div>
+</div>
+<div class="panel-footer">
+	<!-- <div class="pull-left">
+		<input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+		<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+		<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+		<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+		<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+	</div> -->
+</div>
+</div>
+

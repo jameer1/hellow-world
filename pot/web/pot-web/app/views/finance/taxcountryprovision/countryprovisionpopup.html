@@ -1,0 +1,74 @@
+<div id="tab-pannel">
+	<div class="panel-group panel panel-default">
+		<div class="panel-heading">
+			<h4 class="panel-title">Tax Code Country Provinces</h4>
+		</div>
+
+		<div class="panel-body">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+				<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 padL-0">
+						<md-input-container><label>Country</label>
+							<input type="text" ng-disabled="action=='Edit'"
+							ng-model="countryProvisionObj.countryLabelKeyTO.name" name="name"
+							ng-change="checkDuplicate(countryProvisionObj);"
+							ng-click="getCountryDetails(countryProvisionObj.countryLabelKeyTO)"
+							readonly="readonly" ng-required="true"/>
+						</md-input-container>
+				</div>
+				<div class="col-xs-2 col-sm-2 col-md-2  col-lg-2">
+						<md-input-container>
+							<label>Province</label>
+							<md-select ng-if="action=='Add'"
+							ng-change="updateProvision(countryProvisionObj.proisionLabelKeyTO,countryProvisionObj);checkDuplicate(countryProvisionObj)"
+							ng-model="countryProvisionObj.proisionLabelKeyTO"
+							ng-required="true">
+							<md-option ng-repeat="province in provisions track by province.name" value="province.name">{{province.name}}</md-option>
+						</md-select>
+						</md-input-container>
+				</div>
+				<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" ng-if="action=='Edit'">
+				<md-input-container >
+					<label></label>
+				<input  type="text"
+						ng-model="countryProvisionObj.proisionLabelKeyTO.name"
+						ng-disabled="true" /></md-input-container>
+				</div>
+				<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+						<md-input-container><label>From Year</label>
+							<potdate-picker ng-disabled="action=='Edit'"
+							ng-model="countryProvisionObj.fromDate" dir-index="$index"
+							date-name="fromDate"> </potdate-picker> 
+						</md-input-container>
+						<span ng-show="conForm.fromDate.$dirty && conForm.fromDate.$error.required">This
+								field is mandatory</span>
+				</div>
+				<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+						<md-input-container><label>To Year</label>
+							<potdate-picker ng-disabled="action=='Edit'"
+							ng-model="countryProvisionObj.toDate" dir-index="$index"
+							date-name="toDate"/>
+						</md-input-container>
+						<span
+							ng-show="conForm.toDate.$dirty && conForm.toDate.$error.required">This
+							field is mandatory</span>
+				</div>
+				<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 padR-0">
+						<md-input-container><label>Effective Date</label>
+							<potdate-picker ng-model="countryProvisionObj.effectiveDate"
+							dir-index="$index" date-name="effectiveDate" >
+						</md-input-container>
+				</div>
+
+			</div>
+		</div>
+		<div class="panel-footer">
+			<div class="pull-right">
+				<input type="submit" class="btn  btn-primary btn-sm" value="Save"
+					ng-click=" saveCountryProvision()" />
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+
+	</div>
+
+</div>

@@ -1,0 +1,74 @@
+<div id="tab-pannel" class="panel-group"
+	ng-init="getProcureCatgClassMap()">
+	<form name="categoryForm" validate autocomplete="off">
+		<div id="tab-pannel" class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title" ng-show="action=='Add'">Add Procurement Category</h4>
+				<h4 class="panel-title" ng-show="action=='Edit'">Edit Procurement Category</h4>
+			</div>
+			<div class="panel-body">
+					<div class="popUpTableResHeight">
+				<table class="table table-striped table-hover table-bordered popUpTableHeight" >
+					<thead>
+						<tr>
+							<th ng-if="action !=='Edit'">Select</th>
+							<th>Procurement Category<span
+								style="color: red; font-sfont-size: '50px'"> *</span></th>
+							<th>Sub Category Code<span
+								style="color: red; font-sfont-size: '50px'"> *</span></th>
+							<th>Sub Category Name<span
+								style="color: red; font-sfont-size: '50px'"> *</span></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr fixed-header="" ng-repeat ="category in categoryList">
+							<td ng-if="action !=='Edit'"><input data-test='CentralLibrary_ProcurementCategory_Create_addrows_Checkbox1' type="checkbox"
+								ng-model="category.selected" ng-change="popUpRowSelect(category)" /></td>
+
+							<td ng-form="form1"><select data-test='CentralLibrary_ProcurementCategory_Create_ProcurementCategory' class="form-control"
+								ng-change="updateCatgCode(category.procurement,category);"
+								ng-options="cat.name  for cat in proCategorys track by cat.name" name="proccategorry"
+								ng-model="category.procurement" ng-required="true">
+									<option value="">-Select-</option>
+							</select>
+						</td>
+
+							<td ng-form="form2"><input data-test='CentralLibrary_ProcurementCategory_Create_subcategorycode' class="form-control" type="text" name="code"
+								ng-model="category.code" placeholder="Sub Category Code"
+								ng-class="{coloumnHighlightColor:category.duplicateFlag}"
+								ng-change="checkDuplicate(category)"
+								pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+								minlength="2" maxlength=20 ng-required="true" /><span class="procurment-pot-errors" 
+								ng-show="form2.code.$touched && form2.code.$error.required">Code
+									is mandatory</span> <span class="procurment-pot-errors"  ng-show="form2.code.$error.pattern">Atleast one alphabet is mandatory</span></td>
+
+							<td ng-form="form3"><input data-test='CentralLibrary_ProcurementCategory_Create_subcategoryname' class="form-control" type="text" name="catName"
+								ng-model="category.desc" placeholder=" Sub Category Name"
+								pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+								minlength="3" maxlength=50 ng-required="true" /> <span class="procurment-pot-errors" 
+								ng-show="form3.catName.$touched && form3.catName.$error.required">Name
+									is mandatory</span> <span class="procurment-pot-errors" ng-show="form3.catName.$error.pattern">Atleast one alphabet is mandatory</span></td>
+
+						</tr>
+					</tbody>
+				</table>
+				</div>
+			</div>
+			<div class="panel-footer">
+				<div class="pull-left">
+					<input data-test='CentralLibrary_ProcurementCategory_Create_addrows' type="submit" ng-click="categoryForm.$valid && addRows()"
+						value="Add Rows" class="btn btn-primary btn-sm"
+						ng-show="action =='Add'" /> <input data-test='CentralLibrary_ProcurementCategory_Create_deleterows' type="button"
+						class="btn btn-secondary btn-sm" ng-click="deleteRows()"
+						value="Delete Rows" ng-show="action =='Add'" />
+				</div>
+				<div class="pull-right">
+					<input data-test='CentralLibrary_ProcurementCategory_save' type="submit" value="Save"
+						ng-click="categoryForm.$valid && saveProcureCatgs(categoryForm)"
+						class="btn bottomaligned btn-primary btn-sm" />
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</form>
+</div>

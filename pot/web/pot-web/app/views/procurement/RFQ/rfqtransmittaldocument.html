@@ -1,0 +1,126 @@
+<div id="tab-pannel" class="panel-group" ng-init="getPreContractDocuments();getPreContractCompanies();getClientDetails()">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <div>
+      <h4 class="panel-title">Document Transmittal Message</h4>
+    </div>
+      <div class="ngdialog-close"></div>
+    </div>
+
+    <div class="panel-body">
+      <div class="row">
+        <div class=" col-xs-2 col-sm-2 col-md-2">
+          <span>Company Address</span>
+          <textarea ng-model="preContractData.company" disabled="true"></textarea>
+        </div>
+        <div class=" col-xs-2 col-sm-2 col-md-2" style="padding-left: 0px !important">
+          <span>Vendor Name & Address</span>
+          <md-select ng-model="selectedVendor" ng-change="vendorChanged()">
+                <md-option ng-repeat="vendor in vendors" ng-value="vendor">{{vendor.cmpName}}</md-option>
+              </md-select>
+        </div>
+         <div class=" col-xs-2 col-sm-2 col-md-2" style="padding-left: 0px !important">
+          <span>Vendor Name & Address</span>
+          <textarea ng-model="preContractData.vendor" disabled="true"></textarea>
+        </div>
+        <div class=" col-xs-2 col-sm-2 col-md-2">
+          <span>Eps Name</span><input disabled="disabled" type="text" ng-model="searchProject.parentName" />
+        </div>
+        <div class=" col-xs-2 col-sm-2 col-md-2">
+          <span>Project Name</span><input disabled="disabled" type="text" ng-model="searchProject.projName" />
+        </div>
+        <div class=" col-xs-2 col-sm-2 col-md-2">
+          <span>Pre-Contract Code</span><input disabled="disabled" type="text" ng-model="precontractObj.code" />
+        </div>
+        <div class=" col-xs-2 col-sm-2 col-md-2">
+          <span>Contract Description</span><input disabled="disabled" type="text" ng-model="precontractObj.desc" />
+        </div>
+        <!-- <div class=" col-xs-2 col-sm-2 col-md-2">
+          <span>Date</span><input disabled="disabled" type="text" ng-model="precontractObj.closeDate" />
+        </div> -->
+      </div>
+    </div>
+
+    <div class="panel-body">
+    <div class="col-xs-2 col-sm-2 col-md-2">
+          <span>Date</span><input disabled="disabled" type="text" ng-model="precontractObj.date" />
+        </div>
+      <table>
+        <tr>
+          <td>Sub: Document Transmittal</td>
+        </tr>
+        <tr>
+          <td><textarea rows="2" cols="100" ng-model="transmittalMsgData.desc"></textarea></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="spacer1 panel-body">
+      <table class="table">
+        <thead>
+          <h4 class="panel-title">List Of Documents</h4>
+          <tr>
+            <th>Document ID</th>
+            <th>Description</th>
+            <th>Version</th>
+            <th>File Type</th>
+            <th>File Size</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td ng-repeat="doc in preContractDocsTOs">{{doc.code}}</td>
+            <td ng-repeat="doc in preContractDocsTOs">{{doc.name}}</td>
+            <td ng-repeat="doc in preContractDocsTOs">{{doc.version}}</td>
+            <td ng-repeat="doc in preContractDocsTOs">{{doc.fileType}}</td>
+            <td ng-repeat="doc in preContractDocsTOs">{{doc.fileSize}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="spacer1 panel-body">
+      <table class="table">
+        <tr>
+          <td><span>Issued By</span></td>
+          <td><input type="text" ng-model="transmittalMsgData.issuedBy" /></td>
+          <td><span>Received By</span></td>
+          <td><input type="text" ng-model="transmittalMsgData.acceptedBy" /></td>
+        </tr>
+        <tr>
+          <td><span>Signature</span></td>
+          <td><input type="text" ng-model="transmittalMsgData.sign" /></td>
+          <td><span>Signature</span></td>
+          <td><input type="text" ng-model="transmittalMsgData.vendorSign" /></td>
+        </tr>
+        <tr>
+          <td><span><b>Company Representative:</b></span></td>
+          <td></td>
+          <td><span><b>Vendor Representative:</b></span></td>
+        </tr>
+        <tr>
+          <td><span>Name</span></td>
+          <td><input type="text" ng-model="transmittalMsgData.name" /></td>
+          <td><span>Name</span></td>
+          <td><input type="text" ng-model="transmittalMsgData.vendorName" /></td>
+        </tr>
+        <tr>
+          <td><span>Designation</span></td>
+          <td><input type="text" ng-model="transmittalMsgData.designation" /></td>
+          <td><span>Designation</span></td>
+          <td><input type="text" ng-model="transmittalMsgData.vendorDesignation" /></td>
+        </tr>
+        <!-- <tr>
+          <td><span>Company Representative</span></td>
+          <td><input type="text" ng-model="transmittalMsgData.companyRep" /></td>
+          <td><span>Vendor Representative</span></td>
+          <td><input type="text" ng-model="transmittalMsgData.vendorRep" /></td>
+        </tr> -->
+      </table>
+    </div>
+    <div class="panel-footer">
+      <div class="pull-right">
+        <input class="btn btn-primary btn-sm" type="button" ng-click="saveTransmittalMsg()" value="Save">
+      </div>
+    </div>
+  </div>
+</div>

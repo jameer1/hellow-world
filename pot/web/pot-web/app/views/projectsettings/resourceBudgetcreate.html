@@ -1,0 +1,45 @@
+<div  id="tab-pannel" class="noTableInBottomBlockWithTabs">
+	<form name="estimatesForm">
+		 <div class="bottomNestedTabTableResHeight no-border overflow-auto" style="overflow-x: hidden !important;">
+			 <div class="row" ng-repeat="works in resourceBudget">
+			<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+						<md-input-container class="md-block">
+							<label>{{works.apprType}} Cut of Days</label>
+							<input type="text" data-test="{{works.apprType}}_Projects_ProjectSettings_ScheduleEstimatesTab_Cutoffdays" ng-model="works.cutOffDays" class="form-control" ng-required="true" name="days" pattern="\d+" maxlength="11" />
+							<span ng-show="estimatesForm1.days.$dirty && estimatesForm.days.$error.required">This field is mandatory</span>
+							<span ng-show="estimatesForm1.days.$error.pattern">Enter only numbers</span>
+							<span ng-show="estimatesForm1.days.$error.maxlength">You reached max length</span>
+						</md-input-container>
+					</div>
+					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+							<md-input-container class="md-block">
+								<label>{{works.apprType}} Cut off Hours</label>
+								<input type="text" data-test="{{works.apprType}}_Projects_ProjectSettings_ScheduleEstimatesTab_Cutoffhours" ng-model="works.cutOffHours" min=0 max=23 class="form-control" name="hours" ng-required="true">
+							</md-input-container>
+					</div>
+					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+							<md-input-container class="md-block">
+								<label>{{works.apprType}} Cut off Minutes</label>
+								<input type="text" data-test="{{works.apprType}}_Projects_ProjectSettings_ScheduleEstimatesTab_Cutoffminutes" name="Minutes" min=0 max=59 ng-model="works.cutOffMinutes" class="form-control" ng-required="true">
+							</md-input-container>
+					</div><!-- row 1 -->
+				</div> 
+			</div> 
+		</div>	
+		<div class="panel-footer">
+			<div class="pull-right">
+				<input data-test='Projects_ProjectSettings_ResBudgetTab_Save' type="submit" class="btn btn-primary btn-sm" ng-click="estimatesForm.$valid && saveResourceBudget()" value="Save"
+					title="{{ account.appCodeTemplate['PRJ_PRJSTG_ResBudgetTabNORMALTIME_ADD'] ? '': '! Permission Denied. Contact your admin.'}}">
+			</div>
+			<div class="pull-left">
+				<input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+				<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+				<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+				<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+				<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+			</div>
+		</div>
+		
+	</form>
+</div> 

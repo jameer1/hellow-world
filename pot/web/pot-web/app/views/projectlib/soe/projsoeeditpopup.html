@@ -1,0 +1,151 @@
+<div id="tab-pannel" class="panel-group" ng-init="projSoeifOnLoad()">
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Schedule of Estimate Quantities	</h4>
+			</div>
+			<div class="panel-body">
+				<div class="popUpTableResHeight">
+					<table id="tree" class="table table-hover table-bordered popUpTableHeight">
+						<thead>
+							<tr>
+								<th>SOE ID
+									<span style="color: red;"> *</span>
+								</th>
+								<th>SOE Name
+									<span style="color: red;"> *</span>
+								</th>
+								<th>Unit of Measure
+									<span style="color: red;"> *</span>
+								</th>
+								<th class="justify-right">Estimated Quantity
+									<span style="color: red;"> *</span>
+								</th>
+								<th class="justify-right">Man Hours
+									<span style="color: red;"> *</span>
+								</th>
+								<th>SOE Notes
+									<span style="color: red;"> *</span>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr fixed-header="" ng-repeat="tab in editSOEData" class="abc{{tab.level}}"
+								ng-show="!tab.collapse">
+								<td>
+									<form name="soeForm1" novalidate>
+									<div style="display:flex;">
+										<span ng-repeat="level in [].constructor(tab.level) track by $index"
+											class="xyz" style="padding-left: 30px;"></span>
+										<span ng-show="tab.expand && !tab.item"
+											ng-click="projSoePopupItemClick(tab,true);" class="fa fa-minus" style="margin-top:14px;"></span>
+										<span ng-show="!tab.expand && !tab.item"
+											ng-click="projSoePopupItemClick(tab,false);" class="fa fa-plus"></span>
+										<i class="fa fa-leaf" style="margin-top:14px;" ng-show="(tab.item)"></i>
+										<div style="width:90%;">
+											<input data-test='Projects_ProjectLibrary_SOE_Create_GroupId' type="text"
+												ng-if="tab.level <= 0" autocomplete="off"
+												placeholder="{{tab.item ? 'Item ID' : 'SOE Group ID'}}" name="soeId"
+												maxlength=50 ng-model="tab.code" class="form-control" ng-required="true"
+												pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))>
+											<input data-test='Projects_ProjectLibrary_SOE_Create_SubGroupId' type="text"
+												ng-if="tab.level >  0" autocomplete="off"
+												placeholder="{{tab.item ? 'Item ID' : 'SOE Sub Group ID'}}" name="soeId"
+												maxlength=50 ng-model="tab.code" class="form-control" ng-required="true"
+												pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))>
+											<div style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="soeForm1.soeId.$touched && soeForm1.soeId.$error.required">This Field is Mandatory</div>
+											<div style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="(!(soeForm1.soeId.$touched && soeForm1.soeId.$error.required)) && tab.codeErrorMessage">{{tab.codeErrorMessage}}</div>
+										</div>
+										<span data-test='Projects_ProjectLibrary_SOE_Create_SubGroupIcon'
+											ng-click="addSOESubGroup(tab,searchProject.projId,$index)"
+											ng-hide="tab.item || tab.level > 9" class="fa fa-plus-square"
+											title="Add Sub Group" style="margin-top:8px;"></span>
+										<span style="padding-left: 5px;">
+											<span style="padding-left: 5px;">
+												<span data-test='Projects_ProjectLibrary_SOE_Create_ItemIdIcon'
+													ng-click="addSOEItem(tab,searchProject.projId,$index)"
+													ng-hide="tab.item" class="fa fa-plus-square-o" title="Add item" style="margin-top:8px;">
+												</span>
+											</span>
+										</span>
+										<span style="padding-left: 5px;">
+											<span style="padding-left: 5px;">
+												<span data-test='Projects_ProjectLibrary_SOE_Create_DeleteIcon' title="Delete"
+													ng-click="deleteSOE($index)" ng-show="tab.level>0 && !tab.edit"
+													class="fa fa-trash" style="margin-top:8px;">
+												</span>
+											</span>
+										</span>
+									</div>
+									</form>
+								</td>
+								<td>
+									<form name="soeForm2" novalidate>
+										<input data-test='Projects_ProjectLibrary_SOE_Create_GroupName' type="text"
+											ng-if="tab.level <=  0"
+											placeholder="{{tab.item? 'Item Name' : 'SOE Group Name'}}"
+											class="form-control" name="itemName" maxlength=50
+											pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*)) ng-model="tab.name"
+											ng-required="true"> 
+										<input data-test='Projects_ProjectLibrary_SOE_Create_SubGroupName' type="text"
+											ng-if="tab.level >  0" class="form-control"
+											placeholder="{{tab.item? 'Item Name' : 'SOE Sub Group Name'}}"
+											name="itemName" maxlength=50 
+											pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*)) ng-model="tab.name"
+											ng-required="true">
+										<span style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="soeForm2.itemName.$touched && soeForm2.itemName.$error.required">This Field is Mandatory</span>
+										<span style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="(!(soeForm2.itemName.$touched && soeForm2.itemName.$error.required)) && tab.nameErrorMessage">{{tab.nameErrorMessage}}</span>
+									</form>
+								</td>
+								<td>
+									<form name="uom" novalidate>
+									<select data-test='Projects_ProjectLibrary_SOE_Create_UnitOfMeasure'
+										ng-model="tab.measureUnitTO" ng-show="tab.item" name="measure"
+										ng-change="updateMeasureId(tab,tab.measureUnitTO);" class="form-control"
+										ng-options="measureObj.name for measureObj in ( measurements | orderBy: 'name' | unique:'name' ) track by measureObj.name"
+										ng-required="true" ng-disabled="!tab.allowEdit && action=='Edit' && select"></select>
+									<span style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="uom.measure.$touched && uom.measure.$error.required">This Field is Mandatory</span>
+									<span style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="(!(uom.measure.$touched && uom.measure.$error.required)) && tab.uomErrorMessage">{{tab.uomErrorMessage}}</span>
+	</form>
+	</td>
+	<td>
+		<form name="soeForm4" novalidate>
+			<input data-test='Projects_ProjectLibrary_SOE_Create_EstimatedQty' type="text"
+				ng-show="tab.item" placeholder="Estimated Quantity"
+				name="quantity" maxlength="11" pattern="^[\d\.,%]+$" ng-model="tab.quantity"
+				ng-required="true" class="form-control justify-right" ng-disabled="!tab.allowEdit && action=='Edit' && select" valid-number/>
+			<span style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="soeForm4.quantity.$touched  && soeForm4.quantity.$error.pattern">Negative values are not Allowed</span>
+			<span style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="(!(soeForm4.quantity.$touched && soeForm4.quantity.$error.required)) && tab.quantityErrorMessage">{{tab.quantityErrorMessage}}</span>
+		</form>
+	</td>
+	<td>
+		<form name="soeForm6" novalidate>
+			<input type="text" ng-show="tab.item" placeholder="Man Hours" name="manHours" maxlength="11" pattern="^[\d\.,%]+$" ng-model="tab.manHours"
+				ng-required="true" class="form-control justify-right" ng-disabled="!tab.allowEdit && action=='Edit' && select" valid-number/>
+			<span style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="soeForm6.manHours.$touched  && soeForm6.manHours.$error.pattern ">Negative values are not Allowed</span>
+			<span style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="((!(soeForm6.manHours.$touched && soeForm6.manHours.$error.required)) && tab.manHoursErrorMessage) ">{{tab.manHoursErrorMessage}}</span>
+		</form>
+	</td>
+	<td>
+		<form name="soeForm5" novalidate>
+			<input data-test='Projects_ProjectLibrary_SOE_Create_Notes' type="text" ng-show="tab.item"
+				placeholder="SOE Notes" name="comments" maxlength="100" ng-model="tab.comments" ng-disabled="!tab.allowEdit && action=='Edit' && select" class="form-control"
+				ng-required="true">
+			<span style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="soeForm5.comments.$touched && soeForm5.comments.$error.required">This Field is Mandatory</span>
+			<span style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="(!(soeForm5.comments.$touched && soeForm5.comments.$error.required)) && tab.commentsErrorMessage">{{tab.commentsErrorMessage}}</span>
+		</form>
+	</td>
+
+	</tr>
+	</tbody>
+	</table>
+</div>
+</div>
+<div class="panel-footer">
+	<div class="pull-right">
+		<input data-test='Projects_ProjectLibrary_SOE_Create_Save' type="submit" class="btn btn-primary btn-sm"
+			ng-click="saveSOEDetails()" value="Save" />
+	</div>
+</div>
+</div>
+<div class="ngdialog-close"></div>
+</div>

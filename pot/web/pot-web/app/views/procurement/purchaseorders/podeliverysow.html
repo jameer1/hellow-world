@@ -1,0 +1,80 @@
+<div ng-if="account.appCodeTemplate['PROCURMT_PURCHASEORDR_RESOURDELSUBCONTRACT_VIEW']" class="tab-pannel"
+   ng-controller="PurchaseDeliveryController" ng-init="getSowPoDetails()">
+  <form ng-show="subcontractTabEnabled" name="manpowerForm" validate>
+      <div class="tabTable_3_Res_height" style="height: 158.91036px !important">
+          <table class="table table-hover table-bordered tabTable_3_height" >
+        <thead>
+          <tr>
+
+            <th rowspan="2">Item ID</th>
+            <th rowspan="2">Item Description</th>
+            <th rowspan="2">SOE Item</th>
+            <th rowspan="2">SOR Item</th>
+            <th rowspan="2">Unit Of Measure</th>
+            <th colspan="3">As Per Purchase Order</th>
+            <th colspan="2">As Per Actual Delivery Status</th>
+            <th colspan="2">Balance Status</th>
+            <th rowspan="2">Cost Code</th>
+            <th rowspan="2">Delivery Place</th>
+            <th rowspan="2">Start Date</th>
+            <th rowspan="2">Finish Date</th>
+            </th>
+          </tr>
+           <tr>
+            <th>Quantity</th>
+            <th>Estimated Rate({{preContractObj.currencyTO.code}})</th>
+            <th>Amount</th>
+            <th>Quantity</th>
+            <th>Amount</th>
+            <th>Quantity</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr fixed-header="" ng-repeat="item in preContractData.precontractSowDtlTOs" ng-init="getTotals(item)">
+            <td>{{projSOWMap[item.sowId].code}}</td>
+            <td><span>{{projSOWMap[item.sowId].name}}</span></td>
+            <td><span>{{projSOWMap[item.sowId].displayNamesMap.soeCode}}</span></td>
+            <td><span>{{projSOWMap[item.sowId].displayNamesMap.sorCode}}</span></td>
+            <td><span>{{projSOWMap[item.sowId].unitOfMeasure}}</span></td>
+            <td><span>{{item.quantity}}</span></td>
+            <td><span>{{item.estimateCost}}</span></td>
+            <td><span>{{item.quantity * item.estimateCost}}<span></td>
+            <td><span>{{sowPurchaseDetails[0].displayNamesMap.qty}}</span></td>
+            <td><span>{{item.estimateCost*sowPurchaseDetails[0].displayNamesMap.qty}}<span></td>
+            <td><span>{{item.quantity-sowPurchaseDetails[0].displayNamesMap.qty}}</span></td>
+            <td><span>{{item.quantity * item.estimateCost-(item.estimateCost*sowPurchaseDetails[0].displayNamesMap.qty)}}<span>
+            </td>
+            <td><span>{{item.costCode}}</span></td>
+            <td><span> {{item.deliveryPlace}}</span></td>
+            <td>{{item.startDate}}</td>
+            <td>{{item.finishDate}}</td>
+          </tr>
+        </tbody>
+         <tfoot ng-if="preContractData.precontractSowDtlTOs.length>0">
+            <tr>
+                <th colspan="5">Total</th>
+                <td>{{totalQuantity}}</td>
+                <td>{{totalEstimated}}</td>
+                <td>{{totalAmount}}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td colspan="5"></td>
+              </tr>
+        </tfoot>
+      </table>
+    </div>
+    <div class="panel-footer">
+      <div class="pull-left">
+        <input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+        <input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+        <input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+        <input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+        <input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+      </div>
+    </div>
+  </form>
+</div>

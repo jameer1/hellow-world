@@ -1,0 +1,198 @@
+<div id="tab-pannel" class="panel-group" ng-init="getUserServiceMap()">
+	<form name="userForm" validate autocomplete="off">
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title" ng-show="action=='Add'">Create Users</h4>
+				<h4 class="panel-title" ng-show="action=='Edit'">Edit Users</h4>
+			</div>
+			<div class="panel-body">
+                <div class="spacer0 b-sh popUpTableResHeight" style="overflow:auto;">
+                    <table class="table table-striped table-hover table-bordered popUpTableHeight">
+                        <thead>
+                            <tr>
+                                <th>Select</th>
+                                <th>User Name
+                                    <span class="procurment-pot-errors">*</span>
+                                </th>
+                                <th>Password
+                                    <span class="procurment-pot-errors">*</span>
+                                </th>
+                                <th>Employee Code
+                                    <span class="procurment-pot-errors" ng-if="action === 'Add'">*</span>
+                                </th>
+                                <th>Employee Desg</th>
+                                <th>Display Name</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Email
+                                    <span class="procurment-pot-errors">*</span>
+                                </th>
+                                <th>Phone</th>
+                                <th>Mobile
+                                        <span class="procurment-pot-errors">*</span>
+                                </th>
+                                <th>Profile Name
+                                        <span class="procurment-pot-errors">*</span>
+                                </th>
+                                <th>Remarks</th>
+                            </tr>
+                        </thead>
+                        <tbody id="input-width1">
+                            <tr ng-repeat ="user in addUsers">
+                                <td>
+                                    <input type="checkbox"
+                                           class="ng-pristine ng-valid" ng-model="user.select"
+                                           ng-change="popUpRowSelect(user)" ng-disabled="action!='Add'" ng-keydown="$event.keyCode != 32 ? $event:$event.preventDefault()">
+                                </td>
+                                <td><ng-form name="userForm1">
+                                    <input data-test='Admin_ClientUser_Create_UserName' type="text" class="form-control"
+                                           name="userName" placeholder="User Name"
+                                           ng-model="user.userName" ng-required="true"
+                                           pattern="[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))"
+                                           maxlength="50" ng-change="checkDuplicate(user)" minlength="3"
+                                           ng-class="{coloumnHighlightColor:user.duplicateFlag}" ng-keydown="$event.keyCode != 32 ? $event:$event.preventDefault()">
+
+                                    <span class="procurment-pot-errors"
+                                    ng-show="userForm1.userName.$error.pattern">
+                                        Atleast one alphabet is mandatory
+                                    </span>
+                                    <span class="procurment-pot-errors"
+                                    ng-show="userForm1.userName.$touched && userForm1.userName.$error.required">This field is mandatory</span>
+                                </ng-form>
+                                </td>
+                                <td> <ng-form name="userForm2" >
+                                    <input data-test='Admin_ClientUser_Create_PassWord' type="password" name="password"
+																		 placeholder="Password" class="form-control" pattern="(?=^.{5,}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*"
+																		 ng-if="action === 'Add'" ng-model="user.password" ng-required="true"
+																		 ng-class="{coloumnHighlightColor:user.duplicateFlag}" ng-change="passwordChanged()" ng-keydown="$event.keyCode != 32 ? $event:$event.preventDefault()">
+                                    <input data-test='Admin_ClientUser_Create_PassWord' type="password" class="form-control"
+                                           name="password" placeholder="Password" ng-disabled="true"
+                                           ng-model="user.password" ng-if="action !== 'Add'" ng-required="true" minlength="5"
+                                           maxlength="50" ng-class="{coloumnHighlightColor:user.duplicateFlag}">
+																		 <span class="procurment-pot-errors display-rule hide">
+																			Atleast 5 Characters with Uppercase , Lowercase, Numbers mandatory
+																		</span>
+                                    </ng-form>
+                                </td>
+
+
+                                <td>
+                                    <input type="text" data-test='Admin_ClientUser_Create_EmployeeCode' placeholder="Employee Code" class="form-control"
+                                           ng-model="user.empCode" name="empCode" maxlength="50"
+                                           ng-click="getUsersByClientId(user)" ng-if="action === 'Add'"
+                                           ng-change="checkDuplicate(user)" ng-if="registeredUsers != null"  ng-required="true" custom-read-only />
+                                    <input type="text" data-test='Admin_ClientUser_Create_EmployeeCode' placeholder="Employee Code" class="form-control"
+                                           ng-model="user.empCode" name="empCode" maxlength="50"
+                                           ng-click="getUsersByClientId(user)" ng-if="action !== 'Add'"
+                                           ng-change="checkDuplicate(user)" ng-if="registeredUsers == null" custom-read-only/>
+                                </td>
+                                <td>
+                                    <input data-test='Admin_ClientUser_Create_EmployeeDesignation' type="text" ng-model="user.empDesg" class="form-control"
+                                           placeholder="Employee Designation" name="empDesg"
+                                           ng-required="true" ng-if="registeredUsers != null" maxlength="100" ng-readonly="!employeeFlag">
+                                    <input data-test='Admin_ClientUser_Create_EmployeeDesignation' type="text" ng-model="user.empDesg" class="form-control"
+                                           placeholder="Employee Designation" name="empDesg"
+                                           ng-if="registeredUsers == null" maxlength="100" ng-readonly="!employeeFlag">
+                                </td>
+                                <td>
+                                    <input data-test='Admin_ClientUser_Create_EmployeeDisplayName' type="text" placeholder="Display Name" class="form-control"
+                                           ng-model="user.dispName" name="dispName" ng-required="true"
+                                           maxlength="200" ng-readonly="!employeeFlag">
+                                </td>
+                                <td ng-form name="userForm4">
+                                    <input data-test='Admin_ClientUser_Create_FirstName' type="text" class="form-control"
+                                           ng-model="user.firstName" name="firstName"
+                                           placeholder="First Name" maxlength="50"
+                                           ng-readonly="!employeeFlag">
+                                </td>
+                                <td ng-form name="userForm5">
+                                    <input data-test='Admin_ClientUser_Create_LastName' type="text" class="form-control"
+                                           ng-model="user.lastName" name="lastName"
+                                           placeholder="Last Name" maxlength="50"
+                                           ng-readonly="!employeeFlag">
+                                </td>
+                                <td ng-form name="userForm6">
+                                    <input data-test='Admin_ClientUser_Create_Email' type="email" class="form-control"
+                                           ng-model="user.email" name="email" placeholder="Email ID"
+                                           ng-required="true" maxlength="50"> <span class="procurment-pot-errors"
+                                           ng-show="userForm6.email.$touched &&userForm6.email.$error.required">
+                                        Please
+                                        enter email
+                                    </span>
+                                     <!-- <span class="procurment-pot-errors"
+                                    ng-show="userForm6.email.$touched && userForm6.email.$error.required">Email is mandatory</span> -->
+                                    <span class="procurment-pot-errors"
+                                    ng-show="userForm6.email.$dirty && userForm6.email.$invalid">
+                                        Invalid
+                                        Email
+                                    </span>
+                                </td>
+                                <td ng-form name="userForm7">
+                                    <input data-test='Admin_ClientUser_Create_Phone' type="text" class="form-control"
+                                           pattern="^[\d\.,%]+$" ng-model="user.phone"
+                                           placeholder="Phone Number" name="phone" minlength="10"
+                                           maxlength="20" valid-number> <span class="procurment-pot-errors"
+                                           ng-show="userForm7.phone.$error.pattern">
+                                        Enter Only
+                                        Digits
+                                    </span> <span class="procurment-pot-errors"
+                                    ng-show="userForm7.phone.$error.minlength">
+                                        Phone
+                                        number must be 10 characters
+                                    </span>
+                                </td>
+                                <td ng-form name="userForm8">
+                                    <input data-test='Admin_ClientUser_Create_Mobile' type="text" class="form-control"
+                                           pattern="^[\d\.,%]+$" ng-model="user.mobile" name="mobile"
+                                           placeholder="Mobile Number" maxlength="15"
+                                           ng-required="true" valid-number> <span class="procurment-pot-errors"
+                                           ng-show="userForm8.mobile.$error.pattern">
+                                        Enter Only
+                                        numbers
+                                    </span>
+                                    <span class="procurment-pot-errors"
+                                    ng-show="userForm8.mobile.$touched && userForm8.mobile.$error.required">Mobile number is mandatory</span>
+                                </td>
+                                <td>
+                                    <input data-test='Admin_ClientUser_Create_ProfileName' data-test='Admin_ClientUser_Edit_SelectProfile' type="text" ng-click="rolesdisplay(user)" class="form-control"
+                                           placeholder="Select Profile" ng-model="user.roleDisplay"
+                                           ng-required="true" custom-read-only>
+                                </td>
+                                <td ng-form="userForm10">
+                                    <input data-test='Admin_ClientUser_Create_Remarks' type="text" class="form-control"
+                                           ng-model="user.remarks" placeholder="Remarks" name="comments"
+                                           maxlength="50"
+                                           pattern="[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))">
+                                    <span class="procurment-pot-errors"
+                                    ng-show="userForm10.comments.$error.pattern">
+                                        Atleast one alphabet is mandatory
+                                    </span> <span class="procurment-pot-errors"
+                                    ng-show="userForm10.comments.$error.maxlenth">
+                                        Only 50
+                                        characters are allowed
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+			</div>
+			<div class="panel-footer">
+				<div class="pull-left">
+					<input data-test='Admin_ClientUser_Create_AddRows' type="submit" class="btn btn-primary btn-sm"
+						ng-show="action=='Add'" ng-click="userForm.$valid && addRows()"
+						value="Add Rows"> <input type="button" data-test='Admin_ClientUser_Create_DeleteRows'
+						class="btn btn-secondary btn-sm" ng-click="deleteRows()"
+						ng-show="action=='Add'" value="Delete Rows">
+				</div>
+				<div class="pull-right">
+					<input data-test='Admin_ClientUser_Create_Save' type="submit" class="btn btn-primary btn-sm"
+						ng-click="userForm.$valid && saveUser(userForm)" value="Save"
+						validate />
+					<!-- <button type="submit" style="float: right;"   ng-click="userForm.$valid && saveUser()" class="btn bottomaligned btn-brown btn-sm" validate>Save</button> -->
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</form>
+</div>

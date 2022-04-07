@@ -1,0 +1,99 @@
+<div id="tab-pannel" class="panel-group">
+	<form name="projForm">
+		<div id="tab-pannel" class="panel panel-default">
+			<div class="panel-heading">
+				<h4 class="panel-title" ng-show="action =='Add'">Add Project</h4>
+				<h4 class="panel-title" ng-show="action =='Edit'">Edit Project</h4>
+			</div>
+			<div id="tab-pannel" class="panel-body">
+				<div class="popUpTableResHeight">
+					<table class="table table-borderd table-hover popUpTableHeight">
+						<thead>
+							<tr>
+								<th ng-hide="action =='Edit'">Select</th>
+								<th align="center">Resource ID</th>
+								<th align="center">Resource Name</th>
+								<th align="center">Unit of Measure</th>
+								<th align="center">Original Budget Quantity</th>
+								<th align="center">Revised Budget Quantity</th>
+								<th align="center">Actual Quantity to Date</th>
+								<th align="center">Remaining Quantity</th>
+								<th align="center">Schedule Start</th>
+								<th align="center">Schedule Finish</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr fixed-header="" ng-repeat ="meterials in meterialsList">
+								<td ng-hide="action =='Edit'"><input type="checkbox"
+									ng-model="meterials.selected"
+									ng-change="meterialsPopUpRowSelect(meterials)"></td>
+
+								<td class="input-width2"><input type="text" class="form-control"
+									readonly="readonly"
+									ng-model="meterials.materialSubGroupTO.code"
+									name="resId" ng-click="meterialsDetails(meterials)"
+									placeholder="Resource Id" /></td>
+
+								<td class="input-width2"><input type="text" class="form-control"
+									ng-model="meterials.materialSubGroupTO.name"
+									name="resName" placeholder="Resource Name" readonly="readonly" /></td>
+
+
+								<td class="input-width2"><input type="text" class="form-control"
+									ng-model="meterials.materialSubGroupTO.measureUnitTO.name"
+									name="unitOfMeasure" placeholder="Unit Of Measure"
+									readonly="readonly" /></td>
+
+								<td class="input-width2"><input type="text" class="form-control"
+									ng-model="meterials.originalQty" name="ornQuantity"
+									placeholder="Original Budget" maxlength="15"
+									pattern="^[0-9/.,]+$" ng-required="true" /> <span
+									ng-show="projForm.ornQuantity.$dirty && projForm.ornQuantity.$error.required">
+										Original Budget is mandatory</span> <span
+									ng-show="projForm.ornQuantity.$error.pattern">Enter only
+										numbers/decimals</span>
+										<td class="input-width2"><input type="text" class="form-control"
+											ng-model="meterials.revisedQty" name="revBudgetQuantity"
+											placeholder="Revised Budget" maxlength="15"
+											pattern="^[0-9/.,]+$" /> <span
+											ng-show="projForm.revBudgetQuantity.$error.pattern">Enter
+												only numbers/decimals</span></td>
+
+										<td class="input-width2"><input type="text" class="form-control"
+											ng-model="meterials.actualQty" name="actQuntyToDate"
+											ng-disabled="true" placeholder="Actual Quantity"
+											maxlength="15" pattern="^[0-9/.,]+$" /><span
+											ng-show="projForm.actQuntyToDate.$error.pattern">Enter
+												only numbers/decimals</span></td>
+										<td class="input-width">{{meterials.remainingQty =
+											calcRemainingUnits(meterials)}}</td>
+										<td style="width: 30px !important"><potdate-picker
+												ng-model="meterials.schStartDate" dir-index="$index"
+												date-name="schStartDate" placeholder="dd-mm-yyyy"
+												required="required" /></td>
+										<td style="width: 30px !important"><potdate-picker
+												ng-model="meterials.schFinishDate" dir-index="$index"
+												date-name="schFinishDate" placeholder="dd-mm-yyyy"
+												required="required" /></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="panel-footer">
+				<div class="pull-left">
+					<input type="submit" class="btn  btn-brown btn-sm"
+						ng-click="projForm.$valid && addRows()" value="Add"
+						ng-show="action =='Add'" /> <input type="button"
+						class="btn bottomaligned btn-brown btn-sm"
+						ng-click="deleteProjRows()" value="Delete"
+						ng-show="action =='Add'" />
+				</div>
+				<div class="pull-right">
+					<input type="submit" class="btn  btn-brown btn-sm" value="Save"
+						ng-click="projForm.$valid && saveMeterials()" />
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

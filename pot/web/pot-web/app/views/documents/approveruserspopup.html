@@ -1,0 +1,57 @@
+<style>
+md-checkbox.md-checked.blue .md-icon {
+	background-color: #2d7ab5;
+}
+</style>
+<div id="tab-pannel" class="panel-group">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h4 class="panel-title">{{title}}</h4>
+		</div>
+		<div class="panel-body">
+			<div class="col-md-12">
+				<div ng-if="error==true">
+					<ul>
+						<li ng-repeat="message in errormsgs" style="color:red;">{{message}}</li>
+					</ul>
+				</div>
+				<div style="display:block">
+					<div class="row">
+	                    <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12" ng-show="displayApproverList" style="margin-bottom:10px;">
+							<!-- <md-input-container class="md-block">
+	                            <label>Select Approver User</label>
+	                            <md-select ng-model="approverUserId">
+							    	<md-option ng-value="user.userId" ng-repeat="user in users">{{user.empCode}}-{{user.dispName}}</md-option>
+							    </md-select>
+	                        </md-input-container> --> 
+	                        <input data-test='Documents_Approver_List' type="text" name="approver" class="form-control" ng-click="selectApprover()"
+								ng-model="approverUserDisplayName" placeholder="Approver ID" maxlength="100" readonly="readonly"> 
+	                    </div>
+	                    <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12" ng-show="isDisplayExternalApprovalRequired" style="margin-bottom:10px;">
+					        <input type="checkbox" ng-model="isExternalApprovalRequired" ng-click="toggleExternalApprovalRequired($event)"/>Is external approval required?
+	                    </div>
+	                    <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12" ng-show="displayApproverComments" style="margin-bottom:10px;">
+					        <textarea ng-model="approverComments" placeholder="Please enter your comments...." style="width:100%"></textarea>
+	                    </div>
+	                    <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12" ng-show="displayExternalApproverList">
+							<!-- <md-input-container class="md-block">
+	                            <label>Select Approver User</label>
+	                            <md-select ng-model="approverUserId">
+							    	<md-option ng-value="user.userId" ng-repeat="user in users">{{user.empCode}}-{{user.dispName}}</md-option>
+							    </md-select>
+	                        </md-input-container> --> 
+	                        <input data-test='Documents_ExternalApprover_List' type="text" name="approver" class="form-control" ng-click="selectApprover()"
+								ng-model="approverUserId" placeholder="Approver ID" maxlength="100" readonly="readonly">      
+	                    </div>
+                    </div>                   
+				</div>			
+			</div>
+		</div>
+		<div class="panel-footer">
+			<div class="pull-right">
+				<input type="button" class="btn btn-primary btn-sm pull-right" value="{{btnTitle}}" ng-click="submit();">
+			</div>			
+		</div>
+		<div class="ngdialog-close"></div>
+	</div>
+</div>

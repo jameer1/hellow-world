@@ -1,0 +1,73 @@
+<div id="tab-pannel" class="panel-group"
+	ng-init="getCentLibCostCodeMap()">
+	<form name="codeForm" validate autocomplete="off">
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title" ng-if="action =='Add'">Add Cost Code Classification</h4>
+				<h4 class="panel-title" ng-if="action !='Add'">Edit Cost Code Classification</h4>
+			</div>
+			<div class="panel-body">
+				<div  class="popUpTableResHeight">
+					<table class="table table-striped table-hover table-bordered popUpTableHeight" >
+						<thead id="tab-head">
+							<tr>
+								<th ng-if="action =='Add'">Select</th>
+								<th>Cost Code ID<span
+									style="color: red; font-sfont-size: '50px'"> *</span></th>
+								<th>Cost Code Name<span
+									style="color: red; font-sfont-size: '50px'"> *</span></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr fixed-header="" ng-repeat ="costCodes in costUnits">
+								<td ng-if="action =='Add'"><input data-test='CentralLibrary_CostcodeClassification_Create_addrows_Checkbox1' type="checkbox"
+									ng-model="costCodes.selected"
+									ng-change="popUpRowSelect(costCodes)"></td>
+
+								<td ng-form name="costform"><input data-test='CentralLibrary_CostcodeClassification_Create_CostcodeID' class="form-control" type="text" name="code"
+									ng-class="{coloumnHighlightColor:costCodes.duplicateFlag}"
+									ng-change="checkDuplicate(costCodes)" ng-model="costCodes.code"
+									pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+									maxlength="20" placeholder="Cost Code ID" ng-required="true">
+									<span class="procurment-pot-errors" 
+									ng-show="costform.code.$touched && costform.code.$error.required" >This
+										field is required</span> <span class="procurment-pot-errors" ng-show="costform.code.$error.pattern">Alpha
+										numeric data should be allowed </span></td>
+
+								<td ng-form name="costform1"><input data-test='CentralLibrary_CostcodeClassification_Create_CostcodeName' class="form-control" type="text" name="name"
+									ng-model="costCodes.name"
+									pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+									maxlength="50" placeholder="Cost Code Name" ng-required="true">
+									<span class="procurment-pot-errors" 
+									ng-show="costform1.name.$touched && costform1.name.$error.required">This
+										field is required</span> <span class="procurment-pot-errors" 
+									ng-show="costform1.name.$error.pattern">Alpha numeric
+										data should be allowed</span> <span class="procurment-pot-errors" 
+									ng-show="costform1.name.$error.minlength">To Short!</span></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="panel-footer">
+				<div class="pull-left">
+					<input data-test='CentralLibrary_CostcodeClassification_Create_addrows' type="submit" ng-click="codeForm.$valid && addRows()"
+						value="Add Rows" ng-show="action =='Add'"
+						class="btn btn-primary btn-sm" /> <input data-test='CentralLibrary_CostcodeClassification_Create_deleterows' type="button"
+						ng-click="deleteRows()" value="Delete Rows"
+						ng-show="action =='Add'" class="btn btn-secondary btn-sm">
+				</div>
+				<div class="pull-right">
+					<input data-test='CentralLibrary_CostcodeClassification_save' type="submit" ng-click="codeForm.$valid && saveCostCodes()"
+						class="btn btn-primary btn-sm" value="Save" validate />
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</form>
+</div>
+
+
+
+
+

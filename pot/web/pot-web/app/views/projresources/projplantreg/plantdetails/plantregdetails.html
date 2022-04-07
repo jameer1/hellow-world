@@ -1,0 +1,230 @@
+<section class="content-header">
+	<h1>Plant and Equipments - Register</h1>
+	<!-- <input type="submit" value ="Help !"
+		ng-click="helpPage();" class="pull-right btn  btn-primary btn-sm help-each-page"> -->
+	<button class="pull-right btn btn-primary btn-sm help-each-page" 
+		onclick="window.open('views/helptutorials/PlantEquipments.html', '_blank', 
+		'toolbar=yes,scrollbars=yes,resizable=no,top=50,left=100,width=1400,height=700')">
+		Help
+	</button> 
+</section>
+<section ng-if="account.appCodeTemplate['RESOURCE_PLANTREG_VIEW']" class="content" id="tab-pannel" ng-init="getSearchPlantRegisters();">
+	<div class="panel panel-default twinBlock footer-parent" id="res-plant">
+		<div class="panel-body">
+			<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 no-padding">
+				<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padL-0">
+					<md-input-container class="md-block">
+						<label>EPS ID/Name</label>
+						<input data-test='PlantandEquipment_EpsID' type="text"
+							ng-model="searchProject.parentName" ng-click="getUserProjects()" readonly />
+					</md-input-container>
+				</div>
+				<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+					<md-input-container>
+						<label>Project ID/Name</label>
+						<input data-test='PlantandEquipment_ProjectName' type="text"
+							ng-model="searchProject.projName" ng-click="getUserProjects()" readonly >
+					</md-input-container>
+				</div>
+				<div class="col-lg-6 col-md-6 col-xs-6 col-sm-6 padR-0">
+					<div class="pull-right marT15">
+						<input data-test='PlantandEquipment_search' type="button" ng-click="getSearchPlantRegisters('click');"
+							class="btn  btn-primary btn-sm" value="Search" ng-model="searchText">
+						<input data-test='PlantandEquipment_refresh' type="reset" class="btn  btn-secondary btn-sm"
+							ng-click="resetSearchData()" value="Reset">
+					</div>
+				</div>
+			</div>
+			<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 no-padding">
+				<div class="doubleHeaderTableResHeight">
+				<div id="grid" ui-grid="gridOptions" class="singleTableResHeight_3" ng-if="stylesSvc.finishedStyling" style="height:200px";
+            ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-resize-columns class="grid"></div>
+					<!-- <table id="table" class="table table-striped table-hover table-bordered doubleHeaderTableHeight">
+						<thead>
+							<tr>
+								<th rowspan="2">Select</th>
+								<th rowspan="2">Asset ID</th>
+								<th rowspan="2">Registration Number</th>
+								<th rowspan="2">Classification Name</th>
+
+								<th colspan="8" class="text-center"><span ng-show="plantDatamoreFlag==0">Asset
+										Particulars <span class="fa fa-caret-right"
+											style="float: right; font-size: 25px; color: #337ab7 !important;"
+											ng-click="clickForwardPlantData(plantDatamoreFlag);"></span></span>
+									<span ng-show="plantDatamoreFlag==1">Current Status
+										<span class="fa fa-caret-left"
+											style="float: left; font-size: 25px; color: #337ab7 !important;"
+											ng-click="clickBackwardPlantData(plantDatamoreFlag);"></span></span>
+								</th>
+							</tr>
+							<tr>
+
+								<th>
+									<span ng-show="plantDatamoreFlag==0">Description</span>
+									<span ng-show="plantDatamoreFlag==1">EPS Name</span>
+								</th>
+								<th>
+									<span ng-show="plantDatamoreFlag==0">Make</span>
+									<span ng-show="plantDatamoreFlag==1">Project Name</span>
+								</th>
+								<th>
+									<span ng-show="plantDatamoreFlag==0">Model</span>
+									<span ng-show="plantDatamoreFlag==1">Current Status</span>
+								</th>
+								<th>
+									<span ng-show="plantDatamoreFlag==0">Existing or New Asset</span>
+									<span ng-show="plantDatamoreFlag==1">Purchase/<br>Commissioning Date</span>
+								</th>
+								<th>
+									<span ng-show="plantDatamoreFlag==0">Plant Supplier Name</span>
+									<span ng-show="plantDatamoreFlag==1">Mobilisation<br>Date</span>
+								</th>
+								<th>
+									<span ng-show="plantDatamoreFlag==0">Plant Owner Name</span>
+									<span ng-show="plantDatamoreFlag==1">Anticipated Demobilistaion<br>Date</span>
+								</th>
+								<th>
+									<span ng-show="plantDatamoreFlag==0">Purchase Category</span>
+									<span ng-show="plantDatamoreFlag==1">Demobilistaion<br>Date</span>
+								</th>
+								<th>
+									<span ng-show="plantDatamoreFlag==0">Unit Of Measure</span>
+									<span ng-show="plantDatamoreFlag==1">Current OdoMeter Reading</span>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr fixed-header="" ng-repeat="plant in plantRegisterDtlTOs">
+								<td>
+									<input type="checkbox" value="id" ng-model="plant.selected"
+										ng-change="plantRowSelect($index,plant)">
+								</td>
+								<td ng-class="{selected: $index ==selectedRow}"
+									ng-click="go(plantRegisterDtlTOs,$index,plant);">
+									{{plant.assertId}}</td>
+								<td ng-class="{selected: $index ==selectedRow}"
+									ng-click="go(plantRegisterDtlTOs,$index,plant);">
+									{{plant.regNumber}}</td>
+								<td ng-class="{selected: $index ==selectedRow}"
+									ng-click="go(plantRegisterDtlTOs,$index,plant);">
+									{{plant.plantClassMstrName}}</td>
+
+								<td ng-class="{selected: $index ==selectedRow}"
+									ng-click="go(plantRegisterDtlTOs,$index,plant);">
+									<span ng-show="plantDatamoreFlag==0">{{plant.desc}}</span>
+									<span
+										ng-show="plantDatamoreFlag==1">{{plant.plantRegProjTO.parentName}}</span>
+								</td>
+								<td ng-class="{selected: $index ==selectedRow}"
+									ng-click="go(plantRegisterDtlTOs,$index,plant);">
+									<span ng-show="plantDatamoreFlag==0">{{plant.manfacture}}</span>
+									<span
+										ng-show="plantDatamoreFlag==1">{{plant.plantRegProjTO.name}}</span>
+								</td>
+								<td ng-class="{selected: $index ==selectedRow}"
+									ng-click="go(plantRegisterDtlTOs,$index,plant);">
+									<span ng-show="plantDatamoreFlag==0">{{plant.model}}</span>
+									<span ng-show="plantDatamoreFlag==1">{{plant.plantRegProjTO.postDeMobStatus}}</span>
+								</td>
+								<td ng-class="{selected: $index ==selectedRow}"
+									ng-click="go(plantRegisterDtlTOs,$index,plant);">
+									<span ng-show="plantDatamoreFlag==0">{{plant.assetType}}</span>
+									<span ng-show="plantDatamoreFlag==1">{{plant.plantRegProjTO.commissionDate}}</span>
+								</td>
+								<td ng-class="{selected: $index ==selectedRow}"
+									ng-click="go(plantRegisterDtlTOs,$index,plant);">
+									<span ng-show="plantDatamoreFlag==0">{{plant.cmpName}}</span>
+									<span ng-show="plantDatamoreFlag==1">{{plant.plantRegProjTO.mobDate}}</span>
+								</td>
+								<td ng-class="{selected: $index ==selectedRow}"
+									ng-click="go(plantRegisterDtlTOs,$index,plant);">
+									<span
+										ng-show="plantDatamoreFlag==0">{{plant.ownerCmpName}}</span>
+									<span
+										ng-show="plantDatamoreFlag==1">{{plant.plantRegProjTO.anticipatedDeMobDate}}</span>
+								</td>
+								<td ng-class="{selected: $index ==selectedRow}"
+									ng-click="go(plantRegisterDtlTOs,$index,plant);">
+									<span
+										ng-show="plantDatamoreFlag==0">{{plant.procurecatgName}}</span>
+									<span ng-show="plantDatamoreFlag==1">{{plant.plantRegProjTO.deMobDate}}</span>
+								</td>
+								<td ng-class="{selected: $index ==selectedRow}"
+									ng-click="go(plantRegisterDtlTOs,$index,plant);">
+									<span
+										ng-show="plantDatamoreFlag==0">{{plant.plantClassMeasureName}}</span>
+									<span ng-show="plantDatamoreFlag==1">{{plant.plantRegProjTO.odoMeter}}</span>
+								</td>
+							</tr>
+						</tbody>
+					</table> -->
+		<div class="panel-footer">
+			<div class="pull-right">
+				<input ng-if="account.appCodeTemplate['RESOURCE_PLANTREG_ADD']" data-test='PlantandEquipment_create'
+					type="button" class="btn btn-primary btn-sm" ng-click="addplantList('Add')" value="Create"
+					ng-hide="disableFlag==1" >
+			</div>
+			<div class="pull-left">
+				<input type="button" ng-if="account.appCodeTemplate['RESOURCE_PLANTREG_ADD']"
+					data-test='PlantandEquipment_Edit' class="btn btn-primary btn-sm" ng-click="addplantList('Edit')"
+					value="Edit">
+				<input type="button" ng-if="account.appCodeTemplate['RESOURCE_PLANTREG_DELETE']"
+					data-test='PlantandEquipment_Deactivate' class="btn btn-secondary btn-sm"
+					ng-click="deletePlantRegisters()" value="Deactivate" ng-hide="disableFlag==1">
+			</div>
+		</div>
+				</div>
+			</div> 
+		</div>
+	</div>
+	<div id="tabs" class="panel panel-default twinBlock footer-parent">
+		<div class="panel-body" id="plant-tabs">
+			<div class="nav-tabs-custom">
+				<ul class="nav nav-tabs" ng-if="moreFlag==0">
+					<li fixed-header="" ng-repeat="tab in plantDetailsTabs | slice:0:7" ng-class="{'active':account.appCodeTemplate[tab.plantappCodeTemplateKey]
+									&& isActiveTab(tab.url),'disabled': !account.appCodeTemplate[tab.plantappCodeTemplateKey]}"
+						ng-click="onClickPlantDetailsTab(tab)">
+						<a ng-if="account.appCodeTemplate[tab.plantappCodeTemplateKey]"
+							data-test="{{tab.plantSelenumLocator}}" data-toggle="tab">{{tab.title}}</a>
+						<a ng-if="!account.appCodeTemplate[tab.plantappCodeTemplateKey]"
+							data-test="{{tab.plantseleniumlocator}}">{{tab.title}}</a> </li>
+
+					</li>
+					<li style="border-bottom: 0">
+						<span data-test='PlantandEquipment_forwardarrow' class="btn btn-secondary btn-sm"
+							ng-click="clickMore1(moreFlag);">
+							<i class="fa fa-angle-double-right"></i>
+						</span>
+					</li>
+				</ul>
+				<ul class="nav nav-tabs" ng-if="moreFlag==1">
+					<li style="border-bottom: 0">
+						<span class="btn btn-secondary btn-sm" ng-click="clickMore(moreFlag);">
+							<i class="fa fa-angle-double-left"></i>
+						</span>
+					</li>
+					
+					<li fixed-header="" ng-repeat="tab in plantDetailsTabs | slice:7:11" 
+					ng-class="{'active':account.appCodeTemplate[tab.plantappCodeTemplateKey]
+									&& isActiveTab(tab.url), 
+									'disabled': !account.appCodeTemplate[tab.plantappCodeTemplateKey]}">
+						<a data-toggle="tab" ng-if="account.appCodeTemplate[tab.plantappCodeTemplateKey]"
+							ng-click="onClickTab(tab)" data-test="{{tab.plantSelenumLocator}}">{{tab.title}}</a>
+						<a ng-if="!account.appCodeTemplate[tab.plantappCodeTemplateKey]"
+							data-test="{{tab.plantseleniumlocator}}">{{tab.title}}
+							{{account.appCodeTemplate}}</a> 
+				    </li>
+				</ul>
+				    <div class="tab-content">
+					   <div ng-include="currentPlantDetailsTab">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<style>
+.red { background-color: #FFE0B2 !important; }
+.blue { background-color: #C8E6C9 !important; color: #C8E6C9  }
+.yellow { background-color: rgb(200, 230, 201) !important; }
+</style>
+</section>

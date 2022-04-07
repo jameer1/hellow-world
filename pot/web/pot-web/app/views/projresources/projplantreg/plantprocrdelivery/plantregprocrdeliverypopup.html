@@ -1,0 +1,217 @@
+<div id="tab-pannel" ng-init="validateAddDeleteRows(plantProjPODtlTO.plantDocketDtlTOs)">
+	<form name="procureDeliveryForm" validate>
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Add Purchase Order Plant List</h4>
+			</div>
+			<div class="panel-body">
+				<div class="tabTable_4_Res_height">
+					<table class="table table-striped table-bordered tabTable_4_height">
+						<thead>
+							<tr>
+								<th>EPS ID<span
+									style="color: red; ">*</span></th>
+								<th>Project Name<span
+									style="color: red; ">*</span></th>
+								<th>Purchase Order<span
+									style="color: red; ">*</span></th>
+								<th>Schedule Item ID<span
+									style="color: red; ">*</span></th>
+								<th>Schedule Item Desc<span
+									style="color: red; ">*</span></th>
+								<th ng-if="false">Actual Qty</th>
+								<th>Commissioning Date</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td><input data-test='PlantandEquipment_ProcurementandDeliveryDetails_Create_EPSID'
+										type="text" class="form-control"
+										ng-model="plantProjPODtlTO.plantRegProjTO.parentName" placeholder="EPS ID"
+										ng-click="getUserProjects()" ng-required="true" custom-read-only  ng-blur="clear(plantProjPODtlTO.plantRegProjTO.parentName,plantProjPODtlTO.purchaseSchLabelKeyTO.code)" 
+										ng-disabled="inputDisable"></td>
+
+								<td><input data-test='PlantandEquipment_ProcurementandDeliveryDetails_Create_ProjecName'
+										type="text" class="form-control" ng-model="plantProjPODtlTO.plantRegProjTO.name"
+										placeholder="Project Name" readonly="readonly"></td>
+
+								<td><input type="text" class="form-control"
+										ng-model="plantProjPODtlTO.purchaseLabelKeyTO.code"
+										data-test='PlantandEquipment_ProcurementandDeliveryDetails_Create_PurchaseOrder'
+										placeholder="Purchase Order" ng-click="getProjectPoDetails()"
+										ng-disabled="inputDisable" style="width: 200px !important" ng-required="true"
+										custom-read-only>
+								</td>
+
+								<td><input type="text" name="plantType" class="form-control"
+										data-test='PlantandEquipment_ProcurementandDeliveryDetails_Create_ScheduleItemID'
+										ng-disabled="inputDisable" ng-click="getPlantTypes()"
+										ng-model="plantProjPODtlTO.purchaseSchLabelKeyTO.code"
+										placeholder="Schedule Item ID" style="width: 200px !important"
+										ng-required="true" custom-read-only></td>
+
+								<td><input type="text" name="plantType" class="form-control"
+										data-test='PlantandEquipment_ProcurementandDeliveryDetails_Create_ScheduleItemDesc'
+										ng-model="plantProjPODtlTO.purchaseSchLabelKeyTO.name"
+										placeholder="Schedule Item Desc" readonly="readonly"
+										style="width: 200px !important" ng-disabled="inputDisable"></td>
+
+								<td ng-if="false"><input type="text" name="actualItems" ng-disabled="inputDisable"
+										class="form-control"
+										ng-model="plantProjPODtlTO.purchasePlantTypeLabelKeyTO.displayNamesMap['qty']"
+										placeholder="Actual Items" pattern="^[\d\.,]+$" maxlength="10"
+										ng-required="true"></td>
+								<td>
+									<ng-form name="dateForm">
+										<potdate-picker class="form-control"
+											data-test='PlantandEquipment_ProcurementandDeliveryDetails_Create_CommissioningDate'
+											dir-index="1" date-name="docketcommissionDate" class="form-control"
+											ng-model="plantProjPODtlTO.commissionDate" 
+											ng-disabled="(plantProjPODtlTO.id>0)" placeholder="Commission Date"
+											name="date" tabindex="-1" ng-required="true" custom-read-only></potdate-picker>
+								</td>
+
+
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="panel-heading">
+				<h4 class="panel-title">Docket Details List</h4>
+			</div>
+			<div id="tabs1" class="panel-body">
+				<div class="tabTable_1_Res_height" style="overflow: auto;">
+					<table class="table table-striped table-bordered tabTable_1_height">
+						<thead>
+							<tr>
+								<th>Select</th>
+								<th class="word-wrap-class">Delivery Docket Date<span
+										style="color: red; ">*</span></th>
+								<th class="word-wrap-class">Delivery Docket Number<span
+									style="color: red; ">*</span></th>
+								<th class="word-wrap-class">Date of Delivery To Destination<span
+										style="color: red; ">*</span></th>
+								<th>Received By</th>
+								<th>Delivery Type<span style="color: red; ">*</span></th>
+								<th>Quantity Delivered <span style="color: red; ">*</span></th>
+								<th>Cumulative Qty Delivered</th>
+								<th>Comments from Receiver</th>
+								<th>Location of Delivery<span style="color: red; ">*</span></th>
+
+								<th>First Odo Meter Reading<span style="color: red; ">*</span></th>
+								<th>Delivery Dockets & <br> Other Documents
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="docket in plantProjPODtlTO.plantDocketDtlTOs">
+
+								<td><input type="checkbox" ng-disabled="(docket.id > 0)" ng-model="docket.select"
+										ng-change="plantDetailsPopUpRowSelect(docket)"></td>
+								<td class="input-width0">
+									<potdate-picker class="form-control" dir-index="$index"
+										data-test='PlantandEquipment_ProcurementandDeliveryDetails_Create_DeliveryDocketDate'
+										date-name="docketStartDate" placeholder="Docket StartDate"
+										ng-model="docket.startDate" ng-disabled="(docket.id > 0)" ng-required="true"
+										custom-read-only>
+									</potdate-picker>
+								</td>
+
+								<td class="input-width3"><input type="text" class="form-control"
+										data-test='PlantandEquipment_ProcurementandDeliveryDetails_Create_DeliveryDocketNumber'
+										ng-model="docket.docketNum" placeholder="Docket Number"
+										ng-disabled="(docket.id > 0)" ng-required="true" name="docketId"
+										pattern="[^\w\d]*((.*[0-9]+.*)|[0-9]+.*([A-Za-z]+.*))" minlength="2" maxlength="20">
+										<span ng-show="procureDeliveryForm.docketId.$touched && procureDeliveryForm.docketId.$error.required" class="procurment-pot-errors">Assert
+											ID is mandatory</span>
+										<span ng-show="procureDeliveryForm.docketId.$error.pattern && !procureDeliveryForm.docketId.$error.minlength"
+											class="procurment-pot-errors">Only alpha numerics allowed</span>
+
+								</td>
+								<td class="input-width0">
+									<potdate-picker class="form-control" dir-index="$index"
+										data-test='PlantandEquipment_ProcurementandDeliveryDetails_Create_DateofDeliveryToDestination'
+										date-name="docketEndDate" ng-model="docket.endDate" placeholder="Delivery Date"
+										ng-required="true" ng-disabled="(docket.id > 0)" custom-read-only></potdate-picker>
+								</td>
+
+								<td class="input-width1"><input type="text" class="form-control"
+										data-test='PlantandEquipment_ProcurementandDeliveryDetails_Create_ReceivedBy'
+										name="receivedBy" ng-model="docket.receivedCode" ng-disabled="(docket.id > 0)"
+										placeholder="Received By" ng-required="true" ng-click="employeeDetails(docket)"
+										readonly>
+								</td>
+								<td><select ng-model="docket.deliveryType" class="form-control"
+										data-test='PlantandEquipment_ProcurementandDeliveryDetails_Create_DeliveryType'
+										ng-change="getDeliveryType(docket, $index)" ng-required="true"
+										ng-disabled="(docket.id > 0)" style="width: 69px;">
+										<option value="Full" ng-disabled="plantProjPODtlTO.plantDocketDtlTOs.length>1 ">
+											Full</option>
+										<option value="Part">Part</option>
+									</select></td>
+
+								<td class="input-width0" ng-form name="quantityForm">
+									<input
+										data-test='PlantandEquipment_ProcurementandDeliveryDetails_Create_QuantityDelivered'
+										type="text" class="form-control" name="quantity" ng-model="docket.quantity"
+										pattern="^[\d\.,]+$" ng-required="true" class="text-right" valid-number
+										ng-change="validateDeliveryQuantity(docket.quantity); validateCommissionQty($index, docket);"
+										ng-disabled="(docket.deliveryType == 'Full' && docket.quantity == 1) || docket.id > 0 " />
+									<span ng-show="quantityForm.quantity.$error.pattern">Enter only
+										numbers/decimals</span></td>
+
+								<td><input type="text" class="form-control" ng-model="docket.cumulative"
+										data-test='PlantandEquipment_ProcurementandDeliveryDetails_Create_CumulativeQtyDelivered'
+										readonly="readonly"></td>
+
+								<td class="input-width2"><input class="comment form-control" type="text"
+										data-test='PlantandEquipment_ProcurementandDeliveryDetails_Create_CommentsfromReceiver'
+										ng-model="docket.receiverComments" ng-disabled="(docket.id > 0)"
+										placeholder="Receiver Comments"></td>
+
+								<td class="input-width0"><input type="text" class="form-control"
+										data-test='PlantandEquipment_ProcurementandDeliveryDetails_Create_LocationofDelivery'
+										ng-required="true" placeholder="Delivery Location" 
+										ng-model="docket.deliveryLocation" ng-click="selectDeliveryPlace(docket)" ng-disabled="(docket.id > 0)" />
+										
+										</td>
+								<td class="input-width-3"><input type="text" class="form-control" name="quantity"
+										data-test='PlantandEquipment_ProcurementandDeliveryDetails_Create_FirstOdoMeterReading'
+										ng-model="docket.odoMeter" pattern="^[\d\.,%]+$" maxlength="10"
+										placeholder="Odo Meter Reading" ng-disabled="cumulative!=1 || docket.id > 0"
+										class="text-right"></td>
+								<td><input type="file" fileread="docket.deliverDocument" name="file"
+										ng-disabled="{{ docket.docKey != null }}" ngf-select="checkFile($file, docket, $index)"
+										ngf-accept="'*'" tabindex="20" >
+									<span class="help-block" style="color: red"
+										ng-show="!docket.isValidDoc">{{docket.docErrorMessage}}</span>
+								</td>
+
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="panel-footer">
+				<div class="pull-left">
+					<input data-test='PlantandEquipment_ProcurementandDeliveryDetails_Create_Add' type="submit"
+						class="btn btn-secondary  btn-sm" ng-click="addRows()" value="Add"
+						ng-if="account.appCodeTemplate['RESOURCE_PLANTPROCDELDETLSDOCKETDETAILS_ADD']"
+						ng-disabled="flag1 ||typeFlag ||cumulative==1">
+					<input ng-if="account.appCodeTemplate['RESOURCE_PLANTPROCDELDETLSDOCKETDETAILS_DELETE']"
+						type="button" class="btn btn-secondary bottomaligned btn-sm" ng-click="deleteRows()"
+						data-test='PlantandEquipment_ProcurementandDeliveryDetails_Create_delete' value="Delete"
+						ng-disabled="flag1 || typeFlag || cumulative==1">
+				</div>
+				<div class="pull-right">
+					<input type="submit" ng-if="account.appCodeTemplate['RESOURCE_PLANTPROCDELDETLSDOCKETDETAILS_ADD']"
+						ng-disabled=" actionType == 'Edit' && cumulative > 1 "
+						class="btn btn-primary  btn-sm" data-test='PlantandEquipment_ProcurementandDeliveryDetails_save'
+						ng-click="saveProcureDeliveryDetails()" value="Save">
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</form>
+</div>

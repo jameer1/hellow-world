@@ -1,0 +1,101 @@
+<div id="tab-pannel" class="panel-group" ng-init="getTaxCodesMap()">
+	<form name="taxcodeForm" validate>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h4 class="panel-title" ng-show="action =='Add'">Add Project</h4>
+				<h4 class="panel-title" ng-show="action =='Edit'">Edit Project</h4>
+			</div>
+			<div class="panel-body">
+				<div class="popUpTableResHeight">
+					<table class="table table-striped table-hover table-bordered popUpTableHeight">
+						<thead>
+							<tr>
+								<th ng-if="action !=='Edit'">Select</th>
+								<th>Tax Code
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th>Description
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th>Applicable
+									<span class="procurment-pot-errors">*</span>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr fixed-header="" ng-repeat="taxcode in taxcodeList">
+								<td ng-if="action !=='Edit'"><input type="checkbox" ng-model="taxcode.selected"
+										value="taxcode.id" ng-change="taxcodePopUpRowSelect(taxcode)"></td>
+
+
+								<td>
+									<ng-form name="taxcodeForm"> <input class="form-control" type="text"
+											ng-model="taxcode.code" name="code"
+											ng-class="{coloumnHighlightColor:taxcode.duplicateFlag}"
+											ng-change="checkDuplicate(taxcode)" placeholder="Tax Code"
+											pattern="^[a-zA-Z\d\s-_]+$" minlength="2" maxlength="30"
+											ng-required="true" /> <span class="procurment-pot-errors"
+											ng-show="taxcodeForm.code.$dirty && taxcodeForm.code.required">taxCode
+											is mandatory</span> <span ng-show="taxcodeForm.code.$error.pattern"
+											class="procurment-pot-errors">Enter
+											correct taxCode</span>
+										<span ng-show="taxcodeForm.code.$error.minlength"
+											class="procurment-pot-errors">To
+											Short!</span> <span ng-show="taxcodeForm.code.$error.maxlength"
+											class="procurment-pot-errors">Enter
+											length between 1 to 30 characters only</span>
+								</td>
+
+
+								<td>
+									<ng-form name="descForm"> <input class="form-control" type="text"
+											ng-model="taxcode.name" name="name" placeholder="description"
+											pattern="^[a-zA-Z\d\s-_]+$" minlength="3" maxlength="50"
+											ng-required="true" /> <span class="procurment-pot-errors"
+											ng-show="descForm.name.$dirty && descForm.name.required">description
+											is mandatory</span> <span ng-show="descForm.name.$error.pattern"
+											class="procurment-pot-errors">Enter
+											correct description</span> <span ng-show="descForm.name.$error.minlength"
+											class="procurment-pot-errors">To
+											Short!</span> <span ng-show="descForm.name.$error.maxlength"
+											class="procurment-pot-errors">Enter length
+											between 1 to 50 characters only</span>
+								</td>
+
+								<td>
+									<ng-form name="appForm">
+										<select class="form-control" ng-options="code for code in taxTypes"
+											ng-model="taxcode.taxType" name="taxStatus" ng-required="true">
+										</select>
+										<span class="procurment-pot-errors"
+											ng-show="appForm.taxStatus.$dirty && appForm.taxStatus.required">applicable
+											is mandatory</span> <span class="procurment-pot-errors"
+											ng-show="appForm.taxStatus.$error.pattern">Enter
+											Alphabets Only</span> <span class="procurment-pot-errors"
+											ng-show="appForm.taxStatus.$error.minlength">To
+											Short!</span>
+										<span class="procurment-pot-errors"
+											ng-show="appForm.taxStatus.$error.maxlength">Enter
+											length between 1 to 20 characters only</span>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="panel-footer">
+				<div class="pull-left">
+					<input type="submit" class="btn  btn-primary btn-sm" ng-click="taxcodeForm.$valid && addTaxCodeRows()" value="Add"
+						ng-show="action =='Add'" />
+					<input type="button" class="btn btn-secondary btn-sm" ng-click="deleteProjRows()" value="Delete"
+						ng-show="action =='Add'" />
+				</div>
+				<div class="pull-right">
+					<input type="submit" class="btn  btn-primary btn-sm" value="Save"
+						ng-click="taxcodeForm.$valid && saveTaxCodes()" />
+				</div>
+			</div>
+			<div class="ngdialog-close"></div>
+		</div>
+	</form>
+</div>

@@ -1,0 +1,38 @@
+<div id="tab-pannel">
+	<div class="panel panel-default" modal-movable>
+		<div class="panel-heading">
+			<h4 class="panel-title">Asset Category</h4>
+		</div>
+		<div class="panel-body">
+			<div class="popUpTableResHeight"  style="overflow:auto">
+				<table id="tree" class="table table-striped popUpTableHeight" >
+					<thead id="tab-head">
+						<tr>
+							<th>Asset Category Code</th>
+							<th>Asset Category</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr fixed-header="" ng-repeat="tab in assetCategoryTOs" class="abc{{tab.level}}" ng-dblclick="selectRecord(tab)"
+						 ng-show="!tab.collapse">
+							<td><span ng-repeat="level in [].constructor(tab.level) track by $index" class="xyz" style="padding-left: 30px;"></span>
+								<span ng-show="(tab.expand || (!tab.item  && tab.childAssetCategoryTOs.length <= 0))" ng-click="assetItemClick(tab,true);"
+								 class="fa fa-minus" title="Collapse Asset Category"></span>
+								<span ng-show="(!tab.expand && tab.childAssetCategoryTOs.length > 0)" ng-click="assetItemClick(tab,false);" class="fa fa-plus" data-test="ImmovableAssets_Create_ExpandIcon" title="Expand Asset Category"></span>
+								<span ng-show="(tab.item)" class="fa fa-leaf" data-test="ImmovableAssets_Create_AssetCategory_ItemSelect"> </span>
+								<span style="padding-left: 10px; color: black !important;">{{tab.code}}
+									<span style="padding-left: 5px;"></span>
+								</span>
+								<span ng-show="(!tab.item) && account.appCodeTemplate" ng-click="editAssetCategoryDetails('Edit',tab)" name="edit">
+								</span>
+							</td>
+							<td>{{tab.name}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="panel-footer"></div>
+		<div class="ngdialog-close"></div>
+	</div>
+</div>

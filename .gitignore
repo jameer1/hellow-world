@@ -1,0 +1,19 @@
+/.project
+/.settings/
+/.classpath
+/target/
+
+
+/**/.project
+/**/.settings/
+/**/.classpath
+/**/target/
+pot/web/pot-web/package-lock.json
+
+*.bak
+
+ *.iml
+ modules.xml
+ .idea/misc.xml
+ *.ipr
+*.idea

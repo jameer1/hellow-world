@@ -1,0 +1,73 @@
+<div id="tab-pannel" ng-init="getGlobalCalendarMap();getProjCalendarMap()">
+    <form name="calendarForm" validate autocomplete="off">
+        <div id="tab-pannel" class="panel panel-default" modal-movable>
+            <div class="panel-heading">
+                <h4 class="panel-title" ng-if="action=='Add'">Add Calendar</h4>
+                <h4 class="panel-title" ng-if="action!='Add'">Edit Calendar</h4>
+            </div>
+            <div class="panel-body">
+                <div id="tab-pannel" class="popUpTableResHeight">
+                    <table class="table table-striped table-hover table-bordered popUpTableHeight">
+                        <thead>
+                            <tr>
+                                <th>Select</th>
+                                <th>Calendar Name
+                                    <span style="color: red; font-sfont-size: '50px'"> *</span>
+                                </th>
+                                <th>Default</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr fixed-header="" ng-repeat="cal in addCalendarList">
+                                <td>
+                                    <input  data-test='Calendars_add_Checkbox1'
+                                        type="checkbox" value="cal.id" ng-model="cal.selected"
+                                        ng-change="popupRowSelect(cal)">
+                                </td>
+                                <td ng-form name="classform">
+                                    <input data-test='Calendars_Name' class="form-control" type="text" name="name"
+                                        ng-model="cal.name" pattern="^[a-zA-Z\d\s.,-]+$" minlength="2" maxlength="20"
+                                        placeholder="Name" ng-class="{coloumnHighlightColor:cal.duplicateFlag}"
+                                        ng-change="checkDuplicate(cal);checkProjCalDuplicate(cal)" required="required">
+                                    <span ng-show="classform.name.$touched && classform.name.$error.required"
+                                        class="procurment-pot-errors">
+                                        This
+                                        field is required
+                                    </span>  <span
+                                        ng-show="classform.name.$error.pattern">
+                                        Must enter
+                                        required format
+                                    </span> <span ng-show="classform.name.$error.maxlength">
+                                        You
+                                        reached max length
+                                    </span>
+                                </td>
+                                <td>
+                                    <input data-test='Calendars_add_default_checkbox' type="checkbox"
+                                        name="calDefaultValue" ng-model="cal.calDefaultValue" ng-true-value="1"
+                                        ng-disabled="cal.defaultCal" ng-false-value="0"
+                                        ng-checked="cal.calDefaultValue==1"
+                                        ng-click="selectCheckTransType(cal);updateSelection($index, addCalendarList)">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <div class="pull-left">
+                    <input data-test='Calendars_add_addclick_incalendarspopup' type="submit"
+                        ng-click="calendarForm.$valid && addRows()" class="btn bottomaligned btn-primary btn-sm"
+                        value="Add Rows" ng-show="action =='Add' || action =='Edit'" validate>
+                    <input data-test='Calendars_add_delete' type="button" ng-click="deleteRows($index)" value="Delete Rows"
+                        ng-show="action =='Add' || action =='Edit'" class="btn bottomaligned btn-secondary btn-sm" validate>
+                </div>
+                <div class="pull-right">
+                    <input data-test='Calendars_Save' type="submit" ng-click="calendarForm.$valid && saveCalendar()"
+                        value="Save" class="btn bottomaligned btn-primary btn-sm" />
+                </div>
+            </div>
+        </div>
+        <div class="ngdialog-close"></div>
+    </form>
+</div>

@@ -1,0 +1,26 @@
+<div class="panel-body17 table-responsive">
+	<ul class="nav nav-tabs" ng-show="moreFlag=='0'">
+		<li fixed-header="" ng-repeat ="tab in projTabs[0].childTabs | slice:0:7" 
+		ng-class="{'active': account.appCodeTemplate[tab.appCodeTemplateKey] && isActiveTab1(tab.urlValue),
+		'disabled': !account.appCodeTemplate[tab.appCodeTemplateKey]}">
+		<a ng-if="account.appCodeTemplate[tab.appCodeTemplateKey]" 
+			data-toggle="tab" ng-click="onClickTab1(tab)"data-test="{{tab.SelenumLocator}}" ><span  >{{tab.name}}</span></a>
+			<a ng-if="!account.appCodeTemplate[tab.appCodeTemplateKey]">{{tab.name}}</a></li>
+   
+		<li><p class="arrow-font" data-test='Projects_ProjectSettings_ForwardArrow' ng-click="clickMore1(moreFlag);">&#x00BB;</p></li>
+	</ul>
+	<ul class="nav nav-tabs " ng-show="moreFlag=='1'">
+		<li><p class="arrow-font" data-test='Projects_ProjectSettings_BackwardArrow' ng-click="clickMore(moreFlag);">&#x00AB;</p></li>
+		<li fixed-header="" ng-repeat ="tab in projTabs[0].childTabs | slice:7:14+3"
+		ng-class="{'active': account.appCodeTemplate[tab.appCodeTemplateKey] && isActiveTab1(tab.urlValue),
+		'disabled': !account.appCodeTemplate[tab.appCodeTemplateKey]}">
+		<a ng-if="account.appCodeTemplate[tab.appCodeTemplateKey]"
+			data-toggle="tab" ng-click="onClickTab1(tab)" data-test="{{tab.SelenumLocator}}" >{{tab.name}}</a>
+			<a ng-if="!account.appCodeTemplate[tab.appCodeTemplateKey]">{{tab.name}}</a>
+		</li>
+	</ul>
+	<div class="tab-content">
+		<div ng-include="currentTab1"></div>
+	</div>
+
+</div>

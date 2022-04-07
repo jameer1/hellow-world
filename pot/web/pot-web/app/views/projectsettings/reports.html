@@ -1,0 +1,83 @@
+<div class="bottomTabTableResHeight no-border">
+	<div  class="">
+		<div class="row">
+			<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+				<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padL-0">
+					<md-input-container class="md-block">
+						<label>Weekly</label>
+						<md-select data-test='Projects_ProjectSettings_ReportsTab_weekly' 
+							ng-model="projReportsDtls.week">
+							<md-option ng-repeat="day in  weeakDays" ng-value="day">{{day}}</md-option>
+						</md-select>
+					</md-input-container>
+				</div>
+				<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+						<md-input-container class="md-block">
+							<label>Monthly</label>
+							<md-select data-test='Projects_ProjectSettings_ReportsTab_monthly' 
+								ng-model="projReportsDtls.month">
+								<md-option ng-repeat="month in  monthly" ng-value="month">{{month}}</md-option>
+							</md-select>
+						</md-input-container>
+				</div>
+				<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+						<md-input-container class="md-block">
+							<label>First Quarter in a year</label>
+							<md-select data-test='Projects_ProjectSettings_ReportsTab_firstquarterinayear' 
+								ng-model="projReportsDtls.firstQuarter">
+								<md-option ng-repeat="quarter in  years" ng-value="quarter">{{quarter}}</md-option>
+							</md-select>
+						</md-input-container>
+				</div>
+				<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+						<md-input-container class="md-block">
+							<label>First Half Year</label>
+							<md-select data-test='Projects_ProjectSettings_ReportsTab_firsthalfyear' 
+								ng-model="projReportsDtls.firstHalf">
+								<md-option ng-repeat="half in  years" ng-value="half">{{half}}</md-option>
+							</md-select>
+						</md-input-container>
+				</div>
+			</div>
+		</div>
+		<div class="row horizontalSpace">
+				<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padL-0">
+						<md-input-container class="md-block">
+							<label>Yearly</label>
+							<md-select data-test='Projects_ProjectSettings_ReportsTab_Yearly' 
+								ng-model="projReportsDtls.year">
+								<md-option ng-repeat="year in  years" ng-value="year">{{year}}</md-option>
+							</md-select>
+						</md-input-container>
+					</div>
+					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+							
+					</div>
+					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+					
+					</div>
+					
+				</div>
+		</div>
+
+		</div>
+	</div>
+	<div class="panel-footer">
+		<div class="pull-right">
+		<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 sameRowBtn">
+			<input type="submit" data-test='Projects_ProjectSettings_ReportsTab_Save' class="btn btn-primary btn-sm sameRowBtn"
+				value="Save" ng-click="saveProjReports()" ng-disabled ="!account.appCodeTemplate['PRJ_PRJSTG_REPORT_ADD']"
+				title="{{ account.appCodeTemplate['PRJ_PRJSTG_REPORT_ADD'] ? '' : '! Permission Denied. Contact your admin.'}}">
+		</div>
+	</div>
+	<div class="pull-left">
+		<input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+		<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+		<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+		<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+		<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+	</div>
+	</div>
+
+</div>

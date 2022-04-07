@@ -1,0 +1,54 @@
+<div id="tab-pannel" class="panel-group">
+	<div class="panel panel-default" modal-movable>
+		<div class="panel-heading">
+			<h4 class="panel-title">Request For Additional Time</h4>
+		</div>
+		<div class="panel-body">
+				<div class="col-xs-12 col-sm-12 col-md-12 no-padding">
+						<div class="col-xs-2 col-sm-2 col-md-2 padL-0">
+						  <md-input-container>
+						  <label>Project Name</label>
+						  <input type="text" ng-model="projName"  readonly="readonly">
+						  </md-input-container>
+						</div>
+						 <div class="col-xs-2 col-sm-2 col-md-2">
+							<md-input-container>
+						  <label>Crew</label>
+						  <input type="text" ng-model="crewname" readonly="readonly">
+						  </md-input-container>
+						</div>
+						<div class="col-xs-2 col-sm-2 col-md-2">
+							<md-input-container>
+						  <label>From (dd-mm-yyyy)</label>
+						  <potdate-picker dir-index="$index" date-name="notificationDate" readonly
+							ng-model="tableData.fromDate" placeholder="dd-mm-yyyy" required="required" data-test="RequestForAddTime_FromDate">
+						</div>
+						<div class="col-xs-2 col-sm-2 col-md-2">
+								<md-input-container>
+							  <label>To (dd-mm-yyyy)</label>
+							  <potdate-picker dir-index="$index" date-name="notificationDate" readonly min-date="tableData.fromDate"
+							ng-model="tableData.toDate" placeholder="dd-mm-yyyy" required="required" data-test="RequestForAddTime_ToDate">
+							</div>
+						 <div class="col-xs-2 col-sm-2 col-md-2">
+							<md-input-container>
+						  <label><span style="color: red; font-size: 6px">*</span>Approver</label>
+						  <input type="text" ng-model="approverTo.name" ng-click="getModuleUserDetails(approverTo)" required data-test="RequestForAddTime_Approver" readonly>
+						  </md-input-container>
+						</div>
+						 <div class="col-xs-2 col-sm-2 col-md-2 padR-0">
+							<md-input-container>
+						  <label>Comments</label>
+						  <textarea type="text" ng-model="comments" data-test="RequestForAddTime_Comments"></textarea>
+						  </md-input-container>
+						</div>
+					  </div>
+		</div>
+		<div class="panel-footer">
+			<div class="pull-right">
+				<input type="button" ng-click="submitNotifications(projId)"
+					class="btn btn-primary btn-sm" value="Submit" data-test="RequestForAddTime_Submit">
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</div>
+</div>

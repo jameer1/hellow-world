@@ -1,0 +1,150 @@
+<div class="panel-body">
+  <div class="tabTable_5_Res_Height overflow-auto" style="height: 265.137168px;">
+    <table class="table table-hover table-bordered tabTable_5_Height">
+      <thead>
+        <tr>
+          <th rowspan="2">Select</th>
+          <th rowspan="2">Source Of Material</th>
+          <th rowspan="2">Docket Type</th>
+          <th rowspan="2">Docket Number</th>
+          <th rowspan="2">Docket Date</th>
+          <th rowspan="2">Purchase Order</th>
+          <th rowspan="2">Schedule Item</th>
+          <th rowspan="2">Resource Name</th>
+          <th rowspan="2">Supplier</th>
+          <th rowspan="2">Unit Of Rate</th>
+          <th rowspan="2">Unit Of Measure</th>
+          <th rowspan="2">Received Qty</th>
+          <th rowspan="2">Delivery Location</th>
+          <th rowspan="2">Defects If Any</th>
+          <th colspan="{{workDairyCostCodeList.length + 1}}" class="text-center">Cost Code Wise Material Utilisation
+          </th>
+          <th rowspan="2">Comments</th>
+        </tr>
+        <tr>
+          <th ng-repeat="workDairyCostCode in  workDairyCostCodeList" class="text-center">
+            {{workDairyCostCode.code}}</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="materialObj in workDairyMaterialDtlTOs">
+          <td><input type="checkbox" ng-change="materialStoreRowSelect(materialObj)" ng-model="materialObj.select"
+              value="id" ng-if="materialObj.id==undefined || materialObj.id <=0"
+              data-test='AsbuiltRecords_WorkDiary_CreateWorkDiary_MaterialandStoreConsumption_CheckBoxForSelect'></td>
+          <td><input type="text" class="form-control" ng-disabled="true" ng-model="materialObj.sourceType"></td>
+
+          <td width="8%">
+            <input ng-if="!materialObj.supplierDocket" class="form-control" type="text"
+              ng-model="materialObj.docketType" />
+            <select class="form-control" ng-if="materialObj.supplierDocket" name="docketType"
+              ng-model="materialObj.docketType" ng-disabled="materialObj.onLoadDocket" data-test="AsbuiltRecords_WorkDiary_CreateWorkDiary_MaterialandStoreConsumption_AddSupplierDocket_DocketType"
+              ng-change="supplierDocketType(materialObj)">
+              <option value="new">New</option>
+              <option value="existing">Existing</option>
+            </select>
+          </td>
+
+          <td>
+            <input type="text" class="form-control" ng-if="!materialObj.supplierDocket 
+              || materialObj.docketType === 'new' || materialObj.onLoadDocket" ng-model="materialObj.docketNum" data-test="AsbuiltRecords_WorkDiary_CreateWorkDiary_MaterialandStoreConsumption_AddSupplierDocket_DocketNumber"
+              placeholder="type/select docket" ng-disabled="materialObj.onLoadDocket">
+            <input type="text" class="form-control" ng-if="materialObj.supplierDocket && 
+              materialObj.docketType === 'existing' && !materialObj.onLoadDocket" ng-model="materialObj.docketNum" data-test="AsbuiltRecords_WorkDiary_CreateWorkDiary_MaterialandStoreConsumption_AddSupplierDocket_DocketNumber"
+              placeholder="type/select docket" ng-dblclick="getMaterialDeliveryDockets(materialObj)" 
+              ng-disabled="materialObj.deliveryDocketSelected">
+          </td>
+
+          <td>
+            <potdate-picker max-date="workDairySearchReq.workDairyDate" ng-model="materialObj.docketDate" data-test="AsbuiltRecords_WorkDiary_CreateWorkDiary_MaterialandStoreConsumption_AddSupplierDocket_DocketDate"
+              class="form-control" dir-index="$index" date-name="fromDate" ng-disabled="isExistingDocket(materialObj)"
+              ng-model="materialObj.docketDate" placeholder="dd-mm-yyyy">
+          </td>
+
+          <td><input type="text" class="form-control"
+              ng-disabled="materialObj.sourceType=='Project Delivery' || isExistingDocket(materialObj)"
+              ng-click="getPurchaseOrdersForMaterial(materialObj)" ng-model="materialObj.purchaseLabelKeyTO.code"
+              data-test='AsbuiltRecords_WorkDiary_CreateWorkDiary_MaterialandStoreConsumption_AddSupplierDocket_PurchaseOrder'>
+          </td>
+
+          <td><input type="text" ng-disabled="isExistingDocket(materialObj)" ng-click="getScheduleItems(materialObj)"
+              class="form-control"
+              data-test='AsbuiltRecords_WorkDiary_CreateWorkDiary_MaterialandStoreConsumption_AddSupplierDocket_ScheduleItem'
+              ng-model=materialObj.purchaseSchLabelKeyTO.code></td>
+
+
+          <td><input type="text" class="form-control" name="materialDescription"
+              ng-model="materialObj.purchaseSchLabelKeyTO.name" placeholder="SchaterialDescription" readonly="readonly">
+          </td>
+
+
+          <td><input type="text" class="form-control"
+              ng-model="materialObj.purchaseSchLabelKeyTO.displayNamesMap.cmpName"
+              ng-disabled="isExistingDocket(materialObj)" readonly="readonly"></td>
+
+          <td><input type="text" name="ratePerUnit"
+              ng-model="materialObj.purchaseSchLabelKeyTO.displayNamesMap['unitOfRate']" placeholder="Rate PerUnit"
+              readonly="readonly" class="form-control"></td>
+
+          <td><input type="text" name="ratePerUnit" class="form-control"
+              ng-model="materialObj.purchaseSchLabelKeyTO.displayNamesMap.purClassUnitOfMeasure"
+              placeholder="Rate Per Unit" readonly="readonly"></td>
+
+          <td><input type="text" ng-model="materialObj.receivedQty" valid-number
+              ng-disabled="(isExistingDocket(materialObj) && !materialObj.supplierDocket) 
+              || materialObj.onLoadDocket || materialObj.deliveryDocketSelected"
+              class="form-control" ng-change="supplierReceivedVal(materialObj)" data-test='MaterialandStoreConsumption_AddSupplierDocket_receivedQty'></td>
+
+          <td>
+            <input type="text" ng-model="materialObj.deliveryPlace" ng-disabled="isExistingDocket(materialObj)"
+              class="form-control" data-test='MaterialandStoreConsumption_AddSupplierDocket_DeliveryLocation' readonly="readonly">
+          </td>
+
+          <td><input type="text" class="form-control" ng-model="materialObj.defectComments"
+              ng-disabled="isExistingDocket(materialObj)" data-test='MaterialandStoreConsumption_DefectsIfAny'></td>
+
+          <td colspan="{{workDairyCostCodeList.length + 1}}">
+            <table id="tableBorder0" class="table" ng-if="materialObj.workDairyMaterialStatusTOs.length > 0">
+              <tr ng-repeat="materialObjStatusTO in materialObj.workDairyMaterialStatusTOs">
+                <td ng-repeat="usedMaterialObj in  materialObjStatusTO.workDairyMaterialCostTOs">
+                  <input maxlength="5" placeholder="Quantity" class="form-control"
+                    ng-disabled="disableButton || materialObj.docketType == 'new'" type="text"
+                    ng-model="usedMaterialObj.quantity"
+                    ng-change="calculateMaterialTotal(materialObjStatusTO);checkMaterialQuantity(materialObj,materialObjStatusTO,usedMaterialObj);"
+                    ng-class="{coloumnHighlightColor:(usedMaterialObj.errorFlag || materialObjStatusTO.apprStatus==null && materialObj.workDairyMaterialStatusTOs.length > 1),coloumnHighlightColor1:materialObjStatusTO.apprStatus=='Approved'}"
+                    data-test="{{usedMaterialObj}}_Materialutilization" /></td>
+
+                <td><input type="text" readonly="readonly" ng-model="materialObjStatusTO.total" class="form-control"
+                    ng-class="{coloumnHighlightColor:(materialObjStatusTO.apprStatus==null && materialObj.workDairyMaterialStatusTOs.length > 1),coloumnHighlightColor1:materialObjStatusTO.apprStatus=='Approved'}" />
+                </td>
+              </tr>
+            </table>
+          </td>
+          <td><input type="text" ng-model="materialObj.comments" class="form-control"
+              ng-class="{coloumnHighlightColor:(materialObj.apprStatus==null && materialObj.workDairyMaterialStatusTOs.length > 1),coloumnHighlightColor1:materialObj.apprStatus=='Approved'}"
+              data-test='AsbuiltRecords_WorkDiary_CreateWorkDiary_MaterialandStoreConsumption_Comments' /></td>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="panel-footer" ng-if="!disableButton && workDairySearchReq.workDairyId > 0">
+  <div class="pull-right">
+    <input type="button" ng-click="getMaterialProjDeliveryDockets()"
+      ng-if="account.appCodeTemplate['ASBUILTRCRD_WRKDIRY_CREATWRKDIRY_ADD']" value="Add Project Docket"
+      class="btn btn-primary btn-sm" ng-show="workDairySearchReq.apprStatus == null"
+      data-test='AsbuiltRecords_WorkDiary_CreateWorkDiary_MaterialandStoreConsumption_addprojectdocketbutton'> <input
+      ng-if="account.appCodeTemplate['ASBUILTRCRD_WRKDIRY_CREATWRKDIRY_ADD']" type="button"
+      class="btn btn-primary btn-sm" ng-click="saveWorkDairyMaterialDetails()" value="Save"
+      data-test='AsbuiltRecords_WorkDiary_CreateWorkDiary_MaterialandStoreConsumption_Save'>
+  </div>
+  <div class="pull-left">
+    <input ng-if="account.appCodeTemplate['ASBUILTRCRD_WRKDIRY_CREATWRKDIRY_ADD']" type="button"
+      ng-click="addSupplierDockets()" value="Add Supplier Docket"
+      data-test='MaterialandStoreConsumption_AddSupplieDocket' class="btn btn-primary btn-sm"> <input
+      ng-if="account.appCodeTemplate['ASBUILTRCRD_WRKDIRY_CREATWRKDIRY_ADD']" type="button"
+      ng-click="deleteMatestoreRecords()" value="Delete" class="btn btn-secondary btn-sm" style="width: 64px !important"
+      data-test='MaterialandStoreConsumption_Delete'>
+  </div>
+</div>

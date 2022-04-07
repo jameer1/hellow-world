@@ -1,0 +1,132 @@
+<style>    
+ul.nav.nav-tabs.styledNav li.active {
+    border: none;
+}
+ul.nav.nav-tabs.styledNav li {
+    width: 50%;
+    border: solid 1px #ddd;
+    text-align:center;
+}
+ul.nav.nav-tabs.styledNav li a{
+padding:4px;
+margin-right:0px;
+}
+ul.nav.nav-tabs.styledNav li.active a {
+    background: #2d7ab5;
+    color: #fff;
+}
+.mt-2 {
+    margin-top: 10px;
+}
+.required_field {
+	color: red;
+}
+</style>
+<div id="tab-pannel" class="panel-group">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h4 class="panel-title">Create Template</h4>
+		</div>
+		<div class="panel-body">
+			<div class="popUpTableResHeight" style="overflow-y:auto;">
+				<div class="col-md-3">
+					<md-radio-group layout="row">
+						<div class="col-md-12">
+							<md-radio-button data-test="" class="md-primary" name="request" ng-click="templateSelection('From Sample Templates')" value="1"> From Sample Templates</md-radio-button>
+							<md-radio-button data-test="" value="2" class="md-primary" name="request" ng-if="mstrCategoryId=='2' || mstrCategoryId=='3'" ng-click="templateSelection('From Central Templates')"> From Central Templates</md-radio-button>
+							<md-radio-button data-test="" class="md-primary" name="request" ng-click="templateSelection('Create Own');" value="3"> Create on your own</md-radio-button>
+						</div>
+					</md-radio-group>
+				</div>
+				
+				<div class="col-md-9" style="height: 280px;" ng-show="showCreateTmplDiv">
+					<!-- <div ng-if="error==true" class="col-sm-12 col-md-12 col-lg-12 col-xs-12">						
+						<div ng-repeat="message in errormsgs" class="col-sm-6 col-xs-6 col-md-6 col-lg-6" style="color:red;"><i class="fa fa-circle"></i><span style="margin-left:5px">{{message}}</span></div>
+					</div> -->
+					<div style="display:block">
+						<div class="col-md-12">
+							<div class="col-md-6">
+								<md-input-container class="md-block">
+									<label> Template Name <span class="required_field">*</span></label>
+			                        <input type="text" name="tempname" id="template_name" ng-model="template_name"/>		                        
+								</md-input-container>
+								<span ng-show="displayTemplNameError" style="font-size:11px;color:red;">This field is mandatory</span>
+			                </div>
+					 		<div class="col-md-6">
+		                        <md-input-container class="md-block">
+		                            <label> Template Id</label>
+		                            <input type="text" name="tempid" id="template_id" ng-readonly="true" placeholder="Auto Generated"/>
+		                        </md-input-container>	                        
+		                    </div>
+						</div>
+						<div class="col-md-12">
+							<div class="col-md-6">
+								<md-input-container class="md-block">
+		                            <label>Form Name <span class="required_field">*</span></label>
+		                            <input type="text" name="formName" id="form_name" ng-model="form_name"/>
+		                        </md-input-container>
+		                        <span ng-show="displayFormNameError" style="font-size:11px;color:red;">This field is mandatory</span>
+		                    </div>
+		                    <div class="col-md-6">
+		                        <md-input-container class="md-block">
+		                            <label>Template Category</label>
+		                            <input type="text" name="formcategory" id="template_category" ng-readonly="true" value="{{selectedTemplCategory.categoryName | capitalizeWord}}"/>
+		                        </md-input-container>
+		                    </div>
+						</div>	                    
+	                    <div class="col-md-12" ng-show="showTemplateTypeDiv">
+							<div class="form-check form-check-inline col-md-6">
+								<input type="radio" class="form-check-input" id="materialInline1" name="inlineMaterialRadiosExample" ng-model="templateType" value="TIMELINE">
+								<label class="form-check-label" for="materialInline1">Timeline</label>
+							</div>
+							<div class="form-check form-check-inline col-md-6">
+						  		<input type="radio" class="form-check-input" id="materialInline1" name="inlineMaterialRadiosExample" ng-model="templateType" value="WORKFLOW">
+						  		<label class="form-check-label" for="materialInline1">Workflow</label>
+							</div>
+	                    </div>                       
+					</div>		
+				</div>
+				<div class="col-md-9" style="height: 280px;" ng-if="showListDiv && selected_template!='Create Own'">
+					<!-- <h4>Will redirect to {{showTmplMessage}} for templates list</h4> -->
+					<table class="table table-striped table-hover table-bordered singleTableHeight_2">
+                         <thead>
+                             <tr>
+                                 <th>&nbsp;</th>
+                                 <th>Template Id</th>
+                                 <th>Name of Template</th>
+                                 <th>Template Version</th>
+                                 <th>Form Name</th>
+                                 <th>Created By</th>
+                                 <th style="max-width:100px;"> Creation / Updated (Date)</th>
+                                 <th>Process Type</th>
+                                 <th>Number of Forms</th>
+                                 <th>Status</th>
+                             </tr>
+                         </thead>
+                         <tbody>
+                             <tr ng-repeat="template in templateList" id="template{{template.templateId}}">
+                                 <td><input type="radio" name="templateId" ng-model="template.selected" value="{{template.templateId}}"></td>
+                                 <td>{{template.templateCode}}</td>
+                                 <td>{{template.templateName}}</td>
+                                 <td>{{template.versionStatus}}</td>
+                                 <td>{{template.formName}}</td>
+                                 <td>{{template.createdBy}}</td>
+                                 <td>{{template.createdOn| date:'dd-MMM-yyyy'}}</td>
+                                 <td>{{template.templateType}}</td>
+                                 <td>0</td>
+                                 <td>{{template.status | replaceStatus}}</td>                                           
+                             </tr>
+                         </tbody>
+                    </table>
+				</div>
+			</div>
+			<div class="col-md-12" ng-show="nextBtn">
+				<input type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary btn-sm pull-right" value="Next" ng-disabled="disableButton" ng-click="next(templateList);">
+			</div>
+			<div class="col-md-12" ng-show="nextStageBtn">
+				<input type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary btn-sm pull-right" value="Next" ng-disabled="disableButton" ng-click="nextStage();">
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</div>
+</div>

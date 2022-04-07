@@ -1,0 +1,35 @@
+<form name="submitForm" validate>
+  <div id="tab-pannel">
+    <div class="panel-group panel panel-default" modal-movable>
+      <div class="panel-heading">
+        <h4 class="panel-title">Time Sheet Submit For Approval</h4>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 left-padding spacer2">
+            <div>Approver</div>
+            <div class="col-sm-3 col-md-3 col-lg-3">
+              <input type="text" placeholder="Select Approver" ng-model="approverTo.name"
+                ng-click="getModuleUserDetails(approverTo)" required class="form-control"
+                data-test='TimeSheets_CreateTimeSheets_Create_Submit_Approver' readonly>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-12 col-md-12 left-padding spacer2 ">
+            <div>Comments</div>
+
+            <textarea type="text" class="form-control" style="width: 154px; height: 65px;" ng-model="comments"
+              placeholder="Comments" data-test='TimeSheets_CreateTimeSheets_Create_Submit_Comments'></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="panel-footer">
+        <div class="pull-right right-padding">
+          <input type="submit" class="btn  btn-brown btn-sm" ng-click="submitForm.$valid && submitTimeSheetDetails()"
+            value="Submit For Approval" validate
+            data-test='TimeSheets_CreateTimeSheets_Create_Submit_submitforapproval'>
+        </div>
+      </div>
+      <div class="ngdialog-close"></div>
+    </div>
+  </div>
+</form>

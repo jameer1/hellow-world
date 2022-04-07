@@ -1,0 +1,144 @@
+<div id="tab-pannel">
+	<div class="panel-group">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h4 class="panel-title">Plants-Book Value</h4>
+			</div>
+			<div class="panel-body8 ">
+				<div class="row">
+                     <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
+					<div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+						<span class="labelName">EPS</span> <input type="text" class="form-control" 
+							ng-model="searchProject.parentName" placeholder="EPS ID/EPS Name"
+							style="height: 30px !important;"">
+					</div>
+					<div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+						<span class="labelName">Project</span> <input type="text" class="form-control" 
+							ng-model="searchProject.projName"
+							placeholder="Project ID/Project Name"
+							style="height: 30px !important;"">
+					</div>
+					<div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+						<span class="labelName">Company</span> <input type="text" class="form-control"  ng-model="name"
+							style="height: 30px !important;" placeholder="company list">
+					</div>
+					<div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+						<span class="labelName">Report Run Cycle</span> <input type="text" class="form-control" 
+							style="height: 30px !important;" placeholder="Emp reg">
+					</div>
+					<div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+						<span class="labelName">Period From</span> <input type="text" class="form-control"  potdate-picker
+							ng-model="fromDate" placeholder="dd-mm-yyyy" ng-required="true"
+							style="height: 30px !important;" /> <i id="datefilter"
+							class="fa fa-calendar" data-toggle="datepicker"></i>
+					</div>
+					<div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+						<span class="labelName">Period To</span> <input type="text" class="form-control"  potdate-picker
+							ng-model="toDate" placeholder="dd-mm-yyyy"
+							style="height: 30px !important;" /> <i id="datefilter"
+							class="fa fa-calendar" data-toggle="datepicker"></i>
+					</div>
+				</div>
+				<div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
+					<div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+						<span class="labelName">Report Run Date</span> <input type="text" class="form-control" 
+							style="height: 30px !important;" ng-model="date |date">
+					</div>
+					<div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+						<span class="labelName">Report Run</span> <input type="text" class="form-control" 
+							style="height: 30px !important;" placeholder="Auto gen">
+					</div>
+					<div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+						<span class="labelName">Purchase Category</span> <input type="text" class="form-control" 
+							style="height: 30px !important;" placeholder="Auto gen">
+					</div>
+					<div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+						<span class="labelName">Plant Classification</span> <input type="text" class="form-control" 
+							style="height: 30px !important;" ng-model="name"
+							ng-click="getPlantClass()" placeholder="Auto gen">
+					</div>
+					<div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+                        <div class="pull-right right-padding">
+					<input type="button" ng-click="getDetails()"
+						class="btn  btn-brown btn-sm" value="Search"> <input
+						type="reset" class="btn  btn-brown btn-sm"
+						ng-click="resetDetails()" value="Reset" />
+				</div>
+                    </div>
+				</div>
+			</div>
+		    </div>
+	        <div class="panel-group">
+		    <div class="panel panel-default">
+			    <div class="panel-body18">
+				    <table class="table table-striped table-hover table-bordered" style="height:300px !important;" >
+					    <thead>
+						    <tr>
+							    <th rowspan="2">Select</th>
+							    <th colspan="6" class="text-center">Plant Details</th>
+							    <th colspan="6" class="text-center">Plant Life Status</th>
+							    <th colspan="8" class="text-center">Plant Value Status</th>
+						    </tr>
+						    <tr>
+							    <th>Plant Owner</th>
+							    <th>Plant Id</th>
+							    <th>Purchase Category</th>
+							    <th>Plant Classification</th>
+							    <th>Plant Description</th>
+							    <th>Date Of Purchase</th>
+							    <th>Unit Of Measure</th>
+							    <th>Plant Recommended Life</th>
+							    <th>Utilization To Previous Period</th>
+							    <th>Utilized During Report Period</th>
+							    <th>Utilized up to Date</th>
+							    <th>Remaining Useful Life</th>
+							    <th>Currency</th>
+							    <th>Plant Purchase Price</th>
+							    <th>Previous Period</th>
+							    <th>Current Period</th>
+							    <th>To Date</th>
+							    <th>Remaining Useful Life Value</th>
+							    <th>Plant Salvage Value</th>
+							    <th>Remaing Plant Value</th>
+						    </tr>
+
+					    </thead>
+					    <tbody>
+						    <tr fixed-header="" ng-repeat ="plant in plantList">
+
+							    <td><input type="checkbox" ng-model="plant.selected"
+								    ng-change="rowSelect(plant)"></td>
+
+							    <td>{{plant.fromDate}}</td>
+							    <td>{{plant.toDate}}</td>
+							    <td>{{plant.effectiveDate }}</td>
+							    <td>{{plant.fromDate}}</td>
+							    <td>{{plant.toDate}}</td>
+							    <td>{{plant.effectiveDate }}</td>
+							    <td>{{plant.fromDate}}</td>
+							    <td>{{plant.toDate}}</td>
+							    <td>{{plant.effectiveDate }}</td>
+							    <td>{{plant.fromDate}}</td>
+							    <td>{{plant.toDate}}</td>
+							    <td>{{plant.effectiveDate }}</td>
+							    <td>{{plant.fromDate}}</td>
+							    <td>{{plant.toDate}}</td>
+							    <td>{{plant.effectiveDate }}</td>
+							    <td>{{plant.fromDate}}</td>
+							    <td>{{plant.toDate}}</td>
+							    <td>{{plant.effectiveDate }}</td>
+							    <td>{{plant.fromDate}}</td>
+							    <td>{{plant.toDate}}</td>
+							    <td>{{plant.effectiveDate }}</td>
+							    <td>{{plant.fromDate}}</td>
+						    </tr>
+					    </tbody>
+				    </table>
+			    </div>
+		    </div>
+	        </div>
+</div>
+</div>
+    </div>
+
+

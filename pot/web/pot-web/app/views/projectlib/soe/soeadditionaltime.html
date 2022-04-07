@@ -1,0 +1,67 @@
+   <div class="panel panel-default" modal-movable>
+		<div class="panel-heading">
+			<h4 class="panel-title">Request For Additional Time</h4>
+		</div>
+		<div class="panel-body">
+			<div class="row text-black">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+					<!-- <div class="col-xs-2 col-sm-2 col-md-2">
+						<md-input-container>
+						<label>Project Name</label>
+						<input type="text" ng-model="projName" placeholder="Project Name"
+						readonly="readonly"></md-input-container>
+					</div> -->
+					<!-- <div class="col-xs-2 col-sm-2 col-md-2">
+						<md-input-container>
+						<label>Crew</label>
+						<input type="text" ng-model="crewName"
+							readonly="readonly"></md-input-container>
+					</div> -->
+					<!-- <div class="col-xs-2 col-sm-2 col-md-2">
+						<md-input-container>
+						<label>From (dd-mm-yyyy)</label>
+						<potdate-picker data-test='AsbuiltRecords_AttendanceRecords_EmployeeAttendance_Notifications_FromDate'
+							dir-index="$index" date-name="notificationDate"
+							ng-model="tableData.fromDate" 
+							required="required" readonly></potdate-picker></md-input-container>
+					</div>
+					<div class="col-xs-2 col-sm-2 col-md-2">
+							<md-input-container>
+						<label>To (dd-mm-yyyy)</label>
+						<potdate-picker data-test='AsbuiltRecords_AttendanceRecords_EmployeeAttendance_Notifications_ToDate'
+							dir-index="$index" date-name="notificationDate"
+							ng-model="tableData.toDate" min-date="tableData.fDate"  max-date="tableData.tDate" disable-dates="tableData.disableDates"
+							required="required" readonly></potdate-picker></md-input-container>
+					</div> -->
+                    <div class="col-xs-2 col-sm-2 col-md-2">
+                       <md-input-container>
+                         <label>Project Name</label>
+                            <input type="text" ng-model="projectName"  readonly="readonly">
+                       </md-input-container>
+                    </div>
+					<div class="col-md-6">
+							<md-input-container>
+						<label>Approver</label>
+						 <md-select ng-model="approverUserId">
+								    	<md-option ng-value="user.id" ng-repeat="user in users">{{user.displayNamesMap.firstName}} {{user.displayNamesMap.lastName}}</md-option>
+								    </md-select>
+						</md-input-container>
+					</div>
+					<div class="col-xs-2 col-sm-2 col-md-2">
+							<md-input-container>
+						<label>Comments</label>
+						<textarea type="text" data-test='AsbuiltRecords_AttendanceRecords_EmployeeAttendance_Notifications_Comments'
+							ng-model="comments" placeholder="Comments"></textarea></md-input-container>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<div class="panel-footer">
+			<div class="pull-right">
+				<input data-test='AsbuiltRecords_AttendanceRecords_EmployeeAttendance_Notifications_Submit' type="button" ng-click="submitSoeNotifications()"
+					class="btn btn-primary btn-sm" value="Submit">
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</div>

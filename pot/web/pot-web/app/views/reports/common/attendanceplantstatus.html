@@ -1,0 +1,30 @@
+<div id="tab-pannel">
+	<div class="panel-group">
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Plant Status</h4>
+			</div>
+			<div class="table-responsive panel-body8">
+				<table class="table" >
+					<thead>
+						<tr>
+							<th>Code</th>
+							<th>Name</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr
+							fixed-header="" ng-repeat ="plantStatusTO in attendancePlantStatusTOs | orderBy:['plantStatusTO.code']"
+							ng-click="selectPlantStatus(plantStatusTO)">
+							<td>{{plantStatusTO.code}}</td>
+							<td>{{plantStatusTO.name}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<div class="panel-footer"></div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</div>
+</div>

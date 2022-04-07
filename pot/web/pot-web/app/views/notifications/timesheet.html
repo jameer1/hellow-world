@@ -1,0 +1,96 @@
+<section class="content-header">
+	<h1>Time Sheet</h1>
+</section>
+<section class="content">
+	<div class="panel panel-default block footer-parent">
+		<div class="panel-body">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+				<div class="col-xs-3 col-sm-3 col-md-2 col-lg-2 padL-0">
+					<md-input-container>
+						<label>EPS ID/Name</label>
+						<input type="text" data-test='Notifications_TimeSheet_epsid' ng-model="searchProject.parentName" ng-click="getUserProjects()" /></md-input-container>
+				</div>
+				<div class="col-xs-3 col-sm-3 col-md-2 col-lg-2">
+					<md-input-container>
+						<label>Project ID/Name</label>
+						<input type="text" data-test='Notifications_TimeSheet_project' ng-model="searchProject.projName" ng-click="getUserProjects()" readonly="readonly"></md-input-container>
+				</div>
+				<div class="col-xs-3 col-sm-3 col-md-2 col-lg-2">
+					<md-input-container>
+						<label>From Date(dd-mm-yyyy)</label>
+						<potdate-picker data-test='Notifications_TimeSheet_fromdate' dir-index="$index" date-name="fromDate" ng-model="fromDate" />
+						</potdate-picker>
+					</md-input-container>
+				</div>
+				<div class="col-xs-3 col-sm-3 col-md-2 col-lg-2">
+					<md-input-container>
+						<label>To Date(dd-mm-yyyy)</label>
+						<potdate-picker dir-index="$index" data-test='Notifications_TimeSheet_todate' date-name="toDate" ng-model="toDate"></potdate-picker>
+					</md-input-container>
+				</div>
+				<div class="col-xs-3 col-sm-3 col-md-2 col-lg-2">
+					<md-input-container>
+						<label>Notification Code</label>
+						<input type="text" data-test='Notifications_TimeSheet_notificationcode' ng-model="code"></md-input-container>
+				</div>
+				<div class="col-xs-3 col-sm-3 col-md-2 col-lg-2 padR-0">
+					<md-input-container>
+						<label>Status</label>
+						<md-select ng-model="notifyStatus" data-test='Notifications_TimeSheet_status' ng-required="true">
+							<md-option ng-repeat="notifyStatus in notificationStatus" name="notifyStatus" ng-value="notifyStatus.title" ng-if="account.appCodeTemplate[notifyStatus.notifyappCodeTemplateKey]" >{{notifyStatus.title}}</md-option>
+						</md-select>
+					</md-input-container>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+				<div class="pull-right marB15">
+					<input type="button" data-test='Notifications_TimeSheet_search' ng-click="getTimeSheetNotificationDetails()" class="btn  btn-primary btn-sm" value="Search"
+					 ng-model="searchText"> <input type="reset" data-test='Notifications_TimeSheet_reset' class="btn  btn-default btn-sm" ng-click="resetTimeSheetNotificationDetails()"
+					 value="Reset">
+				</div>
+			</div>
+			<!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+				<div class="singleTableResHeight_3">
+					<table class="table table-hover table-bordered singleTableHeight_3">
+						<thead>
+							<tr>
+								<th>Date</th>
+								<th>EPS Name</th>
+								<th>Project Name</th>
+								<th>Week Commencing</th>
+								<th>Time Sheet Number</th>
+								<th>Notification Number</th>
+								<th>Notification</th>
+								<th>From User</th>
+								<th>To User</th>
+								<th>Status</th>
+								<th>Comments</th>
+							</tr>
+						</thead>
+						<tr ng-repeat="timeSheet in timeSheetNotification | filter : code">
+							<td>{{timeSheet.date}}</td>
+							<td>{{timeSheet.epsName}}</td>
+							<td>{{timeSheet.projName}}</td>
+							<td>{{timeSheet.weeakCommencingDay}}</td>
+							<td>{{timeSheet.timeSheetNumber}}</td>
+							<td>{{timeSheet.notificationNumber}}</td>
+							<td>{{timeSheet.notificationMsg}}</td>
+							<td>{{timeSheet.fromUserName}}</td>
+							<td>{{timeSheet.toUserName}}</td>
+							<td>{{timeSheet.notificationStatus}}</td>
+							<td>{{timeSheet.reqComments}}</td>
+							<td class="text-left"><span name="comment" flip="horizontal" ng-click="show(timeSheet.reqComments)"></span></td>
+						</tr>
+					</table>
+				</div>
+			</div> -->
+			
+		</div>
+		<div>
+			<div id="grid" ui-grid="gridOptions" class="singleTableResHeight_3"
+				ng-if="stylesSvc.finishedStyling" ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize
+				ui-grid-resize-columns ui-grid-grouping class="grid">
+			</div>
+		</div>
+	</div>
+</section>

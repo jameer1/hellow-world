@@ -1,0 +1,50 @@
+<div class="tab-pannel" >
+  <form name="manpowerForm" validate>
+    <div class="panel-body7-0 table-responsive">
+      <table id="vert-align" class="table table-striped table-hover table-bordered" style="height: 200px !important;" >
+        <thead>
+          <tr>
+
+            <th>Item ID</th>
+            <th>Item Description</th>
+            <th>SOE Item</th>
+            <th>SOR Item</th>
+            <th>Cost Code</th>
+            <th>Delivery Place</th>
+            <th>Start Date</th>
+            <th>Finish Date</th>
+            <th>Unit Of Measure</th>
+            <th>Qty</th>
+            <th>Estimate<br>({{preContractObj.currencyTO.code}})
+            </th>
+            <th>Estimate Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr fixed-header="" ng-repeat ="item in externalData.preContractTO.precontractSowDtlTOs">
+
+            <td><span>{{projSOWMap[item.sowId].code}}</span></td>
+            <td><span>{{projSOWMap[item.sowId].name}}</span></td>
+            <td><span>{{projSOWMap[item.sowId].displayNamesMap.soeCode}}</span></td>
+            <td><span>{{projSOWMap[item.sowId].displayNamesMap.sorCode}}</span></td>
+            <td><span>{{projSOWMap[item.sowId].displayNamesMap.costCode}}</span></td>
+            <td><span> {{item.deliveryPlace}}</span></td>
+            <td>{{item.startDate}}</td>
+            <td>{{item.finishDate}}</td>
+            <td><span>{{projSOWMap[item.sowId].unitOfMeasure}}</span></td>
+            <td><span>{{item.quantity}}</span></td>
+            <td><span>{{item.estimateCost}}</span></td>
+            <td class="input-width"><span>{{item.quantity * item.estimateCost}}<span></td>
+        </tbody>
+      </table>
+    </div>
+   <!--  <div class="panel-footer">
+
+      <div class="pull-right" ng-hide="preContractObj.workFlowStatusTO.value ==5 || preContractObj.workFlowStatusTO.value ==6">
+        <input type="Submit" value="Save" ng-click="manpowerForm.$valid && saveManPowerDetails()" class="btn  btn-brown btn-sm" validate />
+      </div>
+
+
+    </div> -->
+  </form>
+</div>

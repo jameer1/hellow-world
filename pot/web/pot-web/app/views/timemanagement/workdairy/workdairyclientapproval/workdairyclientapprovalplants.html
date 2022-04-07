@@ -1,0 +1,119 @@
+<div class="tabTable_5_Res_Height overflow-auto" style="height: 265px;">
+	<table class="table tabTable_5_Height table-hover table-bordered">
+		<thead>
+			<tr>
+				<th rowspan=3>Select</th>
+				<th rowspan=3>Plant ID</th>
+				<th rowspan=3>Description</th>
+				<th rowspan=3>Registration No</th>
+				<th rowspan=3>Trade</th>
+				<th rowspan=3>Plant Make</th>
+				<th rowspan=3>Plant Model</th>
+				<th rowspan=3>Parent Company</th>
+				<th rowspan=3>Procure Category</th>
+				<th rowspan=3>Charge Out Category</th>
+				<th rowspan=3>UOM</th>
+				<th colspan="{{workDairyCostCodeList.length*2+2}}">Cost Code Wise
+					Plant Utilisation</th>
+				<th rowspan=3 style="width: 50px;">Total</th>
+				<th rowspan=3 style="width: 125px;">Comments</th>
+			</tr>
+			<tr>
+				<th colspan="{{workDairyCostCodeList.length+1}}" class="text-center">Used
+					Time</th>
+				<th colspan="{{workDairyCostCodeList.length+1}}" class="text-center">Idle
+					Time</th>
+			</tr>
+			<tr>
+				<th fixed-header=""
+					ng-repeat="workDairyCostCode in  workDairyCostCodeList">{{workDairyCostCodeMap[workDairyCostCode.costId].code}}</th>
+				<th>Used Total</th>
+				<th fixed-header=""
+					ng-repeat="workDairyCostCode in  workDairyCostCodeList">{{workDairyCostCodeMap[workDairyCostCode.costId].code}}</th>
+				<th>Idle Total</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="plant in workDairyPlantDtlTOs">
+				<td><input type="checkbox" ng-change="plantRowSelect(plant)"
+					ng-model="plant.select"></td>
+				<td>{{plant.code}}</td>
+				<td>{{plant.name}}</td>
+				<td>{{plant.plantRegNum}}</td>
+				<td>{{plant.classType}}</td>
+				<td>{{plant.manufacture}}</td>
+				<td>{{plant.model}}</td>
+				<td>{{plant.cmpCategoryName}}</td>
+				<td>{{plant.procureCatg}}</td>
+				<td><select ng-model="plant.shiftName" class="form-control">
+						<option value="">-Select Shift-</option>
+						<option>Single</option>
+						<option>Double</option>
+				</select></td>
+				<td>{{plant.measureUnit}}</td>
+				<td colspan="{{workDairyCostCodeList.length*2+4}}">
+					<table class="table">
+						<tr ng-repeat="plantStatusTO in plant.workDairyPlantStatusTOs">
+							<td
+								ng-repeat="userCostObj in plantStatusTO.workDairyPlantCostDtlTOs">
+								<input
+								ng-class="{coloumnHighlightColor3:(userCostObj.errorFlag || (userCostObj.usedTime > userCostObj.oldUsedTime)  || 	plantStatusTO.apprStatus==null),coloumnHighlightColor1:plantStatusTO.apprStatus=='Approved',coloumnHighlightColor2:plantStatusTO.apprStatus=='Client Approved'}"
+								ng-change="checkDecimal(userCostObj,1);calculatePlantUsedTotal(plantStatusTO);"
+								maxlength="5" placeholder=HH.MM type="text"
+								ng-disabled="plantStatusTO.apprStatus!='SubmittedForClientApproval'"
+								ng-model="userCostObj.usedTime" class="form-control" />
+							</td>
+							<td><input type="text" class="form-control"
+								ng-class="{coloumnHighlightColor3:plantStatusTO.apprStatus==null,coloumnHighlightColor1:plantStatusTO.apprStatus=='Approved',coloumnHighlightColor2:plantStatusTO.apprStatus=='Client Approved'}"
+								ng-disabled="plantStatusTO.apprStatus!='SubmittedForClientApproval'"
+								ng-value="plantStatusTO.usedTotal | number : 2"
+								readonly="readonly" class="form-control"></td>
+							<td
+								ng-repeat="idleCostObj in plantStatusTO.workDairyPlantCostDtlTOs">
+								<input placeholder=HH.MM type="text"
+								ng-disabled="plantStatusTO.apprStatus!='SubmittedForClientApproval'"
+								ng-class="{coloumnHighlightColor3:(userCostObj.errorFlag || (userCostObj.usedTime > userCostObj.oldUsedTime)  ||  	plantStatusTO.apprStatus==null),coloumnHighlightColor1:plantStatusTO.apprStatus=='Approved',coloumnHighlightColor2:plantStatusTO.apprStatus=='Client Approved'}"
+								ng-change="checkDecimal(idleCostObj,2);calculatePlantIdleTotal(plantStatusTO);"
+								maxlength="5" ng-model="idleCostObj.idleTime"
+								class="form-control" />
+							</td>
+							<td><input type="text" class="form-control"
+								ng-class="{coloumnHighlightColor3:plantStatusTO.apprStatus==null,coloumnHighlightColor1:plantStatusTO.apprStatus=='Approved',coloumnHighlightColor2:plantStatusTO.apprStatus=='Client Approved'}"
+								ng-disabled="plantStatusTO.apprStatus!='SubmittedForClientApproval'"
+								ng-value="plantStatusTO.idleTotal | number : 2"
+								readonly="readonly"></td>
+							<td style="width: 50px;"><input type="text" class="form-control"
+								readonly="readonly"
+								ng-value="totalCount(plantStatusTO.usedTotal,plantStatusTO.idleTotal)"
+								ng-class="{coloumnHighlightColor3:plantStatusTO.apprStatus==null,coloumnHighlightColor1:plantStatusTO.apprStatus=='Approved',coloumnHighlightColor2:plantStatusTO.apprStatus=='Client Approved'}"
+								ng-disabled="plantStatusTO.apprStatus!='SubmittedForClientApproval'">
+							</td>
+							<td style="width: 125px;"><input type="text" class="form-control"
+								ng-class="{coloumnHighlightColor3:plantStatusTO.apprStatus==null,coloumnHighlightColor1:plantStatusTO.apprStatus=='Approved',coloumnHighlightColor2:plantStatusTO.apprStatus=='Client Approved'}"
+								ng-disabled="plantStatusTO.apprStatus!='SubmittedForClientApproval'"
+								ng-model="plantStatusTO.comments"></td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<div class="panel-footer"
+	ng-if="!disableButton && workDairySearchReq.workDairyId > 0">
+	<div class="pull-right">
+		<input type="button"
+			ng-if="account.appCodeTemplate['ASBUILTRCRD_WRKDIRY_CLIENTAPPROVAL_ADD']"
+			class="btn btn-primary btn-sm" ng-click="addPlantRegDetails()"
+			value="Add"> <input
+			ng-if="account.appCodeTemplate['ASBUILTRCRD_WRKDIRY_CLIENTAPPROVAL_ADD']"
+			type="button" class="btn btn-primary btn-sm"
+			ng-click="saveWorkDairyPlantDetails()" value="Save"
+			data-test='AsbuiltRecords_WorkDiary_ClientApproval_PlantUtilization_Save'>
+	</div>
+	<div class="pull-left">
+		<input type="button" ng-click="deletePlantRecords()" value="Delete"
+			ng-if="account.appCodeTemplate['ASBUILTRCRD_WRKDIRY_CLIENTAPPROVAL_ADD']"
+			style="width: 64px !important" class="btn btn-secondary btn-sm">
+	</div>
+</div>

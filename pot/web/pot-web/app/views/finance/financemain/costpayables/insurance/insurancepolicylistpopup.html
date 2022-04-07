@@ -1,0 +1,167 @@
+<div id="tab-pannel" class="panel-group">
+    <form name="assetsalesForm" validate>
+        <div class="panel panel-default" modal-movable>
+            <div class="panel-heading">
+                <h4 class="panel-title">Insurance Policy List</h4>
+            </div>
+            <div class="panel-body">
+                <div class="topTableResHeight overflow-auto">
+                    <table class="table table-striped table-bordered  topTableHeight">
+                        <thead id="tab-head">
+                            <tr>
+                                <th>Country</th>
+                                <th>Profit Center</th>
+                                <th>Type of Insurance Policy</th>
+                                <th>Policy Number</th>
+                                <th>Policy Description</th>
+                                <th>Policy-Start Date</th>
+                                <th>Policy-Expire Date</th>
+                                <th>Currency</th>
+                                <th>Insured Sum</th>
+                                <th>Insurance Premium amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <select ng-model="" class="form-control">
+                                        <option fixed-header="" ng-repeat="">
+                                            {{}}</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="text" ng-model="generalValues.profitCentreTO.name" class="form-control"
+                                        ng-click="getProfitCentres(generalValues.profitCentreTO)" readonly> </td>
+                                <td>
+                                    <select class="form-control" ng-model="" ng-required="true" name="typeofinsurance">
+                                        <option value="">Select</option>
+                                        <option value="initDep">Employee Compensation</option>
+                                        <option value="finalSettle">Vehicles and Plants Insurance</option>
+                                        <option value="periodical">Fixed Assets Insurance</option>
+                                        <option value="periodical">Projects Risks Insurance</option>
+                                        <option value="periodical">Professional Indemnity</option>
+                                    </select>
+                                </td>
+
+                                <td>
+                                    <input type="text" name="policynumber" placeholder="Policy Number" ng-model=""
+                                        class="form-control">
+                                </td>
+
+                                <td>
+                                    <input type="text" name="policydesc" ng-model="" placeholder="Policy Description"
+                                        class="form-control">
+                                </td>
+
+                                <td>
+                                    <potdate-picker ng-model="" dir-index="$index" date-name="policystartdate"
+                                        placeholder="dd-mm-yyyy" class="form-control" />
+                                </td>
+
+                                <td>
+                                    <potdate-picker ng-model="" dir-index="$index" date-name="policyexpiredate"
+                                        placeholder="dd-mm-yyyy" class="form-control" />
+                                </td>
+
+                                <td>
+                                    <input type="text" name="currency" ng-model="" placeholder="Currency"
+                                        class="form-control">
+                                </td>
+
+                                <td>
+                                    <input type="text" name="insuredsum" ng-model="" placeholder="Insured Sum"
+                                        class="form-control">
+                                </td>
+
+                                <td>
+                                    <input type="text" name="insuredpremamt" ng-model=""
+                                        placeholder="Insurance Premium Amount" class="form-control">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="topTableResHeight" style="overflow: auto">
+                    <table class="table table-striped table-bordered topTableHeight">
+                        <thead id="tab-head">
+                            <tr>
+                                <th rowspan="2">Frequency of Payment</th>
+                                <th rowspan="2">Payment Cycle Due date</th>
+                                <th rowspan="2">Next Payment Due date</th>
+                                <th rowspan="2">Policy Provider</th>
+                                <th rowspan="2">Policy Status</th>
+                                <th colspan="4" class="text-center">Insurance Payment receiver details</th>
+                                <th rowspan="2">Upload/View Policy Document</th>
+                            </tr>
+                            <tr>
+                                <th>Bank /Institute Name</th>
+                                <th>Registered Address</th>
+                                <th>Bank Code</th>
+                                <th>Account Number</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <input type="text" ng-model="" name="freqofamnt" placeholder="Frequency of Payment"
+                                        ng-click="" class="form-control" />
+                                </td>
+
+                                <td>
+                                    <potdate-picker ng-model="" dir-index="$index" date-name="paymentcycleduedate"
+                                        placeholder="dd-mm-yyyy" class="form-control" />
+                                </td>
+
+                                <td>
+                                    <potdate-picker ng-model="" dir-index="$index" date-name="nextpaymentduedate"
+                                        placeholder="dd-mm-yyyy" class="form-control" />
+                                </td>
+
+                                <td>
+                                    <input type="text" ng-model="" name="policyprovider" placeholder="Policy Provider"
+                                        ng-click="" class="form-control" />
+                                </td>
+
+                                <td>
+                                    <input type="text" ng-model="" name="policystatus" placeholder="Policy Status"
+                                        ng-click="" class="form-control" />
+                                </td>
+
+                                <td>
+                                    <input type="text" ng-model="" name="bankinstname" placeholder="Bank/Institute Name"
+                                        ng-click="" class="form-control" />
+                                </td>
+
+
+                                <td>
+                                    <input type="text" ng-model="" name="registeraddress"
+                                        placeholder="Registered Address" ng-click="" class="form-control" />
+                                </td>
+
+                                <td>
+                                    <input type="text" ng-model="" name="bankcode" placeholder="Bank Code" ng-click=""
+                                        class="form-control" />
+                                </td>
+
+                                <td>
+                                    <input type="text" ng-model="" name="accnumber" placeholder="Account Number"
+                                        ng-click="" class="form-control" />
+                                </td>
+
+                                <td>
+                                    <input type="file" name="documents" ng-model="" placeholder="documents">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <div class="pull-right">
+                    <input type="submit" class="btn btn-primary  btn-sm" ng-click="save()" value="Save">
+                </div>
+            </div>
+        </div>
+        <div class="ngdialog-close"></div>
+    </form>
+</div>

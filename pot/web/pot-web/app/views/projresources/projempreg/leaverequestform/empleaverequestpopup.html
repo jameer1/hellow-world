@@ -1,0 +1,306 @@
+<div id="tab-pannel" ng-init="getEmpContactDetails();getEmployeeByUserId();getRegEmployeeProcureDeliveryDetails();">
+	<form name="leaveApprForm" validate>
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Leave Request</h4>
+			</div>
+
+			<div class="panel-body">
+				<div class="col-md-12 col-lg-12 no-padding">
+					<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2 padL-0">
+							<md-input-container>
+						<label>Date of Request</label>
+						<pot-futuredate-picker data-test='Resources_Employee_LeaveRequest_NewRequest_DateOfRequest'
+								ng-model="empLeaveRequestTO.reqDate" tabindex=-1
+								date-name="date" ng-required="true" custom-read-only/>
+								</md-input-container>
+					</div>
+					<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+							<md-input-container>
+						<label>Employee ID</label> 
+						<input data-test='Resources_Employee_LeaveRequest_NewRequest_EmployeeId' type="text" 
+							ng-model="selectedEmployeeData.empCode" tabindex=-1 readonly="readonly"></md-input-container>
+					</div>
+					<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+							<md-input-container>
+						<label>First Name</label> 
+						<input data-test='Resources_Employee_LeaveRequest_NewRequest_FirstName' type="text" tabindex=-1
+							ng-model="selectedEmployeeData.firstName"
+							readonly="readonly" /></md-input-container>
+					</div>
+					<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+							<md-input-container>
+						<label>LastName</label><input data-test='Resources_Employee_LeaveRequest_NewRequest_LastName' type="text" tabindex=-1 
+							ng-model="selectedEmployeeData.lastName" name="yard"
+							readonly="readonly" /></md-input-container>
+					</div>
+					<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+							<md-input-container>
+						<label>Designation</label><input type="text" data-test='Resources_Employee_LeaveRequest_NewRequest_Designation' tabindex=-1 
+							ng-model="selectedEmployeeData.empClassName"
+							name="destination" readonly="readonly" /></md-input-container>
+					</div>
+					<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2 padR-0">
+							<md-input-container>
+						<label>Parent Company</label> <input data-test='Resources_Employee_LeaveRequest_NewRequest_Company' type="text" tabindex=-1 
+							ng-model="selectedEmployeeData.cmpName"
+							name="parentCompany"
+							readonly="readonly" /></md-input-container>
+					</div>
+				</div>
+				<div class="col-md-12 col-lg-12 no-padding">
+					<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2 padL-0">
+							<md-input-container>
+						<label>Project</label> <input data-test='Resources_Employee_LeaveRequest_NewRequest_Project' type="text" tabindex=-1 
+							ng-model="selectedEmployeeData.parentName"
+							name="empId" ng-click="getUserProjects()"
+							readonly="readonly" /></md-input-container>
+					</div>
+					<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+							<md-input-container>
+						<label>Phone Contact</label><input data-test='Resources_Employee_LeaveRequest_NewRequest_PhoneContact' type="text" tabindex=-1 
+							ng-model="phoneNumber" name="empName" 
+							readonly="readonly" /></md-input-container>
+					</div>
+					<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+							<md-input-container>
+						<label>Email</label><input data-test='Resources_Employee_LeaveRequest_NewRequest_Email' type="text" tabindex=-1 ng-model="email"
+							name="email" readonly="readonly" /></md-input-container>
+					</div>
+					<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+							<md-input-container>
+						<label>Requisition ID</label>
+						<input data-test='Resources_Employee_LeaveRequest_NewRequest_RequisitionId' type="text" tabindex=-1 
+							ng-model="empLeaveRequestTO.reqUserTO.empCode" name="reqCode"	readonly /></md-input-container>
+					</div>
+					<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+							<md-input-container>
+						<label>Approver ID</label> 
+							<input data-test='Resources_Employee_LeaveRequest_NewRequest_Approver'tabindex=-1 
+							ng-model="empLeaveRequestTO.apprUserTO.empCode" ng-click="getUserEmployees()"name="approverCode" type="text" 
+							 readonly="readonly"/>
+							</md-input-container>
+					</div>
+					<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2 padR-0">
+							<md-input-container>
+						<label>Approver Name</label> <input data-test='Resources_Employee_LeaveRequest_NewRequest_ApproverName'
+							type="text" tabindex="-1" 
+							ng-model="empLeaveRequestTO.apprUserTO.firstName"
+							name="ApproverName" 
+						     readonly="readonly" /></md-input-container>
+					</div>
+				</div>
+				<div class="col-md-12 col-lg-12 no-padding">
+					<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2 padL-0">
+							<md-input-container>
+						<label>Reasons for Leave </label>
+						<input data-test='Resources_Employee_LeaveRequest_NewRequest_ReasonForLeave'
+							type="text" tabindex=-1 
+							ng-model="empLeaveRequestTO.reasonForLeave" name="reasonForLeave"
+							ng-required="true" ng-change= "leavereason(empLeaveRequestTO.reasonForLeave)" />
+							</md-input-container>
+							<span ng-show="leavecode" class="procurment-pot-errors">This Field is Mandatory</span>
+					</div>
+				</div>
+			</div>
+			<div class="panel-heading">
+				<h6 class="panel-title">Leave Applied for</h6>
+			</div>
+			<div class="panel-body">
+				<div class="tabTable_1_Res_height">
+				<table class="table table-hover table-bordered tabTable_1_height">
+					<thead>
+						<tr>
+							<th>Select</th>
+							<th>Leave Code<span
+								style="color: red; ">*</span></th>
+							<th>Type of Leave</th>
+							<th>Start Date<span
+								style="color: red; ">*</span></th>
+							<th>End Date<span
+								style="color: red; ">*</span></th>
+							<th>Number of<br>Work Days <span
+								style="color: red; ">*</span></th>
+							<th>Applicant Comments</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr fixed-header="" ng-repeat ="leaveReqTO in empLeaveRequestTO.empLeaveReqApprDetailTOs">
+
+							<td><input type="checkbox" ng-model="leaveReqTO.select" data-test='Resources_Employee_LeaveRequest_NewRequest_LeaveAppliedFor_AddSelect'
+								ng-change="leavereqRowSelect(leaveReqTO)" readonly></td>
+							<td><input type="text" class="form-control" 
+								data-test='Resources_Employee_LeaveRequest_NewRequest_LeaveAppliedFor_LeaveCode'
+								ng-model="leaveReqTO.leaveType" custom-read-only
+								placeholder="Select Leave Type" name="code"
+								ng-click="getLeaveTypes(leaveReqTO); " ng-required="true"></td>
+
+							<td><input type="text" class="form-control" data-test='Resources_Employee_LeaveRequest_NewRequest_LeaveAppliedFor_TypeOfLeave'
+								ng-model="leaveReqTO.leaveCode" placeholder="leaveType"
+								readonly maxlength="20" style="width: 115px !important"></td>
+
+							<td class="input-width3"><pot-futuredate-picker class="form-control" data-test='Resources_Employee_LeaveRequest_NewRequest_LeaveAppliedFor_StartDate'
+									dir-index="$index" date-name="startDate" ng-required="true" custom-read-only min-date="todaysDate"
+									ng-model="leaveReqTO.fromDate" ng-change="calculateLeaveDays(leaveReqTO)"
+									max-date="leaveReqTO.toDate" placeholder="dd-mm-yyyy"></pot-futuredate-picker></td>
+							<td class="input-width3"><pot-futuredate-picker class="form-control" data-test='Resources_Employee_LeaveRequest_NewRequest_LeaveAppliedFor_EndDate'
+									dir-index="$index" date-name="endDate" ng-change="calculateLeaveDays(leaveReqTO)"
+									min-date="leaveReqTO.fromDate" ng-model="leaveReqTO.toDate" custom-read-only
+									placeholder="dd-mm-yyyy" ng-required="true"></pot-futuredate-picker>
+							</td>
+							<td class="input-width2"><input type="text" class="form-control" name="workdays" data-test='Resources_Employee_LeaveRequest_NewRequest_LeaveAppliedFor_NumberOfWeekDays'
+								ng-model="leaveReqTO.totalDays" placeholder="Work Days" readonly></td>
+
+							<td><textarea name="ApplicantComments" class="form-control" data-test='Resources_Employee_LeaveRequest_NewRequest_LeaveAppliedFor_ApproverComments'
+								ng-model="leaveReqTO.comments" placeholder="Applicant Comments"></textarea>
+							</td>
+
+						</tr>
+					</tbody>
+					<tfoot>
+						<tr>
+							<th>Total</th>
+							<th colspan="4"></th>
+							<th>{{caluclauteNetTotalDays()}}</th>
+							<th></th>
+						</tr>
+					</tfoot>
+
+				</table>
+			</div>
+			</div><br/>
+			<div class="panel-footer" ng-if="action == 'Add'">
+				<div class="pull-right" ng-if="empLeaveRequestTO.apprStatus==null">
+					<input type="submit" class="btn btn-primary  btn-sm" value="Add"
+						data-test='Resources_Employee_LeaveRequest_NewRequest_LeaveAppliedFor_Add' ng-click="addRows()" validate>
+					<input data-test='Resources_Employee_LeaveRequest_NewRequest_LeaveAppliedFor_Delete' type="button"
+						class="btn btn-default  btn-sm" ng-click="deleteRows()" value="Delete">
+				</div>
+			</div><br/><br/>
+			<div class="panel-heading">
+					<h4 class="panel-title">Less</h4>
+			</div>
+			<div class="panel-body">
+					<div class="col-md-12 col-lg-12 no-padding">
+							<div class="col-md-6 col-lg-6 padL-0"> 
+									<div class="tabTable_2_Res_height">
+											<table class="table table-striped table-bordered tabTable_2_height">
+												<thead>
+													<tr>	
+														<th>Select</th>
+														<th>Public Holidays</th>
+														<th>Date</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr fixed-header="" ng-repeat ="holidayTO in empLeaveRequestTO.empPublicHolidayTOs">
+							
+														<td><input data-test='Resources_Employee_LeaveRequest_NewRequest_Less_AddSelect1' type="checkbox" ng-model="holidayTO.select"
+															ng-change="holidayDayRowSelect(holidayTO)"></td>
+														<td><ng-form name="holidayform">
+															<input type="text" class="form-control" name="publicholiday"
+																ng-model="holidayTO.desc" ng-required="true"
+																placeholder="public holiday"></td>
+														<td class="input-width3"><pot-futuredate-picker class="form-control"
+																dir-index="$index" date-name="date" ng-required="true"
+																ng-model="holidayTO.date" readonly
+																placeholder="dd-mm-yyyy"></pot-futuredate-picker></td>
+													</tr>
+							
+												</tbody>
+							
+												<tfoot>
+													<tr>
+														<th>Total</th>
+														<th></th>
+														<th>{{publicHolidaysCount}}</th>
+													</tr>
+												</tfoot>
+											</table>
+										</div>
+							</div>
+							<div class="col-md-6 col-lg-6 padR-0"> 
+									<div class="tabTable_2_Res_height">
+											<table class="table table-striped table-bordered tabTable_2_height">
+												<thead>
+													<tr>
+														<th>Select</th>
+														<th>RDOs owing</th>
+														<th>Date</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr fixed-header="" ng-repeat ="rosterDay in empLeaveRequestTO.empRosterDays">
+														<td><input type="checkbox" ng-model="rosterDay.select"
+															ng-change="rosterDaysRowSelect(rosterDay)"></td>
+														<td><ng-form name="holidayform2">
+															<input type="text" ng-model="rosterDay.desc" data-test='Resources_Employee_LeaveRequest_NewRequest_RdosOwing_Day'
+																placeholder="Roster Day" ng-required="true" name="roaster"
+																class="form-control" ></td>
+							
+														<td class="input-width3"><pot-futuredate-picker class="form-control" data-test='Resources_Employee_LeaveRequest_NewRequest_Date'
+																dir-index="$index" date-name="rosterDayDate" ng-model="rosterDay.date" readonly	ng-required="true"
+																placeholder="dd-mm-yyyy"></pot-futuredate-picker></td>
+													</tr>
+												</tbody>
+												<tfoot>
+													<tr>
+														<th>Total</th>
+														<th></th>
+														<th>{{rosterDayscount}}</th>
+													</tr>
+												</tfoot>
+											</table>
+										</div>
+							</div>
+			</div>
+			</div>
+			<div class="panel-footer" ng-if="action == 'Add'">
+					<div class="col-md-12 col-lg-12 no-padding">
+							<div class="col-md-6 col-lg-6">
+									<div class="pull-right padR-0" ng-if="empLeaveRequestTO.apprStatus==null">
+											<input data-test='Resources_Employee_LeaveRequest_NewRequest_Less_Add1' type="button" class="btn btn-primary  btn-sm"
+												ng-click=" addHolidaysRows()" value="Add" validate> <input data-test='Resources_Employee_LeaveRequest_NewRequest_Less_Delete1'
+												type="button" class="btn btn-default  btn-sm"
+												ng-click="deleteHolidaysRows()" value="Delete">
+										</div>
+								 </div>
+							<div class="col-md-6 col-lg-6"> 
+									<div class="pull-right padR-0" ng-if="empLeaveRequestTO.apprStatus==null">
+											<input data-test='Resources_Employee_LeaveRequest_NewRequest_RdosOwing' type="button" class="btn btn-primary  btn-sm"
+												ng-click=" addRDOsRows()" value="Add"> <input data-test='Resources_Employee_LeaveRequest_NewRequest_Roster_Delete'
+												type="button" class="btn btn-default  btn-sm"
+												ng-click="deleteRDOsRows()" value="Delete">
+										</div>
+							</div>
+			</div>
+			</div>
+			<div class="panel-body">
+					<div class="">
+				<table class="table table-striped table-bordered ">
+					<tfoot>
+						<tr>
+							<th style="width:30%">Net Number of LeaveDays</th>
+							<th>{{leaveCount-(publicHolidaysCount+rosterDayscount)}}</th>
+						</tr>
+						<tr>
+								<th style="width:30%">Total Deductions</th>
+								<th>{{publicHolidaysCount+rosterDayscount}}</th>
+							</tr>
+					</tfoot>
+					
+				</table>
+			</div>
+			</div>
+			<div class="panel-footer" ng-if="action == 'Add'">
+				<div class="pull-right">
+					<input type="submit" class="btn btn-primary btn-sm"
+						value="Submit for Approval" data-test='Resources_Employee_LeaveRequest_NewRequest_SubmitForApproval'
+						ng-if="empLeaveRequestTO.apprStatus== null "
+						ng-click="leaveApprForm.$valid && submitEmpLeaveReq()" validate>
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</form>
+</div>

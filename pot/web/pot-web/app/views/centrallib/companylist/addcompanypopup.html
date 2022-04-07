@@ -1,0 +1,144 @@
+<div id="tab-pannel" class="" ng-init="getCompanyMap()">
+	<form name="companyForm" validate>
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title" ng-show="action =='Add'">Add Company</h4>
+				<h4 class="panel-title" ng-show="action =='Edit'">Edit Company</h4>
+			</div>
+
+			<div class="panel-body">
+				<div class="popUpTableResHeight overflow-auto">
+					<table class="table table-striped table-hover table-bordered popUpTableHeight">
+						<thead>
+							<tr>
+								<th>Select</th>
+								<th>Company ID<span style="color: red; "> *</span></th>
+								<th>Company Name<span style="color: red; "> *</span></th>
+								<th>Company Category<span style="color: red; "> *</span></th>
+								<th>Business Category<span style="color: red; "> *</span></th>
+								<th>Business Activity</th>
+								<th>Company Reg. No.<span style="color: red; "> *</span></th>
+								<th>Company Tax File No.<span style="color: red; "> *</span></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="company in companyList">
+								<td><input data-test='CentralLibrary_Companylist_Create_Checkbox1'
+										ng-disabled="action =='Edit'" type="checkbox" ng-model="company.selected"
+										ng-change="popUpRowSelect(company)"></td>
+
+								<td>
+									<ng-form name="idForm"> <input ng-disabled="action =='Edit'"
+											data-test='CentralLibrary_Companylist_Create_compenyId' type="text"
+											class="form-control" ng-model="company.cmpCode"											
+											ng-change="checkDuplicate(company)" name="cmpCode" ng-trim="false"
+											class="required" ng-init="company.form = idForm" ng-class="empty"
+											pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*)) minlength="2"
+											maxlength="50" placeholder="Company ID" required="required" /> 
+											<span class="procurment-pot-errors"
+											ng-show="idForm.cmpCode.$touched && idForm.cmpCode.$error.required">ID
+											is mandatory</span>  <span class="procurment-pot-errors" 
+											ng-show="idForm.cmpCode.$error.pattern">Alpha
+											numerics should be allowed</span> </ng-form>
+								</td>
+
+								<td>
+									<ng-form name="nameForm"> <input ng-disabled="action =='Edit'"
+											data-test='CentralLibrary_Companylist_Create_compenyname' type="text"
+											class="required form-control" ng-model="company.cmpName" name="companyName"
+											ng-trim="false" placeholder="Company Name"
+											pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*)) minlength="3"
+											maxlength=50 ng-required="true" /> <span class="procurment-pot-errors"
+											ng-show="nameForm.companyName.$touched&&nameForm.companyName.$error.required">Name
+											is mandatory</span> <span class="procurment-pot-errors"
+											ng-show="nameForm.companyName.$error.pattern">Alpha
+											numerics should be allowed</span>  </ng-form>
+								</td>
+
+								<td>
+									<ng-form name="cmpCatform"> <select
+											data-test='CentralLibrary_Companylist_Create_companycategory'
+											class="form-control" name="name"
+											ng-options="cmpCat for cmpCat in cmpCatagories"
+											ng-model="company.companyCatagory" ng-required="true">
+											<span ng-show="cmpCat.name.$touched && cmpCat.name.$error.required">Name
+												is mandatory</span>
+											<option value="" class="" selected="selected">Company
+												Category</option>
+										</select> </ng-form>
+								</td>
+
+								<td>
+									<ng-form name="codeform"> <select
+											data-test='CentralLibrary_Companylist_Create_businesscategory'
+											class="form-control" ng-options="catg for catg in businessData" name="code"
+											ng-model="company.businessCategory" ng-required="true">
+											<span ng-show="codeform.code.$touched&&codeform.code.$error.required">Name
+												is mandatory</span>
+											<option value="" class="" selected="selected">Business
+												Category</option>
+										</select> </ng-form>
+								</td>
+
+								<td>
+									<ng-form name="cmpform"> <input
+											data-test='CentralLibrary_Companylist_Create_businactivity' type="text"
+											class="form-control" placeholder="Business Activity"
+											ng-model="company.cmpActivity"
+											pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*)) name="cmpactivity"
+											maxlength="70"> <span ng-show="cmpform.cmpactivity.$error.pattern">Alpha
+											numeric data should be allowed</span>
+								</td>
+
+								<td>
+									<ng-form name="regform"> <input ng-disabled="action =='Edit'"
+											data-test='CentralLibrary_Companylist_Create_CompanyRegNo' type="text"
+											class="form-control" ng-model="company.regNo" class="required" name="regNo"
+											placeholder="Company Reg. No."											
+											ng-change="checkDuplicate(company)" r
+											pattern=[^\w\d]*((.*[0-9]+.*)|[0-9]+.*([A-Za-z]+.*)) maxlength="50"
+											ng-required="true"> <span
+											ng-show="regform.regNo.$touched&&regform.regNo.$error.required" class="procurment-pot-errors">Registration
+											number is mandatory</span> <span class="procurment-pot-errors"
+											ng-show="regform.regNo.$error.pattern">Company Reg. No. should be alpha numeric</span>
+								</td>
+
+								<td>
+									<ng-form name="taxform"> <input ng-disabled="action =='Edit'"
+											data-test='CentralLibrary_Companylist_Create_CompanyTaxFileNo' type="text"
+											class="form-control" ng-model="company.taxFileNo" 
+											name="taxFileNo" placeholder="Company Tax File No."											
+											ng-change="checkDuplicate(company)"
+											pattern=[^\w\d]*((.*[0-9]+.*)|[0-9]+.*([A-Za-z]+.*)) maxlength="30"
+											ng-required="true"> 
+											<span
+											ng-show="taxform.taxFileNo.$touched && taxform.taxFileNo.$error.required" 
+											class="procurment-pot-errors">Tax
+											file number is mandatory</span> <span
+											ng-show="taxform.taxFileNo.$error.pattern" class="procurment-pot-errors">
+											Company Tax File No. should be alpha numeric</span>
+								</td>
+							</tr>
+					</table>
+				</div>
+			</div>
+
+			<div class="panel-footer">
+				<div class="pull-left">
+					<input data-test='CentralLibrary_Companylist_Create_addrows' type="submit"
+						class="btn btn-primary btn-sm"
+						ng-click="companyForm.$valid && addRows()"
+						value="Add Rows" ng-show="action =='Add'" /> <input
+						data-test='CentralLibrary_Companylist_Create_Deleterows' type="button"
+						class="btn btn-secondary btn-sm" ng-click="deleteRows($index)" value="Delete Rows"
+						ng-show="action =='Add'" />
+				</div>
+				<div class="pull-right">
+					<input data-test='CentralLibrary_Companylist_Save' type="submit" class="btn btn-primary btn-sm"
+						value="Save" ng-click="companyForm.$valid && saveCompany(companyForm)" />
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</form>
+</div>

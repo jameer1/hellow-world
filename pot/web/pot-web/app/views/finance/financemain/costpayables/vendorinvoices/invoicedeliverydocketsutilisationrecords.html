@@ -1,0 +1,105 @@
+<div id="tab-pannel">
+	<div class="col-sm-12 col-xs-12 col-md-12 col-lg-12 no-padding">
+        <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2 padL-0">
+            <md-input-container>
+                <label>Procurment Category</label>
+                <input type="text" value="Material"  readonly class="form-control">
+            </md-input-container>
+         </div>
+        <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3">
+            <md-input-container>
+                <label>Procurment Sub Category</label>
+                <md-select ng-model="procurmentSubCat">
+                    <md-option value="pending">procurmentSubCategory</md-option>
+                 </md-select>
+            </md-input-container>
+        </div>
+         <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3"> <!-- combination of Category and subcategory  -->
+            <md-input-container>
+                <label>Payable Category</label>
+                <md-select ng-model="payableSubCat">
+                    <md-option value="pending">procurmentSubCategory</md-option>
+                 </md-select>
+            </md-input-container>
+        </div>
+        
+        <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2"> <!-- combination of Category and subcategory and payable  -->
+            <md-input-container>
+                <label>Unit of Measure</label>
+                <md-select ng-model="unitOfMeasure">
+                    <md-option value="pending">Unit of Measure</md-option>
+                 </md-select>
+            </md-input-container>
+        </div>
+               
+        
+        <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+            <div class="pull-right marT15">
+                <input type="submit" class="btn btn-primary btn-sm" value="Search">
+            </div>
+        </div> 
+   </div>
+
+    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 no-padding">
+        <div class="tabTable_2_Res_height">
+            <table class="table table-striped table-hover table-bordered tabTable_2_height">
+                <thead id="tab-head">
+                    <tr>
+                        <th>Select</th>
+                        <th>Docket Number</th>
+                        <th>Docket Date</th>
+                        <th>Materials Released Date</th>
+                        <th>Schedule Item Id</th>
+                        <th>Schedule Item Description</th>
+                        <th>Material Classification Item</th>
+                        <th>Unit of Measure</th>
+                        <th>Qty as per contract</th>
+                        <th>Process Qty upto invoice period</th>
+                        <th>Claimed Qty to Previous Period</th>
+                        <th>Progress Qty for current Period</th>
+                        <th>Rate</th>
+                        <th>Amount</th>
+                        <th>Receiver Comments</th>
+                    </tr>
+                </thead>
+                <tbody> 
+                   <tr *ng-if="materialInvoiceDetails" ng-repeat="invoiceMatdetails in materialInvoiceDetails.invoiceMaterialTos">
+                           
+                           <td><input type="checkbox" value="id"></td> 
+                           <td class="input-width5">{{invoiceMatdetails.docketNum}}</td>  
+                           <td class="input-width5">{{invoiceMatdetails.docketDate}}</td>  
+                           <td class="input-width5">{{invoiceMatdetails.matReceiveDate}}</td>  <!-- Material Released Date -->
+                           <td class="input-width5">{{invoiceMatdetails.schId}}</td>  <!-- Schedule Item Id -->
+                           <td class="input-width5">{{invoiceMatdetails.schDesc}}</td>  <!-- Schedule Item itemDesc -->
+                           <td class="input-width5">{{invoiceMatdetails.matClassItem}}</td>  <!-- Material classification Item -->
+                           <td class="input-width5">{{invoiceMatdetails.untiOfMeasure}}</td>  <!-- Unit of Measure -->
+                           <td class="input-width5">{{invoiceMatdetails.contractQty}}</td>  <!-- Qty as per contract  -->
+                  		   <td class="input-width5">{{invoiceMatdetails.progressQty+invoiceMatdetails.claimedQty}}</td>  <!--Process Qty upto invoice period  -->
+                           <td class="input-width5">{{invoiceMatdetails.claimedQty}}</td>  <!-- Claimed Qty to Previous Period  -->
+                 		   <td class="input-width5">{{invoiceMatdetails.progressQty}}</td>  <!-- Progress Qty for current Period  -->
+                 		   <td class="input-width5">{{invoiceMatdetails.vendorRate}}</td>   <!-- rate  -->
+                  		   <td class="input-width5">{{invoiceMatdetails.progressQty * invoiceMatdetails.vendorRate}}</td>   <!--amount  -->
+                  		   <td class="input-width5">{{invoiceMatdetails.receiverComments}}</td>   <!--Receiver Comments  -->
+                  		   
+                   </tr>
+                   <tr>
+                    <div class="panel-footer">
+		            
+		                  
+		            
+        		</div>
+                   
+                   </tr>
+                     
+                </tbody>
+                
+            </table>
+              <div class="panel-footer">
+		            <div class="pull-right">
+		                  <span><label>Total Amount: {{ totalValue}}</label></span>
+		             </div>
+        		</div>
+       </div>
+   </div>
+
+</div>

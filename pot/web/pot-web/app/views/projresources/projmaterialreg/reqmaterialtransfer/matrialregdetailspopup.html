@@ -1,0 +1,49 @@
+<div id="tab-pannel" class="panel-group">
+	<form name="materialListForm" validate>
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Material List</h4>
+			</div>
+			<div class="panel-body">
+				<div class="table-responsive popUpTableResHeight ">
+					<table class="table table-striped table-bordered popUpTableHeight">
+						<thead>
+							<tr>
+								<th>Select</th>
+								<th>Resource ID</th>
+								<th>Resource Name</th>
+								<th>Material SubGroup Name</th>
+								<th>Unit of Measure</th>
+								<th>PO Schedule Item ID</th>
+								<th>Purchase Order Number</th>
+								<th>Available Quantity</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr fixed-header="" ng-repeat ="labelKeyTO in labelKeyTOs"
+								ng-if="materialTransferExistingMap[labelKeyTO.id]==null">
+								<td><input data-test='RequestForMaterialTransferMaterialsListSelectResource' type="checkbox" ng-model="labelKeyTO.select"
+									ng-change="popUpRowSelect(labelKeyTO)"></td>
+								<td>{{labelKeyTO.displayNamesMap.classType}}</td>
+								<td>{{labelKeyTO.displayNamesMap.className}}</td>
+								<td>{{labelKeyTO.displayNamesMap.classParentName}}</td>
+								<td>{{labelKeyTO.unitOfMeasure}}</td>
+								<td>{{labelKeyTO.code}}</td>
+								<td>{{labelKeyTO.displayNamesMap.purCode}}</td>
+								<td>{{labelKeyTO.displayNamesMap.qty}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="panel-footer">
+					<div class="pull-right">
+						<input type="button" class="btn  btn-primary btn-sm"
+							ng-click="addToTransferRequest()" data-test='RequestForMaterialTransferMaterialsListAddResource' value="Add">
+					</div>
+				</div>
+				<div class="ngdialog-close"></div>
+		</div>
+	
+	</form>
+</div>

@@ -1,0 +1,159 @@
+<div id="tab-pannel" class="panel-group">
+		<form name="nonRegularPayForm" validate>
+	<div class="panel panel-default" modal-movable>
+		<div class="panel-heading">
+			<h4 class="panel-title">Non-Regular Pay and Allowances
+				Entitlements</h4>
+						</div>
+		<div class="panel-body6" style="margin-left: 15px;">
+			<div class="row input-height padding-left">
+			<div class="input-width4 col-sm-2 col-xs-2 col-md-2">
+					<span>Employee ID</span><input type="text"
+						placeholder="Employee ID" ng-model="selectedEmployeeData.empCode"
+						name="code" tabindex=-1 readonly="readonly">
+				</div>
+				<div class="input-width4 col-sm-2 col-xs-2 col-md-2">
+					<span>First Name</span> <input type="text" tabindex=-1
+						ng-model="selectedEmployeeData.firstName" name="firstName"
+						placeholder="First Name" readonly="readonly" />
+				</div>
+				<div class="input-width4 col-sm-2 col-xs-2 col-md-2">
+					<span>LastName</span> <br> <input type="text" tabindex=-1
+						ng-model="selectedEmployeeData.lastName" name="lastName"
+						placeholder="Last Name" readonly="readonly" />
+				</div>
+				<div class="input-width4 col-sm-2 col-xs-2 col-md-2">
+					<span>Designation</span><input type="text" tabindex=-1
+						ng-model="selectedEmployeeData.empClassName"
+						name="destination" placeholder="Designation" readonly="readonly" />
+				</div>
+				<div class="input-width4 col-sm-2 col-xs-2 col-md-2">
+					<span>Unit of PayRate</span><input type="text" tabindex=-1
+						ng-model="empNonRegularPay.unitPayRate" name="unitPayRateName"
+						placeholder="Unit Of Pay" readonly="readonly" />
+				</div>
+				<div class="input-width4 col-sm-2 col-xs-2 col-md-2">
+					<span>Credit Cycle</span> <input type="text" tabindex=-1
+						ng-model="empNonRegularPay.payCycle" name="payCycle"
+						placeholder="Pay cycle" readonly="readonly" />
+				</div>
+			</div>
+			<div class="row input-width4 spacer0">
+				<div class="col-sm-2 col-xs-2 col-md-2">
+					<span>Parent Company</span> <input type="text" tabindex=-1
+						ng-model="selectedEmployeeData.cmpName"
+						name="parentCompany" placeholder="Parent Company"
+						readonly="readonly" />
+				</div>
+				<div class="col-sm-2 col-xs-2 col-md-2">
+					<span>Tax File Number</span> <input type="text" tabindex=-1
+						ng-model="empNonRegularPay.projEmpRegisterTO.taxFileNum"
+						name="TaxFileNumber" placeholder="Tax File Number"
+						readonly="readonly" />
+				</div>
+				<div class="col-sm-2 col-xs-2 col-md-2">
+					<span>Current Project</span> <input type="text" tabindex=-1
+						ng-model="selectedEmployeeData.parentName"
+						name="currentProject" placeholder="Current Project"
+						readonly="readonly" />
+				</div>
+				<div class="col-sm-2 col-xs-2 col-md-2">
+					<span>Posting Order #</span> <input type="text" tabindex=-1
+						ng-model="empNonRegularPay.projEmpRegisterTO.deploymentId"
+						name="postingOrder" placeholder="Posting Order"
+						readonly="readonly" />
+				</div>
+				<div class="col-sm-2 col-xs-2 col-md-2">
+					<span>Effective from </span><span
+						style="color: red; font-sfont-size: '60px'">*</span>
+					<pot-Futuredate-Picker data-test='Resources_Employee_NonRegularPayableRates_EffectiveFrom' dir-index="index" date-name="fromDate"
+						tabindex=-1
+						ng-model="empNonRegularPay.projEmpRegisterTO.enrollmentDate"
+						placeholder="Effective From">
+				</div>
+				<div class="col-sm-2 col-xs-2 col-md-2">
+					<span>Basic Pay</span> <input type="text" tabindex=-1
+						ng-model="empNonRegularPay.basicPay" name="bp"
+						placeholder="Basic Pay" readonly="readonly" />
+				</div>
+				<div class="pull-right" style="margin-right: 30px;">
+					<input type="button" data-test='Resources_Employee_NonRegularPayableRates_Search' class="btn btn-brown  btn-sm"
+						ng-click="searchEffectiveDetails(empNonRegularPay.projEmpRegisterTO.enrollmentDate);"
+						value="Search">
+				</div>
+			</div>
+			</div>
+			<div class="panel-body8">
+			<div class="table-responsive">
+					<table class="table table-striped table-bordered" >
+						<thead>
+							<tr>
+								<th>Code</th>
+								<th>Description</th>
+								<th>Applicability <span
+									style="color: red; font-sfont-size: '60px'">*</span></th>
+								<th>% on BP <span
+									style="color: red; font-sfont-size: '60px'">*</span></th>
+								<th>Fixed Amount <span
+									style="color: red; font-sfont-size: '60px'">*</span></th>
+								<th>Comments</th>
+							</tr>
+							</thead>
+							<tbody>
+							
+							<tr fixed-header=""	ng-repeat ="nonRegularPay in empNonRegularPay.empPaybleRateDetailTOs">
+	
+								<td><input type="text" class="form-control"
+									ng-model="nonRegularPayCodeMap[nonRegularPay.financeRegId].code"
+									placeholder="Code" tabindex="-1" style="width: 115px !important"></td>
+	
+								<td><input type="text" class="form-control"
+									ng-model="nonRegularPayCodeMap[nonRegularPay.financeRegId].name"
+									placeholder="Description" tabindex="-1"
+									style="width: 115px !important" readonly="readonly"></td>
+	
+								<td><select name="applicability"
+									ng-model="nonRegularPay.applicable" tabindex="-1">
+										<option value="Yes">Yes</option>
+										<option value="No">No</option>
+								</select></td>
+								<td><ng-form name="nonRegularForm"> <input
+										type="text" name="basicPay" ng-model="nonRegularPay.percentage"
+										ng-change="validateBasiPayPercentage(1,nonRegularPay)"
+										ng-disabled="nonRegularPay.applicable=='No' " maxlength="4"
+										pattern="^[\d\.]+$" placeholder="% on BP" tabindex="-1">
+									<span ng-show="nonRegularForm.basicPay.$error.pattern">
+										Digits with two decimals should be allowed</span></ng-form></td>
+	
+								<td><ng-form name="nonRegularForm1"> <input
+										type="text" name="fixedAmount" maxlength="5"
+										ng-model="nonRegularPay.fixedAmount"
+										ng-disabled="nonRegularPay.applicable=='No' "
+										ng-change="validateBasiPayPercentage(2,nonRegularPay)"
+										placeholder="Fixed Amount" pattern="^[\d\.]+$" tabindex="-1">
+									<span ng-show="nonRegularForm1.fixedAmount.$error.pattern">
+										Digits with two decimals should be allowed</span></ng-form></td>
+	
+								<td><input type="text" class="form-control" ng-model="nonRegularPay.comments"
+									placeholder="Comments" maxlength="20" tabindex="-1"
+									style="width: 115px !important"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+		</div>
+		
+		<div class="panel-footer"
+				ng-if="empNonRegularPay.id==null || empNonRegularPay.latest">
+				<div class="pull-right">
+					<input type="submit" class="btn btn-brown  btn-sm" data-test='Resources_Employee_NonRegularPayableRates_Save' action!='View'
+						ng-click="nonRegularPayForm1.$valid && saveNonRegularPay()"
+						value="Save">
+				</div>
+			</div>
+			</div>
+				</form>
+		</div>
+			<div class="ngdialog-close"></div>
+	
+	

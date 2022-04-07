@@ -1,0 +1,183 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+
+<div id="tab-pannel" class="panel-group">
+  <form name="invoiceForm" validate>
+    <div class="panel panel-default" modal-movable>
+      <div class="panel-heading">
+        <h4 class="panel-title">Approve Invoice Details</h4>
+      </div>
+      <div class="spacer1 panel-body6-1">
+        <div class="row" id="input-height">
+          <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+           <span class="labelName">EPS Name</span><input type="text" class="form-control" ng-model="userProjMap[projId].code" ng-disabled="true">
+          </div>
+          <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+           <span class="labelName">Project Name</span> <input type="text" class="form-control" ng-model="userProjMap[projId].name" ng-disabled="true">
+          </div>
+          <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+           <span class="labelName">PO Number</span><input type="text" class="form-control" ng-model="code" ng-disabled="true">
+          </div>
+          <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+           <span class="labelName">PO Description</span><input type="text" class="form-control" ng-model="desc" ng-disabled="true">
+          </div>
+          <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2 ">
+           <span class="labelName">Vendor ID</span> <input type="text" class="form-control" ng-model="companyMap[companyId].code" ng-disabled="true">
+          </div>
+          <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+           <span class="labelName">Vendor Name</span><input type="text" class="form-control" ng-model="companyMap[companyId].name" ng-disabled="true">
+          </div>
+
+        </div>
+        <div class="row" id="input-height">
+          <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2 ">
+           <span class="labelName">Originator Employee ID</span> <input type="text" class="form-control" ng-model="userMap[reqUserId].code" ng-disabled="true">
+          </div>
+          <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 input-width9">
+           <span class="labelName">Originator Employee Name</span><input type="text" class="form-control" ng-model="userMap[reqUserId].name" ng-disabled="true">
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="panel-heading">
+        <h4 class="panel-title">Invoice Particulars</h4>
+      </div>
+      <div class=" panel-body2">
+        <table class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th>Invoice Date</th>
+              <th>Invoice Received Date</th>
+              <th>Payment Processing Period</th>
+              <th>Payment Due Date</th>
+              <th>Proposed Payment Due Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="input-width1"><potdate-picker ng-model="addInvoiceData.invoiceDate" dir-index="$index" date-name="invoiceDate" placeholder="dd-mm-yyyy" tabindex="-1"
+                  required='required' ng-disabled="true"> </pot-date-picker></td>
+              <td class="input-width1"><potdate-picker ng-model="addInvoiceData.receivedDate" dir-index="$index" date-name="receivedDate" placeholder="dd-mm-yyyy" tabindex="-1"
+                  required='required' ng-disabled="true"></potdate-picker></td>
+              <td class="input-width5"><input type="text" class="form-control" ng-model="paymentInDays" ng-disabled="true" /></td>
+              <td class="input-width1"><potdate-picker ng-model="addInvoiceData.invoiceDate--paymentInDays" dir-index="$index" date-name="dueDate" placeholder="dd-mm-yyyy" tabindex="-1"
+                  ng-disabled="true"></potdate-picker></td>
+              <td class="input-width1"><potdate-picker ng-model="addInvoiceData.proposedDueDate" dir-index="$index" date-name="proposedDueDate" placeholder="dd-mm-yyyy" tabindex="-1"
+                  required='required'></potdate-picker></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="panel-heading">
+        <h4 class="panel-title">Invoice Amount</h4>
+      </div>
+      <div class=" panel-body5">
+        <table class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th colspan="3" style="text-align: center">Invoice Amount(As Per Invoice)</th>
+              <th colspan="3" style="text-align: center">Invoice Amount(Amount Retained)</th>
+              <th colspan="3" style="text-align: center">Invoice Amount(Net Amount Payable)</th>
+            </tr>
+            <tr>
+              <th>Net Invoice Amount</th>
+              <th>GST or Tax Amount</th>
+              <th>Total Invoice Amount Incl Tax</th>
+              <th>Net Invoice Amount</th>
+              <th>GST or Tax Amount</th>
+              <th>Total Invoice Amount Incl Tax</th>
+              <th>Net Invoice Amount</th>
+              <th>GST or Tax Amount</th>
+              <th>Total Invoice Amount Incl Tax</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="input-width0"><input type="text" class="form-control" name="amount" ng-model="addInvoiceData.netAmount" required="required" maxlength="15" pattern="^[\d\.,]+$" ng-disabled="true"><span
+                ng-show="invoiceAmountForm.amount.$error.pattern">Enter Only Numerics</span></td>
+              <td class="input-width0"><input type="text" class="form-control" ng-model="addInvoiceData.taxAmount" required="required" maxlength="15" pattern="^[.\d]+$" ng-disabled="true"><span
+                ng-show="invoiceAmountForm.amount.$error.pattern">Enter Only Numerics</span></td>
+              <td>{{addInvoiceData.netAmount--addInvoiceData.taxAmount}}</td>
+              <td class="input-width0"><input type="text" class="form-control" ng-model="addInvoiceData.retainedNetAmount" required="required" maxlength="15"><span
+                ng-show="invoiceAmountForm.amount.$error.pattern">Enter Only Numerics</span></td>
+              <td class="input-width0"><input type="text" class="form-control" ng-model="addInvoiceData.retainedTaxAmount" required="required" maxlength="15"><span
+                ng-show="invoiceAmountForm.amount.$error.pattern">Enter Only Numerics</span></td>
+              <td>{{addInvoiceData.retainedNetAmount--addInvoiceData.retainedTaxAmount}}</td>
+              <td>{{addInvoiceData.netAmount--addInvoiceData.retainedNetAmount}}</td>
+              <td>{{addInvoiceData.taxAmount--addInvoiceData.retainedTaxAmount}}</td>
+              <td>{{(addInvoiceData.netAmount--addInvoiceData.taxAmount)--(addInvoiceData.retainedNetAmount--addInvoiceData.retainedTaxAmount)}}</td>
+
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="panel-heading">
+        <h4 class="panel-title">Assign Cost Codes</h4>
+      </div>
+      <div class=" panel-body2">
+        <table class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th>Cost Code ID</th>
+              <th>Cost Code Description</th>
+              <th>% Split</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="text" class="form-control" ng-model="costCode" ng-click="addCostCodes()" readonly="readonly"></td>
+              <td><input type="text" class="form-control" ng-model="name" ng-disabled="true"></td>
+              <td><input type="text" class="form-control" ng-model="addInvoiceData.split"></td>
+              <td>{{((addInvoiceData.netAmount--addInvoiceData.taxAmount)--(addInvoiceData.retainedNetAmount--addInvoiceData.retainedTaxAmount))*(addInvoiceData.split)}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="panel-heading">
+        <h4 class="panel-title">Approval</h4>
+      </div>
+      <div class=" panel-body2">
+        <table class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th>Approver ID</th>
+              <th>Approver Name</th>
+              <th>Finance Controller ID</th>
+              <th>Finance Controller Name</th>
+              <th>Approval Decision</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="input-width2"><input type="text" class="form-control" ng-model="userMap[addInvoiceData.apprUserId].code" ng-click="getApproverDetails(addInvoiceData)" required="required" /></td>
+              <td class="input-width2"><input type="text" class="form-control" ng-model="userMap[addInvoiceData.apprUserId].name" required="required" ng-disabled="true"/></td>
+              <td class="input-width2"><input type="text" class="form-control" ng-model="userMap[addInvoiceData.financeUserId].code" ng-click="getFinanceUserDetails(addInvoiceData)" required="required" /></td>
+              <td class="input-width2"><input type="text" class="form-control" name="accNo" ng-model="userMap[addInvoiceData.financeUserId].name" required="required" ng-disabled="true"></td>
+              <td class="input-width2"><select
+				ng-model="approvalType" name="approvalType" ng-required="true"
+				ng-options="approvalType for approvalType in approvalTypeList">
+			</select></td>
+              
+
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="panel-footer">
+        <div class="pull-right">
+          <input type="submit" class="btn  btn-brown btn-sm" ng-click="invoiceForm.$valid  && saveApproveInvoiceDetails(addInvoiceData)" value="Save"> <input type="Submit" value="Apply"
+            ng-click="submitInvoiceDetails(addInvoiceData)" class="btn  btn-brown btn-sm">
+        </div>
+      </div>
+      <div class="ngdialog-close"></div>
+    </div>
+  </form>
+</div>
+
+
+

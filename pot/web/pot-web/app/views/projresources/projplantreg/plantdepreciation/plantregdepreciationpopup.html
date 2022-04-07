@@ -1,0 +1,164 @@
+<div id="tab-pannel" class="panel-group">
+	<form name="depreciationForm" validate>
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Depreciation and Salvage Value</h4>
+			</div>
+			<div class="panel-body">
+				<div class="tabTable_4_Res_Height overflow-auto">
+					<table class="table table-striped table-hover table-bordered tabTable_4_Height">
+						<thead>
+							<tr>
+								<th>Project Deployment#</th>
+								<th>Effective From</th>
+								<th>EPS Name</th>
+								<th>Project Name</th>
+								<th>Asset ID</th>
+								<th>Commissioning Date</th>
+								<th>Mobilization Date</th>
+								<th>De-Mobilization Date</th>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="input-width-1"><input type="text" class="form-control"
+										data-test='PlantandEquipment_DepreciationandSalvageValue_Edit_ProjectDeployment'
+										name="projectDeploy" class="text-right"
+										ng-model=depreciation.plantRegProjTO.deploymentId placeholder="projectDeploy"
+										readonly="readonly"></td>
+								<td class="input-width0">
+									<potdate-picker class="form-control"
+										data-test='PlantandEquipment_DepreciationandSalvageValue_Edit_EffectiveFrom'
+										dir-index="$index" date-name="effectiveFrom"
+										ng-model="depreciation.effectiveFrom" placeholder="Effective Date"
+										ng-disabled="true"></potdate-picker>
+								</td>
+
+								<td class="input-width1"><input type="text" class="form-control" name="epsName"
+										data-test='PlantandEquipment_DepreciationandSalvageValue_Edit_EPSName'
+										ng-model="depreciation.plantRegProjTO.parentName"
+										readonly="readonly"></td>
+
+
+								<td class="input-width5"><input type="text" class="form-control"
+										data-test='PlantandEquipment_DepreciationandSalvageValue_Edit_ProjectName'
+										name="projectName"
+										ng-model="depreciation.plantRegProjTO.name"
+										readonly="readonly"></td>
+								<td class="input-width-1"><input type="text" class="form-control"
+										data-test='PlantandEquipment_DepreciationandSalvageValue_Edit_AssetID'
+										name="projectPlntId" ng-model="selectedPlantData.assertId" readonly="readonly">
+								</td>
+								<td class="input-width0"><input type="text" class="form-control"
+										data-test='PlantandEquipment_DepreciationandSalvageValue_Edit_CommissioningDate'
+										name="depreciationcommissionDate"
+										ng-model="depreciation.plantRegProjTO.commissionDate" readonly="readonly"></td>
+
+								<td class="input-width0"><input type="text" class="form-control"
+										data-test='PlantandEquipment_DepreciationandSalvageValue_Edit_MobilizationDate'
+										name="MobilisationDate" ng-model="depreciation.plantRegProjTO.mobDate"
+										readonly="readonly"></td>
+								<td class="input-width0"><input type="text" class="form-control"
+										data-test='PlantandEquipment_DepreciationandSalvageValue_Edit_DeMobilizationDate'
+										name="deMobilisationDate" ng-model="depreciation.plantRegProjTO.deMobDate"
+										readonly="readonly"></td>
+							</tr>
+						</tbody>
+					</table>
+
+				</div>
+				<div id="tab-pannel">
+					<table class="table table-striped table-bordered">
+						<thead>
+							<tr>
+								<th class="text-center" colspan=4>Plants Life Status</th>
+								<th class="text-center" colspan=5>Asset Value Status</th>
+								<th rowspan="2">Notes</th>
+							</tr>
+							<tr>
+								<th>Unit of Measure</th>
+								<th>Estimated Use Full Life
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th>Upto Date Usage</th>
+								<th>Remaining Use Full Life</th>
+								<th>Currency</th>
+								<th>Plant Original Value
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th>Salvage Value
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th>Depreciation Value</th>
+								<th>Remaining - Use Full Value</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td><input type="text" class="form-control" name="unitOfMeasure"
+										data-test='PlantandEquipment_DepreciationandSalvageValue_Edit_UnitofMeasure'
+										ng-model="selectedPlantData.plantClassMeasureName"
+										readonly="readonly"></td>
+
+								<td class="input-width-1" ng-form name="depreciationForm1">
+									<input type="text" class="form-control" name="estimatedUsefullLife"
+										data-test='PlantandEquipment_DepreciationandSalvageValue_Edit_EstimatedUseFullLife'
+										class="text-right" ng-model="depreciation.estimateLife"
+										placeholder="Estimated Usefull Life" ng-required="true" pattern="^[\d\.,]+$"
+										valid-number>
+									<span ng-show="depreciationForm1.estimatedUsefullLife.$error.pattern"
+									class="procurment-pot-errors">
+									Enter
+										numbers/decimals</span>
+								</td>
+
+								<td class="input-width-1" ng-form name="depreciationForm1">
+									<input type="text" class="form-control" name="uptoDateStage" class="text-right"
+										data-test='PlantandEquipment_DepreciationandSalvageValue_Edit_UptoDateUsage'
+										ng-model="depreciation.uptoDateStage" ng-required="true" pattern="^[\d\.,]+$"
+										readonly="readonly">
+								</td>
+								<td class="text-right" ng-form name="depreciationForm1">{{depreciation.estimateLife -
+									depreciation.endMeterReading}}</td>
+								<td class="input-width"><input type="text" class="form-control" name="currency"
+										data-test='PlantandEquipment_DepreciationandSalvageValue_Edit_Currency'
+										ng-model="projGenCurrencyLabelKeyTO.code" placeholder="currency"
+										readonly="readonly"></td>
+								<td class="input-width-1" ng-form name="depreciationForm1"><input type="text" class="form-control"
+										data-test='PlantandEquipment_DepreciationandSalvageValue_Edit_PlantOriginalValue'
+										name="originalValue" ng-model="depreciation.orginalValue" class="text-right"
+										placeholder="Plant OriginalValue" ng-required="true" valid-number></td>
+
+								<td class="input-width-1" ng-form name="depreciationForm1"><input type="text" class="form-control"
+										data-test='PlantandEquipment_DepreciationandSalvageValue_Edit_SalvageValue'
+										class="text-right" name="salvageValue" ng-model="depreciation.salvageValue"
+										placeholder="Salvage Value" ng-required="true" valid-number></td>
+
+								<td class="text-right" ng-form name="depreciationForm1">{{((depreciation.orginalValue-depreciation.salvageValue)/(depreciation.estimateLife*depreciation.endMeterReading))
+									| number : 2}}</td>
+
+
+								<td class="text-right" ng-form name="depreciationForm1">{{ (depreciation.orginalValue -
+									(((depreciation.orginalValue-depreciation.salvageValue)/(depreciation.estimateLife*depreciation.endMeterReading))))
+									| number : 2}}</td>
+
+								<td class="input-width" ng-form name="depreciationForm1"><input
+										data-test='PlantandEquipment_DepreciationandSalvageValue_Edit_Notes' type="text"
+										class="form-control" name="notes" ng-model="depreciation.comments"
+										placeholder="notes"></td>
+
+							</tr>
+						</tbody>
+					</table>
+
+				</div>
+			</div>
+			<div class="panel-footer">
+				<div class="pull-right">
+					<input data-test='PlantandEquipment_DepreciationandSalvageValue_Edit_save' type="submit"
+						class="btn btn-primary btn-sm " ng-click="depreciationForm1.$valid && saveDepreciationDetails()" value="Save">
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</form>
+</div>

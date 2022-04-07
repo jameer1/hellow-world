@@ -1,0 +1,44 @@
+<!-- <table class="table table-striped table-hover table-bordered singleTableHeight">
+	<thead>
+		<tr>
+			<th>EPS Name</th>
+			<th>Project Name</th>
+			<th>Start Date</th>
+                        <th>Finish Date</th>
+                        <th>% Complete</th>
+			<th>Project Status</th>
+		</tr>
+	</thead>
+	<tr fixed-header="" ng-repeat="progress in currDatesProgPercentageData">
+		<td>{{progress.epsName}}</td>
+		<td>{{progress.projName}}</td>
+		<td>
+			<span ng-show="progress.actualStartDate != null">
+				{{progress.actualStartDate}}
+			</span>
+			<span ng-show="progress.actualStartDate == null && progress.forecastStartDate != null ">
+				{{progress.forecastStartDate}}
+			</span>
+			<span ng-show="progress.actualStartDate == null && progress.forecastStartDate == null && progress.baselineStartDate != null">
+				{{progress.baselineStartDate}}
+			</span>
+		</td>
+		<td>
+			<span ng-show="progress.actualFinishDate != null">
+				{{progress.actualFinishDate}}
+			</span>
+			<span ng-show="progress.actualFinishDate == null && progress.forecastFinishDate != null ">
+				{{progress.forecastFinishDate}}
+			</span>
+			<span ng-show="progress.actualFinishDate == null && progress.forecastFinishDate == null && progress.baselineFinishDate != null">
+				{{progress.baselineFinishDate}}
+			</span>
+		</td>
+		<td>
+			{{progress.actualProgress | number: 2 }}
+		</td>
+		<td>{{progress.currentPhase}}</td>
+	</tr>
+</table> -->
+<div id="grid" ui-grid="gridOptions" class="singleTableResHeight_3" ng-if="stylesSvc.finishedStyling" 
+ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-grouping class="grid"></div>

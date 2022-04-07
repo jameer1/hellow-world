@@ -1,0 +1,67 @@
+<div id="tab-pannel" class="panel-group">
+    <div class="panel panel-default" modal-movable>
+        <div class="panel-heading">
+            <h4 class="panel-title">Tax Rates</h4>
+        </div>
+        <div class="panel-body">
+            <div class="popUpTableResHeight">
+                <table class="table table-striped table-hover table-bordered popUpTableHeight">
+                    <thead>
+                        <tr>
+                            <th rowspan="2">Select</th>
+                            <th colspan="2" class="text-center">Annual Taxable Income Range</th>
+                            <th rowspan="2">Fixed Amount of Tax</th>
+                            <th rowspan="2">Variable Tax Rate in % over the lower range value</th>
+                            <th rowspan="2">Notes</th>
+                        </tr>
+                        <tr>
+                            <th>From</th>
+                            <th>To</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <input type="checkbox" value="select" ng-model="selected">
+                            </td>
+                            <td>
+                                <input class="form-control" type="text" name="minRange" ng-model="minRange"
+                                    placeholder="From Range">
+                            </td>
+                            <td>
+                                <input class="form-control" type="text" name="maxRange" ng-model="maxRange"
+                                    placeholder="To Range">
+                            </td>
+                            <td>
+                                <input class="form-control" type="text" name="taxAmount" ng-model="taxAmount"
+                                    placeholder="Fixed Amount of Tax">
+                            </td>
+                            <td>
+                                <input class="form-control" type="text" name="taxPercentage" ng-model="taxPercentage"
+                                    placeholder="Variable Tax Rate">
+                            </td>
+                            <td>
+                                <input class="form-control" type="text" name="notes" ng-model="notes"
+                                    placeholder="Notes">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <div class="pull-left">
+                <input type="submit" class="btn btn-primary btn-sm" value="Add" ng-click="addRows()">
+                <input type="button" class="btn btn-primary btn-sm" value="Delete" ng-click="deleteRows()">
+                <input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+                <input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+                <input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+            </div>
+            <div class="pull-right">
+                <input type="button" class="btn btn-primary btn-sm" value="Modify" ng-click="modify();">
+                <input type="button" class="btn btn-primary btn-sm" value="Save" ng-click="saveTaxRatesRules();">
+            </div>
+        </div>
+        <div class="ngdialog-close"></div>
+    </div>
+</div>

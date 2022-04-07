@@ -1,0 +1,226 @@
+<div id="tab-pannel">
+    <div class="panel panel-default" modal-movable>
+        <div class="panel-heading">
+            <h4 class="panel-title">Release Payment</h4>
+        </div>
+        <div class="panel-heading">
+            <h4 class="panel-title">1. Invoice Particulars</h4>
+        </div>
+        <div class="panel-body">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+                <div class="col-md-1 col-lg-1 col-sm-1 col-xs-1 padL-0">
+                    <md-input-container>
+                        <label>EPS Name</label>
+                        <input type="text" ng-model="searchProject.projName" ng-click="getUserProjects()" readonly>
+                    </md-input-container>
+                </div>
+                <div class="col-md-1 col-lg-1 col-sm-1 col-xs-1">
+                    <md-input-container>
+                        <label>Project</label>
+                        <input type="text" ng-model="searchProject.projName" ng-click="getUserProjects()" readonly>
+                    </md-input-container>
+                </div>
+                <div class="col-md-1 col-lg-1 col-sm-1 col-xs-1">
+                    <md-input-container>
+                        <label>PO Number</label>
+                        <input type="text" ng-model="" readonly>
+                    </md-input-container>
+                </div>
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+                    <md-input-container>
+                        <label>PO Description</label>
+                        <input type="text" ng-model="" readonly>
+                    </md-input-container>
+                </div>
+                <div class="col-md-1 col-lg-1 col-sm-1 col-xs-1">
+                    <md-input-container>
+                        <label>Vendor ID</label>
+                        <input type="text" ng-model="" readonly>
+                    </md-input-container>
+                </div>
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+                    <md-input-container>
+                        <label>Vendor Name</label>
+                        <input type="text" ng-model="" readonly>
+                    </md-input-container>
+                </div>
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+                    <md-input-container>
+                        <label>Originator Employee ID</label>
+                        <input type="text" ng-click="getProjectEmployeeDetails()" readonly>
+                    </md-input-container>
+                </div>
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+                    <md-input-container>
+                        <label>Originator Employee Name</label>
+                        <input type="text" ng-click="getProjectEmployeeDetails()" readonly>
+                    </md-input-container>
+                </div>
+            </div>
+            <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12 no-padding">
+                <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3 padL-0">
+                    <md-input-container>
+                        <label>Approver Employee ID</label>
+                        <input type="text" ng-model="" readonly>
+                    </md-input-container>
+                </div>
+                <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3">
+                    <md-input-container>
+                        <label>Approver Employee Name</label>
+                        <input type="text" ng-model="" readonly>
+                    </md-input-container>
+                </div>
+                <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3">
+                    <md-input-container>
+                        <label>Invoice Date</label>
+                        <potdate-picker dir-index="$index" date-name="dateOfClaim" ng-model="date|date"
+                            custom-read-only />
+                    </md-input-container>
+                </div>
+                <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3">
+                    <md-input-container>
+                        <label>Proposed Payment Date</label>
+                        <potdate-picker dir-index="$index" date-name="paymentdate" ng-model="date|date"
+                            custom-read-only />
+                    </md-input-container>
+                </div>
+            </div>
+        </div>
+        <div class="panel-heading">
+            <h4 class="panel-title">2. Invoice Amount</h4>
+        </div>
+        <div class="panel-body">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+                <div class="overflow-auto">
+                    <table class="table table-hover table-bordered">
+                        <thead id="tab-head">
+                            <tr>
+                                <th></th>
+                                <th>Net Invoice amount</th>
+                                <th>GST or Tax amount</th>
+                                <th>Total Invoice amount incl.Tax</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>As Per Invoice</th>
+                                <td>
+                                    <input type="text" class="form-control">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Amount Retained</th>
+                                <td>
+                                    <input type="text" class="form-control">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Net amount Payable</th>
+                                <td>
+                                    <input type="text" class="form-control">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="panel-heading">
+            <h4 class="panel-title">3. Vendor Bank Account</h4>
+        </div>
+        <div class="panel-body">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+                <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3 padL-0">
+                    <md-input-container>
+                        <label>Name of Bank</label>
+                        <input type="text" ng-model="" readonly>
+                    </md-input-container>
+                </div>
+                <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3">
+                    <md-input-container>
+                        <label>Account Name</label>
+                        <input type="text" ng-model="" readonly>
+                    </md-input-container>
+                </div>
+                <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3">
+                    <md-input-container>
+                        <label>Bank Code</label>
+                        <input type="text" ng-model="" readonly>
+                    </md-input-container>
+                </div>
+                <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3">
+                    <md-input-container>
+                        <label>Account Number</label>
+                        <input type="text" ng-model="" readonly>
+                    </md-input-container>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+                <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3 padL-0">
+                    <md-input-container>
+                        <label>Approver ID</label>
+                        <input type="text" ng-model="" readonly>
+                    </md-input-container>
+                </div>
+                <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3">
+                    <md-input-container>
+                        <label>Approver Name</label>
+                        <input type="text" ng-model="" readonly>
+                    </md-input-container>
+                </div>
+                <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3">
+                    <md-input-container>
+                        <label>Finance Controller ID</label>
+                        <input type="text" ng-model="" readonly>
+                    </md-input-container>
+                </div>
+                <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3">
+                    <md-input-container>
+                        <label>Finance Controller Name</label>
+                        <input type="text" ng-model="" readonly>
+                    </md-input-container>
+                </div>
+            </div>
+        </div>
+        <div class="panel-heading">
+            <h4 class="panel-title">4. Release Payment</h4>
+        </div>
+        <div class="panel-body">
+            <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12 no-padding">
+                <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6 padL-0">
+                    Release Payment
+                    <input type="checkbox">
+                </div>
+                <!-- <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
+                    <div class="pull-right">
+                        <input type="submit" ng-click="apply()" value="Apply" class="btn btn-primary btn-sm" />
+                    </div>
+                </div> -->
+            </div>
+        </div>
+        <div class="panel-footer">
+            <div class="pull-right">
+                <input type="submit" ng-click="apply()" value="Apply" class="btn btn-primary btn-sm" />
+            </div>
+        </div>
+    </div>
+    <div class="ngdialog-close"></div>
+</div>

@@ -1,0 +1,42 @@
+<div id="tab-pannel">
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Enterprise Structure</h4>
+			</div>
+			<div class="panel-body">
+			<div class="popUpTableResHeight">
+				<table class="table table-striped table-hover table-bordered popUpTableHeight" >
+					<thead>
+						<tr>
+							<th>Select</th>
+							<th>EPS ID</th>
+							<th>EPS Name</th>
+							<th>Project Code</th>
+							<th>Project Name</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr fixed-header="" ng-repeat ="projDetail in userProjDetailsTOs | orderBy:['parentEPSCode','projCode']">
+							<td><input type="checkbox" ng-model="projDetail.select"  ng-change="selectproject(projDetail)"></td>
+							<td>{{projDetail.parentEPSCode}}</td>
+							<td>{{projDetail.parentName}}</td>
+							<td>{{projDetail.projCode}}</td>
+							<td>{{projDetail.projName}}</td>
+
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			</div>
+			<div class="panel-footer">
+				<div class="pull-right">
+					<input type="button" class="btn btn-primary btn-sm" ng-click="save()" value="Save"> 
+				</div>
+			</div>
+			<div class="ngdialog-close"></div>
+		</div>
+</div>
+
+
+
+

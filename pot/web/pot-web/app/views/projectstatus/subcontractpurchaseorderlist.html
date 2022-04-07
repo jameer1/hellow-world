@@ -1,0 +1,36 @@
+<div id="tab-pannel" class="panel-group">
+	<div id="tab-pannel" class="panel panel-default" modal-movable>
+		<div class="panel-heading">
+			<h4 class="panel-title">Purchase Order List</h4>
+		</div>
+		<div class="panel-body">
+			<div class="popUpTableResHeight">
+			<table class="table table-striped table-responsive table-bordered popUpTableHeight">
+				<thead>
+					<tr>
+						<th>Purchase Order</th>
+						<th>Company</th>
+						<th>Purchase Order Start Date</th>
+						<th>Purchase Order Finish Date</th>
+						<th>Purchase Order Amount</th>
+						<th>Purchase Order Payment In Days</th>
+
+					</tr>
+				</thead>
+				<tbody>
+					<tr fixed-header="" ng-repeat ="detail in subContractPurchaseOrderDetails"
+						ng-click="subContractPurchaseOrderPopUp(detail)">
+						<td>{{detail.code}}</td>
+						<td>{{detail.preContractCmpTO.companyTO.cmpName}}</td>
+						<td>{{detail.startDate}}</td>
+						<td>{{detail.finsihDate}}</td>
+						<td>{{detail.amount}}</td>
+						<td>{{detail.displayNamesMap['purPaymentDays']}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="panel-footer"></div>
+		<div class="ngdialog-close"></div>
+	</div>
+</div>

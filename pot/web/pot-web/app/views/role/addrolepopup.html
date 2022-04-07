@@ -1,0 +1,62 @@
+<div id="tab-pannel" ng-init="getRoleServiceMap()">
+	<div class="panel-group">
+		<form name="roleForm">
+			<div class="panel panel-default" modal-movable>
+				<div class="panel-heading">
+					<h4 class="panel-title" ng-show="action =='Edit'">Edit User
+						Profiles</h4>
+					<h4 class="panel-title" ng-show="action =='Add'">Add User
+						Profiles</h4>
+				</div>
+				<div class="panel-body">
+                    <div class="spacer0 b-sh popUpTableResHeight">
+                        <table class="table table-striped table-hover table-bordered popUpTableHeight" >
+                            <thead>
+                                <tr>
+                                    <th ng-hide="action =='Edit'">Select</th>
+                                    <th>Profile Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr fixed-header="" ng-repeat ="userprofile in userProfilesList">
+                                    <td ng-hide="action =='Edit'">
+                                        <input type="checkbox"
+                                               ng-model="userprofile.selected"
+                                               ng-change="popUpRowSelect(userprofile)" />
+                                    </td>
+                                    <td ng-form name="moduleFmm">
+                                        <input data-test='Admin_ClientUser_UserProfile_Create_ProfileName' type="text" class="form-control"
+                                               placeholder="Profile Name" ng-model="userprofile.roleName"
+                                               ng-required="true"
+                                               pattern=^[a-zA-Z][^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+                                               maxlength=50 ng-change="checkDuplicate(userprofile)"
+                                               ng-class="{coloumnHighlightColor:userprofile.duplicateFlag}"><span ng-show="moduleFmm.name.$error.pattern">
+                                            Alpha numeric
+                                            data should be allowed
+                                        </span> <span ng-show="moduleFmm.name.$error.maxlength">
+                                            Enter upto 50
+                                            characters
+                                        </span>
+                                    </td>
+                            </tbody>
+                        </table>
+                        </div>
+                    </div>
+				<div class="panel-footer">
+					<div class="pull-left">
+						<input data-test='Admin_ClientUser_UserProfile_Create-AddProfile' type="submit" value="Add Profiles"
+							class="btn btn-primary btn-sm"
+							ng-click="roleForm.$valid && addRows()"> <input data-test='Admin_ClientUser_UserProfile_Create_Delete'
+							type="submit" value="Delete" class="btn btn-secondary btn-sm"
+							ng-click="deleteRows()">
+					</div>
+					<div class="pull-right">
+						<input data-test='Admin_ClientUser_UserProfile_Create_Save' type="submit" value="Save" class="btn btn-primary btn-sm"
+							ng-click="roleForm.$valid && saveRoles()">
+					</div>
+				</div>
+			</div>
+			<div class="ngdialog-close"></div>
+            </form>
+	</div>
+</div>

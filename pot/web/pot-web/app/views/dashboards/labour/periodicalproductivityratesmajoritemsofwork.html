@@ -1,0 +1,56 @@
+<section class="content-header">
+    <h1>Periodical Productivity Rates - Major Items of Work</h1>
+    <input type="submit" value ="Help !" class="pull-right btn btn-primary btn-sm help-each-page">
+</section>
+<section class="content">
+	<div class="panel panel-default block footer-parent">
+		<div class="panel-body">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 padL-0">
+                    <md-input-container>
+                        <label class="labelName">EPS Name</label>
+                        <input type="text" ng-model="searchFilter.searchProject.parentName" ng-click="getUserProjects()" readonly>
+                    </md-input-container>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <md-input-container>
+                        <label class="labelName">Project Name</label>
+                        <input type="text" ng-model="searchFilter.searchProject.projName" ng-click="getUserProjects()" readonly>
+                    </md-input-container>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <md-input-container>
+                        <label class="labelName">Tangible Item</label>
+                        <input type="text" ng-model="searchFilter.searchProject.selectedTangibleItemNames" ng-click="getTangibleItems()" readonly>
+                    </md-input-container>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                	<md-input-container>
+                        <label>Time Scale</label>
+                        <md-select ng-model="selectedTimeScale" ng-change="subReportChanged()">
+                            <md-option ng-repeat="timeScale in timeScales" ng-value="timeScale">{{timeScale.name}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 padR-0">
+                    <div class="pull-right marT15 marB15">
+                        <input type="button" ng-click="generateReport()" class="btn btn-primary btn-sm" value="Apply">
+                    </div>
+                </div>
+			</div>
+			<div class="chartResHeight">
+                    <canvas class="chart-base" chart-data="data" chart-labels="labels" chart-series="series1" height="70"
+                        chart-type="chart_type" chart-colors="colors" chart-options="options" context-menu="menuOptions"
+                        chart-dataset-override="datasetOverride"></canvas>
+                </div>
+			<!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 singleTableResHeight_2" style="overflow:auto;">
+               	<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 no-padding" ng-repeat="chartDatum in chartData">
+               		<canvas class="chart chart-bar" chart-data="chartDatum.data" chart-labels="chartDatum.labels" chart-series="chartDatum.series"
+						chart-options="chartDatum.options" height="80"></canvas>
+               	</div>
+			</div> -->
+		</div>
+		
+	</div>
+</section>

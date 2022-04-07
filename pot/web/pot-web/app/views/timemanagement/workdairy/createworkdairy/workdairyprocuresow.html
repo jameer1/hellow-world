@@ -1,0 +1,76 @@
+<div id="tab-pannel" class="panel-group">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h4 class="panel-title">Scope of Works</h4>
+		</div>
+		<div class="panel-body">
+                <div class="popUpTableResHeight">
+                        <table id="tree" class="table table-striped table-hover table-bordered popUpTableHeight" >
+                    <thead id="tab-head">
+                        <tr>
+                            <th>Select</th>
+                            <th>SOW Item ID</th>
+                            <th>SOW Item Desc</th>
+                            <th>Unit Of Measure</th>
+                            <th>SOE Item ID</th>
+                            <th>SOR Item ID</th>
+                            <th>Cost Item ID</th>
+                            <th>Start Date</th>
+                            <th>Finish Date</th>
+                            <th>Original Estimation</th>
+                            <th>Revised Estimation</th>
+                            <th>Actual Qty</th>
+                            <th>Balance</th>
+                            <th>SOW Comments</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr fixed-header="" ng-repeat ="tab in SOWData"
+                            ng-dblclick="sowpopup(tab)" class="abc{{tab.level}}" ng-show="!tab.collapse">
+                            <td>
+                                <input type="checkbox" ng-show="tab.item"
+                                       ng-model="tab.select" ng-change="sowpopup(tab)">
+                            </td>
+                            <td>
+                                    <span ng-repeat="level in [].constructor(tab.level) track by $index" class="xyz" style="padding-left: 30px;"></span>
+                                 <span ng-show="(tab.expand) || (!tab.item  && tab.childSOWItemTOs.length <= 0)"
+                                                                              ng-click="itemClick(tab, true);" 
+                                                                              class="fa fa-minus"></span>
+                                <span ng-click="itemClick(tab, false);" class="fa fa-plus"
+                                    ng-show="(tab.childSOWItemTOs.length > 0 && !tab.expand)"></span>
+                                <span ng-show="(tab.item)" name="leaf" class="fa fa-leaf"></span> {{tab.code}} </span> <span style="padding-left: 10px;">
+                                    <span style="padding-left: 5px;"></span>
+                                </span>
+                            </td>
+                            <td>{{tab.name}}</td>
+                            <td>{{tab.measureUnitTO.name}}</td>
+                            <td>{{tab.projSOEItemTO.code}}</td>
+                            <td>{{tab.projSORItemTO.code}}</td>
+                            <td>{{tab.projCostItemTO.code}}</td>
+                            <td>{{tab.startDate | date }}</td>
+                            <td>{{tab.finishDate | date }}</td>
+                            <td>{{tab.quantity}}</td>
+                            <td>{{tab.revisedQty}}</td>
+                            <td>{{tab.actualQty}}</td>
+                            <td>{{tab.balance}}</td>
+                            <!-- <td>{{tab.comments}}</td> -->
+                            <td>
+                                <span class="fa fa-comment fa-flip-horizontal"
+                                      ng-show="(tab.item)" aria-hidden="true" name="comment"
+                                      flip="horizontal" ng-click="show(tab.comments)" role="button"
+                                      tabindex="0"></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+		</div>
+		<div class="panel-footer">
+			<div class="pull-right">
+				<input type="button" class="btn btn-primary btn-sm"
+					ng-click="addSowItemsToWorkdairy()" value="Add">
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</div>
+</div>

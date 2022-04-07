@@ -1,0 +1,38 @@
+<div id="tab-pannel" ng-init="getPurchaseOrderSearch()">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">Purchase Order/Contract-Schedule Of Items</h4>
+    </div>
+    <div class="panel-body">
+      <form name="procureForm" validate>
+        <div class="row" id="input-height">
+          <div class="col-md-2">
+            <span>Purchase Order</span><input type="text" readonly="readonly" ng-model="purchaseOrdersList[0].code">
+          </div>
+
+          <div class="col-md-2">
+            <span>Contract Description</span><input type="text" name="desc" ng-model="purchaseOrdersList[0].preContractCmpTO.preContractTO.desc" readonly="readonly">
+          </div>
+
+          <div class="col-md-2">
+            <span>Company</span><input type="text" name="desc" ng-model="companyMap[purchaseOrdersList[0].preContractCmpTO.companyId].code" readonly="readonly">
+          </div>
+
+          <div class="col-md-2">
+            <span>Vendor</span><input type="text" name="desc" ng-model="companyMap[purchaseOrdersList[0].preContractCmpTO.companyId].name" readonly="readonly">
+          </div>
+
+
+        </div>
+      </form>
+      <div id="tabs1" class="spacer4">
+        <ul class="nav nav-tabs">
+          <li fixed-header="" ng-repeat ="preContarctDetailTab in preContrctDetailTabs" ng-class="{active:isActiveTab1(preContarctDetailTab.url)}"><a data-toggle="tab" ng-click="onClickTab1(preContarctDetailTab)">{{preContarctDetailTab.title}}</a></li>
+        </ul>
+        <div class="tab-content">
+          <div ng-include="currentTab1"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

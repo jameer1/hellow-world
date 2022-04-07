@@ -1,0 +1,35 @@
+<div id="tab-pannel">
+	<div class="panel-group">
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Comments</h4>
+			</div>
+			<div class="panel-body">
+				<div class="popUpTableResHeight">
+					<div class="col-md-12" ng-show="displayExternalApprovalRequired">
+				        <input type="checkbox" ng-model="isExternalApprovalRequired" ng-click="toggleExternalApprovalRequired($event)"/>Is external approval required?
+                    </div>
+                    <div class="col-md-12" ng-show="displayComments">
+				        <textarea class="form-control input-lg" ng-model="comments"></textarea>
+                    </div>
+                    <div class="col-md-12" ng-show="displayExternalApproverList">
+						<md-input-container class="md-block">
+                            <label>Select Approver User</label>
+                            <md-select ng-model="approverUserId">
+						    	<md-option ng-value="user.userId" ng-repeat="user in users">{{user.empCode}}-{{user.dispName}}</md-option>
+						    </md-select>
+                        </md-input-container>       
+		            </div>
+                    <div class="col-md-12">
+				        <input type="button" class="btn btn-primary btn-sm pull-right" value="Approve" ng-click="approve()" ng-show="displayApproveBtn">
+						<input type="button" class="btn btn-primary btn-sm pull-right" value="Submit" ng-click="submit();" ng-show="displaySubmitBtn">
+                    </div>
+				</div>
+				<!-- <div class="comment-margin">
+					<textarea class="form-control input-lg" ng-model="comments"></textarea>
+				</div> -->
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</div>
+</div>

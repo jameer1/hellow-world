@@ -1,0 +1,335 @@
+<div id="tab-pannel" class="panel-group">
+    <form name="resourceForm" validate autocomplete="off">
+        <div class="panel panel-default" modal-movable>
+            <div class="panel-heading">
+                <h4 class="panel-title" ng-show="action =='Add'">Create New Curve</h4>
+                <h4 class="panel-title" ng-show="action =='Edit'">Edit Resource</h4>
+            </div>
+            <div class="panel-body">
+                <div class="popUpTableResHeight overflow-auto">
+                    <table class="table table-hover table-bordered popUpTableHeight">
+                        <thead>
+                            <tr>
+                                <th rowspan="2" class="vert-align" ng-hide="action =='Edit'">Select</th>
+                                <th rowspan="2" class="vert-align">Resource Curve Name
+                                    <span style="color: red; font-size:10px;"> *</span>
+                                </th>
+                                <th rowspan="2" class="vert-align">Curve Category
+                                    <span style="color: red; font-size:10px;"> *</span>
+                                </th>
+                                <th colspan="11" class="text-center">Duration Percentage
+                                    <span style="color: red; font-size:10px;"> *</span>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th class="text-center">0-10
+                                    <span style="color: red; font-size:10px;"> *</span>
+                                </th>
+                                <th class="text-center">10-20
+                                    <span style="color: red; font-size:10px;"> *</span>
+                                </th>
+                                <th class="text-center">20-30
+                                    <span style="color: red; font-size:10px;"> *</span>
+                                </th>
+                                <th class="text-center">30-40
+                                    <span style="color: red; font-size:10px;"> *</span>
+                                </th>
+                                <th class="text-center">40-50
+                                    <span style="color: red; font-size:10px;"> *</span>
+                                </th>
+                                <th class="text-center">50-60
+                                    <span style="color: red; font-size:10px;"> *</span>
+                                </th>
+                                <th class="text-center">60-70
+                                    <span style="color: red; font-size:10px;"> *</span>
+                                </th>
+                                <th class="text-center">70-80
+                                    <span style="color: red; font-size:10px;"> *</span>
+                                </th>
+                                <th class="text-center">80-90
+                                    <span style="color: red; font-size:10px;"> *</span></th>
+                                <th class="text-center">90-100
+                                    <span style="color: red; font-size:10px;"> *</span>
+                                </th>
+                                <th class="text-center">Total%</th>
+                            </tr>
+                            <tr>
+                                <th rowspan="2" class="vert-align" ng-hide="action =='Edit'"></th>
+                                <th rowspan="2" class="vert-align"></th>
+                                <th rowspan="2" class="vert-align"></th>
+                                <th colspan="11" class="text-center">Curve Value Percentage
+                                    <span style="color: red; font-size:10px;"> *</span>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th class="text-center">0-10
+                                    <span style="color: red; font-size:10px;"> *</span>
+                                </th>
+                                <th class="text-center">10-20
+                                    <span style="color: red; font-size:10px;"> *</span>
+                                </th>
+                                <th class="text-center">20-30
+                                    <span style="color: red; font-size:10px;"> *</span>
+                                </th>
+                                <th class="text-center">30-40
+                                    <span style="color: red; font-size:10px;"> *</span>
+                                </th>
+                                <th class="text-center">40-50
+                                    <span style="color: red; font-size:10px;"> *</span>
+                                </th>
+                                <th class="text-center">50-60
+                                    <span style="color: red; font-size:10px;"> *</span>
+                                </th>
+                                <th class="text-center">60-70
+                                    <span style="color: red; font-size:10px;"> *</span>
+                                </th>
+                                <th class="text-center">70-80
+                                    <span style="color: red; font-size:10px;"> *</span></th>
+                                <th class="text-center">80-90
+                                    <span style="color: red; font-size:10px;"> *</span></th>
+                                <th class="text-center">90-100
+                                    <span style="color: red; font-size:10px;"> *</span>
+                                </th>
+                                <th class="text-center">Total%</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="resource in resourceList track by $index">
+                                <td ng-hide="action =='Edit'">
+                                    <input data-test='ResourceCurves_Create_Add_Checkbox1' type="checkbox"
+                                        ng-model="resource.selected" ng-change="resourcePopUpRowSelect(resource)">
+                                </td>
+                                <td class="input-width3" ng-form name="resourceFormtype">
+                                    <input data-test='ResourceCurves_Create_Curvename' class="form-control" type="text"
+                                        ng-model="resource.curveType" name="Curve Type"
+                                        pattern=^[a-zA-Z][^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+                                        placeholder="CurveType" ng-required="true" />
+                                    <span class="procurment-pot-errors"
+                                        ng-show="resourceFormtype.curveType.$touched &&resourceFormtype.curveType.$error.required">
+                                        Curve type
+                                        is mandatory
+                                    </span>
+                                    <span class="procurment-pot-errors"
+                                        ng-show="resourceFormtype.curveType.$error.pattern">
+                                        Alpha numeric
+                                        data should be allowed
+                                    </span>
+                                    <span ng-show="resourceFormtype.curveType.$error.minlength"
+                                        class="procurment-pot-errors">
+                                        To
+                                        Short!
+                                    </span>
+                                </td>
+                                <td class="input-width3" ng-form name="resourceFormcat">
+                                    <input data-test='ResourceCurves_Create_curvecategory' class="form-control"
+                                        type="text" placeholder="Customised" ng-model="resource.catg" name="catg"
+                                        ng-disabled="true" ng-required="true" />
+                                    <span class="procurment-pot-errors"
+                                        ng-show="resourceFormcat.catg.$touched && resourceFormcat.catg.$error.required">
+                                        catg
+                                        is mandatory
+                                    </span>
+                                    <span ng-show="resourceFormcat.catg.$error.pattern" class="procurment-pot-errors">
+                                        Enter
+                                        correct description
+                                    </span>
+                                    <span ng-show="resourceFormcat.catg.$error.minlength"
+                                        class="procurment-pot-errors">To Short!</span>
+                                </td>
+
+                                <td ng-form name="resourceFm">
+                                    <input style="min-width:50px !important"
+                                        data-test='ResourceCurves_Create_Curvevalue_0_10' class="form-control"
+                                        type="text" ng-model="resource.range1" name="range1" ng-required="true"
+                                        ng-change="updateTotal(resource)" pattern="^[0-9.]+$" minlength="1"
+                                        maxlength="4" valid-number />
+                                    <span class="procurment-pot-errors"
+                                        ng-show="resourceFm.range1.$touched && resourceFm.range1.$error.required">
+                                        Range 1
+                                        is mandatory
+                                    </span>
+
+                                </td>
+                                <td ng-form name="resForm">
+                                    <input style="min-width:50px !important"
+                                        data-test='ResourceCurves_Create_Curvevalue_10_20' class="form-control"
+                                        type="text" ng-model="resource.range2" name="range2" ng-required="true"
+                                        ng-change="updateTotal(resource)" pattern="^[0-9.]+$" minlength="1"
+                                        maxlength="4" valid-number />
+                                    <span ng-show="resForm.range2.$touched && resForm.range2.$error.required"
+                                        class="procurment-pot-errors">
+                                        Range 2
+                                        is mandatory
+                                    </span>
+
+                                </td>
+                                <td ng-form name="resourceForm1">
+                                    <input style="min-width:50px !important"
+                                        data-test='ResourceCurves_Create_Curvevalue_20_30' class="form-control"
+                                        type="text" ng-model="resource.range3" name="range3" ng-required="true"
+                                        ng-change="updateTotal(resource)" pattern="^[0-9.]+$" minlength="1"
+                                        maxlength="4" valid-number />
+                                    <span
+                                        ng-show="resourceForm1.range3.$touched && resourceForm1.range3.$error.required"
+                                        class="procurment-pot-errors">
+                                        Range 3
+                                        is mandatory
+                                    </span>
+
+                                </td>
+                                <td ng-form name="resourceForm2">
+                                    <input style="min-width:50px !important"
+                                        data-test='ResourceCurves_Create_Curvevalue_30_40' class="form-control"
+                                        type="text" ng-model="resource.range4" name="range4" ng-required="true"
+                                        ng-change="updateTotal(resource)" pattern="^[0-9.]+$" minlength="1"
+                                        maxlength="4" valid-number />
+                                    <span
+                                        ng-show="resourceForm2.range4.$touched && resourceForm2.range4.$error.required"
+                                        class="procurment-pot-errors">
+                                        Range 4
+                                        is mandatory
+                                    </span>
+
+                                </td>
+                                <td ng-form name="resourceForm3">
+                                    <input style="min-width:50px !important"
+                                        data-test='ResourceCurves_Create_Curvevalue_40_50' class="form-control"
+                                        type="text" ng-model="resource.range5" name="range5" ng-required="true"
+                                        ng-change="updateTotal(resource)" pattern="^[0-9.]+$" minlength="1"
+                                        maxlength="4" valid-number />
+                                    <span
+                                        ng-show="resourceForm3.range5.$touched && resourceForm3.range5.$error.required"
+                                        class="procurment-pot-errors">
+                                        Range 5
+                                        is mandatory
+                                    </span>
+
+                                </td>
+                                <td ng-form name="resourceForm5">
+                                    <input style="min-width:50px !important"
+                                        data-test='ResourceCurves_Create_Curvevalue_50_60' class="form-control"
+                                        type="text" ng-model="resource.range6" name="range6" ng-required="true"
+                                        ng-change="updateTotal(resource)" pattern="^[0-9.]+$" minlength="1"
+                                        maxlength="4" valid-number />
+                                    <span
+                                        ng-show="resourceForm5.range6.$touched && resourceForm5.range6.$error.required"
+                                        class="procurment-pot-errors">
+                                        Range 6
+                                        is mandatory
+                                    </span>
+
+                                </td>
+                                <td ng-form name="resourceForm6">
+                                    <input style="min-width:50px !important"
+                                        data-test='ResourceCurves_Create_Curvevalue_60_70' class="form-control"
+                                        type="text" ng-model="resource.range7" name="range7" ng-required="true"
+                                        ng-change="updateTotal(resource)" pattern="^[0-9.]+$" minlength="1"
+                                        maxlength="4" valid-number />
+                                    <span
+                                        ng-show="resourceForm6.range7.$touched && resourceForm6.range7.$error.required"
+                                        class="procurment-pot-errors">
+                                        Range 7
+                                        is mandatory
+                                    </span>
+
+                                </td>
+                                <td ng-form name="resourceForm7">
+                                    <input style="min-width:50px !important"
+                                        data-test='ResourceCurves_Create_Curvevalue_70_80' class="form-control"
+                                        type="text" ng-model="resource.range8" name="range8" ng-required="true"
+                                        ng-change="updateTotal(resource)" pattern="^[0-9.]+$" minlength="1"
+                                        maxlength="4" valid-number />
+                                    <span
+                                        ng-show="resourceForm7.range8.$touched && resourceForm7.range8.$error.required"
+                                        class="procurment-pot-errors">
+                                        Range 8
+                                        is mandatory
+                                    </span>
+
+                                </td>
+                                <td ng-form name="resourceForm8">
+                                    <input style="min-width:50px !important"
+                                        data-test='ResourceCurves_Create_Curvevalue_80_90' class="form-control"
+                                        type="text" ng-model="resource.range9" name="range9" ng-required="true"
+                                        ng-change="updateTotal(resource)" pattern="^[0-9.]+$" minlength="1"
+                                        maxlength="4" valid-number />
+                                    <span
+                                        ng-show="resourceForm8.range9.$touched && resourceForm8.range9.$error.required"
+                                        class="procurment-pot-errors">
+                                        Range 9
+                                        is mandatory
+                                    </span>
+
+                                </td>
+                                <td ng-form name="resourceForm9">
+                                    <input style="min-width:50px !important"
+                                        data-test='ResourceCurves_Create_Curvevalue_90_100' class="form-control"
+                                        type="text" ng-model="resource.range10" name="range10" ng-required="true"
+                                        ng-change="updateTotal(resource)" pattern="^[0-9.]+$" minlength="1"
+                                        maxlength="4" valid-number />
+                                    <span
+                                        ng-show="resourceForm9.range10.$touched && resourceForm9.range10.$error.required"
+                                        class="procurment-pot-errors">
+                                        Range 10
+                                        is mandatory
+                                    </span>
+
+                                </td>
+                                <td ng-form name="totalForm">
+                                    <span ng-if="resource.total < 100">
+                                        <input style="min-width: 50px!important;"
+                                            data-test='ResourceCurves_Create_Totalpersentage' class="form-control"
+                                            type="text" name="total" placeholder="Total" ng-model="resource.total"
+                                            ng-pattern="/^100$/" ng-disabled="true" />
+                                        <span ng-show="totalForm.total.$error.pattern" class="procurment-pot-errors">
+                                            Total% cannot be less than 100%
+                                        </span>
+                                    </span>
+                                    <span ng-if="resource.total > 100">
+                                        <input style="min-width: 50px!important;"
+                                            data-test='ResourceCurves_Create_Totalpersentage' class="form-control"
+                                            type="text" name="total" placeholder="Total" ng-model="resource.total"
+                                            ng-pattern="/^100$/" ng-disabled="true" />
+                                        <span ng-show="totalForm.total.$error.pattern" class="procurment-pot-errors">
+                                            Total% cannot exceed 100%
+                                        </span>
+                                    </span>
+                                    <span ng-if="resource.total == 100">
+                                        <input style="min-width: 50px!important;"
+                                            data-test='ResourceCurves_Create_Totalpersentage' class="form-control"
+                                            type="text" name="total" placeholder="Total" ng-model="resource.total"
+                                            ng-pattern="/^100$/" ng-disabled="true" />
+                                        <!-- <span ng-show="totalForm.total.$error.pattern" class="procurment-pot-errors">
+                                            Total% cannot exceed 100%
+                                        </span> -->
+                                    </span>
+                                    <!-- <input style="min-width: 50px!important;"
+                                        data-test='ResourceCurves_Create_Totalpersentage' class="form-control"
+                                        type="text" name="total" placeholder="Total" ng-model="resource.total"
+                                        ng-pattern="/^100$/" ng-disabled="true" /> <span
+                                        ng-show="totalForm.total.$error.pattern" class="procurment-pot-errors">
+                                        Total % not to
+                                        exceed 100%
+                                    </span> -->
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <div class="pull-left">
+                    <input data-test='ResourceCurves_Create_Add' type="submit" class="btn btn-primary btn-sm"
+                        ng-click="resourceForm.$valid && addResourceRows()" value="Add Rows" ng-show="action =='Add'" />
+                    <input data-test='ResourceCurves_Create_Delete' type="button" class="btn  btn-secondary btn-sm"
+                        ng-click="deleteResourceRows()" value="Delete Rows" ng-show="action =='Add'" />
+                </div>
+                <div class="pull-right">
+                    <input data-test='ResourceCurves_save' type="submit" class="btn btn-primary btn-sm" value="Save"
+                        ng-click="resourceForm.$valid && saveResourceCurves()" />
+                </div>
+            </div>
+        </div>
+        <div class="ngdialog-close"></div>
+    </form>
+</div>

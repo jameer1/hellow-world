@@ -1,0 +1,162 @@
+<div id="tab-pannel" class="panel-group" ng-init="getProjEmpTyFpes();getMeasuresByProcureType();getProjManpowerMap()">
+	<form name="projForm" validate autocomplete="off">
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title" ng-show="action =='Add'">Add Manpower Budgets</h4>
+				<h4 class="panel-title" ng-show="action =='Edit'">Edit Manpower Budgets</h4>
+			</div>
+			<div class="panel-body">
+				<div class="popUpTableResHeight">
+					<table class="table table-hover table-bordered popUpTableHeight">
+						<thead>
+							<tr>
+								<th>Select</th>
+								<th width="10%"align="center"> ID
+									<span style="color: red">*</span>
+								</th>
+								<th width="13%" align="center">Name</th>
+								<th align="center">Category
+									<span style="color: red">*</span>
+								</th>
+								<th width="8%" align="center" >Unit of Measure
+									<span style="color: red">*</span>
+								</th>
+								<th width="7%" align="center">Original Hrs
+									<span style="color: red">*</span>
+								</th>
+								<th width="7%" align="center">Revised Hrs</th>
+								<th width="7%" align="center">Actual Hrs</th>
+								<th width="7%" align="center">Remaining Hrs</th>
+								<th>Estimate to Complete</th>
+								<th width="6%" align="center">Start Date      
+									<span ng-show="isPrimaveraIntegrationEnabled=='No'" style="color: red">*</span>
+								</th>
+								<th width="6%" align="center">Finish Date
+									<span ng-show="isPrimaveraIntegrationEnabled=='No'" style="color: red">*</span>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr fixed-header="" ng-repeat="manpower in manpowerList">
+								<td><input data-test='Projects_ProjectBudgets_ManPower_Add_AddResource_checkbox'
+										type="checkbox" ng-model="manpower.selected" ng-disabled="action =='Edit'"
+										ng-change="manpowerPopUpRowSelect(manpower)"></td>
+
+								<td><input type="text" class="form-control" custom-read-only
+										ng-model="manpower.empClassTO.code" name="resId"
+										data-test='Projects_ProjectBudgets_ManPower_Add_ResourceId'
+										ng-click="manPowerDetails(manpower)" ng-required="true"
+										ng-class="{coloumnHighlightColor:manpower.duplicateFlag}"
+										placeholder="Resource Id" class="form-control"
+										ng-change="checkDuplicate(manpower)" /></td>
+
+								<td><input type="text" data-test='Projects_ProjectBudgets_ManPower_Add_ResourceName'
+										readonly="readonly" ng-model="manpower.empClassTO.name" name="resName"
+										placeholder="Resource Name" class="form-control"
+										onchange="checkDuplicate(manpower)"
+										ng-class="{coloumnHighlightColor:manpower.duplicateFlag}" /></td>
+
+								<td><select data-test='Projects_ProjectBudgets_ManPower_Add_EmployeeCategory'
+										ng-options="catg for catg in empCategoryList" class="form-control"
+										ng-model="manpower.projEmpCategory" name="empCategory"
+										placeholder="Employee Category" ng-required="true"
+										ng-change="checkDuplicate(manpower)"
+										ng-class="{coloumnHighlightColor:manpower.duplicateFlag}">
+										<option value="">-select-</option>
+									</select></td>
+
+								<td><select data-test='Projects_ProjectBudgets_ManPower_Add_UnitOfMeasure'
+										ng-change="updatePlantCode(manpower.measureUnitTO,manpower);"
+										class="form-control"
+										ng-options="cat.name  for cat in proCategory track by cat.name"
+										ng-model="manpower.measureUnitTO" name="unitOfMeasure"  required>
+										<option value="" selected>-select-</option>
+									</select>
+									<!-- <span class="procurment-pot-errors"
+										ng-show="projForm.unitOfMeasure.$error.required">
+										Original Budget is mandatory</span> -->
+								</td>
+
+								<td><input type="text" data-test='Projects_ProjectBudgets_ManPower_Add_OriginalBudget'
+										ng-model="manpower.originalQty" name="ornQuantity" class="form-control"
+										placeholder="Original Budget" ng-maxlength="15" ng-pattern="^[0-9/.,]+$"
+										ng-required="true" valid-number /> <span class="validate-errors"
+										ng-show="projForm.ornQuantity.$dirty && projForm.ornQuantity.$error.required">
+										Original Budget is mandatory</span> <span class="validate-errors"
+										ng-show="projForm.ornQuantity.$error.pattern">Enter Only
+										numbers/decimals</span><span class="validate-errors"
+										ng-show="projForm.ornQuantity.$error.maxlength">You
+										reached max lengths</span></td>
+
+								<td><input type="text" data-test='Projects_ProjectBudgets_ManPower_Add_RevisedBudget'
+										ng-model="manpower.revisedQty" name="revBudgetQuantity"
+										placeholder="Revised Budget" maxlength="15" class="form-control"
+										pattern="^[0-9/.,]+$" ng-disabled="true" valid-number /> <span
+										ng-show="projForm.revBudgetQuantity.$error.pattern">Enter
+										Only numbers/decimals</span><span
+										ng-show="projForm.revBudgetQuantity.$error.maxlength">You
+										reached max length</span></td>
+								<td><input type="text" ng-model="manpower.actualQty"
+										data-test='Projects_ProjectBudgets_ManPower_Add_ActualQtyToDate'
+										readonly="readonly" name="actQuntyToDate" placeholder="Actual Quantity"
+										maxlength="15" class="form-control" pattern="^[0-9/.,]+$" />
+									<span ng-show="projForm.actQuntyToDate.$error.pattern">Enter
+										Only numbers/decimals</span><span
+										ng-show="projForm.actQuntyToDate.$error.maxlength">You
+										reached max length</span></td>
+
+								<td>{{manpower.remainingQty =
+									calcRemainingUnits(manpower)}}</td>
+								<td>
+									<span
+										ng-if="manpower.estimateType != 'New Estimate'">{{ manpower.estimateComplete }}</span>
+									<input type="text"
+										data-test='Projects_ProjectBudgets_ManPower_Add_EstimateToComplete'
+										ng-model="manpower.estimateComplete" name="estimateComplete"
+										ng-if="manpower.estimateType == 'New Estimate'"
+										placeholder="Estimate To Complete" class="form-control" maxlength="15"
+										pattern="^[0-9/.,]+$" />
+									<span ng-show="projForm.estimateComplete.$error.pattern"
+										ng-if="manpower.estimateType == 'New Estimate'">Enter only numbers/decimals
+									</span>
+								</td>
+
+								<td>
+									<span ng-show="isPrimaveraIntegrationEnabled!='No'">{{manpower.startDate}}</span>
+									<potdate-picker data-test='Projects_ProjectBudgets_ManPower_Add-ScheduleStart'
+										ng-model="manpower.startDate" dir-index="$index" date-name="startDate"
+										placeholder="dd-mm-yyyy" class="form-control" required="required" name=date
+										custom-read-only ng-if="isPrimaveraIntegrationEnabled=='No'"/>
+								</td>
+								<td>
+									<span ng-show="isPrimaveraIntegrationEnabled!='No'">{{manpower.finishDate}}</span>
+									<potdate-picker data-test='Projects_ProjectBudgets_ManPower_Add_ScheduleFinish'
+										ng-model="manpower.finishDate" dir-index="$index" date-name="finishDate"
+										placeholder="dd-mm-yyyy" class="form-control" ng-required="true"
+										custom-read-only ng-if="isPrimaveraIntegrationEnabled=='No'"/>
+								</td>
+
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="panel-footer">
+				<div class="pull-left">
+					<input data-test='Projects_ProjectBudgets_ManPower_Add_AddResource' type="submit"
+						class="btn btn-primary btn-sm" ng-click="projForm.$valid && addRows()" value="Add Rows"
+						ng-show="action =='Add'" /> <input type="button"
+						data-test='Projects_ProjectBudgets_ManPower_Add_Delete'
+						class="btn bottomaligned btn-secondary btn-sm" ng-click="deleteProjRows()" value="Delete Rows"
+						ng-show="action =='Add'" />
+				</div>
+				<div class="pull-right">
+					<input data-test='Projects_ProjectBudgets_ManPower_Save' type="submit"
+						class="btn bottomaligned btn-primary btn-sm" value="Save"
+						ng-click="projForm.$valid && saveManpower()" />
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</form>
+</div>

@@ -1,0 +1,35 @@
+<div class="tab-pannel">
+    <form name="sowForm" validate>
+        <div class="tabTable_1_Res_height">
+            <table id="vert-align" class="table table-striped table-hover table-bordered tabTable_1_height" >
+                <thead>
+                    <tr>
+                        <th>Item ID</th>
+                        <th>Item Description</th>
+                        <th>SOE Item</th>
+                        <th>SOR Item</th>
+                        <th>Cost Code</th>
+                        <th>Delivery Place</th>
+                        <th>Start Date</th>
+                        <th>Finish Date</th>
+                        <th>Unit Of Measure</th>
+                        <th>Qty</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat ="item in preContractObj.precontractSowDtlTOs">
+                        <td><span>{{projSOWMap[item.sowId].code}}</span></td>
+                        <td><span>{{projSOWMap[item.sowId].name}}</span></td>
+                        <td><span>{{projSOWMap[item.sowId].displayNamesMap['soeName']}}</span></td>
+                        <td><span>{{projSOWMap[item.sowId].displayNamesMap['sorName']}}</span></td>
+                        <td><span>{{projSOWMap[item.sowId].displayNamesMap['costName']}}</span></td>
+                        <td><span> {{item.deliveryPlace}}</span></td>
+                        <td>{{item.startDate | date}}</td>
+                        <td>{{item.finishDate | date}}</td>
+                        <td><span>{{projSOWMap[item.sowId].unitOfMeasure}}</span></td>
+                        <td><span>{{item.quantity}}</span></td>
+                </tbody>
+            </table>
+        </div>
+    </form>
+</div>

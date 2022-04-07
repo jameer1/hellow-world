@@ -1,0 +1,85 @@
+<div ng-if="account.appCodeTemplate['RESOURCE_PLANTCHARGEOUTRATE_VIEW']" id="tab-pannel" class="panel-group"
+	ng-controller="PlantChargeOutController">
+	<div class="tabTable_1_Res_height overflow-auto" ng-if="plantChargeTable">
+	<div id="grid" ui-grid="gridOptions" ng-if="stylesSvc.finishedStyling" 
+            ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-resize-columns class="grid"></div>
+		<!-- <table class="table table-hover table-bordered tabTable_1_height">
+			<thead>
+				<tr>
+					<th rowspan="2">Select</th>
+					<th rowspan="2">Project <br> Deployment#
+					</th>
+					<th rowspan="2">Effective-From</th>
+					<th rowspan="2">EPS Name</th>
+					<th rowspan="2">Project Name</th>
+					<th rowspan="2">Asset ID</th>
+					<th rowspan="2">Project Plant ID</th>
+					<th rowspan="2">Charge Out Unit</th>
+					 <th rowspan="2">Fuel Cost Category</th>
+					<th rowspan="2">Currency</th>
+					<th rowspan="2">Plant Charge Out <br> Category
+					</th>
+					<th class="text-center" colspan="2">Normal Shift</th>
+
+					<th class="text-center" colspan="2">Double Shift</th>
+
+					<th rowspan="2">Plant Idle Time <br> Charge Out Rate
+					</th>
+					<th class="text-center" colspan="2">Plant Mobilization</th>
+					<th class="text-center" colspan="2">Plant De-Mobilization</th>
+
+					<th rowspan="2">Notes</th>
+				</tr>
+
+				<tr>
+					<th>Rates With Fuel</th>
+					<th>Rates Without Fuel</th>
+					<th>Rates With Fuel</th>
+					<th>Rates Without Fuel</th>
+					<th>Cost Code ID</th>
+					<th>Rate</th>
+					<th>Cost Code ID</th>
+					<th>Rate</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr fixed-header="" ng-repeat="chargeOutRatesTO in plantChargeOutRatesTOs"
+					ng-if="chargeOutRatesTO.plantRegProjTO.postDeMobStatus!='Salveged'" id="{{chargeOutRatesTO.effectiveFrom}}">
+					<td><input type="checkbox" value="id" ng-model="chargeOutRatesTO.select "
+						ng-if="(chargeOutRatesTO.latest && chargeOutRatesTO.plantRegProjTO.projId == selectedPlantData.projId) || plantChargeOutRatesTOs.length ==1" ng-change="chargeRowSelect(chargeOutRatesTO)"></td>
+					<td class="text-right">{{chargeOutRatesTO.plantRegProjTO.deploymentId}}</td>
+					<td>{{chargeOutRatesTO.effectiveFrom}}</td>
+					<td>{{ chargeOutRatesTO.plantRegProjTO.parentName }}</td>
+					<td>{{ chargeOutRatesTO.plantRegProjTO.name}}</td>
+					<td>{{selectedPlantData.assertId}}</td>
+					<td>{{ selectedPlantData.plantClassMstrName}}</td>
+					<td>{{ selectedPlantData.plantClassMeasureName }}</td>
+					<td>{{ projGeneralLabelKeyTO.name }}</td>
+					<td>{{ chargeOutRatesTO.category }}</td>
+					<td class="text-right">{{chargeOutRatesTO.rateWithFualNRShift}}</td>
+					<td class="text-right">{{chargeOutRatesTO.rateWithOutFualNRShift}}</td>
+					<td class="text-right">{{chargeOutRatesTO.rateWithFualDBShift}}</td>
+					<td class="text-right">{{chargeOutRatesTO.rateWithoutFualDBShift}}</td>
+					<td class="text-right">{{chargeOutRatesTO.idleChargeOutRate}}</td>
+					<td>{{ chargeOutRatesTO.projMobCostItemCode }}</td>
+					<td class="text-right">{{chargeOutRatesTO.mobChargeOutRate}}</td>
+					<td>{{ chargeOutRatesTO.projDeMobCostItemCode }}</td>
+					<td class="text-right">{{chargeOutRatesTO.deMobChargeOutRate}}</td>
+					<td class="text-left">{{ chargeOutRatesTO.commentes }}</td>
+				</tr>
+			</tbody>
+		</table> -->
+	</div>
+	<div class="panel-footer padL-0">
+		<div class="pull-left">
+			<!-- <input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+			<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+			<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+			<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+			<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();"> -->
+			<input data-test='PlantandEquipment_ChargeoutRates_Edit' type="button" class="btn btn-primary btn-sm"
+				ng-if="account.appCodeTemplate['RESOURCE_PLANTCHARGEOUTRATE_ADD']" ng-click="addPlantChargeCode()"
+				value="Edit">
+		</div>
+	</div>
+</div>

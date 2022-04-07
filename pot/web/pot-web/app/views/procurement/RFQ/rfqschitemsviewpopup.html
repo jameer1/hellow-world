@@ -1,0 +1,41 @@
+	<div class="panel panel-default" modal-movable>
+		<div class="panel-heading">
+			<h4 class="panel-title">RFQ Tendering Schedule Items</h4>
+		</div>
+		<div class="panel-body">
+			
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                        <md-input-container class="md-block">
+                            <label>PreContract Code</label>
+                            <input type="text" ng-model="preContractObj.code" placeholder="PreContract Code"
+                                                                  ng-disabled="true">
+                        </md-input-container>
+                    </div>
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                        <md-input-container class="md-block">
+                            <label>Contract Description</label> <input type="text"
+                                                                       ng-model="preContractObj.desc" placeholder="Contract Description"
+                                                                       ng-disabled="true">
+                        </md-input-container>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+                    <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li fixed-header="" ng-repeat ="preContarctDetailTab in preContrctDetailTabs"
+                            ng-class="{active:isActiveTab1(preContarctDetailTab.url)}">
+                            <a data-toggle="tab" ng-click="onClickTab1(preContarctDetailTab)" data-test="{{preContarctDetailTab.rfqscheduleSeleniumLocator}}" >{{preContarctDetailTab.title}}</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div ng-include="currentTab1"></div>
+                    </div>
+                    </div>
+                </div>
+         
+        </div>
+		<div class="panel-footer"></div>
+		<div class="ngdialog-close" data-test="PurchaseOrders_RFQ_scheduleofitemsviewinto"></div>
+	</div>
+

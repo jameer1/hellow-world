@@ -1,0 +1,27 @@
+<div id="tab-pannel">
+  <div class="panel panel-default" modal-movable>
+    <div class="panel-heading">
+      <h4 class="panel-title">Invoice Request & Approval</h4>
+    </div>
+    <div class="panel-body7">
+      <ng-form name="procureForm" validate>
+      <div class="row left-padding" id="input-height">
+        <div>Approver</div>
+        <div>
+          <input type="text" class="form-control" name="approver" ng-click="getUsersByModulePermission()" ng-model ="approverUserTO.name" placeholder="Approver ID" maxlength="100" readonly="readonly">
+        </div>
+        <div></div>
+        <div>Comments</div>
+        <textarea type="text" class="form-control" ng-model="approverUserTO.comments" name="comment" placeholder="Comments">
+						</textarea>
+      </div>
+      </ng-form>
+
+    </div>
+    <div class="panel-footer">
+      <div class="pull-right">
+        <input type="Submit" value="Submit" ng-click="saveInvoiceRequestApprDetails(addInvoiceData)" class="btn  btn-brown btn-sm">
+      </div>
+    </div>
+    <div class="ngdialog-close"></div>
+  </div>

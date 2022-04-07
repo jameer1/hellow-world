@@ -1,0 +1,76 @@
+<div id="tab-pannel" class="panel-group">
+	<form name="goodsForm" validate>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h4 class="panel-title" ng-show="action =='Add'">Add Project</h4>
+				<h4 class="panel-title" ng-show="action =='Edit'">Edit Project</h4>
+			</div>
+
+			<div class="panel-body">
+					<div class="popUpTableResHeight">
+							<table class="table table-striped table-hover table-bordered popUpTableHeight" >
+						<thead>
+							<tr>
+								<th ng-hide="action =='Edit'">Select</th>
+								<th>Invoice amount</th>
+								<th>Tax Rate in %</th>
+								<th>Notes</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr fixed-header="" ng-repeat ="goods in goodsList">
+								<td ng-hide="action =='Edit'"><input type="checkbox"
+									ng-model="goods.selected" ng-change="goodsPopUpRowSelect(goods)"></td>
+
+
+								<td ng-form name="goodsForm1"><input type="text"
+									ng-model="goods.invoiceAmount" name="invoiceAmount"
+									placeholder="invoiceAmount" pattern="^[a-zA-Z0-9-_%]+$"
+									ng-required="true" minlength="1" maxlength="50"
+									ng-required="true" /> <span
+									ng-show="goodsForm1.invoiceAmount.$dirty && goodsForm1.invoiceAmount.required">invoiceAmount
+										is mandatory</span> <span
+									ng-show="goodsForm1.invoiceAmount.$error.pattern">Enter
+										correct invoiceAmount</span> <span
+									ng-show="goodsForm1.invoiceAmount.$error.minlength">To
+										Short!</span></td>
+
+
+								<td ng-form name="goodsForm2"><input type="text"
+									ng-model="goods.taxRate" name="taxRate" placeholder="taxRate"
+									pattern="^[0-9<>%]+$" ng-required="true" minlength="1"
+									maxlength="50" ng-required="true" /> <span
+									ng-show="goodsForm2.taxRate.$dirty && goodsForm2.taxRate.required">taxRate
+										is mandatory</span> <span ng-show="goodsForm2.taxRate.$error.pattern">Enter
+										correct taxRate</span> <span
+									ng-show="goodsForm2.taxRate.$error.minlength">To Short!</span></td>
+
+								<td><input type="text" ng-model="goods.comments"
+									name="comments" placeholder="comments"> <span
+									ng-show="goodsForm3.comments.$error.minlength">To Short!</span></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="panel-footer">
+				<div class="pull-left">
+					<input type="submit" class="btn btn-secondary btn-sm"
+						ng-click="addRows()" value="Add" ng-show="action =='Add'" /> <input
+						type="button" class="btn btn-secondary btn-sm" ng-click="deleteRows()"
+						value="Delete" ng-show="action =='Add'" />
+				</div>
+				<div class="pull-right">
+					<input type="submit" class="btn btn-primary btn-sm" value="Save"
+						ng-click="goodsForm.$valid && saveTax()" />
+				</div>
+			</div>
+			<div class="ngdialog-close"></div>
+		</div>
+	</form>
+</div>
+
+
+
+
+

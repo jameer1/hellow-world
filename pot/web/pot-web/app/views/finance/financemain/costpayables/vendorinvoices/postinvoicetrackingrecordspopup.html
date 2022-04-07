@@ -1,0 +1,46 @@
+<div id="tab-pannel">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">Post Invoice Tracking Records</h4>
+        </div>
+        <div class="panel-body">
+          <div class="row">
+                 <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2 padL-0">
+                   <span style="margin-left:30px;">Invoice Number</span>
+                 </div>
+                 <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2 padL-0"> <!-- ng-model="userProjMap[selectedData.projId].code" -->
+                   <input type="text"  value="INV002002" readonly class="form-control">
+                 </div>
+          </div>
+        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 no-padding">
+           <div class="tabTable_2_Res_height">
+               <table class="table table-striped table-hover table-bordered tabTable_2_height">
+                  <thead id="tab-head">
+                     <tr>
+                        <th>Date</th>
+                        <th>Invoice Status</th>
+                        <th>Completed By</th>
+                        <th>Responsible person for Pending step</th>
+                        <th>Comments</th>
+                    </tr>
+                   </thead>
+                    <tbody>
+                    <tr>
+	                       <td>10-May-2020</td>
+	                       <td>Submitted Aproved</td>
+	                       <td>John Smith</td>
+	                       <td>Chris Pite</td>
+	                       <td>{{}}</td>
+                       </tr>
+                 </table>
+               </div>
+                <div class="pull-right">
+		           <input type="Submit" class="btn btn-primary btn-sm" ng-click="printInvoiceDetails('Add')" value="Print">
+				</div>
+            </div>
+              
+        </div>
+        
+   </div>
+   
+</div>

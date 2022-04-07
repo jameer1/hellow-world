@@ -1,0 +1,59 @@
+<div ng-if="account.appCodeTemplate['PRJ_PRJSTG_LEAVEAPPROVAL_NORMALTIME_VIEW']" id="tab-pannel" class="noTableInBottomBlockWithTabs">
+	<form name="leaveForm">
+		<div class="bottomNestedTabTableResHeight no-border">
+			<div class="row" ng-repeat ="leave in projLeaveDetails">
+					<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+						<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padL-0">
+								<md-input-container class="md-block">
+									<label>Cut Off Days</label>
+									<input data-test='Projects_ProjectSettings_LeaveApprovalTab_NormalTime_Cutoffdays' 
+									type="text" id="cutOffDays" 
+									ng-model="leave.cutOffDays" name="days" ng-required="true"
+									pattern="\d+" maxlength="11" /> <span
+									ng-show="leaveForm.days.$dirty && leaveForm.days.$error.required">This
+									field is required</span> <span
+									ng-show="leaveForm.days.$error.pattern">Enter only
+									numbers </span> <span ng-show="leaveForm.days.$error.maxlength">You
+									reached max length </span>
+								</md-input-container>
+						</div>
+						<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+								<md-input-container class="md-block">
+									<label>Cut Off Hours</label>
+									<input data-test='Projects_ProjectSettings_LeaveApprovalTab_NormalTime_Cutoftimehours' 
+									type="number" min=0 max=23
+									name="cutoffHours" 
+									ng-model="leave.cutOffHours" ng-required="true" />
+								</md-input-container>
+						</div>
+						<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+								<md-input-container class="md-block">
+									<label>Cut Off Minutes</label>
+									<input data-test='Projects_ProjectSettings_LeaveApprovalTab_NormalTime_Cutoftimeminutes'
+								type="number" min=0 max=59 ng-required="true" 
+								name="cutoffMinutes"
+								ng-model="leave.cutOffMinutes" />
+								</md-input-container>
+						</div>
+					
+					</div>
+				</div>
+			</div>
+			<div class="panel-footer">
+				<div class="pull-right">
+					<input data-test='Projects_ProjectSettings_LeaveApprovalTab_NormalTime_Save' 
+						type="submit" class="btn btn-primary btn-sm" value="Save"
+						ng-click="leaveForm.$valid && saveProjLeaves()"
+						title="{{ account.appCodeTemplate['PRJ_PRJSTG_LEAVEAPPROVAL_NORMALTIME_ADD'] ? '' : '! Permission Denied. Contact your admin.'}}"
+						ng-disabled ="!account.appCodeTemplate['PRJ_PRJSTG_LEAVEAPPROVAL_NORMALTIME_ADD']">
+				</div>
+				<div class="pull-left">
+                    <input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+                </div>
+			</div>
+	</form>
+</div>

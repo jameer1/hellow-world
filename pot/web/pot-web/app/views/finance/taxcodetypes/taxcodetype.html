@@ -1,0 +1,111 @@
+<section class="content-header">
+		<h1>Tax Code Types</h1>	
+	</section>
+<section class="content">
+<div id="tab-pannel">
+		<div class="panel panel-default block footer-parent">
+			<div class="panel-body">
+				<div class="row">
+						<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 no-padding">
+					<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 padL-0">
+						<md-input-container class="md-block">
+								<label>Country</label>
+								<input type="text" ng-model="countryProvision.countryName" name="name"
+								ng-click="getCountryDetails(countryProvision)" readonly="readonly" ng-required="true">
+								</md-input-container>
+					</div>
+					<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+						<md-input-container class="md-block">
+								<label>Province</label>
+								<input type="text" ng-model="countryProvision.code" name="name"
+								ng-click="getProvisionDetails(countryProvision)"
+							readonly="readonly" ng-required="true">
+								</md-input-container>
+					</div>
+					<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+						<md-input-container class="md-block">
+								<label>From Date</label>
+								<input type="text" ng-model="countryProvision.fromDate" name="name"
+								readonly="readonly" ng-required="true">
+								</md-input-container>
+					</div>
+					<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+						<md-input-container class="md-block">
+								<label>To Date</label>
+								<input type="text" ng-model="countryProvision.toDate" name="name"
+								readonly="readonly" ng-required="true" >
+								</md-input-container>
+					</div>
+					<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+						<md-input-container class="md-block">
+								<label>Effective Date</label>
+								<input type="text" ng-model="countryProvision.effectiveDate" name="name"
+								readonly="readonly" ng-required="true">
+								</md-input-container>
+					</div>
+					<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2 padR-0">
+					<div class="pull-right marT15 marB15">
+							<input type="button" value="Search" ng-model="searchText"
+								class="btn  btn-primary btn-sm"
+								ng-click="getTaxCodeTypeDetails(countryProvision.id)" /> <input
+								type="reset" class="btn  btn-default btn-sm" ng-click="reset()"
+								value="Reset" />
+						</div>
+						</div>
+				</div>
+               
+			</div>
+			<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 no-padding">
+			<div class="singleTableResHeight_2">		
+					<table class="table table-striped table-hover table-bordered singleTableHeight_2" >
+						<thead id="tab-head">
+							<tr>
+								<th>Select</th>
+
+								<th><span
+									ng-click="sortType = 'codeTypeMstrTO.name'; sortReverse = !sortReverse">
+										Tax Code Type <span ng-show="sortType == 'codeTypeMstrTO.name'"
+											ng-class="(sortReverse ? 'fa fa-caret-up':'fa fa-caret-down')"></span>
+										<span ng-show="sortType != 'codeTypeMstrTO.name'"
+											class="fa fa-sort"></span>
+								</span></th>
+
+
+								<th><span
+									ng-click="sortType = 'codeTypeMstrTO.type'; sortReverse = !sortReverse">
+										Tax Type <span ng-show="sortType == 'codeTypeMstrTO.type'"
+											ng-class="(sortReverse ? 'fa fa-caret-up':'fa fa-caret-down')"></span>
+										<span ng-show="sortType != 'codeTypeMstrTO.type'"
+											class="fa fa-sort"></span>
+								</span></th>
+							</tr>
+						</thead>
+						<tbody>
+
+							<tr
+								fixed-header="" ng-repeat ="taxTypeTO in codeTypesTOs | orderBy:sortType:sortReverse ">
+								<td><input type="checkbox" ng-model="taxTypeTO.select"
+									ng-change="rowSelect(taxTypeTO)"></td>
+								<td ng-click="getCodeTypeDetails(taxTypeTO)">{{taxTypeTO.financeCodeType}}</td>
+								<td>{{taxTypeTO.taxType}}</td>
+							</tr>
+						</tbody>
+					</table>
+			</div>
+		 </div>
+		</div>
+			<div class="panel-footer">
+				<div class="pull-right">
+					<input type="button" class="btn  btn-primary btn-sm"
+						ng-click="addTaxCodeType('Add' , countryProvision.id)"
+						value="Create">
+				</div>
+				<div class="pull-left">
+					<input type="button" class="btn btn-secondary btn-sm"
+						ng-click="deleteTaxCodeType()" value="Deactivate">
+				</div>
+			</div>
+		</div>
+</div>
+</section>
+

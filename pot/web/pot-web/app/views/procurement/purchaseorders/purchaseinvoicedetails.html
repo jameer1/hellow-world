@@ -1,0 +1,41 @@
+<div ng-if="account.appCodeTemplate['PROCURMT_PURCHASEORDR_INOVICESTATUS_VIEW']" id="tab-pannel" ng-controller="PurchaseInvoiceController" ng-init="getInvoiceDetails()">
+    <div class="tabTable_3_Res_height">
+        <table id="" class="table table-hover table-bordered tabTable_3_height">
+        <thead>
+          <tr>
+            <th>PO Number</th>
+            <th>Contract Description</th>
+            <th>Vendor Name</th>
+            <th>Invoice Number</th>
+            <th>Invoice Date</th>
+            <th>Invoice Amount</th>
+            <th>Processing Period In Days</th>
+            <th>Payment Due Date</th>
+            <th>Payment Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr fixed-header="" ng-repeat ="invoice in purchaseOrderInvoiceDtlTOs">
+            <td>{{code}}</td>
+            <td>{{desc}}</td>
+            <td>{{companyMap[companyId].code}}</td>
+            <td>{{invoice.invoiceNo}}</td>
+            <td>{{invoice.invoicedate}}</td>
+            <td>{{invoice.invoiceAmount}}</td>
+            <td>{{invoice.paymentInDays}}</td>
+            <td>{{invoice.payDueDate}}</td>
+            <td>{{invoice.payStatus}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="panel-footer">
+      <div class="pull-left">
+        <input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+        <input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+        <input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+        <input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+        <input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+      </div>
+    </div>
+  </div>

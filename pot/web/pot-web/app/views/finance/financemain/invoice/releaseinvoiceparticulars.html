@@ -1,0 +1,43 @@
+<div id="tab-pannel" class="panel-group">
+  <div class="panel-group spacer0">
+    <div class="panel-body21">
+      <table class="table table-striped table-hover table-bordered" style="height:365px !important;" >
+        <thead>
+          <tr>
+            <th>Eps</th>
+              <th>Project</th>
+              <th>PO Number</th>
+              <th>PO Description</th>
+              <th>Vendor ID</th>
+              <th>Vendor Name</th>
+              <th>Originator Employee ID</th>
+              <th>Originator Employee Name</th>
+              <th>Approver Employee ID</th>
+              <th>Approver Employee Name</th>
+              <th>Invoice Date</th>
+              <th>Proposed Payment Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr fixed-header="" ng-repeat ="invoice in postInvoiceDetails">
+            <td>{{invoice.invoicedate}}</td>
+            <td>{{invoice.invoiceNo}}</td>
+            <td><span ng-click="viewInvoiceDocketDetails(projId)">View/Edit</span></td>
+            <td>{{invoice.invoiceAmount }}</td>
+            <td>{{invoice.taxAmout}}</td>
+            <td>{{invoice.invoiceAmount--invoice.taxAmout}}</td>
+            <td class="input-width3"><input type="file" name="doc" ng-model="invoice.doc" tabindex="-1" ng-click="fileUpload(reference.uploadViewFile)" placeholder="Doc"
+              style="display: inline !important;"></td>
+            <td>{{invoice.invoicedate--invoice.paymentInDays}}</td>
+            <td>{{invoice.payStatus}}</td>
+            <td>{{invoice.actualPaymentDate }}</td>
+            <td>{{invoice.payReleaseRefNo}}</td>
+            <td>{{invoice.accruedCostAmount}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    </div>
+    <div class="panel-footer"></div>
+  </div>
+  

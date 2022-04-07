@@ -1,0 +1,947 @@
+<section class="content-header">
+	<h1 ng-if="!subReport.name">Plant Master List</h1>
+	<h1 ng-if="subReport.name">Plant Master List - {{subReport.name}}</h1>
+	<!-- <input type="submit" value ="Help !"
+		ng-click="helpPage();" class="pull-right btn  btn-primary btn-sm help-each-page"> -->
+	<button class="pull-right btn btn-primary btn-sm help-each-page" 
+		onclick="window.open('views/helptutorials/resourceshelp/plantequipments-help/PlantEquipments.html', '_blank', 
+		'toolbar=yes,scrollbars=yes,resizable=no,top=50,left=100,width=1400,height=700')">
+		Help
+	</button>
+</section>
+<!-- Main content -->
+<section class="content ui-rid-customization-pot">
+	<div class="panel panel-default block">
+		<div class="panel-body">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+				<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 padL-0">
+					<md-input-container class="md-block"> <label>EPS
+						ID/Name</label> <input data-test='PlantandEquipment_EpsID' type="text"
+						ng-model="searchProject.parentName" ng-click="getUserProjects()"
+						readonly /> </md-input-container>
+				</div>
+				<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+					<md-input-container> <label>Project
+						ID/Name</label> <input data-test='PlantandEquipment_ProjectName'
+						type="text" ng-model="searchProject.projName"
+						ng-click="getUserProjects()" readonly> </md-input-container>
+				</div>
+				<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+					<md-input-container> <label>Plant
+						Owner</label> <input data-test='PlantandEquipment_ProjectName' type="text"
+						ng-model="companyNameDisplay.companyName"
+						ng-click="getCompanyList()" readonly> </md-input-container>
+				</div>
+				<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+					<md-input-container> <label>Purchase
+						Category</label> <input data-test='PlantandEquipment_ProjectName'
+						type="text" ng-click="plantCategoryDetails()"
+						ng-model="procurecatgId.plantName" readonly> </md-input-container>
+				</div>
+				<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+					<md-input-container> <label>Status</label> <md-select
+						ng-model="status"> <md-option value="On Transfer"
+						selected="true">Active</md-option> <md-option
+						value="Return To Supplier">Return to Supplier/Plant
+					Owner</md-option> <md-option value="Salveged">Salveged</md-option> </md-select> </md-input-container>
+				</div>
+				<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+					<md-input-container> <label>Plant
+						Classification</label> <input data-test='PlantandEquipment_ProjectName'
+						type="text" ng-model="plantNameDisplay.plantName"
+						ng-click="getPlantList()" readonly> </md-input-container>
+				</div>
+				<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+					<md-input-container> <label>Purchase/Commissioned
+						From Date</label> <pot-currentdate-picker
+						data-test='AsbuiltRecords_WorkDiary_CreateWorkDiary_Date'
+						dir-index="$index" date-name="fromDate"
+						ng-model="purchaseCommissionefromDate" readonly="readonly"></md-input-container>
+				</div>
+				<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+					<md-input-container> <label>Purchase/Commissioned
+						To Date</label> <pot-currentdate-picker
+						data-test='AsbuiltRecords_WorkDiary_CreateWorkDiary_Date'
+						dir-index="$index" date-name="toDate"
+						ng-model="purchaseCommissionetoDate" readonly="readonly"></md-input-container>
+				</div>
+				<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+					<md-input-container> <label>Excepted
+						Demobilisation From Date</label> <pot-currentdate-picker
+						data-test='AsbuiltRecords_WorkDiary_CreateWorkDiary_Date'
+						dir-index="$index" date-name="fromDate"
+						ng-model="deMobilisationfromDate" readonly="readonly"></md-input-container>
+				</div>
+				<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+					<md-input-container> <label>Excepted
+						Demobilisation To Date</label> <pot-currentdate-picker
+						data-test='AsbuiltRecords_WorkDiary_CreateWorkDiary_Date'
+						dir-index="$index" date-name="toDate"
+						ng-model="deMobilisationtoDate" readonly="readonly"></md-input-container>
+				</div>
+				<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+					<md-input-container> <label>Actual
+						Mobilisation From Date</label> <pot-currentdate-picker
+						data-test='AsbuiltRecords_WorkDiary_CreateWorkDiary_Date'
+						dir-index="$index" date-name="fromDate"
+						ng-model="actualMobilisationfromDate" readonly="readonly"></md-input-container>
+				</div>
+				<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+					<md-input-container> <label>Actual
+						Mobilisation To Date</label> <pot-currentdate-picker
+						data-test='AsbuiltRecords_WorkDiary_CreateWorkDiary_Date'
+						dir-index="$index" date-name="toDate"
+						ng-model="actualMobilisationtoDate" readonly="readonly"></md-input-container>
+				</div>
+				<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 padL-0">
+					<md-input-container>
+						<label>Sub Reports</label>
+						<md-select ng-model="subReport" ng-change="changeSubReport()" data-test="Plnat_PeriodicalActualHours_Subreports">
+							<md-option value="None">None</md-option>
+							<md-option ng-repeat="subReport in subReports" ng-value="subReport">
+								{{subReport.name}}
+							</md-option>
+						</md-select>
+					</md-input-container>
+				</div>
+				<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+					<md-radio-group ng-model="type" layout="row"
+						ng-show="subReportName"> <md-radio-button
+						id="chart" value="chart" class="md-primary" name="content"
+						checked="checked" data-test="Plant_DatewiseActualHours_Chart"
+						ng-true-value="1" ng-false-value="0">Chart </md-radio-button> <md-radio-button
+						id="table" value="table" ng-true-value="1" ng-false-value="0"
+						data-test="Plant_DatewiseActualHours_Table" class="md-primary"
+						name="content" ng-model="type">Table</md-radio-button> <md-radio-button
+						id="chartTable" value="chartable" ng-true-value="1"
+						ng-false-value="0"
+						data-test="Plant_DatewiseActualHours_ChartTable"
+						class="md-primary" name="content">Chart & Table</md-radio-button>
+					</md-radio-group>
+				</div>
+				<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 padR-0">
+					<div class="pull-right marT15">
+						<input data-test='PlantandEquipment_search' type="button" ng-click="getSearchPlantRegisters('click',status);"
+							class="btn  btn-primary btn-sm" value="Generate Report" ng-model="searchText">
+						<input data-test='PlantandEquipment_refresh' type="reset" class="btn  btn-secondary btn-sm"
+							ng-click="resetSearchData()" value="Reset">
+					</div>
+				</div>
+			    </div>
+			<div class="col-xs-12 col-sm-12 col-md-10 col-lg-12 no-padding">
+				<div class="singleTableResHeight_3 b-sh">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+					<div class="doubleHeaderTableResHeight_topB"
+						ng-if="subReport == 'None'">
+					<table id="table" class="table table-striped table-hover table-bordered singleTableHeight_3">
+						<thead>
+							<tr>
+								<th rowspan="2">Select</th>
+								<th rowspan="2">Asset ID</th>
+								<th rowspan="2">Registration Number</th>
+								<th rowspan="2">Classification Name</th>
+
+								<th colspan="8" class="text-center"><span ng-show="plantDatamoreFlag==0">Asset
+										Particulars <span class="fa fa-caret-right"
+											style="float: right; font-size: 25px; color: #337ab7 !important;"
+											ng-click="clickForwardPlantData(plantDatamoreFlag);"></span></span>
+									<span ng-show="plantDatamoreFlag==1">Current Status
+										<span class="fa fa-caret-left"
+											style="float: left; font-size: 25px; color: #337ab7 !important;"
+											ng-click="clickBackwardPlantData(plantDatamoreFlag);"></span></span>
+								</th>
+							</tr>
+							<tr>
+
+								<th>
+									<span ng-show="plantDatamoreFlag==0">Description</span>
+									<span ng-show="plantDatamoreFlag==1">EPS Name</span>
+								</th>
+								<th>
+									<span ng-show="plantDatamoreFlag==0">Make</span>
+									<span ng-show="plantDatamoreFlag==1">Project Name</span>
+								</th>
+								<th>
+									<span ng-show="plantDatamoreFlag==0">Model</span>
+									<span ng-show="plantDatamoreFlag==1">Current Status</span>
+								</th>
+								<th>
+									<span ng-show="plantDatamoreFlag==0">Existing or New Asset</span>
+									<span ng-show="plantDatamoreFlag==1">Purchase/<br>Commissioning Date</span>
+								</th>
+								<th>
+									<span ng-show="plantDatamoreFlag==0">Plant Supplier Name</span>
+									<span ng-show="plantDatamoreFlag==1">Mobilisation<br>Date</span>
+								</th>
+								<th>
+									<span ng-show="plantDatamoreFlag==0">Plant Owner Name</span>
+									<span ng-show="plantDatamoreFlag==1">Anticipated Demobilistaion<br>Date</span>
+								</th>
+								<th>
+									<span ng-show="plantDatamoreFlag==0">Purchase Category</span>
+									<span ng-show="plantDatamoreFlag==1">Demobilistaion<br>Date</span>
+								</th>
+								<th>
+									<span ng-show="plantDatamoreFlag==0">Unit Of Measure</span>
+									<span ng-show="plantDatamoreFlag==1">Current OdoMeter Reading</span>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr fixed-header="" ng-repeat="plant in plantRegisterDtlTOs">
+								<td>
+									<input type="checkbox" value="id" ng-model="plant.selected"
+										ng-change="plantRowSelect($index,plant)">
+								</td>
+								<td ng-class="{selected: $index ==selectedRow}"
+									ng-click="go(plantRegisterDtlTOs,$index,plant);">
+									{{plant.assertId}}</td>
+								<td ng-class="{selected: $index ==selectedRow}"
+									ng-click="go(plantRegisterDtlTOs,$index,plant);">
+									{{plant.regNumber}}</td>
+								<td ng-class="{selected: $index ==selectedRow}"
+									ng-click="go(plantRegisterDtlTOs,$index,plant);">
+									{{plant.plantClassMstrName}}</td>
+
+								<td ng-class="{selected: $index ==selectedRow}"
+									ng-click="go(plantRegisterDtlTOs,$index,plant);">
+									<span ng-show="plantDatamoreFlag==0">{{plant.desc}}</span>
+									<span
+										ng-show="plantDatamoreFlag==1">{{plant.plantRegProjTO.parentName}}</span>
+								</td>
+								<td ng-class="{selected: $index ==selectedRow}"
+									ng-click="go(plantRegisterDtlTOs,$index,plant);">
+									<span ng-show="plantDatamoreFlag==0">{{plant.manfacture}}</span>
+									<span
+										ng-show="plantDatamoreFlag==1">{{plant.plantRegProjTO.name}}</span>
+								</td>
+								<td ng-class="{selected: $index ==selectedRow}"
+									ng-click="go(plantRegisterDtlTOs,$index,plant);">
+									<span ng-show="plantDatamoreFlag==0">{{plant.model}}</span>
+									<span ng-show="plantDatamoreFlag==1">{{plant.plantRegProjTO.postDeMobStatus}}</span>
+								</td>
+								<td ng-class="{selected: $index ==selectedRow}"
+									ng-click="go(plantRegisterDtlTOs,$index,plant);">
+									<span ng-show="plantDatamoreFlag==0">{{plant.assetType}}</span>
+									<span ng-show="plantDatamoreFlag==1">{{plant.plantRegProjTO.commissionDate}}</span>
+								</td>
+								<td ng-class="{selected: $index ==selectedRow}"
+									ng-click="go(plantRegisterDtlTOs,$index,plant);">
+									<span ng-show="plantDatamoreFlag==0">{{plant.cmpName}}</span>
+									<span ng-show="plantDatamoreFlag==1">{{plant.plantRegProjTO.mobDate}}</span>
+								</td>
+								<td ng-class="{selected: $index ==selectedRow}"
+									ng-click="go(plantRegisterDtlTOs,$index,plant);">
+									<span
+										ng-show="plantDatamoreFlag==0">{{plant.ownerCmpName}}</span>
+									<span
+										ng-show="plantDatamoreFlag==1">{{plant.plantRegProjTO.anticipatedDeMobDate}}</span>
+								</td>
+								<td ng-class="{selected: $index ==selectedRow}"
+									ng-click="go(plantRegisterDtlTOs,$index,plant);">
+									<span
+										ng-show="plantDatamoreFlag==0">{{plant.procurecatgName}}</span>
+									<span ng-show="plantDatamoreFlag==1">{{plant.plantRegProjTO.deMobDate}}</span>
+								</td>
+								<td ng-class="{selected: $index ==selectedRow}"
+									ng-click="go(plantRegisterDtlTOs,$index,plant);">
+									<span
+										ng-show="plantDatamoreFlag==0">{{plant.plantClassMeasureName}}</span>
+									<span ng-show="plantDatamoreFlag==1">{{plant.plantRegProjTO.odoMeter}}</span>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				
+				 <!--Project Wise and Classification Wise Plant Count 1-->	 		  
+	 		 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding" ng-if="subReport != 'None' && subReportCode=='projectwise' ">
+							<div ng-class="{ chartResHeight : type == 'chartable',  singleTableResHeight_3 : type == 'chart'}">
+							<canvas class="chart-base" chart-data="data1" chart-labels="projectwiseLabels" chart-series="projectwiseSeries"
+								height="50" chart-type="chart_type" chart-colors="colors" chart-options="options"
+								context-menu="menuOptions" ng-if="type=='chartable' && subReportCode=='projectwise'"
+								chart-dataset-override="datasetOverride">
+							</canvas>
+							<canvas ng-if="type=='chart' && subReportCode=='projectwise'" class="chart-base" chart-data="data1" chart-labels="projectwiseLabels"
+								chart-type="chart_type" chart-dataset-override="datasetOverride" chart-colors="colors"
+								chart-options="options" context-menu="menuOptions" height="90" chart-series="projectwiseSeries">
+							</canvas>
+						</div>
+	 		 <div ng-if="type == 'chartable' && subReportCode=='projectwise'"
+							class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<table class="table table-hover table-bordered "
+								ng-class="{ tableWithChartHeight : type == 'chartable',   singleTableHeight_3 : type == 'table'}"
+								ng-init="total=0;total1=0;">
+								<thead>
+									<tr>
+										<th>Trade ID</th>
+										<th>Plant Clasification</th>
+										<th ng-repeat="newdup in newduplicate"><span>{{newdup}}</span></th>
+										<th>Total</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="plant in projectWisePlant1">
+										<td>{{plant.value1}}</td>
+										<td ng-init="$parent.total=total+plant.number">{{
+											plant.value }}</td>
+										<td ng-repeat="newdup in newduplicate"
+											ng-init="$parent.total1=total1+plant.number"><span>{{plant.number}}</span></td>
+										<td>{{total1}}</td>
+									</tr>
+								</tbody>
+							</table>
+							<table
+								style="border-top: 2px solid #191970 !important; width: 100%;"
+								ng-init="tot=0;">
+								<tr>
+									<td colspan="4" width="18%" style="padding-top: 15px;">&nbsp;</td>
+									<td width="33%"><b>Total</b></td>
+									<td width="8%" ng-repeat="newdup in newduplicate"
+										ng-init="$parent.tot=tot+total"><b>{{total}}</b></td>
+									<td><b>{{tot}}</b></td>
+									<td colspan="7" width="19%">&nbsp;</td>
+								</tr>
+							</table>
+						</div>
+						<div ng-if="type=='table' && subReportCode=='projectwise'"
+							class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<table class="table table-hover table-bordered "
+								ng-class="{ tableWithChartHeight : type == 'chartable',   singleTableHeight_3 : type == 'table'}"
+								ng-init="total=0;total1=0;">
+								<thead>
+									<tr>
+										<th>Trade ID</th>
+										<th>Plant Clasification</th>
+										<th ng-repeat="newdup in newduplicate"><span>{{newdup}}</span></th>
+										<th>Total</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="plant in projectWisePlant1">
+										<td>{{plant.value1}}</td>
+										<td ng-init="$parent.total=total+plant.number">{{
+											plant.value }}</td>
+										<td ng-repeat="newdup in newduplicate"
+											ng-init="$parent.total1=total1+plant.number"><span>{{plant.number}}</span></td>
+										<td>{{total1}}</td>
+									</tr>
+								</tbody>
+							</table>
+							<table
+								style="border-top: 2px solid #191970 !important; width: 100%;"
+								ng-init="tot=0;">
+								<tr>
+									<td colspan="4" width="18%" style="padding-top: 15px;">&nbsp;</td>
+									<td width="33%"><b>Total</b></td>
+									<td width="8%" ng-repeat="newdup in newduplicate"
+										ng-init="$parent.tot=tot+total"><b>{{total}}</b></td>
+									<td><b>{{tot}}</b></td>
+									<td colspan="7" width="19%">&nbsp;</td>
+								</tr>
+							</table>
+						</div>	
+	 		        </div>
+	 		        
+	 		       <!--  Company Wise and Classification Wise Employees 2 -->
+	 		         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding" ng-if="subReport != 'None' && subReportCode=='companywiseclassification' ">
+							<div ng-class="{ chartResHeight : type == 'chartable',  singleTableResHeight_3 : type == 'chart'}">
+							<canvas class="chart-base" chart-data="data2" chart-labels="compLabels" chart-series="compSeries"
+								height="50" chart-type="chart_type" chart-colors="colors" chart-options="options"
+								context-menu="menuOptions" ng-if="type=='chartable' && subReportCode=='companywiseclassification'"
+								chart-dataset-override="datasetOverride">
+							</canvas>
+							<canvas ng-if="type=='chart' && subReportCode=='companywiseclassification'" class="chart-base" chart-data="data2" chart-labels="compLabels"
+								chart-type="chart_type" chart-dataset-override="datasetOverride" chart-colors="colors"
+								chart-options="options" context-menu="menuOptions" height="90" chart-series="compSeries">
+							</canvas>
+						</div>
+			<div
+							ng-if="type == 'chartable' && subReportCode=='companywiseclassification'"
+							class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<table class="table table-hover table-bordered "
+								ng-init="total=0;total1=0;"
+								ng-class="{ tableWithChartHeight : type == 'chartable',   singleTableHeight_3 : type == 'table'}">
+								<thead>
+									<tr>
+										<th>ID</th>
+										<th>Plant Clasification</th>
+										<th ng-repeat="com in compaNames"><span>{{com}}</span></th>
+										<th>Total</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="com2 in companyWisePlant">
+										<td>{{com2.value1}}</td>
+										<td ng-init="$parent.total=total+com2.number">{{
+											com2.value}}</td>
+										<td ng-repeat="com in compaNames"
+											ng-init="$parent.total1=total1+com2.number"><span>{{com2.number}}</span></td>
+										<td>{{total1}}</td>
+									</tr>
+								</tbody>
+							</table>
+							<table
+								style="border-top: 2px solid #191970 !important; width: 100%;"
+								ng-init="tot=0;">
+								<tr>
+									<td colspan="4" width="18%" style="padding-top: 15px;">&nbsp;</td>
+									<td width="33%"><b>Total</b></td>
+									<td width="8%" ng-repeat="com in compaNames"
+										ng-init="$parent.tot=tot+total"><b>{{total}}</b></td>
+									<td><b>{{tot}}</b></td>
+									<td colspan="7" width="19%">&nbsp;</td>
+								</tr>
+							</table>
+						</div>
+						<div
+							ng-if="type=='table' && subReportCode=='companywiseclassification'"
+							class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<table class="table table-hover table-bordered "
+								ng-init="total=0;total1=0;"
+								ng-class="{ tableWithChartHeight : type == 'chartable',   singleTableHeight_3 : type == 'table'}">
+								<thead>
+									<tr>
+										<th>ID</th>
+										<th>Plant Clasification</th>
+										<th ng-repeat="com in compaNames"><span>{{com}}</span></th>
+										<th>Total</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="com2 in companyWisePlant">
+										<td>{{com2.value1}}</td>
+										<td ng-init="$parent.total=total+com2.number">{{
+											com2.value}}</td>
+										<td ng-repeat="com in compaNames"
+											ng-init="$parent.total1=total1+com2.number"><span>{{com2.number}}</span></td>
+										<td>{{total1}}</td>
+									</tr>
+								</tbody>
+							</table>
+							<table
+								style="border-top: 2px solid #191970 !important; width: 100%;"
+								ng-init="tot=0;">
+								<tr>
+									<td colspan="4" width="18%" style="padding-top: 15px;">&nbsp;</td>
+									<td width="33%"><b>Total</b></td>
+									<td width="8%" ng-repeat="com in compaNames"
+										ng-init="$parent.tot=tot+total"><b>{{total}}</b></td>
+									<td><b>{{tot}}</b></td>
+									<td colspan="7" width="19%">&nbsp;</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+	 		        
+	 		      <!--   Project Wise Mobilisation - Periodical Count 3 -->
+	 		            
+	 		             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding" ng-if="subReport != 'None' && subReportCode=='pwmobilisation' ">
+							<div ng-class="{ chartResHeight : type == 'chartable',  singleTableResHeight_3 : type == 'chart'}">
+							<canvas class="chart-base" chart-data="data3" chart-labels="pwmobLabels" chart-series="pwmobSeries"
+								height="50" chart-type="chart_type" chart-colors="colors" chart-options="options"
+								context-menu="menuOptions" ng-if="type=='chartable' && subReportCode=='pwmobilisation'"
+								chart-dataset-override="datasetOverride">
+							</canvas>
+							<canvas ng-if="type=='chart' && subReportCode=='pwmobilisation'" class="chart-base" chart-data="data3" chart-labels="pwmobLabels"
+								chart-type="chart_type" chart-dataset-override="datasetOverride" chart-colors="colors"
+								chart-options="options" context-menu="menuOptions" height="90" chart-series="pwmobSeries">
+							</canvas>
+						</div>
+	                <div
+							ng-if="type == 'chartable' && subReportCode=='pwmobilisation'"
+							ng-init="total=0;total1=0;"
+							class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<table class="table table-hover table-bordered "
+								ng-class="{ tableWithChartHeight : type == 'chartable',   singleTableHeight_3 : type == 'table'}">
+								<thead>
+									<tr>
+										<th>Period Interval (Date)</th>
+										<th ng-repeat="newdup in newduplicate"><span>{{newdup}}</span></th>
+										<th>Total</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="plant1 in commob">
+										<td ng-init="$parent.total=total+plant1.number">{{plant1.value}}</td>
+										<td ng-repeat="newdup in newduplicate"
+											ng-init="$parent.total1=total1+plant1.number"><span>{{plant1.number}}</span></td>
+										<td>{{total1}}</td>
+									</tr>
+								</tbody>
+							</table>
+							<table
+								style="border-top: 2px solid #191970 !important; width: 100%;"
+								ng-init="tot=0;">
+								<tr>
+									<td colspan="4" width="18%" style="padding-top: 15px;">&nbsp;</td>
+									<td width="33%"><b>Total</b></td>
+									<td width="8%" ng-repeat="newdup in newduplicate"
+										ng-init="$parent.tot=tot+total"><b>{{total}}</b></td>
+									<td><b>{{tot}}</b></td>
+									<td colspan="7" width="19%">&nbsp;</td>
+								</tr>
+							</table>
+						</div>
+						<div ng-if="type=='table' && subReportCode=='pwmobilisation'"
+							ng-init="total=0;total1=0;"
+							class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<table class="table table-hover table-bordered "
+								ng-class="{ tableWithChartHeight : type == 'chartable',   singleTableHeight_3 : type == 'table'}">
+								<thead>
+									<tr>
+										<th>Period Interval (Date)</th>
+										<th ng-repeat="newdup in newduplicate"><span>{{newdup}}</span></th>
+										<th>Total</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="plant1 in commob">
+										<td ng-init="$parent.total=total+plant1.number">{{plant1.value}}</td>
+										<td ng-repeat="newdup in newduplicate"
+											ng-init="$parent.total1=total1+plant1.number"><span>{{plant1.number}}</span></td>
+										<td>{{total1}}</td>
+									</tr>
+								</tbody>
+							</table>
+							<table
+								style="border-top: 2px solid #191970 !important; width: 100%;"
+								ng-init="tot=0;">
+								<tr>
+									<td colspan="4" width="18%" style="padding-top: 15px;">&nbsp;</td>
+									<td width="33%"><b>Total</b></td>
+									<td width="8%" ng-repeat="newdup in newduplicate"
+										ng-init="$parent.tot=tot+total"><b>{{total}}</b></td>
+									<td><b>{{tot}}</b></td>
+									<td colspan="7" width="19%">&nbsp;</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+	 		        
+	 		        
+	 		       <!--  Company Wise Mobilisation - Periodical Count 4 -->
+	 		        
+	 		        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding" ng-if="subReport != 'None' && subReportCode=='cwmobilisation' ">
+							<div ng-class="{ chartResHeight : type == 'chartable',  singleTableResHeight_3 : type == 'chart'}">
+							<canvas class="chart-base" chart-data="data4" chart-labels="cmmobLabels" chart-series="cmmobSeries"
+								height="50" chart-type="chart_type" chart-colors="colors" chart-options="options"
+								context-menu="menuOptions" ng-if="type=='chartable' && subReportCode=='cwmobilisation'"
+								chart-dataset-override="datasetOverride">
+							</canvas>
+							<canvas ng-if="type=='chart' && subReportCode=='cwmobilisation'" class="chart-base" chart-data="data4" chart-labels="cmmobLabels"
+								chart-type="chart_type" chart-dataset-override="datasetOverride" chart-colors="colors"
+								chart-options="options" context-menu="menuOptions" height="90" chart-series="cmmobSeries">
+							</canvas>
+						</div>
+	               	<div
+							ng-if="type == 'chartable' && subReportCode=='cwmobilisation'"
+							class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<table class="table table-hover table-bordered "
+								ng-class="{ tableWithChartHeight : type == 'chartable',   singleTableHeight_3 : type == 'table'}"
+								ng-init="total=0;total1=0;">
+								<thead>
+									<tr>
+										<th>Period Interval (Week)</th>
+										<th ng-repeat="cmp in compaNames"><span>{{cmp}}</span></th>
+										<th>Total</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="plant2 in company3">
+										<td ng-init="$parent.total=total+plant2.number">{{plant2.value}}</td>
+										<td ng-repeat="cmp in compaNames"
+											ng-init="$parent.total1=total1+plant2.number"><span>{{plant2.number}}</span></td>
+										<td>{{total1}}</td>
+									</tr>
+								</tbody>
+							</table>
+							<table
+								style="border-top: 2px solid #191970 !important; width: 100%;"
+								ng-init="tot=0;">
+								<tr>
+									<td colspan="4" width="18%" style="padding-top: 15px;">&nbsp;</td>
+									<td width="33%"><b>Total</b></td>
+									<td width="8%" ng-repeat="cmp in compaNames"
+										ng-init="$parent.tot=tot+total"><b>{{total}}</b></td>
+									<td><b>{{tot}}</b></td>
+									<td colspan="7" width="19%">&nbsp;</td>
+								</tr>
+							</table>
+						</div>
+						<div ng-if="type=='table' && subReportCode=='cwmobilisation'"
+							class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<table class="table table-hover table-bordered "
+								ng-class="{ tableWithChartHeight : type == 'chartable',   singleTableHeight_3 : type == 'table'}"
+								ng-init="total=0;total1=0;">
+								<thead>
+									<tr>
+										<th>Period Interval (Week)</th>
+										<th ng-repeat="cmp in compaNames"><span>{{cmp}}</span></th>
+										<th>Total</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="plant2 in company3">
+										<td ng-init="$parent.total=total+plant2.number">{{plant2.value}}</td>
+										<td ng-repeat="cmp in compaNames"
+											ng-init="$parent.total1=total1+plant2.number"><span>{{plant2.number}}</span></td>
+										<td>{{total1}}</td>
+									</tr>
+								</tbody>
+							</table>
+							<table
+								style="border-top: 2px solid #191970 !important; width: 100%;"
+								ng-init="tot=0;">
+								<tr>
+									<td colspan="4" width="18%" style="padding-top: 15px;">&nbsp;</td>
+									<td width="33%"><b>Total</b></td>
+									<td width="8%" ng-repeat="cmp in compaNames"
+										ng-init="$parent.tot=tot+total"><b>{{total}}</b></td>
+									<td><b>{{tot}}</b></td>
+									<td colspan="7" width="19%">&nbsp;</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+	 		        
+	 		        <!-- Project Wise actual De-Mobilisation - Periodical Count 5 -->
+	 		        
+	 		        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding" ng-if="subReport != 'None' && subReportCode=='pwactual' ">
+							<div ng-class="{ chartResHeight : type == 'chartable',  singleTableResHeight_3 : type == 'chart'}">
+							<canvas class="chart-base" chart-data="data5" chart-labels="pwactualLabels" chart-series="pwactualSeries"
+								height="50" chart-type="chart_type" chart-colors="colors" chart-options="options"
+								context-menu="menuOptions" ng-if="type=='chartable' && subReportCode=='pwactual'"
+								chart-dataset-override="datasetOverride">
+							</canvas>
+							<canvas ng-if="type=='chart' && subReportCode=='pwactual'" class="chart-base" chart-data="data5" chart-labels="pwactualLabels"
+								chart-type="chart_type" chart-dataset-override="datasetOverride" chart-colors="colors"
+								chart-options="options" context-menu="menuOptions" height="90" chart-series="pwactualSeries">
+							</canvas>
+						</div>
+	               	<div ng-if="type == 'chartable' && subReportCode=='pwactual'"
+							class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<table class="table table-hover table-bordered "
+								ng-class="{ tableWithChartHeight : type == 'chartable',   singleTableHeight_3 : type == 'table'}"
+								ng-init="total=0;total1=0;">
+								<thead>
+									<tr>
+										<th>Period Interval (Date)</th>
+										<th ng-repeat="newdup in newduplicate"><span>{{newdup}}</span></th>
+										<th>Total</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="plant4 in company4">
+										<td ng-init="$parent.total=total+plant4.number">{{plant4.value}}</td>
+										<td ng-repeat="newdup in newduplicate"
+											ng-init="$parent.total1=total1+plant4.number"><span>{{plant4.number}}</span></td>
+										<td>{{total1}}</td>
+									</tr>
+								</tbody>
+							</table>
+							<table
+								style="border-top: 2px solid #191970 !important; width: 100%;"
+								ng-init="tot=0;">
+								<tr>
+									<td colspan="4" width="18%" style="padding-top: 15px;">&nbsp;</td>
+									<td width="33%"><b>Total</b></td>
+									<td width="8%" ng-repeat="newdup in newduplicate"
+										ng-init="$parent.tot=tot+total"><b>{{total}}</b></td>
+									<td><b>{{tot}}</b></td>
+									<td colspan="7" width="19%">&nbsp;</td>
+								</tr>
+							</table>
+						</div>
+						<div ng-if="type=='table' && subReportCode=='pwactual'"
+							class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<table class="table table-hover table-bordered "
+								ng-class="{ tableWithChartHeight : type == 'chartable',   singleTableHeight_3 : type == 'table'}"
+								ng-init="total=0;total1=0;">
+								<thead>
+									<tr>
+										<th>Period Interval (Date)</th>
+										<th ng-repeat="newdup in newduplicate"><span>{{newdup}}</span></th>
+										<th>Total</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="plant4 in company4">
+										<td ng-init="$parent.total=total+plant4.number">{{plant4.value}}</td>
+										<td ng-repeat="newdup in newduplicate"
+											ng-init="$parent.total1=total1+plant4.number"><span>{{plant4.number}}</span></td>
+										<td>{{total1}}</td>
+									</tr>
+								</tbody>
+							</table>
+							<table
+								style="border-top: 2px solid #191970 !important; width: 100%;"
+								ng-init="tot=0;">
+								<tr>
+									<td colspan="4" width="18%" style="padding-top: 15px;">&nbsp;</td>
+									<td width="33%"><b>Total</b></td>
+									<td width="8%" ng-repeat="newdup in newduplicate"
+										ng-init="$parent.tot=tot+total"><b>{{total}}</b></td>
+									<td><b>{{tot}}</b></td>
+									<td colspan="7" width="19%">&nbsp;</td>
+								</tr>
+							</table>
+						</div>						
+					</div>
+					
+					
+					<!-- Company Wise actual De-Mobilisation - Periodical Count 6 -->
+					
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding" ng-if="subReport != 'None' && subReportCode=='cwactual' ">
+							<div ng-class="{ chartResHeight : type == 'chartable',  singleTableResHeight_3 : type == 'chart'}">
+							<canvas class="chart-base" chart-data="data6" chart-labels="cwactualLabels" chart-series="cwactualSeries"
+								height="50" chart-type="chart_type" chart-colors="colors" chart-options="options"
+								context-menu="menuOptions" ng-if="type=='chartable' && subReportCode=='cwactual'"
+								chart-dataset-override="datasetOverride">
+							</canvas>
+							<canvas ng-if="type=='chart' && subReportCode=='cwactual'" class="chart-base" chart-data="data6" chart-labels="cwactualLabels"
+								chart-type="chart_type" chart-dataset-override="datasetOverride" chart-colors="colors"
+								chart-options="options" context-menu="menuOptions" height="90" chart-series="cwactualSeries">
+							</canvas>
+						</div>
+	               	<div ng-if="type == 'chartable' && subReportCode=='cwactual'"
+							class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<table class="table table-hover table-bordered "
+								ng-class="{ tableWithChartHeight : type == 'chartable',   singleTableHeight_3 : type == 'table'}"
+								ng-init="total=0;total1=0;">
+								<thead>
+									<tr>
+										<th>Period Interval (Week)</th>
+										<th ng-repeat="com in compaNames"><span>{{com}}</span></th>
+										<th>Total</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="plant4 in comp6">
+										<td ng-init="$parent.total=total+plant4.number">{{plant4.value}}</td>
+										<th ng-repeat="com in compaNames"
+											ng-init="$parent.total1=total1+plant4.number"><span>{{plant4.number}}</span></th>
+										<td>{{total1}}</td>
+									</tr>
+								</tbody>
+							</table>
+							<table
+								style="border-top: 2px solid #191970 !important; width: 100%;"
+								ng-init="tot=0;">
+								<tr>
+									<td colspan="4" width="18%" style="padding-top: 15px;">&nbsp;</td>
+									<td width="33%"><b>Total</b></td>
+									<td width="8%" ng-repeat="com in compaNames"
+										ng-init="$parent.tot=tot+total"><b>{{total}}</b></td>
+									<td><b>{{tot}}</b></td>
+									<td colspan="7" width="19%">&nbsp;</td>
+								</tr>
+							</table>
+						</div>
+						<div ng-if="type=='table' && subReportCode=='cwactual'"
+							class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<table class="table table-hover table-bordered "
+								ng-class="{ tableWithChartHeight : type == 'chartable',   singleTableHeight_3 : type == 'table'}"
+								ng-init="total=0;total1=0;">
+								<thead>
+									<tr>
+										<th>Period Interval (Week)</th>
+										<th ng-repeat="com in compaNames"><span>{{com}}</span></th>
+										<th>Total</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="plant4 in comp6">
+										<td ng-init="$parent.total=total+plant4.number">{{plant4.value}}</td>
+										<th ng-repeat="com in compaNames"
+											ng-init="$parent.total1=total1+plant4.number"><span>{{plant4.number}}</span></th>
+										<td>{{total1}}</td>
+									</tr>
+								</tbody>
+							</table>
+							<table
+								style="border-top: 2px solid #191970 !important; width: 100%;"
+								ng-init="tot=0;">
+								<tr>
+									<td colspan="4" width="18%" style="padding-top: 15px;">&nbsp;</td>
+									<td width="33%"><b>Total</b></td>
+									<td width="8%" ng-repeat="com in compaNames"
+										ng-init="$parent.tot=tot+total"><b>{{total}}</b></td>
+									<td><b>{{tot}}</b></td>
+									<td colspan="7" width="19%">&nbsp;</td>
+								</tr>
+							</table>
+						</div>				
+					</div>
+					
+					<!-- Project Wise Excepted De-Mobilisation - Periodical Count 7 -->
+	 	
+	 	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding" ng-if="subReport != 'None' && subReportCode=='pwexcepted' ">
+							<div ng-class="{ chartResHeight : type == 'chartable',  singleTableResHeight_3 : type == 'chart'}">
+							<canvas class="chart-base" chart-data="data7" chart-labels="pwexceptedLabels" chart-series="pwexceptedSeries"
+								height="50" chart-type="chart_type" chart-colors="colors" chart-options="options"
+								context-menu="menuOptions" ng-if="type=='chartable' && subReportCode=='pwexcepted'"
+								chart-dataset-override="datasetOverride">
+							</canvas>
+							<canvas ng-if="type=='chart' && subReportCode=='pwexcepted'" class="chart-base" chart-data="data7" chart-labels="pwexceptedLabels"
+								chart-type="chart_type" chart-dataset-override="datasetOverride" chart-colors="colors"
+								chart-options="options" context-menu="menuOptions" height="90" chart-series="pwexceptedSeries">
+							</canvas>
+						</div>
+	               <div ng-if="type == 'chartable' && subReportCode=='pwexcepted'"
+							class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<table class="table table-hover table-bordered "
+								ng-class="{ tableWithChartHeight : type == 'chartable',   singleTableHeight_3 : type == 'table'}"
+								ng-init="total=0;total1=0;">
+								<thead>
+									<tr>
+										<th>Period Interval (Date)</th>
+										<th ng-repeat="newdup in newduplicate"><span>{{newdup}}</span></th>
+										<th>Total</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="plant4 in company6">
+										<td ng-init="$parent.total=total+plant4.number">{{plant4.value}}</td>
+										<td ng-repeat="newdup in newduplicate"
+											ng-init="$parent.total1=total1+plant4.number"><span>{{plant4.number}}</span></td>
+										<td>{{total1}}</td>
+									</tr>
+								</tbody>
+							</table>
+							<table
+								style="border-top: 2px solid #191970 !important; width: 100%;"
+								ng-init="tot=0;">
+								<tr>
+									<td colspan="4" width="18%" style="padding-top: 15px;">&nbsp;</td>
+									<td width="33%"><b>Total</b></td>
+									<td width="8%" ng-repeat="newdup in newduplicate"
+										ng-init="$parent.tot=tot+total"><b>{{total}}</b></td>
+									<td><b>{{tot}}</b></td>
+									<td colspan="7" width="19%">&nbsp;</td>
+								</tr>
+							</table>
+						</div>
+						<div ng-if="type=='table' && subReportCode=='pwexcepted'"
+							class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<table class="table table-hover table-bordered "
+								ng-class="{ tableWithChartHeight : type == 'chartable',   singleTableHeight_3 : type == 'table'}"
+								ng-init="total=0;total1=0;">
+								<thead>
+									<tr>
+										<th>Period Interval (Date)</th>
+										<th ng-repeat="newdup in newduplicate"><span>{{newdup}}</span></th>
+										<th>Total</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="plant4 in company6">
+										<td ng-init="$parent.total=total+plant4.number">{{plant4.value}}</td>
+										<td ng-repeat="newdup in newduplicate"
+											ng-init="$parent.total1=total1+plant4.number"><span>{{plant4.number}}</span></td>
+										<td>{{total1}}</td>
+									</tr>
+								</tbody>
+							</table>
+							<table
+								style="border-top: 2px solid #191970 !important; width: 100%;"
+								ng-init="tot=0;">
+								<tr>
+									<td colspan="4" width="18%" style="padding-top: 15px;">&nbsp;</td>
+									<td width="33%"><b>Total</b></td>
+									<td width="8%" ng-repeat="newdup in newduplicate"
+										ng-init="$parent.tot=tot+total"><b>{{total}}</b></td>
+									<td><b>{{tot}}</b></td>
+									<td colspan="7" width="19%">&nbsp;</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+	 	
+	        	<!-- Company Wise Excepted De-Mobilisation - Periodical Count 8 -->
+	 	
+	 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding" ng-if="subReport != 'None' && subReportCode=='cwexcepted' ">
+							<div ng-class="{ chartResHeight : type == 'chartable',  singleTableResHeight_3 : type == 'chart'}">
+							<canvas class="chart-base" chart-data="data8" chart-labels="cwexceptedLabels" chart-series="cwexceptedSeries"
+								height="50" chart-type="chart_type" chart-colors="colors" chart-options="options"
+								context-menu="menuOptions" ng-if="type=='chartable' && subReportCode=='cwexcepted'"
+								chart-dataset-override="datasetOverride">
+							</canvas>
+							<canvas ng-if="type=='chart' && subReportCode=='cwexcepted'" class="chart-base" chart-data="data8" chart-labels="cwexceptedLabels"
+								chart-type="chart_type" chart-dataset-override="datasetOverride" chart-colors="colors"
+								chart-options="options" context-menu="menuOptions" height="90" chart-series="cwexceptedSeries">
+							</canvas>
+						</div>
+	               <div ng-if="type == 'chartable' && subReportCode=='cwexcepted'"
+							class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<table class="table table-hover table-bordered "
+								ng-class="{ tableWithChartHeight : type == 'chartable',   singleTableHeight_3 : type == 'table'}"
+								ng-init="total=0;total1=0;">
+								<thead>
+									<tr>
+										<th>Period Interval (Month)</th>
+										<th ng-repeat="newdup in newduplicate"><span>{{newdup}}</span></th>
+										<th>Total</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="plant4 in comp8">
+										<td ng-init="$parent.total=total+plant4.number">{{plant4.value}}</td>
+										<td ng-repeat="newdup in newduplicate"
+											ng-init="$parent.total1=total1+plant4.number"><span>{{plant4.number}}</span></td>
+										<td>{{total1}}</td>
+									</tr>
+								</tbody>
+							</table>
+							<table
+								style="border-top: 2px solid #191970 !important; width: 100%;"
+								ng-init="tot=0;">
+								<tr>
+									<td colspan="4" width="18%" style="padding-top: 15px;">&nbsp;</td>
+									<td width="33%"><b>Total</b></td>
+									<td width="8%" ng-repeat="newdup in newduplicate"
+										ng-init="$parent.tot=tot+total"><b>{{total}}</b></td>
+									<td><b>{{tot}}</b></td>
+									<td colspan="7" width="19%">&nbsp;</td>
+								</tr>
+							</table>
+						</div>
+						<div ng-if="type=='table' && subReportCode=='cwexcepted'"
+							class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<table class="table table-hover table-bordered "
+								ng-class="{ tableWithChartHeight : type == 'chartable',   singleTableHeight_3 : type == 'table'}"
+								ng-init="total=0;total1=0;">
+								<thead>
+									<tr>
+										<th>Period Interval (Month)</th>
+										<th ng-repeat="newdup in newduplicate"><span>{{newdup}}</span></th>
+										<th>Total</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="plant4 in comp8">
+										<td ng-init="$parent.total=total+plant4.number">{{plant4.value}}</td>
+										<td ng-repeat="newdup in newduplicate"
+											ng-init="$parent.total1=total1+plant4.number"><span>{{plant4.number}}</span></td>
+										<td>{{total1}}</td>
+									</tr>
+								</tbody>
+							</table>
+							<table
+								style="border-top: 2px solid #191970 !important; width: 100%;"
+								ng-init="tot=0;">
+								<tr>
+									<td colspan="4" width="18%" style="padding-top: 15px;">&nbsp;</td>
+									<td width="33%"><b>Total</b></td>
+									<td width="8%" ng-repeat="newdup in newduplicate"
+										ng-init="$parent.tot=tot+total"><b>{{total}}</b></td>
+									<td><b>{{tot}}</b></td>
+									<td colspan="7" width="19%">&nbsp;</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+			 </div>
+		</div>
+</section>
+

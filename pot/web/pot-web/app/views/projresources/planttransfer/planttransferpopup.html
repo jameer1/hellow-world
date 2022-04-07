@@ -1,0 +1,146 @@
+<div id="tab-pannel" class="panel-group">
+	<form name="ApproverTransferForm" validate>
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title" ng-show="statusType==='Create'">Add
+					Plant For Transfer</h4>
+				<h4 class="panel-title" ng-show="statusType==='Approved'">Approve
+					Plant For Transfer</h4>
+				<h4 class="panel-title" ng-show="statusType==='Rejected'">Reject
+					Plant For Transfer</h4>
+			</div>
+			<div class="panel-body12">
+				<div class=" ">
+					<table class=" table-responsive table table-bordered">
+						<thead>
+							<tr>
+								<th>Select</th>
+								<th>Date Of Request</th>
+								<th>Originator Id&Name</th>
+								<th>Approver Person</th>
+								<th>Requisition Notification</th>
+								<th>Company Assest Id</th>
+								<th>Registration Number</th>
+								<th>Plant Description</th>
+								<th>Make</th>
+								<th>Model</th>
+								<th>Current Project Id</th>
+								<th>Current Project Name</th>
+								<th>For Project Id</th>
+								<th>For Project Name</th>
+								<th>Anticipated Demobilisation Date</th>
+								<th>Transfer Required Date</th>
+								<th>Approval Status</th>
+								<th>Date Set For Asset Transfer</th>
+								<th>Actual Delivered Date At Destination</th>
+								<th>Received By</th>
+								<th>Notes From Receiver</th>
+								<th>Transfer Note Records</th>
+								<th ng-show="statusType=='Create'">Requester Details</th>
+								<th ng-show="statusType!='Create'">Approver Details</th>
+								<th ng-show="statusType=='Create'">Requester Comments</th>
+								<th ng-show="statusType=='Approved'">Approver Comments</th>
+								<th ng-show="statusType=='Rejected'">Rejected Comments</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr fixed-header="" ng-repeat ="plantPopUp in addPlantTransfers">
+								<td><input type="checkbox" name="select"
+									ng-model="plantPopUp.select"
+									ng-change="plantTranferPopUpRowSelect(plantPopUp)"></td>
+								<td class="input-width0"><input type="text"
+									ng-model="dateOfReq |date" placeholder="Date Of Request"></td>
+								<td><input type="text" ng-model="plantPopUp.originator"
+									placeholder="Originator"></td>
+								<td><input type="text"
+									ng-model="plantPopUp.empRegisterDtlTO.code"
+									placeholder="Approver Person"
+									ng-click="getApproveDetails(plantPopUp.empRegisterDtlTO)"></td>
+								<td><input type="text"
+									ng-model="plantPopUp.reqNotification"
+									placeholder="Requisition Notification"></td>
+								<td><input type="text"
+									ng-model="plantPopUp.plantRegisterDtlTO.assertId"
+									placeholder="Company Assest Id"
+									ng-click="getPlantAsssestDetails(plantPopUp.plantRegisterDtlTO)"></td>
+								<td><input type="text"
+									ng-model="plantPopUp.plantRegisterDtlTO.regNumber"
+									placeholder="Registration Number"></td>
+								<td><input type="text"
+									ng-model="plantPopUp.plantRegisterDtlTO.desc"
+									placeholder="Plant Description"></td>
+								<td><input type="text"
+									ng-model="plantPopUp.plantRegisterDtlTO.manfacture"
+									placeholder="Make"></td>
+								<td><input type="text"
+									ng-model="plantPopUp.plantRegisterDtlTO.model"
+									placeholder="Model"></td>
+								<td><input type="text"
+									ng-model="plantPopUp.plantRegisterDtlTO.transferToProject"
+									placeholder="Current Project Id"></td>
+								<td><input type="text"
+									ng-model="plantPopUp.plantRegisterDtlTO.currentProjName"
+									placeholder="Current Project Name"></td>
+								<td><input type="text"
+									ng-model="plantPopUp.projectLabelKeyTO.code"
+									placeholder="For Project Id"
+									ng-click="getPlantFromProjects(plantPopUp.projectLabelKeyTO)"></td>
+								<td><input type="text"
+									ng-model="plantPopUp.projectLabelKeyTO.name"
+									placeholder="For Project Name"></td>
+								<td class="input-width0"><potdate-picker
+										dir-index="$index" date-name="date"
+										placeholder="dd-mm-yyyy"
+										ng-model="plantPopUp.demobilizationDate"></potdate-picker></td>
+								<td class="input-width0"><potdate-picker
+										dir-index="$index" date-name="date"
+										placeholder="dd-mm-yyyy"
+										ng-model="plantPopUp.transferRequiredDate"></potdate-picker></td>
+								<td><input type="text" ng-model="plantPopUp.approvalStatus"
+									placeholder="Approval Status"></td>
+								<td><input type="text" ng-model="plantPopUp.assetTransfer"
+									placeholder="Asset Transfer"></td>
+								<td class="input-width0"><potdate-picker
+										dir-index="$index" date-name="date"
+										placeholder="dd-mm-yyyy"
+										ng-model="plantPopUp.actualDeliveredDate"></potdate-picker></td>
+								<td><input type="text"
+									ng-model="plantPopUp.empRegisterDtlTO.code"
+									placeholder="Received By"
+									getApproveDetails(plantPopUp.empRegisterDtlTO)></td>
+								<td><input type="text"
+									ng-model="plantPopUp.notesFromReceiver"
+									placeholder="Notes From Receiver"></td>
+								<td><input type="text" ng-model="plantPopUp.transferNotes"
+									placeholder="Transfer Note Records"></td>
+								<td><input type="text"
+									ng-model="plantPopUp.requisterComments"
+									placeholder="Requister Comments"></td>
+								<td><input type="text"
+									ng-model="plantPopUp.requisterDetails"
+									placeholder="Requister Details"></td>
+
+
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<div class="panel-footer">
+				<div class="pull-right">
+					<input type="button" class="btn btn-brown btn-sm"
+						ng-click="savePlantTransfersferDetails()" value="Save">
+				</div>
+				<div class="pull-left">
+					<input type="button" class="btn btn-brown btn-sm"
+						ng-click="addRows()" value="Add" ng-show="statusType==='Create'">
+					<input type="button" class="btn btn-brown btn-sm"
+						ng-click="deleteRows()" value="Delete"
+						ng-show="statusType==='Create'">
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</form>
+</div>

@@ -1,0 +1,68 @@
+<div class="tab-pannel">
+    <form name="sowForm" validate>
+        <div class="panel-body">
+            <div class="tabTable_3_Res_height">
+                <table id="vert-align" class="table table-hover table-bordered tabTable_3_height">
+                    <thead>
+                        <tr>
+                            <th>Item ID</th>
+                            <th style="max-width:15%">Item Description</th>
+                            <th>SOE Item</th>
+                            <th>SOR Item</th>
+                            <th>Cost Code</th>
+                            <th>Unit Of Measure</th>
+                            <th>Delivery Place</th>
+                            <th style="max-width:8%">Start Date</th>
+                            <th style="max-width:8%">Finish Date</th>
+                            <th style="max-width:7%">Qty</th>
+                            <th style="max-width:7%">Quoted Rate</th>
+                            <th style="max-width:7%">
+                                Quoted <br> Amount
+                                ({{preContractObj.currencyCode}})
+                            </th>
+                            <th>Comment / Conditions from Vendor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in preContractObj.precontractSowDtlTOs">
+                            <td><span>{{projSOWMap[item.sowId].code}}</span></td>
+                            <td><span>{{projSOWMap[item.sowId].name}}</span></td>
+                            <td><span>{{projSOWMap[item.sowId].displayNamesMap.soeCode}}</span></td>
+                            <td><span>{{projSOWMap[item.sowId].displayNamesMap.sorCode}}</span></td>
+                            <td><span>{{projSOWMap[item.sowId].displayNamesMap.costCode}}</span></td>
+                            <td><span>{{projSOWMap[item.sowId].unitOfMeasure}}</span></td>
+                            <td><span> {{item.deliveryPlace}}</span></td>
+                            <td>{{item.startDate}}</td>
+                            <td>{{item.finishDate}}</td>
+                            <td><span>{{item.quantity}}</span></td>
+                            <td class="input-width">
+                                <input type="text" class="form-control"
+                                    data-test='RFQ_EditQuotesfromVendor_ViewEdit_ProjectSubContract_quoterate'
+                                    ng-model="item.precontractSowCmpTOs[0].rate" name="rate" pattern="^(([0]+)?([\.\d+])?([1-9]))+([0-9]+)?"
+                                    ng-disabled="preContractCmpTO.biddingStatus=='Closed'" /><span style="color: red" ng-show="sowForm.rate.$error.pattern">Enter value</span>
+                            <td class="input-width">
+                                <span>
+                                    {{item.quantity *item.precontractSowCmpTOs[0].rate}}</span>
+                            </td>
+                            <td class="input-width">
+                                <textarea type="text" class="form-control"
+                                    data-test='RFQ_EditQuotesfromVendor_ViewEdit_ProjectSubContract_comments'
+                                    ng-model="item.precontractSowCmpTOs[0].comments"
+                                    ng-disabled="preContractCmpTO.biddingStatus=='Closed'"></textarea>
+                            </td>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="panel-footer">
+
+            <div class="pull-right"
+                ng-show="preContractObj.workFlowStatusTO.value ==5 || preContractObj.workFlowStatusTO.value ==6">
+                <input type="Submit" value="Save" data-test='RFQ_EditQuotesfromVendor_ViewEdit_save' ng-hide="preContractCmpTO.biddingStatus=='Closed'"
+                    ng-click="sowForm.$valid && saveSOWDetails()" class="btn btn-primary btn-sm" validate />
+            </div>
+
+
+        </div>
+    </form>
+</div>

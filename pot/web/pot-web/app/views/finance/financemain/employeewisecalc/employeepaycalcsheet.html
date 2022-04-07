@@ -1,0 +1,114 @@
+<div id="tab-pannel"
+	ng-init="employeeSearch('yes')">
+	<div class="panel-group">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h4 class="panel-title">Employee Pay Calculation Sheet</h4>
+			</div>
+
+			<div class="panel-body8 spacer0">
+				<div class="row">
+                      <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
+					<div class="col-sm-3 col-xs-3 col-md-2 col-lg-2">
+						<span class="labelName">EPS</span> <br> <input type="text"
+							ng-model="searchProject.parentName" placeholder="EPS ID/EPS Name"
+							ng-click="getUserProjects()" class="form-control"/>
+					</div>
+					<div class="col-sm-3 col-xs-3 col-md-2 col-lg-2">
+						<span class="labelName">Project</span> <br> <input type="text"
+							ng-model="searchProject.projName"
+							placeholder="Project ID/Project Name"
+							ng-click="getUserProjects()" class="form-control"/>
+					</div>
+					<div class="col-sm-3 col-xs-3 col-md-2 col-lg-2">
+						<span class="labelName">Parent Company</span> <input type="text"
+							placeholder="Comp list" ng-model="name"
+							ng-click="getCompanies(company)" class="form-control"/>
+					</div>
+					<div class="col-sm-3 col-xs-3 col-md-2 col-lg-2">
+						<span class="labelName">Pay Roll Cycle</span> <input type="text"
+							placeholder="Emp reg" class="form-control"/>
+					</div>
+					<div class="col-sm-3 col-xs-3 col-md-2 col-lg-2">
+						<span class="labelName">Employee Category</span> <select style="min-width: 140px;"
+							ng-options="category.name for category in emppocureMentCatgMap  track by category.id"
+							name="empType" ng-model="employee.procureLabelKeyTO"
+							ng-required="true" class="form-control"/>
+						</select>
+					</div>
+					<div class="col-sm-3 col-xs-3 col-md-2 col-lg-2">
+						<span class="labelName">Employee Type</span> <select style="min-width: 140px;"
+							ng-options="category.name for category in emppocureMentCatgMap  track by category.id"
+							name="empType" ng-model="employee.procureLabelKeyTO"
+							ng-required="true" class="form-control"/>
+						</select>
+					</div>
+				</div>
+                        <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
+					<div class="col-sm-3 col-xs-3 col-md-2 col-lg-2">
+						<span class="labelName">Period From</span>
+						<potdate-picker dir-index="$index"
+							date-name="dateOfClaim" ng-model="employee.fromDate"
+							placeholder="dd-mm-yyyy" class="form-control"/>
+					</div>
+					<div class="col-sm-3 col-xs-3 col-md-2 col-lg-2">
+						<span class="labelName">Period To</span>
+						<potdate-picker dir-index="$index"
+							date-name="dateOfClaim" ng-model="employee.toDate"
+							placeholder="dd-mm-yyyy" class="form-control"/>
+					</div>
+					<div class="col-sm-3 col-xs-3 col-md-2 col-lg-2">
+						<span class="labelName">Leave Deduction</span> <select class="form-control"><option
+								fixed-header="" ng-repeat ="leave in deductions">{{leave}}</option></select>
+					</div>
+					<div class="col-sm-3 col-xs-3 col-md-2 col-lg-2">
+						<span class="labelName">Pay Report</span> <br> <input type="text"
+							placeholder="unique generate" class="form-control"/>
+					</div>
+					<div class="col-sm-3 col-xs-3 col-md-2 col-lg-2">
+						<span class="labelName">Pay Sheet Run Date</span>
+						<potdate-picker dir-index="$index"
+							date-name="runDate" ng-model="date | date"
+							placeholder="dd-mm-yyyy" class="form-control">
+					</div>
+                        </div>
+                      <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
+                          <div class="col-sm-8 col-xs-8 col-md-8 col-lg-8 spacer1 ">
+					<input type="button" value="Trail Run" ng-click="generateInvoice()" class="btn  btn-brown btn-sm">
+                    <input type="button" value="Run" class="btn  btn-brown btn-sm">
+                    <input type="button" value="Generate Pay Roll" placeholder="Generate Pay Roll" ng-click="generatePayRoll()" class="btn  btn-brown btn-sm">
+				</div>
+				<div class="col-sm-4 col-xs-4 col-md-4 col-lg-4 spacer1 ">
+					<div class="pull-right right-padding spacer1">
+					<input type="button"
+						ng-click="getCountryProvisionDetails(countryProvision)"
+						class="btn  btn-brown btn-sm" value="Search"> <input
+						type="reset" class="btn  btn-brown btn-sm"
+						ng-click="resetTaxDetails()" value="Reset" />
+				</div>
+				</div>
+                        </div>
+                </div>
+			</div>
+		</div>
+	</div>
+	<div class="panel-body18 spacer0">
+		<div class="panel panel-default">
+			<ul class="nav nav-tabs" ng-show="moreFlag==0">
+				<li fixed-header="" ng-repeat ="tab in tabs | slice:0:6"
+					ng-class="{active:isActiveTab(tab.url)}"><a data-toggle="tab"
+					ng-click="onClickTab(tab)">{{tab.title}}</a></li>
+				<li><p class="arrow-font" ng-click="clickMore1(moreFlag);">&#x00BB;</p></li>
+			</ul>
+			<ul class="nav nav-tabs" ng-show="moreFlag==1">
+				<li><p class="arrow-font" ng-click="clickMore(moreFlag);">&#x00AB;</p></li>
+				<li fixed-header="" ng-repeat ="tab in tabs | slice:6:9"
+					ng-class="{active:isActiveTab(tab.url)}"><a data-toggle="tab"
+					ng-click="onClickTab(tab)">{{tab.title}}</a></li>
+			</ul>
+			<div id="home" class="tab-pane fade in active">
+				<div ng-include="currentTab"></div>
+			</div>
+		</div>
+	</div>
+</div>

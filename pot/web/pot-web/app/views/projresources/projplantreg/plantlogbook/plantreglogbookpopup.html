@@ -1,0 +1,93 @@
+<div id="tab-pannel" class="panel-group">
+	<form name="plntRegForm2" validate>
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Log Book Records</h4>
+			</div>
+			<div class="table-responsive">
+				<div id="tab-pannel">
+					<div class="popUpTableResHeight" style="overflow: auto;">
+						<table class="table table-striped table-hover table-bordered popUpTableHeight">
+							<thead>
+								<tr>
+									<th rowspan="2">Date</th>
+									<th rowspan="2">Asset ID</th>
+									<th rowspan="2">EPS Name</th>
+									<th rowspan="2">Project Name</th>
+									<th class="text-center" colspan="2">Driver or Operator</th>
+									<th class="text-center" colspan="2">Meter Reading</th>
+									<th class="text-center" rowspan="2">Net Unit Used<span style="color: red;">*</span>
+									</th>
+									<th class="text-center" rowspan="2">Purpose</th>
+								</tr>
+								<tr>
+									<th>ID<span style="color: red;">*</span></th>
+									<th>Name<span style="color: red;">*</span></th>
+									<th>Start<span style="color: red;">*</span></th>
+									<th>End<span style="color: red;">*</span></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="plantLogBookTO in plantLogRecordsTOs">
+									<td class="input-width0">
+										<potdate-picker ng-model="plantLogBookTO.fromDate" dir-index="$index"
+											class="form-control" date-name="date" placeholder="dd-mm-yyyy" readonly>
+									</td>
+									<td class="input-width-1"><input type="text" name="AssetId" class="form-control"
+											ng-model="selectedPlantData.assertId" placeholder="Asset ID" readonly></td>
+									<td class="input-width1"><input type="text" name="EpsName" class="form-control"
+											ng-model="selectedPlantData.plantRegProjTO.parentName"
+											placeholder="EPS Name" readonly></td>
+									<td class="input-width5"><input type="text" name="ProjectName" class="form-control"
+											ng-model="selectedPlantData.plantRegProjTO.name" placeholder="Project Name"
+											readonly></td>
+									<td class="input-width-1"><input type="text" class="form-control"
+											data-test='PlantandEquipment_LogBookRecords_LogBook_edit_driverID'
+											name="DriverId" ng-click="getDriverDetails(plantLogBookTO)"
+											ng-model="plantLogBookTO.empLabelKeyTO.code" placeholder="Driver ID"
+											ng-required="true" custom-read-only></td>
+									<td class="input-width5"><input type="text" name="DriverName" class="form-control"
+											ng-model="plantLogBookTO.empLabelKeyTO.name" placeholder="Driver Name"
+											custom-read-only></td>
+									<td class="input-width-2"><input type="text" class="form-control"
+											data-test='PlantandEquipment_LogBookRecords_LogBook_edit_start'
+											name="StrtMtrRdng" ng-model="plantLogBookTO.startMeter"
+											placeholder="Start Meter Reading"
+											ng-change="calcRemainingUnits(plantLogBookTO)" ng-required="true"
+											maxlength="15" pattern="^[0-9]+$" class="text-right" valid-number> <span
+											ng-show="plntRegForm2.StrtMtrRdng.$error.pattern"
+											class="procurment-pot-errors">Enter
+											Numbers Only</span></td>
+									<td class="input-width-2"><input type="text" class="form-control"
+											data-test='PlantandEquipment_LogBookRecords_LogBook_edit_end'
+											name="EndMeterRdng" ng-model="plantLogBookTO.endMeter"
+											placeholder="End Meter Reading"
+											ng-change="calcRemainingUnits(plantLogBookTO)" maxlength="15"
+											ng-required="true" pattern="^[0-9]+$" class="text-right" valid-number>
+										<span ng-show="plntRegForm2.EndMeterRdng.$error.pattern" 
+										class="procurment-pot-errors">Enter
+											Numbers Only</span></td>
+									<td class="input-width-2"><input type="text" name="NetUnit" readonly
+											class="form-control" placeholder="Net Unit"
+											ng-cahnge="calcRemainingUnits(plantLogBookTO)"
+											ng-model="plantLogBookTO.netUnits" class="text-right"></td>
+									<td class="input-width2"><input type="text" name="Purpose" class="form-control"
+											data-test='PlantandEquipment_LogBookRecords_LogBook_edit_purpose'
+											ng-model="plantLogBookTO.comments" placeholder="Purpose"></td>
+
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="panel-footer">
+				<div class="pull-right">
+					<input data-test='PlantandEquipment_LogBookRecords_LogBook_edit_save' type="submit"
+						class="btn btn-primary btn-sm" ng-click="plntRegForm2.$valid && savePlantLogBook()" value="Save">
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</form>
+</div>

@@ -1,0 +1,293 @@
+<div id="tab-pannel" class="panel-group">
+	<form name="revenueValueForm" validate>
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Revenue Sales</h4>
+			</div>
+			<div class="panel-body">
+				<div class="topTableResHeight overflow-auto">
+					<table class="table table-hover table-bordered topTableHeight">
+						<thead id="tab-head">
+							<tr>
+								<!-- <th class="text-center" ng-if="action ==='Add'">Select</th> -->
+								<th class="text-center">Effective Date
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th class="text-center">Buyer Name
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th class="text-center">Buyer Address
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th class="text-center">Total Sale Amount
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th class="text-center">Initial Deposit Amount
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th class="text-center">Remaining Sale Amount
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th class="text-center">Payment Terms for Remaining Amount
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th class="text-center">Due Date for Single Payment</th>
+								<th class="text-center">Number of Part Payments</th>
+								<th class="text-center">Payment Cycle for Installments</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="asset in revenueValue">
+								<!-- <td ng-if="action =='Add'">
+									<ng-form name="selectboxForm">
+										<input type="checkbox" ng-model="asset.selected"
+											data-test="RevenuefromAssetSales_Create_Checkbox"
+											ng-change="assetRevenueValuePopUpRowSelect(asset)"></ng-form>
+								</td> -->
+
+								<td>
+									<ng-form name="dateForm">
+										<potdate-picker data-test="RevenuefromAssetSales_Create_EffectiveDate"
+											ng-model="asset.effectiveDate" dir-index="$index" date-name="date"
+											placeholder="dd-mm-yyyy" class="form-control" ng-required="true" custom-read-only min-date="asset.plantCommissioningDate"/>
+									</ng-form>
+								</td>
+
+
+								<td>
+									<ng-form name="buyerNameForm">
+										<input data-test="RevenuefromAssetSales_Create_BuyerName" type="text"
+											name="buyerName" ng-model="asset.buyerName" placeholder="Buyer Name"
+											class="form-control" ng-required="true" ng-click="buyerDetails(asset)"
+											pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))>
+									</ng-form>
+								</td>
+
+								<td>
+									<ng-form name="buyerAddressForm">
+										<input data-test="RevenuefromAssetSales_Create_BuyerAddress" type="text"
+											name="buyerAddress" ng-model="asset.buyerAddress" ng-required="true"
+											placeholder="Buyer Address" class="form-control"
+											pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))>
+									</ng-form>
+								</td>
+
+
+								<td>
+									<ng-form name="totalSaleAmountForm">
+										<input data-test="RevenuefromAssetSales_Create_TotalSaleAmount" type="text" valid-number
+											ng-model="asset.totalSaleAmount" class="form-control" name="totalSaleAmount" ng-required="true"
+											placeholder="Total Sale Amount" ng-blur="calcRemainingSaleAmount(asset)" />
+									</ng-form>
+								</td>
+
+
+
+								<td>
+									<ng-form name="initialDepositeForm">
+										<input data-test="RevenuefromAssetSales_Create_InitialDepositAmount" type="text"
+											ng-model="asset.initialDepositAmount" class="form-control" valid-number
+											name="initialDeposit" placeholder="Initial Deposit" ng-required="true"
+											ng-blur="calcRemainingSaleAmount(asset)" />
+									</ng-form>
+								</td>
+
+
+								<td>
+									<ng-form name="remainingSaleAmountForm">
+										<input type="text" ng-model="asset.remainingSaleAmount" class="form-control"
+											name="remainingSaleAmount" ng-change="calcRemainingSaleAmount(asset)"
+											placeholder="Remaining Sale AmountForm" disabled ng-required="true" />
+									</ng-form>
+								</td>
+
+								<td>
+									<select ng-model="asset.paymentTermsForRemainingAmount" class="form-control"
+										ng-change="paymentTermsType(asset)" ng-required="true"
+										data-test="RevenuefromAssetSales_Create_PaymentTermsforRemainingAmount">
+										<option value="">-Select-</option>
+										<option ng-repeat="paymentTermsForRemainingAmount in paymentTerms" ng-value="paymentTermsForRemainingAmount">
+											{{paymentTermsForRemainingAmount}}</option>
+									</select>
+								</td>
+
+								<td class="input-width0">
+									<ng-form name="dueDateforSinglePayment">
+										<potdate-picker class="form-control"
+											ng-disabled="asset.paymentTermsForRemainingAmount == 'Installments'"
+											ng-model="asset.dueDateForSinglePayent" dir-index="$index" date-name="date"
+											data-test="RevenuefromAssetSales_Create_DueDateforSinglePayment"
+											placeholder="dd-mm-yyyy" class="form-control" tabindex="-1" />
+									</ng-form>
+								</td>
+
+
+								<td>
+									<ng-form name="numberofPartPaymentsForm">
+										<input ng-disabled="asset.paymentTermsForRemainingAmount == 'Single'"
+											type="text" name="numberofPartPayments" class="form-control"
+											data-test="RevenuefromAssetSales_Create_NumberofPartPayments" valid-number
+											ng-model="asset.numberOfPartPayments" placeholder="Numberof PartPayments"
+											patternj=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))>
+									</ng-form>
+								</td>
+
+								<td>
+									<select ng-model="asset.paymentCycleForInstallments" class="form-control"
+										ng-disabled="asset.paymentTermsForRemainingAmount == 'Single'"
+										data-test="RevenuefromAssetSales_Create_PaymentCycleforInstallments">
+										<option value="">-Select-</option>
+										<option ng-repeat="paymentCycleForInstallments in revenueCycles">
+											{{paymentCycleForInstallments}}</option>
+									</select>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="topTableResHeight overflow-auto">
+					<table class="table table-hover table-bordered topTableHeight">
+						<thead id="tab-head">
+							<tr>
+								<th class="text-center">Due Date of a month or day in week per Cycle</th>
+								<th class="text-center">First Installment Due on Date</th>
+								<th class="text-center">Last Installment Due on Date</th>
+								<th class="text-center">Principal Amount Per Cycle</th>
+								<th class="text-center">Rate Of Interest Per Annum</th>
+								<th class="text-center">Gross Amount Due Per Cycle</th>
+								<th class="text-center">Payer Bank Name
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th class="text-center">Payer Bank code
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th class="text-center">Payer Bank Account
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th class="text-center">Account Status
+									<span class="procurment-pot-errors">*</span>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="asset in revenueValue">
+
+								<td class="input-width0">
+									<ng-form name="dueDateperCycleForm">
+										<potdate-picker class="form-control" custom-read-only
+											ng-disabled="asset.paymentTermsForRemainingAmount == 'Single'"
+											ng-model="asset.dueDatePerCycle" dir-index="$index" date-name="date"
+											data-test="RevenuefromAssetSales_Create_DueDateofaMonthorDayinweekperCycle"
+											placeholder="dd-mm-yyyy" class="form-control" tabindex="-1" />
+									</ng-form>
+								</td>
+
+								<td class="input-width0">
+									<ng-form name="firstInstallmentDueDate">
+										<potdate-picker class="form-control" custom-read-only
+											ng-disabled="asset.paymentTermsForRemainingAmount == 'Single'"
+											ng-model="asset.firstInstallmentDueDate" dir-index="$index" date-name="date"
+											data-test="RevenuefromAssetSales_Create_FirstInstallmentDueonDate"
+											placeholder="dd-mm-yyyy" class="form-control" tabindex="-1" />
+									</ng-form>
+								</td>
+
+								<td class="input-width0">
+									<ng-form name="lastInstallmentDueDateForm">
+										<potdate-picker class="form-control" custom-read-only
+											ng-disabled="asset.paymentTermsForRemainingAmount == 'Single'"
+											ng-model="asset.lastInstallmentsDueDate" dir-index="$index" date-name="date"
+											data-test="RevenuefromAssetSales_Create_LastInstallmentDueonDate"
+											placeholder="dd-mm-yyyy" class="form-control" tabindex="-1" />
+									</ng-form>
+								</td>
+
+								<td>
+									<ng-form name="principalAmountperCycleForm">
+										<input ng-disabled="asset.paymentTermsForRemainingAmount == 'Single'"
+											type="text" name="principalAmountperCycle" class="form-control"
+											data-test="RevenuefromAssetSales_Create_PrincipleAmountPerCycle"
+											ng-model="asset.principalAmountPerCycle" valid-number
+											placeholder="PrincipalAmountperCycle">
+									</ng-form>
+								</td>
+								<td>
+									<ng-form name="rateofInterestAnnumForm">
+										<input ng-disabled="asset.paymentTermsForRemainingAmount == 'Single'"
+											type="text" name="rateofInterestAnnum" class="form-control"
+											ng-model="asset.rateOfInterestPerAmount" valid-number
+											data-test="RevenuefromAssetSales_Create_RateofInterestPerAnnum"
+											placeholder="Rateof InterestAnnum">
+									</ng-form>
+								</td>
+
+								<td>
+									<ng-form name="grossAmountDueperCycleForm">
+										<input ng-disabled="asset.paymentTermsForRemainingAmount == 'Single'"
+											type="text" name="grossAmountDueperCycle" class="form-control"
+											data-test="RevenuefromAssetSales_Create_GrossAmountDuePerCycle"
+											ng-model="asset.grossAmountDuePerCycle" valid-number
+											placeholder="GrossAmount DueperCycle">
+									</ng-form>
+								</td>
+
+								<td>
+									<ng-form name="payerBankNameForm">
+										<input class="form-control" type="text" name="payerBankName" ng-required="true"
+											ng-model="asset.payerBankName" placeholder="Payer BankName"
+											data-test="RevenuefromAssetSales_Create_PayerBankName"
+											pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))>
+									</ng-form>
+								</td>
+
+								<td>
+									<ng-form name="payerBankcodeForm">
+										<input type="text" name="payerBankcode" ng-model="asset.payerBankCode"
+											class="form-control" placeholder="Payer Bankcode" ng-required="true"
+											data-test="RevenuefromAssetSales_Create_PayerBankCode"
+											pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))>
+									</ng-form>
+								</td>
+
+								<td>
+									<ng-form name="payerBankAccountForm">
+										<input type="text" name="payerBankAccount" class="form-control" minlength="7" maxlength="15"
+											ng-model="asset.payerBankAccount" ng-required="true" pattern="^[0-9]+$"
+											data-test="RevenuefromAssetSales_Create_PayerBankAccount"
+											placeholder="PayerBank Account">
+											<span style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="payerBankAccountForm.payerBankAccount.$touched && payerBankAccountForm.payerBankAccount.$error.pattern">Numeric Values are allowed</span>
+											<div  style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="payerBankAccountForm.payerBankAccount.$error.minlength">Length is too short</div>
+									</ng-form>
+								</td>
+
+								<td>
+									<select ng-model="asset.accountStatus" class="form-control" style="width: 90px !important"
+										data-test="RevenuefromAssetSales_Create_AccountStatus" name="currentstatusType"
+										ng-required="true" tabindex="-1">
+										<option value="">-Select-</option>
+										<option fixed-header="" ng-repeat="accountStatus in currentstatusTypes">
+											{{accountStatus}}</option>
+									</select>
+								</td>
+
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="panel-footer">
+				<!-- <div class="pull-left">
+					<input type="submit" class="btn btn-primary  btn-sm" ng-click="addRows()" value="Add"
+						data-test="RevenuefromAssetSales_Create_Add" ng-show="action =='Add'"> <input type="button"
+						class="btn btn-secondary  btn-sm" ng-click="deleteRows()" value="Delete"
+						ng-show="action =='Add'" data-test="RevenuefromAssetSales_Create_Delete">
+				</div> -->
+				<div class="pull-right">
+					<input type="submit" class="btn btn-primary  btn-sm" ng-click="revenueValueForm.$valid && save()" value="Save"
+						data-test="RevenuefromAssetSales_Create_Save">
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</form>
+</div>

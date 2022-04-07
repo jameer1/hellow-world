@@ -1,0 +1,62 @@
+<div id="tab-pannel" class="panel-group" ng-init="getProjCalendarMap()">
+	<form name="calendarForm" validate>
+		<div  class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Calendar</h4>
+			</div>
+			<div class="panel-body">
+                <div class="">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 n-padding">
+                            <md-radio-group ng-model="calType" layout="row" ng-change="selectCalType()">
+                                    <md-radio-button data-test='Calendars_Projectradiobutton_copy_Globalradiobutton' id="GCAL" name="content" value="GCAL" class="md-primary">Global</md-radio-button>
+                                    <md-radio-button id="PCAL" name="content" value="PCAL" class="md-primary">Project</md-radio-button>
+                                    </md-radio-group>
+                     </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 n-padding">
+                <div class="popUpTableResHeight">
+                    <table class="table table-striped table-hover table-bordered popUpTableHeight" >
+                        <thead>
+                            <tr>
+                                <th>Copy From</th>
+                                <th>Copy To</th>
+                            </tr>
+                        </thead>
+                        <tr fixed-header="" ng-repeat ="cal in calendarList">
+                            <td>
+                                <input data-test='Calendars_Projectradiobutton_copy_copyfrom' type="text" class="form-control" readonly="readonly"
+                                               ng-click="selectCalendar()" ng-model="calenderLabelKeyTO.name">
+                            </td>
+                            <td ng-form name="classform">
+                                <input data-test='Calendars_Projectradiobutton_copy_copyto' type="text" class="form-control" name="name"
+                                       ng-model="cal.name" pattern="^[a-zA-Z\d\s.,]+$" minlength="2" ng-change="checkCalenderNameDuplicates(cal.name)"
+                                       maxlength="20" placeholder="Name" required="required"> <span ng-show="classform.name.$dirty && classform.name.$error.required">
+                                    This
+                                    field is required
+                                </span> <span ng-show="classform.name.$error.pattern">
+                                    Must enter
+                                    required format
+                                </span> <span ng-show="classform.name.$error.maxlength">
+                                    You
+                                    reached max length
+                                </span>
+                            </td>
+                        </tr>
+                    </table>
+    </div>
+    </div>
+                </div>
+			<div>
+              
+			</div>
+			<div class="panel-footer">
+				<div class="pull-right">
+					<input data-test='Calendars_Projectradiobutton_copy_save' type="submit"
+						ng-click="calendarForm.$valid && copyCalendar()" value="Save"
+						class="btn btn-primary btn-sm" />
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</form>
+</div>

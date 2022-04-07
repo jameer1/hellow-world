@@ -1,0 +1,237 @@
+<div class="tab-pannel" ng-if="stateParamsRequestPage===true && (account.appCodeTemplate['PROCURMT_INTRNLSTAGE1SUBCONTRACT_VIEW'] ||
+account.appCodeTemplate['REQUEST_REQPROC_INTRNLSTAGE1SUBCONTRACT_VIEW'])">
+  <form name="sowInternalForm" validate>
+    <div class="tabTable_3_Res_height overflow-auto">
+      <table class="table table-hover table-bordered tabTable_3_height">
+        <thead>
+          <tr>
+            <th>Select</th>
+            <th>Item ID</th>
+            <th>Item Description</th>
+            <th>SOE Item</th>
+            <th>SOR Item</th>
+            <th>Cost Code</th>
+            <th>Delivery Place</th>
+            <th>Start Date
+              <span class="procurment-pot-errors">*</span>
+            </th>
+            <th>Finish Date
+              <span class="procurment-pot-errors">*</span>
+            </th>
+            <th>Unit Of Measure</th>
+            <th>Qty
+              <span class="procurment-pot-errors">*</span>
+            </th>
+            <th>Estimated Rate<br>({{preContractObj.currencyCode}})
+              <span class="procurment-pot-errors">*</span>
+            </th>
+            <th>Estimated Amount</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="item in preContractObj.precontractSowDtlTOs">
+            <td><input type="checkbox" data-test='Stage1Request_viewedit_ProjecSubContract_addsowitems_Checkbox1'
+                value="manpowerId" class="ng-pristine ng-valid" ng-model="item.select" ng-change="rowSelect(item)"
+                ng-disabled="item.id > 0"></td>
+
+            <td class="input-width5" ng-form name="myForm2"><input ng-disabled="true" type="text" class="form-control"
+                ng-model="projSOWMap[item.sowId].code" /></td>
+
+            <td class="input-width2" ng-form name="myForm2"><input
+                data-test='Stage1Request_viewedit_ProjecSubContract_itemdescription' ng-disabled="true" type="text"
+                class="form-control" ng-model="projSOWMap[item.sowId].name" /></td>
+
+            <td class="input-width2" ng-form name="myForm2"><input
+                data-test='Stage1Request_viewedit_ProjecSubContract_SOEitem' ng-disabled="true" type="text"
+                class="form-control" ng-model="projSOWMap[item.sowId].displayNamesMap.soeCode" /></td>
+
+            <td class="input-width2" ng-form name="myForm2"><input
+                data-test='Stage1Request_viewedit_ProjecSubContract_Soritem' ng-disabled="true" type="text"
+                class="form-control" ng-model="projSOWMap[item.sowId].displayNamesMap.sorCode" /></td>
+
+            <td class="input-width2" ng-form name="myForm2"><input
+                data-test='Stage1Request_viewedit_ProjecSubContract_costcode' ng-disabled="true" type="text"
+                class="form-control" ng-model="projSOWMap[item.sowId].displayNamesMap.costCode" /></td>
+
+            <td class="input-width" ng-form="deliveryForm"><input data-test='Stage1Request_viewedit_ProjecSubContract_deliveryplase' pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+                type="text" class="form-control" ng-model="item.deliveryPlace" tabindex="-1" maxlength="255" name="del"/>
+                <span class="procurment-pot-errors"
+                ng-show="deliveryForm.del.$error.pattern">Atleast one
+                  alphabet is mandatory</span></td>
+
+            <td class="input-width1">
+              <potdate-picker data-test='Stage1Request_viewedit_ProjecSubContract_startdate' ng-model="item.startDate"
+                class="form-control" dir-index="$index" max-date="item.finishDate" date-name="sowStartDate"
+                placeholder="dd-mm-yyyy" required="required" custom-read-only></potdate-picker>
+            </td>
+            <td class="input-width1">
+              <potdate-picker data-test='Stage1Request_viewedit_ProjecSubContract_finishdate' ng-model="item.finishDate"
+                class="form-control" dir-index="$index" min-date="item.startDate" date-name="sowFinishDate"
+                placeholder="dd-mm-yyyy" required="required" custom-read-only></potdate-picker>
+            </td>
+
+            <td class="input-width"><input type="text" class="form-control" ng-disabled="true"
+                data-test='Stage1Request_viewedit_ProjecSubContract_Unitofmeasure'
+                ng-model="projSOWMap[item.sowId].unitOfMeasure" placeHolder="Unit Of Measure" name="unitOfMeasure"
+                readonly="readonly" tabindex="-1" /></td>
+
+            <td ng-form name="myForm3"><input data-test='Stage1Request_viewedit_ProjecSubContract_qty' type="text"
+                class="form-control" style="min-width:50px !important;width:50px !important;" ng-model="item.quantity"
+                placeHolder="Quantity" valid-number name="quan" maxlength="20" required="required" tabindex="-1" pattern="^(([0]+)?([\.\d+])?([1-9]))+([0-9]+)?"
+                valid-number /> <span ng-show="myForm3.quan.$dirty && myForm3.quan.$error.required"
+                class="procurment-pot-errors">This field is mandatory</span><span ng-show="myForm3.quan.$error.maxlength"
+                class="procurment-pot-errors">You reached
+                max length</span><span style="color: red" ng-show="myForm3.quan.$error.pattern">Enter value</span></td>
+
+            <td class="input-width text-center" ng-form name="myForm4"><input
+                data-test='Stage1Request_viewedit_ProjecSubContract_estimatedrate' type="text"
+                style="min-width:50px !important;width:50px !important;" class="form-control" placeHolder="EstimateCost"
+                name="escost" ng-model="item.estimateCost" pattern="^(([0]+)?([\.\d+])?([1-9]))+([0-9]+)?" valid-number maxlength="20" tabindex="-1" required="required"
+                valid-number /> <span ng-show="myForm4.escost.$dirty && myForm4.escost.$error.required"
+                class="procurment-pot-errors">This
+                field is required</span> <span ng-show="myForm4.escost.$error.maxlength">You reached max length</span>
+                <span style="color: red" ng-show="myForm4.escost.$error.pattern">Enter value</span>
+            </td>
+
+            <td class="input-width"><span>{{item.quantity * item.estimateCost}}<span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="panel-footer"
+      ng-hide="preContractObj.workFlowStatusTO.value ==4 || preContractObj.workFlowStatusTO.value ==5 || preContractObj.workFlowStatusTO.value ==6">
+      <div class="pull-left">
+        <input type="Submit"
+          ng-if="showActionButtons && (account.appCodeTemplate['PROCURMT_INTRNLSTAGE1SUBCONTRACT_ADD'] || account.appCodeTemplate['REQUEST_REQPROC_INTRNLSTAGE1SUBCONTRACT_ADD'])"
+          data-test='Stage1Request_viewedit_ProjecSubContract_addsowitems'
+          ng-click="sowInternalForm.$valid && addProjSOWItems()" value="Add Sow Items" class="btn btn-primary btn-sm" />
+        <input type="button" class="btn btn-secondary btn-sm" ng-click="deleteSowDetails()"
+          data-test='Stage1Request_viewedit_ProjecSubContract_deleterows'
+          ng-if="showActionButtons && (account.appCodeTemplate['PROCURMT_INTRNLSTAGE1SUBCONTRACT_DEACTIVE'] || account.appCodeTemplate['REQUEST_REQPROC_INTRNLSTAGE1SUBCONTRACT_DEACTIVE'])"
+          value="Delete Rows" />
+      </div>
+
+      <div class="pull-right">
+        <input type="Submit" value="Save" data-test='Stage1Request_vieweditProjectSubContract_save'
+          ng-if="showActionButtons && (account.appCodeTemplate['PROCURMT_INTRNLSTAGE1SUBCONTRACT_ADD'] || account.appCodeTemplate['REQUEST_REQPROC_INTRNLSTAGE1SUBCONTRACT_ADD'])"
+          ng-click="sowInternalForm.$valid  &&  saveSOWDetails()" class="btn btn-primary btn-sm" validate />
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="tab-pannel" ng-if="stateParamsRequestPage===false && (account.appCodeTemplate['PROCURMT_INTRNLSTAGE1APPROVALPRESUBCONTRACT_VIEW'] ||
+account.appCodeTemplate['APPROVE_INTRNLSTAGE1APPROVALPRESUBCONTRACT_VIEW'])">
+  <form name="sowInternalForm" validate>
+    <div class="tabTable_3_Res_height overflow-auto">
+      <table class="table table-hover table-bordered tabTable_3_height">
+        <thead>
+          <tr>
+            <th>Select</th>
+            <th>Item ID</th>
+            <th>Item Description</th>
+            <th>SOE Item</th>
+            <th>SOR Item</th>
+            <th>Cost Code</th>
+            <th>Delivery Place</th>
+            <th>Start Date</th>
+            <th>Finish Date</th>
+            <th>Unit Of Measure</th>
+            <th>Qty</th>
+            <th>Estimated Rate<br>({{preContractObj.currencyCode}})
+            </th>
+            <th>Estimated Amount</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="item in preContractObj.precontractSowDtlTOs">
+            <td><input data-test='Stage1Approval_viewedit_ProjecSubContract_addsowitems_Checkbox1' type="checkbox"
+                value="manpowerId" class="ng-pristine ng-valid" ng-model="item.select" ng-change="rowSelect(item)"
+                ng-disabled="item.id > 0"></td>
+
+            <td class="input-width5" ng-form name="myForm2"><input ng-disabled="true" type="text" class="form-control"
+                ng-model="projSOWMap[item.sowId].code" /></td>
+
+            <td class="input-width2" ng-form name="myForm2"><input
+                data-test='Stage1Approval_viewedit_ProjecSubContract_itemdescription' ng-disabled="true" type="text"
+                class="form-control" ng-model="projSOWMap[item.sowId].name" /></td>
+
+            <td class="input-width2" ng-form name="myForm2"><input
+                data-test='Stage1Approval_viewedit_ProjecSubContract_SOEitem' ng-disabled="true" type="text"
+                class="form-control" ng-model="projSOWMap[item.sowId].displayNamesMap.soeCode" /></td>
+
+            <td class="input-width2" ng-form name="myForm2"><input
+                data-test='Stage1Approval_viewedit_ProjecSubContract_Soritem' ng-disabled="true" type="text"
+                class="form-control" ng-model="projSOWMap[item.sowId].displayNamesMap.sorCode" /></td>
+
+            <td class="input-width2" ng-form name="myForm2"><input
+                data-test='Stage1Approval_viewedit_ProjecSubContract_costcode' ng-disabled="true" type="text"
+                class="form-control" ng-model="projSOWMap[item.sowId].displayNamesMap.costCode" /></td>
+
+            <td class="input-width" ng-form="deliveryForm1"><input type="text"
+                data-test='Stage1Approval_viewedit_ProjecSubContract_deliveryplase' class="form-control"
+                ng-model="item.deliveryPlace" tabindex="-1" maxlength="400" name="deli" />
+                <!-- <span class="procurment-pot-errors"
+                ng-show="deliveryForm1.deli.$error.pattern">Atleast one
+                  alphabet is mandatory</span> -->
+                </td>
+
+            <td class="input-width1">
+              <potdate-picker data-test='Stage1Approval_viewedit_ProjecSubContract_startdate' ng-model="item.startDate"
+                class="form-control" dir-index="$index" max-date="item.finishDate" date-name="sowStartDate"
+                placeholder="dd-mm-yyyy" required="required" readonly="readonly"></potdate-picker>
+            </td>
+            <td class="input-width1">
+              <potdate-picker data-test='Stage1Approval_viewedit_ProjecSubContract_finishdate'
+                ng-model="item.finishDate" class="form-control" dir-index="$index" min-date="item.startDate"
+                date-name="sowFinishDate" placeholder="dd-mm-yyyy" required="required" readonly="readonly">
+              </potdate-picker>
+            </td>
+
+            <td class="input-width"><input type="text"
+                data-test='Stage1Approval_viewedit_ProjecSubContract_Unitofmeasure' class="form-control"
+                ng-disabled="true" ng-model="projSOWMap[item.sowId].unitOfMeasure" placeHolder="Unit Of Measure"
+                name="unitOfMeasure" readonly="readonly" tabindex="-1" /></td>
+
+            <td ng-form name="myForm3"><input data-test='Stage1Approval_viewedit_ProjecSubContract_qty' type="text"
+                class="form-control" style="min-width:50px !important;width:50px !important;" ng-model="item.quantity"
+                placeHolder="Quantity" valid-number name="quan" maxlength="20" required="required" tabindex="-1" /><span
+                ng-show="myForm3.quan.$dirty && myForm3.quan.$error.required">This field is mandatory</span><span
+                ng-show="myForm3.quan.$error.maxlength">You reached max length</span></td>
+
+            <td class="input-width text-center" ng-form name="myForm4"><input
+                data-test='Stage1Approval_viewedit_ProjecSubContract_estimatedrate' type="text"
+                style="min-width:50px !important;width:50px !important;" class="form-control" placeHolder="EstimateCost"
+                name="escost" ng-model="item.estimateCost" valid-number tabindex="-1" required="required" /> <span
+                ng-show="myForm4.escost.$dirty && myForm4.escost.$error.required">This field is mandatory</span> <span
+                ng-show="myForm4.escost.$error.maxlength">You reached max length</span></td>
+
+            <td class="input-width"><span>{{item.quantity * item.estimateCost}}<span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="panel-footer"
+      ng-hide="preContractObj.workFlowStatusTO.value ==4 || preContractObj.workFlowStatusTO.value ==5 || preContractObj.workFlowStatusTO.value ==6">
+      <div class="pull-left">
+        <input type="Submit"
+          ng-if="account.appCodeTemplate['PROCURMT_INTRNLSTAGE1APPROVALPRESUBCONTRACT_ADD'] || account.appCodeTemplate['APPROVE_INTRNLSTAGE1APPROVALPRESUBCONTRACT_ADD']"
+          data-test='Stage1Approval_viewedit_ProjecSubContract_addsowitems'
+          ng-click="sowInternalForm.$valid && addProjSOWItems()" value="Add Sow Items"
+          class="btn btn-primary btn-sm" />
+        <input type="button" class="btn btn-secondary btn-sm" ng-click="deleteSowDetails()"
+          data-test='Stage1Approval_viewedit_ProjecSubContract_deleterows'
+          ng-if="account.appCodeTemplate['PROCURMT_INTRNLSTAGE1APPROVALPRESUBCONTRACT_DEACTIVE'] || account.appCodeTemplate['APPROVE_INTRNLSTAGE1APPROVALPRESUBCONTRACT_DEACTIVE']"
+          value="Delete Rows" />
+      </div>
+
+      <div class="pull-right">
+        <input data-test='Stage1Approval_vieweditProjectSubContract_save' type="Submit" value="Save"
+          ng-if="account.appCodeTemplate['PROCURMT_INTRNLSTAGE1APPROVALPRESUBCONTRACT_ADD'] || account.appCodeTemplate['APPROVE_INTRNLSTAGE1APPROVALPRESUBCONTRACT_ADD']"
+          ng-click="sowInternalForm.$valid  &&  saveSOWDetails()" class="btn btn-primary btn-sm" validate />
+      </div>
+    </div>
+  </form>
+</div>

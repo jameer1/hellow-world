@@ -1,0 +1,161 @@
+<div id="tab-pannel" class="panel-group">
+	<form name="regularpayForm" validate>
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Regular Pay and Allowances - Payable Rates</h4>
+			</div>
+			<div class="panel-body">
+				<div class="row">
+				<div class="col-lg-12 col-sm-12 col-xs-12 col-md-12">
+					<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+						<span>Employee ID</span><input type="text"
+							placeholder="Employee ID" ng-model="selectedEmployeeData.empCode"
+							name="code" tabindex=-1 readonly="readonly">
+					</div>
+					<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+						<span>First Name</span> <input type="text" tabindex=-1
+							ng-model="selectedEmployeeData.firstName" name="firstName"
+							placeholder="First Name" readonly="readonly" />
+					</div>
+					<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+						<span>LastName</span> <br> <input type="text" tabindex=-1
+							ng-model="selectedEmployeeData.lastName" name="lastName"
+							placeholder="Last Name" readonly="readonly" />
+					</div>
+					<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+						<span>Designation</span><input type="text" tabindex=-1
+							ng-model="selectedEmployeeData.empClassName"
+							name="destination" placeholder="Designation" readonly="readonly" />
+					</div>
+					<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2 ">
+						<span>Unit of PayRate</span><input type="text" tabindex=-1
+							ng-model="empRegularPay.unitPayRate" name="unitPayRateName"
+							placeholder="Unit Of Pay" readonly="readonly" />
+					</div>
+					<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+						<span>Credit Cycle</span> <input type="text" tabindex=-1
+							ng-model="empRegularPay.payCycle" name="payCycle"
+							placeholder="Pay cycle" readonly="readonly" />
+					</div>
+				</div>
+				<div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
+					<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+						<span>Parent Company</span> <input type="text" tabindex=-1
+							ng-model="selectedEmployeeData.cmpName"
+							name="parentCompany" placeholder="Parent Company"
+							readonly="readonly" />
+					</div>
+					<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+						<span>Tax File Number</span> <input type="text" tabindex=-1
+							ng-model="empRegularPay.projEmpRegisterTO.taxFileNum"
+							name="TaxFileNumber" placeholder="Tax File Number"
+							readonly="readonly" />
+					</div>
+					<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+						<span>Current Project</span> <input type="text" tabindex=-1
+							ng-model="selectedEmployeeData.parentName"
+							name="currentProject" placeholder="Current Project"
+							readonly="readonly" />
+					</div>
+					<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+						<span>Posting Order #</span> <input type="text" tabindex=-1
+							ng-model="empRegularPay.projEmpRegisterTO.deploymentId" 
+							name="postingOrder" placeholder="Posting Order"
+							readonly="readonly" />
+					</div>
+					<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+						<span>Effective from </span><span
+							style="color: red; font-sfont-size: '60px'">*</span>
+						<pot-Futuredate-Picker data-test='Resources_Employee_RegularPayableRates_EffectiveFrom' tabindex=-1 placeholder="Effective From"
+							ng-required="true" min-date="maxdate"
+							ng-model="empRegularPay.projEmpRegisterTO.enrollmentDate"></pot-Futuredate-Picker>
+					</div>
+					<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+						<span>Basic Pay</span><span
+							style="color: red; font-sfont-size: '60px'">*</span> <input
+							type="text" tabindex=-1 ng-model="empRegularPay.basicPay"
+							name="bp" placeholder="Basic Pay" ng-required="true" />
+					</div>
+					
+				</div>
+				<div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
+						<div class="pull-right">
+								<input type="button" class="btn btn-brown  btn-sm" data-test='Resources_Employee_RegularPayableRates_Search'
+									ng-click="searchEffectiveDetails(empRegularPay.projEmpRegisterTO.enrollmentDate);"
+									value="Search">
+							</div>
+				</div>
+			</div>
+			<div class="row spacer0 b-sh panel-body-res-3 panel-collapse collapse in">
+					<table id="input-width" class="table table-striped table-hover table-bordered" style="width: 96%;
+					margin-left: 30px !important;">
+						<thead>
+							<tr>
+								<th width= "10%;">Code</th>
+								<th width= "15%;">Description</th>
+								<th width= "5%;">Applicability<span
+									style="color: red; font-sfont-size: '60px'">*</span></th>
+								<th width= "10%;">% on BP<span style="color: red; font-sfont-size: '60px'">*</span></th>
+								<th width= "10%;">Fixed Amount<span
+									style="color: red; font-sfont-size: '60px'">*</span></th>
+								<th width= "15%;">Comments</th>
+							</tr>
+							</thead>
+							<tbody>
+							
+							<!--ng-model="regularPayCodeMap[regularpay.financeRegId].code" <tr>-->
+							 <tr ng-repeat="regularpay in empRegularPay.empPaybleRateDetailTOs">
+							
+							  <!--  tr fixed-header="" ng-repeat ="regularpay in empRegularPay.empPaybleRateDetailTOs">-->
+								
+								<td><input type="text"
+									ng-model="regularPayCodeMap[regularpay.financeRegId].code"
+									style="width: 115px !important" readonly="readonly"></td>
+								
+								<td><input type="text"
+									ng-model="regularPayCodeMap[regularpay.financeRegId].name"
+									style="width: 115px !important" readonly="readonly"></td>
+	
+								<td><select name="applicability"
+									ng-model="regularpay.applicable" tabindex="-1">
+										<option value="Yes">Yes</option>
+										<option value="No">No</option>
+								</select></td>
+	
+								<td><ng-form name="regularpayForm1"> <input
+										type="text" name="basicPay" ng-model="regularpay.percentage"
+										ng-change="validateBasiPayPercentage(1,regularpay)"
+										ng-disabled="regularpay.applicable=='No'" maxlength="4"
+										pattern="^[\d\.]+$" placeholder="% on BP" tabindex="-1">
+									<span ng-show="regularpayForm1.basicPay.$error.pattern">
+										Digits with two decimals should be allowed</span></td>
+	
+								<td><ng-form name="regularpayForm2"> <input
+										type="text" name="fixedAmount" maxlength="6"
+										ng-model="regularpay.fixedAmount"
+										ng-disabled="regularpay.applicable=='No'"
+										ng-change="validateBasiPayPercentage(2,regularpay)"
+										placeholder="Fixed Amount" pattern="^[\d\.]+$" tabindex="-1">
+									<span ng-show="regularpayForm2.fixedAmount.$error.pattern">
+										Digits with two decimals should be allowed</span></td>
+	
+								<td><input type="text" ng-model="regularpay.comments"
+									placeholder="Comments" maxlength="30" minlength="2"
+									tabindex="-1" style="width: 115px !important"></td>
+	
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="panel-footer"
+				ng-if="empRegularPay.id==null || empRegularPay.latest">
+				<div class="pull-right">
+					<input type="submit" data-test='Resources_Employee_RegularPayableRates_Save' class="btn btn-brown  btn-sm" ng-if=" action != 'View'"
+						ng-click="regularpayForm.$valid && saveRegularPay()" value="Save">
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</form>
+</div>

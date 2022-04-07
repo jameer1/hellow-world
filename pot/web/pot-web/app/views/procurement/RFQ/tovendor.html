@@ -1,0 +1,138 @@
+<div id="tab-pannel" class="panel-group">
+    <form name="vendorform" validate>
+        <div class="panel panel-default" modal-movable>
+            <div class="panel-heading">
+                <h4 class="panel-title">Add / Edit Correspondence To Vendors
+                    Documents</h4>
+            </div>
+            <div class="panel-body">
+                <div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+                        <div class="col-sm-3 col-xs-3 col-md-3 col-lg-3 padL-0">
+                            <md-input-container class="md-block">
+                                <label>Pre-Contract ID</label> <input type="text" data-test='RFQ_ToVendor_View_PrecontractID'
+                                    ng-model="preContractCmpTO.preContractTO.code" placeholder="Pre Contract ID"
+                                    ng-click="getPreContractDetails()" readonly="readonly">
+                            </md-input-container>
+                        </div>
+                        <div class="col-sm-3 col-xs-3 col-md-3 col-lg-3">
+                            <md-input-container class="md-block">
+                                <label>Pre-Contract Desc</label> <input type="text" data-test='RFQ_ToVendor_View_PrecontractDesc'
+                                    ng-model="preContractCmpTO.preContractTO.desc" placeholder="Pre Contract ID"
+                                    ng-click="getPreContractDetails()" readonly="readonly">
+                            </md-input-container>
+                        </div>
+                        <div class="col-sm-3 col-xs-3 col-md-3 col-lg-3">
+                            <md-input-container class="md-block">
+                                <label>Company</label> <input type="text" data-test='RFQ_ToVendor_View_company'
+                                    ng-model="companyMap[preContractCmpTO.companyId].code" placeholder="Company"
+                                    ng-disabled="true">
+                            </md-input-container>
+                        </div>
+                        <div class="col-sm-3 col-xs-3 col-md-3 col-lg-3 padR-0">
+                            <md-input-container class="md-block">
+                                <label>Vendor</label> <input type="text" data-test='RFQ_ToVendor_View_vendar' ng-model="companyMap[preContractCmpTO.companyId].name"
+                                    placeholder="Vendor" ng-disabled="true">
+                            </md-input-container>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+                        <div class="popUpTableResHeight">
+                            <table class="table table-striped table-hover table-bordered popUpTableHeight">
+                                <thead>
+                                    <tr>
+                                        <th>Select</th>
+                                        <th>Date</th>
+                                        <th>Document ID</th>
+                                        <th>Description</th>
+                                        <th>Version</th>
+                                        <th>Mode of Communication</th>
+                                        <th>Sender Name</th>
+                                        <th>Receiver Name</th>
+                                        <th>View/Upload File</th>
+                                        <th>File Type</th>
+                                        <th>File Size</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr fixed-header="" ng-repeat="vendor in vendorDocuments">
+                                        <td>
+                                            <input type="checkbox" ng-model="vendor.select" data-test='RFQ_ToVendor_View_Add_checkbox'
+                                                ng-change="rowSelect(vendor)" ng-disabled = "true"/>
+                                        </td>
+                                        <td class="input-width0">
+                                            <potdate-picker data-test='RFQ_ToVendor_View_Add_date' dir-index="$index"
+                                                class="form-control" date-name="date" ng-model="vendor.date" readonly="readonly"
+                                                placeholder="dd-mm-yyyy" readonly="readonly"></potdate-picker >
+                                        </td>
+                                        <td>
+                                            <input type="text" ng-model="vendor.code" placeholder="Auto Generate"
+                                                readonly="readonly" style="width: 115px !important" class="form-control" >
+                                        </td>
+                                        <td class="input-width2">
+                                            <input type="text" data-test='RFQ_ToVendor_View_Add_Description' name="description"
+                                                class="form-control" ng-model="vendor.description" placeholder="description"
+											ng-disabled="reference.id > 0" maxlength="200" pattern="^[A-Za-z0-9\s]+$" 
+                                            required="required" readonly="readonly">
+                                            <span style="color: red" ng-show="vendorform.description.$dirty && vendorform.description.$error.required"></span>
+                                        </td>
+                                        <td ng-form="versionNumber" class="input-width2">
+                                            <input type="text" name="version" data-test='RFQ_ToVendor_View_Add_Version'
+                                                ng-model="vendor.version" maxlength="20" placeholder="version" pattern="^[.\d]+$"
+                                                required="required" class="form-control" pattern="^\d{1,2}\.\d{1,2}\.\d{1,3}$" readonly="readonly">
+                                                <span ng-show="versionNumber.version.$error.pattern" class="procurment-pot-errors">Invalid Version</span>
+                                        </td>
+                                        <td class="input-width2">
+                                            <select data-test='RFQ_ToVendor_View_Add_modeofcommunication' type="text"
+                                                name="version" ng-model="vendor.modeType" placeholder="modeType"
+                                                required="required" class="form-control" readonly="readonly">
+                                                <option>Email</option>
+                                                <option>Fax</option>
+                                                <option>By Post</option>
+                                            </select>
+                                        </td>
+                                        <td class="input-width2">
+                                            <input type="text" data-test='RFQ_ToVendor_View_Add_Sendername' name="senderName"
+                                                ng-model="vendor.sender" maxlength="25" placeholder="Sender Name" required class="form-control" pattern="^[A-Za-z0-9\s]+$" readonly="readonly">
+                                        </td>
+                                        <td class="input-width2">
+                                            <input type="text" data-test='RFQ_ToVendor_View_Add_Receivername' name="ReceiverName"
+                                                ng-model="vendor.receiver" maxlength="25" placeholder="Receiver Name" required class="form-control" pattern="^[A-Za-z0-9\s]+$" readonly="readonly">
+                                        </td>
+                                        <td>
+										<span class="fa fa-download" ng-if="vendor.name" ng-click="downloadFile(vendor.id,vendor.name)" title="Click To Download {{vendor.name}}"></span>
+										</td>
+                                       <!--  <td>
+                                            <span data-test='RFQ_ToVendor_View_Add_Uploadfile' ng-click="uploadVendorDocument(vendor)">view</span>
+                                        </td> -->
+                                        <td class="input-width2">
+                                            <input type="text" name="typeofFile" ng-model="vendor.mimeType" placeholder="Typeof File"
+                                                readonly="readonly" class="form-control" readonly="readonly">
+                                        </td>
+                                        <td class="input-width2">
+                                            <input type="text" name="sizeofFile" ng-model="vendor.fileSize"
+                                                placeholder="Sizeof File" readonly="readonly" class="form-control" readonly="readonly">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           <!--  <div class="panel-footer">
+                <div class="pull-left">
+                    <input data-test='RFQ_ToVendor_View_Add' class="btn btn-primary btn-sm" type="button" ng-click="vendorform.$valid && addVendorDocument()"
+                        value="Add">
+                    <input data-test='RFQ_ToVendor_View_delete' class="btn btn-primary btn-sm" type="button" ng-click="deleteVendorDocument()"
+                        value="Delete">
+                </div>
+                <div class="pull-right">
+                    <input class="btn btn-primary btn-sm" type="submit" data-test='RFQ_ToVendor_View_Save' ng-click="vendorform.$valid && saveVendorDocuments()"
+                        value="Save" validate>
+                </div>
+            </div> -->
+            <div class="ngdialog-close"></div>
+        </div>
+    </form>
+</div>

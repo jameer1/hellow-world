@@ -1,0 +1,68 @@
+<div class="tab-pannel">
+    <form name="materialForm" validate>
+
+        <div class="tabTable_3_Res_height" style=" Overflow-y:scroll; ">
+            <table id="vert-align" class="table table-hover table-bordered tabTable_3_height" >
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th style="max-width:15%">Description</th>
+                        <th>Type</th>
+                        <th title="Unit Of Measure">Unit of Measure</th>
+                        <th title="Procurement SubCategory">
+                            SubCategory
+                        </th>
+                        <th>Cost Code</th>
+                        <th>Location</th>
+                        <th style="max-width:8%">Start Date</th>
+                        <th style="max-width:8%">Finish Date</th>
+                        <th style="max-width:7%">Qty</th>
+                        <th style="max-width:7%">Quoted Rate</th>
+                        <th style="max-width:7%">Quoted <br> Amount ({{preContractObj.currencyCode}})</th>
+                        <th>Comment</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in preContractObj.preContractMaterialDtlTOs">
+
+                        <td><span>{{item.itemCode}}</span></td>
+                        <td><span>{{item.itemDesc}}</span></td>
+                        <td><span>{{projMaterialClassmap[item.projMaterialLabelKey.id].code}}</span></td>
+                        <td><span>{{projMaterialClassmap[item.projMaterialLabelKey.id].unitOfMeasure}}</span></td>
+                        <td><span>{{procureCategoryMap[item.procureSubCatgId].code}}</span></td>
+                        <td><span>{{item.costCode}}</span></td>
+                        <td>
+                            <span ng-show="item.storeLabelKey.id > 0">
+                                {{storeClassmap[item.storeLabelKey.id].code}}</span><span
+                                ng-show="item.storeLabelKey.id <= 0 || item.projStoreLabelKey.id > 0">{{projStoreClassmap[item.projStoreLabelKey.id].code}}</span>
+                        </td>
+                        <td>{{item.startDate | date}}</td>
+                        <td>{{item.finishDate | date}}</td>
+                        <td><span>{{item.quantity}}</span></td>
+                        <td class="input-width">
+                            <input data-test='RFQ_EditQuotesfromVendor_ViewEdit_Materials_quoterate' type="text"
+                                class="form-control" ng-model="item.preContractMaterialCmpTOs[0].rate" name="rate" pattern="^(([0]+)?([\.\d+])?([1-9]))+([0-9]+)?"
+                                ng-disabled="preContractCmpTO.biddingStatus=='Closed'" /><span style="color: red" ng-show="materialForm.rate.$error.pattern">Enter value</span>
+                        <td class="input-width">
+                            <span>
+                                {{item.quantity *item.preContractMaterialCmpTOs[0].rate}}</span>
+                        </td>
+                        <td class="input-width">
+                            <textarea data-test='RFQ_EditQuotesfromVendor_ViewEdit_Materials_comments' type="text"
+                                class="form-control" ng-model="item.preContractMaterialCmpTOs[0].comments"
+                                ng-disabled="preContractCmpTO.biddingStatus=='Closed'"></textarea>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="panel-footer">
+            <div class="pull-right"
+                ng-show="preContractObj.workFlowStatusTO.value ==5 || preContractObj.workFlowStatusTO.value ==6">
+                <input data-test='RFQ_EditQuotesfromVendor_ViewEdit_save' ng-hide="preContractCmpTO.biddingStatus=='Closed'" type="Submit" value="Save"
+                    ng-click="materialForm.$valid && saveMaterialDetails()" class="btn btn-primary btn-sm" validate />
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,218 @@
+<div id="tab-pannel" class="panel-group">
+	<form name="payDeductionForm" validate>
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Pay Deductions,Tax & Exemptions</h4>
+			</div>
+
+			<div class="panel-body6" style="margin-left: 25px;">
+				<div class="row input-height padding-left">
+					<div class="input-width4 col-sm-2 col-xs-2 col-md-2 ">
+						<span>Employee ID</span> <input type="text"
+							ng-model="selectedEmployeeData.empCode" placeholder="Employee ID"
+							tabindex=-1 readonly="readonly">
+					</div>
+					<div class=" input-width4 col-sm-2 col-xs-2 col-md-2 ">
+						<span>First Name</span> <input type="text" tabindex=-1
+							ng-model="selectedEmployeeData.firstName"
+							placeholder="First Name" readonly="readonly" />
+					</div>
+					<div class=" input-width4 col-sm-2 col-xs-2 col-md-2">
+						<span>LastName</span> <br> <input type="text" tabindex=-1
+							ng-model="selectedEmployeeData.lastName" name="yard"
+							placeholder="Last Name" readonly="readonly" />
+					</div>
+					<div class=" input-width4 col-sm-2 col-xs-2 col-md-2 ">
+						<span>Designation</span><input type="text" tabindex=-1
+							ng-model="selectedEmployeeData.empClassName"
+							name="destination" placeholder="Designation" readonly="readonly" />
+					</div>
+					<div class=" input-width4 col-sm-2 col-xs-2 col-md-2 ">
+						<span>Unit of PayRate</span><input type="text" tabindex=-1
+							ng-model="payDeduction.unitPayRate" name="payRate"
+							placeholder="Unit Of Pay" readonly="readonly" />
+					</div>
+					<div class="input-width4 col-sm-2 col-xs-2 col-md-2 spacer0">
+						<span>Credit Cycle</span> <input type="text" tabindex=-1
+							ng-model="payDeduction.payCycle" name="payCycle"
+							placeholder="Pay cycle" readonly="readonly" />
+					</div>
+				</div>
+				<div class="row input-width4 spacer0">
+
+					<div class="  col-sm-2 col-xs-2 col-md-2 ">
+						<span>Parent Company</span> <input type="text" tabindex=-1
+							ng-model="selectedEmployeeData.cmpName"
+							name="parentCompany" placeholder="Parent Company"
+							readonly="readonly" />
+					</div>
+
+					<div class="col-sm-2 col-xs-2 col-md-2 ">
+						<span>Tax File Number</span> <input type="text" tabindex=-1
+							ng-model="payDeduction.projEmpRegisterTO.taxFileNum"
+							name="TaxFileNumber" placeholder="Tax File Number"
+							readonly="readonly" />
+					</div>
+
+					<div class=" col-sm-2 col-xs-2 col-md-2 ">
+						<span>Current Project</span> <input type="text" tabindex=-1
+							ng-model="selectedEmployeeData.parentName"
+							name="currentProject" placeholder="Current Project"
+							readonly="readonly" />
+					</div>
+					<div class="  col-sm-2 col-xs-2 col-md-2 ">
+						<span>Posting Order #</span> <input type="text" tabindex=-1
+							ng-model="payDeduction.projEmpRegisterTO.deploymentId"
+							name="postingOrder" placeholder="Posting Order"
+							readonly="readonly" />
+					</div>
+					<div class=" col-sm-2 col-xs-2 col-md-2">
+						<span>Effective from </span><span
+							style="color: red; font-sfont-size: '60px'">*</span>
+						<pot-Futuredate-Picker data-test='Resources_Employee_PayDeductions_EffectiveFrom' dir-index="index" date-name="fromDate"
+							tabindex=-1
+							ng-model="payDeduction.projEmpRegisterTO.enrollmentDate"
+							placeholder="Effective From" ng-required="true">
+					</div>
+					<div class="col-sm-2 col-xs-2 col-md-2">
+						<span>Basic Pay</span> <input type="text" tabindex=-1
+							ng-model="payDeduction.basicPay" name="basicPay"
+							placeholder="Basic Pay" readonly="readonly" />
+					</div>
+					<div class="pull-right" style="margin-right: 30px;">
+						<input type="button" class="btn btn-brown  btn-sm" data-test='Resources_Employee_PayDeductions_Search'
+							ng-click="searchEffectiveDetails(payDeduction.projEmpRegisterTO.enrollmentDate);"
+							value="Search">
+					</div>
+				</div>
+			</div>
+
+
+			<div class="panel panel-default">
+				<div class="panel-heading">
+				<!-- on line "92" style="width: 1410px; margin-left: 18px;"-->
+					<h4 class="panel-title">Tax and Levy Exemptions related
+						Questionnaires & Employee Declarations</h4>
+				</div>
+				<div class="panel-body8">
+					<div class="table-responsive ">
+						<table class="table table-striped table-bordered">
+							<thead>
+								<tr>
+									<th>Item #</th>
+									<th>Item</th>
+									<th>Employee Applicability<span
+										style="color: red; font-sfont-size: '60px'">*</span></th>
+								</tr>
+
+							</thead>
+
+							<tr
+								fixed-header="" ng-repeat ="payQuestionTO in payDeduction.empPayDeductionQuestionTOs">
+								<th>{{$index+1}}</th>
+								<td>{{payQuestionTO.empPayQuestionMstrTO.desc}}</td>
+								<td><input type="text" ng-model="payQuestionTO.comments"
+									ng-if="!payQuestionTO.empPayQuestionMstrTO.type"> <select
+									class="input-select1" ng-model="payQuestionTO.comments"
+									ng-if="payQuestionTO.empPayQuestionMstrTO.type"
+									ng-options="answer for answer in applicabilities">
+										<option value="">Select</option>
+								</select></td>
+							</tr>
+
+						</table>
+					</div>
+				</div>
+			</div>
+
+			<div class="panel panel-default">
+			<!-- on line "128" style="width: 1410px; margin-left: 18px;"-->
+				<div class="panel-heading">
+					<h4 class="panel-title">Applicable Pay Deductions as per
+						current year Tax rules and Employee declarations</h4>
+				</div>
+				<div class="panel-body5">
+					<div class="table-responsive">
+
+						<table class="table table-striped table-bordered">
+							<thead>
+								<tr>
+									<th>Code</th>
+									<th>Description</th>
+									<th>Applicability<span
+										style="color: red; font-sfont-size: '60px'">*</span></th>
+									<th>% on BP<span
+										style="color: red; font-sfont-size: '60px'">*</span></th>
+									<th>Fixed Amount<span
+										style="color: red; font-sfont-size: '60px'">*</span></th>
+									<th>Comments</th>
+								</tr>
+
+							</thead>
+
+							<tr ng-repeat ="payDeductionDetailTO in  payDeduction.empPayDeductionDetailTOs">
+								<td><input type="text"
+									ng-model="payDeductionCodeMap[payDeductionDetailTO.financeDeductionId].code"
+									style="width: 115px !important" readonly="readonly"></td>
+
+								<td><input type="text"
+									ng-model="payDeductionCodeMap[payDeductionDetailTO.financeDeductionId].name"
+									style="width: 115px !important" readonly="readonly"></td>
+
+								<td><ng-form name="appForm"> <select
+										ng-model="payDeductionDetailTO.applicable" ng-required="true"
+										ng-options="applicability for applicability in applicabilities"
+										name="applicabl">
+
+										<option value="">Select</option>
+									</select> <span ng-show="appForm.applicabl.$error.requrired">please
+										select applicability</span></td>
+
+								<td><ng-form name="PayDeductionForm1"> <input
+										type="text" name="basicPay"
+										ng-model="payDeductionDetailTO.percentage" maxlength="4"
+										pattern="^[\d\.]+$" placeholder="% on BP"
+										ng-change="validateAmount(payDeductionDetailTO,1)"
+										ng-disabled="payDeductionDetailTO.applicable=='No' || payDeductionDetailTO.applicable==null ">
+									<span ng-show="PayDeductionForm1.basicPay.$error.pattern">
+										Digits with two decimals should be allowed</span></td>
+								<td><ng-form name="PayDeductionForm2"> <input
+										type="text" name="fixedAmount" maxlength="8"
+										ng-model="payDeductionDetailTO.fixedAmount"
+										placeholder="Fixed Amount" pattern="^[\d\.]+$"
+										ng-disabled="payDeductionDetailTO.applicable=='No' || payDeductionDetailTO.applicable==null"
+										ng-change="validateAmount(payDeductionDetailTO,2)"
+										maxlength="5"> <span
+										ng-show="PayDeductionForm2.fixedAmount.$error.pattern">
+										Digits with two decimals should be allowed</span></td>
+
+
+								<td><textarea ng-model="applicable.comments"
+										placeholder="Comments " style="width: 115px !important"></textarea></td>
+
+							</tr>
+
+						</table>
+
+
+					</div>
+				</div>
+
+				<div class="panel-footer"
+					ng-if="payDeduction.id==null || payDeduction.latest">
+					<div class="pull-right">
+						<input type="submit" class="btn btn-brown btn-sm" data-test='Resources_Employee_PayDeductions_Save'
+							ng-click="payDeductionForm.$valid && saveEmpPayDeduction()"
+							value="Save" validate>
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+
+		<div class="ngdialog-close"></div>
+
+	</form>
+
+</div>

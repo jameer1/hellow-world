@@ -1,0 +1,308 @@
+<div id="tab-pannel" class="panel-group">
+	<form name="epsForm" validate>
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Add/Edit Sub Asset</h4>
+			</div>
+			<div class="panel-body">
+				<div class="popUpTableResHeight overflow-auto">
+					<table id="tree" class="table table-hover table-bordered popUpTableHeight">
+						<thead>
+							<tr>
+								<th>Asset ID</th>
+								<th>Asset Description</th>
+								<th>Asset Owner</th>
+								<th>Asset Category</th>
+								<th>Country</th>
+								<th>Province</th>
+							    <th>Address</th>
+							     <th>Currency</th>
+							     <th>Profit Center</th>
+							     <th>Project</th>
+								<th>Year Build</th>
+								<th>Date Commissioned</th>
+
+								<!-- <th	ng-show="action =='Edit'">Asset Life Status</th>
+							     <th ng-show="action =='Edit'">Revenue status</th> -->
+
+
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="item in editTreeData" class="abc{{item.level}}" ng-show="!item.collapse">
+								<td style="display:flex;">
+										<span ng-repeat="level in [].constructor(item.level) track by $index" class="xyz" style="padding-left: 30px;"></span>
+									<span ng-show="item.expand"
+										ng-click="poupTreeAssetItemClick(item, true);"
+									 	class="fa fa-minus"></span>
+									<span ng-show="!item.expand"
+									 ng-click="poupTreeAssetItemClick(item, false);" class="fa fa-plus"> </span>
+									<input type="text" class="form-control" ng-if="!item.proj" placeholder="Asset ID" name="epsId_{{$index}}"
+									 maxlength="20" ng-model="item.assetId"  watch-change="change()"
+									 ng-class="{coloumnHighlightColor:(item.duplicateFlag||item.childProjs.duplicateFlag) }"
+									 ng-blur="checkDuplicate(item)"
+									 readonly="readonly"
+									 ng-show="item.level==0">
+									<input type="text" class="form-control" ng-if="!item.proj" placeholder="Sub Asset ID" name="epsSubId_{{$index}}"
+									 maxlength="20" ng-model="item.assetId"
+									 watch-change="change()"
+									 readonly="readonly"
+									 ng-class="{coloumnHighlightColor:(item.duplicateFlag||item.childProjs.duplicateFlag) }"
+									 ng-blur="checkDuplicate(item)" ng-show="item.level>0">
+									 <span style="padding-left: 15px;" ng-show="item.level < 3">
+	                         <span data-toggle="tooltip" title="Add Group ID" ng-click="addTreeSubGroup(item,$index)" class="fa fa-plus" data-test="ImmovableAssets_AddSubAsset_PlusIcon"> </span>
+									</span>
+									<span style="padding-left: 10px;">
+										<span ng-click="deleteTree($index)" ng-show="item.level>0 && !item.edit" title="Delete"
+										 class="fa fa-trash" data-test="ImmovableAssets_AddSubAsset_DeleteIcon">
+										</span>
+									</span>
+									<br>
+									<span style="padding-left:{{item.level * 30 + 20}}px;color: red !important;"
+										ng-show="(epsForm.epsId_{{$index}}.$dirty && epsForm.epsId_{{$index}}.$error.pattern)
+										   || (epsForm.epsSubId_{{$index}}.$dirty && epsForm.epsSubId_{{$index}}.$error.pattern)">
+										   At least one alphabet is mandatory
+									</span>
+								</td>
+								<td ng-form name="epsForm_{{$index}}">
+									<input type="text" class="form-control" name="name" ng-if="!item.proj"
+									 ng-model="item.assetDescription" placeholder="Asset Description"
+									 pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+									 maxlength="50" required ng-show="item.level==0" data-test="ImmovableAssets_Create_AssetDescription">
+									<input type="text" class="form-control" name="subName"
+									 ng-if="!item.proj" ng-model="item.subAssetDescription" placeholder="Sub Asset Description"
+									 pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+									 maxlength="50" required ng-show="item.level>0" data-test="ImmovableAssets_Create_SubAssetDescription">
+
+									<br>
+									<span style="color: red !important;"
+										ng-show="(epsForm_{{$index}}.name.$dirty && epsForm_{{$index}}.name.$error.required)
+									   || (epsForm_{{$index}}.subName.$dirty && epsForm_{{$index}}.subName.$error.required)">Required</span>
+									<span style="color: red !important;"
+										ng-show="(epsForm_{{$index}}.name.$dirty && epsForm_{{$index}}.name.$error.pattern)
+									   || (epsForm_{{$index}}.subName.$dirty && epsForm_{{$index}}.subName.$error.pattern)">At
+										least one alphabet is mandatory </span>
+								</td>
+									<td ng-form name="epsForm_{{$index}}">
+									<input type="text" class="form-control" name="name" ng-if="!item.proj"
+									 ng-model="item.companyName" placeholder="Asset Owner" ng-click="getCompanies(item)"
+									 readonly="readonly"
+									 pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+									 maxlength="50" required ng-show="item.level==0" data-test="ImmovableAssets_Create_AssetOwner">
+									<input type="text" class="form-control" name="subName"
+									 ng-if="!item.proj" ng-model="item.companyName" placeholder="Sub Asset Owner"
+									 readonly="readonly" ng-click="getCompanies(item)"
+									 pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+									 maxlength="50" required ng-show="item.level>0" data-test="ImmovableAssets_Create_SubAssetOwner">
+
+									<br>
+									<span style="color: red !important;"
+										ng-show="(epsForm_{{$index}}.name.$dirty && epsForm_{{$index}}.name.$error.required)
+									   || (epsForm_{{$index}}.subName.$dirty && epsForm_{{$index}}.subName.$error.required)">Required</span>
+									<span style="color: red !important;"
+										ng-show="(epsForm_{{$index}}.name.$dirty && epsForm_{{$index}}.name.$error.pattern)
+									   || (epsForm_{{$index}}.subName.$dirty && epsForm_{{$index}}.subName.$error.pattern)">At
+										least one alphabet is mandatory </span>
+								</td>
+								<td>
+								 <input type="text" class="form-control" name="name" ng-if="!item.proj"
+									 ng-model="item.assetCategoryName" placeholder="Asset Category"
+									 pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*)) readonly="readonly" data-test="ImmovableAssets_Create_AssetCategory"
+									 maxlength="50" ng-click="getAssetCategory(assetCategoryTO, item)" required ng-show="item.level==0">
+									<input type="text" class="form-control" name="subName"
+									 ng-if="!item.proj"  ng-model="item.subAssetCategory" placeholder="Sub Asset Category"   readonly="readonly"
+									 pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*)) data-test="ImmovableAssets_Create_SubAssetCategory"
+									 maxlength="50" required ng-click="getAssetSubCategory(assetCategoryTO,item)" ng-show="item.level>0">
+									 <span style="color: red !important;"
+										ng-show="(epsForm_{{$index}}.name.$dirty && epsForm_{{$index}}.name.$error.required)
+									   || (epsForm_{{$index}}.subName.$dirty && epsForm_{{$index}}.subName.$error.required)">Required</span>
+									<span style="color: red !important;"
+										ng-show="(epsForm_{{$index}}.name.$dirty && epsForm_{{$index}}.name.$error.pattern)
+									   || (epsForm_{{$index}}.subName.$dirty && epsForm_{{$index}}.subName.$error.pattern)">At
+										least one alphabet is mandatory </span>
+								</td>
+								<td>
+								<select class="form-control" data-test="ImmovableAssets_Create_Country"
+									ng-options="coun.countryName as coun.countryName for coun in countries"
+									fixed-header=""
+									placeholder="Country"
+									ng-init="getCountryDetailsById(item);"
+									ng-show="item.level==0"
+									ng-change="getCountryDetailsById(item,$index);"
+									ng-model="item.countryName" ng-required="true">
+								</select>
+								<select class="form-control"
+									ng-options="coun.countryName as coun.countryName for coun in countries"
+									fixed-header=""
+									placeholder="SubAssetCountry"
+									ng-show="item.level>0"
+									disabled
+									ng-init="getCountryDetailsById(item);"
+									ng-change="getCountryDetailsById(item,$index);"
+									ng-model="item.countryName" ng-required="true">
+									</select>
+									 <span style="color: red !important;"
+										ng-show="(epsForm_{{$index}}.name.$dirty && epsForm_{{$index}}.name.$error.required)
+									   || (epsForm_{{$index}}.subName.$dirty && epsForm_{{$index}}.subName.$error.required)">Required</span>
+									<span style="color: red !important;"
+										ng-show="(epsForm_{{$index}}.name.$dirty && epsForm_{{$index}}.name.$error.pattern)
+									   || (epsForm_{{$index}}.subName.$dirty && epsForm_{{$index}}.subName.$error.pattern)">At
+										least one alphabet is mandatory </span>
+								</td>
+								<td>
+								<select class="form-control" data-test="ImmovableAssets_Create_Provision"
+									ng-options="provision.name as provision.name for provision in item.provisionTOs"
+									ng-model="item.provisionName" ng-show="item.level==0"
+									ng-required="true"></select>
+
+									 <select class="form-control"
+									ng-options="provision.name as provision.name for provision in item.provisionTOs"
+									ng-model="item.provisionName" ng-show="item.level>0" disabled
+									ng-required="true"></select>
+
+									 <span style="color: red !important;"
+										ng-show="(epsForm_{{$index}}.name.$dirty && epsForm_{{$index}}.name.$error.required)
+									   || (epsForm_{{$index}}.subName.$dirty && epsForm_{{$index}}.subName.$error.required)">Required</span>
+									<span style="color: red !important;"
+										ng-show="(epsForm_{{$index}}.name.$dirty && epsForm_{{$index}}.name.$error.pattern)
+									   || (epsForm_{{$index}}.subName.$dirty && epsForm_{{$index}}.subName.$error.pattern)">At
+										least one alphabet is mandatory </span>
+								</td>
+								<td>
+								 <input type="text" class="form-control" name="name" ng-if="!item.proj"
+									 ng-model="item.address" placeholder="Address" data-test="ImmovableAssets_Create_Address"
+									 maxlength="50" required ng-show="item.level==0">
+									 	<input type="text" class="form-control" name="subName" readonly="readonly"
+									 ng-if="!item.proj" ng-model="item.address" placeholder="Sub Asset Address"
+									 maxlength="50" required ng-show="item.level>0">
+									 <span style="color: red !important;"
+										ng-show="(epsForm_{{$index}}.name.$dirty && epsForm_{{$index}}.name.$error.required)
+									   || (epsForm_{{$index}}.subName.$dirty && epsForm_{{$index}}.subName.$error.required)">Required</span>
+									<span style="color: red !important;"
+										ng-show="(epsForm_{{$index}}.name.$dirty && epsForm_{{$index}}.name.$error.pattern)
+									   || (epsForm_{{$index}}.subName.$dirty && epsForm_{{$index}}.subName.$error.pattern)">At
+										least one alphabet is mandatory </span>
+								</td>
+									<td><ng-form name="currencyForm">
+									<input type="text" placeholder="Currency" class="form-control"
+										ng-required="" ng-model="item.currency"
+										ng-show="item.level==0" readonly="readonly"  placeholder="Currency">
+										 </ng-form>
+										 <ng-form name="currencyForm">
+									<input type="text" placeholder="Currency" class="form-control"
+										ng-required="" ng-model="item.currency"
+										ng-show="item.level>0" readonly="readonly"  placeholder="Currency"> </ng-form>
+										<span style="color: red !important;"
+										ng-show="(epsForm_{{$index}}.name.$dirty && epsForm_{{$index}}.name.$error.required)
+									   || (epsForm_{{$index}}.subName.$dirty && epsForm_{{$index}}.subName.$error.required)">Required</span>
+									<span style="color: red !important;"
+										ng-show="(epsForm_{{$index}}.name.$dirty && epsForm_{{$index}}.name.$error.pattern)
+									   || (epsForm_{{$index}}.subName.$dirty && epsForm_{{$index}}.subName.$error.pattern)">At
+										least one alphabet is mandatory </span>
+								</td>
+								<td>
+									 <input type="text" class="form-control" name="name" ng-if="!item.proj"
+									 ng-model="item.profitCentre" placeholder="Profit Center" data-test="ImmovableAssets_Create_ProfitCenter"
+									 pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+									 maxlength="50" ng-click="getProfitCenterList(profitCentreTO,item)" readonly="readonly" required ng-show="item.level==0">
+
+									  <input type="text" class="form-control" name="name" ng-if="!item.proj"
+									 ng-model="item.profitCentre" placeholder="Profit Center"  disabled
+									 pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+									 maxlength="50" ng-click="getProfitCenterList(profitCentreTO,item)"  readonly="readonly" required ng-show="item.level>0">
+
+									 <span style="color: red !important;"
+										ng-show="(epsForm_{{$index}}.name.$dirty && epsForm_{{$index}}.name.$error.required)
+									   || (epsForm_{{$index}}.subName.$dirty && epsForm_{{$index}}.subName.$error.required)">Required</span>
+									<span style="color: red !important;"
+										ng-show="(epsForm_{{$index}}.name.$dirty && epsForm_{{$index}}.name.$error.pattern)
+									   || (epsForm_{{$index}}.subName.$dirty && epsForm_{{$index}}.subName.$error.pattern)">At
+										least one alphabet is mandatory </span>
+								</td>
+								<td>
+									 <input type="text" class="form-control" name="name" ng-if="!item.proj"
+									 ng-model="item.projectCode" placeholder="project" readonly="readonly"
+									  ng-click="getUserProjects(item)" required ng-show="item.level==0" data-test="ImmovableAssets_Create_Project">
+
+									  <input type="text" class="form-control" name="name" ng-if="!item.proj"
+									 ng-model="item.projectCode" placeholder="project" data-test="ImmovableAssets_Create_SubAsset_Project"
+									  ng-click="getUserProjects(item)"  readonly="readonly" required ng-show="item.level>0">
+
+								</td>
+								<td>
+								<pot-currentyear-picker class="form-control" dir-index="$index" date-name="workDairyDate"
+                                                            ng-model="item.yearBuild" data-test="ImmovableAssets_Create_YearBuild"
+                                                            placeholder="yyyy" readonly="readonly" ng-show="item.level==0"></pot-currentyear-picker>
+                                <pot-currentyear-picker class="form-control" dir-index="$index" date-name="workDairyDate"
+                                                            ng-model="item.yearBuild" data-test="ImmovableAssets_Create_SubAsset_YearBuild"
+                                                            placeholder="yyyy" readonly="readonly" ng-show="item.level>0"></pot-currentyear-picker>
+
+
+									 <span style="color: red !important;"
+										ng-show="(epsForm_{{$index}}.name.$dirty && epsForm_{{$index}}.name.$error.required)
+									   || (epsForm_{{$index}}.subName.$dirty && epsForm_{{$index}}.subName.$error.required)">Required</span>
+									<span style="color: red !important;"
+										ng-show="(epsForm_{{$index}}.name.$dirty && epsForm_{{$index}}.name.$error.pattern)
+									   || (epsForm_{{$index}}.subName.$dirty && epsForm_{{$index}}.subName.$error.pattern)">At
+										least one alphabet is mandatory </span>
+								</td>
+								<td>
+								<ng-form
+									name="dateForm"> <potdate-picker
+									 ng-model="item.dateCommissioned"  date-name="date" min-mode="year" datepicker-mode="'year'" data-test="ImmovableAssets_Create_DateCommissioned"
+									placeholder="dd-mm-yyyy" readonly="readonly"  class="form-control" ng-show="item.level==0"> /></ng-form>
+
+								<ng-form
+									name="dateForm"> <potdate-picker
+									 ng-model="item.dateCommissioned"  date-name="date" data-test="ImmovableAssets_Create_SubAsset_DateCommissioned"
+									placeholder="dd-mm-yyyy" readonly="readonly"  class="form-control" ng-show="item.level>0"> /></ng-form>
+
+									 <span style="color: red !important;"
+										ng-show="(epsForm_{{$index}}.name.$dirty && epsForm_{{$index}}.name.$error.required)
+									   || (epsForm_{{$index}}.subName.$dirty && epsForm_{{$index}}.subName.$error.required)">Required</span>
+									<span style="color: red !important;"
+										ng-show="(epsForm_{{$index}}.name.$dirty && epsForm_{{$index}}.name.$error.pattern)
+									   || (epsForm_{{$index}}.subName.$dirty && epsForm_{{$index}}.subName.$error.pattern)">At
+										least one alphabet is mandatory </span>
+								</td>
+
+								<!-- <td>
+
+									 <input type="text" class="form-control" name="name" ng-if="!item.proj"
+									 ng-model="item.assetCurrentLifeSataus" placeholder="Asset Life Status"
+									 readonly="readonly" required ng-show="action =='Edit' && item.level==0">
+
+									  <input type="text" class="form-control" name="name" ng-if="!item.proj"
+									 ng-model="item.assetCurrentLifeSataus" placeholder="Asset Life Status"  disabled
+								      readonly="readonly" required ng-show="action =='Edit' && item.level>0">
+
+								</td>
+								<td>
+									 <input type="text" class="form-control" name="name" ng-if="!item.proj"
+									 ng-model="item.owenerShipStatus" placeholder="Revenue status"
+									 readonly="readonly" required  ng-show="action =='Edit' && item.level==0">
+
+									  <input type="text" class="form-control" name="name" ng-if="!item.proj"
+									 ng-model="item.owenerShipStatus" placeholder="Revenue status"  disabled
+									 readonly="readonly" required  ng-show="action =='Edit' && item.level>0">
+
+								</td> -->
+
+
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<!-- <div class="panel-footer"> -->
+			<div class="panel-footer">
+
+				<div class="pull-right">
+					<input type="submit" class="btn btn-primary btn-sm"  ng-click="saveSubAsset(item,epsForm)"
+					 value="Save" data-test="ImmovableAssets_Create_Save"/>
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</form>
+</div>

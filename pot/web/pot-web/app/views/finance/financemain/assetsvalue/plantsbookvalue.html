@@ -1,0 +1,172 @@
+<section class="content-header">
+    <h1>Plants - Book Value</h1>
+</section>
+<section class="content">
+    <div class="panel panel-default block footer-parent">
+        <div class="panel-body" ng-init="getCountries();">
+            <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12 no-padding">
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2 padL-0">
+                    <md-input-container>
+                        <label>Country</label>
+                        <md-select ng-model="" ng-change="getCountryDetailsById(item,$index);">
+                            <md-option fixed-header="" ng-repeat="" ng-value="">
+                                {{  }}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+                    <md-input-container>
+                        <label>Province</label>
+                        <md-select ng-model="" ng-change="getCountryDetailsById(item,$index);">
+                            <md-option fixed-header="" ng-repeat="" ng-value="">
+                                {{  }}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+                    <md-input-container>
+                        <label>Profit Center</label>
+                        <input type="text" ng-model="" ng-click="" readonly>
+                    </md-input-container>
+                </div>
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+                    <md-input-container>
+                        <label>Plant Owner(Company)</label>
+                        <input type="text" ng-model="" ng-click="" readonly>
+                    </md-input-container>
+                </div>
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+                    <md-input-container>
+                        <label>Plant Purchase Category</label>
+                        <input type="text" ng-model="" readonly>
+                    </md-input-container>
+                </div>
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+                    <md-input-container>
+                        <label>Plant Classification</label>
+                        <input type="text" ng-model="" readonly>
+                    </md-input-container>
+                </div>
+            </div>
+            <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12 no-padding">
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2 padL-0">
+                    <md-input-container>
+                        <label>Report Run-Cycle</label>
+                        <input type="text" ng-model="" readonly>
+                    </md-input-container>
+                </div>
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+                    <md-input-container>
+                        <label>Plant Book Value-Report Run#</label>
+                        <input type="text" ng-model="" ng-click="" readonly>
+                    </md-input-container>
+                </div>
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+                    <md-input-container>
+                        <label>Period From (dd-mm-yyyy)</label>
+                        <potdate-picker dir-index="$index" date-name="fromDate" ng-model="" custom-read-only />
+                    </md-input-container>
+                </div>
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+                    <md-input-container>
+                        <label>Period To (dd-mm-yyyy)</label>
+                        <potdate-picker dir-index="$index" date-name="toDate" ng-model="" custom-read-only />
+                    </md-input-container>
+                </div>
+                <div class="col-md-1 col-lg-1 col-sm-1 col-xs-1">
+                    <md-input-container>
+                        <label>Report Run Date</label>
+                        <potdate-picker dir-index="$index" date-name="Date" ng-model="" custom-read-only />
+                    </md-input-container>
+                </div>
+                <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3">
+                    <div class="pull-right marT15">
+                        <input type="button" class="btn btn-primary btn-sm" value="Trail Run" ng-click="" />
+                        <input type="button" class="btn btn-primary btn-sm" value="Run" ng-click="" />
+                        <input type="button" ng-click="" class="btn btn-primary btn-sm" value="View Past Records">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12 no-padding">
+                <div class="singleTableResHeight_3 overflow-auto">
+                    <table class="table table-hover table-bordered singleTableHeight_3">
+                        <thead>
+                            <tr>
+                                <th rowspan="2">Country</th>
+                                <th rowspan="2">Province</th>
+                                <th colspan="10" class="text-center">Plant Details</th>
+                                <th colspan="5" class="text-center">Plant Life Status</th>
+                                <th colspan="8" class="text-center">Plant Value Status</th>
+                            </tr>
+                            <tr>
+                                <th>EPS</th>
+                                <th>Project</th>
+                                <th>Profit Center</th>
+                                <th>Plant Owner</th>
+                                <th>Plant ID</th>
+                                <th>Purchase category</th>
+                                <th>Plant Classification</th>
+                                <th>Plant Description</th>
+                                <th>Date of Purchase</th>
+                                <th>Unit of Measure</th>
+                                <th>Plant recommended life</th>
+                                <th>Utilisation to previous period</th>
+                                <th>Utilised during reporting period</th>
+                                <th>Utilised upto date</th>
+                                <th>Remaining useful life</th>
+                                <th>Currency</th>
+                                <th>Plant Purchase Price</th>
+                                <th>Depreciation to Previous Period</th>
+                                <th>Depreciation for Current Period</th>
+                                <th>Depreciation to Date</th>
+                                <th>Remaing useful life value</th>
+                                <th>Plant Salvage Value</th>
+                                <th>Remaing Plant Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="">
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <div class="pull-left">
+                    <input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,46 @@
+<div>
+    <div class="btn-toolbar" ng-if="!options.hideToolbar">
+        <div class="btn-group" ng-if="!options.widgetButtons">
+            <span class="dropdown" on-toggle="toggled(open)">
+              <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                Button dropdown <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" role="menu">
+                <li fixed-header="" ng-repeat ="widget in widgetDefs">
+                  <a href="#" ng-click="addWidgetInternal($event, widget);" class="dropdown-toggle"><span class="label label-primary">{{widget.name}}</span></a>
+                </li>
+              </ul>
+            </span>
+    </div>
+        <div class="btn-group" ng-if="options.widgetButtons">
+            <button fixed-header="" ng-repeat ="widget in widgetDefs"
+                    ng-click="addWidgetInternal($event, widget);" type="button" class="btn btn-primary">
+                {{widget.name}}
+            </button>
+        </div>
+
+     <!--    <button class="btn btn-warning" ng-click="resetWidgetsToDefault()">Default Widgets</button> -->
+
+        <button ng-if="options.storage && options.explicitSave" ng-click="options.saveDashboard()" class="btn btn-success" ng-disabled="!options.unsavedChangeCount">{{ !options.unsavedChangeCount ? "all saved" : "save changes (" + options.unsavedChangeCount + ")" }}</button>
+
+       <!--  <button ng-click="clear();" type="button" class="btn btn-info">Clear</button> -->
+    </div>
+
+    <div ui-sortable="sortableOptions" ng-model="widgets" class="dashboard-widget-area">
+        <div fixed-header="" ng-repeat ="widget in widgets" widget ng-class=" {'widget-container':(widgets.length==1), 'widget-container1':(widgets.length==2),'widget-container2':(widgets.length>=3)}"  style="padding-right: 10px">
+            <div  class="widget panel panel-default">
+                <div class="widget-header panel-heading">
+                    <h4 class="panel-title">
+                      <!--   <span ng-if="!options.hideWidgetName">{{widget.name}}</span> -->
+                        <span ng-click="removeWidget(widget);" class="fa fa-close" ng-if="!options.hideWidgetClose" style="float: right;"></span>
+                        <span ng-click="openWidgetSettings(widget);" class="fa fa-maximize" ng-if="!options.hideWidgetSettings"></span>
+<!--                         <span ng-click="widget.contentStyle.display = widget.contentStyle.display === 'none' ? 'block' : 'none'" class="glyphicon" ng-class="{'glyphicon-plus': widget.contentStyle.display === 'none', 'glyphicon-minus': widget.contentStyle.display !== 'none' }"></span>
+ -->                   </h4>
+                </div>
+                <div class="panel-body widget-content" ng-style="widget.contentStyle"></div>
+                <div class="widget-ew-resizer" ng-mousedown="grabResizer($event)"></div>
+                <div ng-if="widget.enableVerticalResize" class="widget-s-resizer" ng-mousedown="grabSouthResizer($event)"></div>
+            </div>
+        </div>
+    </div>
+</div>

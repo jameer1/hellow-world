@@ -1,0 +1,29 @@
+<div id="tab-pannel" class="panel-group">
+	<div id="tab-pannel" class="panel panel-default" modal-movable>
+		<div class="panel-heading">
+			<!-- <h4 class="panel-title">Approver List</h4> -->
+				<h4 class="panel-title">{{title}}</h4>	
+		</div>
+		<div class="panel-body popUpTableResHeight" style="padding:15px;">
+			<div class="row">		
+				<div class="col-md-12" ng-show="displayApproverList">
+					<md-input-container class="md-block">
+		                 <label>Select Approver User</label>
+		                 <md-select ng-model="approverUserId" ng-required=true>
+					    	<md-option ng-model="approverUserId" ng-value="user.userId" ng-repeat="user in users">{{user.empCode}}-{{user.dispName}}</md-option>
+					    </md-select>
+		             </md-input-container>       
+		         </div>
+		         <div class="col-md-12" ng-show="displayCommentsDiv">
+					<textarea ng-model="comments">
+					</textarea>
+		         </div>
+	         </div>
+	         <div class="row pull-right" style="margin-right:20px;margin-top:10px">
+				<input type="button" class="btn btn-primary" value="Approve" ng-show="displayApproveBtn" ng-click="approve()"/>
+				<input type="button" class="btn btn-primary" value="Submit" ng-show="displaySubmitBtn" ng-click="submit()"/>
+			</div>
+		</div>
+	</div>
+	<div class="ngdialog-close"></div>
+</div>

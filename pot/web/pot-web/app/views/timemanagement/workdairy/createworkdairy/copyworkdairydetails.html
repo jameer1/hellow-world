@@ -1,0 +1,58 @@
+<div id="tab-pannel" ng-init="getWorkDairyDetails()">
+	<div class="panel-group panel panel-default" modal-movable>
+		<div class="panel-heading">
+			<h4 class="panel-title">Copy Work Diary</h4>
+		</div>
+        <div class="panel-body">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 padL-0">
+                        <md-input-container>
+                        <label class="labelName">EPS</label>
+                        <input data-test='AsbuiltRecords_WorkDiary_CreateWorkDiary_CopyTemplate_Eps' type="text" ng-model="eps" readonly="readonly">
+                        </md-input-container>
+                    </div>
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                            <md-input-container>
+                        <label class="labelName">Crew</label>
+                        <input type="text" data-test='AsbuiltRecords_WorkDiary_CreateWorkDiary_CopyTemplate_Crew'
+                               ng-click="getCrewList(projectLabelKeyTO.projId)"
+                               ng-model="crewLabelKeyTO.code" ></md-input-container>
+                    </div>
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                            <md-input-container>
+                        <label class="labelName">Date(dd-mm-yyyy)</label>
+                        <pot-currentdate-picker data-test='AsbuiltRecords_WorkDiary_CreateWorkDiary_CopyTemplate_Date'
+                        dir-index="$index" date-name="fromWorkDairyDate"
+                        ng-model="fromWorkDairyDate"></pot-currentdate-picker>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 padR-0">
+                            <div class="pull-right marT15">
+                                <input type="button" ng-click="getWorkDairyDetails()" class="btn btn-primary btn-sm" value="Search" data-test='AsbuiltRecords_WorkDiary_CreateWorkDiary_CopyTemplate_Search'>
+                                <input type="button" ng-click="" class="btn btn-default btn-sm" value="Reset" data-test='AsbuiltRecords_WorkDiary_CreateWorkDiary_CopyTemplate_Reset'>
+                            </div>
+                        </div>
+                </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li fixed-header="" ng-repeat ="tab in createWorkDiaryTabs"
+                            ng-class="{active:isActiveTab(tab.url)}">
+                            <a data-toggle="tab"
+                               ng-click="onClickTab(tab)">{{tab.title}}</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tab-content">
+                    <div ng-include="currentTab"></div>
+                </div>
+            </div>
+        </div>
+		<div class="panel-footer">
+			<div class="pull-right">
+				<input data-test='AsbuiltRecords_WorkDiary_CreateWorkDiary_CopyTemplate_AddToWorkdiary' type="button" class="btn btn-secondary btn-sm"
+					ng-click="addToWorkDairy()" value="Add To WorkDairy">
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</div>
+</div>

@@ -1,0 +1,384 @@
+<div id="tab-pannel" class="panel-group" ng-required="true">
+	<form name="clientForm" validate autocomplete="off">
+
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title" >Client Registration</h4>
+			</div>
+			<div class="panel-body" id="lable">
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-12" style="padding-left: 25px;padding-right: 25px;">
+						<div class="row spacer0">
+							<div class="col-xs-12 col-sm-6 col-md-3">
+								<div class="form-group" 
+									ng-class="{ 'has-error' : clientForm.clientCode.$invalid && !clientForm.clientCode.$pristine }">
+									<label>Client Code <span class="procurment-pot-errors1">*</span></label> <ng-form name="userForm1">
+									<input data-test='Admin_clientregistratration_Create_client_code' ng-disabled="isDisabled" type="text" name="clientCode"
+										id="client_code" class="form-control input-md"
+										ng-model="addClient.code" placeholder="Client Code"
+										tabindex="1" maxlength="50"
+										pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+										ng-required="true" ng-keydown="$event.keyCode != 32 ? $event:$event.preventDefault()"> 
+										<span class="procurment-pot-errors1" ng-show="userForm1.clientCode.$touched && userForm1.clientCode.$error.required">
+										Client Code is Required</span> 
+										<span class="procurment-pot-errors1" ng-show="userForm1.clientCode.$error.pattern">Atleast one alphabet is mandatory </span></ng-form>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-3">
+								<!-- CLIENT Name -->
+								<div class="form-group"
+									ng-class="{ 'has-error' : clientForm.clientName.$invalid && !clientForm.clientName.$pristine }">
+									<label>Client Name <span class="procurment-pot-errors1">*</span></label>  <ng-form name="userForm2">
+									<input data-test='Admin_clientregistratration_Create_client_name' ng-disabled="isDisabled" type="text" name="clientName"
+										id="client_name" class="form-control input-md"
+										ng-model="addClient.name"
+										pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+										placeholder="Client Name" tabindex="2" maxlength="100"
+										ng-required="true"> <span class="procurment-pot-errors1"
+										ng-show="userForm2.clientName.$touched && userForm2.clientName.$error.required">Client
+										Name is Required</span> <span class="procurment-pot-errors1"
+										ng-show="userForm2.clientName.$error.pattern">Atleast
+										one alphabet is mandatory </span>
+									</ng-form>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-3">
+								<!-- USER NAME -->
+								<div class="form-group"
+									ng-class="{ 'has-error' : clientForm.userName.$invalid && !clientForm.userName.$pristine }">
+									<label>User Name <span class="procurment-pot-errors1">*</span></label> <ng-form name="userForm3">
+									<input data-test='Admin_clientregistratration_Create_userName' ng-disabled="isDisabled" type="text" name="userName"
+										id="userName" class="form-control input-md"
+										ng-model="addClient.userTO.userName"
+										placeholder="User Name"
+										pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+										tabindex="3" minlength="1" maxlength="35" ng-required="true" ng-keydown="$event.keyCode != 32 ? $event:$event.preventDefault()">
+									<span class="procurment-pot-errors1"
+										ng-show="userForm3.userName.$touched && userForm3.userName.$error.required">User
+										Name is Required</span> <span class="procurment-pot-errors1"
+										ng-show="userForm3.userName.$error.pattern">Atleast one alphabet is mandatory </span>
+							
+									</ng-form>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-3">
+								<!-- Add -->
+								<div class="form-group" ng-if="actionType == 'Add'" ng-class="{ 'has-error' : clientForm.password.$invalid && !clientForm.password.$pristine }">
+									<label>Password <span class="procurment-pot-errors1">*</span></label> <ng-form name="userForm4">
+									<input data-test='Admin_clientregistratration_Create_password' ng-disabled="isDisabled" type="password" name="password"
+										id="password"
+										class="form-control input-md"
+										ng-model="addClient.userTO.password" placeholder="Password"
+										pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+										tabindex="4" minlength="5" maxlength="50" ng-required="true"> <span
+										class="procurment-pot-errors1"
+										ng-show="userForm4.password.$touched&&userForm4.password.$error.required">Password
+										is Required</span> <span class="procurment-pot-errors1" ng-show="userForm4.password.$error.pattern">At
+										least one alphabet is mandatory </span>
+									<p ng-show="userForm4.password.$error.minlength"
+										class="procurment-pot-errors1">Password should be minimum 5 characters.</p>
+									</ng-form>
+								</div>
+								
+								<!-- Edit -->
+								<div class="form-group" ng-if="actionType == 'Edit'">
+									<label>Password <span class="procurment-pot-errors1">*</span></label> 
+									<ng-form name="userForm4">
+									<input 
+									type="password" name="password" id="password" class="form-control input-md" placeholder="Password"
+									ng-model="addClient.userTO.password" ng-disabled="true"
+									data-test='Admin_clientregistratration_Create_password'
+									/>
+									</ng-form>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<!-- FIRST NAME -->
+							<div class="col-xs-12 col-sm-6 col-md-3">
+								<div class="form-group"
+									ng-class="{ 'has-error' : clientForm.firstName.$invalid && !clientForm.firstName.$pristine }">
+									<label>First Name <span class="procurment-pot-errors1">*</span></label> <ng-form name="userForm5">
+									<input data-test='Admin_clientregistratration_Create_first_name' ng-disabled="isDisabled" type="text" name="firstName"
+										id="first_name" class="form-control input-md"
+										placeholder="First Name" tabindex="5"
+										pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+										maxlength="100" ng-model="addClient.userTO.firstName"
+										ng-required="true"> <span class="procurment-pot-errors1"
+										ng-show="userForm5.firstName.$error.pattern">Atleast
+										one alphabet is mandatory </span>
+										<span class="procurment-pot-errors1"
+										ng-show="userForm5.firstName.$touched && userForm5.firstName.$error.required">First
+										Name is Required</span>
+									</ng-form>
+								</div>
+							</div>
+							<!-- LAST NAME -->
+							<div class="col-xs-12 col-sm-6 col-md-3">
+								<div class="form-group"
+									ng-class="{ 'has-error' : clientForm.lastName.$invalid && !clientForm.lastName.$pristine }">
+									<label>Last Name <span class="procurment-pot-errors1">*</span></label> <ng-form name="userForm6">
+									<input data-test='Admin_clientregistratration_Create_last_name' ng-disabled="isDisabled" type="text" name="lastName"
+										id="last_name" class="form-control input-md"
+										ng-model="addClient.userTO.lastName" placeholder="Last Name"
+										pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+										tabindex="6" maxlength="100" ng-required="true"> <span class="procurment-pot-errors1"
+										ng-show="userForm6.lastName.$error.pattern">Atleast
+										one alphabet is mandatory </span>
+										<span class="procurment-pot-errors1"
+										ng-show="userForm6.lastName.$touched && userForm6.lastName.$error.required">Last
+										Name is Required</span>
+									</ng-form>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-3">
+
+								<!-- DISPLAY NAME -->
+								<div class="form-group"
+									ng-class="{ 'has-error' : clientForm.displayName.$invalid && !clientForm.displayName.$pristine }">
+									<label>Display Name <span class="procurment-pot-errors1">*</span></label> <ng-form name="userForm7">
+									<input data-test='Admin_clientregistratration_Create_display_name' ng-disabled="isDisabled" type="text"
+										name="displayName" id="display_name"
+										class="form-control input-md"
+										ng-model="addClient.userTO.dispName"
+										placeholder="Display Name" tabindex="7"
+										pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+										maxlength="100" ng-required="true"> <span
+										class="procurment-pot-errors1"
+										ng-show="userForm7.displayName.$touched&&userForm7.displayName.$error.required">Display
+										Name is Required</span> <span class="procurment-pot-errors1"
+										ng-show="userForm7.displayName.$error.pattern">Atleast one alphabet is mandatory </span>
+									</ng-form>
+								</div>
+							</div>
+
+							<div class="col-xs-12 col-sm-6 col-md-3">
+								<!-- EMAIL ID -->
+								<div class="form-group"
+									ng-class="{ 'has-error' : clientForm.email.$invalid && !clientForm.email.$pristine }">
+									<label>Email Address <span class="procurment-pot-errors1">*</span></label><ng-form name="userForm8">
+									<input data-test='Admin_clientregistratration_Create_Email' ng-disabled="isDisabled" type="email" name="email"
+										id="email" class="form-control input-md"
+										ng-model="addClient.email" placeholder="Email Address"
+										ng-blur="checkEmail(userForm8); showError=true;" maxlength="60"
+										tabindex="8" ng-required="true"> <span
+										class="procurment-pot-errors1"
+										ng-show="userForm8.email.$touched&&userForm8.email.$error.required">Email
+										ID is Required</span>
+									<span class="procurment-pot-errors1" ng-show="showError && userForm8.email.$error.email">
+										Email ID is Invalid</span>
+										<span class="procurment-pot-errors1" ng-show="showError && !(userForm8.email.$error.email
+										||userForm8.email.$error.required)&&
+										userForm8.email.$invalid">{{userForm8.email.errorMessage}}</span>
+										</ng-form>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12 col-sm-6 col-md-3">
+								<!-- BUSINESS TYPE -->
+								<div class="form-group"
+									ng-class="{ 'has-error' : clientForm.businessType.$invalid && !clientForm.businessType.$pristine }">
+									<label>Business Type <span class="procurment-pot-errors1">*</span></label> <ng-form name="userForm9">
+									<input data-test='Admin_clientregistratration_Create_BusinessType' ng-disabled="isDisabled" type="text"
+										name="businessType" id="business_type"
+										pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+										class="form-control input-md"
+										ng-model="addClient.businessType" placeholder="Business Type"
+										tabindex="9" maxlength="50" ng-required="true"> <span
+										class="procurment-pot-errors1"
+										ng-show="userForm9.businessType.$touched && userForm9.businessType.$error.required">Business
+										Type is Required</span> <span class="procurment-pot-errors1"
+										ng-show="userForm9.businessType.$error.pattern">Atleast one alphabet is mandatory </span>
+									</ng-form>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-3">
+								<div class="form-group" ng-class="{ 'has-error' : clientForm.country.$invalid && !clientForm.country.$pristine }">
+									<label>Country <span class="procurment-pot-errors1">*</span></label> 
+									<ng-form name="userForm12">
+								<select data-test='Admin_clientregistratration_Create_country' ng-disabled="isDisabled"
+								 ng-required="true" 
+								 tabindex="10"
+								  class="form-control
+								   input-md" ng-model="countryObj"
+								   name="country"
+								   ng-change="updateCountryName(countryObj,addClient)">
+									<option value="">--Select --</option>
+									<option fixed-header="" ng-repeat ="sel in countries | orderBy : 'countryName'" ng-selected="countryObj == sel.countryName" value="{{sel.countryName}}">{{sel.countryName}}</option>
+								</select>
+								
+								<span class="procurment-pot-errors1"
+								ng-show="userForm12.country.$touched&&userForm12.country.$error.required">Select Country</span>
+							</ng-form>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-3">
+								<div class="form-group"
+									ng-class="{ 'has-error' : clientForm.fax.$invalid && !clientForm.fax.$pristine }">
+									<label>Website URL (If Available)</label> <ng-form name="userForm10">
+									<input data-test='Admin_clientregistratration_Create_webSiteURL' ng-disabled="isDisabled" type="text" 
+										id="webSiteURL" class="form-control input-md" name="url" title="Include http://"
+										ng-model="addClient.webSiteURL" pattern="https?://.+[a-z0-9.-]+\.[a-z]{2,}" placeholder="http://url.com"
+										tabindex="11" maxlength="30" >
+										<span class="procurment-pot-errors1" 
+										ng-show="userForm10.url.$touched && userForm10.url.$error.required">Website URL required</span>
+										<span class="procurment-pot-errors1"
+										ng-show="userForm10.url.$error.pattern">Enter correct format</span>
+									</ng-form>
+								</div>
+							</div>
+
+							<div class="col-xs-12 col-sm-6 col-md-3">
+								<div class="form-group"
+									ng-class="{ 'has-error' : clientForm.fax.$invalid && !clientForm.fax.$pristine }">
+									<label>Max Users <span class="procurment-pot-errors1">*</span></label><ng-form name="userForm11">
+									<input ng-disabled="isDisabled" type="text" data-test='Admin_clientregistratration_Create_RegisteredUsers'
+										name="registeredUsers" id="registeredUsers" class="form-control input-md" ng-required="true"
+										ng-model="addClient.registeredUsers" placeholder="Registered Users" tabindex="13" minlength="1" maxlength="5" valid-number
+										pattern="^[\d\.,]+$">
+										<span class="procurment-pot-errors1" 
+										ng-show="userForm11.registeredUsers.$touched && userForm11.registeredUsers.$error.required">Max Users are required</span>
+										<span class="procurment-pot-errors1"
+										ng-show="userForm11.registeredUsers.$error.pattern">Enter Only Numbers</span>
+									</ng-form>
+
+								</div>
+							</div>
+							</div>
+							<div class="row">
+							<div class="col-xs-12 col-sm-6 col-md-3">
+								<div class="form-group"
+									ng-class="{ 'has-error' : clientForm.fax.$invalid && !clientForm.fax.$pristine }">
+									<label> Licence Expiry / Renewal Date <span class="procurment-pot-errors1">*</span></label>
+									<potdate-picker ng-disabled="isDisabled" 
+										data-test='Admin_clientregistratration_Create_LicenceExpiry' 
+										ng-model="addClient.licence"
+										dir-index="$index" date-name="licence"
+										placeholder="dd-mm-yyyy" class="form-control input-md"
+										tabindex="14" id="fromDate"
+										min-date="minLicenseExpiryDate" ng-required="true" custom-read-only></potdate-picker>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-3">
+								<div class="form-group"
+									ng-class="{ 'has-error' : clientForm.fax.$invalid && !clientForm.fax.$pristine }">
+									<label>Contact Person <span class="procurment-pot-errors1">*</span></label> <input data-test='Admin_clientregistratration_Create_contactperson' type="text"
+										name="contactperson" id="contactperson" class="form-control input-md"
+										ng-model="addClient.contactPerson"
+										placeholder="Contact Person" tabindex="15" maxlength="35"
+										ng-required="true">
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-3">
+								<div class="form-group"
+									ng-class="{ 'has-error' : clientForm.fax.$invalid && !clientForm.fax.$pristine }">
+									<label>Address <span class="procurment-pot-errors1">*</span></label> <input data-test='Admin_clientregistratration_Create_address' type="text" name="address"
+										id="address" class="form-control input-md"
+										ng-model="addClient.address" placeholder="Address"
+										tabindex="16" maxlength="200" ng-required="true">
+								</div>
+							</div>
+
+
+							<div class="col-xs-12 col-sm-6 col-md-3">
+								<!-- FAX -->
+								<div class="form-group"
+									ng-class="{ 'has-error' : clientForm.fax.$invalid && !clientForm.fax.$pristine }">
+									<label>Fax </label> <ng-form name="userForm13">
+									<input data-test='Admin_clientregistratration_Create_Fax' type="text" id="fax"
+										class="form-control input-md" ng-model="addClient.fax"
+										placeholder="Fax" tabindex="17" maxlength="20" name="fax"
+										pattern="^[\d\.,]+$" valid-number> <span class="procurment-pot-errors1"
+										ng-show="userForm13.fax.$error.pattern">Enter Only
+										Numbers with Pattern</span> 
+									</ng-form>
+									<!-- <p class="help-block" ng-show="clientForm.fax.$error.fax">Your FAX is Invalid</p> -->
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12 col-sm-6 col-md-3">
+								<!-- MOBILE NUMBER -->
+								<div class="form-group"
+									ng-class="{ 'has-error' : clientForm.mobile.$invalid && !clientForm.mobile.$pristine }">
+									<label>Mobile Number <span class="procurment-pot-errors1">*</span></label> <ng-form name="userForm14">
+									<input data-test='Admin_clientregistratration_Create_mobile_number' type="text" name="mobile"
+										id="mobile_number" class="form-control input-md"
+										ng-model="addClient.mobile" placeholder="Mobile Number"
+										pattern="^[\d\.,]+$" tabindex="18" minlength=10 maxlength="15"
+										ng-required="true" valid-number> <span class="procurment-pot-errors1"
+										ng-show="userForm14.mobile.$touched&&userForm14.mobile.$error.required">Mobile
+										Number is Required</span> <span class="procurment-pot-errors1"
+										ng-show="userForm14.mobile.$error.pattern">Enter Only
+										Numbers</span> <span class="procurment-pot-errors1" ng-show="userForm14.mobile.$error.minlength">Mobile
+										number must be minimum 10 digits</span>
+									</ng-form>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-3">
+								<!-- PHONE NUMBER -->
+								<div class="form-group"
+									ng-class="{ 'has-error' : clientForm.phone.$invalid && !clientForm.phone.$pristine }">
+									<label>Phone Number</label> <ng-form name="userForm15">
+									<input data-test='Admin_clientregistratration_Create_phoneNumber' type="text" name="phone"
+										id="phone_number" class="form-control input-md"
+										ng-model="addClient.phone" placeholder="Phone Number"
+										pattern="^[\d\.,]+$" tabindex="19" maxlength="15" minlength="6"
+										valid-number> <span class="procurment-pot-errors1"
+										ng-show="userForm15.phone.$error.pattern">Enter Only
+										Digits </span>  <span class="procurment-pot-errors1"
+										ng-show="userForm15.phone.$error.minlength">Phone
+										number must be minimum 6 digits</span>
+									</ng-form>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-3">
+								<label>Client Document</label><br /> <label> <span>
+								
+										<span ng-if="actionType == 'Edit'">{{ addClient.clientDetailsFileName == null ? 'No Document' : addClient.clientDetailsFileName }}</span>
+										
+										<input ng-if="actionType == 'Add'" data-test='Admin_clientregistratration_Create_UploadFile' type="file"  
+										fileread="clientDoc" name="file"
+										ngf-select="checkFile($file)" ngf-accept="'*'" tabindex="20"  >
+								</span>
+								<span class="procurment-pot-errors1" style="color: red"
+										ng-show="!clientDoc.isValid"> 
+										{{clientDoc.errorMessage}}</span>
+								</label>
+							</div>
+
+							<div class="col-xs-12 col-sm-6 col-md-3">
+								<!-- COMMENTS -->
+								<div class="form-group"
+									ng-class="{ 'has-error' : clientForm.comments.$invalid && !clientForm.comments.$pristine }">
+									<label>Comments</label>
+									<textarea name="comment" data-test='Admin_clientregistratration_Create_Comments' id="msg" class="form-control input-lg"
+										ng-model="addClient.remarks" placeholder="Comments" 
+										tabindex="21"></textarea>
+								</div>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="panel-footer-horizontal-scroll  panel-footer">
+				<div class="pull-right">
+					<input data-test='Admin_clientregistration_Create_Register' type="Submit" ng-show="actionType=='Add'" value="Register"
+						ng-click="clientDoc.isValid&&clientForm.$valid && saveClient(addClient,'Add')"
+						class="btn btn-primary btn-sm" />
+					<input data-test='Admin_clientregistration_Create_Save_OK' type="Submit" ng-show="actionType=='Edit'" value="Save"
+						ng-click="clientForm.$valid && saveClient(addClient)"
+						class="btn btn-primary btn-sm" />
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</form>
+
+</div>
+
+

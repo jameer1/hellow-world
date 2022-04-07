@@ -1,0 +1,86 @@
+<div id="tab-pannel" class="panel-group" ng-controller="PlantTransferController" ng-init="plantTransferSearch('Yes')">
+  <div class="panel panel-default">
+     <div class="panel-heading">
+      <h4 class="panel-title">Plant Transfer</h4>
+    </div> 
+   
+    <div class="panel-body25-0">
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Select</th>
+            <th>Date Of Request</th>
+            <th>Originator Id&Name</th>
+            <th>Approver Person</th>
+            <th>Requisition Notification</th>
+            <th>Company Assest Id</th>
+            <th>Registration Number</th>
+            <th>Plant Desciption</th>
+            <th>Make</th>
+            <th>Model</th>
+            <th>Current Project Id</th>
+            <th>Current Project Name</th>
+            <th>For Project Id</th>
+            <th>For Project Name</th>
+            <th>Anticipated Demobilisation Date</th>
+            <th>Transfer Required Date</th>
+            <th>Approval Status</th>
+            <th>Date Set For Asset Transfer</th>
+            <th>Actual Delivered Date At Destination</th>
+            <th>Received By</th>
+            <th>Notes From Receiver</th>
+            <th>Transfer Note Records</th>
+            <th ng-hide="approverStatus.desc != 'Inprogress'">Requester Comments</th>
+            <th ng-show="approverStatus.desc != 'Inprogress'">Approver Comments</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr fixed-header="" ng-repeat ="plantRequest in plantRequestDetails">
+            <td><input type="checkbox" ng-model="plantRequest.selected" ng-change="plantRequestRowSelect(plantRequest)"></td>
+            <td>{{plantRequest.reqDate}}</td>
+            <td>{{plantRequest.originator}}</td>
+            <td>{{plantRequest.approverPerson}}</td>
+            <td>{{plantRequest.notifyId}}</td>
+            <td>{{plantRequest.plantRegisterDtlTO.assertId}}</td>
+            <td>{{plantRequest.plantRegisterDtlTO.regNumber}}</td>
+            <td>{{plantRequest.plantRegisterDtlTO.desc}}</td>
+            <td>{{plantRequest.plantRegisterDtlTO.manfacture}}</td>
+            <td>{{plantRequest.plantRegisterDtlTO.model}}</td>
+            <td>{{plantRequest.transferFromProject}}</td>
+            <td>{{plantRequest.currentProjName}}</td>
+            <td>{{plantRequest.projCode}}</td>
+            <td>{{plantRequest.projName}}</td>
+            <td >{{plantRequest.deMobilisationDate}}</td>
+            <td>{{plantRequest.transDate}}</td>
+            <td>{{plantRequest.apprStatus}}</td>
+            <td>{{plantRequest.assestTransfer}}</td>
+            <td>{{plantRequest.actualDeliveredDate}}</td>
+            <td>{{plantRequest.receivedBy}}</td>
+            <td>{{plantRequest.notesFromReceiver}}</td>
+            <td>{{plantRequest.transferNoteRecords}}</td>
+            
+            <td ng-show="plantRequest.apprStatus == 1" ng-if="plantRequest.apprStatus == 1">Inprogress</td>
+
+            <td ng-show="plantRequest.apprStatus == 2" ng-if="plantRequest.apprStatus == 2">Approved</td>
+
+            <td ng-show="plantRequest.apprStatus == 3" ng-if="plantRequest.apprStatus == 3">Rejected</td>
+
+            <td ng-hide="approverStatus.desc != 'Inprogress'">{{plantRequest.reqComments}}</td>
+
+            <td ng-show="approverStatus.desc != 'Inprogress'">{{plantRequest.apprComments}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="panel-footer">
+      <div class="pull-right">
+        <input type="button" class="btn btn-brown btn-sm" ng-click="createPlantRequest('Create')" value="CreateRequest">
+      </div>
+      <div class="pull-left">
+        <input type="button" class="btn btn-brown btn-sm" ng-click="createPlantRequest('Approved')" value="Approve"> <input type="button" class="btn btn-brown btn-sm"
+          ng-click="createPlantRequest('Rejected')" value="Reject">
+      </div>
+    </div>
+  </div>
+</div>

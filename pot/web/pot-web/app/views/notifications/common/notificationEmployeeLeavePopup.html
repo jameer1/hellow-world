@@ -1,0 +1,170 @@
+<div id="tab-pannel">
+ <div class="panel-group">
+  <div class="panel panel-default">
+   <div class="panel-heading">
+    <h4 class="panel-title">Employee Transfer Template - {{notify.code}}</h4>
+   </div>
+   <div class="panel-body20-0" ng-if="type==null && notifyStatus=='New Request'">
+    <div class="table-responsive">
+     <h5>
+      <u>Sub: Request for Leave</u>
+     </h5>
+     <br> {{usersMap[notify.apprUserId].code}},<br>
+     <br> I have submitted my request for Leave Approval through Project on Track, as per details mentioned here below. <br> <br>
+     <table border="1" class="table">
+
+      <tr>
+       <th>Company</th>
+       <td>{{userProjMap[notify.forProject].code}}</td>
+      </tr>
+
+      <tr>
+       <th>Project</th>
+       <td>{{userProjMap[notify.projId].name}}</td>
+      </tr>
+
+      <tr>
+       <th>Employee ID</th>
+       <td>{{empRegMap[notify.empId].code}}</td>
+      </tr>
+
+      <tr>
+       <th>Employee Name</th>
+       <td>{{empRegMap[notify.empId].name}}</td>
+      </tr>
+
+      <tr>
+       <th>Requisition Code</th>
+       <td>{{notify.requistionCode}}</td>
+      </tr>
+
+      <tr>
+       <th>Notification Code</th>
+       <td>{{notify.code}}</td>
+      </tr>
+      
+       <tr>
+       <th>Leave Request Start Date</th>
+       <td>{{notify.startDate}}</td>
+      </tr>
+      
+       <tr>
+       <th>Number of Days</th>
+       <td>{{notify.totalDays}}</td>
+      </tr>
+
+     </table>
+     <br> This is for your Approval Please. <br> <br> Regards,<br> {{usersMap[notify.reqUserId].code}}
+
+    </div>
+   </div>
+
+   <div class="panel-body22-0" ng-if="notifyStatus=='Not Approved'">
+    <div class="table-responsive">
+     <h5>
+      <u>Sub: Response to Leave Request</u>
+     </h5>
+     <br> {{usersMap[notify.reqUserId].code}},<br>
+     <br> Reference Notification ID {{notify.code}} <br>
+     <br> I have transmitted my decision for Leave through Project on Track, as per details mentioned here below. <br> <br>
+     <table border="1" class="table">
+
+      <tr>
+       <th>Company</th>
+       <td>{{userProjMap[notify.forProject].code}}</td>
+      </tr>
+
+      <tr>
+       <th>Project</th>
+       <td>{{userProjMap[notify.projId].name}}</td>
+      </tr>
+
+      <tr>
+       <th>Employee ID</th>
+       <td>{{empRegMap[notify.empId].code}}</td>
+      </tr>
+
+      <tr>
+       <th>Employee Name</th>
+       <td>{{empRegMap[notify.empId].name}}</td>
+      </tr>
+
+      <tr>
+       <th>Requisition Code</th>
+       <td>{{notify.requistionCode}}</td>
+      </tr>
+
+      <tr>
+       <th>Notification Code</th>
+       <td>{{notify.code}}</td>
+      </tr>
+      
+      <tr>
+       <th>Leave Start Date</th>
+       <td>{{notify.startDate}}</td>
+      </tr>
+      
+      <tr>
+       <th>Number of Days</th>
+       <td>{{notify.totalDays}}</td>
+      </tr>
+
+      <tr>
+       <th>Approver Decision</th>
+       <td>{{notify.notifyStatus}}</td>
+      </tr>
+
+     </table>
+     <br> This is for your Information Please. <br> <br> Regards,<br> {{usersMap[notify.apprUserId].code}}
+
+    </div>
+   </div>
+   <div class="panel-body21-0" ng-if="type=='Additional Time For Submit' && notifyStatus=='Pending'">
+    <div class="table-responsive">
+     <h5>
+      <u>Sub: Request for Additional Time Employee Transfer</u>
+     </h5>
+     <br> {{usersMap[notify.apprUserId].code}},<br>
+     <br> Reference Notification Number {{notify.code}} <br>
+     <br> I have granted additional time for your approval on Employee through Project on Track, as per details mentioned here below. <br> <br>
+     <table border="1" class="table">
+
+      <tr>
+       <th>From EPS</th>
+       <td>{{userProjMap[notify.forProject].code}}</td>
+      </tr>
+
+      <tr>
+       <th>From Project</th>
+       <td>{{userProjMap[notify.forProject].name}}</td>
+      </tr>
+
+      <tr>
+       <th>To EPS</th>
+       <td>{{userProjMap[notify.projId].code}}</td>
+      </tr>
+
+      <tr>
+       <th>To Project</th>
+       <td>{{userProjMap[notify.projId].name}}</td>
+      </tr>
+
+      <tr>
+       <th>Requisition Code</th>
+       <td>{{notify.requistionCode}}</td>
+      </tr>
+
+      <tr>
+       <th>Notification Code</th>
+       <td>{{notify.code}}</td>
+      </tr>
+
+     </table>
+     <br> This is for your Information and Further Action Please. <br> <br> Regards,<br> {{usersMap[notify.reqUserId].code}}
+
+    </div>
+   </div>
+   <div class="ngdialog-close"></div>
+  </div>
+ </div>
+</div>

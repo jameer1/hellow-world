@@ -1,0 +1,93 @@
+<section class="content-header">
+	<h1>Project Folders</h1>
+	<input type="submit" value ="Help !"
+		ng-click="helpPage();" class="pull-right btn  btn-primary btn-sm help-each-page">
+</section>
+<!-- Main content -->
+<section class="content">
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			<div class="panel panel-default block footer-parent">
+				<div class="panel-body">
+					<div>
+						<form name="folderForm" validate autocomplete="off">
+							<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 padL-0">
+								<md-input-container class="md-block">
+									<label>EPS ID/Name</label>
+									<input type="text" ng-model="searchProject.parentName" ng-click="getUserProjects()" readonly />
+								</md-input-container>
+							</div>
+							<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+									<md-input-container class="md-block">
+										<label>Project ID/Name</label>
+										<input type="text" ng-model="searchProject.projName" ng-click="getUserProjects()" readonly />
+									</md-input-container>
+								</div>
+								<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 padR-0">
+										<div class="pull-right marT15">
+												<input type="button" ng-click="getFolderDetails();" class="btn btn-primary btn-sm" value="Search"> <input
+												 type="reset" class="btn btn-default btn-sm" ng-click="reset()" value="Reset">
+										</div>
+								</div>
+						</form>
+					</div>
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+						<div class="singleTableResHeight_2">
+							<form name="folderForm" validate class="form-horizontal" autocomplete="off">
+								<table id="tree" class="table table-striped table-hover table-bordered singleTableHeight_2" >
+									<thead>
+										<tr>
+											<th style="width: 100px !important">Select</th>
+											<th>Folder Names</th>
+										</tr>
+									</thead>
+									<tbody>
+									  <tbody>
+			                           	<tr fixed-header="" ng-repeat="item in documentsData" class="abc{{item.level}}"
+											 ng-click="getDocuments(item)"
+											  ng-show="!item.collapse">
+											 <td>
+												<label class="checkboxcontainer">
+													<input class="documentsData" data-test='Documents_ProjectFolders_FolderSelect' type="checkbox" ng-model="item.select" ng-change="selectFolders(item,$index);" data-selection="{{item.id}}" style="padding-left: 30px;" />
+													<span class="checkmark"></span>
+												</label>
+											</td>
+			                               <td>
+				                                <span ng-repeat="level in [].constructor(item.level) track by $index" class="xyz" style="padding-left: 30px;"></span>
+												<span ng-show="item.expand " ng-click="itemClick(item, true);"	 class="fa fa-minus" title="Collapse Folder"></span>
+												 <span ng-show="!item.expand && item.childProjDocFolderTOs.length>0" ng-click="itemClick(item, false);" class="fa fa-plus" title="Expand Folder"></span>
+												<span ng-hide="childProjDocFolderTOs.length == 0"style="padding-left: 10px; color:black !important;">{{item.name}}</span>
+												<span ng-show="item.name=='Other Documents'"><i class="fa fa-edit fa-fw" ng-if="item.level==0 && !item.item" data-test='EPS_Editicon' title="Edit Folder"
+													ng-click="editTreeDetails('Edit',item,item.folderType)"></i>
+												</span>
+			                               </td>
+			                            </tr>
+									</tbody>
+								</table>
+							</form>
+						</div>
+					</div>
+				</div>
+				<div class="panel-footer">
+						<div class="pull-right right-padding">
+								<!-- <input ng-if="account.appCodeTemplate['PROJECT_FOLDER_DOCMTT_ADD']" type="submit" data-test='Documents_ProjectFolders_AddNew' ng-click="folderForm.$valid && addFolderGroup('Add')" class="btn btn-secondary btn-sm" value="Add New"> -->
+								<input data-test='Documents_ProjectFolders_AllowUsers' ng-if="account.appCodeTemplate['PROJECT_FOLDER_DOCMTT_ALLOW']" type="button" ng-click="getProjDocFolderPermissions()" class="btn btn-primary btn-sm" value="Allow Users">
+							</div>
+					<div class="pull-left">
+
+						<input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+						<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+						<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+						<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+						<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+
+
+
+						<input data-test='Documents_ProjectFolders_Save' type="submit" ng-if="account.appCodeTemplate['PROJECT_FOLDER_DOCMTT_ADD']" class="btn btn-secondary btn-sm"  ng-click="deleteFolders();" value="Delete">
+
+					</div>
+				</div>
+			</div>
+		</div>
+</section>
+<!-- ng-disabled="!(item.id<=0 || item.id==undefined) && (item.select<=0 || item.select==undefined )" -->

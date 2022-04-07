@@ -1,0 +1,69 @@
+<div id="tab-pannel" class="panel-group"
+	ng-controller="AssetPeriodicalRecordsController">
+	<div class="tabTable_1_Res_height">
+		<table class="table table-striped table-bordered tabTable_1_height" >
+			<thead id="tab-head">
+				<tr>
+					<th rowspan=2 style="width: 40px;" ng-hide="action =='Edit'">Select</th>
+					<th colspan=6 class="text-center">Plan</th>
+					<th colspan=6 class="text-center">Actual</th>
+				</tr>
+				<tr>
+					<th>Due Date</th>
+					<th>Maintenance Category</th>
+					<th>Maintenance Sub Category</th>
+					<th>Responsible Supervisor</th>
+					<th>Maintenance List(Upload Documents)</th>
+					<th>Current Status</th>
+					<th>Start Date</th>
+					<th>Finish Date</th>
+					<th>Responsible<br>Supervisor
+					</th>
+					<th>Purchase Order Number<br>(Sub Contractor Services)
+					</th>
+					<th>Materials ConsumptionRecords<br>(ProjectDocket #)
+					</th>
+					<th>Completion Records<br>(Upload Documents)
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+			 <tr fixed-header="" ng-repeat ="periodical in PeriodicalScheduleMaintenanceDtlTO">
+          <td><input type="checkbox" value="id" ng-model="periodical.selected" ng-change="periodicalRecordsSelect(periodical)" data-test="PeriodicalScheduleMaintenanceRecords_Checkbox"></td>
+                    <td>{{periodical.dueDate}}</td>
+					<td>{{periodical.maintenanceCategory}}</td>
+					<td>{{periodical.maintenanceSubCategory}}</td>
+					<td>{{periodical.planResponsibleSupervisor}}</td>
+					<!-- <td><span class="fa fa-download" ng-if="periodical.planRecordDocumentFileName" ng-click="downloadRecordPeriodicalFile(periodical.id,Plan)" title="Click To Download {{periodical.planRecordDocumentFileName}}"></span></td> -->
+					<td><span class="fa fa-download" ng-if="periodical.planRecordDocumentFileName" ng-click="downloadRecordPeriodicalFile(periodical.id,periodical.planRecordDocumentFileName,'Plan')" title="Click To Download {{periodical.planRecordDocumentFileName}}"></span></td>
+					<td>{{periodical.currentStatus}}</td>
+					<td>{{periodical.startDate}}</td>
+					<td>{{periodical.finishDate }}</td>
+					<td>{{periodical.actualResponsibleSupervisor }}</td>
+					<td>{{periodical.purchaseOrderNumber }}</td>
+					<td>{{periodical.materialsConsumptionRecords }}</td>
+          <!-- <td><a class="fa fa-download" ng-if="periodical.actualRecordsDocumentFileName" href="{{periodical.actualDocUrl}}" title="Click To Download {{periodical.actualRecordsDocumentFileName}}"></a></td> -->
+          <td><span class="fa fa-download" ng-if="periodical.actualRecordsDocumentFileName" ng-click="downloadRecordPeriodicalFile(periodical.id,periodical.actualRecordsDocumentFileName,'Actual')" title="Click To Download {{periodical.actualRecordsDocumentFileName}}"></span></td>
+        </tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="panel-footer">
+		<div class="pull-right padR-0">
+			<input type="button" class="btn btn-primary btn-sm"
+			data-test="PeriodicalScheduleMaintenanceRecords_Create"
+				ng-click="addPeriodicalRecords('Add')" value="Add">
+		</div>
+		<div class="pull-left padL-0">
+			<input type="button" class="btn btn-primary btn-sm"
+			data-test="PeriodicalScheduleMaintenanceRecords_Edit"
+				ng-click="addPeriodicalRecords('Edit')" value="Edit"> <input
+				type="button" class="btn btn-default btn-sm"
+				data-test="PeriodicalScheduleMaintenanceRecords_Deactivate"
+				ng-click="deleteperiodicalRecord()" value="Deactivate">
+		</div>
+	</div>
+</div>
+
+
+

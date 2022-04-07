@@ -1,0 +1,113 @@
+<section class="content-header">
+    <h1 ng-if="!subReport.name">Manpower Cost Code Wise Daily-Deployment List</h1>
+    <h1 ng-if="subReport.name">Manpower Cost Code Wise Daily-Deployment List - {{subReport.name}}</h1>
+    <!-- <input type="submit" value ="Help !"
+		ng-click="helpPage();" class="pull-right btn  btn-primary btn-sm help-each-page"> -->
+	<button class="pull-right btn btn-primary btn-sm help-each-page" 
+		onclick="window.open('views/helptutorials/CostCodeWise-DailyDeploymentList.html', '_blank', 
+		'toolbar=yes,scrollbars=yes,resizable=no,top=50,left=100,width=1400,height=700')">
+		Help
+	</button>
+</section>
+<!-- Main content -->
+<section class="content ui-rid-customization-pot">
+    <div class="panel panel-default block">
+        <div class="panel-body">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 padL-0">
+                    <md-input-container>
+                        <label>EPS Name</label>
+                        <input type="text" ng-model="searchProject.parentName" data-test="Manpower_CostCodeWiseDialyDeploymentList_Epsname"
+                            ng-click="getUserProjects();clearSubReportDetails()" readonly>
+                    </md-input-container>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <md-input-container>
+                        <label>Project Name</label>
+                        <input type="text" ng-model="searchProject.projName"
+                            ng-click="getUserProjects();clearSubReportDetails()" readonly>
+                    </md-input-container>
+                </div>
+                <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+                    <md-input-container>
+                        <label>Date</label>
+                        <pot-currentdate-picker dir-index="$index" readonly date-name="date" ng-model="date" max-date="date" data-test="Manpower_CostCodeWiseDialyDeploymentList_Date">
+                    </md-input-container>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <md-input-container>
+                        <label>Sub Reports</label>
+                        <md-select ng-model="subReport" ng-change="changeSubReport()" data-test="Manpower_CostCodeWiseDialyDeploymentList_Subreports">
+                            <md-option value="">None</md-option>
+                            <md-option ng-repeat="subReport in subReports" ng-value="subReport">{{subReport.name}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <md-radio-group ng-model="type" layout="row" ng-show="subReport.code">
+                        <md-radio-button id="chart" value="chart" class="md-primary" name="content" data-test="Manpower_CostCodeWiseDialyDeploymentList_Chart"
+                            ng-click="selectType()">Chart</md-radio-button>
+                        <md-radio-button id="table" value="table" class="md-primary" name="content" data-test="Manpower_CostCodeWiseDialyDeploymentList_Table"
+                            ng-click="selectType()">Table</md-radio-button>
+                        <md-radio-button id="chartTable" value="chartTable" class="md-primary" name="content" data-test="Manpower_CostCodeWiseDialyDeploymentList_ChartTable"
+                            ng-click="selectType()">Chart & Table</md-radio-button>
+                    </md-radio-group>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <div class="pull-right marT15 marB15">
+                        <input type="button" ng-click="getManpowercostcodeDetails()" class="btn btn-primary btn-sm"
+                            value="Generate Report" data-test="Manpower_CostCodeWiseDialyDeploymentList_Generatereportbutton">
+                        <input class="btn btn-secondary btn-sm" type="reset" ng-click="resetManpowerCostCodeData()"
+                            value="Reset" data-test="Manpower_CostCodeWiseDialyDeploymentList_Reset">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+                <div class="singleTableResHeight_2" ng-hide="subReport.code">
+                    <div id="grid" ui-grid="gridOptions1" class="singleTableResHeight_3"
+                        ng-if="stylesSvc.finishedStyling" ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize
+                        ui-grid-resize-columns ui-grid-grouping class="grid"></div>
+
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding" ng-if="subReport.code">
+                <!-- charts -->
+
+                <div ng-if="type == 'chart'" class="singleTableResHeight_3">
+                    <canvas class="chart-base" chart-data="data" chart-labels="labels" chart-series="series" height="90"
+                        chart-type="chart_type" chart-colors="colors" chart-options="options" context-menu="menuOptions"
+                        chart-dataset-override="datasetOverride"></canvas>
+                </div>
+                <div ng-if="type == 'chartTable'" class="chartResHeight">
+                    <canvas class="chart-base" chart-data="data" chart-labels="labels" chart-series="series" height="50"
+                        chart-type="chart_type" chart-colors="colors" chart-options="options" context-menu="menuOptions"
+                        chart-dataset-override="datasetOverride"></canvas>
+                </div>
+
+                <!-- sub reports -->
+
+                <div ng-if="type == 'chartTable'" class="marT15">
+                    <div id="grid" ui-grid="gridOptions" class="tableWithChartResHeight"
+                        ng-if="stylesSvc.finishedStyling" ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize>
+                    </div>
+                </div>
+                <div ng-if="type == 'table'" class="marT15">
+                    <div id="grid" ui-grid="gridOptions" class="singleTableResHeight_3"
+                        ng-if="stylesSvc.finishedStyling" ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="panel-footer">
+			<div class="pull-left">
+				<input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+				<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+				<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+				<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+				<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+			</div>
+		</div> -->
+    </div>
+</section>

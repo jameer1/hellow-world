@@ -1,0 +1,138 @@
+<section class="content-header">
+    <h1 ng-if="!subReportCode">{{reportName}}</h1>
+    <h1 ng-if="subReportCode">{{reportName}} - {{subReportName}}</h1>
+   <!-- <input type="submit" value ="Help !"
+		ng-click="helpPage();" class="pull-right btn  btn-primary btn-sm help-each-page"> -->
+		<button class="pull-right btn btn-primary btn-sm help-each-page" 
+	onclick="window.open('views/helptutorials/CostScheduleVariance.html', '_blank', 
+		'toolbar=yes,scrollbars=yes,resizable=no,top=50,left=100,width=1400,height=700')">
+		Help
+	</button>
+</section>
+
+<section class="content ui-rid-customization-pot" id="tab-pannel">
+    <div class="panel panel-default block">
+        <div class="panel-body">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 padL-0">
+                    <md-input-container>
+                        <label>EPS Name</label>
+                        <input type="text" ng-model="searchProject.parentName" ng-click="getUserProjects()" readonly data-test="CostandScheduleVariance_Epsname">
+                    </md-input-container>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <md-input-container>
+                        <label>Project Name</label>
+                        <input type="text" ng-model="searchProject.projName" ng-click="getUserProjects()" readonly>
+                    </md-input-container>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 ">
+                    <md-input-container>
+                        <label>Cost Code</label>
+                        <input type="text" ng-click="getCostCodes();" ng-model="costCodeNameDisplay" readonly data-test="CostandScheduleVariance_CostCode">
+                    </md-input-container>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 ">
+                    <md-input-container>
+                        <label>From Date</label>
+                        <potdate-picker ng-model="fromDate" dir-index="$index" date-name="fromDate" max-date="todayDate" data-test="CostandScheduleVariance_Fromdate"
+                            readonly>
+                    </md-input-container>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 ">
+                    <md-input-container>
+                        <label>To Date</label>
+                        <potdate-picker ng-model="toDate" dir-index="$index" date-name="toDate" min-date="fromDate" max-date="todayDate" data-test="CostandScheduleVariance_Todate"
+                            readonly>
+                    </md-input-container>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 padL-0">
+                    <md-input-container>
+                        <label>Sub Reports</label>
+                        <md-select ng-model="subReport" ng-change="changeSubReport()" data-test="CostandScheduleVariance_Subreports">
+                            <md-option value="None">None</md-option>
+                            <md-option ng-repeat="subReport in subReports" ng-value="subReport">
+                                {{subReport.name}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <md-radio-group ng-model="type" layout="row" ng-show="subReport != 'None'">
+                        <md-radio-button id="chart" value="chart" name="content" ng-true-value="1" ng-false-value="0" data-test="CostandScheduleVariance_Chart"
+                            class="md-primary">Chart</md-radio-button>
+                        <md-radio-button id="table" value="table" name="content" ng-true-value="1" ng-false-value="0" data-test="CostandScheduleVariance_Table"
+                            class="md-primary">Table</md-radio-button>
+                        <md-radio-button id="chartTable" value="chartTable" name="content" ng-true-value="1" data-test="CostandScheduleVariance_ChartTable"
+                            ng-false-value="0" class="md-primary">Chart & Table</md-radio-button>
+                    </md-radio-group>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <md-input-container ng-show="subReport.code=='periodical'">
+                        <label class="labelName">Periodic Sub Report</label>
+                        <md-select ng-model="periodicSubReport" ng-change="changePeriodicSubReport()" data-test="CostandScheduleVariance_Periodic_Subreports">
+                            <md-option ng-value="periodicSubReport" ng-repeat="periodicSubReport in periodicSubReports">
+                                {{periodicSubReport.name}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+                <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 padR-0">
+                    <div class="pull-right">
+                        <input type="button" ng-click="getCostScheduleVarianceDetails()" class="btn btn-primary btn-sm" data-test="CostandScheduleVariance_Generatereportbutton"
+                            value="Generate Report">
+                        <input type="reset" class="btn btn-secondary btn-sm" ng-click="resetCostScheduleDetails()" data-test="CostandScheduleVariance_Reset"
+                            value="Reset">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding" ng-if="subReport == 'None'">
+                <div class="singleTableResHeight_3">
+                    <div id="grid" ui-grid="gridOptions" class="singleTableResHeight_3" ng-if="stylesSvc.finishedStyling" 
+                    ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-resize-columns ui-grid-grouping ui-grid-resize-columns class="grid"></div>
+
+                </div>
+            </div>
+            <br><br>
+            <div ng-if="subReport != 'None'" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div ng-if="subReportCode == 'periodical'">
+                    <div ng-if="type == 'chart'" class="singleTableResHeight_3">
+                        <canvas class="chart chart-bar" chart-data="data" chart-labels="labels" chart-series="series"
+                            chart-options="options" chart-colors="colors" height="80"
+                            chart-dataset-override="datasetOverride" context-menu="menuOptions"></canvas>
+                    </div>
+                    <div ng-if="type == 'chartTable'" class="chartResHeight">
+                        <canvas class="chart chart-bar" chart-data="data" chart-labels="labels" chart-series="series"
+                            chart-options="options" chart-colors="colors" height="58"
+                            chart-dataset-override="datasetOverride" context-menu="menuOptions"></canvas>
+                    </div>
+                </div>
+
+                <div ng-if="subReportCode != 'periodical'">
+                    <div ng-if="type == 'chart'" class="singleTableResHeight_3">
+                        <canvas class="chart-base" chart-data="data" chart-labels="labels" chart-series="series"
+                            height="80" chart-type="chart_type" chart-colors="colors" chart-options="options"
+                            context-menu="menuOptions" chart-dataset-override="datasetOverride"></canvas>
+                    </div>
+                    <div ng-if="type == 'chartTable'" class="chartResHeight">
+                        <canvas class="chart-base" chart-data="data" chart-labels="labels" chart-series="series"
+                            height="50" chart-type="chart_type" chart-colors="colors" chart-options="options"
+                            context-menu="menuOptions" chart-dataset-override="datasetOverride"></canvas>
+                    </div>
+                </div>
+
+                <div ng-if="type == 'chartTable'">
+                    <div id="grid" ui-grid="gridOptions" ng-if="stylesSvc.finishedStyling" 
+                    ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-resize-columns ui-grid-grouping class="grid"></div>
+                </div>
+                <div ng-if="type == 'table'">
+                    <div id="grid" ui-grid="gridOptions" class="singleTableResHeight_3" ng-if="stylesSvc.finishedStyling" 
+                    ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-resize-columns ui-grid-grouping class="grid"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>

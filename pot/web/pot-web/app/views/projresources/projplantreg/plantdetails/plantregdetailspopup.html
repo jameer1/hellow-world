@@ -1,0 +1,192 @@
+<div id="tab-pannel" class="panel-group">
+	<form name="plntRegForm" validate>
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Master Plant List</h4>
+			</div>
+			<div class="panel-body">
+			  <div class="popUpTableResHeight" style="overflow: auto;">
+					<table class="table table-striped table-bordered popUpTableHeight" >
+						<thead id="tab-head">
+							<tr>
+								<th rowspan=2>Select</th>
+								<th class="text-center" colspan="11">Asset Particular</th>
+								<th rowspan="2">Plant Purchase Category<span
+									style="color: red;">*</span></th>
+							</tr>
+							<tr>
+								<th>Asset ID<span
+									style="color: red;">*</span></th>
+								<th>Registration Number<span
+									style="color: red;">*</span></th>
+								<th>Resource ID<span
+									style="color: red;">*</span></th>
+								<th>Resource Name</th>
+								<th>Unit Of Measure</th>
+								<th>Plant Description<span
+									style="color: red;">*</span></th>
+								<th>Make<span style="color: red;">*</span></th>
+								<th>Model<span style="color: red;">*</span></th>
+								<th>Asset Type<span
+									style="color: red;">*</span></th>
+								<th>Plant Supplier Name<span
+									style="color: red;">*</span></th>
+								<th>Plant Owner Name<span style="color: red;">*</span></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat ="plant in addPlantData">
+								<td><ng-form name="selectboxForm">
+									<input data-test='PlantandEquipment_create_add_checkbox' type="checkbox" ng-model="plant.selected"
+										ng-change="plantDetailsPopUpRowSelect(plant)" ng-disabled="action !='Add'"></ng-form></td>
+
+								<td>
+									<ng-form name="assertIdForm">
+										<input data-test='PlantandEquipment_create_AssetID' type="text" name="assId"  class="form-control" ng-model=plant.assertId placeholder="Assert ID" ng-required="true" ng-disabled="plant.id>0"
+										ng-blur="duplicatePlantCode(plant)" ng-class="{coloumnHighlightColor:isValid}" pattern="[^\w\d]*((.*[0-9]+.*)|[0-9]+.*([A-Za-z]+.*))"
+										minlength="2" maxlength="20" />
+										<span ng-show="assertIdForm.assId.$touched && assertIdForm.assId.$error.required" class="procurment-pot-errors">Assert ID is mandatory</span>
+										<span ng-show="assertIdForm.assId.$error.pattern && !assertIdForm.assId.$error.minlength" class="procurment-pot-errors">Only alpha numerics allowed</span>
+										<span ng-show="isValid" class="procurment-pot-errors">{{errorMessage}}</span>
+									</ng-form>
+								</td>
+
+								<td>
+									<ng-form name="regNumForm">
+										<input data-test='PlantandEquipment_create_Registrationnumber' type="text" name="regNum"  
+										class="form-control" ng-model="plant.regNumber" placeholder="Registration Number" ng-required="true" 
+										pattern="[^\w\d]*((.*[0-9]+.*)|[0-9]+.*([A-Za-z]+.*))"
+										minlength="2" maxlength="30" />
+										<span ng-show="regNumForm.regNum.$error.pattern && !regNumForm.regNum.$error.minlength" 
+										class="procurment-pot-errors">
+											Only alpha numerics allowed</span>
+										<span ng-show="regNumForm.regNum.$touched && regNumForm.regNum.$error.required" 
+										class="procurment-pot-errors">
+											Registration number is mandatory</span>
+									</ng-form>
+								</td>
+
+								<td>
+									<ng-form name="plantTypeForm">
+										<input data-test='PlantandEquipment_create_ResourceID' type="text" class="form-control" 
+										ng-model="plant.plantClassMstrCode" 
+											ng-click="plantClassDetails(plant);" placeHolder="Plant Type ID" onkeypress="return false;" 
+											name="plantId" ng-required="true" custom-read-only/>
+										<span ng-show="plantTypeForm.plantId.$error.required" class="text-danger"></span>
+									</ng-form>
+								</td>
+
+								<td>
+									<ng-form name="plantNameForm">
+										<input data-test='PlantandEquipment_create_Resourcename' type="text"  class="form-control" ng-model="plant.plantClassMstrName" placeHolder="Plant Type Name" name="plantName"
+										readonly="readonly" />
+									</ng-form>
+								</td>
+
+								<td>
+									<ng-form name="MeasureForm">
+										<input data-test='PlantandEquipment_create_Unitofmeasure' type="text" class="form-control" ng-model="plant.plantClassMeasureName" placeHolder="Unit Of Measure"
+										readonly="readonly" />
+									</ng-form>
+								</td>
+
+								<td>
+									<ng-form name="plantdesForm">
+										<input type="text" data-test='PlantandEquipment_create_plantdescription' class="form-control" 
+										name="plantdes" ng-model="plant.desc" placeholder="Plant Description" ng-required="true" minlength="2"
+										maxlength="50">
+										<span ng-show="plantdesForm.plantdes.$error.pattern" class="procurment-pot-errors">Alpha numeric data should be allowed</span>
+										<span ng-show="plantdesForm.plantdes.$touched && plantdesForm.plantdes.$error.required" 
+										class="procurment-pot-errors">Plant description is mandatory</span>
+									</ng-form>
+								</td>
+
+								<td>
+									<ng-form name="makeForm">
+										<input data-test='PlantandEquipment_create_Make' type="text" name="make"  class="form-control" ng-model="plant.manfacture" placeholder="Make" ng-required="true" maxlength="50">
+										<span ng-show="makeForm.make.$touched && makeForm.make.$error.required" class="procurment-pot-errors">This field is mandatory</span>
+									</ng-form>
+								</td>
+
+								<td>
+									<ng-form name="modelForm">
+										<input data-test='PlantandEquipment_create_Modal' type="text" name="model"  class="form-control" minlength="2" maxlength="50" ng-model="plant.model" placeholder="Model" ng-required="true">
+										<span ng-show="modelForm.model.$touched && modelForm.model.$error.required" class="procurment-pot-errors">This field is mandatory</span>
+									</ng-form>
+								</td>
+
+								<td>
+									<ng-form name="asserTypeForm">
+										<select data-test='PlantandEquipment_create_Assettype' ng-options="plantClass  for plantClass in  assertTypes" 
+										class="form-control"  ng-model="plant.assetType" ng-required="true" name="assertType">
+											<option value="">Select</option>
+										</select>
+										<span ng-show="asserTypeForm.assertType.$dirty && asserTypeForm.assertType.$error.required" 
+										class="procurment-pot-errors">This field is mandatory</span>
+									</ng-form>
+								</td>
+
+								<td>
+									<ng-form name="plantCompanyMapForm">
+										<input data-test='PlantandEquipment_create_Plantsuppliername' type="text" ng-model="plant.cmpName" 
+										class="form-control"  ng-click="plantCompanyDetails(plant)" placeHolder="Plant Supplier Name"
+										onkeypress="return false;" name="plantSupplierName" ng-required="true" custom-read-only/>
+										<span ng-show="plantCompanyMapForm.plantSupplierName.$error.required" class="procurment-pot-errors"></span>
+									</ng-form>
+								</td>
+
+								<td>
+									<ng-form name="plantOwnerForm">
+									<input data-test='PlantandEquipment_create_Plantownername' type="text" ng-model="plant.ownerCmpName" 
+									class="form-control" ng-click="plantOwnerCompanyDetails(plant)" placeHolder="Plant Owner Name"
+									onkeypress="return false;"  ng-required="true" name="plantOwnerName" custom-read-only/>
+									</ng-form>
+								</td>
+								
+
+								<td>
+									<ng-form name="pantCategoryForm">
+										<input data-test='PlantandEquipment_create_Plantpurchasecategory' ng-disabled="plant.assetType == 'Existing Plant'"  
+												class="form-control" type="text" class="input-width2" ng-model="plant.procurecatgCode"
+											onkeypress="return false;"  ng-click="plantCategoryDetails(plant)" 
+											ng-required="plant.assetType != 'Existing Plant'" 
+											placeHolder="Plant Category Name" name="plantCategoryName" readonly>
+										</input>
+									</ng-form>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+			   </div>
+			</div>
+			<div class="panel-footer">
+				<div class="pull-left">
+					<input data-test='PlantandEquipment_create_add' type="submit" class="btn btn-secondary  btn-sm"
+						ng-click="plntRegForm.$valid && addRows()" value="Add"
+						ng-show="action =='Add'"> <input data-test='PlantandEquipment_create_delete' type="button"
+						class="btn btn-secondary  btn-sm" ng-click="deleteRows()"
+						value="Delete" ng-show="action =='Add'">
+				</div>
+				<div class="pull-right">
+					<input type="submit" class="btn btn-primary  btn-sm" data-test='PlantandEquipment_save' ng-disabled="isValid"
+						ng-click="plntRegForm.$valid && save()" value="Save">
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</form>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

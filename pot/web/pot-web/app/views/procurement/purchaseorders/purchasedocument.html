@@ -1,0 +1,83 @@
+<div id="tab-pannel" class="panel-group" ng-init="getDocumentDetails()">
+	<form name="referenceDocForm" validate>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h4 class="panel-title">Reference Documents</h4>
+			</div>
+
+			<div class="panel-body">
+				<div class="col-md-12 col-lg-12 no-padding">
+					<md-input-container>
+						<label>Contract Description</label>
+					<input type="text" ng-model="preContractTO.code"
+						placeholder="Precontract ID" readonly="readonly"> <input
+						type="text" ng-model="preContractTO.desc"
+						readonly="readonly">
+					</md-input-container>
+				</div>
+			<div class="col-md-12 col-lg-12 no-padding">
+				<table class="table table-hover table-bordered">
+					<thead>
+						<tr>
+							<th style="width: 50px !important">Select</th>
+							<th>Date</th>
+							<th>Document ID</th>
+							<th>Description</th>
+							<th>Version</th>
+							<th>Upload / View File</th>
+							<th>Type of File</th>
+							<th>Size of File</th>
+							<th>Status</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr fixed-header="" ng-repeat ="reference in refdocumentslist">
+							<td><input type="checkbox" ng-model="reference.select"
+								ng-disabled="reference.id > 0"
+								ng-change="referencerowSelect(reference)" /></td>
+
+							<td class="input-width0"><potdate-picker dir-index="$index"
+									date-name="date" ng-disabled="reference.id > 0"
+									ng-model="reference.date" placeholder="dd-mm-yyyy"></potdate-picker></td>
+
+							<td><input type="text" ng-model="reference.code"
+								placeholder="Auto Generate" readonly="readonly"
+								style="width: 115px !important"></td>
+
+
+							<td class="input-width2"><input type="text"
+								ng-disabled="reference.id > 0" name="description"
+								ng-model="reference.name" placeholder="description"
+								required="required"></td>
+
+							<td class="input-width2"><input type="text" name="version"
+								ng-disabled="reference.id > 0" ng-model="reference.version"
+								placeholder="version" required="required"></td>
+							<td class="input-width3"><input type="file" name="doc"
+								ng-model="reference.doc" tabindex="-1"
+								ng-click="fileUpload(reference.uploadViewFile)"
+								placeholder="Doc" style="display: inline !important;"></td>
+
+							<td class="input-width2"><input type="text"
+								ng-disabled="reference.id > 0" name="typeofFile"
+								ng-model="reference.typeofFile" placeholder="Typeof File"
+								readonly="readonly"></td>
+
+							<td class="input-width2"><input type="text"
+								name="sizeofFile" ng-model="reference.sizeofFile"
+								placeholder="Sizeof File" readonly="readonly"></td>
+
+							<td class="input-width2"><input type="text"
+								readonly="readonly"
+								ng-model="{{reference.version > 1 ? 'Superseded' : 'Current' }}"
+								placeholder="Status" ng-required="true"></td>
+
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+			</div>
+		</div>
+	</form>
+</div>

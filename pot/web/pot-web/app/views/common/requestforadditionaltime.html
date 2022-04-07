@@ -1,0 +1,35 @@
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">Request For AdditionalTime</h4>
+    </div>
+    <div class="panel-body">
+        <div class="col-xs-12 col-sm-12 col-md-12 no-padding">
+          <div class="col-xs-2 col-sm-2 col-md-2 padL-0">
+            <label>Project Name</label>
+            <input type="text" ng-model="destinationProjName" readonly="readonly">
+          </div>
+           <div class="col-xs-2 col-sm-2 col-md-2">
+            <label>Requisition Id</label>
+            <input type="text" ng-model="reqCode" readonly="readonly">
+          </div>
+          <div class="col-xs-2 col-sm-2 col-md-2">
+            <label>Notification Id</label>
+            <input type="text" ng-model="reqNotifyCode" readonly="readonly">
+          </div>
+           <div class="col-xs-2 col-sm-2 col-md-2">
+            <label><span style="color: red;">*</span>Approver</label>
+            <input type="text" ng-model="approverTo.name" ng-click="getModuleUserDetails(approverTo)" required>
+          </div>
+           <div class="col-xs-2 col-sm-2 col-md-2 padR-0">
+            <label>Comments</label>
+            <textarea type="text" ng-model="comments"></textarea>
+          </div>
+        </div>
+    </div>
+    <div class="panel-footer">
+      <div class="pull-right">
+        <input type="button" ng-click="submitNotifications()" class="btn btn-primary btn-sm" value="Submit">
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,79 @@
+<div ng-if="account.appCodeTemplate['RESOURCE_PLANTDEPHISTORY_VIEW']" id="tab-pannel" class="panel-group"
+	ng-controller="PlantDeployemntController">
+	<div class="tabTable_1_Res_height" style="overflow: auto;">
+	<div id="grid" ui-grid="gridOptions" ng-if="stylesSvc.finishedStyling" 
+            ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-resize-columns class="grid"></div>
+			<!-- <table class="table table-hover table-bordered tabTable_1_height" >
+			<thead>
+				<tr>
+					<th rowspan="2">Select</th>
+					<th rowspan="2">Project<br>Deployment#
+					</th>
+					<th rowspan="2">EPS Name</th>
+					<th rowspan="2">Project Name</th>
+					<th rowspan="2" title="Profit Center">Profit Center</th>
+					<th rowspan="2" title="Finance Center">Finance Center</th>
+					<th rowspan="2">Commission Date of New Asset</th>
+					<th rowspan="2">Asset ID</th>
+					<th rowspan="2">Project Plant Id</th>
+					<th rowspan="2">Classification as per Project Contract</th>
+					<th rowspan="2">Mobilization Date</th>
+					<th rowspan="2">Expected<br>De-Mobilization Date
+					</th>
+					<th rowspan="2">De-Mobilization Date</th>
+					<th rowspan="2">Post De-Mobilization Status</th>
+					<th class="text-center" colspan="2">Odo Meter Reading</th>
+					<th>Odo meter reading on De-mobilization</th>
+					<th rowspan="2">Notes</th>
+
+				</tr>
+				<tr>
+					<th>Mobilization</th>
+					<th>De-Mobilization</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat ="deployment in plantRegProjTOs">
+					<td><input type="checkbox" value="id" ng-if="deployment.latest=='Y' || deployment.id == null"
+						ng-model="deployment.select" 
+						ng-change="deployRowSelect(deployment)"></td>
+					<td class="text-right">{{deployment.deploymentId}}</td>
+					<td>{{deployment.parentName}}</td>
+					<td>{{deployment.name}}</td>
+					<td>{{ }}</td>
+					<td>{{ }}</td>
+					<td>{{deployment.commissionDate | date}}</td>
+					<td>{{selectedPlantData.assertId}}</td>
+					<td>{{selectedPlantData.plantClassMstrCode}}</td>
+					<td>{{projPlantMap[selectedPlantData.projPlantClassTypeId].name}}</td>
+					<td>{{deployment.mobDate}}</td>
+					<td>{{deployment.anticipatedDeMobDate}}</td>
+					<td>{{deployment.deMobDate}}</td>
+					<td>{{deployment.postDeMobStatus}}</td>
+					<td class="text-right">{{deployment.odoMeter}}</td>
+					<td class="text-right">{{deployment.deMobOdoMeter}}</td>
+					
+					<td class="text-left">{{ deployment.comments }}</td>
+				</tr>
+			</tbody>
+		</table> -->
+	</div>
+
+
+	<div class="panel-footer">
+		<div class="pull-left" >
+			<!-- <input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+			<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+			<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+			<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+			<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();"> -->
+			<input ng-if="account.appCodeTemplate['RESOURCE_PLANTDEPHISTORY_ADD']" type="button" data-test='PlantandEquipment_DeploymentHistory_Edit' class="btn btn-primary btn-sm"
+				 ng-click="addDeployment('Edit')" value="Edit">
+		</div>
+		<div class="pull-right">
+			<input type="Submit" value="Create" ng-if="showCreateButton && account.appCodeTemplate['RESOURCE_PLANTDEPHISTORY_ADD']"
+				ng-click="addDeployment('Add')" class="btn  btn-primary btn-sm" />
+		</div>
+	</div>
+
+</div>

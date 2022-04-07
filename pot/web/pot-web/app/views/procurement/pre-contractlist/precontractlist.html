@@ -1,0 +1,111 @@
+<section class="content-header">
+	<h1>Pre-Contract List</h1>
+	 <!-- <input type="submit" value ="Help !"
+		ng-click="helpPage();" class="pull-right btn  btn-primary btn-sm help-each-page"> -->
+	<button class="pull-right btn btn-primary btn-sm help-each-page" 
+		onclick="window.open('views/helptutorials/Pre-ContractList.html', '_blank', 
+		'toolbar=yes,scrollbars=yes,resizable=no,top=50,left=100,width=1400,height=700')">
+		Help
+	</button>
+</section>
+<section class="content" ng-init="getPreContractList()">
+				<div class="panel panel-default block footer-parent">
+					<div class="panel-body">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+							<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padL-0">
+								<md-input-container class="md-block">
+									<label>EPS ID/Name</label>
+									<input data-test='PreContractList_Epsname' type="text" ng-model="searchProject.parentName" ng-click="getUserProjects()" readonly/>
+									<span class="text-danger" ng-show="invalidProjectSelection">Please select a project</span>
+								</md-input-container>
+							</div>
+							<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+								<md-input-container class="md-block">
+									<label>Project ID/Name</label>
+									<input type="text" ng-model="searchProject.projName" ng-click="getUserProjects()" readonly/>
+									<br><span class="text-danger" ng-show="invalidProjectSelection">Please select a project</span>
+								</md-input-container>
+							</div>
+							<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+								<md-input-container class="md-block">
+									<label>From Date (dd-mm-yyyy)</label>
+									<pot-currentdate-display dir-index="$index" data-test='PreContractList_Fromdate' ng-model="fromDate" date-name="fromDate" readonly/>
+								</md-input-container>
+							</div>
+							<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+								<md-input-container class="md-block">
+									<label>To Date (dd-mm-yyyy)</label>
+									<pot-currentdate-display data-test='PreContractList_Todate' dir-index="$index" ng-model="toDate" date-name="toDate" readonly/>
+								</md-input-container>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+							<div class="col-lg-6 col-md-6 col-xs-6 col-sm-6">
+								<md-radio-group ng-model="userType" layout="row">
+									<md-radio-button data-test='PreContractList_LoginUserRecords_Radiobutton' value="1" class="md-primary">Login User Records</md-radio-button>
+									<md-radio-button data-test='PreContractList_AllUserRecords_Radiobutton' value="2" class="md-primary">All User Records</md-radio-button>
+								</md-radio-group>
+							</div>
+							<div class="col-lg-6 col-md-6 col-xs-6 col-sm-6 padR-0">
+								<div class="pull-right marT15">
+									<input data-test='PreContractList_search' type="button" ng-click="searchPreContractList('click')" class="btn btn-primary btn-sm" value="Search"
+									 ng-model="searchText">
+									<input data-test='PreContractList_refresh' type="reset" class="btn btn-secondary btn-sm" ng-click="resetPreContractList()" value="Reset">
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+							<div class="singleTableResHeight_3 b-sh">
+							<div id="grid" ui-grid="gridOptions" class="singleTableResHeight_3" ng-if="stylesSvc.finishedStyling"
+           				  ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-resize-columns class="grid"></div>
+								<!-- <table class="table table-striped table-hover table-bordered singleTableHeight_3" >
+									<thead>
+										<tr>
+											<th style="width: 50px !important">Select</th>
+											<th>EPS</th>
+											<th>Project</th>
+											<th>Pre-Contract ID</th>
+											<th>Contract Type</th>
+											<th>Contract Description</th>
+											<th>Pre-Contract Stage</th>
+											<th>Post Contract<br>(Purchase Order Status)
+											</th>
+											<th>Reference Documents</th>
+											<th>Download Documents</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr fixed-header="" ng-repeat ="precontract in contractlist">
+											<td><input type="checkbox" ng-model="precontract.select" ng-change="rowSelect(precontract)" /></td>
+											<td>{{userProjMap[precontract.projId].code}}</td>
+											<td>{{userProjMap[precontract.projId].name}}</td>
+											<td>{{precontract.code}}</td>
+											<td>{{precontract.preContractType}}</td>
+											<td style="word-wrap:break-word; max-width: 350px">{{precontract.desc}}</td>
+											<td>{{precontract.purchaseOrderStatus}}</td>
+											<td ng-if="precontract.poStatus==1">open</td>
+											<td ng-if="precontract.poStatus==0">closed</td>
+											<td class="text-center"><span class="btn btn-primary btn-sm" data-test='PreContractList_Refdocument' ng-click="getRefDocument(precontract)">Ref Document</span></td>
+											<td class="text-center"><span class="fa fa-download" data-test='PreContractList_Refdocument_Download' ng-click="downloadRefDocument(precontract)"></span></td>
+										</tr>
+									</tbody>
+								</table> -->
+								<div class="panel-footer">
+						<div class="pull-right">
+							<input data-test='PreContractList_Create' type="button" ng-if="account.appCodeTemplate['PROCURMT_PRECONTRCT_ADD']" class="btn btn-primary btn-sm" ng-click="addPreContract('Add')" value="Create">
+						</div>
+						<div class="pull-left">
+							<!-- <input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+							<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+							<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+							<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+							<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();"> -->
+							<input ng-if="account.appCodeTemplate['PROCURMT_PRECONTRCT_ADD']" data-test='PreContractList_Edit'  type="button" class="btn btn-primary btn-sm" ng-click="addPreContract('Edit')" value="Edit"> <input
+							data-test='PreContractList_Deactivate' type="button" class="btn btn-secondary btn-sm" ng-click="deletePreContract()" value="Deactivate" ng-if="account.appCodeTemplate['PROCURMT_PRECONTRCT_DEACTIVE']" >
+						</div>
+					</div>
+							</div>
+						</div>
+					</div>
+				</div>
+</section>

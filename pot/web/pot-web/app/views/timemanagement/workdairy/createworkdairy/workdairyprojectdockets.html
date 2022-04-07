@@ -1,0 +1,157 @@
+<div id="tab-pannel" class="panel-group">
+	<form name="materialSchItemForm" validate>
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Project Docket Details</h4>
+			</div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                            <span class="labelName">EPS</span>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                            <span class="labelName">Project</span>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                            <span class="labelName">Store</span>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                            <span class="labelName">Project Docket</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                            <input type="text" class="form-control"
+                                   ng-model="workDairySearchReq.projectLabelKeyTO.parentName"
+                                   placeholder="EPS ID/EPS Name" readonly
+                                   ng-click="getUserProjects(workDairySearchReq.projectLabelKeyTO)">
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                            <input type="text" class="form-control"
+                                   ng-model="workDairySearchReq.projectLabelKeyTO.projName"
+                                   placeholder="Project ID/Project Name" readonly
+                                   ng-click="getUserProjects(workDairySearchReq.projectLabelKeyTO)">
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                            <select ng-options="locType.name for locType in storeLocationTypes track by locType.name" data-test='AsbuiltRecords_WorkDiary_CreateWorkDiary_MaterialandStoreConsumption_addprojectdocket_Store'
+                                    ng-model="storeLocation" class="form-control"></select>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                            <input type="text" class="form-control" ng-click="getMaterialProjDocketsByDoctype()" data-test='AsbuiltRecords_WorkDiary_CreateWorkDiary_MaterialandStoreConsumption__addprojectdocket_ProjectDocket'
+                                   placeholder="Choose project Docket" ng-model="projectDocket.code"
+                                   readonly="readonly" style="width: 185px;">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="popUpTableResHeight" style="overflow: auto">
+                    <table class="table table-striped table-hover table-bordered popUpTableHeight" >
+                        <thead>
+                            <tr>
+                                <th>Select</th>
+                                <th>Source Of Material</th>
+                                <th>Docket Type</th>
+                                <th>Docket Number</th>
+                                <th>Docket Date</th>
+                                <th>Purchase Order</th>
+                                <th>Schedule Item</th>
+                                <th>Resource Name</th>
+                                <th>Supplier</th>
+                                <th>Unit Of Rate</th>
+                                <th>Unit Of Measure</th>
+                                <th>Remaining Qty</th>
+                                <th>Issued Qty</th>
+                                <th>Delivery Location</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat ="materialObj in materialProjDocketItems" ng-show="!workMaterialProjectDocketMap[materialObj.id]">
+                                <td>
+                                    <input type="checkbox"
+                                           ng-change="materialStoreRowSelect(materialObj)"
+                                           ng-model="materialObj.select" value="id" data-test='MaterialandStoreConsumption_addprojectdocket_ProjectDocketSelect'>
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control"
+                                           readonly="readonly" ng-model="storeLocation.name">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control"
+                                           readonly="readonly" ng-model="docketTpye">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control"
+                                           readonly="readonly" ng-model="projectDocket.code"
+                                           ng-click="getDeliveryDockets()">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control"
+                                           readonly="readonly" ng-model="projectDocket.date">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control"
+                                           readonly="readonly"
+                                           ng-click="getPurchaseOrdersForMaterial(materialObj)"
+                                           ng-model="materialObj.purchaseSchLabelKeyTO.displayNamesMap['purCode']">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control"
+                                           readonly="readonly" ng-click="getScheduleItems(materialObj)"
+                                           ng-model=materialObj.purchaseSchLabelKeyTO.code>
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control"
+                                           name="materialDescription"
+                                           ng-model="materialObj.purchaseSchLabelKeyTO.name"
+                                           placeholder="SchaterialDescription" readonly="readonly">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control"
+                                           readonly="readonly"
+                                           ng-model="materialObj.purchaseSchLabelKeyTO.displayNamesMap.cmpName">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control"
+                                           name="ratePerUnit"
+                                           ng-model="materialObj.purchaseSchLabelKeyTO.displayNamesMap['unitOfRate']"
+                                           placeholder="Rate PerUnit" readonly="readonly">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control"
+                                           name="unitOfMeasure"
+                                           ng-model="materialObj.purchaseSchLabelKeyTO.displayNamesMap.purClassUnitOfMeasure"
+                                           placeholder="Unit of Measure" readonly="readonly">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control"
+                                           readonly="readonly" ng-model="materialObj.workDairyAvlQty">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control"
+                                           readonly="readonly" ng-model="materialObj.issueQty">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control"
+                                           readonly="readonly" ng-model="toProjLabelkeyTO.code">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+			<div class="panel-footer">
+				<div class="pull-right">
+
+					<input type="button" class="btn btn-primary btn-sm" data-test='MaterialandStoreConsumption_addprojectdocket_addtoworkdiary'
+						ng-click="addToWorkDairy()" value="Add To Work Diary">
+				</div>
+				<div class="pull-left">
+					<input type="button" class="btn btn-secondary btn-sm"
+						ng-click="deleteMaterials()" value="Delete" data-test='MaterialandStoreConsumption_addprojectdocket_Delete'>
+				</div>
+			</div>
+			<div class="ngdialog-close"></div>
+		</div>
+	</form>
+</div>

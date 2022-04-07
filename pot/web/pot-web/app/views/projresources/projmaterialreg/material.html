@@ -1,0 +1,98 @@
+<section class="content-header">
+	<h1>Material Register</h1>
+	<!-- <input type="submit" value ="Help !"
+		ng-click="helpPage();" class="pull-right btn  btn-primary btn-sm help-each-page"> -->
+		<button class="pull-right btn btn-primary btn-sm help-each-page" 
+	onclick="window.open('views/helptutorials/Materials.html', '_blank', 
+		'toolbar=yes,scrollbars=yes,resizable=no,top=50,left=100,width=1400,height=700')">
+		Help
+	</button>
+</section>
+<section ng-if="account.appCodeTemplate['RESOURCE_MATRLREG_VIEW']" class="content">
+<div id="tab-pannel">
+		<div class="panel panel-default">
+			<div class="panel-body">
+					<div class="row">
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+									<div class="col-lg-2 col-md-2 col-xs-2 col-sm-2 padL-0">
+										<md-input-container class="md-block">
+											<label>EPS Name</label>
+											<input type="text" data-test='Resources_Materials_EpsSelect'
+								ng-model="materialSearchProject.selectedProject.parentName"
+								ng-click="getUserProjects()"
+								readonly="readonly">
+										</md-input-container>
+									</div>
+									<div class="col-lg-2 col-md-2 col-xs-2 col-sm-2">
+										<md-input-container class="md-block">
+											<label>Project Name</label>
+											<input type="text" data-test='Resources_Materials_ProjectSelect'
+								ng-model="materialSearchProject.selectedProject.projName"
+								ng-click="getUserProjects()" readonly="readonly">
+										</md-input-container>
+									</div>
+									<div class="col-lg-2 col-md-2 col-xs-2 col-sm-2">
+										<md-input-container>
+											<label>From Date(dd-mm-yyyy)</label>
+											<span ng-if="materialSearchProject.fromDate != null"> <potdate-picker
+												data-test='Resources_Materials_FromDate' ng-model="materialSearchProject.fromDate" dir-index="1"
+									date-name="fromDate" readonly="readonly"> </potdate-picker></span>
+										</md-input-container>
+									</div>
+									<div class="col-lg-2 col-md-2 col-xs-2 col-sm-2">
+											<md-input-container>
+												<label>To Date(dd-mm-yyyy)</label>
+												<span
+								ng-if="materialSearchProject.fromDate != null"> <potdate-picker data-test='Resources_Materials_ToDate'
+									ng-model="materialSearchProject.toDate" dir-index="2"
+									date-name="toDate" readonly="readonly"></potdate-picker></span>
+											</md-input-container>
+										</div>
+									<div class="col-lg-4 col-md-4 col-xs-4 col-sm-4 padR-0">
+										<div class="pull-right marT15">
+												<input data-test='Resources_Materials_Search' type="button" class="btn btn-primary btn-sm"
+								ng-click="materialSearch()" value="Search" /> <input data-test='Resources_Materials_Reset'
+								type="reset" class="btn btn-default btn-sm"
+								ng-click="materialReset()" value="Reset" />
+										</div>
+									</div>
+								</div>
+							</div>
+						
+			<div id="tabs">
+					<div class="nav-tabs-custom">
+						<ul class="nav nav-tabs" ng-show="moreFlag==0">
+							<li fixed-header="" ng-repeat ="tab in MaterialTabs | slice:0:6"
+							ng-class="{'active':account.appCodeTemplate[tab.materialappCodeTemplateKey]
+							&& isActiveMaterialTabs(tab.url),'disabled': !account.appCodeTemplate[tab.materialappCodeTemplateKey]}">
+							<a ng-if="account.appCodeTemplate[tab.materialappCodeTemplateKey]"
+								data-toggle="tab" ng-click="onClickMaterialTabs(tab)" data-test="{{tab.materialSeleniumLocator}}">{{tab.title}}</a></li>
+							<a ng-if="!account.appCodeTemplate[tab.materialappCodeTemplateKey]" data-test="{{tab.materialSeleniumLocator}}" >{{tab.title}}</a>	</li>
+
+								<!-- <p class="arrow-font" ng-click="clickMore1(moreFlag);">&#x00BB;</p> -->
+								<span class="btn btn-secondary btn-sm" data-test="Resources_Materials_ForwardArrow"  ng-click="clickMore1(moreFlag);">
+										<i class="fa fa-angle-double-right"></i> 
+									</span>
+							</li>
+						</ul>
+						<ul class="nav nav-tabs" ng-show="moreFlag==1">
+							<li>
+								<!-- <p class="arrow-font" ng-click="clickMore(moreFlag);">&#x00AB;</p> -->
+								<span class="btn btn-secondary btn-sm" ng-click="clickMore(moreFlag);" data-test="Resources_Materials_BackwardArrow">
+										<i class="fa fa-angle-double-left"></i> 
+									</span>
+							</li>
+							<li fixed-header="" ng-repeat ="tab in MaterialTabs | slice:6:10"
+							ng-class="{'active':account.appCodeTemplate[tab.materialappCodeTemplateKey]
+							&& isActiveMaterialTabs(tab.url),'disabled': !account.appCodeTemplate[tab.materialappCodeTemplateKey]}">
+							<a  ng-if="account.appCodeTemplate[tab.materialappCodeTemplateKey]" 
+								data-toggle="tab" ng-click="onClickMaterialTabs(tab)" data-test="{{tab.materialSeleniumLocator}}">{{tab.title}}</a>
+							<a ng-if="!account.appCodeTemplate[tab.materialappCodeTemplateKey]" data-test="{{tab.materialSeleniumLocator}}" >{{tab.title}}</a>	</li>
+						</ul>
+						<div ng-include="currentMaterialTabs"></div>
+				</div>
+			</div>
+			</div>
+		</div>
+</div>
+</section>

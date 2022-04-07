@@ -1,0 +1,231 @@
+<section class="content-header">
+	<h1>Master Employee List</h1>
+	<!-- <input type="submit" value ="Help !"
+		ng-click="helpPage();" class="pull-right btn  btn-primary btn-sm help-each-page"> -->
+		<button class="pull-right btn btn-primary btn-sm help-each-page" 
+	onclick="window.open('views/helptutorials/Employee.html', '_blank', 
+		'toolbar=yes,scrollbars=yes,resizable=no,top=50,left=100,width=1400,height=700')">
+		Help
+	</button>
+</section>
+<section ng-if="account.appCodeTemplate['RESOURCE_EMPREG_VIEW']" class="content" id="tab-pannel" ng-init="getEmpRegisters();">
+	<div class="panel panel-default topPanelBlock footer-parent" id="res-emp">
+		<div class="panel-body topTableResHeight">
+			<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 no-padding">
+				<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padL-0">
+					<md-input-container class="md-block">
+						<label>EPS ID/Name</label>
+						<input data-test='Resources_Employee_EpsSelect' type="text" readonly autocomplete="off"
+							ng-model="searchProject.parentName" ng-click="getUserProjects()" class="form-control">
+					</md-input-container>
+				</div>
+				<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+					<md-input-container>
+						<label>Project ID/Name</label> 
+						<input type="text" ng-model="searchProject.projName" readonly autocomplete="off"
+							ng-click="getUserProjects()">
+					</md-input-container>
+				</div>
+				<div class="col-lg-6 col-md-6 col-xs-6 col-sm-6 padR-0">
+					<div class="pull-right marT15">
+						<input data-test='Resources_Employee_Search' type="button"
+							ng-click="employeeSearch('click');" class="btn  btn-primary btn-sm"
+							value="Search" ng-model="searchText">
+						<input data-test='Resources_Employee_Refresh' type="reset" class="btn  btn-secondary btn-sm"
+							ng-click="resetSearchData()" value="Reset">
+					</div>
+				</div>
+			</div>
+			<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 no-padding">
+				<div class="doubleHeaderTableResHeight_topB" >
+				<div id="grid" ui-grid="gridOptions" ng-if="stylesSvc.finishedStyling"
+            ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-resize-columns class="grid"></div>
+					<!-- <table id="tree" class="table table-striped table-hover table-bordered topTableHeight">
+						<thead id="tab-head">
+							<tr>
+								<th rowspan="2">Select</th>
+								<th rowspan="2">Employee ID</th>
+								<th rowspan="2">First Name</th>
+								<th rowspan="2">Last Name</th>
+								<th rowspan="2">Parent Company</th>
+								<th colspan="7" class="text-center">
+									<span ng-show="empDatamoreFlag==0">Employee Details
+										<span class="fa fa-caret-right"
+											style="float: right; font-size: 20px; color: #337ab7 !important;"
+											ng-click="clickForwardempData(empDatamoreFlag);"></span>
+									</span>
+									<span ng-show="empDatamoreFlag==1">
+										<span class="fa fa-caret-left"
+											style="float: left; font-size: 20px; color: #337ab7 !important;"
+											ng-click="clickBackwardempData(empDatamoreFlag);"></span>
+											Current Status
+									</span>
+								</th>
+							</tr>
+							<tr>
+								<th><span ng-show="empDatamoreFlag==0">Gender</span>
+									<span ng-show="empDatamoreFlag==1">EPS</span>
+								</th>
+								<th style="width: 12em;"><span ng-show="empDatamoreFlag==0">Date Of Birth</span>
+									<span ng-show="empDatamoreFlag==1">Current/Last Project</span>
+								</th>
+								<th  style="width: 16em;"><span ng-show="empDatamoreFlag==0">Designation</span>
+									<span ng-show="empDatamoreFlag==1">Employee Current Status</span>
+								</th>
+								<th style="width: 10em;"><span ng-show="empDatamoreFlag==0">Local or Non-Local</span>
+									<span ng-show="empDatamoreFlag==1">Mobilization Date</span>
+								</th>
+								<th style="width: 12em;"><span ng-show="empDatamoreFlag==0">Existing or New Employee</span>
+									<span ng-show="empDatamoreFlag==1">Expected <br>De-Mobilization Date</span>
+								</th>
+								<th style="width: 8em;"><span ng-show="empDatamoreFlag==0">Employment Type</span>
+									<span ng-show="empDatamoreFlag==1">Actual <br>De-Mobilization Date</span>
+								</th>
+								<th style="width: 8em;"><span ng-show="empDatamoreFlag==0">Date of Enrolment</span>
+									<span ng-show="empDatamoreFlag==1">Records of <br>Employee Documents</span>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr fixed-header="" data-test='Resources_Employee_EnrollmentTab_Selectemployee' 
+								ng-repeat="employee in empDetails">
+								<td><input type="checkbox" value="id" ng-model="employee.selected"
+										ng-change="empDeltailsRowSelect($index,employee)"></td>
+								<td ng-click="go(empDetails,$index,employee); "
+									ng-class="{selected: $index ==selectedRow}">{{employee.empCode}}</td>
+								<td ng-click="go(empDetails,$index,employee); "
+									ng-class="{selected: $index ==selectedRow}">{{employee.firstName}}</td>
+								<td ng-click="go(empDetails,$index,employee); "
+									ng-class="{selected: $index ==selectedRow}">{{employee.lastName}}</td>
+
+								<td ng-click="go(empDetails,$index,employee); "
+									ng-class="{selected: $index ==selectedRow}">{{employee.cmpName}}</td>
+
+								<td ng-click="go(empDetails,$index,employee); "
+									ng-class="{selected: $index ==selectedRow}">
+									<span ng-show="empDatamoreFlag==0">{{employee.gender}}</span>
+									<span ng-show="empDatamoreFlag==1">{{employee.projEmpRegisterTO.parentName}}</span>
+								</td>
+								<td ng-click="go(empDetails,$index,employee); "
+									ng-class="{selected: $index ==selectedRow}">
+									<span ng-show="empDatamoreFlag==0">{{employee.dob | date}}</span>
+									<span ng-show="empDatamoreFlag==1">{{employee.projEmpRegisterTO.name}}</span>
+								</td>
+								<td ng-click="go(empDetails,$index,employee); "
+									ng-class="{selected: $index ==selectedRow}">
+									<span ng-show="empDatamoreFlag==0">{{employee.empClassName}}</span>
+									<span ng-show="empDatamoreFlag==1">{{employee.projEmpRegisterTO.empStatus}}</span>
+								</td>
+								<td ng-click="go(empDetails,$index,employee); "
+									ng-class="{selected: $index ==selectedRow}">
+									<span ng-show="empDatamoreFlag==0">{{employee.location}}</span>
+									<span
+										ng-show="empDatamoreFlag==1">{{employee.projEmpRegisterTO.mobilaizationDate}}</span>
+								</td>
+								<td ng-click="go(empDetails,$index,employee); "
+									ng-class="{selected: $index ==selectedRow}">
+									<span ng-show="empDatamoreFlag==0">{{employee.empStatus}}</span>
+									<span
+										ng-show="empDatamoreFlag==1">{{employee.projEmpRegisterTO.expecteddeMobilaizationDate}}</span>
+								</td>
+								<td ng-click="go(empDetails,$index,employee); "
+									ng-class="{selected: $index ==selectedRow}">
+									<span ng-show="empDatamoreFlag==0">{{employee.procurecatgName}}</span>
+									<span
+										ng-show="empDatamoreFlag==1">{{employee.projEmpRegisterTO.deMobilaizationDate}}</span>
+								</td>
+								<td class="text-center" ng-click="go(empDetails,$index,employee); "
+									ng-class="{selected: $index ==selectedRow}">
+									<span ng-show="empDatamoreFlag==0">{{employee.projEmpRegisterTO.enrollmentDate}}</span>
+									<span ng-show="empDatamoreFlag==1" class="fa fa-download" ng-if="employee.projEmpRegisterTO.taxFileNum"></span>
+								</td>
+							</tr>
+						</tbody>
+					</table> -->
+					<div class="panel-footer">
+			<div class="pull-right">
+				<input data-test='Resources_Employee_Create' type="button" ng-click="addEmp('Add')"
+					class="btn btn-primary btn-sm" value="Create" ng-if="searchProject.projName==null" />
+			</div>
+			<div class="pull-left">
+				<!-- <input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+				<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+				<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+				<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+				<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();"> -->
+				<input data-test='Resources_Employee_Edit' type="button" ng-click="addEmp('Edit')"
+					class="btn btn-primary btn-sm" value="Edit" />
+				<input data-test='Resources_Employee_Deactivate' type="button" class="btn btn-secondary btn-sm"
+					value="Deactivate" ng-click="deactivateEmpRegisters()" ng-hide="disableFlag==1" />
+			</div>
+		</div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	<div class="panel panel-default bottomPanelBlock footer-parent" id="emp-tabs">
+		<div class="panel-body">
+			<div class="nav-tabs-custom" id="tabs">
+				<ul class="nav nav-tabs" ng-if="moreFlag==0">
+					<li fixed-header="" ng-repeat="tab in tabs | slice:0:7" ng-class="{'active':account.appCodeTemplate[tab.empappCodeTemplateKey]
+								&& isActiveTab(tab.url),'disabled': !account.appCodeTemplate[tab.empappCodeTemplateKey]}">
+						<a data-toggle="tab" ng-click="onClickTab(tab)"
+							ng-if="account.appCodeTemplate[tab.empappCodeTemplateKey]"
+							data-test="{{tab.empseleniumlocator}}">{{tab.title}}</a>
+						<a ng-if="!account.appCodeTemplate[tab.empappCodeTemplateKey]"
+							data-test="{{tab.empseleniumlocator}}">{{tab.title}}</a> </li>
+					<li style="border-bottom: 0">
+						<span class="btn btn-secondary btn-sm" data-test='Resources_Employee_forwardarrow'
+							ng-click="clickMore1(moreFlag);">
+							<i class="fa fa-angle-double-right"></i>
+						</span>
+					</li>
+				</ul>
+
+				<ul class="nav nav-tabs" ng-if="moreFlag==1">
+					<li style="border-bottom: 0">
+						<span class="btn btn-secondary btn-sm" data-test='Resources_Employee_backwardarrow'
+							ng-click="clickMore(moreFlag);">
+							<i class="fa fa-angle-double-left"></i>
+						</span>
+					</li>
+					<li fixed-header="" ng-repeat="tab in tabs| slice:7:13" ng-class="{'active':account.appCodeTemplate[tab.empappCodeTemplateKey]
+								&& isActiveTab(tab.url),'disabled': !account.appCodeTemplate[tab.empappCodeTemplateKey]}">
+						<a data-toggle="tab" ng-click="onClickTab(tab)"
+							ng-if="account.appCodeTemplate[tab.empappCodeTemplateKey]"
+							data-test="{{tab.empseleniumlocator}}">{{tab.title}}</a>
+						<a ng-if="!account.appCodeTemplate[tab.empappCodeTemplateKey]"
+							data-test="{{tab.empseleniumlocator}}">{{tab.title}}</a> </li>
+					<li style="border-bottom: 0">
+						<span class="btn btn-secondary btn-sm" data-test='Resources_Employee_NOK_ForwardArrow1'
+							ng-click="clickMore2(moreFlag);">
+							<i class="fa fa-angle-double-right"></i>
+						</span>
+					</li>
+				</ul>
+
+				<ul class="nav nav-tabs" ng-if="moreFlag==2">
+					<li style="border-bottom: 0">
+						<span class="btn btn-secondary btn-sm" data-test='Resources_Employee_NOK_BackwardArrow1'
+							ng-click="clickMore1(moreFlag);">
+							<i class="fa fa-angle-double-left"></i>
+						</span>
+					</li>
+					<li fixed-header="" ng-repeat="tab in tabs | slice:13:18" ng-class="{'active':account.appCodeTemplate[tab.empappCodeTemplateKey]
+								&& isActiveTab(tab.url),
+								'disabled': !account.appCodeTemplate[tab.empappCodeTemplateKey]}">
+						<a ng-if="account.appCodeTemplate[tab.empappCodeTemplateKey]" data-toggle="tab"
+							ng-click="onClickTab(tab)" data-test="{{tab.empseleniumlocator}}">{{tab.title}}</a>
+						<a ng-if="!account.appCodeTemplate[tab.empappCodeTemplateKey]"
+							data-test="{{tab.empseleniumlocator}}">{{tab.title}}</a> </li>
+
+				</ul>
+
+				<div class="tab-content">
+					<div ng-include="currentTab"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

@@ -1,0 +1,69 @@
+<div class="panel-group">
+	<form name="projForm" autocomplete="off" validate>
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title" ng-show="action =='Add'">Add Project Notes</h4>
+				<h4 class="panel-title" ng-show="action =='Edit'">Edit Project Notes</h4>
+			</div>
+			<div class="panel-body">
+				<div class="popUpTableResHeight">
+					<table class="table table-hover table-bordered popUpTableHeight" fixed-header="">
+						<thead>
+							<tr>
+								<th ng-if="action =='Add'">Select</th>
+								<th>Note Book Topic
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th>Description</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="notebooks in noteBookList" fixed-header="">
+								<td ng-if="action =='Add'"><input type="checkbox" ng-model="notebooks.selected"
+										ng-change="notebooksPopUpRowSelect(notebooks)"></td>
+
+								<td>
+									<ng-form name="topic">
+										<input type="text" data-test='Projects_Notes_Add_notebooktopic'
+											ng-model="notebooks.topic" class="form-control" name="topic"
+											pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*)) ng-required="true"
+											placeholder="Topic" />
+										<span ng-show="topic.topic.$touched && topic.topic.$error.required"
+											class="procurment-pot-errors">Resource Id is mandatory</span>
+										<p ng-show="topic.topic.$error.pattern" style="color:red">Alpha numeric data
+											should be allowed </p>
+									</ng-form>
+								</td>
+
+								<td><input data-test='Projects_Notes_Add_description' type="text"
+										ng-model="notebooks.description" class="form-control" name="description"
+										pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+										placeholder="Description" />
+									<span
+										ng-show="projForm.description.$dirty && projForm.description.required">Resource
+										Id is mandatory</span>
+									<p ng-show="projForm.description.$error.pattern" style="color:red">Alpha numeric
+										data should be allowed </p>
+								</td>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="panel-footer">
+				<div class="pull-left">
+					<input type="submit" class="btn btn-primary btn-sm" ng-click="projForm.$valid && addRows()"
+						value="Add Rows" ng-if="action =='Add'" /> <input data-test='Projects_Notes_Add_Delete' type="button"
+						class="btn btn-secondary btn-sm" ng-click="deleteProjRows()" value="Delete Rows"
+						ng-if="action =='Add'" />
+				</div>
+				<div class="pull-right">
+					<input data-test='Projects_Notes_Save' type="submit" class="btn btn-primary btn-sm" value="Save"
+						ng-click="projForm.$valid && saveNoteBook()" />
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</form>
+</div>

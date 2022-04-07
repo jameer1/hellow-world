@@ -1,0 +1,262 @@
+<div id="tab-pannel" >
+	<form name="MaterialProjDockForm" validate class="panel-group">
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Generate Project Docket</h4>
+			</div>
+			<div class="panel-body">
+				<div class="row">
+				<div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
+					<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+						<md-input-container>
+						<label>Origin Project</label> <input type="text" class="form-control" data-test='Resources_Materials_ProjectDockets_GenerateDocket_OriginProject'
+							ng-model="materialProjDocketTO.fromProjLabelkeyTO.name"
+							name="origin" ng-disabled="applyFlag;materialProjDocketTO.apprStatus=='Generated'"
+							ng-required="true" ng-click="getUserProjects(1)"
+							readonly="readonly" /></md-input-container>
+					</div>
+
+					<div class="col-sm-2 col-xs-2 col-md-2">
+							<md-input-container><label>Origin Yard</label> <input type="text" class="form-control"  data-test='Resources_Materials_ProjectDockets_GenerateDocket_OriginYard'
+							ng-if="materialProjDocketTO.fromProjLabelkeyTO.displayNamesMap['SM_ID'] > 0 || materialProjDocketTO.fromProjLabelkeyTO.displayNamesMap['SPM_ID'] == 0"
+							ng-model="materialProjDocketTO.fromProjLabelkeyTO.displayNamesMap['SM_CODE']"
+							ng-disabled="applyFlag;materialProjDocketTO.apprStatus=='Generated'"
+							ng-click="selectDeliveryPlace(1);" readonly="readonly" /> <input
+							type="text" class="form-control"
+							ng-if="materialProjDocketTO.fromProjLabelkeyTO.displayNamesMap['SPM_ID']> 0"
+							ng-disabled="applyFlag;materialProjDocketTO.apprStatus=='Generated'"
+							ng-model="materialProjDocketTO.fromProjLabelkeyTO.displayNamesMap['SPM_CODE']"
+							ng-click="selectDeliveryPlace(1);" readonly="readonly" /></md-input-container>
+					</div>
+
+					<div class="col-sm-2 col-xs-2 col-md-2">
+						<md-input-container>
+							<label>Destination Project</label>
+							<input type="text" data-test='Resources_Materials_ProjectDockets_GenerateDocket_DestinationProject' class="form-control" 
+							ng-model="materialProjDocketTO.toProjLabelkeyTO.name" name="destination" ng-required="true" ng-click="getUserProjects(2)"
+							readonly="readonly" />
+						</md-input-container>
+					</div>
+					<div class="col-sm-2 col-xs-2 col-md-2 ">
+							<md-input-container><label>Destination Yard</label> <input type="text" class="form-control"  data-test='Resources_Materials_ProjectDockets_GenerateDocket_DestinationYard'
+							ng-if="materialProjDocketTO.toProjLabelkeyTO.displayNamesMap['SM_ID'] > 0 ||  materialProjDocketTO.toProjLabelkeyTO.displayNamesMap['SPM_ID'] == 0"
+							ng-model="materialProjDocketTO.toProjLabelkeyTO.displayNamesMap['SM_CODE']"
+							ng-click="selectDeliveryPlace(2);"
+							ng-disabled="applyFlag;materialProjDocketTO.apprStatus=='Generated'"
+							readonly="readonly" /> <input type="text" class="form-control" data-test='Resources_Materials_ProjectDockets_GenerateDocket__DestinationYardGenerated'
+							ng-if="materialProjDocketTO.toProjLabelkeyTO.displayNamesMap['SPM_ID']> 0"
+							ng-model="materialProjDocketTO.toProjLabelkeyTO.displayNamesMap['SPM_CODE']"
+							ng-disabled="applyFlag;materialProjDocketTO.apprStatus=='Generated'"
+							ng-click="selectDeliveryPlace(2);" readonly="readonly" /></md-input-container>
+
+					</div>
+					<div class="col-sm-2 col-xs-2 col-md-2 spacer0">
+					<md-input-container>
+						<label>Pre-Approved Item</label>
+						<md-select data-test='Resources_Materials_ProjectDockets_GenerateDocket_PreApprovedItem'
+							ng-model="approvalType" name="approvalType" ng-required="true" ng-change="validateProjects(approvalType)"
+							ng-disabled="applyFlag;materialProjDocketTO.apprStatus=='Generated'" >
+							<md-option ng-repeat ="approvalType in approvalTypes" ng-value="approvalType.name">{{approvalType.name}}</md-option>
+						</md-select>
+					</md-input-container>
+					</div>
+
+					<div class="col-sm-2 col-xs-2 col-md-2 spacer0">
+							<md-input-container><label>Approval NotificationID </label><input data-test='Resources_Materials_ProjectDockets_GenerateDocket_ApprovalNotificationId' type="text" class="form-control"
+							ng-model="materialProjDocketTO.notifyCode" 
+							ng-disabled="applyFlag;materialProjDocketTO.apprStatus=='Generated'"
+							name="approve" ng-required="true"
+							ng-click="selectNotification()" readonly="readonly" /></md-input-container>
+					</div>
+				</div>
+			</div>
+		</div>
+			<div class="panel-footer">
+				<div class="pull-right spacer1"
+					ng-if="materialProjDocketTO.apprStatus!='Generated'">
+					<input data-test='Resources_Materials_ProjectDockets_GenerateDocket_ApplyFilter' type="button" class="btn btn-primary btn-sm"
+						ng-click="applyFilter()" value="Apply Filter"> <input data-test='Resources_Materials_ProjectDockets_GenerateDocket_ReleaseApplyFilter'
+						type="button" class="btn btn-secondary btn-sm"
+						ng-click="releaseApplyFilter()" value="Release Apply Filter">
+
+					<input type="button" class="btn btn-default btn-sm" data-test='Resources_Materials_ProjectDockets_GenerateDocket_Reset'
+						ng-click="reset()" value="Reset">
+				</div>
+			</div>
+
+			<div class="panel-heading">
+				<h4 class="panel-title">Issued By</h4>
+			</div>
+
+			<div class="panel-body">
+				<div class="">
+				<table class="table table-hover table-bordered">
+					<thead>
+						<tr>
+							<th>Employee ID <span
+								style="color: red; "> *</span></th>
+							</th>
+							<th>First Name</th>
+							<th>Last Name</th>
+							<th>Designation</th>
+							<th>Company Name</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><input type="text" class="form-control" data-test='Resources_Materials_ProjectDockets_GenerateDocket_IssuedBy_EmployeeId'
+								ng-disabled="materialProjDocketTO.apprStatus=='Generated'"
+								ng-click="getEmployeeDetails(1)"
+								ng-model="materialProjDocketTO.issuedByLabelkeyTO.code"
+								placeholder="Employee ID" custom-read-only ng-required="true"></td>
+
+							<td><input type="text" class="form-control" data-test='Resources_Materials_ProjectDockets_vieweditdocket_IssuedBy_FirstName'
+								ng-disabled="materialProjDocketTO.apprStatus=='Generated'"
+								ng-model="materialProjDocketTO.issuedByLabelkeyTO.displayNamesMap.firstName"
+								readonly="readonly" placeholder="First Name"></td>
+
+							<td><input type="text" class="form-control" data-test='Resources_Materials_ProjectDockets_vieweditdocket_IssuedBy_LastName'
+								ng-disabled="materialProjDocketTO.apprStatus=='Generated'"
+								ng-model="materialProjDocketTO.issuedByLabelkeyTO.displayNamesMap.lastName"
+								readonly="readonly" placeholder="Last Name"></td>
+
+							<td><input type="text" class="form-control" data-test='Resources_Materials_ProjectDockets_vieweditdocket_IssuedBy_Designation'
+								ng-disabled="materialProjDocketTO.apprStatus=='Generated'"
+								ng-model="materialProjDocketTO.issuedByLabelkeyTO.displayNamesMap.empClassName"
+								readonly="readonly" placeholder="Designation"
+								style="width: 115px !important"></td>
+
+							<td><input type="text" class="form-control" data-test='Resources_Materials_ProjectDockets_vieweditdocket_IssuedBy_CompanyName'
+								ng-disabled="materialProjDocketTO.apprStatus=='Generated'"
+								ng-model="materialProjDocketTO.issuedByLabelkeyTO.displayNamesMap.cmpName"
+								readonly="readonly" placeholder="Company  Name"></td>
+
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+			<div class="panel-heading">
+				<h4 class="panel-title">Received By</h4>
+			</div>
+			<div class=" panel-body">
+				<div class="">
+				<table class="table table-striped table-bordered">
+					<thead>
+						<tr>
+							<th>Employee ID <span
+								style="color: red; "> *</span></th>
+							<th>First Name</th>
+							<th>Last Name</th>
+							<th>Designation</th>
+							<th>Company Name</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+
+							<td><input data-test='Resources_Materials_ProjectDockets_GenerateDocket_ReceivedBy_EmployeeId' type="text" class="form-control"
+								ng-disabled="materialProjDocketTO.apprStatus=='Generated'"
+								ng-click="getEmployeeDetails(2)"
+								ng-model="materialProjDocketTO.receivedByLabelkeyTO.code"
+								placeholder="Employee ID" custom-read-only ng-required="true"></td>
+
+							<td><input type="text" class="form-control" data-test='Resources_Materials_ProjectDockets_vieweditdocket_ReceivedBy_FirstName'
+								ng-disabled="materialProjDocketTO.apprStatus=='Generated'"
+								ng-model="materialProjDocketTO.receivedByLabelkeyTO.displayNamesMap.firstName"
+								readonly="readonly" placeholder="First Name"></td>
+
+							<td><input type="text" class="form-control" data-test='Resources_Materials_ProjectDockets_vieweditdocket_ReceivedBy_LastName'
+								ng-disabled="materialProjDocketTO.apprStatus=='Generated'"
+								ng-model="materialProjDocketTO.receivedByLabelkeyTO.displayNamesMap.lastName"
+								readonly="readonly" placeholder="Last Name"></td>
+
+							<td><input type="text" class="form-control" data-test='Resources_Materials_ProjectDockets_vieweditdocket_ReceivedBy_Designation'
+								ng-disabled="materialProjDocketTO.apprStatus=='Generated'"
+								ng-model="materialProjDocketTO.receivedByLabelkeyTO.displayNamesMap.empClassName"
+								readonly="readonly" placeholder="Designation"
+								style="width: 115px !important"></td>
+
+							<td><input type="text" class="form-control" data-test='Resources_Materials_ProjectDockets_vieweditdocket_ReceivedBy_CompanyName'
+								ng-disabled="materialProjDocketTO.apprStatus=='Generated'"
+								ng-model="materialProjDocketTO.receivedByLabelkeyTO.displayNamesMap.cmpName"
+								readonly="readonly" placeholder="Company  Name"></td>
+
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		
+		<div class="panel-body">
+			<div class="table-responsive nestedTabTable_1_Res_Height">
+				<table class="table table-striped table-bordered nestedTabTable_1_Height">
+					<thead>
+						<tr>
+							<th>Select</th>
+							<th>Resource ID</th>
+							<th>Resource Name</th>
+							<th>Unit Of Measure</th>
+							<th>PO Number</th>
+							<th>Schedule Item</th>
+							<th>Schedule Desc</th>
+							<th>Supplier Name</th>
+							<th>Rate</th>
+							<th>Available Quantity</th>
+							<th>Issue Quantity</th>
+							<th>Comments</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr
+							fixed-header="" ng-repeat ="storedocket in materialProjDocketTO.materialProjSchItemTOs">
+							<td><input data-test='Resources_Materials_ProjectDockets_GenerateDocket_Add_SelectResourceCheckBox'
+								
+								type="checkbox" ng-model="storedocket.select"
+								ng-click="storeDocketRowSelect(storedocket)"></td><!-- ng-disabled="materialProjDocketTO.apprStatus!='true'"  -->
+							<td>{{storedocket.purchaseSchLabelKeyTO.displayNamesMap.purClassCode}}</td>
+							<td>{{storedocket.purchaseSchLabelKeyTO.displayNamesMap.purClassName}}</td>
+							<td>{{storedocket.purchaseSchLabelKeyTO.displayNamesMap.purClassUnitOfMeasure}}</td>
+							<td>{{storedocket.purchaseSchLabelKeyTO.displayNamesMap.purCode}}</td>
+							<td>{{storedocket.purchaseSchLabelKeyTO.code}}</td>
+							<td>{{storedocket.purchaseSchLabelKeyTO.name}}</td>
+							<td>{{storedocket.purchaseSchLabelKeyTO.displayNamesMap.cmpName}}</td>
+							<td>{{storedocket.purchaseSchLabelKeyTO.displayNamesMap.unitOfRate}}</td>
+							<td><span ng-hide="materialProjDocketTO.apprStatus=='Generated'">{{storedocket.currentAvaiableQty}}</span></td>
+							<td class="input-width2"><input type="text" class="form-control" name="quantity"
+								ng-model="storedocket.issueQty" data-test='Resources_Materials_ProjectDockets_GenerateDocket_Add_IssueQuantity'
+								ng-class="{coloumnHighlightColor:storedocket.anyIssueExist}"
+								ng-required="true" placeholder="Quantity"
+								ng-change="validateIssueQty(storedocket)"
+								ng-disabled="materialProjDocketTO.apprStatus=='Generated'"></td>
+							<td class="input-width2"><input type="text" class="form-control" name="comments" data-test='Resources_Materials_ProjectDockets_GenerateDocket_Add_Comments'
+								ng-model="storedocket.comments" ng-required="true"
+								placeholder="Comments"
+								ng-disabled="materialProjDocketTO.apprStatus=='Generated'"></td>
+						</tr>
+					</tbody>
+
+				</table>
+			</div>
+		</div>
+		<div class="panel-footer"
+			ng-if="materialProjDocketTO.apprStatus!='Generated'">
+			<div class="pull-right">
+				<input type="submit" data-test='Resources_Materials_ProjectDockets_GenerateDocket_Add_saveAsDraft' class="btn btn-secondary btn-sm"
+					ng-click="generateProjectDocket('Draft')" value="Save As Draft ">
+				<input type="submit" class="btn btn-primary btn-sm" data-test='Resources_Materials_ProjectDockets_GenerateDocket_GenerateDocket'
+					ng-click="generateProjectDocket('Generated')"
+					value="Generate Docket">
+
+			</div>
+			<div class="pull-left">
+				<input type="button" class="btn btn-primary btn-sm" data-test='Resources_Materials_ProjectDockets_GenerateDocket_Add'
+					ng-click="addStoreDocket()" value="Add"> <input data-test='Resources_Materials_ProjectDockets_GenerateDocket_Add_Delete'
+					type="button" class="btn btn-secondary btn-sm" ng-click="deleteRows()"
+					value="Delete">
+			</div>
+		</div>
+	</div>
+		<div class="ngdialog-close"></div>
+	</form>
+</div>

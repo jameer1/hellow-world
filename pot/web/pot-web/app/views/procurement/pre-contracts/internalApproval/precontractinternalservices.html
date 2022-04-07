@@ -1,0 +1,296 @@
+<div class="tab-pannel" ng-if="stateParamsRequestPage===true && (account.appCodeTemplate['PROCURMT_INTRNLSTAGE1SERVICES_VIEW'] ||
+  account.appCodeTemplate['REQUEST_REQPROC_INTRNLSTAGE1SERVICES_VIEW'])">
+  <form name="serviceForm" validate>
+    <div class="tabTable_3_Res_height overflow-auto">
+      <table class="table table-hover table-bordered tabTable_3_height">
+        <thead>
+          <tr>
+            <th>Select</th>
+            <th>Item ID</th>
+            <th>Item Description
+              <span class="procurment-pot-errors">*</span>
+            </th>
+            <th>Procurement<br>SubCategory
+              <span class="procurment-pot-errors">*</span>
+            </th>
+            <th>Services Class
+              <span class="procurment-pot-errors">*</span>
+            </th>
+
+            <th>Cost Code
+              <span class="procurment-pot-errors">*</span>
+            </th>
+            <th>Delivery Place
+              <span class="procurment-pot-errors">*</span>
+            </th>
+            <th>SOW Item ID
+              <span class="procurment-pot-errors">*</span>
+            </th>
+            <th>Start Date
+              <span class="procurment-pot-errors">*</span>
+            </th>
+            <th>Finish Date
+              <span class="procurment-pot-errors">*</span>
+            </th>
+            <th>Qty
+              <span class="procurment-pot-errors">*</span>
+            </th>
+            <th>Estimated Rate<br>({{preContractObj.currencyCode}})
+              <span class="procurment-pot-errors">*</span>
+            </th>
+            <th>Estimated Amount</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="item in preContractObj.preContractServiceDtlTOs">
+            <td><input type="checkbox" data-test='Stage1Request_viewedit_Service_addrows_Checkbox1' value="serivceId"
+                class="ng-pristine ng-valid" ng-model="item.select" ng-change="rowSelect(item)"
+                ng-disabled="item.id > 0"></td>
+
+            <td class="input-width5"><input type="text" class="form-control" ng-model="item.itemCode" name="code"
+                placeholder="Item code" ng-disabled="true" /></td>
+
+            <td class="input-width5" ng-form name="myForm1"><input type="text"
+                data-test='Stage1Request_viewedit_Service_itemdescription' class="form-control" ng-model="item.itemDesc"
+                placeholder="Item Description" name="desc" maxlength="400"
+                required="required" ng-disabled="preContractObj.workFlowStatusTO.value ==5 " style="width:fit-content;" /> <span style="color: red" ng-show="myForm1.desc.$error.maxlength">You Reached Max
+                length</span> <span style="color: red"
+                ng-show="myForm1.desc.$dirty && myForm1.desc.$error.required">This Field
+                Is Required</span> <span style="color: red" ng-show="myForm1.desc.$error.pattern">Atleast one
+                  alphabet is mandatory</span></td>
+
+            <td class="input-width2" ng-form name="myFormsub"><input
+                data-test='Stage1Request_viewedit_Service_procurementsubcategory' type="text" class="form-control"
+                ng-model="procureCategoryMap[item.procureSubCatgId].name" ng-click="selectProcureSubCategory('Services',item);"
+                placeHolder="Item SubCategory" name="subCategory" pattern="^[a-zA-Z-\&\d\s.,]+$" maxlength="100"
+                required="required" onkeypress="return false;" custom-read-only
+                ng-disabled="preContractObj.workFlowStatusTO.value ==5 " /> <span style="color: red"
+                ng-show="myFormsub.subCategory.$dirty && myFormsub.subCategory.$error.required">This field is
+                required</span> <span style="color: red" ng-show="myFormsub.subCategory.$error.pattern">Special
+                characters not allowed</span> <span style="color: red"
+                ng-show="myFormsub.subCategory.$error.maxlength">You reached max length</span></td>
+
+            <td class="input-width2" ng-form name="myForm2"><input
+                data-test='Stage1Request_viewedit_Service_serviceclass' type="text" class="form-control"
+                ng-model="projServiceClassmap[item.projServiceLabelKey.id].name" custom-read-only
+                ng-click="serviceClassDetails(item.projServiceLabelKey);" placeholder="Service Type" name="service"
+                required="required" onkeypress="return false;"
+                ng-disabled="preContractObj.workFlowStatusTO.value ==5 " /></td>
+
+            <td class="input-width0"><input data-test='Stage1Request_viewedit_Service_costcode' type="text"
+                class="form-control" ng-model="item.projCostLabelKey.name" custom-read-only
+                ng-click="projCostCodeDetails(item.projCostLabelKey)" required="required" onkeypress="return false;"
+                ng-disabled="preContractObj.workFlowStatusTO.value ==5 " /></td>
+
+<!-- pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))  ng-model="item.deliveryPlace"  -->
+            <td class="input-width" ng-form="deliveryForm"><input type="text" class="form-control"
+                data-test='Stage1Request_viewedit_Service_deliveryplase'
+                 ng-if="item.storeLabelKey.id > 0"
+                ng-model="item.deliveryPlace = storeClassmap[item.storeLabelKey.id].name"
+                ng-click="selectDeliveryPlace(item.storeLabelKey,item.projStoreLabelKey);" readonly="readonly"
+                ng-disabled="preContractObj.workFlowStatusTO.value ==5 " maxlength="400"/>
+                <input type="text" class="form-control"
+                ng-if="item.storeLabelKey.id <= 0 || item.projStoreLabelKey.id > 0"
+                ng-model="item.deliveryPlace = projStoreClassmap[item.projStoreLabelKey.id].name"
+                ng-click="selectDeliveryPlace(item.storeLabelKey,item.projStoreLabelKey);" readonly="readonly" /></td>
+								
+			<td class="input-width" ng-form="sowItemForm">
+			  <input type="text" class="form-control"
+                data-test='Stage1Request_viewedit_Service_sowItem'
+                 ng-model="projSOWMap[item.sowItemLabelKey.id].name"
+                 ng-click="selectSOWItem(item.sowItemLabelKey,item.projStoreLabelKey);"
+                 tabindex="-1" custom-read-only
+                ng-disabled="preContractObj.workFlowStatusTO.value ==5 " maxlength="400" placeholder="SOW Item"
+                name="sowItem" style="width:fit-content;" />
+			</td>
+
+            <td class="input-width1">
+              <potdate-picker data-test='Stage1Request_viewedit_Service_startdate' ng-model="item.startDate"
+                class="form-control" dir-index="$index" min-date="today" max-date="item.finishDate" date-name="serviceStartDate"
+                placeholder="dd-mm-yyyy" required ng-disabled="preContractObj.workFlowStatusTO.value ==5 "
+                ></potdate-picker>
+            </td>
+            <td class="input-width1">
+              <potdate-picker data-test='Stage1Request_viewedit_Service_finishdate' ng-model="item.finishDate"
+                class="form-control" dir-index="$index" min-date="item.startDate" date-name="serviceFinishDate"
+                placeholder="dd-mm-yyyy" required ng-disabled="preContractObj.workFlowStatusTO.value ==5 "
+                custom-read-only></potdate-picker>
+            </td>
+
+            <td ng-form name="myForm3"><input data-test='Stage1Request_viewedit_Service_qty' type="text"
+                class="form-control" style="min-width:50px !important;width:50px !important;" ng-model="item.quantity"
+                placeholder="Quantity" name="quan" required="required" maxlength="20" valid-number style="width: 50px;"
+                ng-disabled="preContractObj.workFlowStatusTO.value ==5 " /> <span style="color: red"
+                ng-show="myForm3.quan.$error.maxlength">You Reached Max Length</span> <span style="color: red"
+                ng-show="myForm3.quan.$dirty && myForm3.quan.$error.required">This Field Is
+                Required</span></td>
+
+            <td ng-form name="myForm4"><input data-test='Stage1Request_viewedit_Service_estimatedrate' type="text"
+                class="form-control" style="min-width:50px !important;width:50px !important;"
+                ng-model="item.estimateCost" placeholder="EstimateCost" maxlength="20" valid-number required="required"
+                name="estcost" style="width: 50px;" ng-disabled="preContractObj.workFlowStatusTO.value ==5 " /> <span
+                style="color: red" ng-show="myForm4.estcost.$dirty && myForm4.estcost.$error.required">This field is
+                required</span> <span style="color: red" ng-show="myForm4.estcost.$error.maxlength">You
+                reached max length</span> </td>
+
+
+            <td class="input-width"><span
+                style="min-width:50px !important;width:50px !important;">{{item.quantity * item.estimateCost}}<span>
+            </td>
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="panel-footer"
+      ng-hide="preContractObj.workFlowStatusTO.value ==4 || preContractObj.workFlowStatusTO.value ==5 || preContractObj.workFlowStatusTO.value ==6">
+      <div class="pull-left">
+        <input type="Submit" data-test='Stage1Request_viewedit_Service_addrows'
+          ng-if="showActionButtons && (account.appCodeTemplate['PROCURMT_INTRNLSTAGE1SERVICES_ADD'] || account.appCodeTemplate['REQUEST_REQPROC_INTRNLSTAGE1SERVICES_ADD'])"
+          ng-click="serviceForm.$valid && addServiceRows()" value="Add Rows" class="btn btn-primary btn-sm" /> 
+        <input
+          ng-if="showActionButtons && (account.appCodeTemplate['PROCURMT_INTRNLSTAGE1SERVICES_DEACTIVE'] || account.appCodeTemplate['REQUEST_REQPROC_INTRNLSTAGE1SERVICES_DEACTIVE'])"
+          type="button" class="btn btn-secondary btn-sm" data-test='Stage1Request_viewedit_Service_deleterows'
+          ng-click="deleteServiceDetails()" value="Delete Rows" />
+      </div>
+      <div class="pull-right">
+        <input type="Submit" value="Save" data-test='Stage1Request_vieweditService_save'
+          ng-if="showActionButtons && (account.appCodeTemplate['PROCURMT_INTRNLSTAGE1SERVICES_ADD'] || account.appCodeTemplate['REQUEST_REQPROC_INTRNLSTAGE1SERVICES_ADD'])"
+          ng-click="serviceForm.$valid && saveServiceDetails()" class="btn btn-primary btn-sm" validate />
+      </div>
+    </div>
+
+  </form>
+</div>
+
+<div class="tab-pannel" ng-if="stateParamsRequestPage===false && (account.appCodeTemplate['PROCURMT_INTRNLSTAGE1APPROVALSERVICES_VIEW'] ||
+ account.appCodeTemplate['APPROVE_INTRNLSTAGE1APPROVALPLANT_VIEW'])">
+  <form name="serviceForm" validate>
+    <div class="tabTable_3_Res_height overflow-auto">
+      <table class="table table-hover table-bordered tabTable_3_height">
+        <thead>
+          <tr>
+            <th>Select</th>
+            <th>Item ID</th>
+            <th>Item Description</th>
+            <th>Procurement<br>SubCategory
+            </th>
+            <th>Services Class</th>
+            <th>Cost Code</th>
+            <th>Delivery Place</th>
+            <th>Start Date</th>
+            <th>Finish Date</th>
+            <th>Qty</th>
+            <th>Estimated Rate<br>({{preContractObj.currencyCode}})
+            </th>
+            <th>Estimated Amount</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="item in preContractObj.preContractServiceDtlTOs">
+            <td><input type="checkbox" data-test='Stage1Approval_viewedit_Service_addrows_Checkbox1' value="serivceId"
+                class="ng-pristine ng-valid" ng-model="item.select" ng-change="rowSelect(item)"
+                ng-disabled="item.id > 0"></td>
+
+            <td class="input-width5"><input type="text" class="form-control" ng-model="item.itemCode" name="code"
+                placeholder="Item code" ng-disabled="true" /></td>
+
+            <td class="input-width2" ng-form name="myForm1"><input
+                data-test='Stage1Approval_viewedit_Service_itemdescription' type="text" class="form-control"
+                ng-model="item.itemDesc" placeholder="Item Description" name="desc" maxlength="400"
+                pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*)) required="required"
+                ng-disabled="preContractObj.workFlowStatusTO.value ==5 " /> <span style="color: red"
+                ng-show="myForm1.desc.$error.maxlength">You Reached Max length</span> <span style="color: red"
+                ng-show="myForm1.desc.$dirty && myForm1.desc.$error.required">This Field
+                Is Required</span> <span style="color: red" ng-show="myForm1.desc.$error.pattern">Atleast one
+                  alphabet is mandatory</span></td>
+
+            <td class="input-width2" ng-form name="myFormsub"><input
+                data-test='Stage1Approval_viewedit_Service_procurementsubcategory' type="text" class="form-control"
+                ng-model="procureCategoryMap[item.procureSubCatgId].code" ng-click="selectProcureSubCategory(4,item);"
+                placeHolder="Item SubCategory" name="subCategory" pattern="^[a-zA-Z-\&\d\s.,]+$" maxlength="100"
+                required="required" onkeypress="return false;"
+                ng-disabled="preContractObj.workFlowStatusTO.value ==5 " /> <span style="color: red"
+                ng-show="myFormsub.subCategory.$dirty && myFormsub.subCategory.$error.required">This field is
+                required</span> <span style="color: red" ng-show="myFormsub.subCategory.$error.pattern">Special
+                characters not allowed</span> <span style="color: red"
+                ng-show="myFormsub.subCategory.$error.maxlength">You reached max length</span></td>
+
+            <td class="input-width2" ng-form name="myForm2"><input
+                data-test='Stage1Approval_viewedit_Service_serviceclass' type="text" class="form-control"
+                ng-model="projServiceClassmap[item.projServiceLabelKey.id].code"
+                ng-click="serviceClassDetails(item.projServiceLabelKey);" placeholder="Service Type" name="service"
+                required="required" onkeypress="return false;"
+                ng-disabled="preContractObj.workFlowStatusTO.value ==5 " /></td>
+
+            <td class="input-width0"><input data-test='Stage1Request_viewedit_Service_costcode' type="text"
+                class="form-control" ng-model="item.projCostLabelKey.name" custom-read-only
+                ng-click="projCostCodeDetails(item.projCostLabelKey)" required="required" onkeypress="return false;"
+                ng-disabled="preContractObj.workFlowStatusTO.value ==5 " /></td>
+
+            <td class="input-width" ng-form="deliveryForm"><input data-test='Stage1Approval_viewedit_Service_deliveryplase' type="text"
+                class="form-control" ng-model="item.deliveryPlace" tabindex="-1" pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+                ng-disabled="preContractObj.workFlowStatusTO.value ==5 " maxlength="400" name="del"/>
+                <span class="procurment-pot-errors"
+                ng-show="deliveryForm.del.$error.pattern">Atleast one
+                  alphabet is mandatory</span></td>
+
+            <td class="input-width1">
+              <potdate-picker data-test='Stage1Approval_viewedit_Service_startdate' ng-model="item.startDate"
+                class="form-control" dir-index="$index" max-date="item.finishDate" date-name="serviceStartDate"
+                placeholder="dd-mm-yyyy" required="required" ng-disabled="preContractObj.workFlowStatusTO.value ==5 "
+                readonly="readonly"></potdate-picker>
+            </td>
+            <td class="input-width1">
+              <potdate-picker data-test='Stage1Approval_viewedit_Service_finishdate' ng-model="item.finishDate"
+                class="form-control" dir-index="$index" min-date="item.startDate" date-name="serviceFinishDate"
+                placeholder="dd-mm-yyyy" required="required" ng-disabled="preContractObj.workFlowStatusTO.value ==5 "
+                readonly="readonly"></potdate-picker>
+            </td>
+
+            <td ng-form name="myForm3"><input data-test='Stage1Approval_viewedit_Service_qty' type="text"
+                class="form-control" style="min-width:50px !important;width:50px !important;" ng-model="item.quantity"
+                placeholder="Quantity" name="quan" required="required" maxlength="20" valid-number style="width: 50px;"
+                ng-disabled="preContractObj.workFlowStatusTO.value ==5 " /> <span style="color: red"
+                ng-show="myForm3.quan.$error.maxlength">You Reached Max Length</span> <span style="color: red"
+                ng-show="myForm3.quan.$dirty && myForm3.quan.$error.required">This Field Is
+                Required</span></td>
+
+            <td ng-form name="myForm4"><input data-test='Stage1Approval_viewedit_Service_estimatedrate' type="text"
+                class="form-control" style="min-width:50px !important;width:50px !important;"
+                ng-model="item.estimateCost" placeholder="EstimateCost" maxlength="20" valid-number required="required"
+                name="estcost" style="width: 50px;" ng-disabled="preContractObj.workFlowStatusTO.value ==5 " /> <span
+                style="color: red" ng-show="myForm4.estcost.$dirty && myForm4.estcost.$error.required">This field is
+                required</span> <span style="color: red" ng-show="myForm4.estcost.$error.maxlength">You
+                reached max length</span> </td>
+
+
+            <td class="input-width"><span
+                style="min-width:50px !important;width:50px !important;">{{item.quantity * item.estimateCost}}<span>
+            </td>
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="panel-footer"
+      ng-hide="preContractObj.workFlowStatusTO.value ==4 || preContractObj.workFlowStatusTO.value ==5 || preContractObj.workFlowStatusTO.value ==6">
+      <div class="pull-left">
+        <input type="Submit" data-test='Stage1Approval_viewedit_Service_addrows'
+          ng-if="account.appCodeTemplate['PROCURMT_INTRNLSTAGE1APPROVALSERVICES_ADD'] || account.appCodeTemplate['APPROVE_INTRNLSTAGE1APPROVALPLANT_ADD']"
+          ng-click="serviceForm.$valid && addServiceRows()" value="Add Rows" class="btn btn-primary btn-sm" /> <input
+          data-test='Stage1Approval_viewedit_Service_deleterows'
+          ng-if="account.appCodeTemplate['PROCURMT_INTRNLSTAGE1APPROVALSERVICES_DEACTIVE'] || account.appCodeTemplate['APPROVE_INTRNLSTAGE1APPROVALPLANT_DEACTIVE']"
+          type="button" class="btn btn-secondary btn-sm" ng-click="deleteServiceDetails()" value="Delete Rows" />
+      </div>
+      <div class="pull-right">
+        <input data-test='Stage1Approval_vieweditService_save' type="Submit" value="Save"
+          ng-if="account.appCodeTemplate['PROCURMT_INTRNLSTAGE1APPROVALSERVICES_ADD'] || account.appCodeTemplate['APPROVE_INTRNLSTAGE1APPROVALPLANT_ADD']"
+          ng-click="serviceForm.$valid && saveServiceDetails()" class="btn btn-primary btn-sm" validate />
+      </div>
+    </div>
+
+  </form>
+</div>

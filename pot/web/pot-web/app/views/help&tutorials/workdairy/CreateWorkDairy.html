@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml2/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+    <head>
+        <title>Proconsys</title>
+        <link rel="stylesheet" type="text/css" href="style.css" />
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+
+        <script type="text/javascript" src="js/ddaccordion.js">
+
+            /***********************************************
+             * Accordion Content script- (c) Dynamic Drive DHTML code library (www.dynamicdrive.com)
+             * Visit http://www.dynamicDrive.com for hundreds of DHTML scripts
+             * This notice must stay intact for legal use
+             ***********************************************/
+
+        </script>
+
+
+        <script type="text/javascript">
+
+
+            ddaccordion.init({
+                headerclass: "submenuheader", //Shared CSS class name of headers group
+                contentclass: "submenu", //Shared CSS class name of contents group
+                revealtype: "click", //Reveal content when user clicks or onmouseover the header? Valid value: "click", "clickgo", or "mouseover"
+                mouseoverdelay: 200, //if revealtype="mouseover", set delay in milliseconds before header expands onMouseover
+                collapseprev: true, //Collapse previous content (so only one open at any time)? true/false 
+                defaultexpanded: [], //index of content(s) open by default [index1, index2, etc] [] denotes no content
+                onemustopen: false, //Specify whether at least one header should be open always (so never all headers closed)
+                animatedefault: false, //Should contents open by default be animated into view?
+                persiststate: true, //persist state of opened contents within browser session?
+                toggleclass: ["", ""], //Two CSS classes to be applied to the header when it's collapsed and expanded, respectively ["class1", "class2"]
+                togglehtml: ["suffix", "<img src='images/plus.gif' class='statusicon' />", "<img src='images/minus.gif' class='statusicon' />"], //Additional HTML added to the header when it's collapsed and expanded, respectively  ["position", "html1", "html2"] (see docs)
+                animatespeed: "fast", //speed of animation: integer in milliseconds (ie: 200), or keywords "fast", "normal", or "slow"
+                oninit: function(headers, expandedindices) { //custom code to run when headers have initalized
+                    //do nothing
+                },
+                onopenclose: function(header, index, state, isuseractivated) { //custom code to run whenever a header is opened or closed
+                    //do nothing
+                }
+            })
+
+
+        </script>
+
+
+    </head>
+
+    <body>
+        <div class="right_pannel">  
+
+            <h3 class="h3_header">WORK DAIRY:</h3>
+
+            <p><font class="h4_header1"> Introduction: </font>Work Diary Edit form is used to input the daily utilized resources (Manpower, plants, Materials, Tangible Quantities)
+
+            </p>
+           
+
+            <h4 class="h4_header">How to create or fetch Work diary for a day:</h4>
+            <ul class="ul_list">
+
+                <li> 	Work diary edit form: Use Work diary edit form page where the user can select the date for which the user intents to create work diary, the other parameters user need to select is the project, Daily Crew.</li>
+            <li>	Use the create/fetch Work diary action button to create the work diary for the selected criteria or fetch the Work diary if it is already existing.</li>
+            <li>	Submit for Approval: Use this action button for submitting the work diary for the approval. Based on the options selected either Client Approval Required, Client Approval not required the work diary would be saved to the system appropriately.</li>
+           <li> 	Cost Code List: This action button is used to open Cost Code List page to select the Cost Codes for the particular day.</li>
+           <li> 	Resend: This action button is used send the request for the Manager for allowing to submit the work diary beyond the allowed time for submission of work diary.</li>
+</ul>
+
+
+           <h4 class="h4_header"> How to record manpower utilization for the day:</h4>
+
+            <h4 class="h4_header">Man Power Utilization Page: </h4>
+            <p><font class="h4_header1">Add:</font> Use this action button to select Employee from the list and corresponding data will be filled in automatically. User need to fill in the data for the selected Cost Codes.</p>
+           <p><font class="h4_header1"> Delete:</font> Use this action button to delete the selected record.</p>
+
+            <h4 class="h4_header">Plants Utilization: </h4>
+          <p><font class="h4_header1">  Add:</font> Use this action button to select Plants from the list and corresponding data will be filled in automatically. User need to fill in the data for the selected Cost Codes.</p>
+         <p><font class="h4_header1">   Delete:</font> Use this action button to delete the selected record.</p>
+
+           <h4 class="h4_header"> Material and Store Consumption: </h4>
+         <p><font class="h4_header1">   Add:</font> Use this action button to select Materials from the list and corresponding data will be filled in automatically. User need to fill in the data for the selected Cost Codes.</p>
+          <p><font class="h4_header1">  Delete:</font>Use this action button to delete the selected record.</p>
+
+           <h4 class="h4_header"> Progress (Tangible Quantities):</h4>
+
+           <p><font class="h4_header1"> Add:</font> Use this action button to select Plants from the list and corresponding data will be filled in automatically. User need to fill in the data for the selected Cost Codes.</p>
+           <p><font class="h4_header1"> Delete:</font> Use this action button to delete the selected record.</p>
+
+        </div>
+    </body>
+</html>

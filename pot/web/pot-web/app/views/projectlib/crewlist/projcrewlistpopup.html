@@ -1,0 +1,80 @@
+<div id="tab-pannel" class="panel-group" ng-init="getCrewMap()">
+	<form name="crewListForm" validate>
+		<div id="tab-pannel" class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Crew List</h4>
+			</div>
+			<div id="tab-pannel" class="panel-body ">
+				<div  class="popUpTableResHeight">
+					<table class="table popUpTableHeight">
+						<thead>
+							<tr>
+								<th ng-if="action=='Add'">Select</th>
+								<th>Crew ID
+									<span
+									style="color: red;"> *</span>
+								</th>
+								<th>Crew Name
+									<span
+									style="color: red; "> *</span>
+								</th>
+								<th>Shift Type
+									<span
+									style="color: red; "> *</span>
+								</th>
+							</tr>
+						</thead>
+						<tr fixed-header="" ng-repeat ="tab in addTableData">
+							<td ng-if="action=='Add'"><input data-test='Projects_ProjectLibrary_CrewList_Create_checkbox' type="checkbox"
+								value="tab.id" ng-model="tab.select"
+								ng-change="popUpRowSelect(tab)"></td>
+							<td ng-form name="myForm1"><input data-test='Projects_ProjectLibrary_CrewList_Create_CrewId' type="text" name="code" class="form-control"
+								ng-class="{coloumnHighlightColor:tab.duplicateFlag}"
+								ng-change="checkDuplicate(tab)" ng-model="tab.code"
+								placeholder=" Crew Id" ng-required="true"
+								pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+								maxlength=20> <span ng-show="myForm1.code.$error.pattern" class="procurment-pot-errors">Alpha
+									numeric data should be allowed</span>
+									<span ng-show="myForm1.code.$error.required && myForm1.code.$touched" class="procurment-pot-errors">This Field id Mandatory
+										</span></td>
+							<td ng-form name="myForm2"><input data-test='Projects_ProjectLibrary_CrewList_Create_CrewName' type="text" name="desc" class="form-control"
+								ng-model="tab.desc" placeholder=" CrewName" ng-required="true"
+								pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+								maxlength=100> <span
+								ng-show="myForm2.desc.$error.pattern"  class="procurment-pot-errors">Alpha numeric data
+									should be allowed</span>
+									<span
+									ng-show="myForm2.desc.$error.required && myForm2.desc.$touched" class="procurment-pot-errors">This Field is Mandatory</span></td>
+							<td ng-form name="myForm3"><select data-test='Projects_ProjectLibrary_CrewList_Create_ShiftType'
+								ng-options="res.code for res  in shiftData track by res.code"
+								ng-change="updateResCode(tab.projWorkShiftTO,tab);"
+								ng-model="tab.projWorkShiftTO" name="code" ng-required="true" class="form-control">
+									<option value="">-select-</option>
+									<span ng-model="tab.projWorkShiftTO.code"></span>
+									<span
+								ng-show="myForm3.code.$error.required && myForm3.code.$touched"  class="procurment-pot-errors">This Field is Mandatory</span>
+							</select></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div class="panel-footer">
+				<div class="pull-left">
+					<input data-test='Projects_ProjectLibrary_CrewList_Create_AddRows' type="submit" ng-click="crewListForm.$valid && addRows()"
+						class="btn btn-primary btn-sm" value="Add Rows"
+						ng-show="action =='Add'" validate> <input data-test='Projects_ProjectLibrary_CrewList_Create_DeleteRows' type="button"
+						ng-click="deleteRows()" value="Delete Rows"
+						ng-show="action =='Add'"
+						class="btn btn-default btn-sm" validate>
+				</div>
+				<div class="pull-right">
+					<input data-test='Projects_ProjectLibrary_CrewList_Save' type="submit"
+						ng-click="crewListForm.$valid && saveCrewList()" value="Save"
+						class="btn btn-primary btn-sm" />
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</form>
+</div>
+

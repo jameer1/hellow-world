@@ -1,0 +1,222 @@
+<section class="content-header">
+  <h1>Progress Measure Based on Cost Plus %</h1>
+  <!-- <input type="submit" value ="Help !"
+		ng-click="helpPage();" class="pull-right btn  btn-primary btn-sm help-each-page"> -->
+	<button class="pull-right btn btn-primary btn-sm help-each-page" 
+	     onclick="window.open('views/helptutorials/ProgressMeasureBasedonCostPlus.html ', '_blank', 
+		'toolbar=yes,scrollbars=yes,resizable=no,top=50,left=100,width=1400,height=700')">
+		Help
+	</button>
+</section>
+<section class="content">
+  <div id="tab-pannel">
+    <form name="progress">
+      <div class="panel panel-default block footer-parent">
+        <div class="panel-body">
+          <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 no-padding">
+            <div class="col-lg-2 col-md-2 col-xs-2 col-sm-2 padL-0">
+              <md-input-container class="md-block">
+                <input type="text" ng-model="searchProject.parentName" placeholder="EPS ID/EPS Name"
+                       ng-click="getUserProjects()" readonly="readonly">
+              </md-input-container>
+            </div>
+            <div class="col-lg-2 col-md-2 col-xs-2 col-sm-2">
+              <md-input-container class="md-block">
+                <input type="text" ng-model="searchProject.projName"
+                       placeholder="Project Id/Project name" ng-click="getUserProjects()"
+                       readonly="readonly">
+              </md-input-container>
+            </div>
+            <div class="col-lg-2 col-md-2 col-xs-2 col-sm-2">
+              <md-input-container>
+                <label>From Date</label>
+                <potdate-picker dir-index="$index" date-name="pmFromStatusDate" ng-model="pmFromStatusDate"
+                                max-date="pmToStatusDate" custom-read-only/>
+              </md-input-container>
+            </div>
+            <div class="col-lg-2 col-md-2 col-xs-2 col-sm-2">
+              <md-input-container>
+                <label>To Date</label>
+                <potdate-picker dir-index="$index" date-name="pmToStatusDate" ng-model="pmToStatusDate"
+                                min-date="pmFromStatusDate" custom-read-only/>
+              </md-input-container>
+            </div>
+            <div class="col-lg-4 col-md-4 col-xs-4 col-sm-4 padR-0">
+              <div class="pull-right marT15">
+                <input type="button" ng-click="getProjPMCPCostStatements(searchProject)" class="btn btn-primary btn-sm" value="Search">
+                <input type="button" class="btn btn-default btn-sm" ng-click="resetCostPlusData()" value="Reset">
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12 no-padding" >
+            <table id="tree" class="table table-striped table-bordered singleTableHeight_2">
+                <thead>
+                <tr>
+                  <th rowspan="2"><span style="width: 100px !important;">Cost Id</span></th>
+                  <th rowspan="2"><span style="width: 100px !important;">Cost Item Name</span></th>
+                  <th rowspan="2">Cost Code Classification Id</th>
+                  <th rowspan="2">Cost Code Classification Name</th>
+                  <th rowspan="2">Start Date</th>
+                  <th rowspan="2">Finish Date</th>
+
+                  <th colspan="5" class="text-center">
+                      <span ng-show="costDatamoreFlag==0">Original Budget<span class="fa fa-caret-right" style="float: right; font-size: 35px; color: #337ab7 !important;"
+                                                                               ng-click="clickForwardCostData(costDatamoreFlag);"></span>
+                      </span>
+                    <span ng-show="costDatamoreFlag==1">
+                      <span class="fa fa-caret-left" style="float: left; font-size: 35px; color: #337ab7 !important;"
+                            data-test='Projects_ProjectBudgets_CostStatement_RevisedAmount_BackWardArrow' ng-click="clickBackwardCostData(costDatamoreFlag);">
+                      </span>
+                        Revised Budget
+                      <span class="fa fa-caret-right" style="float: right; font-size: 35px; color: #337ab7 !important;"
+                                         data-test='Projects_ProjectBudgets_CostStatement_BudgetAmount_ForwardArrow' ng-click="clickForwardCostData(costDatamoreFlag);">
+                          </span>
+                    </span>
+                    <span ng-show="costDatamoreFlag==2">
+                      <span class="fa fa-caret-left" style="float: left; font-size: 35px; color: #337ab7 !important;"
+                            data-test='Projects_ProjectBudgets_CostStatement_ActualAmount_BackWardArrow'
+                            ng-click="clickBackwardCostData(costDatamoreFlag);"></span>
+                        Actual Cost Of Previous Period<span class="fa fa-caret-right" style="float: right; font-size: 35px; color: #337ab7 !important;"
+                                                        data-test='Projects_ProjectBudgets_CostStatement_RevisedAmount_ForwardArrow' ng-click="clickForwardCostData(costDatamoreFlag);">
+                      </span>
+                    </span>
+                    <span ng-show="costDatamoreFlag==3">
+                      <span class="fa fa-caret-left" style="float: left; font-size: 35px; color: #337ab7 !important;"
+                            data-test='Projects_ProjectBudgets_CostStatement_ActualAmount_BackWardArrow'
+                            ng-click="clickBackwardCostData(costDatamoreFlag);"></span>
+                        Actual Cost Of Reporting Period<span class="fa fa-caret-right" style="float: right; font-size: 35px; color: #337ab7 !important;"
+                                                            data-test='Projects_ProjectBudgets_CostStatement_RevisedAmount_ForwardArrow' ng-click="clickForwardCostData(costDatamoreFlag);">
+                      </span>
+                    </span>
+                    <span ng-show="costDatamoreFlag==4">
+                      <span class="fa fa-caret-left" style="float: left; font-size: 35px; color: #337ab7 !important;"
+                            data-test='Projects_ProjectBudgets_CostStatement_ActualAmount_BackWardArrow'
+                            ng-click="clickBackwardCostData(costDatamoreFlag);"></span>
+                        Actual Cost Of Upto Date Period<span hidden class="fa fa-caret-right" style="float: right; font-size: 35px; color: #337ab7 !important;"
+                                                             data-test='Projects_ProjectBudgets_CostStatement_RevisedAmount_ForwardArrow' ng-click="clickForwardCostData(costDatamoreFlag);">
+                      </span>
+                    </span>
+                    <!--
+                    <span ng-show="costDatamoreFlag==4" hidden>
+                      <span class="fa fa-caret-left" style="float: left; font-size: 35px; color: #337ab7 !important;"
+                            data-test='Projects_ProjectBudgets_CostStatement_ActualAmount_BackWardArrow'
+                            ng-click="clickBackwardCostData(costDatamoreFlag);"></span>
+                         Balance Budget<span hidden class="fa fa-caret-right" style="float: right; font-size: 35px; color: #337ab7 !important;"
+                                                             data-test='Projects_ProjectBudgets_CostStatement_RevisedAmount_ForwardArrow'  ng-click="clickForwardCostData(costDatamoreFlag);">
+                      </span>
+                    </span>
+                    -->
+                  </th>
+                  <th colspan="2" >Balance Budget</th>
+                </tr>
+
+                <tr>
+                   <th>
+                    <span>Labour</span>
+                  </th>
+                  <th>
+                    <span>Materials</span>
+                  </th>
+                  <th>
+                    <span>Plants</span>
+                  </th>
+                  <th>
+                    <span>Other</span>
+                  </th>
+                  <th>
+                    <span>Total</span>
+                  </th>
+                  <th>
+                    <span hidden>Balance Budget</span>
+                  </th>
+                </tr>
+
+                </thead>
+                <tbody>
+                <tr fixed-header="" ng-repeat="tab in projCostStmtDtls" class="abc{{tab.level}}" ng-show="!tab.collapse">
+                  {{tab.costId}}
+                  <td width="13%" style="padding:0 !important;">
+                      <span ng-repeat="level in [].constructor(tab.level) track by $index" class="xyz"
+                            style="padding-left: 30px;"></span>
+                              <span ng-show="tab.expand && !tab.item" ng-click="costItemClick(tab, true);" class="fa fa-minus" title="Collapse Cost Id"></span>
+                              <span ng-show="!tab.expand && !tab.item" ng-click="costItemClick(tab, false);" class="fa fa-plus" title="Expand Cost Id"></span>
+                              <span ng-show="(tab.item)" name="item" class="fa fa-leaf"> </span>
+                              <span style="padding-left: 10px;color: black !important;">{{tab.code}} <span
+                                style="padding-left: 5px;"></span>
+                      </span>
+                  </td>
+                  <td style="text-align:center">{{tab.name}}</td>
+                  <td style="text-align:center">{{tab.costClassId}}</td>
+                  <td style="text-align:center">{{tab.costClassName}}</td>
+                  <td style="text-align:center">{{tab.startDate | date}}</td>
+                  <td style="text-align:center">{{tab.finishDate | date }}</td>
+
+                  <td style="text-align:center">
+                    <span ng-show="costDatamoreFlag==0">{{tab.originalCostBudget.labourCost}}</span>
+                    <span ng-show="costDatamoreFlag==1">{{tab.revisedCostBudget.labourCost}}</span>
+                    <span ng-show="costDatamoreFlag==2">{{tab.actualCostPrevPeriod.prevManpowerCost}}</span>
+                    <span ng-show="costDatamoreFlag==3">{{tab.actualCostReportPeriod.reportingManpowerCost}}</span>
+                    <span ng-show="costDatamoreFlag==4">{{tab.actualCostUpToDatePeriod.uptoDateManpowerCost}}</span>
+                    <span ng-show="costDatamoreFlag==5" ng-class='getBalanceBudget(tab)'>{{balanceBudget}}</span>
+                  </td>
+
+                  <td style="text-align:center">
+                    <span ng-show="costDatamoreFlag==0">{{tab.originalCostBudget.materialCost}}</span>
+                    <span ng-show="costDatamoreFlag==1">{{tab.revisedCostBudget.materialCost}}</span>
+                    <span ng-show="costDatamoreFlag==2">{{tab.actualCostPrevPeriod.prevMaterialCost}}</span>
+                    <span ng-show="costDatamoreFlag==3">{{tab.actualCostReportPeriod.reportingMaterialCost}}</span>
+                    <span ng-show="costDatamoreFlag==4">{{tab.actualCostUpToDatePeriod.uptoDateMaterialCost}}</span>
+                    <span ng-show="costDatamoreFlag==5" ng-class='getBalanceBudget(tab)'>{{balanceBudget}}</span>
+                  </td>
+
+                  <td style="text-align:center">
+                    <span ng-show="costDatamoreFlag==0">{{tab.originalCostBudget.plantCost}}</span>
+                    <span ng-show="costDatamoreFlag==1">{{tab.revisedCostBudget.plantCost}}</span>
+                    <span ng-show="costDatamoreFlag==2">{{tab.actualCostPrevPeriod.prevPlantCost}}</span>
+                    <span ng-show="costDatamoreFlag==3">{{tab.actualCostReportPeriod.reportingPlantCost}}</span>
+                    <span ng-show="costDatamoreFlag==4">{{tab.actualCostUpToDatePeriod.uptoDatePlantCost}}</span>
+                    <span ng-show="costDatamoreFlag==5" ng-class='getBalanceBudget(tab)'>{{balanceBudget}}</span>
+                  </td>
+
+                  <td style="text-align:center">
+                    <span ng-show="costDatamoreFlag==0">{{tab.originalCostBudget.otherCost}}</span>
+                    <span ng-show="costDatamoreFlag==1">{{tab.revisedCostBudget.otherCost}}</span>
+                    <span ng-show="costDatamoreFlag==2">{{}}</span>
+                    <span ng-show="costDatamoreFlag==3">{{}}</span>
+                    <span ng-show="costDatamoreFlag==4">{{}}</span>
+                    <span ng-show="costDatamoreFlag==5" ng-class='getBalanceBudget(tab)'>{{balanceBudget}}</span>
+                  </td>
+
+                  <td style="text-align:center">
+                    <span ng-show="costDatamoreFlag==0">{{tab.originalCostBudget.labourCost+tab.originalCostBudget.materialCost+tab.originalCostBudget.plantCost+tab.originalCostBudget.otherCost}}</span>
+                    <span ng-show="costDatamoreFlag==1">{{tab.revisedCostBudget.labourCost+tab.revisedCostBudget.materialCost+tab.revisedCostBudget.plantCost+tab.revisedCostBudget.otherCost}}</span>
+                    <span ng-show="costDatamoreFlag==2">{{tab.actualCostPrevPeriod.prevManpowerCost+tab.actualCostPrevPeriod.prevMaterialCost+tab.actualCostPrevPeriod.prevPlantCost}}</span>
+                    <span ng-show="costDatamoreFlag==3">{{tab.actualCostReportPeriod.reportingManpowerCost+tab.actualCostReportPeriod.reportingMaterialCost+tab.actualCostReportPeriod.reportingPlantCost}}</span>
+                    <span ng-show="costDatamoreFlag==4">{{tab.actualCostUpToDatePeriod.uptoDateManpowerCost+tab.actualCostUpToDatePeriod.uptoDateMaterialCost+tab.actualCostUpToDatePeriod.uptoDatePlantCost}}</span>
+                    <span ng-show="costDatamoreFlag==5" ng-class='getBalanceBudget(tab)'>{{balanceBudget}}</span>
+                  </td>
+
+
+                  <td ng-class='getBalanceBudget(tab)' ng-show="tab.item || balanceBudget==0" style="text-align:center">{{balanceBudget}}</td>
+                </tr>
+                </tbody>
+              </table>
+
+            </div>
+          </div>
+
+        <div class="panel-footer">
+          <div class="pull-left">
+            <input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="groupPage();">
+            <input type="button" class="btn btn-primary btn-sm" value="UnGroup" ng-click="unGroupPage();">
+            <input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sortPage();">
+            <input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+            <input type="button" class="btn btn-primary btn-sm" value="UnSummary" ng-click="unSummarize();">
+            <input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+            <input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>

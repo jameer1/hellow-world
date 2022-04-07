@@ -1,0 +1,369 @@
+<div id="tab-pannel" class="panel-group" ng-init="getRequesterById()">
+	<form name="materialReqTransferForm" validate>
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Requisition</h4>
+			</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-sm-12 col-md-12 col-lg-12">
+						<table class="table table-hover table-bordered">
+							<thead>
+								<tr>
+									<th>Date of Request</th>
+									<th>Origin Project<span
+										class = "procurment-pot-errors1">*</span></th>
+									<th>Origin-WareHouse <br>Location (Stock Yard)
+										<span class="procurment-pot-errors1">*</span>
+									</th>
+									<th>Destination projectName
+										<span class="procurment-pot-errors1">*</span>
+									</th>
+									<th>Destination-WareHouse <br> Location (Stock Yard)
+										<span class="procurment-pot-errors1">*</span>
+									</th>
+									<th>Requisition ID</th>
+									<th>Notification ID</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+
+									<td class="input-width0"><input type="text" class="form-control"
+										data-test='RequestForMaterialTransferDateofRequest' ng-model="materialTransferReqApprTO.reqDate"
+										ng-disabled="true"></td>
+
+
+									<td class="input-width1"><input data-test='RequestForMaterialTransferOriginProject' type="text" class="form-control"
+										ng-required="true"
+										ng-model="materialTransferReqApprTO.fromProjName"
+										placeholder="Origin Project" ng-click="getUserProjects(1)"
+										readonly="readonly"
+										ng-disabled="activeFlag;materialTransferReqApprTO.apprStatus!=null"></td>
+
+
+									<td class="input-width1"><input data-test='RequestForMaterialTransferOriginWarehouselocation' type="text" class="form-control"
+										name="originstockYardLocation"
+										ng-model="materialTransferReqApprTO.fromStoreName"
+										ng-click="selectStoreLocation(1, materialTransferReqApprTO.fromProjId)" readonly="readonly"
+										placeholder="Origin Location" ng-required="true"
+										ng-disabled="activeFlag;materialTransferReqApprTO.apprStatus!=null" ></td>
+
+									<td class="input-width1"><input type="text" class="form-control"  data-test='RequestForMaterialTransferDestinationProject'
+										ng-model="materialTransferReqApprTO.toProjName"
+										placeholder="Destination Project" ng-click="getUserProjects(2)"
+										readonly="readonly"
+										ng-disabled="activeFlag;materialTransferReqApprTO.apprStatus!=null"></td>
+
+									<td class="input-width1"><input type="text" class="form-control" data-test='RequestForMaterialTransferDestinationWarehouSelocation'
+										name="destinationStockLocation" readonly="readonly"
+										ng-click="selectStoreLocation(2, materialTransferReqApprTO.toProjId)"
+										ng-model="materialTransferReqApprTO.toStoreName"
+										placeholder="Destination Stock Location" ng-required="true"
+										ng-disabled="activeFlag;materialTransferReqApprTO.apprStatus!=null">
+									</td>
+									<td class="input-width1"><input type="text" class="form-control" data-test='RequestForMaterialTransferRequisitionID'
+										name="RequisitionID" ng-disabled="true"
+										ng-model="materialTransferReqApprTO.reqCode"
+										placeholder="Requisition ID"></td>
+									<td class="input-width1"><input type="text" class="form-control" data-test='RequestForMaterialTransferNotificationID'
+										name="notificationID" ng-disabled="true"
+										ng-model="materialTransferReqApprTO.notifyCode"
+										placeholder="Notification ID"></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				<div class="col-sm-12 col-md-6 col-lg-6">
+					<table class="table table-hover table-bordered req-for-tansfer-approvaltable">
+						<thead>
+							<tr>
+								<th>Approval Date
+								</th>
+								<th>Approval ID</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="input-width0"><pot-futuredate-picker data-test='RequestForMaterialTransferApprovalDate'
+										ng-disabled="true"
+										ng-model="materialTransferReqApprTO.apprDate"
+										dir-index="$index" date-name="apprlDate"
+										placeholder="dd-mm-yyyy" required="required"
+										class="form-control"></td>
+
+								<td class="input-width3"><input type="text" data-test='RequestForMaterialTransferApprovaID'
+									ng-disabled="true" class="form-control"
+									ng-model="materialTransferReqApprTO.apprCode"
+									placeholder="Approval ID"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				</div>
+			 </div>
+			<div class="panel-footer" ng-if="materialTransferReqApprTO.apprStatus==null">
+				<div class="pull-right">
+					<input type="submit" data-test='RequestForMaterialTransfer_Apply' class="btn btn-primary btn-sm"
+						ng-click="applyRequest() " ng-model="apply" value="Apply"/> <input
+						type="button" class="btn  btn-default btn-sm"
+						ng-click="materialTransferReset()" data-test='RequestForMaterialTransfer_Reset' value="Reset" />
+				</div>
+			    </div>
+			
+			<div class="panel-heading">
+				<h4 class="panel-title">Requester</h4>
+			</div>
+			<div class="panel-body">
+					<div class="row">
+							<div class="col-sm-12 col-md-12 col-lg-12">
+							<div class="overflow-auto">
+				<table class="table table-striped table-bordered">
+					<thead>
+						<tr>
+							<th>Employee ID<span
+								class="procurment-pot-errors1">*</span></th>
+							<th>First Name</th>
+							<th>Last Name</th>
+							<th>Designation</th>
+							<th>Current Project</th>
+							<th>Phone Number</th>
+							<th>Email Address</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><input data-test='RequestForMaterialTransferRequester_EmployeeId' type="text" ng-click="getUserEmployees('SUBMIT')"
+								ng-model="materialTransferReqApprTO.reqUserTO.empCode"
+								placeholder="Employee ID" readonly="readonly"
+								ng-disabled="materialTransferReqApprTO.apprStatus!=null" class="form-control"></td>
+
+							<td><input type="text" data-test='RequestForMaterialTransferRequester_FirstName'
+								ng-model="materialTransferReqApprTO.reqUserTO.firstName"
+								readonly="readonly" placeholder="First Name"
+								ng-disabled="materialTransferReqApprTO.apprStatus!=null" class="form-control"></td>
+
+							<td><input type="text" data-test='RequestForMaterialTransferRequester_LastName'
+								ng-model="materialTransferReqApprTO.reqUserTO.lastName"
+								readonly="readonly" placeholder="Last Name"
+								ng-disabled="materialTransferReqApprTO.apprStatus!=null" class="form-control"></td>
+
+							<td><input type="text" data-test='RequestForMaterialTransferRequester_Designation'
+								ng-model="materialTransferReqApprTO.reqUserTO.empDesg"
+								readonly="readonly" placeholder="Designation"
+								ng-disabled="materialTransferReqApprTO.apprStatus!=null"
+								style="width: 115px !important" class="form-control"></td>
+
+							<td><input type="text" data-test='RequestForMaterialTransferRequester_CurrentProject'
+								ng-model="materialTransferReqApprTO.reqUserTO.projectName"
+								readonly="readonly" placeholder="Current Project"
+								ng-disabled="materialTransferReqApprTO.apprStatus!=null" class="form-control"></td>
+
+							<td><input type="text" data-test='RequestForMaterialTransferRequester_PhoneNumber'
+								ng-model="materialTransferReqApprTO.reqUserTO.phone"
+								readonly="readonly" placeholder="Phone Number"
+								ng-disabled="materialTransferReqApprTO.apprStatus!=null" class="form-control"></td>
+
+							<td><input type="text" data-test='RequestForMaterialTransferRequester_EmailAddress'
+								ng-model="materialTransferReqApprTO.reqUserTO.email"
+								readonly="readonly" placeholder="Email ID"
+								ng-disabled="materialTransferReqApprTO.apprStatus!=null" class="form-control"></td>
+
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			</div>
+			</div>
+		</div>
+
+			<div class="panel-heading">
+				<h4 class="panel-title">Approver</h4>
+			</div>
+			<div class="panel-body">
+					<div class="row">
+							<div class="col-sm-12 col-md-12 col-lg-12">
+							<div class="overflow-auto">
+				<table class="table table-striped table-bordered">
+					<thead>
+						<tr>
+							<th>Employee ID<span
+								class="procurment-pot-errors1">*</span></th>
+							<th>First Name</th>
+							<th>Last Name</th>
+							<th>Designation</th>
+							<th>Current Project</th>
+							<th>Phone Number</th>
+							<th>Email Address</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+
+							<td><input type="text" data-test='RequestForMaterialTransferApprover_EmployeeId'
+								ng-click="getUserEmployees('APPROVE')"
+								ng-model="materialTransferReqApprTO.apprUserTO.empCode"
+								placeholder="Employee ID" readonly="readonly"
+								ng-disabled="materialTransferReqApprTO.apprStatus!=null" class="form-control"></td>
+
+							<td><input type="text" data-test='RequestForMaterialTransferApprover_FirstName'
+								ng-model="materialTransferReqApprTO.apprUserTO.firstName"
+								readonly="readonly" placeholder="First Name"
+								ng-disabled="materialTransferReqApprTO.apprStatus!=null" class="form-control"></td>
+
+							<td><input type="text" data-test='RequestForMaterialTransferApprover_LastName'
+								ng-model="materialTransferReqApprTO.apprUserTO.lastName"
+								readonly="readonly" placeholder="Last Name"
+								ng-disabled="materialTransferReqApprTO.apprStatus!=null" class="form-control"></td>
+
+							<td><input type="text" data-test='RequestForMaterialTransferApprover_Designation'
+								ng-model="materialTransferReqApprTO.apprUserTO.empDesg"
+								readonly="readonly" placeholder="Designation"
+								ng-disabled="materialTransferReqApprTO.apprStatus!=null"
+								style="width: 115px !important" class="form-control"></td>
+
+							<td><input type="text" data-test='RequestForMaterialTransferApprover_CurrentProject'
+								ng-model="materialTransferReqApprTO.toProjName"
+								readonly="readonly" placeholder="Current Project"
+								ng-disabled="materialTransferReqApprTO.apprStatus!=null" class="form-control" ></td>
+
+							<td><input type="text" data-test='RequestForMaterialTransferApprover_PhoneNumber'
+								ng-model="materialTransferReqApprTO.apprUserTO.phone"
+								readonly="readonly" placeholder="Phone Number"
+								ng-disabled="materialTransferReqApprTO.apprStatus!=null" class="form-control"></td>
+
+							<td><input type="text" data-test='RequestForMaterialTransferApprover_EmailAddress'
+								ng-model="materialTransferReqApprTO.apprUserTO.email"
+								readonly="readonly" placeholder="Email ID"
+								ng-disabled="materialTransferReqApprTO.apprStatus!=null" class="form-control"></td>
+
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			</div>
+			</div>
+			</div>
+			<div class="panel-heading">
+				<h4 class="panel-title">Materials List</h4>
+			</div>
+			<div class="panel-body">
+					<div class="tabTable_1_Res_height overflow-auto">
+							<table class="table table-hover table-bordered tabTable_1_height">
+					<thead>
+						<tr>
+							<th ng-hide="materialTransferReqApprTO.apprStatus!=null">Select</th>
+							<th>Resource ID<span
+								class="procurment-pot-errors1">*</span></th>
+							<th>Resource Name</th>
+							<th>Material SubGroup Name</th>
+							<th>Unit of Measure</th>
+							<th>PO Schedule Item ID</th>
+							<th>Purchase Order Number</th>
+							<th>Available Quantity</th>
+							<th>Required Date of Transfer<span
+								class="procurment-pot-errors1">*</span></th>
+							<th>Required Transfer Qty<span
+								class="procurment-pot-errors1">*</span></th>
+							<th>Approval Status</th>
+							<th>Approved Date of Transfer</th>
+							<th>Approved Transfer Qty</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat ="material in materialTransferReqApprTO.materialTransferReqApprDtlTOs">
+
+							<td ng-hide="materialTransferReqApprTO.apprStatus!=null"><input data-test='RequestForMaterialTransferMaterialsListRequireSelectCheckBox'
+								type="checkbox" ng-model="material.select"
+								ng-click="materialRowSelect(material)"></td>
+
+							<td class="input-width4"><input type="text" class="form-control" data-test='RequestForMaterialTransferMaterialsList_ResourceID'
+								ng-model="materialReqTransMap[material.materialId].displayNamesMap.classType"
+								placeholder="Resource Id" readonly="readonly"
+								ng-disabled="materialTransferReqApprTO.apprStatus!=null"></td>
+
+
+							<td class="input-width4"><input type="text" class="form-control" data-test='RequestForMaterialTransferMaterialsList_ResourceName'
+								ng-model="materialReqTransMap[material.materialId].displayNamesMap.className"
+								placeholder="ResourceName" readonly="readonly"
+								ng-disabled="materialTransferReqApprTO.apprStatus!=null"></td>
+
+							<td class="input-width4"><input type="text" class="form-control" data-test='RequestForMaterialTransferMaterialsList_MaterialSubGroupName'
+								ng-model="materialReqTransMap[material.materialId].displayNamesMap.classParentName"
+								placeholder="Material SubGroup Name" readonly="readonly"
+								ng-disabled="materialTransferReqApprTO.apprStatus!=null"></td>
+
+							<td class="input-width4"><input type="text" class="form-control" data-test='RequestForMaterialTransferMaterialsList_UnitofMeasure'
+								ng-model="materialReqTransMap[material.materialId].unitOfMeasure"
+								placeholder="UnitOfMeasure" readonly="readonly"
+								ng-disabled="materialTransferReqApprTO.apprStatus!=null"></td>
+
+							<td class="input-width4"><input type="text" class="form-control" data-test='RequestForMaterialTransferMaterialsList_POScheduleItemID'
+								ng-model="materialReqTransMap[material.materialId].code"
+								placeholder="PO Schedule ID" readonly="readonly"
+								ng-disabled="materialTransferReqApprTO.apprStatus!=null"></td>
+
+							<td class="input-width4"><input type="text" class="form-control" data-test='RequestForMaterialTransferMaterialsList_PurchaseOrderNumber'
+								ng-model="materialReqTransMap[material.materialId].displayNamesMap.purCode"
+								placeholder="Purchase Order Number" readonly="readonly"
+								ng-disabled="materialTransferReqApprTO.apprStatus!=null"></td>
+
+							<td class="input-width4"><input type="text" class="form-control" data-test='RequestForMaterialTransferMaterialsList_AvailableQuantity'
+								ng-model="materialReqTransMap[material.materialId].displayNamesMap.qty | number:2"
+								placeholder="Quantity" readonly="readonly"
+								ng-disabled="materialTransferReqApprTO.apprStatus!=null"></td>
+
+							<td class="input-width0"><pot-futuredate-picker class="form-control"
+									ng-model="material.reqDate" dir-index="$index" data-test='RequestForMaterialTransferMaterialsListRequireddateoftransfer'
+									date-name="reqDateOfTrans" placeholder="dd-mm-yyyy"
+									required="required" style="width:80px !important;"
+									ng-disabled="materialTransferReqApprTO.apprStatus!=null" readonly></td>
+
+							<td class="input-width4"><input type="text" class="form-control" data-test='RequestForMaterialTransferMaterialsListRequireTransferQty'
+								ng-model="material.reqQty" placeholder="Required Quantity"
+								ng-change="validateReceivedQty()"
+								ng-disabled="materialTransferReqApprTO.apprStatus!=null" valid-number></td>
+
+
+							<td class="input-width4"><input type="text" class="form-control" data-test='RequestForMaterialTransferMaterialsList_ApprovalStatus'
+								ng-disabled="true"
+								ng-model="materialTransferReqApprTO.apprStatus"
+								placeholder="Approval Status"></td>
+
+							<td class="input-width0"><pot-futuredate-picker data-test='RequestForMaterialTransferMaterialsList_ApprovedDateofTransfer'
+									ng-disabled="true"
+									ng-model="materialTransferReqApprTO.apprDate"
+									dir-index="$index" date-name="apprDateOfTrans"
+									placeholder="dd-mm-yyyy" required="required"
+									class="form-control"></td>
+
+							<td class="input-width4"><input type="text" class="form-control" data-test='RequestForMaterialTransferMaterialsList_ApprovedTransferQty'
+								ng-disabled="true" ng-model="material.apprQty"
+								placeholder="Approved Quantity"></td>
+
+						</tr>
+
+
+					</tbody>
+				</table>
+			</div>
+			</div>
+
+			<div class="panel-footer">
+				<div class="pull-left"
+					ng-if="materialTransferReqApprTO.id==null || materialTransferReqApprTO.id <=0">
+					<input type="button" data-test='RequestForMaterialTransferMaterialsList_Add' class="btn  btn-primary btn-sm"
+						ng-click="getMaterialDetails()" value="Add"> <input data-test='RequestForMaterialTransferMaterialsListDelete'
+						type="button" class="btn  btn-default btn-sm"
+						ng-click="deleteRows()" value="Delete">
+				</div>
+				<div class="pull-right"
+					ng-if="materialTransferReqApprTO.id==null || materialTransferReqApprTO.id <=0">
+					<input type="button" class="btn  btn-primary btn-sm" data-test='RequestForMaterialTransferMaterialsListSubmit'
+						ng-click="saveMaterialTransfers()" value="Submit">
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</form>
+</div>

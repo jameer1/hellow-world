@@ -1,0 +1,66 @@
+<div ng-if="account.appCodeTemplate['PRJ_PRJSTG_PROCURSTGADDITIONALTIME_VIEW']" id="tab-pannel" class="noTableInBottomBlockWithTabs">
+	<div class="bottomNestedTabTableResHeight no-border">
+		<div class="row">
+			<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+				<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padL-0">
+					<md-input-container class="md-block">
+						<label>Requisition Number</label>
+						<input data-test='Projects_ProjectSettings_ProcurementTab_AdditionalTime_Requisitionnumber' 
+							type="text" readonly="readonly" 
+							ng-model="procureAppr.code"  
+							ng-click="procurementNotificationList(procureAppr)">
+					</md-input-container>
+				</div>
+				<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+						<md-input-container class="md-block">
+							<label>Requisition Date</label>
+							<potdate-picker data-test='Projects_ProjectSettings_ProcurementTab_AdditionalTime_requisitiondate' 
+								dir-index="$index" ng-model="procureAppr.requisitionDate" 
+								date-name="startDate" readonly="readonly" required />						
+						</md-input-container>
+				</div>
+				<!-- <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padL-0">
+                     <md-input-container class="md-block">
+                         <label>Approver</label>
+                         <input data-test='Projects_ProjectSettings_ProcurementTab_AdditionalTime_approver' type="text" ng-required="true"  
+                             ng-model="usersMap[procureAppr.apprUserId].code" >
+                     </md-input-container>
+                 </div> -->
+			</div>
+		</div>
+		<div class="row horizontalSpace">
+				<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padL-0">
+							<md-checkbox data-test='Projects_ProjectSettings_ProcurementTab_AdditionalTime_Stage1InternalApprovalcheckbox' 
+							ng-change="selectStage1InternalApproval(procureAppr)" ng-model="procureAppr.procureStage1InternalApproval">
+								Stage 1 InternalApproval
+							</md-checkbox>
+					</div>
+					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+							<md-checkbox data-test='Projects_ProjectSettings_ProcurementTab_AdditionalTime_Stage2InternalApprovalcheckbox' 
+								ng-model="procureAppr.procureStage2InternalApproval">
+								Stage 2 InternalApproval
+							</md-checkbox>
+					</div>
+				
+				</div>
+		</div>
+</div>
+<div class="panel-footer">
+		<div class="pull-right">
+				<input type="button" 
+				data-test='Projects_ProjectSettings_ProcurementTab_AdditionalTime_Approve' 
+				class="btn btn-primary btn-sm" value="Approve" ng-click="saveProjProcurementAppr()"
+				title="{{ account.appCodeTemplate['PRJ_PRJSTG_PROCURSTG_APPROVE'] ? '' : '! Permission Denied. Contact your admin.'}}"
+				ng-disabled ="!account.appCodeTemplate['PRJ_PRJSTG_PROCURSTG_APPROVE']">
+		</div>
+		<div class="pull-left">
+			<input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+			<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+			<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+			<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+			<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+		</div>
+</div>
+
+</div>

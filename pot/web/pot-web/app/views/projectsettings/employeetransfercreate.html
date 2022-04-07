@@ -1,0 +1,70 @@
+<div ng-if="account.appCodeTemplate['PRJ_PRJSTG_EMPTRANSTGNORMALTIME_VIEW']" id="tab-pannel"
+	class="noTableInBottomBlockWithTabs">
+	<form name="employeeForm">
+		<div class="bottomNestedTabTableResHeight no-border">
+			<div class="row" ng-repeat="emp in projEmpDetails">
+				<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padL-0">
+						<md-input-container class="md-block">
+							<label>{{emp.emptransType}} Cut Off Days</label>
+							<ng-form name="empform1">
+								<input type="text"
+									data-test='Projects_ProjectSettings_EmployeeTransferTab_NormalTime_Cutoffdays'
+									ng-model="emp.cutOffDays" name="time" pattern="\d+">
+								<span ng-show="empform1.time.$error.pattern">Enter only
+									numbers</span>
+							</ng-form>
+						</md-input-container>
+					</div>
+					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+						<md-input-container class="md-block">
+							<label>{{emp.emptransType}} Cut Off Hours</label>
+							<input data-test='Projects_ProjectSettings_EmployeeTransferTab_NormalTime_Cutoftimehours'
+								type="number" placeholder="hh" min=0 max=23 name="cutoffHours"
+								ng-model="emp.cutOffHours" ng-required="true" maxlength=2 />
+						</md-input-container>
+					</div>
+					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+						<md-input-container class="md-block">
+							<label>{{emp.emptransType}} Cut Off Minutes</label>
+							<input data-test='Projects_ProjectSettings_EmployeeTransferTab_NormalTime_Cutoftimeminutes'
+								type="number" min=0 max=59 name="cutoffMinutes" ng-model="emp.cutOffMinutes" />
+						</md-input-container>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<div class="panel-footer">
+			<div class="pull-right emp-trans">
+				<ul class="list-inline">
+					<li>
+						<div>
+							<input data-test='Projects_ProjectSettings_EmployeeTransferTab_NormalTime_Save'
+								type="submit" class="btn btn-primary btn-sm" value="Save"
+								ng-click="employeeForm.$valid && saveEmpTransDetails()"
+								ng-if="account.appCodeTemplate['PRJ_PRJSTG_EMPTRSFR_ADD']">
+						</div>
+					</li>
+					<!-- <li>
+						<div>
+							<input data-test='Projects_ProjectSettings_PlantAttendanceTab_AdditionalTimeTab_Approve'
+								type="submit" class="btn  btn-primary btn-sm" value="Approve"
+								ng-click="saveProjPlantAttendenceAppr()"
+								title="{{ account.appCodeTemplate['PRJ_PRJSTG_PLANTATNDCERCDSTG_APPROVE'] ? '' : '! Permission Denied. Contact your admin.'}}"
+								ng-disabled="!account.appCodeTemplate['PRJ_PRJSTG_PLANTATNDCERCDSTG_APPROVE']">
+						</div>
+					</li> -->
+				</ul>
+			</div>
+			<div class="pull-left">
+				<input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+				<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+				<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+				<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+				<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+			</div>
+
+		</div>
+	</form>
+</div>

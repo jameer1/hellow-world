@@ -1,0 +1,62 @@
+<section class="content">
+<div id="tab-pannel" class="panel-group">
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 no-padding">
+				<div class="singleTableResHeight_2">
+					<table id="tree" class="table table-striped table-hover table-bordered singleTableHeight_2" ng-init="getSOWDetails()">
+						<thead id="tab-head">
+							<tr>
+								<th>SOW Item Id</th>
+								<th>SOW Item Desc</th>
+								<th class="justify-right">Estimated Man Hours</th>
+								<th>Unit Of Measure</th>
+								<th>SOE Item Id</th>
+								<th>Tangible Item Id</th>
+								<th>SOR Item Id</th>
+								<th>Cost Item Id</th>
+								<th>Start Date</th>
+								<th>Finish Date</th>
+								<th class="justify-right">Original Estimation</th>
+								<th class="justify-right">Revised Estimation</th>
+								<th class="justify-right">Actual Quantity</th>
+								<th class="justify-right">Balance</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr fixed-header="" ng-repeat="tab in COSowData | orderBy: 'parent'" class="abc{{tab.level}}" ng-show="!tab.collapse">
+								<td style="white-space: nowrap;">
+									<span ng-repeat="level in [].constructor(tab.level) track by $index" class="xyz" style="padding-left: 30px;"></span>
+									<span ng-show="tab.expand || (!tab.item  && tab.childSOWItemTOs.length <= 0)"  ng-click="projCoSowPopupItemClick(tab,true);" class="fa fa-minus" title="Collapse SOW"></span>
+									<span ng-show="!tab.expand && tab.childSOWItemTOs.length > 0" data-test='Projects_ProjectLibrary_SOW_Groupexpandicon' ng-click="projCoSowPopupItemClick(tab,false);" class="fa fa-plus" title="Expand SOW"></span>
+									<i class="fa fa-leaf" ng-show="(tab.item)"></i>
+									<span style="padding-left: 10px; color: black !important;margin-right:5px;">{{tab.code}}</span>
+									<!-- <i class="fa fa-edit fa-fw" ng-show="tab.level==0 && !tab.item && account.appCodeTemplate['PRJ_PRJLIB_SCOPEOFWRK_ADD']"
+									 ng-click="editSOWDetails(tab)" data-test='Projects_ProjectLibrary_SOW_EditIcon' title="Edit SOW"> </i> -->
+								</td>
+								<td>{{tab.name}}</td>
+								<td class="justify-right">{{tab.manHours | number:2}}</td>
+								<td>{{tab.measureUnitTO.name}}</td>
+								<td>{{tab.projSOEItemTO.code}}</td>
+								<td>{{tab.tangibleClassTO.code}}</td>
+								<td>{{tab.projSORItemTO.code}}</td>
+								<td>{{tab.projCostItemTO.code}}</td>
+								<td>{{tab.startDate | date }}</td>
+								<td>{{tab.finishDate | date }}</td>
+								<td class="justify-right">{{tab.quantity | number:2}}</td>
+								<td class="justify-right">{{tab.revisedQty | number:2}}</td>
+								<td class="justify-right">{{tab.actualQty | number:2}}</td>
+								<td  class="justify-right" ng-init="balance=(tab.revisedQty ? tab.revisedQty : tab.quantity) - tab.actualQty">{{ tab.projSOEItemTO.code ==
+									null ? '' : (balance | number:2) }}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>				
+			</div>
+			<div>
+				<input type="button" class="btn btn-primary" value="Add Items" ng-click="addItems()"/>
+			</div>
+		</div>		
+	</div>
+</div>
+</section>

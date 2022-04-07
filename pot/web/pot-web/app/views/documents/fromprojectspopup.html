@@ -1,0 +1,61 @@
+<link rel="stylesheet" href="../../styles/templates.css"></link>
+
+<div id="tab-pannel" ng-init="getSampleCategories('Sample Templates')">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h4 class="panel-title">Project Templates List</h4>
+		</div>
+		<div class="panel-body">					
+           	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding" style="width:99%">
+               	<div class="tab-content">
+                    <div id="sregisterview" class="tab-pane fade in active">
+                        <div class="singleTableResHeight_2 overflow">
+                            <table class="table table-striped table-hover table-bordered singleTableHeight_2" >
+                               <thead>
+                                    <tr>
+                                        <!-- <th><input type="checkbox"></th> -->
+                                        <th>Date</th>
+                                        <th>Project</th>
+                                        <th>Proposed By</th>
+                                        <th>Template Id</th>
+                                        <th>Template Category</th>
+                                        <th>Template Name</th>
+                                        <th>Version</th>
+                                        <th>View/Edit</th>
+                                        <th>Reviewer Decision</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in proposalList" id="row{{item.projectTemplateId}}"><!-- projectTemplatesProposalTOs -->
+                                        <!-- <td><input type="checkbox"></td> -->
+                                        <td>{{item.proposalDate | date:'dd-MMM-yyyy'}}</td>
+                                        <td>{{item.projectName}}</td>
+                                        <td>{{item.proposerUserDisplayName}}</td>
+                                        <td>{{item.projectTemplateId}}</td>
+                                        <td>{{item.templCategoryName}}</td>
+                                        <td>{{item.templateName}}</td>
+                                        <td>{{item.version_status}}</td>
+                                        <td>
+                                        	<input type="checkbox" ng-model="item.editView" value="{{item.projectTemplateId}}"> Edit/View
+                                        </td>
+                                        <td>
+                                         <label><input type="radio" ng-model="reviewer_decision" name="decision{{item.projectTemplateId}}" ng-change="reviewerDecision('Yes',$index)" value="Y"/>Yes</label> 
+                                         <label><input type="radio" ng-model="reviewer_decision" name="decision{{item.projectTemplateId}}" ng-change="reviewerDecision('No',$index)" value="N"/>No</label>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+               	</div>
+           	</div>                					
+		</div>
+		<div class="panel-footer">					
+			<div class="pull-right">
+				<input type="button" class="btn btn-primary btn-sm" value="Apply" ng-click="apply()">
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</div>
+</div>
+

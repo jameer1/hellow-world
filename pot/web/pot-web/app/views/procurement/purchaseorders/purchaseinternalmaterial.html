@@ -1,0 +1,70 @@
+<div class="tab-pannel">
+  <form name="materialForm" validate>
+    <div class="tabTable_3_Res_height">
+      <table id="" class="table table-hover table-bordered tabTable_3_height">
+        <thead>
+          <tr>
+            <th>Item ID</th>
+            <th>Item Description</th>
+            <th>Procurement<br>SubCategory
+            </th>
+            <th>Material Class</th>
+            <th>Cost Code</th>
+            <th>Delivery Place</th>
+            <th>Start Date</th>
+            <th>Finish Date</th>
+            <th>Unit Of Measure</th>
+            <th>Qty</th>
+            <th>Estimate Rate<br>({{preContractObj.currencyTO.code}})
+            </th>
+            <th>Estimate Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr fixed-header="" ng-repeat ="item in preContractObj.preContractMaterialDtlTOs">
+
+            <td class="input-width3"><input type="text" ng-model="item.itemCode" name="code" maxlength="100" placeHolder="Item Code" ng-disabled="true" /></td>
+
+            <td class="input-width2" ng-form name="myForm1"><input type="text" ng-model="item.itemDesc" name="desc" readonly="readonly" maxlength="100" placeHolder="Item Description" pattern="^[a-zA-Z-\&\d\s.,]+$"
+              required="required" /> <span ng-show="myForm1.desc.$dirty && myForm1.desc.$error.required">This field is mandatory</span> <span ng-show="myForm1.desc.$error.maxlength">You reached
+                Max Length</span> <span ng-show="myForm1.desc.$error.pattern">Special Characters Not Allowed</span></td>
+
+            <td class="input-width2" ng-form name="myFormsub"><input type="text" ng-model="procureCategoryMap[item.procureSubCatgId].code"
+              placeHolder="Item SubCategory" name="subCategory" readonly="readonly"/></td>
+
+            <td class="input-width2" ng-form name="myForm2"><input type="text" ng-model="projMaterialClassmap[item.projMaterialLabelKey.id].code"
+               name="material" placeHolder="Material Type" readonly="readonly" /></td>
+
+            <td class="input-width0"><input type="text" ng-model="projcostCodeMap[item.projCostLabelKey.id].code" readonly="readonly"
+              required="required" /></td>
+
+
+            <td class="input-width"><input type="text" ng-show="item.storeLabelKey.id > 0" ng-model="storeClassmap[item.storeLabelKey.id].code"
+              readonly="readonly" /> <input type="text"
+              ng-show="item.storeLabelKey.id <= 0 || item.projStoreLabelKey.id > 0" ng-model="projStoreClassmap[item.projStoreLabelKey.id].code"
+              readonly="readonly" /></td>
+
+            <td class="input-width1"><potdate-picker ng-model="item.startDate" dir-index="$index" date-name="matstartDate" placeholder="dd-mm-yyyy" required="required" readonly="readonly"/></td>
+            <td class="input-width1"><potdate-picker ng-model="item.finishDate" dir-index="$index" date-name="matfinishDate" placeholder="dd-mm-yyyy" required="required" readonly="readonly"/></td>
+
+            <td class="input-width2"><input type="text" ng-model="projMaterialClassmap[item.projMaterialLabelKey.id].unitOfMeasure" placeHolder="Unit Of Measure" name="unitOfMeasure"
+              readonly="readonly" /></td>
+
+
+            <td ng-form name="myForm3"><input type="text" ng-model="item.quantity" name="quan" pattern="^[\d]+$" maxlength="20" placeHolder="Quantity" readonly="readonly" style="width: 50px;" />
+              <span ng-show="myForm3.quan.$dirty && myForm3.quan.$error.required">This field is mandatory</span> <span ng-show="myForm3.quan.$error.pattern">Only Digits Allowed</span> <span
+              ng-show="myForm3.quan.$error.maxlength">You reached max length</span></td>
+
+            <td ng-form name="myForm4"><input type="text" placeHolder="EstimateCost" maxlength="20" ng-model="item.estimateCost" name="escost" pattern="^[\d]+$" readonly="readonly"
+              style="width: 50px;" /><span ng-show="myForm4.escost.$error.pattern">Only digits Allowed</span> <span ng-show="myForm4.escost.$dirty && myForm4.escost.$error.required">This field
+                is required</span> <span ng-show="myForm4.escost.$error.maxlength">You reached max length</span></td>
+
+            <td class="input-width"><span>{{item.quantity * item.estimateCost}}<span></td>
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </form>
+</div>

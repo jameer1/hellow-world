@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>pot</groupId>
+	<artifactId>pot-server-root</artifactId>
+	<packaging>pom</packaging>
+	<name>POT-SERVER-ROOT</name> 
+		
+	<parent>
+		<groupId>pot</groupId>
+		<artifactId>pot-app-root</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+	<modules>
+		
+		<module>common</module>
+		<module>admin</module>
+		<module>central-lib</module>
+		<module>project-settings</module>
+		<module>project-lib</module>
+		<module>time-management</module>
+		<module>procurement</module>
+		<module>register</module>
+		<module>finance</module>
+		<module>notifications</module>
+	</modules>
+
+	<properties>
+		<atomikos.version>3.9.3</atomikos.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.atomikos</groupId>
+			<artifactId>transactions-jdbc</artifactId>
+			<version>${atomikos.version}</version>
+		</dependency>
+
+	</dependencies>
+
+</project>

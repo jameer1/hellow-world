@@ -1,0 +1,65 @@
+<!--<div ng-if="account.appCodeTemplate['PROCURMT_PURCHASEORDR_REPEAT_PO_VIEW']"  class="panel-group" ng-controller="PurchaseExternalApprovalController">-->
+<div data-ng-controller="RepeatPOController" data-ng-init="getRepeatPurchaseOrders()" class="panel-group">
+  <div class="tabTable_3_Res_height">
+  <div id="grid" ui-grid="gridOptions" ng-if="stylesSvc.finishedStyling" 
+     ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-resize-columns class="grid proc-tabs"></div>
+    <!-- <table id="" class="table table-hover table-bordered tabTable_3_height">
+      <thead>
+      <tr>
+        <th>EPS Name</th>
+        <th>Project Name</th>
+        <th>Contract ID</th>
+        <th>Contract Description</th>
+        <th>Contract Type</th>
+        <th>RepeatPO Status</th>
+         <th>Approver Details</th> 
+        <th>Repeat PO</th>
+        <th>Requisition ID</th>
+        <th>Requestor</th>
+        <th>Approver</th>
+        <th>Schedule Items</th> userProjMap
+
+
+      </tr>
+      </thead>
+      <tbody>
+      <tr fixed-header="" ng-repeat ="req in preContractTOs" ng-show="repeatPOStatus != 'Not Yet Initiated'" >
+        <td>{{userProjMap2[req.projId].code}}</td>
+        <td>{{userProjMap2[req.projId].name}}</td>
+        <td>{{req.code}}</td>
+        <td>{{req.desc}}</td>
+        <td>{{req.preContractType}}</td>
+        <td class="text-center">{{repeatPOStatus}}</td>
+        <td class="text-center"><span class="link" ng-if="account.appCodeTemplate['PROCURMT_PURCHASEORDR_STAGE2APPROVAL_APPROVERDETAILS_VIEW']"  ng-click="getApprovelDetailss(req)">View</span></td> ng-if="account.appCodeTemplate['PROCURMT_PURCHASEORDR_STAGE2APPROVALSTAGE2APPROVAL_VIEW']" 
+        <td class="text-center"  ><span class="link" ng-click="generatepodetails()">View/Edit</span></td>
+        <td>{{req.preContractReqApprTO.reqCode}}</td>
+        <td>{{req.preContractReqApprTO.reqUserLabelkeyTO.code}}</td>
+        <td>{{req.preContractReqApprTO.apprUserLabelkeyTO.code}}</td>
+        <td class="text-center"><span class="link" ng-if="account.appCodeTemplate['PROCURMT_PURCHASEORDR_STAGE2APPROVAL_SCHEDULEOFITEMS_VIEW']" ng-click="addExternalRequest(req)">View</span></td>
+      </tr>
+      </tbody>
+    </table> -->
+    <div class="panel-footer">
+    <!-- <div class="pull-left">
+      <input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+      <input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+      <input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+      <input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+      <input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+    </div> -->
+    <div class="pull-right" >
+      <div class="panel-footer padL-1">
+        <div class="pull-right">
+          <input type="button" ng-disabled="repeatPOStatus != 'Not Yet Initiated'"  class="btn btn-primary btn-sm" ng-click="generatepodetails()" value="Initiate Repeat PO">
+        </div>
+        <div class="pull-right">
+          <input type="button" ng-disabled="repeatPOStatus != 'Approved'" class="btn btn-primary btn-sm" ng-click="generateRepeatPO()" value="Generate Repeat PO">
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  
+
+</div>

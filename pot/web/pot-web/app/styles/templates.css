@@ -1,0 +1,229 @@
+@charset "ISO-8859-1";
+ul.templatescategory {
+    list-style: none;
+    padding-left: 0px;
+}
+ul.templatescategory li a, ul.templatescategory li {
+    line-height: 28px;
+    display: flex;
+    width: 100%;
+    float: left;
+    margin-bottom: 5px;
+    align-items:center;
+    position: relative;
+    margin-bottom:0px;
+}
+ul.templatescategory li a {
+    display: flex;
+    width: 20px;
+    margin-left: 0px;
+    position: absolute;
+    right: 5px;
+}
+ul.templatescategory li:focus {
+    border: none;
+    outline: 0px;
+}
+ul.templatescategory li span, .card-view li span {
+    width: 40px;
+    height: 15px;
+    position: relative;
+    float: left;
+    margin-right:5px;
+    margin-top: 4px;
+}
+ul.templatescategory li i {
+    float: right;
+    display: none;
+    margin-left: auto;
+    opacity: 0.5;
+}
+ul.templatescategory li:hover i{
+    display:block;
+}
+.tab-content table tbody tr {
+	border:1px solid #ffffff;
+}
+.tab-content table tbody tr:hover {
+	background-color: #e6e6ff;
+}
+/*
+ul.templatescategory li:hover, ul.templatescategory li.active{
+	background: #e6e6ff;
+}
+*/
+.searchbar i {
+    position: absolute;
+    right: 24px;
+    top: 8px;
+}
+.card-view ul {
+    padding-left: 0px;
+    list-style-type: none;
+    margin-bottom:0px;
+}
+.mt-5 {
+    margin-top: 5px;
+}
+ul.nav.nav-tabs.gridExamples {
+    border-bottom: none;
+    border-top: 1px solid #ddd;
+}
+ul.nav.nav-tabs.gridExamples > li.active > a, ul.nav.nav-tabs.gridExamples > li > a, ul.nav.nav-tabs.gridExamples > li.focus > a {
+    padding: 3px 10px 2px 10px !important;
+    background: #2d7ab5;
+    color: #fff;
+    border-top: #ddd solid 1px;
+}
+ul.nav.nav-tabs.gridExamples > li{
+    margin-bottom:0px !important;
+}
+ul.nav.nav-tabs.gridExamples > li.active > a {
+    background: #7db9e8;
+    color: #000000;
+}
+.card-view {
+    border: solid 1px #e6e8ec;
+    padding: 15px 20px;
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 1px 1px #dfdfdf;
+}
+.card-view ul li {
+    line-height: 25px;
+    display:flex;
+    align-items:center;
+    position: relative;
+}
+.popoveronclick {
+    position: absolute;
+    top: 0;
+    right: -276px;
+    z-index: 1060;
+    display: none;
+    max-width: 290px;
+    padding: 20px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.42857143;
+    line-break: auto;
+    text-align: left;
+    text-align: start;
+    text-decoration: none;
+    text-shadow: none;
+    text-transform: none;
+    letter-spacing: normal;
+    word-break: normal;
+    word-spacing: normal;
+    word-wrap: normal;
+    white-space: normal;
+    font-size: 14px;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: 6px;
+    -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+    box-shadow: 0 5px 10px rgba(0,0,0,.2);
+}
+input.form-control.popstyle {
+    margin-bottom: 10px;
+    margin-top:10px;
+    width:240px;
+}
+.left {
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+    position: absolute;
+    left: -5px;
+    /* background: white; */
+    z-index: 99999;
+    opacity: 1 !important;
+}
+.arrow {
+    border: solid #d8d8d8;
+    border-width: 0 3px 3px 0;
+    display: inline-block !important;
+    padding: 3px;
+}
+.up {
+	transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+}
+.down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+ul.templatescategory li.active .popoveronclick {
+    display: block !important;
+}
+.category.active .popoveronclick {	
+    display: block !important;
+}
+.category{
+	position: relative !important;
+}
+.category.active .popoveronclick {
+    display: block !important;
+    top: -150px;
+    left: 0px;
+}
+ul.templatescategory li .dropdown-menu.popoveronclick {
+    top: -20px;
+    left: 100%;
+    width: 276px;
+}
+td.myobj{
+	width:20px;
+}
+td.myobj i {
+    display: none;
+}
+table.table.table-striped tr:hover td.myobj i {
+    display: block;
+    cursor: pointer;
+}
+.overflow{
+	overflow: auto;
+}
+.categorydiv {
+	width:87%;
+}
+.categoryeditdiv {
+	width:13%;
+	height:23px;
+	padding-top:2px;
+}
+ul.gridExamples li a{
+	border-radius : 0px 0px 4px 4px;
+}
+#sregisterview .singleTableResHeight_2, #sgridview .singleTableResHeight_2  {
+	height: 575px;
+	border: 1px solid #ccc;
+	margin-left: 4px;
+}
+#templateCategories .singleTableResHeight_2, #ctemplatesCategories .singleTableResHeight_2 {
+	height: 575px;
+	border: 1px solid #ccc;
+}
+#ptemplatesCategories .singleTableResHeight_2 {
+	height: 520px;
+	border: 1px solid #ccc;
+}
+#ptemplatescontent #sregisterview .singleTableResHeight_2, #ptemplatescontent #sgridview .singleTableResHeight_2  {
+	height: 520px;
+}
+.nocategories {
+	text-align:center; 
+	padding-top: 200px; 
+	color: #75a3a3;
+}
+.nocontent {
+	text-align:center;
+	font-size: 14px;
+	color: #75a3a3;
+}
+#pfregistercontent .tab-content {
+	margin-top: 10px;
+}

@@ -1,0 +1,103 @@
+<div id="tab-pannel" class="panel-group">
+    <form name="assetsalesForm" validate>
+        <div class="panel panel-default" modal-movable>
+            <div class="panel-heading">
+                <h4 class="panel-title">Revenue through Asset sales</h4>
+            </div>
+            <div class="panel-body">
+                <div class="popUpTableResHeight" style="overflow: auto;">
+                    <table class="table table-striped table-bordered popUpTableHeight">
+                        <thead id="tab-head">
+                            <tr>
+                                <th>Date of Receipt</th>
+                                <th>Asset ID</th>
+                                <th>Asset Description</th>
+                                <th>Profit Center</th>
+                                <th>Buyer (Name)</th>
+                                <th>Buyer Address</th>
+                                <th>Revenue Type</th>
+                                <th>Receiver Bank Name</th>
+                                <th>Receiver Bank Code #</th>
+                                <th>Receiver Bank AC #</th>
+                                <th>Currency</th>
+                                <th>Gross Amount Received</th>
+                                <th>Tax Amount Received</th>
+                                <th>Comments</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <potdate-picker ng-model="" dir-index="$index" date-name="date"
+                                        placeholder="dd-mm-yyyy" class="form-control" name=date custom-read-only />
+                                </td>
+                                <td>
+                                    <input type="text" ng-model="" name="assetId" placeholder="Asset ID"
+                                        class="form-control" pattern="[^\w\d]*((.*[0-9]+.*)|[0-9]+.*([A-Za-z]+.*))" />
+                                </td>
+                                <td>
+                                    <input type="text" ng-model="" name="assetDesc" placeholder="Asset Description"
+                                        class="form-control" pattern="[^\w\d]*((.*[0-9]+.*)|[0-9]+.*([A-Za-z]+.*))" />
+                                </td>
+                                <td>
+                                    <input type="text" ng-model="" name="profitcenter" placeholder="Profit Center"
+                                        class="form-control" pattern="[^\w\d]*((.*[0-9]+.*)|[0-9]+.*([A-Za-z]+.*))" />
+                                </td>
+                                <td>
+                                    <input type="text" ng-model="" name="buyerName" placeholder="Buyer Name"
+                                        class="form-control" pattern="[^\w\d]*((.*[0-9]+.*)|[0-9]+.*([A-Za-z]+.*))" />
+                                </td>
+                                <td>
+                                    <input type="text" ng-model="" name="buyerAddr" placeholder="Buyer Address"
+                                        class="form-control" pattern="[^\w\d]*((.*[0-9]+.*)|[0-9]+.*([A-Za-z]+.*))" />
+                                </td>
+                                <td>
+                                    <select class="form-control" ng-model="" ng-required="true" name="revenueType">
+                                        <option value="">Select</option>
+                                        <option value="initDep">Initial Deposit</option>
+                                        <option value="finalSettle">One off Final Settlement</option>
+                                        <option value="periodical">Periodical</option>
+
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="text" ng-model="" name="bankName" placeholder="Receiver Bank Name"
+                                        class="form-control" pattern="[^\w\d]*((.*[0-9]+.*)|[0-9]+.*([A-Za-z]+.*))" />
+                                </td>
+                                <td>
+                                    <input type="text" ng-model="" name="bankCode" placeholder="Receiver Bank Code #"
+                                        class="form-control" pattern="[^\w\d]*((.*[0-9]+.*)|[0-9]+.*([A-Za-z]+.*))" />
+                                </td>
+                                <td>
+                                    <input type="text" ng-model="" name="bankac" placeholder="Receiver Bank AC #"
+                                        class="form-control" pattern="[^\w\d]*((.*[0-9]+.*)|[0-9]+.*([A-Za-z]+.*))" />
+                                </td>
+                                <td><input type="text" ng-model="" name="Currency" placeholder="Currency"
+                                        class="form-control" pattern="[^\w\d]*((.*[0-9]+.*)|[0-9]+.*([A-Za-z]+.*))" />
+                                </td>
+                                <td><input type="text" ng-model="" name="amtreceived"
+                                        placeholder="Gross Amount Recieved" class="form-control"
+                                        pattern="[^\w\d]*((.*[0-9]+.*)|[0-9]+.*([A-Za-z]+.*))" /></td>
+                                <td>
+                                    <input type="text" ng-model="" name="taxreceived" placeholder="Tax Amount Received"
+                                        class="form-control" pattern="[^\w\d]*((.*[0-9]+.*)|[0-9]+.*([A-Za-z]+.*))" />
+                                </td>
+                                <td>
+                                    <input type="text" ng-model="" name="comments" placeholder="Comments"
+                                        class="form-control" pattern="[^\w\d]*((.*[0-9]+.*)|[0-9]+.*([A-Za-z]+.*))" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="panel-footer">
+
+                <div class="pull-right">
+                    <input type="submit" class="btn btn-primary  btn-sm" ng-click="save()" value="Save">
+                </div>
+            </div>
+        </div>
+        <div class="ngdialog-close"></div>
+    </form>
+</div>

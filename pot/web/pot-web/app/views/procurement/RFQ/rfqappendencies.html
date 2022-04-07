@@ -1,0 +1,96 @@
+<!-- Content Header (Page header) -->
+<div id="tab-pannel" class="panel-group">
+    <div class="panel panel-default" modal-movable>
+        <div class="panel-heading">
+            <h4 class="panel-title">List of Appendices for Purchase Order/Sub Contract</h4>
+        </div>
+        <!-- Main content -->
+        <div class="panel-body" ng-init="getPreContractDocuments();getPurchaseOrderSearch()">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <form name="referenceDocForm" validate>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 padL-0">
+                            <md-input-container class="md-block">
+                                <label>Eps Name</label>
+                                <input disabled="disabled" type="text"
+                                    ng-model="userProjMap[selectedData.projId].code" />
+                            </md-input-container>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                            <md-input-container class="md-block">
+                                <label>Project Name</label><input disabled="disabled" type="text"
+                                    ng-model="userProjMap[selectedData.projId].name" />
+                            </md-input-container>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                            <md-input-container class="md-block">
+                                <label>Sub Contract Code</label><input disabled="disabled" type="text"
+                                    ng-model="purchaseOrdersList[0].code" />
+                            </md-input-container>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                            <md-input-container class="md-block">
+                                <label>Sub Contract Description</label><input disabled="disabled" type="text"
+                                    ng-model="purchaseOrdersList[0].preContractCmpTO.preContractTO.desc" />
+                            </md-input-container>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 padR-0">
+                            <md-input-container class="md-block">
+                                <label>Date</label>
+                                <pot-currentdate-picker dir-index="$index" ng-model="selectedData.date" date-name="date"
+                                    placeholder="dd-mm-yyyy" tabindex=-1 readonly disabled="disabled">
+                                </pot-currentdate-picker>
+                            </md-input-container>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+                        <div class="singleTableResHeight_4">
+                            <table class="table table-striped table-hover table-bordered singleTableHeight_4">
+                                <thead>
+                                    <tr>
+                                        <th>Document ID</th>
+                                        <th>File Name</th>
+                                        <th>Description</th>
+                                        <th>Version</th>
+                                        <th>Type of File</th>
+                                        <th>Size of File</th>
+                                        <th>View</th>
+                                        <!-- <th>Terms & Conditions</th> -->
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr fixed-header="" ng-repeat="reference in preContractDocsTOs">
+                                        <td>{{reference.code}}</td>
+                                        <td>{{reference.name}}</td>
+                                        <td>{{reference.description}}</td>
+                                        <td>{{reference.version}}</td>
+                                        <td>{{reference.fileType}}</td>
+                                        <td>{{reference.fileSize}}</td>
+                                        <td><span ng-click="downloadDocs(reference.projDocFileTOId,reference.name)">View</span>
+                                        </td>
+                                        <!--<td><span ng-click="getTermsConditions(req)">View</span></td> -->
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <span ng-show="preContractDocsTOs.length<=0" colspan="7" class="text-center"
+                                            style="color: red">No Records Found for This
+                                            Project</span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <div class="pull-left">
+                <input class="btn btn-primary btn-sm" type="button" ng-click="referenceDocumentsPopup()" value="Add">
+            </div>
+            <div class="pull-right right-padding">
+                <input class="btn btn-secondary btn-sm" type="button" ng-click="getPurchaseSchduleItems(req)"
+                    value="View Schedule Items">
+                <input class="btn btn-secondary btn-sm" type="button" ng-click="getTermsConditions(req)"
+                    value="Terms & Conditions">
+            </div>
+        </div>
+        <div class="ngdialog-close"></div>
+    </div>
+</div>

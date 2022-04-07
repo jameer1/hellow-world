@@ -1,0 +1,29 @@
+<div id="tab-pannel">
+    <div class="panel-group panel panel-default" modal-movable>
+        <div class="panel-heading">
+            <h4 class="panel-title">Types of Claims</h4>
+        </div>
+        <div class="panel-body">
+            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 no-padding">
+                <div class="col-md-8 col-lg-8 col-sm-8 col-xs-8 padL-0">
+                    <md-input-container>
+                        <label>Types of Claims</label>
+                        <md-select ng-model="claimList">
+                            <md-option ng-repeat="claim in claimList track by claim.name" ng-value="claim">
+                                {{claim.name}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+                <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4 padR-0">
+                    <div class="pull-right marT15">
+                        <input type="submit" class="btn btn-primary btn-sm" ng-click="submitClaim(claimList.id)"
+                            value="Submit">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ngdialog-close"></div>
+</div>
+</div>

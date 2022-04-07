@@ -1,0 +1,97 @@
+<section class="content-header">
+    <h1 ng-if="!searchFilter.subreport">Manpower - Productivity Analysis</h1>
+    <h1 ng-if="searchFilter.subreport">Manpower - Productivity Analysis - {{subReport.name}}</h1>
+    <input type="submit" value ="Help !" ng-click="helpPage();" class="pull-right btn  btn-primary btn-sm help-each-page">
+</section>
+<section class="content ui-rid-customization-pot">
+	<div class="panel panel-default block footer-parent">
+		<div class="panel-body">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+				<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 padL-0">
+                    <md-input-container>
+                        <label class="labelName">EPS Name</label>
+                        <input type="text" ng-model="searchFilter.searchProject.parentName" ng-click="getUserProjects()" readonly>
+                    </md-input-container>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <md-input-container>
+                        <label class="labelName">Project Name</label>
+                        <input type="text" ng-model="searchFilter.searchProject.projName" ng-click="getUserProjects()" readonly>
+                    </md-input-container>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <md-input-container>
+                        <label class="labelName">Tangible Item</label>
+                        <input type="text" ng-model="searchFilter.searchProject.selectedTangibleItemNames" ng-click="getTangibleItems()" readonly>
+                    </md-input-container>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <md-input-container>
+                        <label class="labelName">From Date (dd-mm-yyyy)</label>
+                        <potdate-picker dir-index="$index" readonly ng-model="searchFilter.fromDate" date-name="fromDate" max-date="searchFilter.today"/>
+                    </md-input-container>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 padR-0">
+                    <md-input-container>
+                        <label class="labelName">To Date (dd-mm-yyyy)</label>
+                        <potdate-picker dir-index="$index" ng-model="searchFilter.toDate" readonly date-name="toDate" min-date="searchFilter.fromDate" max-date="searchFilter.today"/>
+                    </md-input-container>
+                </div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+				<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2  padL-0">
+                    <md-input-container>
+                        <label>Sub Reports</label>
+                        <md-select ng-model="selectedSubReport" ng-change="subReportChanged()">
+                            <md-option value="">None</md-option>
+                            <md-option ng-repeat="subReport in subReports" ng-value="subReport">{{subReport}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                	<md-input-container ng-show="selectedSubReport == 'Item Wise - Periodical Production Rates'">
+                        <label>Time Scale</label>
+                        <md-select ng-model="selectedTimeScale" ng-change="subReportChanged()">
+                            <md-option ng-repeat="timeScale in timeScales" ng-value="timeScale">{{timeScale.name}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6"></div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 padR-0">
+                    <div class="pull-right marT15 marB15">
+                        <input type="button" ng-click="generateReport()" class="btn btn-primary btn-sm" value="Generate Report">
+                        <input type="reset" class="btn btn-secondary btn-sm" ng-click="reset()" value="Reset">
+                    </div>
+                </div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+                <div id="grid" ui-grid="gridOptions" class="singleTableResHeight_3" ng-show="selectedSubReport != 'Item Wise - Periodical Production Rates'"
+                        ng-if="stylesSvc.finishedStyling" ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize
+                        ui-grid-resize-columns></div>
+                 <div id="grid" ui-grid="gridOptions" class="schedulesChart" ng-show="selectedSubReport == 'Item Wise - Periodical Production Rates'"
+                        ng-if="stylesSvc.finishedStyling" ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize
+                        ui-grid-resize-columns></div>
+                 <div class="schedulesChart" ng-show="selectedSubReport == 'Item Wise - Periodical Production Rates'" style="overflow:auto;">
+                 	<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 no-padding">
+                 	 <canvas class="chart-base" chart-data="data" chart-labels="labels" chart-series="series1" height="70"
+                        chart-type="chart_type" chart-colors="colors" chart-options="options" context-menu="menuOptions"
+                        chart-dataset-override="datasetOverride"></canvas>
+                 		<!-- <canvas class="chart chart-bar" chart-data="chartDatum.data" chart-labels="chartDatum.labels" chart-series="chartDatum.series"
+							chart-options="chartDatum.options" height="80"></canvas> -->
+                 	</div>
+				</div>
+            </div>
+		</div>
+		<!-- <div class="panel-footer">
+			<div class="pull-left">
+				<input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+				<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+				<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+				<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+				<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+			</div>
+		</div> -->
+	</div>
+</section>

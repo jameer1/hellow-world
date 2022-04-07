@@ -1,0 +1,70 @@
+<div ng-if="account.appCodeTemplate['RESOURCE_EMPCHARGEOUTRATES_VIEW']" id="tab-pannel" ng-controller="EmpChargeOutRatesController">
+				<div class="tabTable_3_Res_height_topB">
+				<div id="grid" ui-grid="gridOptions" ng-if="stylesSvc.finishedStyling" 
+            ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-resize-columns class="grid"></div>
+				<!-- <table class="table table-striped table-hover table-bordered tabTable_3_height_topB" >
+					<thead id="tab-head">
+						<tr>
+							<th>Select</th>
+							<th title="Project Posting">Posting#</th>
+							<th title="Effective From">From</th>
+							<th title="EPS Name">EPS</th>
+							<th title="Project Name">Project</th>
+							<th title="Parent Company Name">Company</th>
+							<th title="Charge out unit">Unit</th>
+							<th title="Currency">Curr</th>
+							<th title="Rate per Unit Normal Time">Nrml Rate</th>
+							<th title="Rate per Unit Idle Time">Idle Rate</th>
+							<th title="Paid Leave-Rate per day">PL.Rate/Day</th>
+							<th title="Paid Leave-Cost code">PL CostCode</th>
+							<th title="Mobilization Cost code">Mob CostCode</th>
+							<th title="Mobilization Rate">Mob Rate</th>
+							<th title="De-Mobilization Cost Code">DeMob CostCode</th>
+							<th title="De-Mobilization Rate">DeMob Rate</th>
+							<th title="Post DeMobilization Status">Demob Status</th>
+							<th title="Notes">Notes</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr fixed-header="" ng-repeat ="chargeOutRate in empChargeOutRateTOs">
+							<td><input type="checkbox" value="id" data-test='Resources_Employee_ChargeOutRatesTab_EditSelect'
+								ng-if="(chargeOutRate.latest && chargeOutRate.projEmpRegisterTO.projId == selectedEmployeeData.projId ) || empChargeOutRateTOs.length ==1"
+								ng-model="chargeOutRate.select"
+								ng-change="empChargeOutRowSelect(chargeOutRate)"></td>
+							<td>{{chargeOutRate.projEmpRegisterTO.deploymentId}}</td>
+							<td>{{chargeOutRate.fromDate}}</td>
+							<td>{{chargeOutRate.projEmpRegisterTO.parentName}}</td>
+							<td>{{chargeOutRate.projEmpRegisterTO.name}}</td>
+
+							<td>{{selectedEmployeeData.cmpName}}</td>
+							<td>{{measureId}}</td>
+
+							<td>{{chargeOutRate.projCurrency}}</td>
+							<td>{{chargeOutRate.normalRate}}</td>
+							<td>{{chargeOutRate.idleRate}}</td>
+							<td>{{chargeOutRate.paidLeaveRate}}</td>
+							<td>{{chargeOutRate.leaveCostItemCode}}</td>
+							<td>{{chargeOutRate.mobCostItemCode}}</td>
+							<td>{{chargeOutRate.mobRate}}</td>
+							<td>{{chargeOutRate.deMobCostItemCode}}</td>
+							<td>{{chargeOutRate.deMobRate}}</td>
+							<td>{{chargeOutRate.projEmpRegisterTO.empStatus}}</td>
+							<td class="text-center"><span class="fa fa-comment fa-flip-horizontal" name="comment" flip="horizontal"
+									ng-click="showChargeOutRates(chargeOutRate.comments)" role="button"></span></td>
+						</tr>
+					</tbody>
+				</table> -->
+				<div class="panel-footer padL-0">
+		<div class="pull-left">
+			<!-- <input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+			<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+			<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+			<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+			<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();"> -->
+			<input data-test='Resources_Employee_ChargeOutRatesTab_Edit' type="button" class="btn btn-primary btn-sm"
+				ng-if="empChargeOutRateTOs.length > 0 && account.appCodeTemplate['RESOURCE_EMPCHARGEOUTRATES_ADD']"
+				ng-click="addChargeOutRate('Edit')" value="Edit">
+		</div>
+	</div>
+	</div>
+</div>

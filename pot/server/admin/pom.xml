@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<artifactId>pot-admin-root</artifactId>
+	<packaging>pom</packaging>
+	<name>POT-ADMIN-ROOT</name>
+	
+	<parent>
+		<groupId>pot</groupId>
+		<artifactId>pot-server-root</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent> 
+	
+	<modules>
+		<module>pot-admin-webapp</module>
+		<module>pot-admin-service-impl</module>
+	</modules>
+
+	<scm>
+		<connection>scm:git:https://github.com/RajuTech-pot/POT_LATEST.git</connection>
+		<developerConnection>scm:git:https://github.com/RajuTech-pot/POT_LATEST.git</developerConnection>
+	</scm>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-scm-plugin</artifactId>
+				<dependencies>
+					<dependency>
+						<groupId>org.codehaus.plexus</groupId>
+						<artifactId>plexus-utils</artifactId>
+						<version>2.1</version>
+					</dependency>
+					<dependency>
+						<groupId>org.apache.maven.scm</groupId>
+						<artifactId>maven-scm-provider-gitexe</artifactId>
+						<version>1.2</version>
+					</dependency>
+				</dependencies>
+				<version>1.0</version>
+				<configuration>
+					<tag>test</tag>
+					<connectionType>connection</connectionType>
+				</configuration>
+				<executions>
+					<execution>
+						<id>tag</id>
+						<phase>deploy</phase>
+						<goals>
+							<goal>tag</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

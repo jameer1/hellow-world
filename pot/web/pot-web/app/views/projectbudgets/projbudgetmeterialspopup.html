@@ -1,0 +1,50 @@
+<div id="tab-pannel" class="panel-group" modal-movable>
+	<div class="panel panel-default" >
+		<div class="panel-heading">
+			<h4 class="panel-title">Material Classifications</h4>
+		</div>
+			<div class="panel-collapse collapse in popUpTableResHeight">
+				<table id="tree" class="table table-striped table-hover table-bordered popUpTableHeight" >
+					<thead id="tab-head">
+						<tr>
+							<th>Select</th>
+							<th>Material Group ID</th>
+							<th>Material Group Name</th>
+							<th>Unit of Measure</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr
+							fixed-header="" ng-repeat ="tab in materialClassTOs | orderBy: 'parent'"
+							class="abc{{tab.level}}" ng-show="!tab.collapse">
+							<td><input data-test='Projects_ProjectBudgets_Materials_Add_Checkbox' type="checkbox" ng-model="tab.select"
+								ng-if="tab.item" ng-change="materialRowSelect(tab)"></td>
+							<td><span ng-repeat="level in [].constructor(tab.level) track by $index" class="xyz" style="padding-left: 30px;"></span>
+								<span
+									ng-if="((!tab.item && tab.expand) || (!tab.item  && tab.childMaterialItemTOs.length <= 0))"
+									ng-click="materialClassItemClick(tab, true);" class="fa fa-minus" title="Collapse Materials"></span>
+								<span title="Expand Materials"
+									ng-if="((!tab.item && !tab.expand) && (tab.childMaterialItemTOs.length > 0))"
+									ng-click="materialClassItemClick(tab, false);" class="fa fa-plus"></span>
+								<i class="fa fa-leaf" ng-show="(tab.item)"> </i>
+								<span
+								style="padding-left: 10px; color: black !important;">{{tab.code}}
+									<span style="padding-left: 5px;"></span>
+							</span></td>
+
+							<td>{{tab.name}}</td>
+
+							<td>{{tab.measureUnitTO.name}}</td>
+						</tr>
+					</tbody>
+				</table>
+		</div>
+		<div class="panel-footer">
+			<div class="pull-right">
+				<input type="button" data-test='Projects_ProjectBudgets_Materials_Add_AddMaterial' class="btn btn-primary btn-sm"
+					ng-click="saveMeterials()" value="Add" />
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</div>
+</div>

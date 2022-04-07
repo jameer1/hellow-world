@@ -1,0 +1,54 @@
+<div id="tab-pannel" class="panel-group">
+  <div id="tab-pannel" class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">Add Invoice Docket Items</h4>
+    </div>
+    <div class="panel-body21">
+      <table class="table table-striped table-hover table-bordered" style="height:365px !important;" >
+        <thead>
+          <tr ng-hide ="procureType.name=='Material' ||procureType.name=='Plant'">
+            <!-- <th>Code</th> -->
+            <th>Schedule Item</th>
+            <th>Description</th>
+            <th>Rate</th>
+            <th>Quantity</th>
+          </tr>
+          <tr ng-if ="procureType.name=='Material' ||procureType.name=='Plant'">
+              <th>Docket Date</th>
+              <th>Docket Number</th>
+              <th>Quantity Received</th>
+              <th>Received By</th>
+              <th>Defects If Any</th>
+            </tr>
+        </thead>
+        <tbody>
+          <tr ng-hide ="procureType.name=='Material' ||procureType.name=='Plant'" fixed-header="" ng-repeat ="docket in poDetailsData" ng-dblclick="poDetailsDataPopup(docket)">
+           <!--  <th>{{item.code}}</th> -->
+            <th>{{docket.code}}</th>
+            <th>{{docket.name}}</th>
+            <th>{{docket.displayNamesMap.unitOfRate}}</th>
+            <th>{{docket.displayNamesMap.qty}}</th>
+          </tr>
+          <tr ng-if ="procureType.name=='Material' ||procureType.name=='Plant'" fixed-header="" ng-repeat ="docket in poDetailsData" ng-dblclick="poDetailsDataPopup(docket)">
+
+              <td>{{docket.displayNamesMap.deliveryDockDate}}</td>
+              <td>{{docket.displayNamesMap.deliveryDockNo}}</td>
+              <td>{{docket.displayNamesMap.qty}}</td>
+              <td>{{docket.displayNamesMap.receivedBy}}</td>
+              <td>{{docket.displayNamesMap.defectComments}}</td>
+
+            </tr>
+            <tr>
+              <td ng-show="poDetailsData.length<=0" colspan="8" class="text-center" style="color: red">No data available for selected purchase order id</td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- <div class="panel-footer">
+      <div class="pull-right">
+        <input type="submit" ng-click="addPODocketItems()" value="Add" class="btn  btn-brown btn-sm" />
+      </div>
+    </div> -->
+  </div>
+  <div class = "ngdialog-close"></div>
+</div>

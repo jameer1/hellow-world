@@ -1,0 +1,181 @@
+<!-- Logo -->
+<a href="/enterprise" class="logo">
+	<!-- mini logo for sidebar mini 50x50 pixels -->
+	<span class="logo-mini">
+		<b>POT</b></span>
+	<!-- logo for regular state and mobile devices -->
+	<span class="logo-lg">
+		<b>Project On <i>Track</i></b>
+	</span>
+</a>
+
+<!-- Header Navbar: style can be found in header.less -->
+<nav class="navbar navbar-static-top">
+	<!-- Sidebar toggle button-->
+	<a class="sidebar-toggle" data-toggle="push-menu" role="button" style="visibility: hidden">
+		<span class="sr-only">Toggle navigation</span>
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+
+	</a>
+	<!-- Navbar Right Menu -->
+	<div class="navbar-custom-menu">
+		<ul class="nav navbar-nav">
+			<li>
+
+				<md-autocomplete flex class="searchLabel" md-input-name="searchPage" ng-show="showSearchBar"
+					md-no-cache="true" md-selected-item="selectedItem" md-search-text="searchText"
+					md-items="item in pageSearch(searchText)" md-item-text="item.searchkeyWord" md-no-asterisk=""
+					md-clear-button="true" md-floating-label="Search" placeholder="Search"
+					md-selected-item-change="loadPage(item)" md-dropdown-items="5" input-aria-describedby="Search Page">
+					<md-item-template>
+						<span>
+							<span md-highlight-text="searchText"
+								style="color: #191970; font-size: 12px; font-weight: bold;">{{item.searchkeyWord}}</span>
+							<span
+								style="float: right;margin-right: 5px;color: #191970; font-size: 9px; font-weight: bold">
+								<span style="margin-right: 2px;" class="{{item.class}}"></span>
+								<span>{{item.path}}</span>
+							</span>
+						</span>
+					</md-item-template>
+				</md-autocomplete>
+
+			</li>
+			<li><a ng-class="{'selectedSearch' : showSearchBar}" ng-click="showSearchBar = !showSearchBar"><i
+						class="fa fa-search" aria-hidden="true"></i></a></li>
+			<li class="dropdown notifications-menu">
+				<a ng-if="account.appCodeTemplate['NOTIFICATION_VIEW']" data-test='Notifications'
+					class="dropdown-toggle" data-toggle="dropdown" title="Notifications">
+					<i class="fa fa-bell" aria-hidden="true"></i>
+					<span class="label label-success">{{notificationcount}}</span>
+				</a>
+				<ul class="dropdown-menu">
+
+					<li>
+						<!-- inner menu: contains the actual data -->
+						<ul class="menu">
+							<li ng-if="account.appCodeTemplate['NOTIFICATION_WORKDAIRY_VIEW']">
+								<a data-test='Notifications_WorkDiary' ui-sref="notifyworkdairy"
+									ui-sref-opts="{reload: true}">Work Diary </a>
+							</li>
+							<li ng-if="account.appCodeTemplate['NOTIFICATION_TIMESHEET_VIEW']">
+								<a data-test='Notifications_TimeSheet' ui-sref="notifytimesheet"
+									ui-sref-opts="{reload: true}">Time Sheet </a>
+							</li>
+							<li ng-if="account.appCodeTemplate['NOTIFICATION_ATTENDANCE_VIEW']">
+								<a data-test='Notifications_Attendance' ui-sref="notifyattendancerecords"
+									ui-sref-opts="{reload: true}">Attendance</a>
+							</li>
+							<li ng-if="account.appCodeTemplate['NOTIFICATION_PROCUREMENT_VIEW']">
+								<a data-test='Notifications_Procurement' ui-sref="notifyprocurement"
+									ui-sref-opts="{reload: true}">Procurement </a>
+							</li>
+							<li ng-if="account.appCodeTemplate['NOTIFICATION_EMPLOYEETRANS_VIEW']">
+								<a data-test='Notifications_EmployeeTransfer' ui-sref="notifyemptransfer"
+									ui-sref-opts="{reload: true}">Employee Transfer </a>
+							</li>
+							<li ng-if="account.appCodeTemplate['NOTIFICATION_PLANTTRANS_VIEW']">
+								<a data-test='Notifications_PlantTransfer' ui-sref="notifyplanttransfer"
+									ui-sref-opts="{reload: true}">Plant Transfer </a>
+							</li>
+							<li ng-if="account.appCodeTemplate['NOTIFICATION_MATERIALTRANS_VIEW']">
+								<a data-test='Notifications_MaterialsTransfer' ui-sref="notifymaterialtransfer"
+									ui-sref-opts="{reload: true}">Material Transfer </a>
+							</li>
+							<li ng-if="account.appCodeTemplate['NOTIFICATION_LEAVEREQAPPR_VIEW']">
+								<a data-test='Notifications_LeaveRequestTransfer' ui-sref="notifyempleave"
+									ui-sref-opts="{reload: true}">Leave Request & Approval</a>
+							</li>
+							<li>
+								<a data-test='Notifications_ProjectScheduleOfEstimates' ui-sref="notifyprojectscheduleofestimates"
+									ui-sref-opts="{reload: true}">Project Schedule Of Estimates</a>
+							</li>
+							<li>
+								<a data-test='Notifications_ProjectScheduleOfRates' ui-sref="notifyprojectscheduleofrates"
+									ui-sref-opts="{reload: true}">Project Schedule Of Rates</a>
+							</li>
+							<li>
+								<a data-test='Notifications_ProjectResourceBudgetEstimate' ui-sref="notifyprojectresourcebudgetestimate"
+									ui-sref-opts="{reload: true}">Project Resource Budget Estimate</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+
+			<!-- User Account: style can be found in dropdown.less -->
+
+			<li class="dropdown notifications-menu">
+				<a class="dropdown-toggle" data-toggle="dropdown" title="Help Tutorials" data-test="Help&Tutorials_IconClick">
+					<i class="fa fa-info-circle"></i>
+				</a>
+				<ul class="dropdown-menu">
+
+					<li>
+						<!-- inner menu: contains the actual data -->
+						<ul class="menu">
+							<li>
+								<a ui-sref="help" ui-sref-opts="{reload: true}" data-test="Help&Tutorials_Help&Tutorials_ModuleClick">Help & Tutorials</a>
+							</li>
+
+							<li>
+								<a href="http://projectontrack.net/" ui-sref-opts="{reload: true}" target="_blank" data-test="Help&Tutorials_AboutProjectOnTrack_ModuleClick">About Project on
+									Track </a> 
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+			<li class="dropdown user user-menu">
+				<a class="dropdown-toggle" data-toggle="dropdown" title="My Account">
+					<i class="fa fa-user" aria-hidden="true"></i>
+					<span class="hidden-xs"><i class="fa fa-caret-down"></i></span>
+				</a>
+				<ul class="dropdown-menu">
+					<!-- User image -->
+					<li class="user-header">
+						<!-- <i class="fa fa-user"aria-hidden="true" style="color: #fff;"></i> -->
+
+						<p>
+							{{account.name}}
+							<p>({{account.displayRole}})</p>
+							<!-- <small>Member since Nov. 2012</small> -->
+						</p>
+					</li>
+					<!-- Menu Body -->
+					<!-- <li class="user-body">
+						<div class="row">
+						  <div class="col-xs-4 text-center">
+							<a href="#">Followers</a>
+						  </div>
+						  <div class="col-xs-4 text-center">
+							<a href="#">Sales</a>
+						  </div>
+						  <div class="col-xs-4 text-center">
+							<a href="#">Friends</a>
+						  </div>
+						</div>
+					  </li> -->
+					<!-- Menu Footer-->
+					<li class="user-footer">
+						<!-- old link for change password -->
+						<!-- <div class="pull-left">
+							<a ui-sref="changepawd" ui-sref-opts="{reload: true}" class="btn btn-secondary btn-sm"
+								ng-if="account.appCodeTemplate['CHANGE_PASSWORD_VIEW']">Change Password</a>
+						</div> -->
+						<!-- end -->
+						<div class="pull-left">
+								<a ui-sref="changepassword" ui-sref-opts="{reload: true}" class="btn btn-primary btn-sm">Change Password</a>
+							</div>
+						<div class="pull-right">
+							<a id="exitApp" class="btn btn-primary btn-sm" ng-click="logout()">Logout
+							</a>
+						</div>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+</nav>

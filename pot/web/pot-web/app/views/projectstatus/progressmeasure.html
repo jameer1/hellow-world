@@ -1,0 +1,160 @@
+<div ng-if="account.appCodeTemplate['PRJ_PROGRESS_MEASURE_VIEW']" id="tab-pannel" class="panel-group">
+	<div class="panel-default">
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+					<div class="col-lg-2 col-md-2 col-xs-2 col-sm-2">
+						<md-input-container>
+							<label>Main/SubContract</label>
+							<md-select ng-model="projStatusReq.contractType"
+								data-test='Projects_ProjectStatus_ProgressMeasureTab_mainsubcontract'
+								ng-change="selectContractType()">
+								<md-option value="Head-Company">Head-Company</md-option>
+								<md-option value="Sub-Contract">Sub-Contract</md-option>
+							</md-select>
+						</md-input-container>
+					</div>
+					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padL-0">
+						<md-input-container class="md-block" ng-show="projStatusReq.contractType=='Head-Company'">
+							<label>Contract Number</label>
+							<input data-test='Projects_ProjectStatus_ProgressMeasureTab_contractnumber' type="text"
+								ng-model="projStatusReq.contractNumber" class="form-control" readonly="readonly">
+						</md-input-container>
+
+						<md-input-container class="md-block" ng-hide="projStatusReq.contractType=='Head-Company'">
+							<label>Contract Number</label>
+							<input type="text" ng-model="projStatusReq.contractNumber" ng-click="selectSubContract()">
+						</md-input-container>
+					</div>
+					<div class="col-lg-2 col-md-2 col-xs-2 col-sm-2">
+						<md-input-container class="md-block">
+							<potdate-picker data-test='Projects_ProjectStatus_ProgressMeasureTab_fromdate'
+								ng-model="projStatusReq.measureFromDate" dir-index="$index"
+								max-date="projStatusReq.measureToDate" date-name="projStatusReq.measureFromDate"
+								readonly="readonly" />
+						</md-input-container>
+					</div>
+					<div class="col-lg-2 col-md-2 col-xs-2 col-sm-2">
+						<md-input-container class="md-block">
+							<potdate-picker data-test='Projects_ProjectStatus_ProgressMeasureTab_todate'
+								ng-model="projStatusReq.measureToDate" dir-index="$index"
+								min-date="projStatusReq.measureFromDate" date-name="projStatusReq.measureToDate" max-date="projStatusReq.measureToDate"
+								readonly="readonly" />
+						</md-input-container>
+					</div>
+
+					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padR-0">
+						<div class="pull-right marT15">
+							<input data-test='Projects_ProjectStatus_ProgressMeasureTab_Apply' type="button"
+								ng-click="getProjStatusActualQty()" class="btn  btn-primary btn-sm" value="Search">
+						</div>
+					</div>
+				</div>
+
+				<div class="bottomDouleHeaderFooterTableResHeight">
+					<table id="tree"
+						class="table table-striped table-hover table-bordered bottomDouleHeaderFooterTableHeight">
+						<thead id="tab-head">
+							<tr>
+								<th rowspan="2">SOW Item ID</th>
+								<th rowspan="2">SOW Item Description</th>
+								<th rowspan="2">Unit Of Measure</th>
+								<th rowspan="2" class="justify-right">Unit Rate</th>
+								<th rowspan="2" class="justify-right">Original Estimated Quantity</th>
+								<th rowspan="2" class="justify-right">Revised Estimated Quantity</th>
+								<th colspan="2" class="justify-center">Actual Progress to Previous Period</th>
+								<th colspan="2" class="justify-center">Actual Progress to During the Period</th>
+								<th colspan="2" class="justify-center">Actual Update</th>
+								<th colspan="2" class="justify-center">Balance</th>
+								<th rowspan="2">Schedule Start</th>
+								<th rowspan="2">Schedule Finish</th>
+								<th rowspan="2">Actual Start</th>
+								<th rowspan="2">Actual Finish</th>
+							</tr>
+							<tr>
+								<th class="justify-right">Quantity</th>
+								<th class="justify-right">Amount</th>
+								<th class="justify-right">Quantity</th>
+								<th class="justify-right">Amount</th>
+								<th class="justify-right">Quantity</th>
+								<th class="justify-right">Amount</th>
+								<th class="justify-right">Quantity</th>
+								<th class="justify-right">Amount</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr fixed-header="" ng-repeat="tab in SOWData  | orderBy: 'parent'" class="abc{{tab.level}}"
+								ng-hide="tab.collapse">
+								<td style="width: 200px !important">
+									<span ng-repeat="level in [].constructor(tab.level) track by $index" class="xyz"
+										style="padding-left: 30px;"></span>
+									<span ng-show="tab.expand || (!tab.item  && tab.childSOWItemTOs.length <= 0)"
+										ng-click="projectStatusSowItemClick(tab,true);" class="fa fa-minus" title="Collapse SOW"></span>
+									<!-- <span ng-show="(tab.expand && tab.childSOWItemTOs.length > 0)"
+										data-test='Projects_ProjectStatus_ProgressMeasureTab_CollpaseAll'
+										title="Collpase All" ng-click="collapseAll(tab)" class="fa fa-compress"></span> -->
+									<span ng-show="!tab.expand && tab.childSOWItemTOs.length > 0" class="fa fa-plus" title="Expand SOW"
+										ng-click="projectStatusSowItemClick(tab,false);"></span>
+									<!-- <span ng-show="(!tab.expand && tab.childSOWItemTOs.length > 0)"
+										data-test='Projects_ProjectStatus_ProgressMeasureTab_ExpandAll'
+										title="Expand All" ng-click="expandAll(tab);" class="fa fa-expand"></span> -->
+									<span ng-show="(tab.item)" class="fa fa-leaf"> </span>
+									<span style="padding-left: 10px; color: black !important;">{{tab.code}}
+										<span style="padding-left: 5px;"></span>
+									</span>
+								</td>
+								<td>{{tab.name}}</td>
+								<td>{{tab.measureUnitTO.name}}</td>
+								<td ng-if="tab.projSORItemTO.totalRateIfNoSubCategory" class="justify-right">{{ tab.item ? (tab.projSORItemTO.totalRateIfNoSubCategory | number:2) : ''}}</td>
+								<td ng-if="!tab.projSORItemTO.totalRateIfNoSubCategory" class="justify-right">{{ tab.item ? (tab.projSORItemTO.labourRate + tab.projSORItemTO.materialRate + tab.projSORItemTO.plantRate + tab.projSORItemTO.othersRate | number:2) : ''}}</td>
+								<td class="justify-right">{{ projStatusReq.contractType=='Head-Company' ? tab.quantity : projStatusActualTos[tab.id] ? projStatusActualTos[tab.id].origQty : '0' | number:2 }}
+								</td>
+								<td class="justify-right">{{tab.item ? (projStatusReq.contractType=='Head-Company' ? tab.revisedQty : '0' | number:2) : ''}}</td>
+								<td class="justify-right">{{tab.item ? (projStatusActualTos[tab.id] ? projStatusActualTos[tab.id].beforeQty : '' | number:2) : ''}}</td>
+								<td class="justify-right">{{tab.item ? (projStatusActualTos[tab.id] ? projStatusActualTos[tab.id].beforeQty*(tab.projSORItemTO.totalRateIfNoSubCategory?tab.projSORItemTO.totalRateIfNoSubCategory:tab.projSORItemTO.labourRate + tab.projSORItemTO.materialRate + tab.projSORItemTO.plantRate + tab.projSORItemTO.othersRate) : '' | number:2) : ''}}</td>
+								<td class="justify-right">{{tab.item ? (projStatusActualTos[tab.id] ? projStatusActualTos[tab.id].btwnQty : '' | number:2) : ''}}</td>
+								<td class="justify-right">{{tab.item ? (projStatusActualTos[tab.id] ? projStatusActualTos[tab.id].btwnQty*(tab.projSORItemTO.totalRateIfNoSubCategory?tab.projSORItemTO.totalRateIfNoSubCategory:tab.projSORItemTO.labourRate + tab.projSORItemTO.materialRate + tab.projSORItemTO.plantRate + tab.projSORItemTO.othersRate) : '' | number:2) : ''}}</td>
+								<td class="justify-right">{{tab.item ? (projStatusActualTos[tab.id] ? projStatusActualTos[tab.id].beforeQty + projStatusActualTos[tab.id].btwnQty : '' | number:2) : ''}}
+								</td>
+								<td class="justify-right">{{tab.item ? (projStatusActualTos[tab.id] ? (projStatusActualTos[tab.id].beforeQty + projStatusActualTos[tab.id].btwnQty)*(tab.projSORItemTO.totalRateIfNoSubCategory?tab.projSORItemTO.totalRateIfNoSubCategory:tab.projSORItemTO.labourRate + tab.projSORItemTO.materialRate + tab.projSORItemTO.plantRate + tab.projSORItemTO.othersRate) : '' | number:2) : ''}}</td>
+								<td class="justify-right">{{ tab.item ? (projStatusReq.contractType == 'Head-Company' ? 
+										tab.revisedQty ? 
+											tab.revisedQty : tab.quantity - (projStatusActualTos[tab.id].beforeQty + projStatusActualTos[tab.id].btwnQty)
+										: projStatusActualTos[tab.id] ? 
+											projStatusActualTos[tab.id].origQty - (projStatusActualTos[tab.id].beforeQty + projStatusActualTos[tab.id].btwnQty) : '' | number:2) : ''}}
+								</td>
+								<td class="justify-right">{{tab.item ? (projStatusReq.contractType == 'Head-Company' ? 
+										tab.revisedQty ? 
+											tab.revisedQty * (tab.projSORItemTO.totalRateIfNoSubCategory?tab.projSORItemTO.totalRateIfNoSubCategory:tab.projSORItemTO.labourRate + tab.projSORItemTO.materialRate + tab.projSORItemTO.plantRate + tab.projSORItemTO.othersRate) : (tab.quantity - (projStatusActualTos[tab.id].beforeQty + projStatusActualTos[tab.id].btwnQty))*(tab.projSORItemTO.totalRateIfNoSubCategory?tab.projSORItemTO.totalRateIfNoSubCategory:tab.projSORItemTO.labourRate + tab.projSORItemTO.materialRate + tab.projSORItemTO.plantRate + tab.projSORItemTO.othersRate)
+										: projStatusActualTos[tab.id] ? 
+											(projStatusActualTos[tab.id].origQty - (projStatusActualTos[tab.id].beforeQty + projStatusActualTos[tab.id].btwnQty))*(tab.projSORItemTO.totalRateIfNoSubCategory?tab.projSORItemTO.totalRateIfNoSubCategory:tab.projSORItemTO.labourRate + tab.projSORItemTO.materialRate + tab.projSORItemTO.plantRate + tab.projSORItemTO.othersRate) : '' | number:2) : ''}}</td>
+								<td style="white-space:nowrap;text-align:center;">{{tab.startDate}}</td>
+								<td style="white-space:nowrap;text-align:center;">{{tab.finishDate}}</td>
+								<td>{{tab.actualStartDate}}</td>
+								<td style="width: 90px !important">
+									<potdate-picker ng-show="tab.item" ng-model="tab.actualFinishDate"
+										data-test='Projects_ProjectStatus_ProgressMeasureTab_actualfinish'
+										min-date="tab.actualStartDate" dir-index="$index" date-name="actualFinishDate"
+										placeholder="dd-mm-yyyy" required="required" class="form-control" />
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<div class="panel-footer" style="margin-top: 15px;">
+					<div class="pull-right right-padding">
+						<input type="submit" data-test='Projects_ProjectStatus_ProgressMeasureTab_Save'
+							ng-if="account.appCodeTemplate['PRJ_PROGRESS_MEASURE_ADD']" ng-click="saveSOWDetails()"
+							class="btn bottomaligned btn-primary btn-sm" value="Save">
+					</div>
+					<div class="pull-left">
+						<input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+						<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+						<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+						<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+						<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+					</div>
+				</div>
+			</div>
+		</div>

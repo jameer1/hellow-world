@@ -1,0 +1,107 @@
+<div ng-controller="MaterialTransferApprovalController"
+	ng-if="account.appCodeTemplate['RESOURCE_MATRLAPPRFORTRANSFER_VIEW'] || account.appCodeTemplate['APPROVE_MATRLAPPRFORTRANSFER_VIEW']"
+	class="marT15">
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+		<div class="col-lg-2 col-md-2 col-xs-2 col-sm-2 padL-0">
+			<md-input-container class="md-block">
+				<label>Form Date(dd-mm-yyyy)</label>
+				<pot-currentdate-picker dir-index="$index" ng-model="approvalTransfer.fromDate"
+					data-test='Resources_Materials_ApprovaForMaterialTransfer_FromDate' date-name="fromDate" />
+			</md-input-container>
+		</div>
+		<div class="col-lg-2 col-md-2 col-xs-2 col-sm-2">
+			<md-input-container class="md-block">
+				<label>To Date(dd-mm-yyyy)</label>
+				<pot-currentdate-picker dir-index="$index" ng-model="approvalTransfer.toDate" date-name="toDate"
+					data-test='Resources_Materials_ApprovaForMaterialTransfer_ToDate' />
+			</md-input-container>
+		</div>
+		<div class="col-lg-2 col-md-2 col-xs-2 col-sm-2">
+			<md-input-container>
+				<label>Approval Type</label>
+				<md-select data-test='Resources_Materials_ApprovaForMaterialTransfer_Approvalstatus'
+					ng-model="approvalType">
+					<md-option ng-repeat="approvalType in approvalTypeList" ng-value="approvalType">{{approvalType}}
+					</md-option>
+				</md-select>
+			</md-input-container>
+		</div>
+		<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+			<md-radio-group ng-model="approvalTransfer.userType" layout="row" class="md-primary">
+				<md-radio-button value="1" data-test='Resources_Materials_ApprovaForMaterialTransfer_loginuserrecords'
+					name="request">Login User Records </md-radio-button>
+				<md-radio-button value="2" data-test='Resources_Materials_ApprovaForMaterialTransfer_Alluserrecords'
+					name="request">All User Records </md-radio-button>
+			</md-radio-group>
+		</div>
+
+		<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padR-0">
+			<div class="pull-right marT15">
+				<input type="button" data-test='Resources_Materials_ApprovaForMaterialTransfer_Search'
+					ng-click="getMaterialTransfers(false)" class="btn  btn-primary btn-sm" value="Search">
+				<input type="button" data-test='Resources_Materials_ApprovaForMaterialTransfer_Reset'
+					class="btn  btn-default btn-sm" ng-click="reset()" value="Reset">
+			</div>
+		</div>
+	</div>
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+		<div class="singleTableResHeight_4">
+		<div id="grid" ui-grid="gridOptions" class="singleTableResHeight_3" ng-if="stylesSvc.finishedStyling" 
+             ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-resize-columns class="grid"></div>
+			<!-- <table class="table table-hover table-bordered singleTableHeight_4">
+				<thead id="tab-head">
+					<tr>
+						<th>Select</th>
+						<th>Date of Request</th>
+						<th>Requester</th>
+						<th>Approver</th>
+						<th>Origin Project</th>
+						<th>Destination Project</th>
+						<th>Requisition ID</th>
+						<th>Notification ID</th>
+						<th>Approval Status</th>
+						<th class="text-center">More Details</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr fixed-header="" ng-repeat="request in materialTransferReqApprTOs">
+						<td><input type="checkbox" value="id"
+								data-test='Resources_Materials_ApprovaForMaterialTransfer_requestforadditionaltimeselect'
+								ng-model="request.selected" ng-change="newRequestRowSelect(request)"></td>
+						<td>{{request.reqDate}}</td>
+						<td>{{request.reqUserTO.empCode}}</td>
+						<td>{{request.apprUserTO.empCode}}</td>
+						<td>{{request.fromProjName}}</td>
+						<td>{{request.toProjName}}</td>
+						<td>{{request.reqCode}}</td>
+						<td>{{request.notifyCode}}</td>
+						<td>{{request.apprStatus}}</td>
+						<td class="text-center"><input type="button" class="btn btn-primary btn-sm"
+								data-test='Resources_Materials_ApprovaForMaterialTransfer_ViewMore'
+								ng-click="createOrEditTransRequest('Edit',request)" value="View More" /></td>
+
+					</tr>
+				</tbody>
+			</table> -->
+			<script type="text/ng-template" id="template.html">
+			<button data-test="Resources_Materials_ApprovaForMaterialTransfer_ViewMore" ng-click="grid.appScope.createOrEditTransRequest('Edit', row.entity, request)" class="btn btn-primary btn-sm">View More</button>
+			</script>
+		</div>
+	</div>
+	<div class="panel-footer">
+		<!-- <div class="pull-right padR-0">
+			<input
+				ng-if="account.appCodeTemplate['RESOURCE_MATRLAPPRFORTRANSFER_REQFORADDTIME'] || account.appCodeTemplate['APPROVE_MATRLAPPRFORTRANSFER_REQFORADDTIME']"
+				type="button" class="btn btn-primary btn-sm"
+				data-test='Resources_Materials_ApprovaForMaterialTransfer_Requestforadditionaltime'
+				ng-click="requestForAdditionalTime()" value="Request For Additional Time">
+		</div> -->
+		<!-- <div class="pull-left">
+			<input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+			<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+			<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+			<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+			<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+		</div> -->
+	</div>
+</div>

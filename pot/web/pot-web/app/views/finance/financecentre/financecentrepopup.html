@@ -1,0 +1,96 @@
+<div id="tab-pannel" class="panel-group">
+	<form name="financeCenterForm" validate>
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Finance Center</h4>
+			</div>
+			<div class="panel-body">
+				<div class="popUpTableResHeight">
+					<table class="table table-striped table-bordered popUpTableHeight">
+						<thead id="tab-head">
+							<tr>
+								<th>Effective From<span class="procurment-pot-errors">*</span></th>
+								<th>Province<span class="procurment-pot-errors">*</span></th>
+								<th>Finance Center Code</th>
+								<th>Employee - Unit of Pay Rates</th>
+								<th>Employee Pay Roll Cycle / Credit Cycle</th>								
+								<th>Regular Pay Allowances Codes</th>
+								<th>Non Regular Pay Allowances Codes</th>
+								<th>Super fund / Provident Fund Code</th>
+								<th>Tax Codes, Rates & Rules Code</th>
+								<th>Pay Deduction Codes</th>
+								<th>Tax Payment Receiver Code</th> 
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="financeCenterRecord in  financeCenterRecords">
+								<td ng-if="financeCenterRecord.actionType == 'Edit' ">
+									<potdate-picker readonly="readonly" date-name="EffectFrom" data-test="FinanceCenter_EffectiveFrom_Edit"
+										ng-model="financeCenterRecord.effectiveFrom" placeholder="dd-mm-yyyy" required
+										class="form-control" disabled></potdate-picker>
+								</td>
+
+								<td ng-if="financeCenterRecord.actionType == 'Add' ">
+									<potdate-picker custom-read-only date-name="EffectFrom" data-test="FinanceCenter_EffectiveFrom_Add"
+										ng-model="financeCenterRecord.effectiveFrom" placeholder="dd-mm-yyyy"
+										ng-required="true" class="form-control"></potdate-picker>
+								</td>
+
+								<td ng-if="financeCenterRecord.actionType == 'Edit' ">
+									<ng-form name="nameForm3"> <input type="text" class=" required form-control"
+											ng-model="financeCenterRecord.provisionName"
+											ng-value="financeCenterRecord.provisionName" readonly="readonly" />
+									</ng-form>
+								</td>
+
+								<td ng-if="financeCenterRecord.actionType == 'Add' "><select
+									class="form-control"
+									ng-model="financeCenterRecord[2].provisionName"
+									ng-options="provision as provision.name for provision in provisionTOs"
+									ng-required="true" custom-read-only data-test="FinanceCenter_Province">
+										<option value="" selected="selected">Select</option>
+								</select></td>
+								<td><ng-form name="nameForm3"> <input type="text"
+										class=" required form-control"
+										ng-model="financeCenterRecord.displayFinanceCenterId"
+										readonly="readonly"/> </ng-form></td>
+								<td><input type="submit" data-test="FinanceCenter_Employee_UnitofPayRates_AddEdit"
+									ng-click="addUnitOfPayRate(financeCenterRecord.actionType,financeCenterRecord)"
+									class="btn btn-primary btn-sm" value="Add/Edit" /></td>
+								<td><input type="submit" data-test="FinanceCenter_Employee_PayRollCycle_CreditCycle_AddEdit"
+									ng-click="addEmployeePayRole(financeCenterRecord.actionType,financeCenterRecord)"
+									class="btn btn-primary btn-sm" value="Add/Edit" /></td>
+								<td><input type="submit" data-test="FinanceCenter_RegularPayandAllowancesCodes_AddEdit"
+									ng-click="addRegularPayAllowance(financeCenterRecord.actionType,financeCenterRecord)"
+									class="btn btn-primary btn-sm" value="Add/Edit" /></td>
+								<td><input type="submit" data-test="FinanceCenter_NonRegularPayandAllowancesCodes_AddEdit"
+									ng-click="addNonRegularPayAllowance(financeCenterRecord.actionType,financeCenterRecord)"
+									class="btn btn-primary btn-sm" value="Add/Edit" /></td>
+								
+								<td><input type="submit" data-test="FinanceCenter_SuperfundProvidentFundCode_AddEdit"
+									ng-click="addSuperFundProvident(financeCenterRecord.actionType,financeCenterRecord)"
+									class="btn btn-primary btn-sm" value="Add/Edit" /></td> 
+								<td><input type="submit" data-test="FinanceCenter_TaxCodesRates_Rulescode_AddEdit"
+									ng-click="addTaxCodeTaxRules(financeCenterRecord.actionType,financeCenterRecord)"
+									class="btn btn-primary btn-sm" value="Add/Edit" /></td>
+								<td><input type="submit" data-test="FinanceCenter_PayDeductionCodes_AddEdit"
+									ng-click="addPayDeductionCodes(financeCenterRecord.actionType,financeCenterRecord)"
+									class="btn btn-primary btn-sm" value="Add/Edit" /></td>
+								<td><input type="submit" data-test="FinanceCenter_TaxPaymentReceivercode_AddEdit"
+									ng-click="addTaxPaymentsReceiverDetails(financeCenterRecord.actionType,financeCenterRecord)"
+									class="btn btn-primary btn-sm" value="Add/Edit" /></td>
+								<!-- end -->
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="panel-footer">
+				<div class="pull-right">
+					<input type="submit" ng-click=" saveFinancialCenter()" class="btn btn-primary btn-sm" value="Save" data-test="FinanceCenter_Save"/>
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</form>
+</div>

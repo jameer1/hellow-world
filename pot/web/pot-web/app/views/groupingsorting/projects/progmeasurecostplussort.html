@@ -1,0 +1,137 @@
+<div id="tab-pannel">
+    <div class="panel-group panel panel-default" modal-movable>
+        <div class="panel-heading">
+            <h4 class="panel-title">Sort</h4>
+        </div>
+        <div class="panel-body">
+            <div class="popUpTableResHeight" style="height: 211.97048px !important">
+                <table class="table table-striped table-hover table-bordered popUpTableHeight">
+                    <thead id="tab-head">
+                        <tr>
+                            <th>#</th>
+                            <th>Column</th>
+                            <th>Sorting</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Group by</td>
+                            <td>
+                                <select name="groupby" ng-model="progmeasgroupby" class="form-control">
+                                    <option value="" selected="selected">-Select-</option>
+                                    <option value="costid">Cost Id </option>
+                                    <option value="costname">Cost Item Name </option>
+                                    <option value="costclassid">Cost Code Classification Id </option>
+                                    <option value="costclassname">Cost Code Classification Name </option>
+                                    <option value="schstart">Schedule Start </option>
+                                    <option value="schfinish">Schedule Finish </option>
+                                    <option value="currency">Currency </option>
+                                    <option value="orgbudlab">Original Budget - Labour </option>
+                                    <option value="orgbudmat">Original Budget - Materials </option>
+                                    <option value="orgbudplant">Original Budget - Plants </option>
+                                    <option value="orgbudother">Original Budget - Other </option>
+                                    <option value="orgbudtotal">Original Budget - Total </option>
+                                    <option value="revbudlab">Revised Budget - Labour </option>
+                                    <option value="revbudmat">Revised Budget - Materials </option>
+                                    <option value="revbudplant">Revised Budget - Plants </option>
+                                    <option value="revbudother">Revised Budget - Other </option>
+                                    <option value="revbudtotal">Revised Budget - Total </option>
+                                    <option value="prevperlab">Previous Period Amount - Labour </option>
+                                    <option value="prevpermat">Previous Period Amount - Materials </option>
+                                    <option value="prevperplant">Previous Period Amount - Plants </option>
+                                    <option value="prevperother">Previous Period Amount - Other </option>
+                                    <option value="prevpertotal">Previous Period Amount - Total </option>
+                                    <option value="repperlab">Reporting Period Amount - Labour </option>
+                                    <option value="reppermat">Reporting Period Amount - Materials </option>
+                                    <option value="repperplant">Reporting Period Amount - Plants </option>
+                                    <option value="repperother">Reporting Period Amount - Other </option>
+                                    <option value="reppertotal">Reporting Period Amount - Total </option>
+                                    <option value="utdamtlab">Up to Date Amount - Labour </option>
+                                    <option value="utdamtmat">Up to Date Amount - Materials </option>
+                                    <option value="utdamtplant">Up to Date Amount - Plants </option>
+                                    <option value="utdamtother">Up to Date Amount - Other </option>
+                                    <option value="utdamttotal">Up to Date Amount - Total </option>
+                                    <option value="balamtlab">Balance Amount - Labour </option>
+                                    <option value="balamtmat">Balance Amount - Materials </option>
+                                    <option value="balamtplant">Balance Amount - Plants </option>
+                                    <option value="balamtother">Balance Amount - Other </option>
+                                    <option value="balamttotal">Balance Amount - Total </option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="grouporder" ng-model="progmeasgrouporder" class="form-control">
+                                    <option value="" selected="selected">-Select-</option>
+                                    <option value="ascending">Ascending</option>
+                                    <option value="descending">Descending</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Then by</td>
+                            <td>
+                                <select name="thenby" ng-model="progmeasthenby" class="form-control">
+                                    <option value="" selected="selected">-Select-</option>
+                                    <option value="costid">Cost Id </option>
+                                    <option value="costname">Cost Item Name </option>
+                                    <option value="costclassid">Cost Code Classification Id </option>
+                                    <option value="costclassname">Cost Code Classification Name </option>
+                                    <option value="schstart">Schedule Start </option>
+                                    <option value="schfinish">Schedule Finish </option>
+                                    <option value="currency">Currency </option>
+                                    <option value="orgbudlab">Original Budget - Labour </option>
+                                    <option value="orgbudmat">Original Budget - Materials </option>
+                                    <option value="orgbudplant">Original Budget - Plants </option>
+                                    <option value="orgbudother">Original Budget - Other </option>
+                                    <option value="orgbudtotal">Original Budget - Total </option>
+                                    <option value="revbudlab">Revised Budget - Labour </option>
+                                    <option value="revbudmat">Revised Budget - Materials </option>
+                                    <option value="revbudplant">Revised Budget - Plants </option>
+                                    <option value="revbudother">Revised Budget - Other </option>
+                                    <option value="revbudtotal">Revised Budget - Total </option>
+                                    <option value="prevperlab">Previous Period Amount - Labour </option>
+                                    <option value="prevpermat">Previous Period Amount - Materials </option>
+                                    <option value="prevperplant">Previous Period Amount - Plants </option>
+                                    <option value="prevperother">Previous Period Amount - Other </option>
+                                    <option value="prevpertotal">Previous Period Amount - Total </option>
+                                    <option value="repperlab">Reporting Period Amount - Labour </option>
+                                    <option value="reppermat">Reporting Period Amount - Materials </option>
+                                    <option value="repperplant">Reporting Period Amount - Plants </option>
+                                    <option value="repperother">Reporting Period Amount - Other </option>
+                                    <option value="reppertotal">Reporting Period Amount - Total </option>
+                                    <option value="utdamtlab">Up to Date Amount - Labour </option>
+                                    <option value="utdamtmat">Up to Date Amount - Materials </option>
+                                    <option value="utdamtplant">Up to Date Amount - Plants </option>
+                                    <option value="utdamtother">Up to Date Amount - Other </option>
+                                    <option value="utdamttotal">Up to Date Amount - Total </option>
+                                    <option value="balamtlab">Balance Amount - Labour </option>
+                                    <option value="balamtmat">Balance Amount - Materials </option>
+                                    <option value="balamtplant">Balance Amount - Plants </option>
+                                    <option value="balamtother">Balance Amount - Other </option>
+                                    <option value="balamttotal">Balance Amount - Total </option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="thenorder" ng-model="progmeasthenorder" class="form-control">
+                                    <option value="" selected="selected">-Select-</option>
+                                    <option value="ascending">Ascending</option>
+                                    <option value="descending">Descending</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="panel-footer">
+                <div class="pull-left">
+                    <input type="button" class="btn btn-primary btn-sm" ng-click="addlevel()" value="Add Level">
+                    <input type="button" class="btn btn-primary btn-sm" ng-click="deletelevel()" value="Delete Level">
+                </div>
+                <div class="pull-right">
+                    <input type="submit" class="btn btn-primary btn-sm" ng-click="apply" value="Apply">
+                    <input type="reset" class="btn btn-primary btn-sm" ng-click="reset" value="Cancel">
+                </div>
+            </div>
+        </div>
+        <div class="ngdialog-close"></div>
+    </div>
+</div>

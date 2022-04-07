@@ -1,0 +1,68 @@
+<div ng-if="account.appCodeTemplate['RESOURCE_MATRLSTCKSITEPILEDITM_VIEW']" id="tab-pannel" ng-controller="MaterialStockPilesController" ng-init="getStockPilesRecords()">
+
+				<div class="singleTableResHeight_3">
+				<div id="grid" ui-grid="gridOptions" class="singleTableResHeight_3" ng-if="stylesSvc.finishedStyling" 
+            ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-resize-columns class="grid"></div>
+					<!-- <table class="table table-striped table-bordered singleTableHeight_3" >
+						<thead id="tab-head"> 
+							<tr>
+								<th rowspan="2">Date</th>
+								<th rowspan="2">EPS Name</th>
+								<th rowspan="2">Project Name</th>
+								<th rowspan="2">Stock Piled Location</th>
+								<th rowspan="2">Pre Approval Notification</th>
+								<th rowspan="2">Project Docket</th>
+								<th rowspan="2">Supplier Name</th>
+								<th rowspan="2">Supplier Docket Date</th> 
+								<th rowspan="2">Resource Name</th>
+								<th rowspan="2">Resource Sub Group Name</th>
+								<th rowspan="2">Stock Location(Place Of Delivery)</th>
+								<th rowspan="2">Unit Of Measure</th>
+								<th rowspan="2">Unit Of Rate</th>
+                             <th colspan="7" class="text-center">Quantity</th>
+                             </tr>
+                             <tr>
+								<th>Opening Stock</th>
+								<th>Date wise - Supply</th>
+								<th>Cumulative Supply</th>
+								<th>Date wise Consumption</th>
+								<th>Cumulative Consumption</th>
+								<th>Transfer to other Projects</th>
+								<th>Closing Stock</th>
+                              </tr>
+						</thead>
+						<tbody>
+							<tr fixed-header="" ng-repeat ="stock in stockPilesDetails">
+								<td>{{stock.date | date:'dd-MMM-yyyy'}}</td>
+								<td>{{stock.eps}}</td>
+								<td>{{stock.projName}}</td>
+								<td>{{stock.storeLocation}}</td>
+								<td></td>
+								<td>{{stock.docketNumber}}</td>
+								<td>{{stock.supplierName}}</td>
+								<td>{{stock.displayNamesMap.deliveryDockDate}}</td> 
+								<td>{{stock.resourceMaterial}}</td>
+								<td>{{stock.resourceSubGroup}}</td>
+								<td>{{stock.storeLocation}}</td>
+								<td>{{stock.unitOfMeasure}}</td>
+								<td>{{stock.rate}}</td>
+								<td>{{stock.openingStock}}</td>
+								<td>{{(stock.issued) ? stock.issued : stock.supplied}}</td>
+								<td>{{stock.cumulativeSupply}}</td>
+								<td>{{stock.consumption}}</td>
+								<td>{{storestock.cumulativeConsumption}}</td>
+								<td>{{storestock.transferQty}}</td>
+								<td>{{stock.closingStock}}</td>
+						</tbody>
+					</table> -->
+				</div>
+			<!-- <div class="panel-footer">
+				<div class="pull-left">
+					<input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+					<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+					<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+					<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+					<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+				</div>
+			</div> -->
+</div>

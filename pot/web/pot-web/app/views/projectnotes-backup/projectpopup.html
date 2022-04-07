@@ -1,0 +1,56 @@
+<div id="tab-pannel" class="panel-group">
+    <form name="treeForm">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">EPS Project</h4>
+            </div>
+            <div class="panel-body">
+                <div class="popUpTableResHeight">
+                    <table class="table table-striped table-hover table-bordered popUpTableHeight" >
+                        <thead>
+                            <tr ng-show="action=='Add'">
+                                <th>Select</th>
+                                <th>Project Code</th>
+                                <th>Project Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr fixed-header="" ng-repeat ="item in trees">
+                                <td ng-show="action=='Add'">
+                                    <input type="checkbox"
+                                        ng-model="item.selected"></td>
+                                <td ng-form="tree">
+                                    <input type="text" name="code"
+                                        ng-model="item.id" pattern="^[a-zA-Z\d\-_.,\%]+$"
+                                        maxlength="20" placeholder="ID" ng-required="true">
+                                    <span
+                                        ng-show="tree.code.$error.pattern">Not valid </span><span
+                                            ng-show="tree.code.$dirty&&tree.code.$error.required">required
+								</span></td>
+
+                                <td ng-form="tree">
+                                    <input type="text" name="name"
+                                        ng-model="item.name" placeholder="name"
+                                        pattern="^[a-z A-Z\d\s\-_.,\%]+$" maxlength="50" required>
+                                    <span ng-show="tree.name.$dirty&&tree.name.$error.required">required</span>
+                                    <span ng-show="tree.name.$error.pattern">>Not valid </span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <div class="pull-left">
+                    <button type="submit" class="btn btn-secondary btn-sm" ng-click="treeForm.$valid && addRows()" ng-show="action =='Add'">Add</button>
+                    <input type="button" class="btn btn-secondary btn-sm" ng-click="deleteRows()" value="Delete" ng-show="action =='Add'">
+                </div>
+                <div class="pull-right">
+                    <button type="button" class="btn btn-primary btn-sm" ng-click="saveTree(item,treeForm)">Save</button>
+                </div>
+            </div>
+            <div class="ngdialog-close"></div>
+        </div>
+    </form>
+</div>
+
+

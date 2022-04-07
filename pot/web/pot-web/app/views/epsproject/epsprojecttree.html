@@ -1,0 +1,112 @@
+<section class="content-header">
+    <h1>Project List</h1>
+    <input type="submit" value ="Help !"
+		ng-click="helpPage();" class="pull-right btn  btn-primary btn-sm help-each-page">
+</section>
+<section class="content">
+    <div id="tab-pannel" class="panel-default block footer-parent" ng-init="getEPSDetails()">
+        <div class="panel panel-body">
+            <div class="singleTableResHeight">
+                <table id="tree" class="table table-striped table-hover table-bordered singleTableHeight">
+                    <thead>
+                        <tr>
+                            <th class="text-center">Select</th>
+                            <th>Project ID</th>
+                            <th>Project Name</th>
+                            <th>Country</th>
+                            <th>Province</th>
+                            <th>Profit Center</th>
+                            <th>Finance Center</th>
+                            <th>Project Owner</th>
+                            <th>Project Manager</th>
+                            <th>Type of contract</th>
+                            
+                            <th>Start Date</th>
+                            <th>Finish Date</th>
+                            
+                            <th>Total budget cost</th>
+                            
+                            <th>Planned % Progress</th>
+                            <th>Actual % Progress</th>
+                            <th>Current Project Phase</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr fixed-header="" ng-repeat="item in epsData" class="abc{{item.level}}"
+                            ng-show="!item.collapse">
+                            <td class="text-center">
+                                <input type="checkbox" ng-model="item.select" ng-change="rowSelect(item)"
+                                    ng-show="(item.proj  &&  item.assignedStatus !='Y')" ng-disabled = "item.projectAssigned">
+                                <span class="checkmark"></span>
+                            </td>
+                            <td>
+                                <span ng-repeat="level in [].constructor(item.level) track by $index" class="xyz"
+                                    style="padding-left: 30px;"></span>
+                                <span ng-show="((!item.proj && item.expand) || (!item.proj  && item.childProjs.length <= 0))"
+                                    ng-click="itemClick(item,true);" class="fa fa-minus" title="Collapse EPS"></span>
+                                <span ng-show="(!item.expand && item.childProjs.length > 0)" title="Expand EPS"
+                                    data-test='Projects_ProjectList_Expand_Epsexpand' ng-click="itemClick(item,false);"
+                                    class="fa fa-plus"></span>
+                                <span ng-show="item.proj" class="fa fa-leaf"></span>
+                                <span style="padding-left: 10px; color: black !important;">
+                                    {{item.projCode}}
+                                    <span style="padding-left: 5px;"></span>
+                                </span>
+                                <i class="fa fa-edit fa-fw" ng-hide="item.projectAssigned"
+                                    ng-if="item.proj && account.appCodeTemplate['ENTRPRSE_EPSPRJCT_ADD']" title="Edit Projects"
+                                    data-test='Projects_ProjectList_Editicon' ng-click="editTreeDetails('Edit',item)"
+                                    name="pencil" ></i>
+                                <i data-test='Projects_ProjectList_ProjectCreateIcon'
+                                    ng-if="!item.proj && account.appCodeTemplate['ENTRPRSE_EPSPRJCT_ADD']"
+                                    ng-click="editTreeDetails('Add',item)" class="fa fa-plus-square"
+                                    title="Add Project"></i>
+
+                            </td>
+                            <td>{{item.projName}}</td>
+                            <td>{{item.projGeneralMstrTO.countryName}}</td>
+                            <td>{{item.projGeneralMstrTO.provisionName}}</td>
+                            <td>{{item.projGeneralMstrTO.profitCentreTO.name}}</td>
+                            <td>&nbsp;</td>
+                            <td>{{item.projGeneralMstrTO.companyTO.cmpName}}</td>
+                            <td>{{item.projGeneralMstrTO.userLabelKeyTO.name}}</td>
+                            <td>
+                            	<span ng-show="(item.projGeneralMstrTO.contractType=='SORcontract')">
+                            		Schedule of Rates Contract
+                            	</span>
+                            	<span ng-show="item.projGeneralMstrTO.contractType=='CPPTypecontract'">
+                            		Cost Plus % Type Contract
+                            	</span>
+                            	<span ng-show="item.projGeneralMstrTO.contractType=='LContractMile'">
+                            		Lumpsum Contract with Milestones
+                            	</span>
+                            </td>
+                            <td>{{item.startDate}}</td>
+                            <td>{{item.finishDate}}</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>{{item.projCurrentPhase}}</td>
+                            
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="panel-footer">
+
+                <div class="pull-right">
+                    <input data-test='Projects_ProjectList_ProjectDeactivate' type="button"
+                        class="btn btn-primary btn-sm" ng-click="deactivateEPSDetails()" value="Deactivate"
+                        ng-if="account.appCodeTemplate['ENTRPRSE_EPSPRJCT_DELETE']" />
+                </div>
+                <div class="pull-left">
+                    <input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

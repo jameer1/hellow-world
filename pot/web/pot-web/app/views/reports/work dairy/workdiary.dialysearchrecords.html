@@ -1,0 +1,157 @@
+<section class="content-header">
+	<h1 ng-if="!subReport.name">Work Diary Daily Search & Its Records</h1>
+	<h1 ng-if="subReport.name">Work Diary Daily Search & Its Records - {{subReport.name}}</h1>
+	<!-- <input type="submit" value ="Help !"
+		ng-click="helpPage();" class="pull-right btn  btn-primary btn-sm help-each-page"> -->
+	<button class="pull-right btn btn-primary btn-sm help-each-page" 
+		onclick="window.open('views/helptutorials/WorkDiarySearchItsRecords.html', '_blank', 
+		'toolbar=yes,scrollbars=yes,resizable=no,top=50,left=100,width=1400,height=700')">
+		Help
+	</button>
+</section>
+<section class="content ui-rid-customization-pot">
+	<div id="tab-pannel">
+		<div class="panel panel-default block footer-parent">
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+						<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2 padL-0">
+							<md-input-container>
+								<label class="labelName">EPS</label>
+								<input type="text" ng-model="workDairySearchReq.projectLabelKeyTO.parentName" data-test="WorkDiarySearchandItsRecords_Epsname"
+									ng-click="getUserProjects(workDairySearchReq.projectLabelKeyTO)" readonly>
+							</md-input-container>
+						</div>
+						<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+							<md-input-container>
+								<label class="labelName">Project</label>
+								<input type="text" ng-model="workDairySearchReq.projectLabelKeyTO.projName"
+									ng-click="getUserProjects(workDairySearchReq.projectLabelKeyTO)" readonly>
+							</md-input-container>
+						</div>
+						<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+							<md-input-container>
+								<label class="labelName">Date</label>
+								<pot-currentdate-picker dir-index="$index" date-name="workDairyDate" max-date="workDairySearchReq.workDairyDate" data-test="WorkDiarySearchandItsRecords_Date"
+									ng-model="workDairySearchReq.workDairyDate" ng-change="clear();" readonly>
+							</md-input-container>
+						</div>
+						<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+							<md-input-container>
+								<label class="labelName">Crew</label>
+								<input type="text" ng-model="workDairySearchReq.crewLabelKeyTO.name" data-test="WorkDiarySearchandItsRecords_Crew"
+									ng-click="getCrewList(workDairySearchReq.projectLabelKeyTO.projId,workDairySearchReq.crewLabelKeyTO)"
+									readonly>
+							</md-input-container>
+						</div>
+						<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+							<md-input-container>
+								<label class="labelName">Work Diary ID</label>
+								<input type="text" ng-model="workDairySearchReq.code" data-test="WorkDiarySearchandItsRecords_workDairyId"
+									ng-click="getWorkDairy(workDairySearchReq.code)"
+									readonly>
+								<!-- <input type="text" ng-model="workDairySearchReq.code" data-test="WorkDiarySearchandItsRecords_workDairyId" ng-click="getWorkDiaryNotificationDetail()"  readonly>
+							</md-input-container> -->
+						</div>
+						<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+							<md-input-container>
+								<label class="labelName">Display Data</label>
+								<md-select ng-model="displayStatus" ng-change="changeDisplayData()" data-test="WorkDiarySearchandItsRecords_Displaydata">
+									<md-option ng-value="displayStatus" ng-repeat="displayStatus in displayStatusList">
+										{{displayStatus.name}}
+									</md-option>
+								</md-select>
+							</md-input-container>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+						<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2 padL-0">
+							<md-input-container>
+								<label class="labelName">Sub Report</label>
+								<md-select ng-model="subReport" ng-change="changeSubReport()" data-test="WorkDiarySearchandItsRecords_Subreports">
+									<md-option value="">None</md-option>
+									<md-option ng-value="subReport" ng-repeat="subReport in subReportsList">
+										{{subReport.name}}
+									</md-option>
+								</md-select>
+							</md-input-container>
+						</div>
+						<div class="col-sm-5 col-xs-5 col-md-5 col-lg-5 padR-0">
+							<div class="pull-right">
+								<md-radio-group style="padding-right: 44px !important;" ng-model="type" layout="row"
+									ng-show="subReport.code">
+									<md-radio-button id="chart" value="chart" name="content" class="md-primary" data-test="WorkDiarySearchandItsRecords_Chart"
+										ng-click="selectChartType()">Chart</md-radio-button>
+									<md-radio-button id="table" value="table" name="content" class="md-primary" data-test="WorkDiarySearchandItsRecords_Table"
+										ng-click="selectChartType()">Table</md-radio-button>
+									<md-radio-button id="chartTable" value="chartTable" name="content" class="md-primary" data-test="WorkDiarySearchandItsRecords_ChartTable"
+										ng-click="selectChartType()">Chart & Table</md-radio-button>
+								</md-radio-group>
+							</div>
+						</div>
+						<div class="col-sm-3 col-xs-3 col-md-3 col-lg-3 padR-0 pull-right">
+							<div class="pull-right marB15">
+								<input type="button" ng-click="getWorkDairyDetails()" class="btn btn-primary btn-sm"
+									value="Generate Report" data-test="WorkDiarySearchandItsRecords_Generatereportbutton">
+								<input type="reset" class="btn btn-secondary btn-sm" ng-click="resetWorkDiaryDetails()"
+									value="Reset" data-test="WorkDiarySearchandItsRecords_Reset">
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+						ng-show="subReport.name==null|| subReport.name=='select'">
+						<div class="nav-tabs-custom">
+							<ul class="nav nav-tabs">
+								<li fixed-header="" ng-repeat="tab in WorkDiaryReportTabs"
+									ng-class="{active:isActiveTab(tab.url)}"><a data-toggle="tab"
+									data-test="{{tab.workDairySeleniumLocatorReport}}"
+										ng-click="onClickTab(tab)">{{tab.title}}</a></li>
+							</ul>
+						</div>
+						<div class="tab-content">
+							<div ng-include="currentTab"></div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-show="subReport.code">
+
+						<div ng-if="type == 'chart'" class="singleTableResHeight_3">
+							<canvas class="chart-base" chart-data="data" chart-labels="labels" chart-series="series"
+								height="90" chart-type="chart_type" chart-colors="colors" chart-options="options"
+								context-menu="menuOptions" chart-dataset-override="datasetOverride"></canvas>
+						</div>
+						<div ng-if="type == 'chartTable'" class="chartResHeight">
+							<canvas class="chart-base" chart-data="data" chart-labels="labels" chart-series="series"
+								height="50" chart-type="chart_type" chart-colors="colors" chart-options="options"
+								context-menu="menuOptions" chart-dataset-override="datasetOverride"></canvas>
+						</div>
+
+						<div ng-if="type == 'chartTable'">
+							<div id="grid" ui-grid="gridOptions" class="tableWithChartResHeight"
+								ng-if="stylesSvc.finishedStyling" ui-grid-exporter ui-grid-move-columns
+								ui-grid-auto-resize>
+							</div>
+						</div>
+						<div ng-if="type == 'table'">
+							<div id="grid" ui-grid="gridOptions" class="singleTableResHeight_3"
+								ng-if="stylesSvc.finishedStyling" ui-grid-exporter ui-grid-move-columns
+								ui-grid-auto-resize>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<!-- <div class="panel-footer">
+				<div class="pull-left">
+					<input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+					<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+					<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+					<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+					<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+				</div>
+			</div> -->
+		</div>
+	</div>
+</section>

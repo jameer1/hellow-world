@@ -1,0 +1,36 @@
+<form name="timesheetTaskForm" validate>
+  <div class="popUpTableResHeight">
+    <table class="table table-striped table-hover table-bordered popUpTableHeight">
+      <thead>
+        <tr>
+          <th rowspan=2 class="vert-align text-center">Employee ID</th>
+          <th rowspan=2 class="vert-align text-center">First Name</th>
+          <th rowspan=2 class="vert-align text-center">Last Name</th>
+          <th colspan={{timeSheetDays.length}} class="text-center text-center">Date Wise Tasks
+            Performed</th>
+        </tr>
+        <tr>
+          <th ng-repeat="day in  timeSheetDays">{{day}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="timeTaskDay in timeSheetEmpTaskMap" ng-if="$index <=0">
+          <td>{{selectedEmp.empDetailLabelKeyTO.code}}</td>
+          <td>{{selectedEmp.empDetailLabelKeyTO.displayNamesMap['firstName']}}</td>
+          <td>{{selectedEmp.empDetailLabelKeyTO.displayNamesMap['lastName']}}</td>
+          <td class="input-width3" ng-repeat="workDay in timeSheetDays">
+            <textarea type="text" class="form-control" ng-model="timeSheetEmpTaskMap[workDay].taskName" style="width: 98px !important"
+              data-test='TimeSheets_CreateTimeSheets_AddTasks_DateWiseTasksPerformeComment'></textarea>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="panel-footer">
+    <div class="pull-right">
+      <input type="button" class="btn btn-primary btn-sm" value="Save"
+        data-test='TimeSheets_CreateTimeSheets_AddTasks_DateWiseTasksPerformed_Save'
+        ng-show="timeSheetSearchReq.timeSheetLabelKeyTo.apprStatus=='Under Preparation'" ng-click="saveTimeSheeteEmpTaks()">
+    </div>
+  </div>
+</form>

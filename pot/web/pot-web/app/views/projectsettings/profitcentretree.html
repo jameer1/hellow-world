@@ -1,0 +1,37 @@
+<div id="tab-pannel" class="panel-group">
+	<div class="panel panel-default" modal-movable>
+		<div class="panel-heading">
+			<h4 class="panel-title">Profit Centers</h4>
+		</div>
+
+		<div class="panel-body">
+			<div class="popUpTableResHeight">
+				<table id="tree" class="table table-striped table-hover table-bordered popUpTableHeight" >
+					<thead id="tab-head">
+						<tr>
+							<th>Profit Center Code</th>
+							<th>Profit Center</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr fixed-header="" ng-repeat="tab in profitCentreTOs" class="abc{{tab.level}}" ng-dblclick="selectRecord(tab)" ng-show="!tab.collapse">
+							<td>
+									<span ng-repeat="level in [].constructor(tab.level) track by $index" class="xyz" style="padding-left: 30px;"></span>
+								<span ng-show="(tab.expand || (!tab.item  && tab.childProfitCentreTOs.length <= 0))" ng-click="itemClick(tab,true);"
+								 class="fa fa-minus" title="Collapse Profit Center"></span>
+								<span ng-show="(!tab.expand && tab.childProfitCentreTOs.length > 0)" ng-click="itemClick(tab,false);" class="fa fa-plus" data-test="ImmovableAssets_Create_ProfitCenter_ExpandIcon" title="Expand Profit Center"></span>
+								<span ng-show="(tab.item)" class="fa fa-leaf"> </span>
+								<span style="padding-left: 10px; color: black !important;" data-test="ImmovableAssets_Create_ProfitCenter_Select">{{tab.code}}
+									<span style="padding-left: 5px;"></span>
+								</span>
+							</td>
+							<td>{{tab.name}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="panel-footer"></div>
+		<div class="ngdialog-close"></div>
+	</div>
+</div>

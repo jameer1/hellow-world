@@ -1,0 +1,11 @@
+
+aws:    s3:
+      accessKey: AKIAJXYYYFDJVYYNDI4Q
+      secretKey: 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
+      bucket: pot.docs
+      region: ap-southeast-2
+     
+
+  
+
+  

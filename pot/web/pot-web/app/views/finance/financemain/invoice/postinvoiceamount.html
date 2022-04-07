@@ -1,0 +1,47 @@
+<div id="tab-pannel" class="panel-group">
+  <form name="invoiceAmountForm" validate>
+    <div class="panel-group">
+      <div class="panel-body21">
+        <table class="table table-striped table-hover table-bordered" style="height:365px !important;" >
+          <thead>
+            <tr>
+              <th></th>
+              <th>Net Invoice Amount</th>
+              <th>GST or Tax Amount</th>
+              <th>Total Invoice Amount Incl Tax</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr fixed-header="" ng-repeat ="invoice in invoiceAmountDetails">
+              <td><span>As Per Invoice</span></td>
+              <td><input type="text" class="form-control" name="amount" ng-model="invoice.invoiceAmount" required="required" maxlength="15" pattern="^[\d\.,]+$"><span
+                ng-show="invoiceAmountForm.amount.$error.pattern">Enter Only Numerics</span></td>
+              <td><input type="text" class="form-control" ng-model="invoice.taxAmount" required="required" maxlength="15" pattern="^[.\d]+$"><span ng-show="invoiceAmountForm.amount.$error.pattern">Enter
+                  Only Numerics</span></td>
+              <td><input type="text" class="form-control" ng-model="invoice.invoiceAmount--invoice.taxAmount" ng-disabled="true"></td>
+            </tr>
+            <tr fixed-header="" ng-repeat ="invoice in invoiceAmountDetails">
+              <td><span>Amount Retained</span></td>
+              <td><input type="text" class="form-control" ng-model="invoice.retainedAmount" required="required" maxlength="15"><span ng-show="invoiceAmountForm.amount.$error.pattern">Enter Only
+                  Numerics</span></td>
+              <td><input type="text" class="form-control" ng-model="invoice.retainedTaxAmount" required="required" maxlength="15"><span ng-show="invoiceAmountForm.amount.$error.pattern">Enter Only
+                  Numerics</span></td>
+              <td><input type="text" class="form-control" ng-model="invoice.retainedAmount--invoice.retainedTaxAmount" ng-disabled="true"></td>
+            </tr>
+            <tr fixed-header="" ng-repeat ="invoice in invoiceAmountDetails">
+              <td><span>Net Amount Payable</span></td>
+              <td><input type="text" class="form-control" ng-model="invoice.invoiceAmount--invoice.retainedAmount" ng-disabled="true"></td>
+              <td><input type="text" class="form-control" ng-model="invoice.taxAmount--invoice.retainedTaxAmount" ng-disabled="true"></td>
+              <td><input type="text" class="form-control" ng-model="(invoice.invoiceAmount--invoice.taxAmount)--(invoice.retainedAmount--invoice.retainedTaxAmount)" ng-disabled="true"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="panel-footer">
+      <div class="pull-right">
+        <input type="Submit" ng-click="invoiceAmountForm.$valid  && saveInvoiceAmount()" value="Save" class="btn btn-brown btn-sm" />
+      </div>
+    </div>
+    </form>
+</div>

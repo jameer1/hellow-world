@@ -1,0 +1,20 @@
+<div id="tab-pannel" class="panel-group" ng-init="getGlobalCalenders()">
+	<div id="tab-pannel" class="panel panel-default" modal-movable>
+		<div class="panel-heading">
+			<h4 class="panel-title">Calendars</h4>
+		</div>
+		<div id="tabs" class="panel-body">
+			<div class="nav-tabs-custom">
+			<ul class="nav nav-tabs">
+				<li fixed-header="" ng-repeat ="tab in CalendarTabs" class="cursorPointer"
+					ng-class="{active:isCalendarActiveTab(tab.url)}"
+					ng-click="calendarOnClickTab(tab)" data-test="{{tab.SelenumLocator}}"><a data-toggle="tab">{{tab.title}}</a></li>
+			</ul>
+			<div class="tab-content">
+				<div class="active" ng-include="calendarCurrentTab"></div>
+			</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</div>
+</div>

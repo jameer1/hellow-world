@@ -1,0 +1,87 @@
+<link rel="stylesheet" href="../../styles/templates.css"></link>
+<section class="content-header">
+	<h1>Project Forms</h1>
+	<input type="submit" value ="Help !"
+		ng-click="helpPage();" class="pull-right btn  btn-primary btn-sm help-each-page">
+</section>
+<!-- Main content -->
+<section class="content">
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			<div class="panel panel-default block footer-parent">
+				<div class="panel-body">
+					<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12" style="height:70px;border:1px solid #44bcd8;padding-top: 7px; border-radius:4px;">
+						<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 padL-0">
+							<md-input-container>
+								<label>EPS ID/Name</label>
+								<input data-test='Documents_ProjectFolders_Epsname' type="text" ng-model="searchProject.parentName" readonly
+								 ng-click="getUserProjects()">
+							</md-input-container>
+						</div>
+						<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+							<md-input-container class="md-block">
+								<label>ProjectID/Name</label>
+								<input type="text" readonly ng-model="searchProject.projName" ng-click="getUserProjects()">
+							</md-input-container>
+						</div>
+						<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+							<md-input-container>
+								<label>Template Category</label>
+								<md-select ng-model="templateCategory" ng-change="onTemplCategoryChange()">
+									<md-option ng-value="templcategory.categoryId" ng-repeat="templcategory in templateCategoriesList">{{ templcategory.categoryName }}</md-option>
+								</md-select>
+							</md-input-container>
+						</div>
+						<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+							<md-input-container>
+							    <label>Template Type</label>
+							    <md-select ng-model="formType">
+							    	<md-option ng-value="formType.value" ng-repeat="formType in formTypesList">{{formType.type}}</md-option>
+							    </md-select>
+							 </md-input-container>
+						</div>
+						<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+							<md-input-container>
+								<label>Project Template</label>
+								<md-select ng-model="templateId">
+									<md-option ng-value="currentTemplate.templateId" ng-repeat="currentTemplate in projTemplateList">{{currentTemplate.templateName}}</md-option>
+								</md-select>
+							</md-input-container>
+						</div>									
+						<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 padR-0">
+							<div class="pull-right marT15">
+								<input data-test='Documents_ProjectFolders_Search' type="button" ng-click="searchProjectForms();" class="btn btn-primary btn-sm" value="Search">
+								<input data-test='Documents_ProjectFolders_Refresh' type="reset" class="btn btn-default btn-sm" ng-click="reset()" value="Reset">
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12" style="height: 499px;border:1px solid #ccc; margin-top: 6px;">
+						<div ng-if="displayMessage!=''" style="text-align:center;color: #75a3a3; padding-top:200px; font-size:14px">{{displayMessage}}</div>
+						<div ng-if="displayMessage==''">
+	                    	<div class="tab-content">
+		                        <div id="sgridview" class="tab-pane fade in active">
+		                            <div class="singleTableResHeight_2" style="border:0px;">
+		                                <div class="col-md-3 col-xs-12 col-sm-3 col-lg-3" ng-repeat="form in formList">
+		                                    <div class="card-view">
+		                                        <ul>
+		                                            <li><strong>{{form.createdBy}}</strong></li>
+		                                            <li>{{form.formName}}</li>
+		                                            <li>Created Date:{{form.createdOn | date:'dd-MMM-yyyy'}}</li>
+		                                        </ul>
+		                                    </div>
+		                                </div>
+		                            </div>
+		                        </div>
+	                    	</div>
+						</div>
+					</div>					
+				</div>
+				<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+					<input type="button" ng-click="editForms();" class="btn btn-primary btn-sm" value="Edit"/>
+					<input data-test='Documents_ProjectFolders_Search' type="button" ng-click="openProjectForm();" class="btn btn-primary btn-sm" value="Create New">
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- /Main content -->

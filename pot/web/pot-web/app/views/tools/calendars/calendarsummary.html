@@ -1,0 +1,129 @@
+<section class="content-header">
+    <h1>Calendars</h1>
+    <!-- <input type="submit" value ="Help !"
+		ng-click="helpPage();" class="pull-right btn  btn-primary btn-sm help-each-page"> -->
+		<button class="pull-right btn btn-primary btn-sm help-each-page" 
+	onclick="window.open('views/helptutorials/Calendars.html', '_blank', 
+		'toolbar=yes,scrollbars=yes,resizable=no,top=50,left=100,width=1400,height=700')">
+		Help
+	</button> 
+</section>
+<section class="content" ng-init="getCalendars()">
+    <div class="panel panel-default block footer-parent">
+        <form name="calendarSummaryForm" autocomplete="off">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                        <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3 padL-0">
+                            <md-radio-group ng-model="calType" layout="row" ng-change="selectCalType()">
+                                <md-radio-button data-test='Calendars_Globalradiobutton' value="GCAL"
+                                    class="md-primary">
+                                    Global</md-radio-button>
+                                <md-radio-button data-test='Calendars_Projectradiobutton' value="PCAL"
+                                    class="md-primary">
+                                    Project</md-radio-button>
+                            </md-radio-group>
+                        </div>
+                        <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3">
+                            <md-input-container class="md-block" ng-show="calType == 'PCAL'">
+                                <label>EPS Name</label>
+                                <input data-test='Calendars_Projectradiobutton_EpsName' type="text" class="form-control"
+                                    ng-model="searchProject.parentName" ng-click="getUserProjects()" readonly>
+                            </md-input-container>
+                        </div>
+                        <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3">
+                            <md-input-container class="md-block" ng-show="calType == 'PCAL'">
+                                <label>Project Name</label>
+                                <input type="text" class="form-control" ng-model="searchProject.projName"
+                                    ng-click="getUserProjects()" readonly>
+                            </md-input-container>
+
+                        </div>
+                        <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3 padR-0" ng-show=" calType=='PCAL'">
+                            <div class="pull-right marT15">
+                                <input data-test='Calendars_Projectradiobutton_search' type="button" value="Search"
+                                    ng-model="search" class="btn btn-primary btn-sm" ng-click="getCalendars('click')" ng-model="searchText" />
+                                <input data-test='Calendars_Projectradiobutton_reset' type="reset"
+                                    class="btn btn-secondary btn-sm" ng-click="reset()" value="Reset" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                        <div class="singleTableResHeight_2">
+                        <div id="grid" ui-grid="gridOptions" class="singleTableResHeight_3" ng-if="stylesSvc.finishedStyling" 
+           				  ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-resize-columns class="grid"></div>
+                           <!--  <table class="table table-striped table-hover table-bordered singleTableHeight_2">
+                                <thead id="tab-head">
+                                    <tr>
+                                        <th>Select</th>
+                                        <th>Calendar Name</th>
+                                        <th>Default</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr fixed-header="" ng-repeat="cal in calendarList">
+                                        <td>
+                                            <input type="checkbox" ng-model="cal.selected" ng-change="rowSelect(cal)" ng-disabled="cal.calDefaultValue==1?true:false">
+                                        </td>
+                                        <td>{{cal.name}}</td>
+                                        <td>
+                                            <input type="checkbox" ng-model="cal.calDefaultValue" ng-true-value="1"
+                                                ng-false-value="0" ng-checked="cal.calDefaultValue==1"
+                                                ng-disabled="isDisabled">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table> -->
+                            <div class="panel-footer">
+                <div class="pull-right">
+                    <span ng-show="calType == 'GCAL'">
+                        <input data-test='Calendars_add' type="button" class="btn btn-primary btn-sm"
+                            ng-click="addCalendar('Add',calType)" value="Add" />
+
+                        <input data-test='Calendars_Projectradiobutton_copy' type="button"
+                            class="btn btn-secondary btn-sm" ng-click="copyCalendar()" value="Copy"
+                            ng-disabled="calType == 'GCAL'" />
+                    </span>
+                    <span ng-if="calType == 'PCAL'">
+                        <span ng-if="activeFlag==1">
+                            <input data-test='Calendars_add' type="button" class="btn btn-primary btn-sm"
+                                ng-click="addCalendar('Add',calType)" value="Add" />
+
+                            <input data-test='Calendars_Projectradiobutton_copy' type="button"
+                                class="btn btn-secondary btn-sm" ng-click="copyCalendar()" value="Copy"
+                                ng-disabled="calType == 'GCAL'" />
+                        </span>
+                    </span>
+                </div>
+                <div class="pull-left">
+                   <!--  <input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();"> -->
+                    <span ng-show="calType == 'GCAL'">
+                        <input data-test='Calendars_Edit' type="button" class="btn btn-primary btn-sm"
+                            ng-click="addCalendar('Edit')" value="Edit">
+                        <input data-test='Calendars_Vieweditdetails' type="button" class="btn btn-primary btn-sm"
+                            ng-click="getCalendarDetails()" value="View/Edit Details" />
+                        <input data-test='Calendars_Delete' type="button" class="btn btn-secondary btn-sm"
+                            ng-click="deleteCalendar()" value="Deactivate" />
+                    </span>
+                    <span ng-if="calType == 'PCAL'">
+                        <input data-test='Calendars_Edit' type="button" class="btn btn-primary btn-sm"
+                            ng-click="addCalendar('Edit')" value="Edit" ng-if="activeFlag==1"/>
+                        <input data-test='Calendars_Vieweditdetails' type="button" class="btn btn-primary btn-sm"
+                            ng-click="getCalendarDetails()" value="View/Edit Details"ng-if="activeFlag==1" />
+                        <input data-test='Calendars_Delete' type="button" class="btn btn-secondary btn-sm"
+                            ng-click="deleteCalendar()" value="Deactivate" ng-if="activeFlag==1"/>
+                    </span>
+                </div>
+            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>

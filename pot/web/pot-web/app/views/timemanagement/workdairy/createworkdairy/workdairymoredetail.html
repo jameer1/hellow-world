@@ -1,0 +1,101 @@
+<!-- <div id="tab-pannel" class="panel-group"> -->
+	<div class="panel panel-default" modal-movable>
+		<div class="panel-heading">
+			<h4 class="panel-title">Work Diary</h4>
+		</div>
+		<div class="panel-body">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2 padL-0">
+	                <md-input-container>
+	                    <label>EPS</label>
+	                    <input type="text" ng-model="workDairyTO.parentName" readonly="readonly">
+	                </md-input-container>
+	            </div>
+	            <div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+	                <md-input-container>
+	                    <label>Project</label>
+	                    <input type="text" ng-model="workDairyTO.name" readonly="readonly">
+	                </md-input-container>
+	            </div>
+	            <div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+	            	<md-input-container>
+	                    <label>Contract Type</label>
+	                    <input type="text" ng-model="workDairyTO.contractType" readonly="readonly">
+	                </md-input-container>
+	            </div>
+	            <div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+	                <md-input-container>
+	                    <label>Contract No</label>
+	                    <input type="text" ng-model="workDairyTO.contractNo" readonly="readonly">
+	                </md-input-container>
+	            </div>
+	            <div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+	                <md-input-container>
+	                    <label>Date</label>
+	                    <input type="text" ng-model="workDairyTO.workDairyDate" readonly>
+	                </md-input-container>
+	            </div>
+	            <div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+	                <md-input-container>
+	                    <label>Crew</label>
+	                    <input type="text" ng-model="workDairyTO.crewCode" readonly="readonly">
+	                </md-input-container>
+	            </div>
+	        </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="col-sm-2 col-xs-2 col-md-2 col-lg-2 padL-0">
+                    <md-input-container class="md-block">
+                        <label>WorkShift</label>
+                        <input type="text" ng-model="workDairyTO.shiftCode" readonly="readonly">
+                    </md-input-container>
+                </div>
+                <div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+                    <md-input-container>
+                        <label>Weather</label>
+                        <input type="text" ng-model="workDairyTO.weatherCode" readonly="readonly">
+                    </md-input-container>
+                </div>
+                <div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+                    <md-input-container class="md-block">
+                        <label>Work Diary Id</label>
+                        <input type="text" ng-model="workDairyTO.workDiaryCode" readonly="readonly">
+                    </md-input-container>
+                </div>
+                <div class="col-sm-6 col-xs-6 col-md-6 col-lg-6 padR-0">
+                    <div class="pull-right marT15">
+                        <input type="button" ng-click="getCopyTemplate()" class="btn btn-primary btn-sm" value="Copy Template"> 
+                        <input type="button" class="btn btn-primary btn-sm"
+                            ng-click="addCostCodeItemsToWorkDairy(workDairySearchReq.projectLabelKeyTO.projId,workDairySearchReq.crewLabelKeyTO.id)"
+                            value="Add Cost Codes"> 
+                        <input type="button"
+                            ng-if="account.appCodeTemplate['ASBUILTRCRD_WRKDIRY_CREATWRKDIRY_REQUESTFORADDTIONALTIME']"
+                            class="btn btn-primary btn-sm" ng-click="getWorkDairyNotifications(disableButton);"
+                            value="Request For Additional Time" ng-disabled="timeFlag">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+               <div class="nav-tabs-custom">
+                   <ul class="nav nav-tabs">
+                       <li fixed-header="" ng-repeat="tab in createWorkDiaryTabs" ng-class="{active:isActiveTab(tab.url)}">
+                           <a data-toggle="tab" ng-click="onClickTab(tab)">{{tab.title}}</a>
+                       </li>
+                   </ul>
+               </div>
+               <div class="tab-content">
+                   <div ng-include="currentTab"></div>
+               </div>
+           </div>
+		</div>
+		<div class="panel-footer">
+            <div class="pull-right">
+                <input type="button" class="btn btn-primary btn-sm"
+                    ng-disabled="(!timeFlag && 
+                        account.appCodeTemplate['ASBUILTRCRD_WRKDIRY_CREATWRKDIRY_SUBMIT'])"
+                    ng-click="submitWorkDairyForapproval()"
+                    value="Submit for Approval">
+            </div>
+        </div>
+		<div class="ngdialog-close"></div>
+	</div>
+<!-- </div> -->

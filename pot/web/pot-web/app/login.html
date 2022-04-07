@@ -1,0 +1,67 @@
+<style>
+	body{font-size: 14px!important;}
+		.container-fluid{ padding:0px!important;}
+		 .pwd{ margin-top: 15px!important; line-height: 40px;}
+		 #tab-pannel .spacer1{margin-top: 0px !important;}
+		 
+		</style>
+<div class="strip-login" ng-show="showLoginForm">&nbsp;</div>
+<div id="tab-pannel" ng-show="showLoginForm">
+	<form class="left-padding right-padding" name="form">
+		<div class="row" id="loginpage">
+		<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+			<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">&nbsp;</div>
+			<div class="col-lg-4 col-md-4 col-sm-4">
+				<div class="panel panel-default">
+					<div id="login">
+						<div class="panel-body">
+							<div class="text-center">
+								<a href="#"><img src="images/Project on Track logo.png" alt="project on track" class="img-responsive" style="width: 220px !important; display: inline;"></a>
+							</div>
+							<div class="login-content">
+								<div class="input-group">
+									<span class="input-group-addon no-border"><i class="fa fa-user f-1x primary-color"></i></span>
+									<md-input-container md-no-float>
+										<label>User Name</label>
+										<input type="username" name="username" id="username" ng-model="username"
+										 required />
+									</md-input-container>
+								</div>
+								<div class="input-group">
+									<span class="input-group-addon no-border"><i class="fa fa-lock f-1x primary-color"></i></span>
+									<md-input-container md-no-float>
+										<label>Password</label>
+										<input type="password" id="password" ng-model="password" name="password"
+										 required />
+									</md-input-container>
+								</div>
+								<div class="input-group">
+									<span class="input-group-addon no-border"><i class="fa fa-building f-1x primary-color"></i></span>
+									<md-input-container md-no-float>
+										<label>Company Code</label>
+										<input type="text" id="clientCode" name="clientcode" ng-model="clientCode">
+									</md-input-container>
+								</div>
+							</div>
+							<div class="spacer1">
+								<!-- old code for forgot password -->
+								<!-- <span class="pull-left" style="margin-left:5%;"><a class="spacer1 pwd md-subhead forgetpwd" ng-click="forGot()" href="" ui-sref="forgetpwd">Forgot
+										Password ?</a></span> -->
+								<!-- end -->
+								<!-- new code for forgot password -->
+								<span class="pull-left" style="margin-left:5%;"><a class="spacer1 pwd md-subhead forgetpwd" ng-click="forGot()" href="" ui-sref="forgotpassword">Forgot
+									Password ?</a></span>
+								<!-- end -->
+								<ul class="list-inline pull-right" style="margin-top: 1.5%;margin-right: 4%;">
+									<li><input type="reset" class="btn btn-secondary btn-sm" ng-click="Reset()" /> </li>
+									<li> <input type="submit" value="Login" class="btn btn-primary btn-sm" ng-click="login()" /> </li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">&nbsp;</div>
+		</div>
+	</form>
+</div>

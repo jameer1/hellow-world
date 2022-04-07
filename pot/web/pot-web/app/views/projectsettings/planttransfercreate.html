@@ -1,0 +1,55 @@
+<div ng-if="account.appCodeTemplate['PRJ_PRJSTG_EMPTRANSTGNORMALTIME_VIEW']" id="tab-pannel" class="noTableInBottomBlockWithTabs">
+	<form name="plantForm">
+		<div class="bottomNestedTabTableResHeight no-border">
+			<div class="row" ng-repeat ="plant in plantTransDetails">
+				<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padL-0">
+						<md-input-container class="md-block">
+							<label>{{plant.plantType}} Cut off Days</label>
+							<ng-form name="plantform1"> 
+								<input data-test='Projects_ProjectSettings_PlantTransferTab_NormalTime_Cutoffdays' 
+								class="input-size"
+								type="text" ng-model="plant.cutOffDays" name="time"
+								pattern="\d+"> <span
+								ng-show="plantform1.time.$error.pattern">Enter only
+								numbers</span> </ng-form>
+						</md-input-container>
+					</div>
+					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+							<md-input-container class="md-block">
+								<label>{{plant.plantType}} Cut off Hours</label>
+								<input data-test='Projects_ProjectSettings_PlantTransferTab_NormalTime_Cutoftimehours' 
+									type="number" min=0 max=23
+									name="cutoffHours" ng-model="plant.cutOffHours"
+									ng-required="true" maxlength=2 />
+							</md-input-container>
+					</div>
+					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+							<md-input-container class="md-block">
+								<label>{{plant.plantType}} Cut off Minutes</label>
+								<input data-test='Projects_ProjectSettings_PlantTransferTab_NormalTime_Cutoftimeminutes' 
+									type="number" min=0
+									max=59 name="cutoffMinutes" ng-model="plant.cutOffMinutes" />
+							</md-input-container>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		<div class="panel-footer">
+			<div class="pull-right">
+				<input type="button" class="btn  btn-primary btn-sm"
+					value="Save" data-test='Projects_ProjectSettings_PlantTransferTab_NormalTime_Save' 
+					ng-click="plantForm.$valid && saveProjPlantTrans()" ng-disabled ="!account.appCodeTemplate['PRJ_PRJSTG_PLANTTRSFR_ADD']"
+					title="{{ account.appCodeTemplate['PRJ_PRJSTG_PLANTTRSFR_ADD'] ? '' : '! Permission Denied. Contact your admin.'}}">
+			</div>
+			<div class="pull-left">
+				<input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+				<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+				<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+				<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+				<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+			</div>
+		</div>
+	</form>
+</div>

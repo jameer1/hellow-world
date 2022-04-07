@@ -1,0 +1,159 @@
+<div id="tab-pannel" class="panel-group">
+	<form name="periodicalForm" validate>
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Periodical and Schedule Maintenance Records</h4>
+			</div>
+			<div id="tab-pannel" class="panel-body">
+				<div class="topTableResHeight">
+					<table class="table table-striped table-bordered topTableHeight">
+						<thead id="tab-head">
+							<tr>
+								<th colspan=6 class="text-center">Plan</th>
+							</tr>
+							<tr>
+								<th>Due Date
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th>Maintenance Category
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th>Maintenance Sub Category</th>
+								<th>Responsible Supervisor
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th>Maintenance List(Upload Documents)</th>
+								<th>Current Status
+									<span class="procurment-pot-errors">*</span>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr fixed-header="" ng-repeat="asset in periodicalsRecord">
+
+								<td  class="input-width0"><ng-form
+										name="dateForm"> <potdate-picker custom-read-only data-test="PeriodicalScheduleMaintenanceRecords_Create_DueDate"
+										ng-model="asset.dueDate" dir-index="$index" date-name="date" ng-required="true"
+										placeholder="dd-mm-yyyy" class="form-control" /></ng-form></td>
+
+								<td><input type="text" name="maintenanceCategory"
+									data-test="PeriodicalScheduleMaintenanceRecords_Create_MaintenanceCategory"
+									ng-model="asset.maintenanceCategory" custom-read-only
+									ng-click="getAssetMaintenanceCategory(assetMaintenanceCategoryTO,asset)"
+									placeholder="Maintenance Category" ng-required="true"
+									tabindex="-1" class="form-control"></td>
+
+								<td><input type="text" name="maintenanceSubCategory"
+									data-test="PeriodicalScheduleMaintenanceRecords_Create_MaintenanceSubCategory"
+									ng-model="asset.maintenanceSubCategory" readonly="readonly"
+									ng-click="getAssetMaintenanceSubCategory(assetMaintenanceCategoryTO,asset)"
+									placeholder="Maintenance SubCategory" 
+									tabindex="-1" class="form-control"></td>
+
+								<td><input type="text" name="responsibleSupervisor"
+									data-test="PeriodicalScheduleMaintenanceRecords_Create_ResponsibleSupervisor"
+									ng-model="asset.planResponsibleSupervisor" tabindex="-1"
+									placeholder="Responsible Supervisor" ng-required="true"
+									class="form-control" ng-click="planemployeeDetails(asset)"></td>
+
+								<td><ng-form name="repairDocForm"> <input
+										data-test='PeriodicalScheduleMaintenanceRecords_Create_MaintenanceList_ChooseFile'
+										ng-model="asset.fileInfo" ng-disabled="isDisabled" type="file"
+										fileread="periodicalsPlanDoc" name="file"
+										ngf-select="checkPlanFile($file)" ngf-accept="'*'"
+										tabindex="20"> <span
+										class="help-block" style="color: red"
+										ng-show="!asset.periodicalsPlanDoc.isValid">
+										{{periodicalsPlanDoc.errorMessage}}</span> </ng-form></td>
+
+								<td><select ng-model="asset.currentStatus" data-test="PeriodicalScheduleMaintenanceRecords_Create_CurrentStatus"
+									ng-required="true" tabindex="-1" class="form-control">
+									<option value="">-Select-</option>
+									<option
+											fixed-header=""
+											ng-repeat="periodicalType in periodicalStatus">{{periodicalType.name}}</option>
+								</select></td>
+
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="topTableResHeight">
+					<table class="table table-striped table-bordered topTableHeight">
+						<thead id="tab-head">
+							<tr>
+								<th colspan=6 class="text-center">Actual</th>
+							</tr>
+							<tr>
+								<th>Start Date
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th>Finish Date</th>
+								<th>Responsible Supervisor
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th>Purchase Order Number (Sub Contractor Services)
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th>Materials ConsumptionRecords (ProjectDocket #)</th>
+								<th>Completion Record (Upload Documents)</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr fixed-header="" ng-repeat="asset in periodicalsRecord">
+								<td  class="input-width0"><ng-form
+										name="dateForm"> <potdate-picker custom-read-only ng-required="true"
+										data-test="PeriodicalScheduleMaintenanceRecords_Create_StartDate"
+										ng-model="asset.startDate" dir-index="$index" date-name="date"
+										placeholder="dd-mm-yyyy" class="form-control" /></ng-form></td>
+
+								<td  class="input-width0"><ng-form
+										name="dateForm"> <potdate-picker custom-read-only
+										data-test="PeriodicalScheduleMaintenanceRecords_Create_FinishDate"
+										ng-model="asset.finishDate" dir-index="$index"
+										date-name="date" placeholder="dd-mm-yyyy" class="form-control" /></ng-form></td>
+
+
+								<td><input type="text" name="actualResponsible"
+									ng-model="asset.actualResponsibleSupervisor"
+									data-test="PeriodicalScheduleMaintenanceRecords_Create_Actual_ResponsibleSupervisor"
+									placeholder="Actual Responsible" tabindex="-1"
+									ng-required="true" class="form-control" ng-click="employeeDetails(asset)"></td>
+
+								<td><input type="text" name="purchaseOrderNumber"
+									ng-model="asset.purchaseOrderNumber"
+									data-test="PeriodicalScheduleMaintenanceRecords_Create_PurchaseOrderNumber"
+									placeholder="Purchase OrderNumber" ng-required="true"
+									tabindex="-1" class="form-control" ng-click="getProjectPoDetails(asset)"></td>
+
+								<td><input type="text" name="materialsConsumptionRecords"
+									ng-model="asset.materialsConsumptionRecords"
+									data-test="PeriodicalScheduleMaintenanceRecords_Create_MaterialsConsumptionRecords"
+									placeholder="Materials ConsumptionRecords" 
+									tabindex="-1" class="form-control" ng-click="getMaterialProjDockets(asset)"></td>
+
+								<td><ng-form name="repairDocForm"> <input
+										data-test='PeriodicalScheduleMaintenanceRecords_Create_CompletionRecord_ChooseFile'
+										ng-model="asset.fileInfo" ng-disabled="isDisabled" type="file"
+										fileread="periodicalsActualDoc" name="file"
+										ngf-select="checkActualFile($file)" ngf-accept="'*'"
+										tabindex="20" > <span
+										class="help-block" style="color: red"
+										ng-show="!asset.periodicalsActualDoc.isValid">
+										{{periodicalsActualDoc.errorMessage}}</span> </ng-form></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="panel-footer">
+				<div class="pull-right">
+					<input type="submit" class="btn btn-primary btn-sm"
+					data-test="PeriodicalScheduleMaintenanceRecords_Create_Save"
+						ng-click="periodicalForm.$valid && savePeriodicalsRecords()" value="Save">
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</form>
+</div>

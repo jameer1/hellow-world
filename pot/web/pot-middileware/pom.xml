@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<artifactId>pot-middleware-root</artifactId>
+	<packaging>pom</packaging>
+	<name>POT-MIDDLEWARE-ROOT</name>
+	
+	<parent>
+		<groupId>pot</groupId>
+		<artifactId>pot-webapp-root</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+	
+	<modules>
+		<module>pot-middleware-dto</module>
+		<module>pot-middleware-model</module>
+		<module>pot-middleware-service</module>
+		<module>pot-middleware-service-impl</module>
+		<module>pot-middleware-resources</module>
+		<module>pot-middleware-webapp</module>
+		<module>pot-middleware-util</module>
+	</modules>
+	
+	
+	
+	
+</project>

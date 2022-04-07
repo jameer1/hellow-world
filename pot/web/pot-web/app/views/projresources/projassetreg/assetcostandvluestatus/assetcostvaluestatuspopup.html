@@ -1,0 +1,163 @@
+<div id="tab-pannel" class="panel-group">
+	<form name="assetCostForm" validate>
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Asset Cost and Value Status</h4>
+			</div>
+
+			<div id="tab-pannel" class="panel-body">
+				<div class="topTableResHeight" style="overflow:auto">
+					<table class="table table-striped table-bordered topTableHeight">
+						<thead id="tab-head">
+							<tr>
+								<th>Effective Date (Start date of Financial Year)</th>
+								<th>Currency</th>
+								<th>Land Cost</th>
+								<th>Structure Cost</th>
+								<th>Plant & Equipment Cost</th>
+								<th>Total Cost of Asset</th>
+								<th>Asset Market Value
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th>Structure Scrap Value
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th>Plant & Equipment Scrap Value
+									<span class="procurment-pot-errors">*</span>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="assetCostValueStatusTO in assestCostValueStatusValue">
+								<td><input type="text" name="effectiveDate" tabindex="-1"
+										data-test="AssetCostandValueStatus_Create_EffectiveDate"
+										ng-model="assetCostValueStatusTO.effectiveDate" readonly placeholder="Currency"
+										class="form-control"></td>
+
+								<td><input type="text" name="currency" tabindex="-1"
+										data-test="AssetCostandValueStatus_Create_Currency"
+										ng-model="assetCostValueStatusTO.currency" readonly placeholder="Currency"
+										class="form-control"></td>
+
+								<td><input type="text" name="landCost"
+										data-test="AssetCostandValueStatus_Create_LandCost"
+										ng-model="assetCostValueStatusTO.landCost" tabindex="-1" readonly
+										placeholder="Land Cost" class="form-control"></td>
+
+								<td><input type="text" name="structureCost"
+										data-test="AssetCostandValueStatus_Create_StructureCost"
+										ng-model="assetCostValueStatusTO.structureCost" tabindex="-1" readonly
+										placeholder="Tructure Cost" class="form-control"></td>
+
+								<td><input type="text" name="plantEquipment"
+										data-test="AssetCostandValueStatus_Create_PlantEquipmentCost"
+										ng-model="assetCostValueStatusTO.plantEquipmentCost" tabindex="-1" readonly
+										placeholder="Plant Equipment" class="form-control"></td>
+
+								<td><input type="text" name="totalCost"
+										data-test="AssetCostandValueStatus_Create_TotalCostofAsset"
+										ng-model="assetCostValueStatusTO.totalCost" readonly placeholder="Total Cost"
+										tabindex="-1" class="form-control"></td>
+
+								<td ng-form name="AssetCostAndValueForm"><input type="text" name="assetMarket" ng-required="true" maxlength="15"
+										data-test="AssetCostandValueStatus_Create_AssetMarketValue" pattern="^[0-9]+$"
+										ng-model="assetCostValueStatusTO.assetMarket" placeholder="Asset Market"
+										tabindex="-1" class="form-control">
+								<span style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="AssetCostAndValueForm.assetMarket.$touched && AssetCostAndValueForm.assetMarket.$error.pattern">Only Numeric Values are allowed</span>		
+										</td>
+
+
+								<td ng-form name="ScrapValueForm"><input type="text" name="structureScrap" ng-required="true" maxlength="15"
+										data-test="AssetCostandValueStatus_Create_StructureScrapValue" pattern="^[0-9]+$"
+										ng-model="assetCostValueStatusTO.structureScrap" tabindex="-1"
+										placeholder="Structure Scrap" class="form-control">
+								<span style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="ScrapValueForm.structureScrap.$touched && ScrapValueForm.structureScrap.$error.pattern">Only Numeric Values are allowed</span>	
+										</td>
+
+								<td><input type="text" name="equipmentScrapValue" ng-required="true"
+										data-test="AssetCostandValueStatus_Create_PlantEquipmentScrapValue"
+										ng-model="assetCostValueStatusTO.equipmentScrapValue" tabindex="-1"
+										placeholder="equipment ScrapValue" pattern="[0-9]+" class="form-control">
+									<span style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="assetCostForm.equipmentScrapValue.$error.pattern">Only Numeric Values are allowed</span></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="topTableResHeight" style="overflow: auto">
+					<table class="table table-striped table-bordered topTableHeight">
+						<thead id="tab-head">
+							<tr>
+								<th>Cumulative Depreciation value for Structure</th>
+								<th>Cumulative Depreciation value for Plant</th>
+								<th>Cumulative Depreciation for Asset</th>
+								<th>Yearly Depreciation for Structure</th>
+								<th>Yearly Depreciation for Plant</th>
+								<th>Yearly Total Depreciation amount</th>
+								<th>Remaining - AssetCost</th>
+								<th>Valuation & Depreciation Records</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="assetCostValueStatusTO in assestCostValueStatusValue">
+								<td><input type="text" name="cummStructure"
+										ng-click="calCummStructure(assetCostValueStatusTO)"
+										ng-model="assetCostValueStatusTO.cummStructure" tabindex="-1" readonly
+										placeholder="Cumm Structure"
+										data-test="AssetCostandValueStatus_Create_CumulativeDepreciationValueforStructure"
+										class="form-control"></td>
+
+								<td><input type="text" name="cummPlant" ng-click="calCummPlant(assetCostValueStatusTO)"
+										ng-model="assetCostValueStatusTO.cummPlant" tabindex="-1" readonly
+										data-test="AssetCostandValueStatus_Create_CumulativeDepreciationValueforPlant"
+										placeholder="Cumm Plant" class="form-control"></td>
+
+								<td><input type="text" name="cummAsset" ng-click="calCummAsset(assetCostValueStatusTO)"
+										ng-model="assetCostValueStatusTO.cummAsset" readonly
+										data-test="AssetCostandValueStatus_Create_CumulativeDepreiationforAsset"
+										placeholder="Cumm Asset" tabindex="-1" class="form-control"></td>
+
+								<td><input type="text" name="yearlyStructure"
+										ng-click="calYearlyDepStructure(assetCostValueStatusTO)"
+										ng-model="assetCostValueStatusTO.yearlyStructure" readonly
+										data-test="AssetCostandValueStatus_Create_YearlyDepreciationforStructure"
+										placeholder="Yearly Structure" tabindex="-1" class="form-control"></td>
+
+								<td><input type="text" name="yearlyPlant"
+										ng-click="calYearlyDepPlant(assetCostValueStatusTO)"
+										ng-model="assetCostValueStatusTO.yearlyPlant" readonly
+										data-test="AssetCostandValueStatus_Create_YearlyDepreciationforPlant"
+										placeholder="Yearly Plant" tabindex="-1" class="form-control"></td>
+
+								<td><input type="text" name="yearlyTotalAmount"
+										ng-click="calYearlyDepTotal(assetCostValueStatusTO)"
+										ng-model="assetCostValueStatusTO.yearlyTotalAmount" readonly
+										data-test="AssetCostandValueStatus_Create_YearlyTotalDepreciationAmount"
+										placeholder="Yearly TotalAmount" tabindex="-1" class="form-control"></td>
+
+								<td><input type="text" name="remainAssetCost"
+										ng-click="calRemaingAssetCost(assetCostValueStatusTO)"
+										ng-model="assetCostValueStatusTO.remainAssetCost" readonly
+										data-test="AssetCostandValueStatus_Create_RemainingAssetCost"
+										placeholder="Remain AssetCost" tabindex="-1" class="form-control"></td>
+
+								<td><input data-test='AssetCostandValueStatus_Create_ChooseFile'
+										ng-disabled="isDisabled" type="file" fileread="assetCostStatusDoc" name="file"
+										ngf-select="checkFile($file)" ngf-accept="'*'" tabindex="20">
+									<span class="help-block" style="color: red" ng-show="!assetCostStatusDoc.isValid">
+										{{assetCostStatusDoc.errorMessage}}</span></td>
+
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="panel-footer">
+				<div class="pull-right">
+					<input type="submit" class="btn bottomaligned btn-primary btn-sm"
+						data-test="AssetCostandValueStatus_Create_Save" ng-click="assetCostForm.$valid && saveAssetsCost()" value="Save">
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</form>
+</div>

@@ -1,0 +1,71 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>pot-middleware-service-impl</artifactId>
+	<packaging>jar</packaging>
+	<name>POT-MIDDLEWARE-SERVICE-IMPL</name>
+
+	<parent>
+		<groupId>pot</groupId>
+		<artifactId>pot-middleware-root</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+
+	<dependencies>
+		
+		<dependency>
+			<groupId>rjtech</groupId>
+			<artifactId>rjs-restbridge</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>pot</groupId>
+			<artifactId>pot-middleware-dto</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>pot</groupId>
+			<artifactId>pot-middleware-resources</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>pot</groupId>
+			<artifactId>pot-middleware-service</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>pot</groupId>
+			<artifactId>pot-middleware-model</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>rjtech</groupId>
+			<artifactId>rjs-core</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>pot</groupId>
+			<artifactId>pot-finance-util</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>pot</groupId>
+			<artifactId>pot-register-util</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>pot</groupId>
+			<artifactId>pot-time-management-util</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
+
+</project>

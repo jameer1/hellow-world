@@ -1,0 +1,74 @@
+<div id="tab-pannel" class="panel-group"
+	ng-init="stockCategoryOnLoad();getWareHouseMap()">
+	<form name="storeform" validate autocomplete="off">
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title" ng-if="action=='Add'">Add Warehouse & Stockyard</h4>
+				<h4 class="panel-title" ng-if="action!='Add'">Edit Warehouse & Stockyard</h4>
+			</div>
+			<div class="panel-body">
+				<div  class="popUpTableResHeight">
+					<table class="table table-striped table-hover table-bordered popUpTableHeight" >
+						<thead id="tab-head">
+							<tr>
+								<th ng-if="action=='Add'">Select</th>
+								<th>Store/Location ID<span
+									style="color: red;"> *</span></th>
+								<th>Store/Location Name<span
+									style="color: red;"> *</span></th>
+								<th>Category<span
+									style="color: red;"> *</span></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr fixed-header="" ng-repeat ="stock in addStocks">
+								<td ng-if="action=='Add'"><input data-test='CentralLibrary_WareHouseStockYardList_Create_addrows_Checkbox' type="checkbox"
+									ng-model="stock.selected" ng-change="popUpRowSelect(stock)"></td>
+
+								<td ng-form name="storeForm"><input data-test='CentralLibrary_WareHouseStockYardList_Create_LocationID' class="form-control" type="text" name="code"
+									ng-model="stock.code"
+									ng-class="{coloumnHighlightColor:stock.duplicateFlag}"
+									ng-change="checkDuplicate(stock)"
+									pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+									minlength="2" maxlength="20" placeholder="Store/Location ID"
+									required> <span
+									ng-show="storeForm.code.$touched && storeForm.code.$error.required" class="procurment-pot-errors">This
+										field is mandatory</span> <span
+									ng-show="storeForm.code.$error.pattern" class="procurment-pot-errors">Atleast one
+										alphabet is Mandatory</span></td>
+
+								<td ng-form name="storeForm1"><input data-test='CentralLibrary_WareHouseStockYardList_Create_LocationName' class="form-control" type="text"
+									name="name" ng-model="stock.desc"
+									pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+									minlength="3" maxlength="50" placeholder="Store/Location Name"
+									required> <span
+									ng-show="storeForm1.name.$touched && storeForm1.name.$error.required" class="procurment-pot-errors">This
+										field is mandatory</span><span
+									ng-show="storeForm1.name.$error.pattern" class="procurment-pot-errors">Atleast one
+										alphabet is Mandatory</span></td>
+								<td><select class="form-control" data-test='CentralLibrary_WareHouseStockYardList_Create_category'
+									ng-options="category  for category in stockCategories "
+									name="category" ng-change="checkDuplicate(stock)"
+									ng-model="stock.category" ng-required="true">
+								</select></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="panel-footer">
+				<div class="pull-left">
+					<input data-test='CentralLibrary_WareHouseStockYardList_Create_addrows' type="submit" class="btn btn-primary btn-sm"
+						ng-show="action=='Add'" ng-click="storeform.$valid && addRows()"
+						value="Add Rows" /> <input data-test='CentralLibrary_WareHouseStockYardList_Create_deleterows' type="button" class="btn btn-secondary btn-sm"
+						ng-click="deleteRows()" ng-show="action=='Add'" value="Delete Rows" />
+				</div>
+				<div class="pull-right">
+					<input data-test='CentralLibrary_WareHouseStockYardList_save' type="submit" class="btn btn-primary btn-sm"
+						ng-click="storeform.$valid && saveStocks(storeform)" value="Save" />
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</form>
+</div>

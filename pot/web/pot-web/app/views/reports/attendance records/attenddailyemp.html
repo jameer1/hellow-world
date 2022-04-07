@@ -1,0 +1,127 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+	<h1 ng-if="!subReportCode">Daily Employee Attendance Records</h1>
+	<h1 ng-if="subReportCode">Daily Employee Attendance Records - {{subReport.name}}</h1>
+	<!-- <input type="submit" value ="Help !"
+		ng-click="helpPage();" class="pull-right btn  btn-primary btn-sm help-each-page"> -->
+		<button class="pull-right btn btn-primary btn-sm help-each-page" 
+	onclick="window.open('views/helptutorials/DailyEmployeeRecords.html', '_blank', 
+		'toolbar=yes,scrollbars=yes,resizable=no,top=50,left=100,width=1400,height=700')">
+		Help
+	</button>
+</section>
+<!-- Main content -->
+<section class="content ui-rid-customization-pot" id="tab-pannel">
+	<div class="panel panel-default block">
+		<div class="panel-body">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+				<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 padL-0">
+					<md-input-container class="md-block">
+						<label>EPS Name</label>
+						<input ng-model="searchProject.parentName" ng-click="getUserProjects();clearSubReportDetails()"
+							readonly data-test="Dailyemployeerecords_Epsname" />
+					</md-input-container>
+				</div>
+				<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+					<md-input-container class="md-block">
+						<label>Project Name</label>
+						<input ng-model="searchProject.projName" ng-click="getUserProjects();clearSubReportDetails()"
+							readonly data-test="Dailyemployeerecords_Projectname"/>
+					</md-input-container>
+				</div>
+				<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+					<md-input-container class="md-block">
+						<label>Crew</label>
+						<input type="text" ng-click="getCrewList();clearSubReportDetails()" ng-model="crewNameDisplay"
+							readonly data-test="Dailyemployeerecords_Crew"/>
+					</md-input-container>
+				</div>
+				<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+					<md-input-container>
+						<label>Month</label>
+						<md-select ng-model="month" data-test="Dailyemployeerecords_Month">
+							<md-option ng-repeat="monthInternal in monthTOs" ng-value="monthInternal">
+								{{monthInternal}}
+							</md-option>
+						</md-select>
+					</md-input-container>
+				</div>
+				<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+					<md-input-container>
+						<label>Year</label>
+						<md-select ng-model="year" data-test="Dailyemployeerecords_Year">
+							<md-option ng-repeat="yearInternal in yearTos" ng-value="yearInternal">
+								{{yearInternal}}
+							</md-option>
+						</md-select>
+					</md-input-container>
+				</div>
+				<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 padR-0">
+					<md-input-container>
+						<label>Sub Reports</label>
+						<md-select ng-model="subReport" ng-change="changeSubReport()" data-test="Dailyemployeerecords_Subreports">
+							<md-option value="None">None</md-option>
+							<md-option ng-repeat="subReport in subReports" ng-value="subReport">
+								{{subReport.name}}
+							</md-option>
+						</md-select>
+					</md-input-container>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+				<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 padL-0">
+					<md-radio-group ng-model="type" layout="row" class="md-primary" ng-show="subReportName">
+						<md-radio-button id="chart" ng-click="selectType()" value="chart" name="content" data-test="Dailyemployeerecords_Generatereportbutton_chart"
+							ng-true-value="1" ng-false-value="0">Chart</md-radio-button>
+						<md-radio-button id="table" ng-click="selectType()" value="table" name="content" data-test="Dailyemployeerecords_Generatereportbutton_table"
+							ng-true-value="1" ng-false-value="0">Table</md-radio-button>
+						<md-radio-button id="chartTable" ng-click="selectType()" value="chartTable" name="content" data-test="Dailyemployeerecords_Generatereportbutton_chart_table"
+							ng-true-value="1" ng-false-value="0">Chart & Table</md-radio-button>
+					</md-radio-group>
+				</div>
+				<div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 padR-0">
+					<div class="pull-right marB15">
+						<input type="button" class="btn btn-primary btn-sm" value="Generate Report"
+							ng-click="getDailyEmpAttendenceDetails()" data-test="Dailyemployeerecords_Generatereportbutton">
+						<input type="button" class="btn btn-secondary btn-sm" value="Reset"
+							ng-click="resetDailyEmpAttendData()" data-test="Dailyemployeerecords_Reset">
+					</div>
+				</div>
+
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+				<div class="singleTableResHeight_3" ng-if="subReport == 'None'">
+					<div id="grid" ui-grid="gridOptions" class="singleTableResHeight_3"
+						ng-if="stylesSvc.finishedStyling" ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize
+                        ui-grid-resize-columns ui-grid-grouping class="grid"></div>
+
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding" ng-if="subReport != 'None'">
+				<div ng-if="type == 'chart'" class="singleTableResHeight_3">
+					<canvas class="chart-base" chart-data="data" chart-labels="labels" chart-series="series" height="90"
+						chart-type="chart_type" chart-colors="colors" chart-options="options" context-menu="menuOptions"
+						chart-dataset-override="datasetOverride"></canvas>
+				</div>
+				<div ng-if="type == 'chartTable'" class="chartResHeight">
+					<canvas class="chart-base" chart-data="data" chart-labels="labels" chart-series="series" height="66"
+						chart-type="chart_type" chart-colors="colors" chart-options="options" context-menu="menuOptions"
+						chart-dataset-override="datasetOverride"></canvas>
+				</div>
+
+
+				<div ng-if="type == 'chartTable'">
+					<div id="grid" ui-grid="gridOptions" class="tableWithChartResHeight"
+						ng-if="stylesSvc.finishedStyling" ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-resize-columns ui-grid-grouping class="grid">
+					</div>
+				</div>
+				<div ng-if="type == 'table'">
+					<div id="grid" ui-grid="gridOptions" class="singleTableResHeight_3" ng-if="stylesSvc.finishedStyling" 
+					ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-resize-columns ui-grid-grouping class="grid">
+					</div>
+				  </div>
+
+			</div>
+		</div>
+	</div>
+</section>

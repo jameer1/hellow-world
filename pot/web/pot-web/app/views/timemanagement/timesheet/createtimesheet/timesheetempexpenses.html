@@ -1,0 +1,66 @@
+<form name="timesheetForm" validate>
+  <div class="popUpTableResHeight">
+    <table class="table table-striped table-hover table-bordered popUpTableHeight">
+      <thead>
+        <tr>
+          <th style="width: 30px !important">Select</th>
+          <th>Employee ID</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Expense Date</th>
+          <th>Cost Code</th>
+          <th>Amount</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr fixed-header="" ng-repeat="expenses in expensesList">
+          <td><input type="checkbox" ng-model="expenses.select" ng-change="rowselect(expenses)"
+              ng-if="expenses.id==undefined || expenses.id <=0">
+          </td>
+          <td>{{selectedEmp.empDetailLabelKeyTO.code}}</td>
+          <td>{{selectedEmp.empDetailLabelKeyTO.displayNamesMap['firstName']}}</td>
+          <td>{{selectedEmp.empDetailLabelKeyTO.displayNamesMap['lastName']}}</td>
+          <td style="width: 30px !important">
+            <pot-currentdate-picker ng-model="expenses.date" class="form-control"
+              data-test='AsbuiltRecords_TimeSheets_CreateTimeSheets_AddTasks_DateWiseExpencesIncurred_ExpenceDate'
+              dir-index="$index" date-name="expenseDate" placeholder="dd-mm-yyyy"
+              ng-class="{coloumnRowtColor:expenses.apprStatus!=null}" ng-disabled="expenses.apprStatus!=null">
+          </td>
+          <td style="width: 30px !important">
+            <input type="text" name="costcode" ng-click="selectCostCode(expenses)"
+              ng-model="costcodeMap[expenses.costId].code" ng-class="{coloumnRowtColor:expenses.apprStatus!=null}"
+              ng-disabled="expenses.apprStatus!=null" class="form-control"
+              data-test='AsbuiltRecords_TimeSheets_CreateTimeSheets_AddTasks_DateWiseExpencesIncurred_CostCode'>
+          </td>
+          <td style="width: 30px !important" ng-form name="timesheetForm">
+            <input type="text" name="amount" ng-model="expenses.amount" pattern="^[\d]+$" ng-required="true"
+              class="form-control" ng-class="{coloumnRowtColor:expenses.apprStatus!=null}"
+              ng-disabled="expenses.apprStatus!=null"
+              data-test='AsbuiltRecords_TimeSheets_CreateTimeSheets_AddTasks_DateWiseExpencesIncurred_Amount'>
+            <span ng-show="timesheetForm.amount.$dirty && timesheetForm.amount.required">expensesForm is
+              mandatory</span>
+            <span ng-show="timesheetForm.amount.$error.pattern">Ony Digits Allowed </span>
+          </td>
+          <td style="width: 30px !important">
+            <input type="text" name="desc" ng-model="expenses.comments" class="form-control"
+              ng-class="{coloumnRowtColor:expenses.apprStatus!=null}" ng-disabled="expenses.apprStatus!=null"
+              data-test='AsbuiltRecords_TimeSheets_CreateTimeSheets_AddTasks_DateWiseExpencesIncurred_Description'>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="panel-footer" ng-show="timeSheetSearchReq.timeSheetLabelKeyTo.apprStatus=='Under Preparation'">
+    <div class="pull-left">
+      <input type="button" class="btn  btn-brown btn-sm" value="Add" ng-click="addExpenses()"
+        data-test='AsbuiltRecords_TimeSheets_CreateTimeSheets_AddTasks_DateWiseExpencesIncurred_Add'>
+      <input type="button" class="btn  btn-brown btn-sm" value="Delete" ng-click="deleteExpenses()"
+        data-test='AsbuiltRecords_TimeSheets_CreateTimeSheets_AddTasks_DateWiseExpencesIncurred_Delete'>
+    </div>
+    <div class="pull-right">
+      <input type="button" class="btn btn-primary btn-sm" value="Save" ng-click="saveTimeSheetEmpExpenses()"
+        data-test='AsbuiltRecords_TimeSheets_CreateTimeSheets_AddTasks_DateWiseExpencesIncurred_Save'>
+    </div>
+  </div>
+</form>

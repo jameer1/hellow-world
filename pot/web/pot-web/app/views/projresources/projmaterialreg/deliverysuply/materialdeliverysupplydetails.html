@@ -1,0 +1,173 @@
+<div ng-if="account.appCodeTemplate['RESOURCE_MATRLDELSUPPDETAILS_VIEW']" id="tab-pannel"
+	ng-controller="MaterialDeliverySupplyController">
+	<div class="singleTableResHeight_3" >
+	<div id="grid" ui-grid="gridOptions" class="singleTableResHeight_3" ng-if="stylesSvc.finishedStyling" 
+            ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-resize-columns class="grid"></div>
+		<!-- <table class="table table-striped table-bordered singleTableHeight_3">
+			<thead id="tab-head">
+				<tr>
+					<th rowspan="2">Supply Delivery Date</th>
+
+					<th colspan="10" class="text-center">
+						<span ng-if="deliveryDocketDatamoreFlag==0">Purchase order Details
+							<span class="fa fa-caret-right"
+								style="float: right; font-size: 25px; color: #337ab7 !important;"
+								ng-click="clickForwardDeliveryDocketData(deliveryDocketDatamoreFlag);"></span>
+						</span>
+						<span ng-if="deliveryDocketDatamoreFlag==1">Supply/Delivery Details
+							<span class="fa fa-caret-left"
+								style="float: left; font-size: 25px; color: #337ab7 !important;"
+								ng-click="clickBackwardDeliveryDocketData(deliveryDocketDatamoreFlag);"></span>
+						</span>
+					</th>
+
+				</tr>
+				<tr>
+					<th>
+						<span ng-if="deliveryDocketDatamoreFlag==0">EPS Name</span>
+						<span ng-if="deliveryDocketDatamoreFlag==1">Unit of Measure</span>
+					</th>
+					<th>
+						<span ng-if="deliveryDocketDatamoreFlag==0">Project Name</span>
+						<span ng-if="deliveryDocketDatamoreFlag==1">Rate per Unit</span>
+					</th>
+					<th>
+						<span ng-if="deliveryDocketDatamoreFlag==0">New or Exig Asset</span>
+						<span ng-if="deliveryDocketDatamoreFlag==1">Delivery Docket Date</span>
+					</th>
+					<th>
+						<span ng-if="deliveryDocketDatamoreFlag==0">Location of Delivery</span>
+						<span ng-if="deliveryDocketDatamoreFlag==1">Delivery Docket #</span>
+					</th>
+					<th>
+						<span ng-if="deliveryDocketDatamoreFlag==0">Location Category</span>
+						<span ng-if="deliveryDocketDatamoreFlag==1">Docket wise- Quantity Received</span>
+					</th>
+					<th>
+						<span ng-if="deliveryDocketDatamoreFlag==0">Purchase Order Number</span>
+						<span ng-if="deliveryDocketDatamoreFlag==1">Schedule Item wise Cumulative Qty received</span>
+					</th>
+					<th>
+						<span ng-if="deliveryDocketDatamoreFlag==0">Schedule Item</span>
+						<span ng-if="deliveryDocketDatamoreFlag==1">Received By</span>
+					</th>
+					<th>
+						<span ng-if="deliveryDocketDatamoreFlag==0">Supplier</span>
+						<span ng-if="deliveryDocketDatamoreFlag==1">Defects if Any</span>
+					</th>
+					<th>
+						<span ng-if="deliveryDocketDatamoreFlag==0">Material Description</span>
+						<span ng-if="deliveryDocketDatamoreFlag==1">Other Comments from Receiver</span>
+					</th>
+					<th>
+						<span ng-if="deliveryDocketDatamoreFlag==0">Material Sub Group</span>
+						<span ng-if="deliveryDocketDatamoreFlag==1">Record of Delivery Dockets</span>
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="supply in materialProjDtlTOs" fixed-header="" ng-click="setSelected(supply)"
+					ng-class="{selected: supply==selectedRow}">
+					<td>{{supply.displayNamesMap.supplyDeliveryDate}}</td>
+					<td>
+						<span ng-if="deliveryDocketDatamoreFlag==0">
+							{{supply.displayNamesMap.projParentName}}
+						</span>
+						<span ng-if="deliveryDocketDatamoreFlag==1">
+							{{supply.displayNamesMap.materialUnitOfMeasure}}
+						</span>
+
+					</td>
+					<td>
+						<span ng-if="deliveryDocketDatamoreFlag==0">
+							{{supply.displayNamesMap.projName}}
+						</span>
+						<span ng-if="deliveryDocketDatamoreFlag==1">
+							{{supply.displayNamesMap.unitOfRate}}
+						</span>
+					</td>
+					<td>
+						<span ng-if="deliveryDocketDatamoreFlag==0">
+							{{}}
+						</span>
+						<span ng-if="deliveryDocketDatamoreFlag==1">
+							{{supply.displayNamesMap.deliveryDockDate}}
+						</span>
+					</td>
+					<td>
+						<span ng-if="deliveryDocketDatamoreFlag==0">
+							{{supply.displayNamesMap.deliveryPlace}}
+						</span>
+						<span ng-if="deliveryDocketDatamoreFlag==1">
+							{{supply.displayNamesMap.deliveryDockNo}}
+						</span>
+					</td>
+					<td>
+						<span ng-if="deliveryDocketDatamoreFlag==0">
+							{{supply.displayNamesMap.deliveryCatagory}}
+						</span>
+						<span ng-if="deliveryDocketDatamoreFlag==1">
+							{{supply.displayNamesMap.qty}}
+						</span>
+					</td>
+					<td>
+						<span ng-if="deliveryDocketDatamoreFlag==0">
+							{{supply.displayNamesMap.purCode}}
+						</span>
+						<span ng-if="deliveryDocketDatamoreFlag==1">
+							{{supply.displayNamesMap.schCummulativeQty}}
+						</span>
+					</td>
+					<td>
+						<span ng-if="deliveryDocketDatamoreFlag==0">
+							{{supply.code}}
+						</span>
+						<span ng-if="deliveryDocketDatamoreFlag==1">
+							{{supply.displayNamesMap.receivedBy}}
+						</span>
+					</td>
+					<td>
+						<span ng-if="deliveryDocketDatamoreFlag==0">
+							{{supply.displayNamesMap.cmpName}}
+						</span>
+						<span ng-if="deliveryDocketDatamoreFlag==1">
+							{{supply.displayNamesMap.defectComments}}
+						</span>
+					</td>
+					<td>
+						<span ng-if="deliveryDocketDatamoreFlag==0">
+							{{supply.displayNamesMap.materialClassName}}
+						</span>
+						<span ng-if="deliveryDocketDatamoreFlag==1">
+							{{supply.displayNamesMap.comments}}
+						</span>
+					</td>
+					<td>
+						<span ng-if="deliveryDocketDatamoreFlag==0">
+							{{}}
+						</span>
+						<span ng-if="deliveryDocketDatamoreFlag==1">
+							<span class="fa fa-download" ng-if="supply.displayNamesMap.fileKey"
+								ng-click="download(supply.displayNamesMap.deliveryDocketId)"
+								title="Click To Download"></span>
+						</span>
+					</td>
+				</tr>
+			</tbody>
+		</table> -->
+	</div>
+	<div class="panel-footer">
+		<div class="pull-right padR-0">
+			<input data-test='Resources_Materials_DeliverySupplyDetails_Create' type="button"
+				class="btn btn-primary btn-sm" ng-click="addDeliverySupply()"
+				ng-if="account.appCodeTemplate['RESOURCE_MATRLDELSUPPDETAILS_ADD']" value="Create">
+		</div>
+		<!-- <div class="pull-left">
+			<input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+			<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+			<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+			<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+			<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+		</div> -->
+	</div>
+</div>

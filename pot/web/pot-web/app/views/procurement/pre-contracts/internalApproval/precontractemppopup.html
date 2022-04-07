@@ -1,0 +1,29 @@
+<div id="tab-pannel" class="panel-group" ng-init="getProjEmpClasses()">
+	<div id="tab-pannel" class="panel panel-default" modal-movable>
+		<div class="panel-heading">
+			<h4 class="panel-title">Central Employee Classifications</h4>
+		</div>
+        <div class="panel-body">
+            <div class="popUpTableResHeight">
+                <table class="table table-striped table-hover table-bordered popUpTableHeight" >
+                    <thead>
+                        <tr>
+                            <th>Employee Class ID</th>
+                            <th>Employee Class Name</th>
+                            <th>Unit Of Measure</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr fixed-header="" ng-repeat ="empProjTO in projEmpClassData"
+                            ng-dblclick="projEmpClassPopup(empProjTO)">
+                            <td>{{empProjTO.code}}</td>
+                            <td>{{empProjTO.name}}</td>
+                            <td>{{empProjTO.measureUnitTO.name}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="ngdialog-close"></div>
+        </div>
+</div>

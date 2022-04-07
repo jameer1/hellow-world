@@ -1,0 +1,67 @@
+<div ng-if="account.appCodeTemplate['RESOURCE_EMPENROLLMENTPROMOTION_VIEW']" id="tab-pannel" ng-controller="EmpServiceHistoryController">
+
+				<div class="tabTable_1_Res_height_topB">
+				<div id="grid" ui-grid="gridOptions" ng-if="stylesSvc.finishedStyling" 
+            ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-resize-columns class="grid"></div>
+				<!-- <table class="table table-striped table-hover table-bordered tabTable_1_height_topB" >
+					<thead id="tab-head">
+						<tr>
+							<th>Select</th>
+							<th title="Project Posting">Posting#</th>
+							<th title="EPS Name">EPS</th>
+							<th title="Project Name">Project</th>
+							<th title="Profit Center">Profit Center</th>
+							<th title="Finance Center">Finance Center</th>
+							<th title="Designation as per Pay Roll">Desg /PayRoll </th>
+							<th title="Designation as per Project Contract">Desg /ProjContract</th>
+							<th title="Designation as per Trade Union"> Desg /TradeUnion</th>
+							<th title="Category">Category</th>
+							<th title="Actual Mobilization Date">Mob Date</th>
+							<th title="Expected De-mobilization Date">Exp DeMob Date</th>
+							<th title="Actual De-mobilization Date">Act DeMob date</th>
+							<th title="Employee Tax File Number">Emp.Tax File#</th>
+							<th title="Responsibilities">Responsibilities</th>
+							<th title="Post De-mobilization Status">DeMob Status</th>
+							<th title="Notes">Notes</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr fixed-header="" ng-repeat ="servicehistory in projEmpRegisterTOs">
+
+							<td><input type="checkbox" value="id"
+								ng-model="servicehistory.selected"
+								ng-if="servicehistory.latest=='Y'"
+								ng-change="empServiceHistoryRowSelect(servicehistory)"></td>
+							<td>{{servicehistory.deploymentId}}</td>
+							<td>{{servicehistory.parentName}}</td>
+							<td>{{servicehistory.name}}</td>
+							<td>{{ }}</td>
+							<td>{{ }}</td>
+							<td>{{servicehistory.empClassifyName}}</td>
+							<td>{{servicehistory.empContractName}}</td>
+							<td>{{servicehistory.empWorkUnionName}}</td>
+							<td>{{servicehistory.empCatgName}}</td>
+							<td>{{servicehistory.mobilaizationDate}}</td>
+							<td>{{servicehistory.expecteddeMobilaizationDate}}</td>
+							<td>{{servicehistory.deMobilaizationDate}}</td>
+							<td>{{servicehistory.taxFileNum}}</td>
+							<td>{{servicehistory.workType}}</td>
+							<td>{{servicehistory.empStatus}}</td>
+							<td>{{servicehistory.notes}}</td>
+						</tr>
+					</tbody>
+				</table> -->
+			</div>
+	
+		<div class="panel-footer padL-0">
+			<div class="pull-left">
+			<!-- 	<input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+				<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+				<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+				<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+				<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();"> -->
+				<input ng-if="projEmpRegisterTOs.length > 0 && account.appCodeTemplate['RESOURCE_EMPENROLLMENTPROMOTION_ADD']" data-test='Resources_Employee_ServiceHistoryTab_Edit' type="button" class="btn btn-primary btn-sm"
+					ng-click="addEmpServiceHistory('Edit')" value="Edit">
+			</div>
+		</div>
+	</div>

@@ -1,0 +1,194 @@
+<div id="tab-pannel">
+	<div class="panel panel-default" modal-movable><form name="supplyDeliveryDetails" validate>
+		<div class="panel-heading">
+			<h4 class="panel-title">Purchase Order Details</h4>
+		</div>
+		<div class="panel-body">
+				<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th>EPS Name
+							<span class="procurment-pot-errors">*</span>
+						</th>
+						<th>Project Name
+							<span class="procurment-pot-errors">*</span>
+						</th>
+						<th>Asset Type</th>
+						<th>Purchase Order
+							<span class="procurment-pot-errors">*</span>
+						</th>
+						<th>Supplier</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="material-delivry-resocures-input">
+						<td class="input-width5"><input data-test='Resources_Materials_DeliverySupplyDetails_Create_EpsName' type="text" class="form-control"
+							ng-model="addMaterialData.projParentName"
+							placeholder="EPS Name" ng-click="getUserProjects()"
+							ng-disabled="inputDisable" readonly="readonly" ng-required="true"></td>
+
+						<td class="input-width5"><input data-test='Resources_Materials_DeliverySupplyDetails_Create_ProjectName' type="text" class="form-control"
+							ng-model="addMaterialData.projName"
+							placeholder="Project Name" ng-click="getUserProjects()"
+							ng-disabled="inputDisable" readonly="readonly" ng-required="true"></td>
+
+						<td class="input-width5">
+							<select name="assetType" ng-model="addMaterialData.assetType" class="form-control">
+								<option value="">-Select-</option>
+								<option value="New Asset">New Asset</option>
+								<option value="Existing Asset">Existing Asset</option>
+							</select>
+						</td>
+
+						<td class="input-width5"><input data-test='Resources_Materials_DeliverySupplyDetails_Create_purchaseorder' type="text" class="form-control"
+							ng-model="addMaterialData.purCode" placeholder="Purchase Order"
+							ng-click="getProjectPoDetails()" ng-disabled="inputDisable"
+							ng-required="true" readonly="readonly" ng-required="true"></td>
+
+						<td><input type="text"  name="supplier" class="form-control"
+							ng-model="addMaterialData.cmpName" placeholder="Supplier"
+							readonly="readonly">
+
+							<button class="btn btn-primary btn-sm" data-test='Resources_Materials_DeliverySupplyDetails_Create_AddScheduleItems'
+								ng-click="getPOItemsByPurchaseOrder()" value="Add"
+								style="margin-left: 22px !important;">Add Schedule
+								Items</button></td>
+
+					</tr>
+				</tbody>
+			</table>
+	</div>
+		<div class="panel-heading">
+			<h4 class="panel-title">Schedule of Items</h4>
+		</div>
+		<div class="panel-body topTableResHeight overflow-auto">
+			<table class="table table-striped table-hover table-striped table-bordered topTableHeight">
+				<thead>
+					<tr>
+						<th>PO Schedule Item ID</th>
+						<th>PO Schedule Item</th>
+						<th>Material Classification</th>
+						<th>Unit of Measure</th>
+						<th>Quantity</th>
+						<th>Remaining Quantity</th>
+						<th>Rate per Unit</th>
+						<th>Location of Delivery</th>
+
+					</tr>
+				</thead>
+				<tbody>
+					<tr fixed-header="" ng-repeat ="scheduleItem in materialProjSchItemTOs"
+						ng-click="selectMaterialSchItem(scheduleItem)" ng-style="scheduleItem.purchaseSchLabelKeyTO.displayNamesMap.remQty == 0 && { 'color':'red'}"
+						ng-class="{selected: scheduleItem==selectedMaterialProjSchItemTO}">
+						<td>{{scheduleItem.purchaseSchLabelKeyTO.code}}</td>
+						<td>{{scheduleItem.purchaseSchLabelKeyTO.name}}</td>
+						<td>{{scheduleItem.purchaseSchLabelKeyTO.displayNamesMap.purClassName}}</td>
+						<td>{{scheduleItem.purchaseSchLabelKeyTO.displayNamesMap.purClassUnitOfMeasure}}</td>
+						<td>{{scheduleItem.purchaseSchLabelKeyTO.displayNamesMap.qty}}</td>
+						<td>{{scheduleItem.purchaseSchLabelKeyTO.displayNamesMap.remQty}}</td>
+						<td>{{scheduleItem.purchaseSchLabelKeyTO.displayNamesMap.unitOfRate}}</td>
+						<td>{{scheduleItem.deliveryPlace}}</td>
+
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="panel-heading">
+			<h4 class="panel-title">Supply/Delivery Details</h4>
+		</div>
+		<div class="panel-body topTableResHeight overflow-auto">
+			<table class="table table-hover table-bordered table-striped topTableHeight">
+				<thead>
+					<tr>
+						<th>Select</th>
+						<th>Docket Date
+							<span class="procurment-pot-errors">*</span>
+						</th>
+						<th>Delivery Docket #
+							<span class="procurment-pot-errors">*</span>
+						</th>
+						<th>Supply/<br>Delivery Date
+							<span class="procurment-pot-errors">*</span>
+						</th>
+						<th>Quantity<br>Received
+							<span class="procurment-pot-errors">*</span>
+						</th>
+						<th>Received By
+							<span class="procurment-pot-errors">*</span>
+						</th>
+						<th>Defects if Any</th>
+						<th>Other Comments from Receiver</th>
+						<th>Record of Delivery Dockets</th>
+
+					</tr>
+				</thead>
+				<tbody>
+					<tr data-test='Resources_Materials_DeliverySupplyDetails_selectscheduleitem'
+						fixed-header="" ng-repeat ="docket in  selectedMaterialProjSchItemTO.materialPODeliveryDocketTOs">
+						<td><input type="checkbox" ng-model="docket.select" data-test='Resources_Materials_DeliverySupplyDetails_SelectBox'
+							ng-disabled="(docket.id > 0)" 
+							ng-change="selectMaterialDocket(docket)"></td>
+
+						<td class="input-width0"><potdate-picker data-test='Resources_Materials_DeliverySupplyDetails_Add_DocketDate'
+								date-name="docketStartDate" ng-model="docket.docketDate"
+								placeholder="dd-mm-yyyy" ng-disabled="(docket.id > 0)" ng-change="dateValidation(docket.docketDate)"
+								custom-read-only ng-required="true" class="form-control"></potdate-picker></td>
+
+						<td class="input-width3"><input type="text" data-test='Resources_Materials_DeliverySupplyDetails_Add_DeliveryDocketNumber'
+							ng-model="docket.docketNumber" placeholder="Docket Number"
+							ng-disabled="(docket.id > 0)" class="form-control" ng-required="true"></td>
+
+						<td class="input-width0"><potdate-picker data-test='Resources_Materials_DeliverySupplyDetails_Add_DeliveryDate'
+								date-name="supplyDeliveryDate"
+								ng-model="docket.supplyDeliveryDate"
+								placeholder="dd-mm-yyyy" class="form-control"
+								ng-disabled="(docket.id > 0)" custom-read-only ng-required="true"></potdate-picker></td>
+
+
+						<td class="input-width0"><ng-form name="deliverySupply"><input type="text" 
+							data-test='Resources_Materials_DeliverySupplyDetails_Add_QuantityReceived'
+							name="quantityReceived" ng-model="docket.receivedQty"
+							placeholder="Quantity Received" ng-required="true"
+							ng-disabled="(docket.id > 0)" class="form-control"
+							ng-change="validateReceivedQty(docket)" valid-number
+							pattern="[a-zA-Z-\d\s\.]+"> <span class="procurment-pot-errors"
+							ng-show="deliverySupply.quantityReceived.$error.pattern">only
+								alphabets and Numbers allowed</span></ng-form>
+							</td>
+
+
+						<td><input type="text" name="receivedBy" data-test='Resources_Materials_DeliverySupplyDetails_Add_ReceivedBy'
+							ng-click="getEmployeeDetails(docket)" class="form-control"
+							ng-model="docket.receivedBy" placeholder="Received By"
+							ng-disabled="(docket.id > 0)" ng-required="true"
+							custom-read-only style="width: 150px;"></td>
+
+						<td class="input-width0"><input type="text" data-test='Resources_Materials_DeliverySupplyDetails_Add_DefectsIfAny'
+							name="defectsIfAny" ng-model="docket.defectComments" class="form-control"
+							ng-disabled="(docket.id > 0)" placeholder="Defects If Any"></td>
+
+						<td><input type="text" name="otherCommentsFromReceiver" data-test='Resources_Materials_DeliverySupplyDetails_Add_CommentsFromReceiver'
+							ng-model="docket.comments" ng-disabled="(docket.id > 0)" class="form-control"
+							placeholder="Other Comments From Receiver" style="width: 200px;"></td>
+
+						<td><input type="file" data-test='Resources_Materials_DeliverySupplyDetails_Add_FileUpload' ngf-select="upload($file, docket, $index)" /></td>
+
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="panel-footer">
+			<div class="pull-left">
+				<input data-test='Resources_Materials_DeliverySupplyDetails_Add' type="submit" class="btn btn-primary  btn-sm" ng-disabled="(selectedMaterialProjSchItemTO.purchaseSchLabelKeyTO.displayNamesMap.remQty == 0)"
+					ng-click="supplyDeliveryDetails.$valid && addRows()" value="Add"> <input type="button"
+					class="btn btn-secondary  btn-sm" ng-click="deleteRows()" data-test='Resources_Materials_DeliverySupplyDetails_Delete'
+					value="Delete">
+			</div>
+			<div class="pull-right">
+				<input type="button" class="btn btn-primary bottomaligned btn-sm"
+					ng-click="supplyDeliveryDetails.$valid && saveDeliveryDocketDetails()" data-test='Resources_Materials_DeliverySupplyDetails_Save' value="Save">
+			</div>
+		</div></form>
+	</div>
+	<div class="ngdialog-close"></div>
+</div>

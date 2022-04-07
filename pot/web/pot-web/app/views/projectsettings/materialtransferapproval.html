@@ -1,0 +1,44 @@
+<div ng-if="account.appCodeTemplate['PRJ_PRJSTG_MATERIALTRANSTGADDITIONALTIME_VIEW']" id="tab-pannel" class="noTableInBottomBlockWithTabs">
+	<div class="bottomNestedTabTableResHeight no-border">
+			<div class="row">
+					<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+						<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padL-0">
+							<md-input-container class="md-block">
+								<label>Requisition Notification Number</label>
+								<input type="text" 
+									ng-model="materialTransAppr.code" 
+									data-test='Projects_ProjectSettings_MaterialTransferTab_AdditionalTime_RequisitionNotificationNumber'
+									ng-click="getMaterialTransferNotifications(materialTransAppr)">
+							</md-input-container>
+						</div>
+						<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+								<md-input-container class="md-block">
+									<label>Requisition Date</label>
+									<potdate-picker 
+										data-test='Projects_ProjectSettings_MaterialTransferTab_AdditionalTime_requisitiondate' 
+										dir-index="$index"
+										ng-model="materialTransAppr.requisitionDate"
+										date-name="startDate"
+										required />
+								</md-input-container>
+						</div>
+					
+					</div>
+			</div>
+	</div>
+	<div class="panel-footer">
+		<div class="pull-right">
+			<input type="button" class="btn btn-primary btn-sm"	value="Approve" 
+				data-test='Projects_ProjectSettings_MaterialTransferTab_AdditionalTime_additionaltimeapprove'
+				ng-click="saveProjMaterialTransAppr()" ng-disabled ="!account.appCodeTemplate['PRJ_PRJSTG_MATRLTRSFR_APPROVE']"
+				title="{{ account.appCodeTemplate['PRJ_PRJSTG_MATRLTRSFR_APPROVE'] ? '' : '! Permission Denied. Contact your admin.'}}">
+		</div>
+		<div class="pull-left">
+			<input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+			<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+			<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+			<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+			<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+		</div>
+	</div>
+</div>

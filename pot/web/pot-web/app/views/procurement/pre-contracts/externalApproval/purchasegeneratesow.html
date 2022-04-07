@@ -1,0 +1,84 @@
+<div class="tab-pannel">
+  <form name="manpowerForm" validate>
+     
+          
+              <div class="tabTable_1_Res_height">
+      <table id="vert-align" class="table table-striped table-hover table-bordered tabTable_1_height" >
+        <thead>
+          <tr>
+
+            <th>Item ID</th>
+            <th>Item Description</th>
+            <th>SOE Item</th>
+            <th>SOR Item</th>
+            <th>Cost Code</th>
+            <th>Delivery Place</th>
+            <th>Start Date</th>
+            <th>Finish Date</th>
+            <th>Unit Of Measure</th>
+            <th>Qty</th>
+            <th>Estimate Rate<br>({{preContractObj.currencyTO.code}})
+            </th>
+            <th>Estimate Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr fixed-header="" ng-repeat ="item in preContractObj.precontractSowDtlTOs" ng-init="getTotals(item)">
+
+            <td class="input-width5" ng-form name="myForm2"><input ng-disabled="true" type="text" ng-model="projSOWMap[item.sowId].code" /></td>
+
+            <td class="input-width2" ng-form name="myForm2"><input ng-disabled="true" type="text" ng-model="projSOWMap[item.sowId].name" /></td>
+
+            <td class="input-width2" ng-form name="myForm2"><input ng-disabled="true" type="text" ng-model="projSOWMap[item.sowId].displayNamesMap.soeCode" /></td>
+
+            <td class="input-width2" ng-form name="myForm2"><input ng-disabled="true" type="text" ng-model="projSOWMap[item.sowId].displayNamesMap.sorCode" /></td>
+
+            <td class="input-width2" ng-form name="myForm2"><input ng-disabled="true" type="text" ng-model="projSOWMap[item.sowId].displayNamesMap.costCode" /></td>
+
+            <td class="input-width"><input type="text" ng-model="item.deliveryPlace" tabindex="-1" /></td>
+
+            <td class="input-width1"><potdate-picker ng-model="item.startDate" dir-index="$index" date-name="sowStartDate" placeholder="dd-mm-yyyy" required="required"
+                ng-model="item.startDate"></potdate-picker></td>
+            <td class="input-width1"><potdate-picker ng-model="item.finishDate" dir-index="$index" date-name="sowFinishDate" placeholder="dd-mm-yyyy" required="required"
+                ng-model=" item.finishDate"></potdate-picker></td>
+
+            <td class="input-width"><input type="text" ng-disabled="true" ng-model="projSOWMap[item.sowId].unitOfMeasure" placeHolder="Unit Of Measure" name="unitOfMeasure" readonly="readonly"
+              tabindex="-1" /></td>
+
+            <td ng-form name="myForm3"><input type="text" ng-model="item.quantity" placeHolder="Quantity" pattern="^[\d]+$" name="quan" maxlength="20" required="required" tabindex="-1"
+              style="width: 50px;" /> <span ng-show="myForm3.quan.$dirty && myForm3.quan.$error.required">This field is mandatory</span> <span ng-show="myForm3.quan.$error.pattern">Only digits
+                Allowed</span> <span ng-show="myForm3.quan.$error.maxlength">You reached max length</span></td>
+
+            <td class="input-width text-center" ng-form name="myForm4"><input type="text" placeHolder="EstimateCost" name="escost" ng-model="item.estimateCost" pattern="^[.\d]+$" tabindex="-1"
+              required="required" style="width: 50px;" /> <span ng-show="myForm4.escost.$dirty && myForm4.escost.$error.required">This field is mandatory</span> <span
+              ng-show="myForm4.escost.$error.pattern">Only digits Allowed</span> <span ng-show="myForm4.escost.$error.maxlength">You reached max length</span></td>
+
+            <td class="input-width"><span>{{item.quantity * item.estimateCost}}<span></td>
+
+        </tbody>
+        <tfoot ng-if="preContractObj.precontractSowDtlTOs.length>0">
+          <tr>
+            <th>Total Amount</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <td>{{totalAmount}}</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+   
+    <div class="panel-footer">
+      <div class="pull-right">
+        <input type="Submit" value="Save" ng-click="manpowerForm.$valid && saveManPowerDetails()" class="btn  btn-brown btn-sm" validate />
+      </div>
+    </div>
+    </form>
+</div>

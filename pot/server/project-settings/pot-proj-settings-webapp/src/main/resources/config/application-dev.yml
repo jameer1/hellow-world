@@ -1,0 +1,37 @@
+server:
+    port: 8080
+
+spring:
+    jpa:
+        openInView: false
+        show_sql: true
+        generate-ddl: false
+        hibernate:
+            ddl-auto: none
+            naming-strategy: org.hibernate.cfg.EJB3NamingStrategy
+        properties:
+            hibernate.cache.use_second_level_cache: false
+            hibernate.cache.use_query_cache: false
+            hibernate.generate_statistics: true
+
+    mail:
+        baseUrl: http://localhost:8080
+
+    thymeleaf:
+        mode: XHTML
+        cache: false
+        viewNames: error
+    http:
+        multipart:
+            max-request-size: 1GB
+            max-file-size: 1GB
+
+metrics:
+    jmx.enabled: true
+    graphite:
+        enabled: false
+        host: localhost
+        port: 2003
+        prefix: pot
+
+

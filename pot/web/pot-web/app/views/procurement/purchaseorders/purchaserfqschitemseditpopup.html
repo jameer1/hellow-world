@@ -1,0 +1,19 @@
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h4 class="panel-title">RFQ Tendering Schedule Items</h4>
+	</div>
+
+	<div class="panel-body">
+<div class="nav-tabs-custom">
+		<ul class="nav nav-tabs">
+			<li fixed-header="" ng-repeat ="rfq in tabs[5].rfqSubTabs"
+				ng-class="{active:isActiveRfqTab(rfq.url)}"><a
+				data-toggle="tab" ng-click="onClickRfqTab(rfq)">{{rfq.title}}</a></li>
+		</ul>
+		<div class="tab-content">
+			<div ng-include="currentRfqTab"></div>
+		</div>
+	</div>
+	</div>
+	<div class="ngdialog-close"></div>
+</div>

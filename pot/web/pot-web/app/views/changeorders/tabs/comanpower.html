@@ -1,0 +1,49 @@
+<section class="content">
+	<div class="panel panel-default block footer-parent" ng-controller="CoManpowerController">
+		<div class="panel-body">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding table-responsive">
+				<table class="table table-striped table-hover table-bordered tabTable_5_Height">
+		            <thead>
+		                <tr>
+		                    <th>Select</th>
+		                    <th class="text-center">Manpower Classification ID</th>
+		                    <th class="text-center">Manpower Description</th>                    
+		                    <th class="text-center">Unit Of Measure</th>
+		                    <th class="text-center">Approved Manpower upto previous order</th>
+		                    <th class="text-center">Manhours-Pending orders for approval</th>
+		                    <th class="text-center">Manhours under the current order</th>
+		                    <th class="text-center">Cumulative Manhours</th>
+		                    <th class="text-center">Upload Documents</th>
+		                    <th class="text-center">Notes</th>
+		                </tr>
+		                <tr>
+		                    <th ng-repeat ="workDairyCostCode in  workDairyCostCodeList"
+		                        class="text-center">{{workDairyCostCode.code}}</th>
+		                </tr>
+		            </thead>
+		            <tbody>
+		                <tr ng-repeat="row in coManpowerRows">
+		                    <td>
+		                    	<!-- <input type="checkbox" ng-change="progressRowSelect(progress)" ng-model="progress.select">  -->
+		                    	<select ng-model="row.coitemtype" ng-options="itemtype as itemtype.name for itemtype in itemTypeData" ng-change="coChangeManpowerItemType(row,row.coitemtype)"></select>
+		                    </td>
+		                    <td><input type="text" ng-model="row.manpowerClassificationId" ng-click="coManpowerClassification(row)"/></td>
+		                    <td><input type="text" ng-model="row.manpowerDescription" ng-readonly="true"/></td>
+		                    <td>Hours</td>
+		                    <td><input type="text" ng-model="row.approvedManpowerHrs" placeholder="{{row.approvedManpowerHrs}}"/></td>
+		                    <td><input type="text" ng-model="row.pendingManpowerHrs"/></td>
+		                    <td><input type="text" ng-model="row.currentManpowerHrs"/></td>
+		                    <td><input type="text" ng-model="row.cumulativeManpowerHrs"/></td>
+		                    <td><input type="file" ng-model="manpowerUploadFile"/></td>
+		                    <td><input type="text" ng-model="row.notes"/></td>	                    
+		                </tr>
+		            </tbody>
+		        </table>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+				<input type="button" class="btn btn-primary" value="Add Rows" ng-click="addManpowerRows()"/>
+				<input type="button" class="btn btn-primary" value="Save" ng-click="saveCoManpowerDetails()"/>
+			</div>		
+		</div>
+	</div>
+</section>

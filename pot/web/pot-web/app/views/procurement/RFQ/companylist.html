@@ -1,0 +1,56 @@
+<section class="content-header">
+    <h1>Company Details</h1>
+</section>
+<!-- Main content -->
+<section class="content" id="tab-pannel">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <form name="ApproverTransferForm" validate>
+                    <div class="panel panel-default block footer-parent">
+                        <div class="panel-body">
+                            <div class="singleTableResHeight">
+                                <table class="table table-striped table-bordered table-hover singleTableResHeight" >
+                                    <thead>
+                                        <tr>
+                                            <th>Select</th>
+                                            <th>Company ID</th>
+                                            <th>Company Name</th>
+                                            <th>Name of Representative</th>
+                                            <th>Address</th>
+                                            <th>Email</th>
+                                            <th>Mobile</th>
+                                            <th>Phone</th>
+                                            <th>Fax</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr fixed-header="" ng-repeat ="details in companyData">
+                                            <td><input type="checkbox" ng-model="details.select" ng-change="companyRowSelect(details)"></td>
+                                            <td>{{details.cmpCode}}</td>
+                                            <td>{{details.cmpName}}</td>
+                                            <td class="input-width3"><input type="text" class="form-control" placeholder="Contact Person Name" ng-model="details.contacts[0].contacts.contactName" ng-click="getContactDetails(details)"></td>
+                                            <td class="input-width3"><input type="text" class="form-control" placeholder="Address" ng-model="details.addressList[0].address" ng-click="getAddressDetails(details)" readonly="readonly"></td>
+                                            <td class="input-width3"><input type="text" class="form-control" placeholder="Email" ng-model="details.contacts[0].contacts.email" ng-click="getContactDetails(details)"></td>
+                                            <td class="input-width2"><input type="text" class="form-control" placeholder="Mobile Number" ng-model="details.contacts[0].contacts.mobile" ng-click="getContactDetails(details)"></td>
+                                            <td class="input-width2"><input type="text" class="form-control" placeholder="Phone Number" ng-model="details.contacts[0].contacts.phone" ng-click="getContactDetails(details)"></td>
+                                            <td class="input-width2"><input type="text" class="form-control" placeholder="Fax" ng-model="details.contacts[0].contacts.fax" ng-click="getContactDetails(details)"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            <!-- <div class="pull-left">
+                                <input class="btn btn-primary btn-sm" type="button"
+                                    ng-click="addBidder('Edit')" value="Edit">
+                            </div> -->
+                            <div class="pull-right">
+                                <input class="btn btn-primary btn-sm" type="button"
+                                       ng-click="save()" value="Save">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>

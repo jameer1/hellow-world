@@ -1,0 +1,194 @@
+<section class="content-header">
+    <h1>Revenue through Goods/Products Sales</h1>
+</section>
+<section class="content">
+    <div class="panel panel-default block footer-parent">
+        <div class="panel-body">
+            <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12 no-padding">
+                <div class="col-md-1 col-lg-1 col-sm-1 col-xs-1 padL-0">
+                    <md-input-container>
+                        <label>Project</label>
+                        <input type="text" ng-model="" ng-click="getUserProjects()" autocomplete="off" readonly>
+                    </md-input-container>
+                </div>
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+                    <md-input-container>
+                        <label>Project Owner</label>
+                        <input type="text" ng-model="" ng-click="" autocomplete="off" readonly>
+                    </md-input-container>
+                </div>
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+                    <md-input-container>
+                        <label>Profit Center</label>
+                        <input type="text" autocomplete="off" readonly>
+                    </md-input-container>
+                </div>
+                <div class="col-md-1 col-lg-1 col-sm-1 col-xs-1">
+                    <md-input-container>
+                        <label>Contract #</label>
+                        <input type="text" autocomplete="off">
+                    </md-input-container>
+                </div>
+                <div class="col-sm-1 col-xs-1 col-md-1 col-lg-1">
+                    <md-input-container>
+                        <label>Contract Type</label>
+                        <md-select ng-model="">
+                            <md-option value="sor">Schedule of Rates</md-option>
+                            <md-option value="cost">Cost plus %</md-option>
+                            <md-option value="milestone">milestone Schedule</md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+                <div class="col-md-1 col-lg-1 col-sm-1 col-xs-1">
+                    <md-input-container>
+                        <label>Originator</label>
+                        <input type="text" ng-click="" autocomplete="off" readonly>
+                    </md-input-container>
+                </div>
+                <div class="col-md-1 col-lg-1 col-sm-1 col-xs-1">
+                    <md-input-container>
+                        <label>Claim #</label>
+                        <input type="text" autocomplete="off">
+                    </md-input-container>
+                </div>
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+                    <md-input-container>
+                        <label>Date of Claim</label>
+                        <potdate-picker dir-index="$index" date-name="dateOfClaim" ng-model="date | date"
+                            custom-read-only>
+                    </md-input-container>
+                </div>
+                <div class="col-md-1 col-lg-1 col-sm-1 col-xs-1">
+                    <md-input-container>
+                        <label>Period From(dd-mm-yyyy)</label>
+                        <potdate-picker dir-index="$index" date-name="fromDate" ng-model="progressClaim.fromDate"
+                            custom-read-only />
+                    </md-input-container>
+                </div>
+            </div>
+            <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12 no-padding">
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2 padL-0">
+                    <md-input-container>
+                        <label>Period To(dd-mm-yyyy)</label>
+                        <potdate-picker dir-index="$index" date-name="toDate" ng-model="progressClaim.toDate"
+                            custom-read-only />
+                    </md-input-container>
+                </div>
+                <div class="col-sm-1 col-xs-1 col-md-1 col-lg-1">
+                    <md-input-container>
+                        <label>Internal Approval Required</label>
+                        <md-select ng-model="">
+                            <md-option value="yes">Yes</md-option>
+                            <md-option value="no">No</md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+                    <md-input-container>
+                        <label>Internal Approver</label>
+                        <input type="text" ng-click="" readonly>
+                    </md-input-container>
+                </div>
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+                    <md-input-container>
+                        <label>Project Owner-Approver</label>
+                        <input type="text" ng-click="" readonly>
+                    </md-input-container>
+                </div>
+                <div class="col-md-1 col-lg-1 col-sm-1 col-xs-1">
+                    <md-input-container>
+                        <label>Due for Payment</label>
+                        <input type="text" ng-click="" readonly>
+                    </md-input-container>
+                </div>
+
+                <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4 padR-0">
+                    <div class="pull-right marT15">
+                        <input type="button" class="btn btn-primary btn-sm" value="Generate Invoice"
+                            ng-click="generateInvoice()" />
+                        <input type="button" ng-click="" class="btn btn-primary btn-sm" value="Generate Claim">
+                        <input type="button" ng-click="" class="btn btn-primary btn-sm" value="View Past Records">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12 no-padding">
+                <div class="singleTableResHeight_3 overflow-auto">
+                    <table class="table table-hover table-bordered singleTableHeight_3">
+                        <thead>
+                            <tr>
+                                <th rowspan="2">EPS</th>
+                                <th rowspan="2">Project</th>
+                                <th rowspan="2">Profit Center</th>
+                                <th rowspan="2">Purchase Order or Contract Number</th>
+                                <th rowspan="2">Project Delivery Note Number</th>
+                                <th rowspan="2">Schedule Item ID</th>
+                                <th rowspan="2">SOR Item ID</th>
+                                <th rowspan="2">Cost Code Item ID</th>
+                                <th rowspan="2">Schedule Item Description</th>
+                                <th rowspan="2">Unit Of Measure</th>
+                                <th rowspan="2">Currency</th>
+                                <th rowspan="2">Contract Qty</th>
+                                <th rowspan="2">Unit Rate as per Purchase Order</th>
+                                <th rowspan="2">Contract Amount</th>
+                                <th colspan="2" class="text-center">Progress-Previous Period</th>
+                                <th colspan="2" class="text-center">Progress-Current Period</th>
+                                <th colspan="2" class="text-center">Progress-To Date</th>
+                            </tr>
+                            <tr>
+                                <th>Quantity</th>
+                                <th>Amount</th>
+                                <th>Quantity</th>
+                                <th>Amount</th>
+                                <th>Quantity</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="">
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <div class="pull-left">
+                    <input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+                </div>
+                <div class="pull-right">
+                    <input type="button" class="btn btn-primary btn-sm" value="Submit for Internal Approval"
+                        ng-click="intApproval();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Internal Approval"
+                        ng-click="internalApproval();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Submit for Project Owner Approval"
+                        ng-click="ownApproval();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Project Owner Approval"
+                        ng-click="projownApproval();">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

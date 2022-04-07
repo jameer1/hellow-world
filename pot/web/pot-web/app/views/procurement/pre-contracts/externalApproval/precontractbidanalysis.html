@@ -1,0 +1,505 @@
+<div ng-if="account.appCodeTemplate[stateParamsRequestPage ? 'PROCURMT_EXTRNLSTAGE2REQUEST_ADDBIDDERS_VIEW':'PROCURMT_EXTRNLSTAGE2APPROVAL_ADDBIDDERS_VIEW'] ||
+account.appCodeTemplate[stateParamsRequestPage ? 'REQUEST_REQPROC_EXTRNLSTAGE2REQUEST_ADDBIDDERS_VIEW':'APPROVE_EXTRNLSTAGE2APPROVAL_ADDBIDDERS_VIEW']"
+	id="tab-pannel" class="panel-group">
+	<div class="panel panel-default" modal-movable>
+		<div class="panel-heading">
+			<h4 class="panel-title">Bid Analysis</h4>
+		</div>
+		<div class="panel-body">
+			<div class="">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+					<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 padL-0">
+						<md-input-container>
+							<label>Contract ID</label>
+							<input disabled="disabled" data-test='Stage2RequestApproval_Bidanalysis_View_ContractID'
+								type="text" ng-model="preContractData.code" />
+						</md-input-container>
+					</div>
+					<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+						<md-input-container>
+							<label>Contract Description</label>
+							<input disabled="disabled"
+								data-test='Stage2RequestApproval_Bidanalysis_View_ContractDescription' type="text"
+								ng-model="preContractData.desc" />
+						</md-input-container>
+					</div>
+					<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" ng-form name="form">
+						<md-input-container>
+							<label>Contract Type</label>
+							<md-select data-test='Stage2RequestApproval_Bidanalysis_View_ContractType' id="contractType"
+								name="contractType" ng-model="preContractData.preContractType" ng-disabled="true">
+								<md-option ng-value="contract" ng-repeat="contract in contractTypes track by $index">
+									{{contract}}</md-option>
+							</md-select>
+						</md-input-container>
+					</div>
+					<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" ng-form name="myForm1">
+						<md-input-container>
+							<label>Approver</label>
+							<input data-test='Stage2RequestApproval_Bidanalysis_View_approver' type="text"
+								ng-model="approverid" name="appr"
+								ng-click="getUsersByModulePermission()" readonly="readonly"
+								ng-disabled="checkExternalPrecontractStatus(preContractData.externalWorkFlowMap, 5)">
+						</md-input-container>
+					</div>
+					
+					<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 padR-0">
+						<md-input-container>
+							<label>Requestor Comments</label>
+							<div ng-form name="myForm3">
+								<textarea data-test='Stage2RequestApproval_Bidanalys_View_requestercomments'
+									ng-model="preContractData.preContractReqApprTO.reqComments" maxlength="100"
+									required="required"
+									name="appr" placeholder="Requestor Comments"
+									ng-disabled="checkExternalPrecontractStatus(preContractData.externalWorkFlowMap, 2)"></textarea>
+
+							</div>
+						</md-input-container>
+						<span ng-if="myForm3.appr.$error.maxlength">
+							You Reached Max length
+						</span>
+					</div>
+					<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" ng-hide="stateParamsRequestPage" ng-form
+						name="myForm2">
+						<md-input-container>
+							<label>Approver Comments</label>
+							<input type="text" data-test='Stage2RequestApproval_Bidanalysis_View_Approvercomments'
+								ng-model="preContractData.preContractReqApprTO.apprComments" maxlength="100" name="appr"
+								ng-disabled="checkExternalPrecontractStatus(preContractData.externalWorkFlowMap, 1) || checkExternalPrecontractStatus(preContractData.externalWorkFlowMap, 3)">
+						</md-input-container>
+						<span ng-if="myForm3.appr.$error.maxlength">
+							You Reached Max length
+						</span>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+
+
+					<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 padR-0" ng-show="stateParamsRequestPage">
+						<md-input-container>
+							<label>Close Date</label>
+							<div ng-form name="myForm3">
+								<input type="text" ng-model="preContractData.closeDate" maxlength="100" name="appr"
+									placeholder="Close Date" ng-disabled="true">
+							</div>
+						</md-input-container>
+					</div>
+					<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" ng-form name="myForm3">
+						<md-input-container>
+							<label>No.of Purchase Orders</label>
+							<md-select
+								ng-disabled="!checkExternalPrecontractStatus(preContractData.externalWorkFlowMap, 1)"
+								ng-model="preContractData.allowMultiplePurchaseOrders"
+								ng-change="onNumberOfPurchaseOrdersChanged()">
+								<md-option ng-value="o.value"
+									ng-repeat="o in [{ text: 'Single', value: false }, { text: 'Multiple', value: true }]">
+									{{o.text}}</md-option>
+							</md-select>
+						</md-input-container>
+					</div>
+					<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 padR-0">
+						<div class="pull-right marT15" ng-if="companyList.length > 0">
+							<input type="Submit" data-test='Stage2Request_Bidanalys_View_sendforapproval'
+								value="Send For Approval"
+								ng-if="(checkExternalPrecontractStatus(preContractData.externalWorkFlowMap, 1) || checkExternalPrecontractStatus(preContractData.externalWorkFlowMap, 3)) &&
+									  (account.appCodeTemplate['PROCURMT_EXTRNLSTAGE2REQUEST_SENDFORAPPROVAL'] || account.appCodeTemplate['REQUEST_REQPROC_EXTRNLSTAGE2REQUEST_SENDFORAPPROVAL'])"
+								ng-click="sendForApproval(2)" class="btn btn-primary btn-sm" />
+
+							<input class="btn btn-primary btn-sm" ng-if="checkExternalPrecontractStatus(preContractData.externalWorkFlowMap, 2)
+							    && (account.appCodeTemplate['PROCURMT_EXTRNLSTAGE2APPROVAL_REJECT'] ||
+								account.appCodeTemplate['APPROVE_EXTRNLSTAGE2APPROVAL_REJECT'])" type="button"
+								ng-click="approveOrRejectProcBidderItems(6)" value="Reject"
+								data-test='Stage2RequestApproval_Bidanalysis_View_Reject' />
+							<input
+								ng-if="checkExternalPrecontractStatus(preContractData.externalWorkFlowMap, 2) && (account.appCodeTemplate['PROCURMT_EXTRNLSTAGE2APPROVAL_SENDBACKTOREQUESTOR'] || account.appCodeTemplate['APPROVE_EXTRNLSTAGE2APPROVAL_SENDBACKTOREQUESTOR'])"
+								type="Submit" value="Send Back To Requestor"
+								data-test='Stage2RequestApproval_Bidanalysis_View_sendbacktorequester'
+								ng-click="saveProcBidderItems(3)" class="btn btn-primary btn-sm" />
+							<input data-test='Stage2RequestApproval_Bidanalysis_View_Onhold' type="Submit"
+								value="On Hold" ng-click="saveProcBidderItems(4)"
+								ng-if="checkExternalPrecontractStatus(preContractData.externalWorkFlowMap, 2) && (account.appCodeTemplate['PROCURMT_EXTRNLSTAGE2APPROVAL_ONHOLD'] || account.appCodeTemplate['APPROVE_EXTRNLSTAGE2APPROVAL_ONHOLD'])"
+								class="btn btn-primary btn-sm" />
+							<input type="Submit" value="Release" ng-click="saveProcBidderItems(7)"  ng-hide="preContractData.workFlowStatusTO.value==5"
+								ng-if="(!checkExternalPrecontractStatus(preContractData.externalWorkFlowMap, 2) && !checkExternalPrecontractStatus(preContractData.externalWorkFlowMap, 1))  && (account.appCodeTemplate['PROCURMT_EXTRNLSTAGE2APPROVAL_ONHOLD'] || account.appCodeTemplate['APPROVE_EXTRNLSTAGE2APPROVAL_ONHOLD'])" class="btn btn-primary btn-sm" />
+
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+					<div class="popUpTableResHeight overflow-auto">
+						<table class="table table-striped table-hover table-bordered popUpTableHeight">
+							<thead>
+								<tr>
+									<th rowspan="2">Type</th>
+									<th rowspan="2">Item ID</th>
+									<th width= "18%;" rowspan="2">Item Description</th>
+									<th rowspan="2">Classification</th>
+									<th rowspan="2">Procurement <br> Sub Category
+									</th>
+									<th rowspan="2">Cost Code</th>
+									<th rowspan="2">Delivery Place</th>
+									<th rowspan="2">Start Date</th>
+									<th rowspan="2">Finish Date</th>
+									<th rowspan="2">Quantity</th>
+									<th rowspan="2">Estimate Rate({{preContractData.currencyCode}})
+									</th>
+
+									<th class="text-center" ng-repeat="cmp in companyList"><span
+											style="padding-left: 15px !important;">{{companyMap[cmp.companyId].code}}</span>
+									</th>
+
+								</tr>
+								<tr>
+									<th ng-repeat="cmp in companyList" rowspan="1" colspan="1">
+										<div class="bid_rqb">
+											Rate</div>
+										<div class="bid_rqb">
+											Qty</div>
+										<div class="bid_rqb">
+											Bid</div>
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-if="preContractData.preContractEmpDtlTOs.length > 0">
+									<td colspan="30">
+										<fa class="fa fa-plus" ng-if="!manpowerFlag" title="Expand Manpower Items"
+											ng-click="expandCollapseManpower(manpowerFlag)"></fa>
+										<fa class="fa fa-minus" ng-if="manpowerFlag"  title="Collapse Manpower Items"
+											ng-click="expandCollapseManpower(manpowerFlag)"></fa>
+										<span style="position: relative; left: 10px; font-weight: bold;">Manpower
+										</span>
+									</td>
+								</tr>
+								<tr ng-if="preContractData.preContractEmpDtlTOs.length > 0 && manpowerFlag"
+									ng-repeat="manpowerObj in preContractData.preContractEmpDtlTOs"
+									ng-init="checkQuantity(manpowerObj.quantity,manpowerObj.preContractsEmpCmpTOs)">
+									<td></td>
+									<td><span>{{manpowerObj.itemCode}}</span></td>
+									<td><span>{{manpowerObj.itemDesc}}</span></td>
+									<td><span>{{projEmpClassmap[manpowerObj.projEmpLabelKey.id].code}}</span></td>
+									<td><span>{{procureCategoryMap[manpowerObj.procureSubCatgId].name}}</span></td>
+									<td>{{manpowerObj.costCode}}</td>
+									<td><span>{{manpowerObj.deliveryPlace}}</span></td>
+									<td><span>{{manpowerObj.startDate | date}}</span></td>
+									<td><span>{{manpowerObj.finishDate | date}}</span></td>
+									<td><span>{{manpowerObj.quantity}}</span></td>
+									<td><span>
+											<input class="form-control"
+												data-test='Stage2RequestApproval_Bidanalysis_View_manpower_EstimateUSD'
+												type="text" disabled="disabled" ng-model="manpowerObj.estimateCost" />
+										</span>
+									</td>
+
+									<td class="pre-contracts-bid-pop" ng-repeat="cmp in companyList" ng-form="rateForm"
+										ng-disabled="checkExternalPrecontractStatus(preContractData.externalWorkFlowMap, 5)">
+										<div ng-repeat="itemCompany in manpowerObj.preContractsEmpCmpTOs">
+											<div ng-if="cmp.id==itemCompany.preContractCmpId">
+												<div class="bid_rqb">
+													<input readonly class="form-control" 
+														style="padding: 2px;min-width: 50px !important;width: 50px !important;text-align: center;"
+														data-test='Stage2Request_Bidanalys_View_Manpower_rate'
+														type="text" ng-model="itemCompany.rate" placeholder="Rate"
+														valid-number name="rate" ng-required="true" ng-readonly="true"
+														ng-class="{'invalid-value': itemCompany.rate > manpowerObj.estimateCost}"
+														ng-disabled="checkExternalPrecontractStatus(preContractData.externalWorkFlowMap, 5)"
+														maxlength="15" valid-number>
+												</div>
+												<div class="bid_rqb" style="padding-left: 16px; margin-right:30px">
+													<input data-test='Stage2Request_Bidanalys_View_Manpower_qty'
+														class="form-control"
+														style="padding: 2px;min-width: 50px !important;width: 50px !important;text-align: center;"
+														type="text" ng-model="itemCompany.quantity" placeholder="Qty" 
+														valid-number name="Quantity"
+														ng-change="checkQuantity(manpowerObj.quantity,manpowerObj.preContractsEmpCmpTOs); validateman(itemCompany.quantity)"
+														ng-class="{'invalid-value': itemCompany.quantity > manpowerObj.quantity}"
+														ng-disabled="itemCompany.disabled"
+														maxlength="15" valid-number>
+												</div>
+												<div class="bid_rqb">
+													<input ng-click="itemapproveFlag(itemCompany)"style="text-align: center;"
+														data-test='Stage2Request_Bidanalys_View_Manpower_bidcheckbox'
+														type="checkbox" ng-model="itemCompany.approveFlag"
+														ng-disabled="itemCompany.disabled">
+												</div>
+											</div>
+										</div>
+									</td>
+								</tr>
+								<tr ng-if="preContractData.preContractPlantDtlTOs.length > 0">
+									<td colspan="30">
+										<fa class="fa fa-plus" ng-click="expandCollapsePlant(plantFlag)" title="Expand Plant Items"
+											ng-if="!plantFlag"></fa>
+										<fa class="fa fa-minus" ng-click="expandCollapsePlant(plantFlag)" title="Collapse Plant Items"
+											ng-if="plantFlag"></fa> <span
+											style="position: relative; left: 10px; font-weight: bold;">Plants</span>
+									</td>
+								</tr>
+								<tr ng-if="preContractData.preContractPlantDtlTOs.length > 0 && plantFlag"
+									ng-repeat="plantObj in preContractData.preContractPlantDtlTOs"
+									ng-init="checkQuantity(plantObj.quantity,plantObj.preContractPlantCmpTOs)">
+									<td></td>
+									<td><span>{{plantObj.itemCode}}</span></td>
+									<td><span>{{plantObj.itemDesc}}</span></td>
+									<td><span>{{projPlantClassmap[plantObj.projPlantLabelKey.id].code}}</span></td>
+									<td><span>{{procureCategoryMap[plantObj.procureSubCatgId].code}}</span></td>
+									<td><span>
+											{{plantObj.costCode}}</span></td>
+									<td><span> {{plantObj.deliveryPlace}}</span></td>
+									<td><span>{{plantObj.startDate | date}}</span></td>
+									<td><span>{{plantObj.finishDate | date}}</span></td>
+									<td><span>{{plantObj.quantity}}</span></td>
+									<td><span>
+											<input class="form-control" type="text" disabled="disabled"
+												data-test='Stage2RequestApproval_Bidanalysis_View_plants_EstimateUSD'
+												ng-model="plantObj.estimateCost" />
+										</span>
+									</td>
+									<td class="pre-contracts-bid-pop" ng-repeat="cmp in companyList" ng-form="rateForm">
+										<span ng-repeat="itemCompany in plantObj.preContractPlantCmpTOs">
+											<span ng-if="cmp.id==itemCompany.preContractCmpId">
+												<div class="bid_rqb">
+													<input readonly data-test='Stage2Request_Bidanalys_View_Plants_rate'
+														class="form-control"
+														style="padding: 2px;min-width: 50px !important;width: 50px !important;text-align: center;"
+														ng-model="itemCompany.rate" placeholder="Rate" valid-number
+														name="rate" ng-required="true"
+														ng-class="{'invalid-value': itemCompany.rate > plantObj.estimateCost}"
+														ng-disabled="checkExternalPrecontractStatus(preContractData.externalWorkFlowMap, 5)">
+												</div>
+												<div class="bid_rqb" style="padding-left: 16px; margin-right:30px">
+													<input data-test='Stage2Request_Bidanalys_View_Plants_qty'
+														class="form-control"
+														ng-change="checkQuantity(plantObj.quantity,plantObj.preContractPlantCmpTOs); validateplant(itemCompany.quantity)"  
+														style="padding: 2px;min-width: 50px !important;width: 50px !important;text-align: center;"
+														type="text" ng-model="itemCompany.quantity" placeholder="Qty"
+														valid-number name="Quantity"
+														ng-class="{'invalid-value': itemCompany.quantity > plantObj.quantity}"
+														ng-disabled="itemCompany.disabled">
+												</div>
+												<div class="bid_rqb">
+													<input data-test='Stage2Request_Bidanalys_View_Plants_bidcheckbox'
+														ng-click="itemapproveFlag(itemCompany)" type="checkbox"
+														ng-model="itemCompany.approveFlag"
+														ng-disabled="itemCompany.disabled">
+												</div>
+											</span>
+										</span>
+									</td>
+								</tr>
+								<tr ng-if="preContractData.preContractMaterialDtlTOs.length> 0">
+									<td colspan="30">
+										<fa class="fa fa-plus" ng-click="expandCollapseMaterial(materialFlag)" title="Expand Material Items"
+											ng-if="!materialFlag"></fa>
+										<fa class="fa fa-minus" ng-click="expandCollapseMaterial(materialFlag)" title="Collapse Material Items"
+											ng-if="materialFlag"></fa><span
+											style="position: relative; left: 10px; font-weight: bold;">Materials</span>
+									</td>
+								</tr>
+
+								<tr ng-if="preContractData.preContractMaterialDtlTOs.length> 0 && materialFlag"
+									ng-repeat="materialObj in preContractData.preContractMaterialDtlTOs"
+									ng-init="checkQuantity(materialObj.quantity,materialObj.preContractMaterialCmpTOs)">
+									<td></td>
+									<td><span>{{materialObj.itemCode}}</span></td>
+									<td><span>{{materialObj.itemDesc}}</span></td>
+									<td><span><span>{{projMaterialClassmap[materialObj.projMaterialLabelKey.id].code}}</span></span>
+									</td>
+									<td><span>{{procureCategoryMap[materialObj.procureSubCatgId].code}}</span></td>
+									<td>
+										<span>{{ materialObj.costCode}}
+										</span>
+									</td>
+									<td>
+										<span>
+											<span
+												ng-if=" materialObj.storeLabelKey.id> 0">{{ storeClassmap[materialObj.storeLabelKey.id].code}}
+												<span
+													ng-if="materialObj.storeLabelKey.id <= 0 || materialObj.projStoreLabelKey.id > 0">{{projStoreClassmap[materialObj.projStoreLabelKey.id].code}}</span>
+											</span>
+										</span>
+									</td>
+									<td><span>{{materialObj.startDate | date}}</span></td>
+									<td><span>{{materialObj.finishDate | date}}</span></td>
+									<td><span>{{materialObj.quantity}}</span></td>
+									<td>
+										<span>
+											<input class="form-control"
+												data-test='Stage2RequestApproval_Bidanalysis_View_materials_EstimateUSD'
+												type="text" disabled="disabled" ng-model="materialObj.estimateCost" />
+										</span>
+									</td>
+									<td class="pre-contracts-bid-pop" ng-repeat="cmp in companyList" ng-form="rateForm">
+										<span ng-repeat="itemCompany in materialObj.preContractMaterialCmpTOs">
+											<span ng-if="cmp.id==itemCompany.preContractCmpId">
+												<div class="bid_rqb">
+													<input readonly class="form-control"
+														style="padding: 2px;min-width: 50px !important;width: 50px !important;text-align: center;"
+														type="text"
+														data-test='Stage2Request_Bidanalys_View_Materials_rate'
+														ng-model="itemCompany.rate" placeholder="Rate" valid-number
+														name="rate" ng-required="true"
+														ng-class="{'invalid-value': itemCompany.rate > materialObj.estimateCost}"
+														ng-disabled="checkExternalPrecontractStatus(preContractData.externalWorkFlowMap, 5)">
+												</div>
+												<div class="bid_rqb" style="padding-left: 16px; margin-right:30px">
+													<input data-test='Stage2Request_Bidanalys_View_Materials_qty'
+														class="form-control"
+														ng-change="checkQuantity(materialObj.quantity,materialObj.preContractMaterialCmpTOs); validatematerial(itemCompany.quantity)"
+														style="padding: 2px;min-width: 50px !important;width: 50px !important;text-align: center;"
+														type="text" ng-model="itemCompany.quantity" placeholder="Qty"
+														valid-number name="Quantity"
+														ng-class="{'invalid-value': itemCompany.quantity > materialObj.quantity}"
+														ng-disabled="itemCompany.disabled">
+												</div>
+												<div class="bid_rqb">
+													<input
+														data-test='Stage2Request_Bidanalys_View_Materials_bidcheckbox'
+														ng-click="itemapproveFlag(itemCompany)" type="checkbox"
+														ng-model="itemCompany.approveFlag"
+														ng-disabled="itemCompany.disabled">
+												</div>
+											</span>
+										</span>
+									</td>
+								</tr>
+								<tr ng-if="preContractData.preContractServiceDtlTOs.length > 0">
+									<td colspan="30">
+										<fa class="fa fa-plus" ng-click="expandCollapseService(serviceFlag)" title="Expand Service Items"
+											ng-if="!serviceFlag"> </fa>
+										<fa class="fa fa-minus" ng-click="expandCollapseService(serviceFlag)" title="Collapse Service Items"
+											ng-if="serviceFlag"></fa>
+										<span style="position: relative; left: 10px; font-weight: bold;">Services</span>
+									</td>
+								</tr>
+								<tr ng-if="preContractData.preContractServiceDtlTOs.length > 0 && serviceFlag"
+									style="padding-left:30px;"
+									ng-repeat="servciesObj in preContractData.preContractServiceDtlTOs"
+									ng-init="checkQuantity(servciesObj.quantity,servciesObj.preContractServiceCmpTOs)">
+									<td></td>
+									<td><span>{{servciesObj.itemCode}}</span></td>
+									<td><span>{{servciesObj.itemDesc}}</span></td>
+									<td><span>{{projServiceClassmap[servciesObj.projServiceLabelKey.id].code}}</span>
+									</td>
+									<td><span>{{procureCategoryMap[servciesObj.procureSubCatgId].code}}</span></td>
+									<td><span
+											ng-if="servciesObj.projCostLabelKey.id > 0">{{ servciesObj.costCode}}</span>
+									</td>
+									<td><span> {{servciesObj.deliveryPlace}}</span></td>
+									<td><span>{{servciesObj.startDate | date}}</span></td>
+									<td><span>{{servciesObj.finishDate | date}}</span></td>
+									<td><span>{{servciesObj.quantity}}</span></td>
+									<td><span>
+											<input
+												data-test='Stage2RequestApproval_Bidanalysis_View_services_EstimateUSD'
+												class="form-control" type="text" disabled="disabled"
+												ng-model="servciesObj.estimateCost" />
+										</span>
+									</td>
+									<td class="pre-contracts-bid-pop" ng-repeat="cmp in companyList" ng-form="rateForm">
+										<span ng-repeat="itemCompany in servciesObj.preContractServiceCmpTOs">
+											<span ng-if="cmp.id==itemCompany.preContractCmpId">
+												<div class="bid_rqb">
+													<input readonly class="form-control"
+														style="padding: 2px;min-width: 50px !important;width: 50px !important;text-align: center;"
+														data-test='Stage2Request_Bidanalys_View_Services_rate'
+														type="text" ng-model="itemCompany.rate" placeholder="Rate"
+														valid-number name="rate" ng-required="true"
+														ng-class="{'invalid-value': itemCompany.rate > servciesObj.estimateCost}"
+														ng-disabled="checkExternalPrecontractStatus(preContractData.externalWorkFlowMap, 5)">
+												</div>
+												<div class="bid_rqb" style="padding-left: 16px; margin-right:30px">
+													<input data-test='Stage2Request_Bidanalys_View_Services_qty'
+														class="form-control"
+														ng-change="checkQuantity(servciesObj.quantity,servciesObj.preContractServiceCmpTOs); validateservice(itemCompany.quantity)"
+														style="padding: 2px;min-width: 50px !important;width: 50px !important;text-align: center;"
+														type="text" ng-model="itemCompany.quantity" placeholder="Qty"
+														valid-number name="Quantity"
+														ng-class="{'invalid-value': itemCompany.quantity > servciesObj.quantity}"
+														ng-disabled="itemCompany.disabled">
+												</div>
+												<div class="bid_rqb">
+													<input data-test='Stage2Request_Bidanalys_View_Services_bidcheckbox'
+														ng-click="itemapproveFlag(itemCompany)" type="checkbox"
+														ng-model="itemCompany.approveFlag"
+														ng-disabled="itemCompany.disabled">
+												</div>
+											</span>
+										</span>
+									</td>
+								</tr>
+
+								<tr ng-if="preContractData.precontractSowDtlTOs.length > 0">
+									<td colspan="30">
+										<fa class="fa fa-plus" ng-click="expandCollapseSow(sowFlag)" ng-if="!sowFlag" title="Expand SOW Items">
+										</fa>
+										<fa class="fa fa-minus" ng-click="expandCollapseSow(sowFlag)" ng-if="sowFlag" title="Collapse SOW Items">
+										</fa> <span style="position: relative; left: 10px; font-weight: bold;">Project
+											Sub Contract</span>
+									</td>
+								</tr>
+								<tr ng-if="preContractData.precontractSowDtlTOs.length > 0 && sowFlag"
+									style="padding-left:30px;"
+									ng-repeat="sowObj in preContractData.precontractSowDtlTOs"
+									ng-init="checkQuantity(sowObj.quantity,sowObj.precontractSowCmpTOs)">
+									<td></td>
+									<td><span>{{projSOWMap[sowObj.sowId].code}}</span></span></td>
+									<td><span>{{projSOWMap[sowObj.sowId].name}}</span></span></td>
+									<td><span>{{projSOWMap[sowObj.sowId].displayNamesMap.soeCode}}</span></span></td>
+									<td><span>{{projSOWMap[sowObj.sowId].displayNamesMap.sorCode}}</span></span></td>
+									<td><span>
+											{{projSOWMap[sowObj.sowId].displayNamesMap.costCode}}</span></td>
+									<td><span>{{sowObj.deliveryPlace}}</span></td>
+									<td><span>{{sowObj.startDate}}</span></td>
+									<td><span>{{sowObj.finishDate}}</span></td>
+									<td><span>{{sowObj.quantity}}</span></td>
+									<td><span><input class="form-control" type="text" disabled="disabled"
+												data-test='Stage2RequestApproval_Bidanalysis_View_projectsubcontract_EstimateUSD'
+												ng-model="sowObj.estimateCost" /></span>
+									</td>
+									<td class="pre-contracts-bid-pop" ng-repeat="cmp in companyList" ng-form="rateForm">
+										<span ng-repeat="itemCompany in sowObj.precontractSowCmpTOs"
+											ng-if="cmp.id==itemCompany.preContractCmpId">
+											<span>
+												<div class="bid_rqb">
+													<input readonly class="form-control"
+														style="padding: 2px;min-width: 50px !important;width: 50px !important;text-align: center;"
+														type="text" ng-model="itemCompany.rate" placeholder="Rate"
+														valid-number name="rate" ng-required="true"
+														data-test='Stage2Request_Bidanalys_View_ProjectSubContract_rate'
+														ng-class="{'invalid-value': itemCompany.rate > sowObj.estimateCost }"
+														ng-disabled="checkExternalPrecontractStatus(preContractData.externalWorkFlowMap, 5)">
+												</div>
+												<div class="bid_rqb" style="padding-left: 16px; margin-right:30px">
+													<input class="form-control"
+														ng-change="checkQuantity(sowObj.quantity,sowObj.precontractSowCmpTOs); validatesow(itemCompany.quantity)"
+														style="padding: 2px;min-width: 50px !important;width: 50px !important;text-align: center;"
+														type="text" ng-model="itemCompany.quantity" placeholder="Qty"
+														valid-number name="Quantity"
+														ng-class="{'invalid-value': itemCompany.quantity > sowObj.quantity }"
+														data-test='Stage2Request_Bidanalys_View_ProjectSubContract_qty'
+														ng-disabled="itemCompany.disabled">
+												</div>
+												<div class="bid_rqb">
+													<input
+														data-test='Stage2Request_Bidanalys_View_ProjectSubContract_bidcheckbox'
+														ng-click="itemapproveFlag(itemCompany)" type="checkbox"
+														ng-model="itemCompany.approveFlag"
+														ng-disabled="itemCompany.disabled">
+												</div>
+											</span>
+										</span>
+									</td>
+								</tr>
+
+							</tbody>
+
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="panel-footer"></div>
+			<div class="ngdialog-close"></div>
+		</div>
+	</div>
+</div>

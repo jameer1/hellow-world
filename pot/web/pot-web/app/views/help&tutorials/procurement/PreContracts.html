@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml2/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+    <head>
+        <title>Proconsys</title>
+        <link rel="stylesheet" type="text/css" href="style.css" />
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+
+        <script type="text/javascript" src="js/ddaccordion.js">
+
+            /***********************************************
+             * Accordion Content script- (c) Dynamic Drive DHTML code library (www.dynamicdrive.com)
+             * Visit http://www.dynamicDrive.com for hundreds of DHTML scripts
+             * This notice must stay intact for legal use
+             ***********************************************/
+
+        </script>
+
+
+        <script type="text/javascript">
+
+
+            ddaccordion.init({
+                headerclass: "submenuheader", //Shared CSS class name of headers group
+                contentclass: "submenu", //Shared CSS class name of contents group
+                revealtype: "click", //Reveal content when user clicks or onmouseover the header? Valid value: "click", "clickgo", or "mouseover"
+                mouseoverdelay: 200, //if revealtype="mouseover", set delay in milliseconds before header expands onMouseover
+                collapseprev: true, //Collapse previous content (so only one open at any time)? true/false 
+                defaultexpanded: [], //index of content(s) open by default [index1, index2, etc] [] denotes no content
+                onemustopen: false, //Specify whether at least one header should be open always (so never all headers closed)
+                animatedefault: false, //Should contents open by default be animated into view?
+                persiststate: true, //persist state of opened contents within browser session?
+                toggleclass: ["", ""], //Two CSS classes to be applied to the header when it's collapsed and expanded, respectively ["class1", "class2"]
+                togglehtml: ["suffix", "<img src='images/plus.gif' class='statusicon' />", "<img src='images/minus.gif' class='statusicon' />"], //Additional HTML added to the header when it's collapsed and expanded, respectively  ["position", "html1", "html2"] (see docs)
+                animatespeed: "fast", //speed of animation: integer in milliseconds (ie: 200), or keywords "fast", "normal", or "slow"
+                oninit: function(headers, expandedindices) { //custom code to run when headers have initalized
+                    //do nothing
+                },
+                onopenclose: function(header, index, state, isuseractivated) { //custom code to run whenever a header is opened or closed
+                    //do nothing
+                }
+            })
+
+
+        </script>
+
+
+    </head>
+
+    <body>
+        <div class="right_pannel">  
+
+            <h3 class="h3_header"> PROCUREMENT:</h3>
+
+            <p> Procurement is the process of buying the materials or the services for an EPS (Projects) from the Vendors. The screen holds the data of a Purchase Order in various stages in the form of Pre-Contract Ids (Pre-Contract Id list, Pre Contract Ref Doc List, Stage 1 internal approval and finally Bid correspondence with vendor and evaluation records.)
+            </p>
+            <h3 class="h3_header"> PRE-CONTRACT ID LIST:</h3>
+
+            <p>  It is the primary step in creating the Purchase Order in the form of Pre Contract. In this screen input the EPS name, Project Name and Contract description along with a Pre-Contract Id. The Pre-Contract Id is the reference for future process. 
+            </p>
+            <h4 class="h4_header"> Action Buttons:</h4>
+            <p> Action buttons Add, Delete, sort, Group, Ungroup are used for Adding, deleting, sorting, grouping, ungrouping the data (Pre Contract Id List) respectively.
+            </p>
+            <p><font class="h4_header1">Set Columns:</font> Set Columns is used to display the customized list of Pre Contract Ids. User can select the desired fields to be visible and unwanted fields to be hidden.</p>
+
+
+            <h3 class="h3_header"> PRE-CONTRACT REFERENCE DOCUMENTS LIST:</h3>
+
+            <p>This screen holds the reference documents required for a pre contract that is created in Pre-Contract ID List screen. For the document user has to provide Document Id, name, category, revision number and status. 
+            </p>
+            <h4 class="h4_header">  Action Buttons:</h4>
+            <p>Action buttons Add, Delete, sort, Group, Ungroup are used for Adding, deleting, sorting, grouping, ungrouping the data (Pre Contract Ref Doc List) respectively.
+            </p>
+            <p><font class="h4_header1">Set Columns:</font> Set Columns is used to display the customized list of Pre Contract Ref Doc List. User can select the desired fields to be visible and unwanted fields to be hidden.
+            </p>
+               <h3 class="h3_header"> STAGE 1 INTERNAL APPROVAL:</h3>
+
+               <p> In this screen the pre â€“ contract id will be sent to internal approval by the user to the certain authority. The user can choose the approver in the screen itself. User has to input the cost code id for the material and estimated quantity. User has to select the status of the Pre-Contract id as approved for sending the Pre Conâ€™ Id for next Process.  After the approval the pre contract id sent to Bid Correspondence with vendor.
+
+</p>
+
+                <h4 class="h4_header"> Action Buttons:</h4>
+                <p>Action buttons Add, Delete, sort, Group, Ungroup are used for Adding, deleting, sorting, grouping, ungrouping the data (Stage 1 Internal Approval List) respectively.
+</p>
+                <p><font class="h4_header1"> Set Columns: </font>Set Columns is used to display the customized list of Stage 1 Internal Approval List. User can select the desired fields to be visible and unwanted fields to be hidden.</p>
+
+                 <p><font class="h4_header1">Discard: </font>Use this action button to discard any changes while editing before the data is saved to the system.</p>
+
+                <h3 class="h3_header"> SUBMIT FOR APPROVE:  </h3>
+
+                <p><font class="h4_header1"> Resend:</font> This button is for sending a notification to admin, if pre-contract id  approval date is expired.</p>
+
+
+               <h3 class="h3_header">  BID CORRESPONDANCE WITH VENDOR & EVALUATION RECORDS:</h3>
+
+                <p>In this screen, user needs to input the Pre-contract id with a vendor and upload documents to correspond vendor and correspondence from the vendor. After evaluating the bid records, the Pre Contract id needs Approval from respected authority and after approval, the purchase order number will be given to the Pre-Contract Id with PO Date, Quantity and Price. </p>
+
+                <h4 class="h4_header"> Action Buttons:</h4>
+                <p>Action buttons Add, Delete, sort, Group, Ungroup are used for Adding, deleting, sorting, grouping, ungrouping the data (Bid correspondence with vendor and evaluation records) respectively.</p>
+
+                 <p><font class="h4_header1">Set Columns: </font>Set Columns is used to display the customized list of Bid correspondence with vendor and evaluation records List. User can select the desired fields to be visible and unwanted fields to be hidden.</p>
+
+                <p><font class="h4_header1"> Discard: </font>Use this action button to discard any changes while editing before the data is saved to the system.</p>
+
+                 <p><font class="h4_header1">RESEND:</font> If the Pre Contract Idâ€™s approval date expires, the Id canâ€™t be approved. To extend the Pre Contract id approval date, a notification to admin will be sent by using this resend button. </p> 
+
+
+        </div>
+    </body>
+</html>

@@ -1,0 +1,111 @@
+<div class="tabTable_5_Res_Height overflow-auto" >
+    <table class="table tabTable_5_Height table-hover table-bordered">
+        <thead>
+            <tr>
+                <th rowspan=3 style="width: 30px !important">Select</th>
+                 <th class="text-center" rowspan="3">Plant ID</th>
+                 <th class="text-center" rowspan="3">Description</th>
+                 <th class="text-center" rowspan="3">Registration No</th>
+                 <th class="text-center" rowspan="3">Trade</th>
+                 <th class="text-center" rowspan="3">Plant Make</th>
+                 <th class="text-center" rowspan="3">Plant Model</th>
+                 <th class="text-center" rowspan="3">Parent Company</th>
+                 <!-- <th class="text-center" rowspan="3">Procure Category</th> -->
+                 <th class="text-center" rowspan="3">Charge Out Category</th>
+                 <th class="text-center" rowspan="3">Unit Of Measure </th>
+                 <th colspan="{{workDairyCostCodeList.length*2+2}}" class="text-center">
+                     Cost Code Wise Plant Utilisation
+                 </th>
+                 <th clas"text-right" rowspan="3">Total</th>
+                 <th class="text-center" rowspan="3" style="width:100px;">Comments</th>
+             </tr>
+             <tr>
+                 <th colspan="{{workDairyCostCodeList.length+1}}" class="text-center">Used Time</th>
+                 <th colspan="{{workDairyCostCodeList.length+1}}" class="text-center">Idle Time</th>
+             </tr>
+             <tr>
+                 <th ng-repeat="workDairyCostCode in  workDairyCostCodeList">
+                     {{workDairyCostCode.code}}</th>
+                 <th>Used Total</th>
+                 <th ng-repeat="workDairyCostCode in  workDairyCostCodeList">
+                     {{workDairyCostCode.code}}</th>
+                 <th>Idle Total</th>
+             </tr>
+         </thead>
+         <tbody>
+             <tr ng-repeat="plant in workDairyPlantDtlTOs">
+                 <td>
+                     <input type="checkbox" ng-change="plantRowSelect(plant)" ng-model="plant.select"
+                         ng-if="plant.id==undefined || plant.id <=0">
+                 </td>
+                 <td>{{plant.code}}</td>
+                 <td>{{plant.name}}</td>
+                 <td>{{plant.plantRegNum}}</td>
+                 <td>{{plant.classType}} </td>
+                 <td>{{plant.manufacture}}</td>
+                 <td>{{plant.model}}</td>
+                 <td>{{plant.cmpCategoryName}}</td>
+                 <!-- <td>{{plant.procureCatg}}</td> -->
+                 <td>
+                     <select ng-model="plant.shiftName" class="form-control">
+                         <option value="">-Select Shift-</option>
+                         <option>Single Shift</option>
+                         <option>Double Shift</option>
+                     </select>
+                 </td>
+                 <td>{{plant.measureUnit}}</td>
+                 <td colspan="{{workDairyCostCodeList.length*2+4}}">
+                     <table id="tableBorder0" class="table" ng-if="workDairyPlantDtlTOs.length>0">
+                         <tr ng-repeat="plantStatusTO in plant.workDairyPlantStatusTOs">
+                             <td ng-repeat="userCostObj in plantStatusTO.workDairyPlantCostDtlTOs" id="input-width">
+                                 <input
+                                     ng-class="{coloumnHighlightColor:(userCostObj.errorFlag || 	plantStatusTO.apprStatus==null),coloumnHighlightColor1:plantStatusTO.apprStatus=='Approved'}"
+                                     ng-change="checkDecimal(userCostObj,1);calculatePlantUsedTotal(plantStatusTO)| number : 2"
+                                     maxlength="5" placeholder=HH.MM type="text" class="form-control" valid-number
+                                     ng-disabled="plantStatusTO.apprStatus!='SubmittedForApproval'"
+                                     ng-model="userCostObj.usedTime" />
+                             </td>
+                             <td id="input-width">
+                                 <input type="text" class="form-control"
+                                     ng-class="{coloumnHighlightColor:(userCostObj.errorFlag || 	userCostObj.usedTime > userCostObj.oldUsedTime || plantStatusTO.apprStatus==null),coloumnHighlightColor1:plantStatusTO.apprStatus=='Approved'}"
+                                     ng-disabled="plantStatusTO.apprStatus!='SubmittedForApproval'"
+                                     ng-value="plantStatusTO.usedTotal | number : 2" readonly="readonly">
+                             </td>
+                             <td ng-repeat="idleCostObj in plantStatusTO.workDairyPlantCostDtlTOs" id="input-width">
+                                 <input placeholder=HH.MM type="text" class="form-control"
+                                     ng-disabled="plantStatusTO.apprStatus!='SubmittedForApproval'"
+                                     ng-class="{coloumnHighlightColor:(idleCostObj.errorFlag || idleCostObj.usedTime > idleCostObj.oldUsedTime  || 	plantStatusTO.apprStatus==null),coloumnHighlightColor1:plantStatusTO.apprStatus=='Approved'}"
+                                     ng-change="checkDecimal(idleCostObj,2);calculatePlantIdleTotal(plantStatusTO)| number : 2"
+                                     valid-number maxlength="5" ng-model="idleCostObj.idleTime" />
+                             </td>
+                             <td id="input-width">
+                                 <input type="text" class="form-control"
+                                     ng-class="{coloumnHighlightColor:plantStatusTO.apprStatus==null,coloumnHighlightColor1:plantStatusTO.apprStatus=='Approved'}"
+                                     ng-disabled="plantStatusTO.apprStatus!='SubmittedForApproval'"
+                                     ng-value="plantStatusTO.idleTotal | number : 2" readonly="readonly">
+                             </td>
+                             <td id="input-width">
+                                 <input type="text" class="form-control" readonly="readonly"
+                                     ng-class="{coloumnHighlightColor:plantStatusTO.apprStatus==null,coloumnHighlightColor1:plantStatusTO.apprStatus=='Approved'}"
+                                     ng-disabled="plantStatusTO.apprStatus!='SubmittedForApproval'"
+                                     ng-value="totalUsedIdleCount(plantStatusTO.usedTotal,plantStatusTO.idleTotal)| number : 2">
+                             </td>
+                             <td id="input-width">
+                                 <input type="text" class="form-control"
+                                     ng-class="{coloumnHighlightColor:plantStatusTO.apprStatus==null,coloumnHighlightColor1:plantStatusTO.apprStatus=='Approved'}"
+                                     ng-disabled="plantStatusTO.apprStatus!='SubmittedForApproval'"
+                                     ng-model="plantStatusTO.comments">
+                             </td>
+                         </tr>
+                     </table>
+                 </td>
+             </tr>
+         </tbody>
+     </table>
+</div>
+
+<div class="pull-right">
+    <input ng-if="account.appCodeTemplate['ASBUILTRCRD_WRKDIRY_CREATWRKDIRY_ADD']" 
+        value="Save" type="button" class="btn btn-primary btn-sm" ng-click="saveWorkDairyPlantDetails()" value="Save"
+        data-test='AsbuiltRecords_WorkDiary_ApproveWorkDiary_PlantUtilization_Save'>
+</div>

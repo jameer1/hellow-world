@@ -1,0 +1,99 @@
+<div id="tab-pannel">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h4 class="panel-title">Internal Stage1 Request&Approval</h4>
+		</div>
+		<div class="panel-body">
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+						<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 padL-0">
+						<md-input-container>
+							<label>Pre-Contract Code</label>
+							<input type="text" ng-model="preContractObj.code" ng-disabled="true">
+						</md-input-container>
+						</div>
+						<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+								<md-input-container>
+							<label>Contract Description</label> 
+							<input type="text" ng-model="preContractObj.desc" ng-disabled="true">
+							</md-input-container>
+						</div>
+
+						<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+								<md-input-container>
+							<label>Pre-Contract Type</label>
+							<md-select id="contractType" name="contractType" required="required" ng-model="preContractObj.preContractType" ng-disabled="preContractObj.preContractType">
+								<md-option value="">Contract Type</md-option>
+								<md-option ng-value="contract" ng-repeat="contract for contract in contractTypes track by $idnex">{{contract}}</md-option>
+							</md-select>
+						</md-input-container>
+						</div>
+
+						<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+						<md-input-container>
+							<label>Currency</label>
+							<md-select id="currency" name="currency" required="required" ng-model="preContractObj.currencyCode" ng-disabled="preContractObj.currencyTO">
+								<md-option value="">Currency</md-option>
+								<md-option ng-value="currency" ng-repeat="currency for currency in currencyList track by $index">{{Currency}}</md-option>
+							</md-select>
+							</md-input-container>
+						</div>
+
+						<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+								<md-input-container>
+							<label>Internal Status</label>
+							<input type="text" ng-model="preContractObj.workFlowStatusTO.desc"
+								ng-disabled="true">
+								</md-input-container>
+						</div>
+
+						<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"
+							ng-if="preContractObj.workFlowStatusTO.value ==2 || preContractObj.workFlowStatusTO.value ==3 ">
+							<md-input-container>
+							<label>Requestor Comments</label><input type="text"
+								ng-model="preContractObj.preContractReqApprTO.reqComments"
+								ng-disabled="true">
+							</md-input-container>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+					<div class="pull-right marT15" 
+					ng-if="preContractObj.workFlowStatusTO.value !=5 || preContractObj.workFlowStatusTO.value !=6">
+					<input
+						ng-if="preContractObj.workFlowStatusTO.value ==1 || preContractObj.workFlowStatusTO.value ==3 && preContractObj.preContractEmpDtlTOs.length>0"
+						type="Submit" value="Send For Approval"
+						ng-click="saveInternalRequest(2)" class="btn btn-primary btn-sm">
+					<input ng-if="preContractObj.workFlowStatusTO.value ==2"
+						type="Submit" value="Send Back To Requestor"
+						ng-click="saveInternalRequest(3)" class="btn btn-primary btn-sm">
+					<input type="Submit" value="On Hold"
+						ng-click="saveInternalRequest(4)"
+						ng-if="preContractObj.workFlowStatusTO.value ==2"
+						class="btn btn-primary btn-sm"> <input type="Submit"
+						value="Release" ng-click="saveInternalRequest(2)"
+						ng-if="preContractObj.workFlowStatusTO.value ==4"
+						class="btn btn-primary btn-sm">  <input
+						ng-if="preContractObj.workFlowStatusTO.value ==2" type="Submit"
+						value="Reject" ng-click="saveInternalRequest(6)"
+						class="btn btn-primary btn-sm"> <input type="Submit"
+						value="Cost Budget" ng-click="getPreContractCostCodeBudget()"
+						class="btn btn-primary btn-sm">
+					</div>
+					</div>
+			</div>
+			<br/>
+			<div class="panel-body">
+			<div ng-if="preContractObj.id > 0" id="tabs1" class="nav-tabs-custom">
+				<ul class="nav nav-tabs">
+					<li fixed-header="" ng-repeat ="preContarctDetailTab in preContrctDetailTabs"
+						ng-class="{active:isActiveTab1(preContarctDetailTab.url)}"><a
+						data-toggle="tab" ng-click="onClickTab1(preContarctDetailTab)">{{preContarctDetailTab.title}}</a></li>
+				</ul>
+				<div class="tab-content">
+					<div ng-include="currentTab1"></div>
+				</div>
+			</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</div>
+</div>

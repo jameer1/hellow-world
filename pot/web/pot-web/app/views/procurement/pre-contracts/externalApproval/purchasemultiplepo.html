@@ -1,0 +1,178 @@
+<div id="tab-pannel" class="panel-group">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">Generation Of Multiple Purchase Order</h4>
+    </div>
+
+    <div class="panel-body">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+            <div class="form-group">
+              <label>Company Name & Address</label>
+              <textarea ng-model="preContractData.clientDetails" cols="30" ng-disabled="true" class="form-control"
+                md-select-on-focus></textarea>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+            <div class="form-group">
+              <label>Vendor Name</label>
+              <md-select ng-model="selectedVendor" ng-change="vendorChanged()">
+                <md-option>Select a Vendor</md-option>
+                <md-option ng-repeat="vendor in vendors" ng-value="vendor">{{vendor.cmpName}}</md-option>
+              </md-select>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+            <div class="form-group">
+              <label>Vendor Address</label>
+              <textarea class="form-control" ng-model="selectedVendor.addressDetails" cols="30" ng-disabled="true"
+                md-select-on-focus></textarea>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+            <div class="form-group">
+              <label>Eps Name</label>
+              <input disabled="disabled" class="form-control"  type="text" title="{{userProjMap[selectedData.projId].code}}"
+                ng-model="userProjMap[selectedData.projId].code" />
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+            <div class="form-group">
+              <label>Project Name</label>
+              <input disabled="disabled" class="form-control" type="text" title="{{userProjMap[selectedData.projId].name}}"
+                ng-model="userProjMap[selectedData.projId].name" />
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+            <div class="form-group">
+              <label>Pre-Contract Code</label>
+              <input disabled="disabled" class="form-control"  type="text" ng-model="selectedData.code" title="{{selectedData.code}}" />
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+            <div class="form-group">
+              <label>PO Code</label>
+              <input disabled="disabled" class="form-control"  type="text" ng-model="po.code" title="{{po.code}}" />
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+            <div class="form-group">
+              <label>Date</label><br>
+              <pot-currentdate-picker dir-index="$index" ng-model="po.createdOn" date-name="date"
+                placeholder="dd-mm-yyyy" class="form-control"  tabindex=-1 readonly></pot-currentdate-picker>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+              <div class="form-group">
+              <label>Sub: Description of Purchase order or Sub Contract</label>
+              <textarea rows="5" cols="100" class="form-control" ng-model="multiPOData.desc" md-select-on-focus></textarea>
+          </div>
+        </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 padL-0">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 padL-0">
+          <div class="form-group">
+              <label>Issued By</label>
+              <input type="text" class="form-control" data-test='Stage2Approval_GenerateMultiplePO_IssuedBy'
+              ng-model="multiPOData.issuedBy" ng-value="loggedInUser"/>
+          </div>
+          </div>
+        </div>
+          <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+              <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 padL-0">
+              <div class="form-group">
+                  <label>Accepted By</label>
+                  <input class="form-control" data-test='Stage2Approval_GenerateMultiplePO_AcceptedBy' type="text"
+              ng-model="multiPOData.acceptedBy" ng-value="multiPOData.vendorName"/>
+              </div>
+              </div>
+          </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 padL-0">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 padL-0">
+        <div class="form-group">
+            <label>Signature</label>
+            <input type="text" class="form-control" data-test='Stage2Approval_GenerateMultiplePO_IssuedBySignature'
+              ng-model="multiPOData.issuerSign" />
+        </div>
+    </div>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 padL-0">
+        <div class="form-group">
+            <label>Signature</label>
+            <input type="text" class="form-control" data-test='Stage2Approval_GenerateMultiplePO_AcceptedBySignature'
+              ng-model="multiPOData.vendorSign" />
+        </div>
+    </div>
+        </div>
+  </div>
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 padL-0">
+          <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 padL-0">
+        <div class="form-group">
+            <label><b>Company Representative:</b></label>
+            <span></span>
+        </div>
+        </div>
+      </div>
+      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+          <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 padL-0">
+        <div class="form-group">
+            <label><b>Vendor Representative:</b></label>
+            <span></span>
+        </div>
+        </div>
+    </div>
+  </div>
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 padL-0">
+          <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 padL-0">
+        <div class="form-group">
+            <label>Name</label>
+            <input type="text" data-test='Stage2Approval_GenerateMultiplePO_CompanyRepresentative_Name'
+              ng-model="multiPOData.vendorName" class="form-control" readonly />
+        </div>
+         </div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 padR-0">
+            <div class="form-group">
+                <label>Designation</label>
+                <input type="text" data-test='Stage2Approval_GenerateMultiplePO_CompanyRepresentative_Designation'
+              ng-model="multiPOData.vendorDesignation" class="form-control" readonly />
+            </div>
+        </div>
+      </div>
+      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 padR-0">
+          <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 padL-0">
+        <div class="form-group">
+            <label>Name</label>
+            <input type="text" data-test='Stage2Approval_GenerateMultiplePO_VendorRepresentative_Name'
+              ng-model="multiPOData.issuerName" class="form-control" readonly />
+        </div>
+         </div>
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 padR-0">
+        <div class="form-group">
+            <label>Designation</label>
+            <input type="text" data-test='Stage2Approval_GenerateMultiplePO_VendorRepresentative_Designation'
+              ng-model="multiPOData.issuerDesignation" class="form-control" readonly />
+        </div>
+    </div>
+      </div>
+  </div>
+</div>
+  <div class="panel-footer">
+      <div class="pull-left">
+        <input class="btn  btn-secondary btn-sm" type="button" ng-click="getAppendicesDetails()" value="Appendices">
+      </div>
+      <div class="pull-right">
+        <input class="btn  btn-primary btn-sm" type="button" ng-click="generateMultiplePO()"
+          data-test='Stage2Approval_GenerateMultiplePO_Save' value="Save">
+      </div>
+    </div>
+    <div class="ngdialog-close"></div>
+  </div>
+</div>

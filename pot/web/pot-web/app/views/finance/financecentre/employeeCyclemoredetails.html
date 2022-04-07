@@ -1,0 +1,40 @@
+<div id="tab-pannel" class="panel-group">
+    <div class="panel panel-default" modal-movable>
+        <div class="panel-heading">
+            <h4 class="panel-title">Unit Of Pay Rate For Employees - More Details</h4>
+        </div>
+       
+
+            <div class="popUpTableResHeight">
+                <table class="table table-striped table-hover table-bordered popUpTableHeight">
+                    <thead>
+                        <tr>
+                            <th>Employee Category</th>
+                            <th>Employee Type</th>
+                            <th>Cycle Due Date</th>
+                             <th>Cycle Period Start From</th>
+                            <th>Pay Roll Cycle</th>
+                            <th>Status</th>
+                            <th>Employee Pay role cycle display id</th>
+                            
+                        </tr>
+                    </thead>
+                   
+                    <tbody>
+                        <tr>
+                        <td>{{employeeCategory}}</td>
+                         <td>{{employeeType}}</td>
+                         <td>{{cycleDueDate}}</td>
+                         <td>{{cyclePeriodStartFrom}}</td>
+                         <td>{{payrollcycle}}</td>
+                         <td>{{status | potstatusfilter :status }}</td>
+                         <td>{{empPayRoleCycleDisplayId}}</td>    
+                            
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="ngdialog-close"></div>
+    </div>
+</div>

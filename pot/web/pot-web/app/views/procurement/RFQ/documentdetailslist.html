@@ -1,0 +1,48 @@
+<div id="tab-pannel" class="panel-group">
+	<form name="ApproverTransferForm" validate>
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Document Details</h4>
+			</div>
+            <div class="panel-body">
+                <div class="popUpTableResHeight">
+                    <table class="table table-striped table-hover table-bordered popUpTableHeight" >
+                        <thead>
+                            <tr>
+                                <th style="width: 50px !important">Select</th>
+                                <th>Date</th>
+                                <th>Document ID</th>
+                                <th>Description</th>
+                                <th>Version</th>
+                                <th>File Type</th>
+                                <th>File Size</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr fixed-header="" ng-repeat ="details in preContractDocsTOs">
+                                <td>
+                                    <input type="checkbox" ng-model="details.select" data-test="RFQ_TenderDocuments_Selectcheckbox"
+                                           ng-change="documentRowSelect(details)">
+                                </td>
+                                <td>{{details.date}}</td>
+                                <td>{{details.code}}</td>
+                                <td>{{details.description}}</td>
+                                <td>{{details.version}}</td>
+                                <td>{{details.fileType}}</td>
+                                <td>{{details.fileSize}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+			<div class="panel-footer">
+				<div class="pull-right">
+					<input class="btn btn-primary btn-sm" type="button" data-test='RFQ_TenderDocuments_adddocuments_addtodistributionlist'
+						ng-click="addToDistributionList()"
+						value="Add to Distribution List">
+				</div>
+			</div>
+			<div class="ngdialog-close"></div>
+		</div>
+	</form>
+</div>

@@ -1,0 +1,60 @@
+<div class="tabTable_5_Res_Height overflow-auto" style="height: 265px;">
+	<table class="table table-hover table-bordered tabTable_5_Height">
+		<thead>
+			<tr>
+				<th rowspan="2">Select</th>
+				<th rowspan="2">SOW Item ID</th>
+				<th rowspan="2">SOW Description</th>
+				<th rowspan="2">SOE Item ID</th>
+				<th rowspan="2">SOR Item ID</th>
+				<th rowspan="2">Cost Code ID</th>
+				<th rowspan="2">Unit Of Measure</th>
+				<th colspan="{{workDairyCostCodeList.length}}">Cost Code Wise
+					Progress Utilisation</th>
+				<th rowspan="2">Total</th>
+				<th rowspan="2">Comments</th>
+				<th rowspan="2">Site Photos</th>
+			</tr>
+			<tr>
+				<th ng-repeat="workDairyCostCode in  workDairyCostCodeList"
+					class="text-center">{{workDairyCostCodeMap[workDairyCostCode.costId].code}}</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="progress in workDairyProgressDtlTOs">
+				<td><input type="checkbox"
+					ng-change="progressRowSelect(progress)" ng-hide="progress.id > 0"
+					ng-model="progress.select"></td>
+				<td>{{sowMap[progress.sowId].code}}</td>
+				<td>{{sowMap[progress.sowId].name}}</td>
+				<td>{{sowMap[progress.sowId].displayNamesMap['soeName']}}</td>
+				<td>{{sowMap[progress.sowId].displayNamesMap['sorName']}}</td>
+				<td>{{sowMap[progress.sowId].displayNamesMap['costCode']}}</td>
+				<td>{{sowMap[progress.sowId].unitOfMeasure}}</td>
+				<td ng-repeat="workDairyCostCode in  workDairyCostCodeList"><input
+					maxlength="5" placeholder=Quantity readonly="true" type="text"
+					ng-if="progress.costId!= workDairyCostCode.costId"
+					ng-class="{coloumnHighlightColor3:progress.apprStatus==null,coloumnHighlightColor1:progress.apprStatus=='Approved',coloumnHighlightColor2:progress.apprStatus=='Client Approved'}"
+					ng-disabled="progress.apprStatus!=null" class="form-control" /> <input
+					maxlength="5" placeholder=Quantity type="text"
+					ng-model="progress.value" valid-number
+					ng-if="progress.costId==workDairyCostCode.costId "
+					ng-class="{coloumnHighlightColor3:progress.apprStatus==null,coloumnHighlightColor1:progress.apprStatus=='Approved',coloumnHighlightColor2:progress.apprStatus=='Client Approved'}"
+					ng-disabled="progress.apprStatus!=null"
+					ng-change="checkProgressQuantity(workDairySearchReq.quantity,progress)"
+					class="form-control" /></td>
+				<td><input type="text" readonly="readonly"
+					ng-disabled="disableButton"
+					ng-value="calculateProgressTotal(progress)" class="form-control" />
+				</td>
+				<td><input type="text" placeholder="Comments"
+					ng-disabled="progress.apprStatus!=null"
+					ng-model="progress.apprComments"
+					ng-class="{coloumnHighlightColor3:progress.apprStatus==null,coloumnHighlightColor1:progress.apprStatus=='Approved',coloumnHighlightColor2:progress.apprStatus=='Client Approved'}"
+					class="form-control"></td>
+				<td><input type="file" placeholder="Site Photos"
+					class="form-control" ng-model="progress.photos"></td>
+			</tr>
+		</tbody>
+	</table>
+</div>

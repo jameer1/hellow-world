@@ -1,0 +1,129 @@
+    <div class="panel panel-default" modal-movable> <!-- ng-controller="RFQController" ng-init="getRFQSearchDetails('');" -->
+        <div class="panel-heading no-border">
+            <h4 class="panel-title">List of Bidders</h4>
+        </div>
+        <div class="panel-body">
+            <ng-form name="rfqForm" validate>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+                    <div class="col-sm-3 col-xs-3 col-md-3 col-lg-3 padL-0">
+                        <md-input-container class="md-block">
+                            <label>EPS Name</label><input data-test='RFQ_AddBidders_Epsname' type="text" ng-model="searchProject.parentName" ng-click="getUserProjects()"
+                                required="required" readonly="readonly">
+                        </md-input-container>
+                    </div>
+                    <div class="col-sm-3 col-xs-3 col-md-3 col-lg-3">
+                        <md-input-container class="md-block">
+                            <label>Project Name</label> <input type="text" ng-model="searchProject.projName" required="required"
+                                readonly="readonly">
+                        </md-input-container>
+                    </div>
+                    <div class="col-sm-3 col-xs-3 col-md-3 col-lg-3">
+                        <md-input-container class="md-block">
+                            <label>Pre-Contract ID</label> <input data-test='RFQ_AddBidders_precontractID' type="text" ng-click="getPreContractDetails()"
+                                ng-model="precontractObj.code" required="required" readonly="readonly">
+                        </md-input-container>
+                    </div>
+                    <div class="col-sm-3 col-xs-3 col-md-3 col-lg-3 padR-0">
+                        <md-input-container class="md-block">
+                            <label>Pre-Contract Description</label> <input type="text" ng-model="precontractObj.desc" readonly="readonly"></md-input-container>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+                    <div class="col-sm-3 col-xs-3 col-md-3 col-lg-3 padL-0">
+                        <md-input-container class="md-block">
+                            <label>Requester</label> <input type="text" ng-model="precontractObj.preContractReqApprTO.reqUserLabelkeyTO.code"
+                                readonly="readonly">
+                        </md-input-container>
+                    </div>
+                    <div class="col-sm-3 col-xs-3 col-md-3 col-lg-3">
+                        <md-input-container class="md-block">
+                            <label>Approver</label>
+                             <input type="text" ng-model="precontractObj.preContractReqApprTO.apprUserLabelkeyTO.code"
+                                ng-click="getApprovelreq(precontractObj.preContractReqApprTO.apprUserLabelkeyTO)"
+                                required="required" readonly="readonly" ng-disabled="true">
+                        </md-input-container>
+                    </div>
+                    <div class="col-sm-3 col-xs-3 col-md-3 col-lg-3">
+                        <md-input-container class="md-block">
+                            <label>Tender Original Close Date</label>
+                            <potdate-picker data-test='RFQ_AddBidders_tenderoriginalclose' ng-model="precontractObj.closeDate" dir-index="$index" date-name="closeDate"
+                                min-date="today" max-date="precontractObj.revisedCloseDate" required="required" readonly="readonly" />
+                        </md-input-container>
+                    </div>
+                    <div class="col-sm-3 col-xs-3 col-md-3 col-lg-3 padR-0">
+                        <md-input-container class="md-block">
+                            <label>Tender Revised Close Date</label>
+                            <potdate-picker data-test='RFQ_AddBidders_tenderrevisedclose' ng-model="precontractObj.revisedCloseDate" dir-index="$index"
+                                date-name="revisedCloseDate" min-date="precontractObj.closeDate " required="required" readonly="readonly" />
+                        </md-input-container>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+                    <div class="popUpTableResHeight">
+                        <table id="vert-align" class="table table-hover table-bordered popUpTableHeight">
+                            <thead>
+                                <tr>
+                                    <th style="text-align: center">Select</th>
+                                    <th style="text-align: center">Company ID</th>
+                                    <th style="text-align: center">Company Name</th>
+                                    <th style="text-align: center">Name of Representative</th>
+                                    <th style="text-align: center">Address</th>
+                                    <th style="text-align: center">Email</th>
+                                    <th style="text-align: center">Mobile</th>
+                                    <th style="text-align: center">Phone</th>
+                                    <th style="text-align: center">Fax</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="companyTO in companyTOs">
+                                    <td>
+                                        <input data-test='RFQ_AddBidders_addcompany_Checkbox1' type="checkbox" ng-model="companyTO.select" ng-change="rowSelect(companyTO)"
+                                            ng-disabled="companyTO.id > 0" />
+                                    </td>
+                                    <td>{{companyMap[companyTO.companyId].cmpCode}}</td>
+                                    <td>{{companyMap[companyTO.companyId].cmpName}}</td>
+                                    <td class="input-width3">
+                                        <input type="text" data-test='RFQ_AddBidders_Nameofrepresentative' class="form-control" placeholder="Contact Person Name"
+                                            ng-model="companyMap[companyTO.companyId].contactsMap[companyTO.contactId].contactName"
+                                            ng-click="getContactDetails(companyTO,companyMap[companyTO.companyId])"
+                                            readonly="readonly">
+                                    </td>
+                                    <td class="input-width3">
+                                        <textarea class="form-control" data-test='RFQ_AddBidders_address' placeholder="Address" ng-model="companyMap[companyTO.companyId].addressMap[companyTO.addressId].address"
+                                            ng-click="getAddressDetails(companyTO,companyMap[companyTO.companyId])"
+                                            readonly="readonly"></textarea>
+                                    </td>
+                                    <td class="input-width3">
+                                        <input type="text" class="form-control" placeholder="Email" ng-model="companyMap[companyTO.companyId].contactsMap[companyTO.contactId].email"
+                                            readonly="readonly">
+                                    </td>
+                                    <td class="input-width2">
+                                        <input type="text" class="form-control" placeholder="Mobile Number" ng-model="companyMap[companyTO.companyId].contactsMap[companyTO.contactId].mobile"
+                                            readonly="readonly">
+                                    </td>
+                                    <td class="input-width2">
+                                        <input type="text" class="form-control" placeholder="Phone Number" ng-model="companyMap[companyTO.companyId].contactsMap[companyTO.contactId].phone"
+                                            readonly="readonly">
+                                    </td>
+                                    <td class="input-width2">
+                                        <input type="text" class="form-control" placeholder="Fax" ng-model="companyMap[companyTO.companyId].contactsMap[companyTO.contactId].fax"
+                                            readonly="readonly">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </ng-form>
+        </div>
+        <div class="panel-footer">
+            <div class="pull-left">
+                <input class="btn btn-primary btn-sm" type="button" ng-click="addCompaniesToPrecontract('Add')" data-test='RFQ_AddBidders_addcompany' value="Add Company">
+                <input class="btn btn-secondary btn-sm" type="button" ng-click="deactiveCompanies()" data-test='RFQ_AddBidders_delect' value="Delete">
+            </div>
+            <div class="pull-right">
+                <input class="btn btn-primary btn-sm" data-test='RFQ_AddBidders_save' type="button" ng-click="saveCompanyDetails()" value="Save">
+            </div>
+        </div>
+        <div class="ngdialog-close"></div>
+    </div>

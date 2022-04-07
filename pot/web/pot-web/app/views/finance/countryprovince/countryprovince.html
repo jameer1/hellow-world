@@ -1,0 +1,88 @@
+<form name="countryForm" validate> 
+<section class="content-header">
+<h1>Country & Province Codes</h1>
+	<!-- <input type="submit" value ="Help !"
+		ng-click="helpPage();" class="pull-right btn  btn-primary btn-sm help-each-page"> -->
+		<button class="pull-right btn btn-primary btn-sm help-each-page" 
+	onclick="window.open('views/helptutorials/CountryProvinceCodes.html', '_blank', 
+		'toolbar=yes,scrollbars=yes,resizable=no,top=50,left=100,width=1400,height=700')">
+		Help
+	</button></section>
+</section>
+<section class="content">
+	<div id="tab-pannel" class="panel panel-default block footer-parent" ng-controller="countryProvinceController"
+		ng-init="getCountryProvinceCodes()">
+		<div class="panel panel-body">
+			<div class="singleTableResHeight">
+			<div id="grid" ui-grid="gridOptions" class="singleTableResHeight_3" ng-if="stylesSvc.finishedStyling"
+             ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-resize-columns class="grid"></div>
+				<!-- <table id="tree" class="table table-striped table-hover table-bordered singleTableHeight">
+					<thead>
+						<tr>
+							<th style="width: 50px !important">Select</th>
+							<th><span
+								ng-click="sortType = 'countryCode'; sortReverse = !sortReverse">
+								Country Code <span ng-show="sortType == 'countryCode'"
+								ng-class="(sortReverse ? 'fa fa-caret-up' :'fa fa-caret-down')"></span>
+							<span ng-show="sortType != 'countryCode'" class="fa fa-sort"></span>
+							</span></th>
+							<th><span
+								ng-click="sortType = 'countryName'; sortReverse = !sortReverse">
+								Country Name<span ng-show="sortType == 'countryName'"
+								ng-class="(sortReverse ? 'fa fa-caret-up' :'fa fa-caret-down')"></span>
+							<span ng-show="sortType != 'countryName'" class="fa fa-sort"></span>
+							</span></th>
+							<th><span
+								ng-click="sortType = 'provisionName'; sortReverse = !sortReverse">
+								Province Name<span ng-show="sortType == 'provisionName'"
+								ng-class="(sortReverse ? 'fa fa-caret-up' :'fa fa-caret-down')"></span>
+							<span ng-show="sortType != 'provisionName'" class="fa fa-sort"></span>
+							</span></th>
+							<th style="text-align: center">Financial Year</th>
+							<th style="text-align: center">Financial Half Year</th>
+							<th style="text-align: center">Financial Quarter Year</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="item in countryProvinceCodeToTOs | orderBy:sortType:sortReverse">
+							<td><label class="checkboxcontainer"> <input type="checkbox" ng-model="item.selected" data-test="CountryProvinceCodes_Checkbox"
+										ng-change="countryProvinceRowSelect(item)"> <span class="checkmark"></span>
+								</label></td>
+							<td>{{item.countryCode}}</td>
+							<td>{{item.countryName}}</td>
+							<td>{{item.provisionName}}</td>
+							
+							<td style="text-align: center"><input type="submit" class="btn  btn-primary btn-sm" value="View" data-test="CountryProvinceCodes_FinancialYear_View"
+									ng-click="addFinancialYear(item,$index)" /></td>
+							<td style="text-align: center"><input type="submit" class="btn  btn-primary btn-sm" value="View" data-test="CountryProvinceCodes_FinancialHalfYear_View"
+									ng-click="addFinancialHalfYear(item)" /></td>
+							<td style="text-align: center"><input type="submit" class="btn  btn-primary btn-sm" value="View" data-test="CountryProvinceCodes_FinancialQuarterYear_View"
+									ng-click="addFinancialQuarterYear(item)" /></td>
+						</tr>
+					</tbody>
+				</table> -->
+				<div class="panel-footer">
+				<div class="pull-left">
+					<!-- <input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();"> -->
+					<input type="submit" class="btn btn-primary btn-sm" ng-click="addCountryProvinceCodes('Edit')"
+						value="Edit" data-test="CountryProvinceCodes_Edit" />
+					<input type="submit" class="btn  btn-secondary btn-sm" value="Delete"
+						ng-click="deactivateCountryProvinceCodes()" data-test="CountryProvinceCodes_Delete"/>
+				</div>
+				<div class="pull-right">
+					<input type="submit" class="btn  btn-primary btn-sm" value="Create"
+						ng-click="countryForm.$valid && addCountryProvinceCodes('Add')" data-test="CountryProvinceCodes_Create" />
+				</div>
+			</div>
+				<script type="text/ng-template" id="template.html">
+				<button ng-click="grid.appScope.addFinancialYear( row.entity, $index)" data-test="CountryProvinceCodes_FinancialYear_View" class="btn btn-primary btn-sm">View</button>
+			</script>
+			</div>
+		</div>
+	</div>
+</section>
+</form>

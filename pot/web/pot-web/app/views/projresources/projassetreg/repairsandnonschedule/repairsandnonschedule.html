@@ -1,0 +1,53 @@
+<div id="tab-pannel" class="panel-group" ng-controller="AssetRepairsController">
+	<div class="tabTable_1_Res_height">
+	<div id="grid" ui-grid="gridOptions" ng-if="stylesSvc.finishedStyling" 
+		ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-grouping class="grid"></div>
+		<!-- <table class="table table-striped table-bordered tabTable_1_height" >
+			<thead id="tab-head">
+            <tr>
+					<th rowspan="2">Select</th>
+					<th>Start Date</th>
+					<th>Finish Date</th>
+					<th>Responsible Supervisor</th>
+					<th>Maintenance Category</th>
+					<th>Maintenance Sub Category</th>
+					<th>Purchase Order Number (Sub Contractor Services)</th>
+					<th>Materials Consumption Records (Project Docket #)</th>
+					<th>Completion Records (Upload & View)</th>
+				</tr>
+			</thead>
+			<tbody>
+			 <tr fixed-header="" ng-repeat ="repairs in fixedAssetRepairsRecordsDtlTO">
+          <td><input type="checkbox" value="id" ng-model="repairs.selected" ng-change="repairsrowSelect(repairs)" data-test="RepairsandNonSchedule_Checkbox"></td>
+          <td>{{repairs.startDate}}</td>
+          <td>{{repairs.finishDate}}</td>
+          <td>{{repairs.responsibleSupervisor}}</td>
+          <td>{{repairs.maintenanceCategory}}</td>
+          <td>{{repairs.maintenanceSubCategory}}</td>
+          <td>{{repairs.purchaseOrderNumber}}</td>
+          <td>{{repairs.materialsConsumptionRecords}}</td>
+          <td><a class="fa fa-download" ng-if="repairs.repairsRecordsDetailsFileName" href="{{repairs.docUrl}}" title="Click To Download {{repairs.repairsRecordsDetailsFileName}}"></a></td>
+          <td>
+          	<span class="fa fa-download" ng-if="repairs.repairsRecordsDetailsFileName" ng-click="downloadRecordRepairFile(repairs.id,repairs.repairsRecordsDetailsFileName)" title="Click To Download {{repairs.repairsRecordsDetailsFileName}}"></span>
+          </td>
+        </tr>
+			</tbody>
+		</table> -->
+	</div>
+	<div class="panel-footer">
+		<div class="pull-right padR-0">
+			<input type="submit" class="btn btn-primary btn-sm" data-test="RepairsandNonSchedule_Create" ng-click="editRepairRecord('Add')" value="Add">
+		</div>
+		<div class="pull-left padL-0">
+			<!-- <input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+			<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+			<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+			<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+			<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();"> -->
+			<input type="submit" class="btn btn-primary btn-sm" data-test="RepairsandNonSchedule_Edit" ng-click="editRepairRecord('Edit')" value="Edit">
+			<input type="submit" class="btn btn-secondary btn-sm" data-test="RepairsandNonSchedule_Deactivate" ng-click="deleteRepairRecord()" value="Deactivate">
+		</div>
+	</div>
+</div>
+
+

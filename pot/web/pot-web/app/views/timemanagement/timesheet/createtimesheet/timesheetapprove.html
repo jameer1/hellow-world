@@ -1,0 +1,31 @@
+<form name="submitForm" validate>
+	<div id="tab-pannel">
+		<div class="panel-group panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Time Sheet Approval</h4>
+			</div>
+			<div class="panel-body">
+				<div class="col-xs-12 col-sm-12 col-md-12 left-padding spacer2 ">
+					<div>Comments</div>
+					<div></div>
+					<textarea type="text" style="width: 154px; height: 65px;" class="form-control"
+						data-test='AsbuiltRecords_TimeSheets_ApproveTimeSheet_Submit_Comments' ng-model="comments"
+						placeholder="Comments" required="required"></textarea>
+				</div>
+
+			</div>
+			<div class="panel-footer">
+				<div class="pull-right right-padding">
+					<input type="button" class="btn  btn-brown btn-sm"
+						ng-click="submitForm.$valid && approveTimeSheetDetails()" value="Approve" validate
+						data-test='AsbuiltRecords_TimeSheets_ApproveTimeSheet_Submit_Approve'>
+				</div>
+			</div>
+			<div class="ngdialog-close"></div>
+
+
+
+		</div>
+	</div>
+
+</form>

@@ -1,0 +1,32 @@
+<div id="tab-pannel" class="panel-group" ng-init="getCountryDetails()">
+	<div  class="panel panel-default" modal-movable>
+		<div class="panel-heading">
+			<h4 class="panel-title">Country List</h4>
+		</div>
+		<div class="panel-body">
+				<div class="popUpTableResHeight">
+			<table class="table table-striped table-bordered popUpTableHeight" >
+				<thead id="tab-head">
+					<tr>
+
+						<th>Code</th>
+						<th>Name</th>
+
+					</tr>
+				</thead>
+				<tbody>
+					<tr fixed-header="" ng-repeat ="detail in countryDetails"
+						ng-click="projcountryPopUp(detail)">
+
+						<td>{{detail.countryCode}}</td>
+						<td>{{detail.countryName}}</td>
+
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+		<div class="panel-footer"></div>
+		<div class="ngdialog-close"></div>
+	</div>
+</div>

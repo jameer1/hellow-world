@@ -1,0 +1,116 @@
+<section class="content-header">
+  <h1 ng-if="!subReportCode">Periodical Progress Report</h1>
+  <h1 ng-if="subReportCode">Periodical Progress Report - {{subReportName}}</h1>
+  <!-- <input type="submit" value ="Help !"
+		ng-click="helpPage();" class="pull-right btn  btn-primary btn-sm help-each-page"> -->
+	<button class="pull-right btn btn-primary btn-sm help-each-page" 
+		onclick="window.open('views/helptutorials/PeriodicalProgress.html', '_blank', 
+		'toolbar=yes,scrollbars=yes,resizable=no,top=50,left=100,width=1400,height=700')">
+		Help
+	</button>
+</section>
+<section id="tab-pannel" class="content ui-rid-customization-pot">
+  <div class="panel panel-default block">
+    <div class="panel-body">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 padL-0">
+          <md-input-container>
+            <label>EPS ID/Name</label>
+            <input type="text" ng-model="searchProject.parentName" ng-click="getUserProjects();" readonly data-test="Progress_PeriodicalProgress_Epsname">
+          </md-input-container>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 ">
+          <md-input-container>
+            <label>Project ID/Name</label>
+            <input type="text" ng-model="searchProject.projName" ng-click="getUserProjects();" readonly>
+          </md-input-container>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 ">
+          <md-input-container>
+            <label>Cost Code</label>
+            <input type="text" ng-model="costCodeNameDisplay" ng-click="getCostCodes()" readonly data-test="Progress_PeriodicalProgress_CostCode">
+          </md-input-container>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 ">
+          <md-input-container>
+            <label>SOW Items</label>
+            <input type="text" ng-model="sowNamedisplay" ng-click="getSOWItems()" readonly data-test="Progress_PeriodicalProgress_SOWItems">
+          </md-input-container>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 ">
+          <md-input-container>
+            <label>From Date</label>
+            <potdate-picker ng-model="fromDate" dir-index="$index" date-name="fromDate" max-date="todayDate" data-test="Progress_PeriodicalProgress_Fromdate"
+              ng-change="clearSubReportDetails()" readonly>
+          </md-input-container>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 ">
+          <md-input-container>
+            <label>To Date</label>
+            <potdate-picker ng-model="toDate" dir-index="$index" date-name="toDate" min-date="fromDate" max-date="todayDate" data-test="Progress_PeriodicalProgress_Todate"
+              ng-change="clearSubReportDetails()" readonly>
+          </md-input-container>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 padL-0">
+          <md-input-container>
+            <label>Sub Reports</label>
+            <md-select ng-model="subReport" ng-change="changeSubReport()" data-test="Progress_PeriodicalProgress_Subreports">
+              <md-option value="None">None</md-option>
+              <md-option ng-repeat="subReport in subReports" ng-value="subReport">
+                {{subReport.name}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+        </div>
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+          <md-radio-group ng-model="type" layout="row" ng-show="subReportName">
+            <md-radio-button id="chart" value="chart" class="md-primary" name="content" checked="checked" data-test="Progress_PeriodicalProgress_Chart"
+              ng-true-value="1" ng-false-value="0">Chart</md-radio-button>
+            <md-radio-button id="table" value="table" ng-true-value="1" ng-false-value="0" class="md-primary" data-test="Progress_PeriodicalProgress_Table"
+              name="content" ng-model="type">Table</md-radio-button>
+            <md-radio-button id="chartTable" value="chartTable" ng-true-value="1" ng-false-value="0" class="md-primary" data-test="Progress_PeriodicalProgress_ChartTable"
+              name="content">Chart & Table</md-radio-button>
+          </md-radio-group>
+        </div>
+        <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 padR-0">
+          <div class="pull-right marB15">
+            <input type="button" ng-click="getProgressPeriodicalRecords()" class="btn btn-primary btn-sm" data-test="Progress_PeriodicalProgress_Generatereportbutton"
+              value="Generate Report">
+            <input type="reset" class="btn btn-secondary btn-sm" ng-click="resetPeriodicalReport()" value="Reset" data-test="Progress_PeriodicalProgress_Reset">
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding" ng-if="subReport == 'None'">
+        <div>
+          <div id="grid1" ui-grid="gridOptions" ng-if="stylesSvc.finishedStyling" class="singleTableResHeight_3"
+            ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-resize-columns ui-grid-grouping class="grid"></div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding"
+        ng-if="subReport != 'None'">
+        <div ng-if="type == 'chart'" class="singleTableResHeight_3">
+          <canvas class="chart-base" chart-data="data" chart-labels="labels" chart-series="series" height="80"
+            chart-type="chart_type" chart-colors="colors" chart-options="options" context-menu="menuOptions"
+            chart-dataset-override="datasetOverride"></canvas>
+        </div>
+        <div ng-if="type == 'chartTable'" class="chartResHeight">
+          <canvas class="chart-base" chart-data="data" chart-labels="labels" chart-series="series" height="50"
+            chart-type="chart_type" chart-colors="colors" chart-options="options" context-menu="menuOptions"
+            chart-dataset-override="datasetOverride"></canvas>
+        </div>
+        <div ng-if="type == 'chartTable'">
+          <div id="grid" ui-grid="gridOptions" class="tableWithChartResHeight" ng-if="stylesSvc.finishedStyling" 
+          ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-resize-columns ui-grid-grouping class="grid">
+          </div>
+        </div>
+        <div ng-if="type == 'table'">
+          <div id="grid" ui-grid="gridOptions" class="singleTableResHeight_3" ng-if="stylesSvc.finishedStyling" 
+          ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-resize-columns ui-grid-grouping class="grid">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

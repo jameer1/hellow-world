@@ -1,0 +1,66 @@
+<div id="tab-pannel" ng-controller="AssetMortgagePaymentController">
+	<div class="table-responsive tabTable_1_Res_height">
+	<div id="grid" ui-grid="gridOptions" ng-if="stylesSvc.finishedStyling" 
+		ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-grouping class="grid"></div>
+		<!-- <table class="table table-striped table-bordered tabTable_1_height" >
+			<thead id="tab-head">
+				<tr>
+					<th>Select</th>
+					<th>Effective Date</th>
+					<th>Mortgage Name</th>
+					<th>Mortgage Address & Contact Details</th>
+					<th>Original Loan Principal Amount</th>
+					<th>Remaining Loan Principal Amount</th>
+					<th>Rate of Interest per Annum</th>
+					<th>Payment Cycle</th>
+					<th>Payment Cycle Due Date</th>
+					<th>Gross Payment Amount per Cycle</th>
+					<th>Tax Amount</th>
+					<th>Net Amount</th>
+					<th>Receiver Bank</th>
+					<th>Receiver Bank Code #</th>
+					<th>Receiver Bank AC #</th>
+					<th>Account Status</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat ="status in mortgageValueDtlTOs">
+				<td><input type="checkbox" ng-model="status.selected" ng-change="mortgageRecordPopUpRowSelect(status)" data-test="MortgagePayments_Checkbox"></td>					
+					<td>{{status.effectiveDate}}</td>
+					<td>{{status.mortgageeName}}</td>
+					<td>{{status.mortgageeAdress}}</td>
+					<td>{{status.originalLoanPrincipalAmount}}</td>
+					<td>{{status.remainingLoanPrinicipalAmount}}</td>
+					<td>{{status.rateOfInterestPerAnnum}}</td>
+					<td>{{status.paymentCycle}}</td>
+					<td>{{status.paymentCycleDueDate}}</td>
+					<td>{{status.paymentAmountPerCycel}}</td>
+					<td>{{status.taxAmount}}</td>
+					<td>{{status.netAmount}}</td>
+					<td>{{status.receiverBank}}</td>
+					<td>{{status.receiverBankCode}}</td>
+					<td>{{status.receiverBankAC}}</td>
+					<td>{{status.accountStatus}}</td>
+				</tr>
+			</tbody>
+		</table> -->
+	</div>
+	<div class="panel-footer">
+		<div class="pull-right padR-0">
+			<input type="button" class="btn btn-primary btn-sm"
+				ng-click="addMortgageList('Add')" value="Add" data-test="MortgagePayments_Create">
+		</div>
+		<div class="pull-left padL-0">
+			<!-- <input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+			<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+			<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+			<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+			<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();"> -->
+			<input type="button" class="btn btn-primary btn-sm"
+				ng-click="addMortgageList('Edit')" value="Edit" data-test="MortgagePayments_Edit"> <input
+				type="button" class="btn btn-secondary btn-sm"
+				ng-click="deleteMortgage()" value="Deactivate" data-test="MortgagePayments_Deactivate">
+		</div>
+	</div>
+</div>
+

@@ -1,0 +1,109 @@
+<div id="tab-pannel" class="panel-group">
+	<form name="plantServiceHistoryForm" validate>
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Service History</h4>
+			</div>
+			<div class="panel-body">
+				<div class="popUpTableResHeight">
+					<table class="table table-hover table-bordered popUpTableHeight">
+						<thead>
+							<tr>
+								<th colspan="4" class="text-center">Current or Last Service
+									Carried Out</th>
+								<th colspan="3" class="text-center">Next Service Due</th>
+								<th rowspan="2" class="text-center">Notes</th>
+							</tr>
+							<tr>
+								<th class="text-center">Date
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th class="text-center">Odo Meter Reading
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th class="text-center">Service Category
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th class="text-center">Service Sub Category</th>
+								<th class="text-center">Odo Meter Reading Reaches</th>
+								<th class="text-center">Service Category
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th class="text-center">Service Sub Category</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr fixed-header="" ng-repeat="servicehistory in addServiceHistoryData">
+								<td class="input-width0">
+									<pot-currentdate-picker class="form-control"
+										data-test='PlantandEquipment_ServiceHistoryRepairs_ServiceHistory_create_date'
+										ng-model="servicehistory.date" dir-index="$index" date-name="startDate"
+										placeholder="dd-mm-yyyy" ng-required="true" custom-read-only >
+								</td>
+
+								<td><input type="text" class="form-control" step="0.01" name="OdoMeterRdng2"
+										data-test='PlantandEquipment_ServiceHistoryRepairs_ServiceHistory_create_odometerreading'
+										ng-model="servicehistory.currentOdoMeter" placeholder="Odo Meter Reading" maxlength="7,2"
+										pattern="[0-9]+(\.[0-9]{1,2})?" ng-required="true" valid-number> 
+										<span class="procurment-pot-errors"
+										ng-show="plantServiceHistoryForm.OdoMeterRdng2.$error.pattern">There
+										must be only two decimal places</span></td>
+
+								<td><input type="text" class="form-control" name="ServiceCateg"
+										ng-click="getServiceDetails(servicehistory,1)"
+										data-test='PlantandEquipment_ServiceHistoryRepairs_ServiceHistory_create_Current_servicecategory'
+										ng-model="servicehistory.currentPlantServiceParentName"
+										placeholder="Service Category" ng-required="true" custom-read-only></td>
+
+								<td>
+									<!-- <ng-form name="plntRegForm5"> -->
+										<input type="text" class="form-control" name="ServiceSubCate"
+											data-test='PlantandEquipment_ServiceHistoryRepairs_ServiceHistory_create_Current_servicesubcategory'
+											ng-model="servicehistory.currentPlantServiceName"
+											placeholder="Service Sub Category" readonly>
+								</td>
+
+								<td>
+									<!-- <ng-form name="plntRegForm4"> -->
+										<input type="text" class="form-control" step="0.01" name="OdoMeterRdng"
+											data-test='PlantandEquipment_ServiceHistoryRepairs_ServiceHistory_create_odometerreadingreaches'
+											ng-model="servicehistory.prevOdoMeter" placeholder="Odo Meter Reading" maxlength="7,2"
+											pattern="^\d*(\.\d{0,2})?$" valid-number> <span class="procurment-pot-errors"
+											ng-show="plntRegForm4.OdoMeterRdng.$error.pattern">There
+											must be only two decimal places</span>
+								</td>
+
+								<td><input type="text" class="form-control" name="ServiceCate2"
+										ng-model="servicehistory.prevPlantServiceParentName" ng-click="getServiceDetails(servicehistory,2)"
+										data-test='PlantandEquipment_ServiceHistoryRepairs_ServiceHistory_create_Nextservicedue_servicecategory'
+										placeholder="Service Category" custom-read-only ng-required="true"></td>
+
+								<td><input type="text" class="form-control" name="ServiceSubCate2"
+										data-test='PlantandEquipment_ServiceHistoryRepairs_ServiceHistory_create_Nextservicedue_servicesubcategory'
+										ng-model="servicehistory.prevPlantServiceName"
+										placeholder="Service Sub Category" readonly></td>
+
+								<td><input type="text" class="form-control" name="comments"
+										data-test='PlantandEquipment_ServiceHistoryRepairs_ServiceHistory_create_notes'
+										ng-model="servicehistory.comments" placeholder="Comments"></td>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="panel-footer">
+				<div class="pull-right">
+					<input data-test='PlantandEquipment_ServiceHistoryRepairs_ServiceHistory_create_save' type="submit"
+						class="btn btn-primary btn-sm"
+						ng-click="plantServiceHistoryForm.$valid && saveServiceHistoryDetails()" value="Save">
+				</div>
+				<div class="pull-left">
+					<input type="submit" class="btn btn-secondary btn-sm"
+						ng-click="plantServiceHistoryForm.$valid && addRows()" value="Add" ng-show="action =='Add'">
+					<input type="button" class="btn btn-secondary btn-sm" ng-click="deleteRows()" value="Delete"
+						ng-show="action =='Add'">
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</form>
+</div>

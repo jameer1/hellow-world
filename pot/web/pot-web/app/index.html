@@ -1,0 +1,73 @@
+<!doctype html>
+
+<html class="no-js">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+	<meta name="viewport" content="user-scalable=no, width=device-width ,initial-scale=1"/>
+	<title>POT</title>
+	<meta name="description" content="">
+	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<script src="./ngGridPlugins/csv.js"></script>
+	<script src="./ngGridPlugins/pdfmake.js"></script>
+	<script src="./ngGridPlugins/vfs_fonts.js"></script>
+	<script src="./ngGridPlugins/lodash.min.js"></script>
+	<script src="./ngGridPlugins/jszip.min.js"></script>
+	<script src="./ngGridPlugins/excel-builder.dist.js"></script>
+	<script src="./ngGridPlugins/jsplumb.min.js"></script>
+	<script src="./formiojs/dist/formio.full.js"></script>
+	<link rel="stylesheet" href="./formiojs/dist/formio.full.css"></link>
+	
+	<style>
+	#builder .form-builder-panel .displayNone {
+		display : none !important;
+	}
+	</style>
+</head>
+
+<body ng-controller="MainController" ng-class="{'sidebar-mini fixed' : authenticated.usrAuthSuccess=='Y'}" class="skin-blue sidebar-collapse" onload="load()">
+
+	<div class="wrapper">
+		<div ng-if="authenticated.usrAuthSuccess=='Y'" slide-bar="">
+			<header class="main-header">
+				<div ng-include="'header.html'"></div>
+			</header>
+			<aside class="main-sidebar">
+				<div ng-include="'sidebar.html'"></div>
+			</aside>
+		</div>
+
+		<div class="content-wrapper">
+			<main ui-view="content"></main>
+		</div>
+		<footer class="main-footer">
+			<div class="pull-right hidden-xs">
+				<b>V </b> 1.0.0
+			</div>
+			<a><strong>Project </strong><span class="onBg">On </span>Track</a> &copy; <script>document.write(new Date().getFullYear())</script> Raju Tech Pty. Ltd. </footer>
+	</div>
+	<script>
+		function load(){
+	  document.body.addEventListener("wheel", zoomShortcut); //add the event
+	}
+	
+	function zoomShortcut(e){
+	  if(e.ctrlKey){            //[ctrl] pressed?
+		event.preventDefault();  //prevent zoom
+		if(e.deltaY<0){        //scrolling up?
+								//do something..
+		  return false;
+		}
+		if(e.deltaY>0){        //scrolling down?
+								//do something..
+		  return false;
+		}
+	  }
+	}
+	</script>
+</body>
+
+</html>

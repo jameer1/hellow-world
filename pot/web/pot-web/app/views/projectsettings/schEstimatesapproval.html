@@ -1,0 +1,64 @@
+<div ng-if="account.appCodeTemplate['PRJ_PRJSTG_SchOFEstimatesADDITIONALTIME']" id="tab-pannel" class="noTableInBottomBlockWithTabs"
+	ng-init="getSchofEstimatesOnLoad()">
+	<div class="bottomNestedTabTableResHeight no-border">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+					<div class="col-lg-4 col-md-4 col-xs-4 col-sm-4 padL-0">
+						<md-input-container class="md-block">
+						<label>Notification Number</label>
+						<input data-test='PRJ_PRJSTG_SchOFEstimatesADDITIONALTIME_NotificationNumber' type="text" class="form-control" ng-click="soeNotificationList(schofEstimites)" ng-model="schofEstimites.soeNumber">
+						</md-input-container>
+					</div>
+					<div class="col-lg-4 col-md-4 col-xs-4 col-sm-4">
+						<md-input-container class="md-block">
+						<label>Project</label>
+						<input data-test='PRJ_PRJSTG_SchOFEstimatesADDITIONALTIME_ProjectName' type="text" class="form-control" ng-model="schofEstimites.projName">
+						</md-input-container>
+					</div>
+					<div class="col-lg-4 col-md-4 col-xs-4 col-sm-4">
+						<md-input-container class="md-block">
+						<label>Request For</label>
+						<input type="PRJ_PRJSTG_SchOFEstimatesADDITIONALTIME_RequestFor" type="text" class="form-control" ng-model="schofEstimites.toUserName">
+						</md-input-container>
+					</div>
+				</div>
+			</div><!-- end of 1 row -->
+			<div class="row horizontalSpace">
+				<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-4 padL-0">
+						<span>Additional Time Granted For</span>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+			<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+				<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padL-0">
+						<md-checkbox data-test="PRJ_PRJSTG_SchOFEstimatesADDITIONALTIME_resubmission" ng-disabled="true" ng-model="schofEstimites.originalType">Resubmission
+						</md-checkbox>
+					</div>
+					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+						<md-checkbox data-test="PRJ_PRJSTG_SchOFEstimatesADDITIONALTIME_Internal_Approval" ng-disabled="true" ng-model="schofEstimites.internalType">Internal Approval
+						</md-checkbox>
+					</div>
+					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+						<md-checkbox data-test="PRJ_PRJSTG_SchOFEstimatesADDITIONALTIME_External_Approval" ng-disabled="true" ng-model="schofEstimites.externalType">External Approval
+						</md-checkbox>
+					</div>
+				</div>
+			</div><!-- end of row class -->
+		</div>
+	</div>
+	<div class="panel-footer">
+		<div class="pull-right">
+			<input data-test="Projects_ProjectSettings_SchOFEstimatesADDITIONALTIME_Approve" type="button" class="btn btn-primary btn-sm" value="Approve" ng-click="saveSoeApprs()">
+		</div>
+		<div class="pull-left">
+			<input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+			<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+			<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+			<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+			<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+		</div>
+	</div>
+</div>

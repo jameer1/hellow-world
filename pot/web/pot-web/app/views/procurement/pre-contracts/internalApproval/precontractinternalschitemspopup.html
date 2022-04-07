@@ -1,0 +1,241 @@
+	<div ng-if="stateParamsRequestPage==true && ($root.account.appCodeTemplate['PROCURMT_INTRNLSTAGE1REQUEST_ADD']
+	|| $root.account.appCodeTemplate['REQUEST_REQPROC_INTRNLSTAGE1REQUEST_ADD'])" id="tab-pannel">
+	<div class="panel panel-default" modal-movable>
+		<div class="panel-heading">
+			<h4 class="panel-title">Internal Stage1 Request</h4>
+		</div>
+		<div class="panel-body">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+					<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+						<md-input-container>
+							<label class="labelName">Pre-Contract Code</label><input data-test='Stage1Request_viewedit_Precontractcode' type="text"
+								ng-model="preContractObj.code" ng-disabled="true"></md-input-container>
+						</div>
+						<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+								<md-input-container>
+							<label class="labelName">Contract Description</label> <input data-test='Stage1Request_viewedit_contractdescription' type="text"
+								ng-model="preContractObj.desc" ng-disabled="true"></md-input-container>
+						</div>
+
+						<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+								<md-input-container>
+							<label class="labelName">Pre-Contract Type</label>
+							<md-select data-test='Stage1Request_viewedit_Precontracttype'
+								id="contractType" name="contractType" required="required"
+								ng-model="preContractObj.preContractType" ng-disabled="preContractObj.preContractType">
+								<md-option ng-value="contract" ng-repeat="contract in contractTypes">{{contract}}</md-option>
+							</md-select></md-input-container>
+						</div>
+
+						<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+							<md-input-container>
+								<label class="labelName">Currency</label>
+								<md-select data-test='Stage1Request_viewedit_currency' required="required"
+								 ng-model="preContractObj.currencyCode" ng-disabled="preContractObj.currencyCode">
+									<md-option ng-repeat="currency in currencyList track by $index" ng-value="currency">{{currency}}</md-option>
+								</md-select>
+							</md-input-container>
+						</div>
+
+						<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+								<md-input-container>
+							<label class="labelName">Internal Status</label>
+							  <input data-test='Stage1Request_viewedit_internalstatus' type="text"
+								ng-model="preContractObj.workFlowStatusTO.desc"
+								ng-disabled="true"></md-input-container>
+
+						</div>
+
+						<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2"
+							ng-if="preContractObj.workFlowStatusTO.value ==2 || preContractObj.workFlowStatusTO.value ==3 ">
+							<md-input-container>
+							<label class="labelName">Requester Comments</label><input data-test='Stage1Request_viewedit_requestercomments' type="text"
+								ng-model="preContractObj.preContractReqApprTO.reqComments"
+								ng-disabled="true"></md-input-container>
+						</div>
+						<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2"
+							ng-if="preContractObj.workFlowStatusTO.value ==3 ||preContractObj.workFlowStatusTO.value ==4 ||preContractObj.workFlowStatusTO.value ==6">
+							<md-input-container><label class="labelName">Approver Comments</label><input type="text"
+								ng-model="preContractObj.preContractReqApprTO.apprComments"
+								ng-disabled="true"></md-input-container>
+						</div>
+
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+				<div class="pull-right"
+					ng-if="preContractObj.workFlowStatusTO.value !=5 || preContractObj.workFlowStatusTO.value !=6">
+					<input ng-repeat ="preContarctDetailTab in preContrctDetailTabs"
+						ng-if="showActionButtons && ((preContractObj.workFlowStatusTO.value ==1 || preContractObj.workFlowStatusTO.value ==3)
+						 && (($root.account.appCodeTemplate[preContarctDetailTab.appCodeTemplateKeySubmit] || $root.account.appCodeTemplate[preContarctDetailTab.reqappCodeTemplateKeySubmit]) && currentTabTitle === preContarctDetailTab.title))"
+						type="Submit" value="Send For Approval" data-test="Stage1Request_viewedit_Sendforapproval"
+						ng-click="saveInternalRequest(2)" class="btn  btn-primary btn-sm">
+					<input ng-if="showActionButtons && preContractObj.workFlowStatusTO.value ==2"
+						type="Submit" value="Send Back To Requestor"
+						ng-click="saveInternalRequest(3)" class="btn  btn-primary btn-sm">
+					<input type="Submit" value="On hold"
+						ng-click="saveInternalRequest(4)"
+						ng-if="showActionButtons && preContractObj.workFlowStatusTO.value ==2"
+						class="btn  btn-primary btn-sm"> 
+					<input type="Submit"
+						value="Release" ng-click="releaseInternalRequest(2)"
+						ng-if="showActionButtons && preContractObj.workFlowStatusTO.value ==4"
+						class="btn  btn-primary btn-sm"> 
+					<input
+						ng-if="showActionButtons && preContractObj.workFlowStatusTO.value ==2"   type="Submit"
+						value="Approve" ng-click="saveInternalRequest(5)"
+						class="btn  btn-primary btn-sm"> 
+					<input
+						ng-if="showActionButtons && preContractObj.workFlowStatusTO.value ==2" type="Submit"
+						value="Reject" ng-click="saveInternalRequest(6)"
+						class="btn  btn-primary btn-sm"> 
+					<input type="Submit" data-test='Stage1Request_viewedit_Manpower_costbudget'
+						ng-if="showActionButtons"
+						value="Cost Budget" ng-click="getPreContractCostCodeBudget()"
+						class="btn  btn-secondary btn-sm">
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+			<div ng-if="preContractObj.id > 0" id="tabs1" class="nav-tabs-custom">
+				<ul class="nav nav-tabs ">
+					<li fixed-header="" ng-repeat="preContarctDetailTab in preContrctDetailTabs" ng-class="{'active': ($root.account.appCodeTemplate[preContarctDetailTab.appCodeTemplateKey] || $root.account.appCodeTemplate[preContarctDetailTab.reqappCodeTemplateKey]) && currentTabTitle === preContarctDetailTab.title
+								,'disabled': !($root.account.appCodeTemplate[preContarctDetailTab.appCodeTemplateKey]) && !($root.account.appCodeTemplate[preContarctDetailTab.reqappCodeTemplateKey])}"
+					 dynamic-active-tab="preContarctDetailTab.title">
+						<a data-toggle="tab" ng-if="$root.account.appCodeTemplate[preContarctDetailTab.appCodeTemplateKey] || $root.account.appCodeTemplate[preContarctDetailTab.reqappCodeTemplateKey]" ng-click="onClickTab1(preContarctDetailTab)"
+						 data-test="{{preContarctDetailTab.stage1seleniumLocator}}">{{preContarctDetailTab.title}}</a>
+						<a ng-if="!($root.account.appCodeTemplate[preContarctDetailTab.appCodeTemplateKey]) && !($root.account.appCodeTemplate[preContarctDetailTab.reqappCodeTemplateKey])">{{preContarctDetailTab.title}}</a></li>
+				</ul>
+
+				<div class="tab-content">
+					<div ng-include="currentTab1"></div>
+				</div>
+			</div>
+		</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</div>
+
+</div>
+
+<div ng-if="stateParamsRequestPage==false && ($root.account.appCodeTemplate['PROCURMT_INTRNLSTAGE1APRVL_ADD'] ||
+$root.account.appCodeTemplate['APPROVE_INTRNLSTAGE1APRVL_ADD'])" id="tab-pannel">
+	<div class="panel panel-default" modal-movable>
+		<div class="panel-heading">
+			<h4 class="panel-title">Internal Stage1 Approval</h4>
+		</div>
+		<div class="panel-body">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+					<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+						<md-input-container>
+							<label class="labelName">Pre-Contract Code</label><input type="text"
+								ng-model="preContractObj.code" ng-disabled="true"></md-input-container>
+						</div>
+						<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+								<md-input-container>
+							<label class="labelName">Contract Description</label> <input type="text"
+								ng-model="preContractObj.desc" ng-disabled="true"></md-input-container>
+						</div>
+
+						<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+								<md-input-container>
+							<label class="labelName">Pre-Contract Type</label>
+							<md-select
+								id="contractType" name="contractType" required="required"
+								ng-model="preContractObj.preContractType" ng-disabled="preContractObj.preContractType">
+								<md-option ng-value="contract" ng-repeat="contract in contractTypes track by $index">{{contract}}</md-option></md-select></md-input-container>
+						</div>
+
+						<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+							<md-input-container>
+								<label class="labelName">Currency</label>
+								<md-select data-test='Stage1Request_viewedit_currency' required="required" ng-model="preContractObj.currencyCode"
+								 ng-disabled="preContractObj.currencyCode">
+									<md-option ng-repeat="currency in currencyList track by $index" ng-value="currency">{{currency}}</md-option>
+								</md-select>
+							</md-input-container>
+						</div>
+
+						<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+								<md-input-container>
+							<label class="labelName">Internal Status</label><input type="text"
+								ng-model="preContractObj.workFlowStatusTO.desc"
+								ng-disabled="true"></md-input-container>
+
+						</div>
+
+						<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2"
+							ng-if="preContractObj.workFlowStatusTO.value ==2 || preContractObj.workFlowStatusTO.value ==3 ">
+							<md-input-container>
+							<label class="labelName">Requester Comments</label><input type="text"
+								ng-model="preContractObj.preContractReqApprTO.reqComments"
+								ng-disabled="true"></md-input-container>
+						</div>
+						<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2"
+							ng-if="preContractObj.workFlowStatusTO.value ==3 ||preContractObj.workFlowStatusTO.value ==4 ||preContractObj.workFlowStatusTO.value ==6">
+							<md-input-container><label class="labelName">Approver Comments</label><input type="text"
+								ng-model="preContractObj.preContractReqApprTO.apprComments"
+								ng-disabled="true"></md-input-container>
+						</div>
+
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+				<div class="pull-right" ng-if="preContractObj.workFlowStatusTO.value !=5 || preContractObj.workFlowStatusTO.value !=6">
+					<!-- <input ng-repeat ="preContarctDetailTab in preContrctDetailTabs"
+																										ng-if="preContractObj.workFlowStatusTO.value ==1 || preContractObj.workFlowStatusTO.value ==3 && preContractObj.preContractEmpDtlTOs.length>0"
+																										type="Submit" value="Send For Approval"
+																										ng-click="saveInternalRequest(2)" class="btn  btn-primary btn-sm"> -->
+					<input ng-repeat="preContarctDetailTab in preContrctDetailTabs" type="Submit" value="Send Back To Requestor" class="btn btn-primary btn-sm"
+					 ng-if="preContractObj.workFlowStatusTO.value !=5 && preContractObj.workFlowStatusTO.value !=6 && ($root.account.appCodeTemplate[preContarctDetailTab.appCodeTemplateKeySendBackToRequestor] || $root.account.appCodeTemplate[preContarctDetailTab.approveappCodeTemplateKeySendBackToRequestor]) && currentTabTitle === preContarctDetailTab.title  && preContractObj.workFlowStatusTO.value!=4"
+					 data-test='Stage1Approve_viewedit_sendbacktorequester' ng-click="saveInternalRequest(3)" />
+
+					<input ng-repeat="preContarctDetailTab in preContrctDetailTabs" type="Submit" data-test='Stage1Approve_viewedit_onhold'
+					 value="On Hold" ng-repeat="preContarctDetailTab in preContrctDetailTabs" ng-click="saveInternalRequest(4)"
+					 ng-if="preContractObj.workFlowStatusTO.value !=5 && preContractObj.workFlowStatusTO.value !=6 && currentTabTitle === preContarctDetailTab.title && ($root.account.appCodeTemplate[preContarctDetailTab.appCodeTemplateKeyOnHold] ||
+					 $root.account.appCodeTemplate[preContarctDetailTab.approveappCodeTemplateKeyOnHold]) && preContractObj.workFlowStatusTO.value!=4"
+					 class="btn  btn-primary btn-sm" />
+
+					<input type="Submit" ng-repeat="preContarctDetailTab in preContrctDetailTabs" value="Release" ng-click="releaseInternalRequest(2)"
+					 ng-if="preContractObj.workFlowStatusTO.value !=6 && currentTabTitle === preContarctDetailTab.title && ($root.account.appCodeTemplate[preContarctDetailTab.appCodeTemplateKeyOnHold] ||
+					 $root.account.appCodeTemplate[preContarctDetailTab.approveappCodeTemplateKeyOnHold]) && preContractObj.workFlowStatusTO.value==4"
+					 class="btn  btn-primary btn-sm">
+
+					<!----<input ng-repeat="preContarctDetailTab in preContrctDetailTabs" value="Approve" ng-click="saveInternalRequest(5)" type="Submit"
+					 ng-if="currentTabTitle === preContarctDetailTab.title && ($root.account.appCodeTemplate[preContarctDetailTab.appCodeTemplateKeyApproval] ||
+					 $root.account.appCodeTemplate[preContarctDetailTab.approveappCodeTemplateKeyApproval])"
+					 data-test='Stage1Approve_viewedit_Approve' class="btn btn-primary btn-sm" />-->
+
+					<input ng-repeat="preContarctDetailTab in preContrctDetailTabs" type="Submit" value="Reject" ng-click="saveInternalRequest(6)"
+					 ng-if="preContractObj.workFlowStatusTO.value !=5 && preContractObj.workFlowStatusTO.value !=6 && currentTabTitle === preContarctDetailTab.title && ($root.account.appCodeTemplate[preContarctDetailTab.appCodeTemplateKeyReject] ||
+					 $root.account.appCodeTemplate[preContarctDetailTab.approveappCodeTemplateKeyReject])  && preContractObj.workFlowStatusTO.value!=4"
+					 data-test='Stage1Approve_viewedit_Reject' class="btn  btn-primary btn-sm">
+
+					<input type="Submit" data-test='Stage1Approve_viewedit_Costbudget' value="Cost Budget" ng-click="getPreContractCostCodeBudget()"
+					 ng-if="preContractObj.workFlowStatusTO.value!=4" class="btn  btn-primary btn-sm">
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+			<div ng-if="preContractObj.id > 0" id="tabs1" class="nav-tabs-custom">
+				<ul class="nav nav-tabs">
+					<li fixed-header="" ng-repeat="preContarctDetailTab in preContrctDetailTabs" ng-class="{'active':($root.account.appCodeTemplate[preContarctDetailTab.appCodeTemplateKey] || $root.account.appCodeTemplate[preContarctDetailTab.approveappCodeTemplateKey]) && currentTabTitle === preContarctDetailTab.title
+									,'disabled': !$root.account.appCodeTemplate[preContarctDetailTab.appCodeTemplateKey] && !$root.account.appCodeTemplate[preContarctDetailTab.approveappCodeTemplateKey] }"
+					 dynamic-active-tab="preContarctDetailTab.title">
+						<a data-toggle="tab" ng-if="$root.account.appCodeTemplate[preContarctDetailTab.appCodeTemplateKey] || $root.account.appCodeTemplate[preContarctDetailTab.approveappCodeTemplateKey] "
+						name="tabName" ng-click="onClickTab1(preContarctDetailTab)"
+						data-test="{{preContarctDetailTab.stage1seleniumLocator}}">{{preContarctDetailTab.title}}
+						</a>
+						<a ng-if="!$root.account.appCodeTemplate[preContarctDetailTab.appCodeTemplateKey] && !$root.account.appCodeTemplate[preContarctDetailTab.approveappCodeTemplateKey]">{{preContarctDetailTab.title}}
+
+						</a>
+					</li>
+				</ul>
+
+				<div class="tab-content">
+					<div ng-include="currentTab1"></div>
+				</div>
+			</div>
+		</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</div>
+
+</div>
+

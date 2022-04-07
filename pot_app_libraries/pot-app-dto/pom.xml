@@ -1,0 +1,22 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>pot</groupId>
+    <artifactId>pot-app-libraries</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+  </parent>
+  <groupId>pot</groupId>
+  <artifactId>pot-app-dto</artifactId>
+  <packaging>pom</packaging>
+  <modules>
+  	<module>pot-admin-dto</module>
+  	<module>pot-common-dto</module>
+  	<module>pot-finance-dto</module>
+  	<module>pot-notification-dto</module>
+  	<module>pot-procurement-dto</module>
+  	<module>pot-project-lib-dto</module>
+  	<module>pot-proj-settings-dto</module>
+  	<module>pot-register-dto</module>
+  	<module>pot-time-management-dto</module>
+  </modules>
+</project>

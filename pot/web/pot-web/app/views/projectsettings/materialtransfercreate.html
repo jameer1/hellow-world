@@ -1,0 +1,56 @@
+<div ng-if="account.appCodeTemplate['PRJ_PRJSTG_MATERIALTRANSTGNORMALTIME_VIEW']" id="tab-pannel" class="noTableInBottomBlockWithTabs">
+	<form name="materialForm">
+		<div class="bottomNestedTabTableResHeight no-border">
+				<div class="row" ng-repeat ="material in MaterialTransDtls">
+						<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+							<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padL-0">
+								<md-input-container class="md-block">
+									<label>{{material.materialType}} Cut Off Days</label>
+									<ng-form name="materialForm1"> 
+										<input data-test='{{material.materialType}}_Projects_ProjectSettings_MaterialTransferTab_NormalTime_Cutoffdays'
+										type="text" ng-model="material.cutOffDays" 
+										name="time" pattern="\d+">
+									<span ng-show="materialForm1.time.$error.pattern">Enter
+										only numbers</span> 
+									</ng-form>
+								</md-input-container>
+							</div>
+							<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+									<md-input-container class="md-block">
+										<label>{{material.materialType}} Cut Off Hours</label>
+										<input data-test='{{material.materialType}}_Projects_ProjectSettings_MaterialTransferTab_NormalTime_Cutoftimehours' 
+										type="number" min=0 max=23
+										name="cutoffHours" ng-model="material.cutOffHours" ng-required="true" maxlength=2 />
+							</md-input-container>
+							</div>
+							<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+									<md-input-container class="md-block">
+										<label>{{material.materialType}} Cut Off Minutes</label>
+										<input data-test='{{material.materialType}}_Projects_ProjectSettings_MaterialTransferTab_NormalTime_Cutoftimeminutes' 
+										type="number" min=0 max=59 
+										name="cutoffMinutes"
+										ng-model="material.cutOffMinutes" />
+									</md-input-container>
+							</div>
+							
+						</div>
+				</div>
+		</div>
+		<div class="panel-footer">
+				<div class="pull-right">
+					<input type="submit" class="btn btn-sm btn-primary spacer0-tb"
+						value="Save" data-test='Projects_ProjectSettings_MaterialTransferTab_NormalTime_Save'
+						ng-click="materialForm.$valid && saveProjMaterialTrans()" ng-disabled ="!account.appCodeTemplate['PRJ_PRJSTG_MATRLTRSFR_ADD']"
+						title="{{ account.appCodeTemplate['PRJ_PRJSTG_MATRLTRSFR_ADD'] ? '' : '! Permission Denied. Contact your admin.'}}">
+				</div>
+				<div class="pull-left">
+                    <input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+                </div>
+
+		</div>
+	</form>
+</div>

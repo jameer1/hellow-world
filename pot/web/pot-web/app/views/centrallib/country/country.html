@@ -1,0 +1,83 @@
+<div id="tab-pannel" class="panel-group" ng-init="getMeasurementMap()">
+	<form name="measureForm" validate autocomplete="off">
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Measuring Units</h4>
+			</div>
+			<div class="panel-body10">
+				<div class="table-responsive">
+					<table class="table">
+						<thead id="tab-head">
+							<tr>
+								<th ng-show="action ==='Add'">Select</th>
+								<th>Measurement Code<span
+									style="color: red; font-sfont-size: '50px'"> *</span></th>
+								<th>Measurement Name<span
+									style="color: red; font-sfont-size: '50px'"> *</span></th>
+								<th>Classifications<span
+									style="color: red; font-sfont-size: '50px'"> *</span></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr fixed-header="" ng-repeat ="measurement in measureUnits">
+								<td ng-show="action ==='Add'"><input type="checkbox"
+									ng-model="measurement.selected"
+									ng-change="popUpRowSelect(measurement)"></td>
+								<td ng-form name="measureform"><input type="text"
+									ng-click="validation()" ng-tooltip name="code"
+									ng-model="measurement.code"
+									ng-class="{coloumnHighlightColor:measurement.duplicateFlag}"
+									ng-change="checkDuplicate(measurement)"
+									pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+									ng-maxlength="20" placeholder="Measurement  Code"
+									ng-required="true"><span
+									ng-show="measureform.code.$dirty && measureform.code.$error.required">This
+										field is required</span> <span
+									ng-show="measureform.code.$error.pattern"
+									pattern1="Alpha numeric data should be allowed "> </span> <span
+									ng-show="measureform.code.$dirty && measureform.code.$error.maxlength">Enter
+										upto 20 chars only</span></td>
+
+								<td ng-form name="measureform1"><input type="text"
+									name="name" ng-model="measurement.name"
+									ng-change="checkDuplicate(measurement)"
+									pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+									ng-maxlength="50" placeholder="Measurement Name"
+									ng-required="true"> <span
+									ng-show="measureform1.name.$dirty && measureform1.name.$error.required">This
+										field is required</span> <span
+									ng-show="measureform1.name.$error.pattern">Alpha numeric
+										data should be allowed </span> <span
+									ng-show="measureform1.name.$error.maxlength">Enter upto
+										50 chars only</span></td>
+
+								<td ng-form name="measureform2"><select
+									ng-change="updateMeasurementCode(measurement.procurementTO,measurement);checkDuplicate(measurement)"
+									ng-options="cat.name  for cat in proCategory track by cat.name"
+									name="classification" ng-model="measurement.procurementTO"
+									ng-required="true">
+										<option value="">-select-</option>
+								</select></td>
+							</tr>
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="panel-footer">
+				<div class="pull-left">
+					<input type="submit" ng-click="measureForm.$valid && addRows()"
+						value="Add Rows" class="btn  btn-brown btn-sm"
+						ng-show="action =='Add'"> <input type="button"
+						ng-click="deleteRows()" value="Delete Rows"
+						class="btn  btn-brown btn-sm" ng-show="action =='Add'">
+				</div>
+				<div class="pull-right">
+					<input type="submit" class="btn  btn-brown btn-sm" value="Save"
+						ng-click="measureForm.$valid && saveMeasurements()" />
+				</div>
+			</div>
+			<div class="ngdialog-close"></div>
+		</div>
+	</form>
+</div>

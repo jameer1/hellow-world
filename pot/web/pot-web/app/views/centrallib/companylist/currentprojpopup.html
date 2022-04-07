@@ -1,0 +1,106 @@
+<div id="tab-pannel" class="panel-group">
+	<form name="projForm" autocomplete="off">
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title" ng-show="action =='Add'">Add Project</h4>
+				<h4 class="panel-title" ng-show="action =='Edit'">Edit Project</h4>
+			</div>
+			<div class="panel-body">
+				<div class="popUpTableResHeight overflow-auto">
+					<table class="table table-striped table-hover table-bordered popUpTableHeight">
+						<thead>
+							<tr>
+								<th>Select</th>
+								<th>Project ID<span style="color: red; font-sfont-size: '50px'"> *</span></th>
+								<th>Project Name<span style="color: red; font-sfont-size: '50px'"> *</span></th>
+								<!--  <th>Purchase ID</th> 
+	                              <th>Purchase Name</th> -->
+								<th>Contract Value<span style="color: red; font-sfont-size: '50px'"> *</span></th>
+								<th>Contract Start Date
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th>Expected Contract Finish Date</th>
+								<th>Performance</th>
+							</tr>
+						</thead>
+						<tr ng-repeat="proj in projectList">
+							<td><input data-test='Companylist_CurrentProjects_Create_addrows_Chckbox1'
+									ng-disabled="action =='Edit'" type="checkbox" ng-model="proj.selected"
+									ng-change="projectPopUpRowSelect(proj)"></td>
+
+							<td><input data-test='Companylist_CurrentProjects_Create_ProjectCode' type="text"
+									ng-model="proj.projCode" name="prjCode" ng-click="projdetails($index,proj.projCode)"
+									placeholder="Select Project ID" class="form-control" custom-read-only
+									ng-required="true" /> <span class="procurment-pot-errors"
+									ng-show="projForm.prjCode.$dirty && projForm.pName.prjCode.required">Purchase
+									Name is mandatory</span> <span class="procurment-pot-errors"
+									ng-show="projForm.prjCode.$error.minlength">Too
+									Short!</span>
+							</td>
+							<td><input data-test='Companylist_CurrentProjects_Create_ProjectName' type="text"
+									ng-model="proj.projName" name="projName" ng-trim="false" placeholder="Project Name"
+									readonly="readonly" class="form-control" /> <span class="procurment-pot-errors"
+									ng-show="projForm.projName.$dirty && projForm.projName.$error.required">Project
+									Name is mandatory</span> <span class="procurment-pot-errors"
+									ng-show="projForm.projName.$error.pattern">At Least
+									One
+									Alphabet is Mandatory</span> <span class="procurment-pot-errors"
+									ng-show="projForm.projName.$error.minlength">Too
+									Short!</span></td>
+
+
+							<td><input data-test='Companylist_CurrentProjects_Create_ContractValue' type="text"
+									ng-model="proj.contractValue" class="form-control" name="cv" ng-trim="false"
+									placeholder="Contract Value" ng-maxlength=15
+									ng-required="true"  /> <span class="procurment-pot-errors"
+									ng-show="projForm.cv.$dirty && projForm.cv.$error.required">Contract
+									Value is mandatory</span> <span class="procurment-pot-errors"
+									ng-show="projForm.cv.$error.pattern">Enter
+									only numbers</span> <span class="procurment-pot-errors"
+									ng-show="projForm.cv.$error.minlength">Too
+									Short!</span></td>
+
+							<td>
+								<potdate-picker data-test='Companylist_CurrentProjects_Create_StartDate'
+									ng-model="proj.startDate" class="form-control" dir-index="$index"
+									date-name="startDate" placeholder="Start Date" ng-required="true"
+									custom-read-only />
+								<span class="procurment-pot-errors"
+									ng-show="projForm.startDate.$dirty && projForm.startDate.$error.required">This
+									field is mandatory</span></td>
+							<td>
+								<potdate-picker data-test='Companylist_CurrentProjects_Create_FinishDate'
+									ng-model="proj.finishDate" class="form-control" dir-index="$index"
+									date-name="finishDate" min-date="proj.startDate" placeholder="Finish Date" readonly="readonly" />
+
+							</td>
+
+							<td form="projectform"><input data-test='Companylist_CurrentProjects_Create_Performance'
+									type="text" class="form-control" ng-model="proj.performance" name="perform"
+									placeholder="Performance" pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+									ng-maxlength=20 /> <span class="procurment-pot-errors"
+									ng-show="projectform.perform.$dirty && projectform.perform.$error.pattern">At
+									Least One Alphabet is Mandatory</span> <span class="procurment-pot-errors"
+									ng-show="projectform.perform.$error.maxlength">Only 20
+									characters are allowed</span></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div class="panel-footer">
+				<div class="pull-left">
+					<input data-test='Companylist_CurrentProjects_Create_addrows' type="submit"
+						class="btn btn-primary btn-sm" ng-click="projForm.$valid && addRows()" value="Add Rows"
+						ng-show="action =='Add'" /> <input data-test='Companylist_CurrentProjects_Create_deleterows'
+						type="button" class="btn btn-secondary btn-sm" ng-click="deleteProjRows()" value="Delete Rows"
+						ng-show="action =='Add'" />
+				</div>
+				<div class="pull-right">
+					<input data-test='Companylist_CurrentProjects_Save' type="submit" class="btn btn-primary btn-sm"
+						value="Save" ng-click="projForm.$valid && savePojects()" />
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</form>
+</div>

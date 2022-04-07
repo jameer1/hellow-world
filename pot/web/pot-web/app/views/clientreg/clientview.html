@@ -1,0 +1,65 @@
+<section class="content-header">
+	<h1>Client List</h1>
+</section>
+<section class="content">
+			<div class="panel panel-default block footer-parent" ng-init="getClients()">
+				<div class="panel-body">
+					<div class="singleTableResHeight b-sh">
+						<table class="table table-striped table-hover table-bordered singleTableHeight">
+							<thead>
+								<tr>
+									<th>Client Code</th>
+									<th>Client Name</th>
+									<th>Business</th>
+									<th>Email ID</th>
+									<th>Fax</th>
+									<th>Phone</th>
+									<th>Mobile</th>
+									<th>Country</th>
+									<th>Website</th>
+									<th>Contact</th>
+									<th>Max Users</th>
+									<th>Expiry Date</th>
+									<th>Address</th>
+									<th>Doc</th>
+									<th class="text-center">Comments</th>
+								</tr>
+							</thead>
+							<tbody>
+							<tr fixed-header="" ng-repeat ="client in clients track by client.id" ng-dblclick="clientDetails('Edit', client, $index)">
+								<td>{{client.code}}</td>
+								<td>{{client.name}}</td>
+								<td>{{client.businessType}}</td>
+								<td>{{client.email}}</td>
+								<td class="text-right">{{client.fax}}</td>
+								<td class="text-right">{{client.phone}}</td>
+								<td class="text-right">{{client.mobile}}</td>
+								<td>{{client.country}}</td>
+								<td>{{client.webSiteURL}}</td>
+								<td>{{client.contactPerson}}</td>
+								<td class="text-right">{{client.registeredUsers}}</td>
+								<td>{{client.licence}}</td>
+								<td>{{client.address}}</td>
+								<td><a class="fa fa-download"  title="Click To Download" href="/static/{{client.clientDetailsFileName}}" download ng-if="client.clientDetailsFileName"></a></td>
+								<td class="text-center"><span name="comment" class="fa fa-comment" flip="horizontal" ng-click="show(client.remarks)"></span></td>
+							</tr>
+						</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="panel-footer-horizontal-scroll panel-footer">
+					<div class="pull-right">
+						<input type="button" class="btn  btn-primary btn-sm" ng-click="deactivateClient(client)" value="Deactivate" ng-hide="true"
+						ng-if="account.appCodeTemplate['ADMIN_CLIENTREG_DELETE']">
+						<input type="button" data-test='Admin_clientregistratration_Create' class="btn btn-primary btn-sm" ng-click="clientDetails('Add',null)" value="Create" ng-if="account.appCodeTemplate['ADMIN_CLIENTREG_ADD']">
+					</div>
+					<div class="pull-left">
+						<input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+						<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+						<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+						<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+						<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+					</div>
+				</div>
+	</div>
+</section>

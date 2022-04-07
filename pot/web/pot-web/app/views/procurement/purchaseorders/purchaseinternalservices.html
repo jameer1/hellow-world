@@ -1,0 +1,64 @@
+<div class="tab-pannel">
+  <form name="serviceForm" validate>
+    <div class="tabTable_3_Res_height">
+      <table id="" class="table table-hover table-bordered tabTable_3_height">
+        <thead>
+          <tr>
+            <th>Item ID</th>
+            <th>Item Description</th>
+            <th>Procurement<br>SubCategory
+            </th>
+            <th>Services Class</th>
+            <th>Cost Code</th>
+            <th>Delivery Place</th>
+            <th>Start Date</th>
+            <th>Finish Date</th>
+            <th>Qty</th>
+            <th>Estimate Rate<br>({{preContractObj.currencyTO.code}})
+            </th>
+            <th>Estimate Amount</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr fixed-header="" ng-repeat ="item in preContractObj.preContractServiceDtlTOs">
+            <td class="input-width3"><input type="text" ng-model="item.itemCode" name="code" placeholder="Item code" ng-disabled="true" /></td>
+
+            <td class="input-width2" ng-form name="myForm1"><input type="text" ng-model="item.itemDesc" ng-disabled="true" placeholder="Item Description" name="desc" maxlength="100" pattern="^[a-zA-Z-\&\d\s.,]+$"
+              required="required" /> <span ng-show="myForm1.desc.$error.maxlength">You Reached Max length</span> <span ng-show="myForm1.desc.$dirty && myForm1.desc.$error.required">This Field
+                Is Required</span> <span ng-show="myForm1.desc.$error.pattern">Special Characters Not Allowed</span></td>
+
+            <td class="input-width2" ng-form name="myFormsub"><input type="text" ng-model="procureCategoryMap[item.procureSubCatgId].code" ng-disabled="true"
+              placeHolder="Item SubCategory" name="subCategory" pattern="^[a-zA-Z-\&\d\s.,]+$" maxlength="100" required="required" readonly="readonly" /> <span
+              ng-show="myFormsub.subCategory.$dirty && myFormsub.subCategory.$error.required">This field is mandatory</span> <span ng-show="myFormsub.subCategory.$error.pattern">Special
+                characters not allowed</span> <span ng-show="myFormsub.subCategory.$error.maxlength">You reached max length</span></td>
+
+            <td class="input-width2" ng-form name="myForm2"><input type="text" ng-model="projServiceClassmap[item.projServiceLabelKey.id].code"
+               placeholder="Service Type" name="service" readonly="readonly" required="required" /></td>
+
+            <td class="input-width0"><input type="text" ng-model="projcostCodeMap[item.projCostLabelKey.id].code" readonly="readonly"
+              required="required" /></td>
+
+            <td class="input-width"><input type="text" ng-model="item.deliveryPlace" tabindex="-1" ng-disabled="true"/></td>
+
+            <td class="input-width1"><potdate-picker ng-model="item.startDate" dir-index="$index" date-name="serviceStartDate" placeholder="dd-mm-yyyy" required="required" ng-disabled="true"/></td>
+            <td class="input-width1"><potdate-picker ng-model="item.finishDate" dir-index="$index" date-name="serviceFinishDate" placeholder="dd-mm-yyyy" required="required" ng-disabled="true"/></td>
+
+            <td ng-form name="myForm3"><input type="text" ng-model="item.quantity" placeholder="Quantity" name="quan" required="required" maxlength="20" ng-disabled="true" pattern="^[\d]+$" style="width: 50px;" />
+              <span ng-show="myForm3.quan.$error.pattern">Only DigitsAllowed</span> <span ng-show="myForm3.quan.$error.maxlength">You Reached Max Length</span> <span
+              ng-show="myForm3.quan.$dirty && myForm3.quan.$error.required">This field is mandatory</span></td>
+
+            <td ng-form name="myForm4"><input type="text" ng-model="item.estimateCost" placeholder="EstimateCost" maxlength="20" pattern="^[\d]+$" ng-disabled="true" required="required" name="estcost"
+              style="width: 50px;" /> <span ng-show="myForm4.estcost.$dirty && myForm4.estcost.$error.required">This field is mandatory</span> <span ng-show="myForm4.estcost.$error.maxlength">You
+                reached max length</span> <span ng-show="myForm4.estcost.$error.pattern">Only Digits Allowed</span></td>
+
+
+            <td class="input-width"><span>{{item.quantity * item.estimateCost}}<span></td>
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </form>
+</div>

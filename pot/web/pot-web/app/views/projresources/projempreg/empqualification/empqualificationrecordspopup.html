@@ -1,0 +1,105 @@
+<div id="tab-pannel" class="panel-group">
+    <form name="qualifyRecordsForm" validate>
+        <div class="panel panel-default" modal-movable>
+            <div class="panel-heading">
+                <h4 class="panel-title">Qualification and Training Records</h4>
+            </div>
+            <div class="panel-body">
+                <table class="table table-striped table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Record ID </th>
+                            <th>Qualification / Licence / Certificate / Training<span class='procurment-pot-errors'>*</span></th>
+                            <th>Name of The University / Institution<span class='procurment-pot-errors'>*</span></th>
+                            <th>University / Institution address</th>
+                            <th>University / Institution Contact details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr id="prerequisiteParent" ng-repeat="qual in qualificationRecords">
+                            <td>
+                                <input type="text" class="form-control" name="recordId" ng-model="qual.code" readonly
+                                    placeholder="Record ID">
+                            </td>
+                            <td>
+                                <input type="text" name="typeofqualify" ng-model="qual.recordType" class="form-control"
+                                    placeholder="Qualification / Licence / Certificate / Training">
+                            </td>
+                            <td>
+                                <input type="text" name="nameofInst" ng-model="qual.instituteName" class="form-control"
+                                    placeholder="Name of Institution">
+                            </td>
+                            <td>
+                                <input type="text" name="uniaddress" ng-model="qual.instituteAddress" class="form-control"
+                                    placeholder="University address"></td>
+                            <td>
+                                <input type="text" name="univdetails" class="form-control" ng-model="qual.instituteContactDetails"
+                                    placeholder="University details">
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+                <br><br>
+                <table class="table table-striped table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Certificate / Licence Number<span class='procurment-pot-errors'>*</span></th>
+                            <th>Date of issue / award<span class='procurment-pot-errors'>*</span></th>
+                            <th>Required Renewal<span class='procurment-pot-errors'>*</span></th>
+                            <th>Expiry Date</th>
+                            <th>New Training Due Date for start</th>
+                            <th>Upload / View Certificate<span class='procurment-pot-errors' style="color: red;">*</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr id="prerequisiteParent" ng-repeat="qual in qualificationRecords">
+                            <td>
+                                <input type="text" name="lisnumber" class="form-control" ng-model="qual.certificateNumber"
+                                    placeholder="Certificate/Licence Number">
+                            </td>
+                            <td>
+                                <potdate-picker ng-model="qual.dateOfIssue" class="form-control" dir-index="$index"
+                                    date-name="date" placeholder="Date of Issue" custom-read-only />
+                            </td>
+							<td><select name="typeofrenewal" ng-model="qual.isRenewalRequired" ng-change="getRenewalTypes(qual.isRenewalRequired)" class="form-control">
+									<option value="">-SELECT-</option>
+									<option ng-repeat="isRenewalRequired in isRenewalRequireds" value="{{isRenewalRequired.name}}">{{isRenewalRequired.name =="Y" ? "Yes" :"No"}}</option>
+   								</select>
+							</td>
+                           <!-- <td>
+                                <select name="typeofrenewal" ng-model="qual.renewalType" class="form-control" ng-change="getRenewalType(qual.renewalType)">
+            						<option value="">--Please Select--</option>
+                                    <option ng-repeat="renewal in renewalType track by renewal.name" ng-value="renewal">
+                                        {{renewal.name}}
+                                    </option>
+                                </select>
+                            </td> -->
+                            <td>
+                                <potdate-picker ng-model="qual.expiryDate" class="form-control"
+                                    dir-index="$index" date-name="date" placeholder="Expiry Date" custom-read-only ng-disabled="disableExpiryDate == true"/>                                
+                            </td>
+                            <td>
+                                <potdate-picker ng-model="qual.newTrainingDueDate" class="form-control" dir-index="$index"
+                                    date-name="date" placeholder="New Training Date" custom-read-only />
+                            </td>
+                            <td ng-form="certificateForm1" >
+                                <input type="file" name="certificate" placeholder="Certificate" ng-model="fileUpload" ng-required="true" ngf-select="checkFile($file,$index)">
+                                <span style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="certificateForm1.certificate.$error.required && certificateForm1.certificate.$touched">This Field is Mandatory</span>
+								<span class="help-block" style="color: red" ng-show="!isValidDoc">
+											{{errorMessage}}</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="panel-footer">
+                <div class="pull-right">
+                    <input type="submit" class="btn btn-primary btn-sm" ng-click=" qualifyRecordsForm.$valid && saveEmpQualifyRecords()" value="Save" >
+                </div>
+            </div>
+            <div class="ngdialog-close"></div>
+        </div>
+    </form>
+</div>

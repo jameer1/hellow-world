@@ -1,0 +1,65 @@
+<div id="tab-pannel">
+	<div class="panel panel-default" modal-movable>
+		<div class="panel-heading">
+			<!-- <h4 class="panel-title" ng-show="preContractObj.workFlowStatusTO.value ==1">Internal Stage1 Request & Approval</h4> -->
+			<!-- <h4 class="panel-title" ng-show="preContractObj.workFlowStatusTO.value ==2">Stage 1 Approval</h4> -->
+			<h4 class="panel-title" ng-show="apprStatus == 3">Send back to Requestor</h4>
+			<h4 class="panel-title" ng-show="apprStatus == 4">On Hold</h4>
+			<h4 class="panel-title" ng-show="apprStatus == 2">Stage 1 Approval</h4>
+			<h4 class="panel-title" ng-show="apprStatus == 5">Stage 1 Approval</h4>
+			<h4 class="panel-title" ng-show="apprStatus == 6">Reject</h4>
+		</div>
+		<div class="panel-body">
+			<ng-form name="procureForm" validate>
+			<div class="" id="input-height">
+				<div
+					ng-if="preContractObj.workFlowStatusTO.value ==1 || preContractObj.workFlowStatusTO.value ==4 ">Approver1<span class="procurment-pot-errors">*</span></div>
+				<div>
+					<input data-test='Stage1Request_viewedit_Sendforapproval_Approver' type="text" name="approver" class="form-control"
+						ng-click="getUsersByModulePermission();"
+						ng-show="preContractObj.workFlowStatusTO.value ==1 || preContractObj.workFlowStatusTO.value ==3" 
+						ng-model="preContractObj.preContractReqApprTO.apprUserLabelkeyTO.name"
+						placeholder="Approver ID" maxlength="100" readonly="readonly">
+					<span ng-show="myForm7.approver.$error.maxlength">You
+						reached max length</span>
+				</div>
+				<div>
+					<input data-test='Stage1Request_viewedit_Sendforapproval_Approver' type="text" name="approver" class="form-control"
+						ng-click="getUsersByModulePermission();"
+						ng-show="preContractObj.workFlowStatusTO.value ==4" 
+						ng-model="preContractObj.preContractReqApprTO.apprUserLabelkeyTO.name"
+						placeholder="Approver ID" maxlength="100" readonly="readonly">
+					<span ng-show="myForm7.approver.$error.maxlength">You
+						reached max length</span>
+				</div>
+				<div></div>
+				<div>Comments</div>
+				<textarea data-test='Stage1Request_viewedit_Sendforapproval_Comments' class="form-control" ng-show="preContractObj.id >= 1"
+					ng-model="preContractObj.preContractReqApprTO.reqComments"
+					name="comment" placeholder="Requestor Comments"
+					ng-if="preContractObj.workFlowStatusTO.value ==1 || preContractObj.workFlowStatusTO.value ==3"
+					maxlength="200"><span
+						ng-if="myForm8.comment.$error.maxlength">You reached
+								max length</span>
+						</textarea>
+
+				<textarea class="form-control" data-test='Stage1Approve_viewedit_comments'
+					ng-if="preContractObj.workFlowStatusTO.value ==2 || preContractObj.workFlowStatusTO.value ==4"
+					ng-model="preContractObj.preContractReqApprTO.apprComments"
+					name="comments" placeholder="Approver Comments" maxlength="200"><span
+						ng-if="myForm9.comments.$error.maxlength">You reached
+								max length</span>
+						</textarea>
+			</div>
+			</ng-form>
+
+		</div>
+		<div class="panel-footer">
+			<div class="pull-right">
+				<input type="Submit" data-test='Stage1Approve_viewedit_submit'  value="Submit" data-test='Stage1Request_viewedit_Sendforapproval_Submit' ng-click="saveInternalRequest()"
+					class="btn btn-primary btn-sm">
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</div>
+</div>

@@ -1,0 +1,167 @@
+<section class="content-header">
+    <h1>Supplier & Sub Contractors (Third Party) Payment Run</h1>
+</section>
+<section class="content">
+    <div class="panel panel-default block footer-parent">
+        <div class="panel-body" ng-init="getCountries();">
+            <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12 no-padding">
+                <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3 padL-0">
+                    <md-input-container>
+                        <label>Country</label>
+                        <md-select ng-model="" ng-change="getCountryDetailsById(item,$index);">
+                            <md-option fixed-header="" ng-repeat="" ng-value="">
+                                {{  }}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+                <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3">
+                    <md-input-container>
+                        <label>Province</label>
+                        <md-select ng-model="" ng-change="getCountryDetailsById(item,$index);">
+                            <md-option fixed-header="" ng-repeat="" ng-value="">
+                                {{  }}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+                    <md-input-container>
+                        <label>Profit Center</label>
+                        <input type="text" name="profitcenter" ng-model="" ng-click="" readonly>
+                    </md-input-container>
+                </div>
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+                    <md-input-container>
+                        <label>Credit Run Cycle</label>
+                        <input type="text" name="materialclass" ng-model="" readonly="readonly" ng-click="">
+                    </md-input-container>
+                </div>
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+                    <md-input-container>
+                        <label>Credit Cycle Run Date</label>
+                        <potdate-picker dir-index="$index" date-name="date" ng-model="" custom-read-only />
+                    </md-input-container>
+                </div>
+            </div>
+            <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12 no-padding">
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2 padL-0">
+                    <md-input-container>
+                        <label>Vendor credit run #</label>
+                        <input type="text" name="vendors" ng-model="" readonly="readonly" ng-click="">
+                    </md-input-container>
+                </div>
+                <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3 padL-0">
+                    <md-input-container>
+                        <label>Credit Run Cycle Period From (dd-mm-yyyy)</label>
+                        <potdate-picker dir-index="$index" date-name="fromDate" ng-model="" custom-read-only />
+                    </md-input-container>
+                </div>
+                <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3">
+                    <md-input-container>
+                        <label>Credit Run Cycle Period To (dd-mm-yyyy)</label>
+                        <potdate-picker dir-index="$index" date-name="toDate" ng-model="" custom-read-only />
+                    </md-input-container>
+                </div>
+                <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4">
+                    <div class="pull-right marT15">
+                        <input type="button" class="btn btn-primary btn-sm" value="Trail Run" ng-click="" />
+                        <input type="button" ng-click="" class="btn btn-primary btn-sm" value="Run">
+                        <input type="button" ng-click="" class="btn btn-primary btn-sm" value="View Past Records">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12 no-padding">
+                <div class="singleTableResHeight_3 overflow-auto">
+                    <table class="table table-hover table-bordered singleTableHeight_3">
+                        <thead>
+                            <tr>
+                                <th rowspan="2">Country</th>
+                                <th rowspan="2">Province</th>
+                                <th rowspan="2">EPS</th>
+                                <th rowspan="2">Project</th>
+                                <th rowspan="2">Profit Center</th>
+                                <th rowspan="2">Company Name(Vendor)</th>
+                                <th rowspan="2">Company (Vendor) Tax File Number</th>
+                                <th rowspan="2">Invoice Date</th>
+                                <th rowspan="2">Invoice Number</th>
+                                <th rowspan="2">Type of Expenditure</th>
+                                <th rowspan="2">PO Number</th>
+                                <th rowspan="2">PO Description</th>
+                                <th colspan="3" class="text-center">
+                                    Invoice Amount
+                                </th>
+                                <th colspan="3" class="text-center">
+                                    Amount with Held
+                                </th>
+                                <th colspan="3" class="text-center">
+                                    Amount Payable
+                                </th>
+                                <th colspan="6" class="text-center">
+                                    Bank Account Details
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>Amount Before Tax</th>
+                                <th>Tax Amount</th>
+                                <th>Total Including Tax</th>
+                                <th>Before Tax Amount</th>
+                                <th>Tax Amount</th>
+                                <th>Total Including Tax</th>
+                                <th>Before Tax Amount</th>
+                                <th>Tax Amount(GSTP)</th>
+                                <th>Total Including Tax</th>
+                                <th>Bank/Institute Name</th>
+                                <th>Registered Address</th>
+                                <th>Bank Code</th>
+                                <th>Account Number</th>
+                                <th>Credit Run Ref Number</th>
+                                <th>Due date for payment credit</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="">
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <div class="pull-left">
+                    <input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

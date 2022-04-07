@@ -1,0 +1,18 @@
+<div id="tab-pannel" ng-init="getTimeSheetEmpDetails()">
+	<div class="panel-group panel panel-default" modal-movable>
+		<div class="panel-heading">
+			<h4 class="panel-title">Time Sheet</h4>
+		</div>
+		<div class="panel-group spacer0">
+			<ul class="nav nav-tabs">
+				<li fixed-header="" ng-repeat ="tab in timeSheetTab"
+					ng-class="{active:isActiveTimeSheetTab(tab.url)}"><a
+					data-toggle="tab" ng-click="onClickTimeSheetTab(tab)" data-test="{{tab.timesheetemptasksSeleniumLocator}}">{{tab.title}}</a></li>
+			</ul>
+		</div>
+		<div class="tab-content">
+			<div ng-include="currentTab"></div>
+		</div>
+	</div>
+	<div class="ngdialog-close"></div>
+</div>

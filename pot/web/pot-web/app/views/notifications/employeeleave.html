@@ -1,0 +1,104 @@
+<section class="content-header">
+	<h1>Employee Leave & Approval</h1>
+</section>
+<section class="content">
+	<div class="panel panel-default block footer-parent">
+		<div class="panel-body">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+				<div class="col-xs-3 col-sm-3 col-md-2 col-lg-2">
+					<md-input-container>
+						<label>EPS ID/EPS Name</label>
+						<input type="text" ng-model="searchProject.parentName" ng-click="getUserProjects()" readonly="readonly" data-test='Notifications_LeaveRequestTransferEpsId'>
+					</md-input-container>
+				</div>
+				<div class="col-xs-3 col-sm-3 col-md-2 col-lg-2">
+					<md-input-container>
+						<label>Project ID/Project Name </label>
+						<input type="text" ng-model="searchProject.projName" ng-click="getUserProjects()" readonly="readonly" data-test='Notifications_LeaveRequestTransferProject'>
+					</md-input-container>
+				</div>
+				<div class="col-xs-3 col-sm-3 col-md-2 col-lg-2">
+
+					<md-input-container>
+						<label>From Date(dd-mm-yyyy)</label>
+						<potdate-picker dir-index="$index" date-name="fromDate" ng-model="fromDate" data-test='Notifications_LeaveRequestTransferFromDate'> </potdate-picker>
+					</md-input-container>
+				</div>
+				<div class="col-xs-3 col-sm-3 col-md-2 col-lg-2">
+					<md-input-container>
+						<label>To Date</label>
+						<potdate-picker dir-index="$index" date-name="toDate" ng-model="toDate" data-test='Notifications_LeaveRequestTransferTodate'> </potdate-picker>
+					</md-input-container>
+				</div>
+				<div class="col-xs-3 col-sm-3 col-md-2 col-lg-2">
+					<md-input-container>
+						<label>Notification Code</label>
+						<input type="text" ng-model="code" data-test='Notifications_LeaveRequestTransferNotficationCode'>
+					</md-input-container>
+				</div>
+				<div class="col-xs-3 col-sm-3 col-md-2 col-lg-2">
+
+					<md-input-container>
+						<label>Status</label>
+						<md-select ng-model="notifyStatus" ng-required="true" data-test='Notifications_LeaveRequestTransferStatus'>
+							<md-option name="notifyStatus" ng-repeat="notifyStatus in notificationStatus" ng-value="notifyStatus.title" ng-if="account.appCodeTemplate[notifyStatus.notifyappCodeTemplateKey]">{{notifyStatus.title}}</md-option>
+						</md-select>
+						<md-input-container>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+				<div class="pull-right marB15">
+					<input type="button" ng-click="getEmpNotificationDetails()" class="btn btn-primary btn-sm" value="Search" ng-model="searchText" data-test='Notifications_LeaveRequestTransferSearch'>
+					<input type="reset" class="btn btn-default btn-sm" ng-click="resetEmpNotificationDetails()" value="Reset" data-test='Notifications_LeaveRequestTransferReset'>
+				</div>
+
+			</div>
+			<div>
+    <div id="grid1" ui-grid="gridOptions" ng-if="stylesSvc.finishedStyling" style="height:510px; margin-top:100px"
+       ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize></div>
+</div>
+			<!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+				<div class="singleTableResHeight_3">
+					<table class="table table-hover table-bordered singleTableHeight_3">
+						<thead>
+							<tr>
+								<th>Date</th>
+								<th>EPS Name</th>
+								<th>Project Name</th>
+								<th>Requisition ID</th>
+								<th>Notification Number</th>
+								<th>From User</th>
+								<th>To User</th>
+								<th>Notification</th>
+								<th>Notification Status</th>
+								<th>Comments</th>
+							</tr>
+						</thead>
+						<tr ng-repeat="employee in empNotification | filter : code">
+							<td>{{employee.date}}</td>
+							<td>{{userProjMap[employee.projId].code}}</td>
+							<td>{{userProjMap[employee.projId].name}}</td>
+							<td>{{employee.requistionCode}}</td>
+							<td>{{employee.code}}</td>
+							<td>{{employee.fromUserName}}</td>
+							<td>{{employee.toUserName}}</td>
+							<td>{{employee.type}}</td>
+							<td>{{employee.notifyStatus}}</td>
+							<td class="text-left"><span name="comment" flip="horizontal" ng-click="show(employee)"></span></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="panel-footer">
+			<div class="pull-left">
+				<input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+				<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+				<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+				<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+				<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+			</div>
+		</div> -->
+	</div>
+</section>
+

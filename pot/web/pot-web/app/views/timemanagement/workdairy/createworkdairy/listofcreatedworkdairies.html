@@ -1,0 +1,117 @@
+<section class="content-header">
+    <h1>Created Work Diaries</h1>
+     <!-- <input type="submit" value ="Help !"
+		ng-click="helpPage();" class="pull-right btn  btn-primary btn-sm help-each-page"> -->
+		<button class="pull-right btn btn-primary btn-sm help-each-page" 
+	onclick="window.open('views/helptutorials/ListofCreatedWorkDiaries.html', '_blank', 
+		'toolbar=yes,scrollbars=yes,resizable=no,top=50,left=100,width=1400,height=700')">
+		Help
+	</button>
+</section>
+<section class="content">
+    <div id="tab-pannel">
+        <div class="panel panel-default block footer-parent">
+            <div class="panel-body">
+
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 padL-0">
+                        <md-input-container>
+                            <label>EPS Name</label>
+                            <input type="text" ng-model="searchCriteria.searchProject.parentName" ng-click="getUserProjects()" readonly>
+                        </md-input-container>
+                    </div>
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                        <md-input-container>
+                            <label>Project Name</label>
+                            <input type="text" ng-model="searchCriteria.searchProject.projName" ng-click="getUserProjects()" readonly>
+                        </md-input-container>
+                    </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                        <md-radio-group ng-model="searchCriteria.userType" layout="row">
+                            <md-radio-button value="1" class="md-primary">Login User Records</md-radio-button>
+                            <md-radio-button value="2" class="md-primary">All User Records</md-radio-button>
+                        </md-radio-group>
+                    </div>
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 ">
+                        <md-input-container class="md-block"><label class="labelName">From Date</label>
+                            <pot-currentdate-display dir-index="$index" ng-model="searchCriteria.fromDate" date-name="fromDate" readonly="readonly" />
+                        </md-input-container>
+                    </div>
+                    <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 ">
+                        <md-input-container class="md-block">
+
+                            <label>To Date</label>
+                            <pot-currentdate-display dir-index="$index" ng-model="searchCriteria.toDate" date-name="toDate" readonly="readonly" />
+                        </md-input-container>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-xs-2 col-sm-2 padR-0">
+                        <div class="pull-right marT15">
+                            <input type="button" ng-click="search()" class="btn btn-primary btn-sm" value="Search"
+                                ng-model="searchText">
+                            <input type="reset" class="btn btn-default btn-sm" ng-click="resetSearch()" value="Reset">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+                    <!-- <div class="singleTableResHeight_2">
+                        <table class="table table-striped table-hover table-bordered singleTableHeight_2">
+                            <thead>
+                                <tr>
+                                    <th>Work Diary Date</th>
+                                    <th>Work Diary ID</th>
+                                    <th>EPS</th>
+                                    <th>Project</th>
+                                    <th>Crew</th>
+                                    <th>Shift</th>
+                                    <th>Supervisor</th>
+                                    <th>Internal Approver</th>
+                                    <th>External Approver</th>
+                                    <th>Status</th>
+                                    <th class="text-center">More Details</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr fixed-header="" ng-repeat ="workDairyTO in workDairyTOs">
+                                    <td>{{workDairyTO.workDairyDate}}</td>
+                                    <td>{{workDairyTO.workDiaryCode}}</td>
+                                    <td>{{workDairyTO.code}}</td>
+                                    <td>{{workDairyTO.name}}</td>
+                                    <td>{{workDairyTO.crewCode}}</td>
+                                    <td>{{workDairyTO.shiftCode}}</td>
+                                    <td>{{workDairyTO.createdBy}}</td>
+                                    <td>{{workDairyTO.internalApprBy}}</td>
+                                    <td>{{workDairyTO.clientApprBy}}</td>
+                                    <td>{{workDairyTO.apprStatus == null ? 'Under Preparation' : workDairyTO.apprStatus}}</td>
+                                    
+                                    <td class="text-center">
+                                        <span class="btn btn-primary btn-sm" ng-click="showMore(workDairyTO)"
+                                            class="btn bottomaligned btn-brown btn-sm">More Details</span>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div> -->
+                    <div class="singleTableResHeight_3 marT15 ui-rid-customization-pot">
+                        <div id="grid" ui-grid="gridOptions" class="singleTableResHeight_3" ng-if="stylesSvc.finishedStyling"
+                            ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-resize-columns  class="grid"></div>
+                    </div>
+                </div>
+
+                <div class="panel-footer">
+                    <div class="pull-right">
+                        <a class="btn btn-primary btn-sm" data-test='AsbuiltRecords_WorkDiary_CreateWorkDiary'
+                            ui-sref="createworkdairy" ui-sref-opts="{reload: true}">Create New</a>
+                    </div>
+                    <!-- <div class="pull-left">
+                        <input type="button" class="btn btn-primary btn-sm" ng-click="" value="Group" />
+                        <input type="button" class="btn btn-primary btn-sm" ng-click="" value="Sort" />
+                        <input type="button" class="btn btn-primary btn-sm" ng-click="" value="Export" />
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

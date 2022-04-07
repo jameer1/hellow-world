@@ -1,0 +1,30 @@
+<div id="tab-pannel" class="panel-group">
+    <div class="panel panel-default" modal-movable>
+        <div class="panel-heading">
+            <h4 class="panel-title">Lease Details</h4>
+        </div>
+        <div class="panel-body table-responsive">
+            <div class="popUpTableResHeight">
+                <table class="table table-striped popUpTableHeight">
+                    <thead>
+                        <tr>
+                            <th>Lease Sr No</th>
+                            <th>Lease Agreement #</th>
+                            <th>Tenant ID</th>
+                            <th>Tenant Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr fixed-header="" ng-repeat="longTermLeasingDtlTO in longTermLeasingDtlTOs" ng-click="selectAssetTenant(longTermLeasingDtlTO,$index+1)">
+                            <td>{{$index + 1}}</td>
+                            <td>{{longTermLeasingDtlTO.leaseAgreement}}</td>
+                            <td>{{longTermLeasingDtlTO.tenantid}}</td>
+                            <td>{{longTermLeasingDtlTO.tenantName}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="ngdialog-close"></div>
+    </div>
+</div>

@@ -1,0 +1,124 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1 ng-if="!subReportCode">Monthly Employee Attendance Records</h1>
+    <h1 ng-if="subReportCode">Monthly Employee Attendance Records - {{subReport.name}}</h1>
+     <!-- <input type="submit" value ="Help !"
+		ng-click="helpPage();" class="pull-right btn  btn-primary btn-sm help-each-page"> -->
+		<button class="pull-right btn btn-primary btn-sm help-each-page" 
+	onclick="window.open('views/helptutorials/MonthlyEmployeeRecords.html', '_blank', 
+		'toolbar=yes,scrollbars=yes,resizable=no,top=50,left=100,width=1400,height=700')">
+		Help
+	</button>
+
+</section>
+<!-- Main content -->
+<section class="content ui-rid-customization-pot">
+    <div class="panel panel-default block footer-parent">
+        <div class="panel-body">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 padL-0">
+                    <md-input-container>
+                        <label>EPS</label>
+                        <input type="text" ng-model="searchProject.parentName" class="form-control" data-test="MonthlyEmployeeAttendanceRecords_Epsname"
+                            placeholder="EPS Name" ng-click="getUserProjects();" readonly>
+                    </md-input-container>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <md-input-container>
+                        <label>Project</label>
+                        <input type="text" class="form-control" ng-model="searchProject.projName"
+                            placeholder="Project Name" ng-click="getUserProjects();" readonly>
+                    </md-input-container>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <md-input-container>
+                        <label>Crew</label>
+                        <input type="text" class="form-control" placeholder=" Crew" ng-click="getCrewList();" data-test="MonthlyEmployeeAttendanceRecords_Crew"
+                            ng-model="crewNameDisplay" readonly>
+                    </md-input-container>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <md-input-container>
+                        <label>From Date(mm-yyyy)</label>
+                        <pot-month-year-picker ng-model="fromDate" dir-index="$index" date-name="fromDate" data-test="MonthlyEmployeeAttendanceRecords_Fromdate"
+                            required="required" readonly />
+                    </md-input-container>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <md-input-container>
+                        <label>To Date(mm-yyyy)</label>
+                        <pot-month-year-picker ng-model="toDate" dir-index="$index" date-name="toDate" data-test="MonthlyEmployeeAttendanceRecords_Todate"
+                            required="required" readonly />
+                    </md-input-container>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 padR-0">
+                    <md-input-container>
+                        <label>Sub Reports</label>
+                        <md-select ng-model="subReport" ng-change="changeSubReport()" data-test="MonthlyEmployeeAttendanceRecords_Subreports">
+                            <md-option value="None">None</md-option>
+                            <md-option ng-repeat="subReport in subReports" ng-value="subReport">
+                                {{subReport.name}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 padL-0">
+                    <md-radio-group ng-model="type" layout="row" ng-show="subReportName">
+                        <md-radio-button id="chart" value="chart" class="md-primary" name="content" checked="checked" data-test="MonthlyEmployeeAttendanceRecords_Chart"
+                            ng-true-value="1" ng-false-value="0">Chart</md-radio-button>
+                        <md-radio-button id="table" value="table" ng-true-value="1" ng-false-value="0" data-test="MonthlyEmployeeAttendanceRecords_Table"
+                            class="md-primary" name="content" ng-model="type">Table</md-radio-button>
+                        <md-radio-button id="chartTable" value="chartTable" ng-true-value="1" ng-false-value="0" data-test="MonthlyEmployeeAttendanceRecords_ChartTable"
+                            class="md-primary" name="content"ng-true-value="1" ng-false-value="0">Chart & Table</md-radio-button>
+                    </md-radio-group>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 padR-0">
+                    <div class="pull-right marB15">
+                        <input type="button" ng-click="getMonthlyEmpAttendenceDetails()" class="btn btn-primary btn-sm"
+                            value="Generate Report" data-test="MonthlyEmployeeAttendanceRecords_Generatereportbutton">
+                        <input type="reset" class="btn btn-secondary btn-sm" ng-click="resetMonthlyEmpAttendenceDetails()"
+                            value="Reset" data-test="MonthlyEmployeeAttendanceRecords_Reset">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+                <div class="singleTableResHeight_3" ng-if="subReport == 'None'">
+                    <div id="grid" ui-grid="gridOptions1" class="singleTableResHeight_3"
+                        ng-if="stylesSvc.finishedStyling" ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize
+                        ui-grid-resize-columns ui-grid-grouping class="grid"></div>
+
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding" ng-if="subReport != 'None'">
+
+                <div ng-if="type == 'chart'" class="singleTableResHeight_3">
+                    <canvas class="chart-base" chart-data="data" chart-labels="labels" chart-series="series" height="90"
+                        chart-type="chart_type" chart-colors="colors" chart-options="options" context-menu="menuOptions"
+                        chart-dataset-override="datasetOverride"></canvas>
+                </div>
+                <div ng-if="type == 'chartTable'" class="chartResHeight">
+                    <canvas class="chart-base" chart-data="data" chart-labels="labels" chart-series="series" height="75" padding-bottom="30px;"
+                        chart-type="chart_type" chart-colors="colors" chart-options="options" context-menu="menuOptions"
+                        chart-dataset-override="datasetOverride"></canvas>
+                </div>
+
+                <div ng-if="type == 'chartTable'">
+                    <div id="grid" ui-grid="gridOptions" class="tableWithChartResHeight"
+                        ng-if="stylesSvc.finishedStyling" ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize
+                        ui-grid-resize-columns ui-grid-grouping class="grid">
+                    </div>
+                </div>
+                <div ng-if="type == 'table'">
+                    <div id="grid" ui-grid="gridOptions" class="singleTableResHeight_3"
+                        ng-if="stylesSvc.finishedStyling" ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize
+                        ui-grid-resize-columns ui-grid-grouping class="grid">
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>pot-app-dao</artifactId>
+	<packaging>pom</packaging>
+	<name>POT-APP-DAO</name>
+	<groupId>pot</groupId>
+	
+	<parent>                        
+		<groupId>pot</groupId>
+		<artifactId>pot-app-libraries</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+	
+	<modules>
+		<module>pot-admin-dao</module>
+		<module>pot-common-dao</module>
+		<module>pot-finance_dao</module>
+		<module>pot-notification-dao</module>
+		<module>pot-procurement-dao</module>
+		<module>pot-proj-settings-dao</module>
+		<module>pot-project-lib-dao</module>
+		<module>pot-register-dao</module>
+		<module>pot-time-management-dao</module>
+	</modules>
+	
+</project>

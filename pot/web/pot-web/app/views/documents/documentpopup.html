@@ -1,0 +1,60 @@
+<div id="tab-pannel" class="panel-group" ng-init="getEPSProjectsById();getEPSMap();">
+	<form name="epsForm" validate autocomplete="off">
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Add/Edit Folders</h4>
+			</div>
+			<div class="panel-body">
+				<div class="popUpTableResHeight">
+					<table id="tree" class="table table-striped table-hover table-bordered popUpTableHeight" >
+						<thead>
+							<tr>
+								<th>Folder ID</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr fixed-header="" ng-repeat ="item in editTreeData |  editFilterTreeItem:itemId1:isExpand1"
+								class="abc{{item.level}}">
+								<td><span ng-repeat="level in [].constructor(item.level) track by $index" class="xyz" style="padding-left: 30px;"></span> <span
+										ng-show="((!item.leaf && item.expand) || (!item.leaf  && item.childProjs.length <= 0))"
+										ng-click="itemClick1(item.projId,item.expand);"
+										class="fa fa-folder-open-o"></span> <span
+										ng-show="(!item.leaf && !item.expand && item.childProjs.length > 0)"
+										ng-click="itemClick1(item.projId,item.expand);"
+										class="fa fa-folder-open-o"
+										ng-show="(!item.leaf && !item.expand)"> </span> <span
+										ng-show="(item.proj)" name="leaf"></span> <input type="text"
+									ng-show="!item.proj" placeholder="Folder ITEM ID" name="epsId"
+									maxlength="20" ng-model="item.projCode" ng-required="true"
+									watch-change="change()"
+									ng-class="{coloumnHighlightColor:(item.duplicateFlag||item.childProjs.duplicateFlag) }"
+									ng-change="checkDuplicate(item)">{{item.id}} <span
+									style="padding-left: 15px;"> <span data-toggle="tooltip"
+											title="Add Folder ID" ng-click="addTreeSubGroup(item)"
+											class="fa fa-plus-square"> </span>
+								</span> <span style="padding-left: 10px;"> <span
+											ng-click="deleteTree(item)"
+											ng-hide="item.projId>0 || $index==0" class="fa fa-trash">
+										</span>
+								</span></td>
+
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="panel-footer">
+				<div class="pull-left">
+					<input type="submit" class="btn btn-success btn-sm"
+						ng-show="action=='Add'" ng-click="addTreeGroup()"
+						value="Add Group">
+				</div>
+				<div class="pull-right">
+					<input type="submit" class="btn btn-primary btn-sm"
+						ng-click="saveProjects(item,epsForm)" value="Save" />
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</form>
+</div>

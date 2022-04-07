@@ -1,0 +1,164 @@
+<div id="tab-pannel" class="panel-group">
+	<form name="bankAccountForm" validate>
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title" ng-show="action=='Add'">Add Bank Account Details</h4>
+				<h4 class="panel-title" ng-show="action=='Edit'">Edit Bank Account Details</h4>
+			</div>
+			<div class="panel-body">
+				<div class="popUpTableResHeight overflow-auto">
+					<table class="table table-striped table-hover table-bordered popUpTableHeight">
+						<thead id="tab-head">
+							<tr>
+								<th ng-show="action=='Add'">Select</th>
+								<th>Effective From <span style="color: red; ">*</span></th>
+								<th>Name of Bank / Financial Institute <span style="color: red; ">*</span></th>
+								<th>Bank Street Address<span style="color: red; ">*</span></th>
+								<th>Bank / Financial Institute Code<span style="color: red; ">*</span></th>
+								<th>Account Holder Name<span style="color: red; ">*</span></th>
+								<th>Account Holder Number<span style="color: red; ">*</span></th>
+								<th>Type of Account<span style="color: red; ">*</span></th>
+								<th>Account Status<span style="color: red; ">*</span></th>
+								<th>Notes</th>
+							</tr>
+						</thead>
+						<tbody id="vert-align">
+							<tr ng-repeat="account in addEmpBankAccountDetails">
+
+								<td ng-show="action=='Add'"><input type="checkbox" value="account.id"
+										ng-model="account.selected"
+										data-test='Resources_Employee_BankAccountDetails_Create_Add_SelectBox'
+										ng-change="BankAccPopUpRowSelect(account)"></td>
+
+								<td class="input-width2">
+									<ng-form name="dateForm">
+										<pot-Futuredate-Picker ng-model="account.fromDate" class="form-control"
+											dir-index="$index" date-name="date" placeholder="dd-mm-yyyy"
+											data-test='Resources_Employee_BankAccountDetails_Create_EffectiveFrom'
+											ng-required="true" custom-read-only /> <span
+											ng-show="dateForm.date.$touched && dateForm.date.$error.required">Date
+											is mandatory</span> <span
+											ng-show="bankAccountForm.date.$submitted && dateForm.date.$touched">Date
+											is mandatory</span> </ng-form>
+								</td>
+
+								<td class="input-width1">
+									<ng-form name="bankNameForm">
+										<input type="text" name="bankName" ng-model="account.bankName"
+											placeholder="Bank Name" class="form-control"
+											data-test='Resources_Employee_BankAccountDetails_Create_NameOfBank'
+											ng-pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+											minlength=3 maxlength=50 ng-required="true">
+										<span class="procurment-pot-errors"
+											ng-show="bankNameForm.bankName.$touched && bankNameForm.bankName.$error.required">Name
+											is mandatory
+										</span>
+										
+										<span class="procurment-pot-errors"
+											ng-show="bankNameForm.bankName.$error.pattern">Alpha
+											numerics should be allowed
+										</span>
+									</ng-form>
+								</td>
+
+								<td>
+									<ng-form name="addrForm"> <input type="text" class="form-control"
+											data-toggle="tooltip" data-placement="left"
+											data-test='Resources_Employee_BankAccountDetails_Create_BankStreetAddress'
+											title="{{account.address}}" name="addre" ng-model="account.address"
+											placeholder="Bank Address" ng-required="true"
+											pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*)) minlength=3
+											maxlength=50 ng-required="true" /> <span class="procurment-pot-errors"
+											ng-show="addrForm.addre.$touched && addrForm.addre.$error.required">
+											Address is mandatory</span> <span class="procurment-pot-errors"
+											ng-show="addrForm.addre.$error.pattern">Atleast one
+											alphabet is mandatory</span></ng-form>
+								</td>
+
+								<td class="input-width1">
+									<ng-form name="IFSCForm">
+										<input type="text" name="ifscCode" ng-model="account.ifscCode"
+											placeholder="IFSC Code" class="form-control"
+											data-test='Resources_Employee_BankAccountDetails_Create_FinancialInstituteCode'
+											pattern="^(?!\s)(?!.*\s$)(?=.*[a-zA-Z0-9])[a-zA-Z0-9\s.]{5,20}$"
+											ng-trim="false" minlength="6" maxlength="20" ng-required="true">
+										<span class="procurment-pot-errors"
+											ng-show="IFSCForm.ifscCode.$touched && IFSCForm.ifscCode.$error.required">IFSC
+											Code is mandatory</span> <span class="procurment-pot-errors"
+											ng-show="IFSCForm.ifscCode.$error.pattern">Enter correct
+											IFSC Code</span> <span class="procurment-pot-errors"
+											ng-show="IFSCForm.ifscCode.$error.minlength">IFSC
+											Code To Short!</span></ng-form>
+								</td>
+
+								<td>
+									<ng-form name="accNameForm"> <input class="form-control"
+											data-test='Resources_Employee_BankAccountDetails_Create_AccountHolderName'
+											type="text" name="accName" ng-model="account.accName"
+											placeholder="Account Name"
+											pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*)) minlength="5"
+											maxlength="50" ng-required="true">
+										<span class="procurment-pot-errors"
+											ng-show="accNameForm.accName.$touched && accNameForm.accName.$error.required">Account
+											holder name
+											is mandatory
+										</span>
+										<span class="procurment-pot-errors"
+											ng-show="accNameForm.accName.$error.pattern">Alpha
+											numerics should be allowed
+										</span>
+									</ng-form>
+								</td>
+
+								<td>
+									<ng-form name="accNoForm"> <input type="text" class="form-control" name="accNum"
+											ng-model="account.accNumber"
+											data-test='Resources_Employee_BankAccountDetails_Create_AccountHolderNumber'
+											placeholder="Account Number" pattern="^\S$|^\S[0-9]*\S$" ng-trim="false"
+											 maxlength="19" valid-number ng-required="true"> <span
+											class="procurment-pot-errors"
+											ng-show="accNoForm.accNum.$touched && accNoForm.accNum.$error.required">Account
+											number is mandatory</span></ng-form>
+								</td>
+
+								<td><select name="accType" ng-model="account.accType"
+										ng-options="account for account in accountTypes"
+										data-test='Resources_Employee_BankAccountDetails_Create_TypeofAccount'
+										ng-required="true" class="form-control">
+										<option value="">Select</option>
+									</select>
+								<td><select name="accStatus" ng-model="account.accStatus"
+										data-test='Resources_Employee_BankAccountDetails_Create_AccountStatus'
+										ng-options="account for account in accountStatusTypes" ng-required="true"
+										class="form-control">
+										<option value="">Select</option>
+									</select>
+								<td class="input-width3"><input data-toggle="tooltip" class="form-control"
+										data-placement="top" title="{{account.accComments}}" type="text"
+										data-test='Resources_Employee_BankAccountDetails_Create_Notes'
+										name="accComments" ng-model="account.accComments"
+										placeholder="Account Comments"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="panel-footer">
+				<div class="pull-right">
+					<input type="submit" class="btn btn-primary btn-sm"
+						data-test='Resources_Employee_BankAccountDetails_Save'
+						ng-click="bankAccountForm.$valid && saveEmpBankAccountDetails()" value="Save">
+				</div>
+				<div class="pull-left">
+					<input type="submit" class="btn btn-primary btn-sm"
+						data-test='Resources_Employee_BankAccountDetails_Create_Add'
+						ng-click="bankAccountForm.$valid && addRows()" value="Add Rows" ng-show="action =='Add'"> <input
+						type="button" data-test='Resources_Employee_BankAccountDetails_Create_Delete'
+						class="btn btn-secondary btn-sm" ng-click="deleteRows()" value="Delete Rows"
+						ng-show="action =='Add'">
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</form>
+</div>

@@ -1,0 +1,94 @@
+<div id="tab-pannel" class="panel-group" ng-init="getServiceClassMap()">
+	<form name="classificationForm" validate autocomplete="off">
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title" ng-if="action =='Add'">Add Service Classification</h4>
+				<h4 class="panel-title" ng-if="action !='Add'">Edit Service Classification</h4>
+			</div>
+			<div class="panel-body">
+			<div class="b-sh popUpTableResHeight">
+				<table class="table table-striped table-hover table-bordered popUpTableHeight" >
+					<thead>
+						<tr>
+							<th ng-if="action =='Add'">Select</th>
+							<th>Procurment <br> Sub Category</th>
+							<th>Service Classification ID<span
+								style="color: red;"> *</span></th>
+							<th>Service Classification Name<span
+								style="color: red;"> *</span></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr fixed-header="" ng-repeat ="classification in classService">
+							<td ng-if="action =='Add'"><input data-test='CentralLibrary_ServiceClassification_Create_addrows_Checkbox' type="checkbox"
+								ng-model="classification.selected"
+								ng-change="popUpRowSelect(classification)"></td>
+								
+							<td ng-form name="classificationform">
+							
+							    <select class="form-control" 
+											data-test='CentralLibrary_ServiceClassification_Create_procurmentSubCategory' 
+											ng-options="subcatg as subcatg.desc for subcatg  in categories track by subcatg.desc"
+											ng-model="classification.procurmentSubCategory" name="procurmentSubCategory" style="width:fit-content;" ng-value="classification.procSubCatName" >
+										</select>
+					
+							</td>
+
+							<td ng-form name="classificationform"><input class="form-control" type="text"
+								name="code" data-test='CentralLibrary_ServiceClassification_Create_ServiceClassificationID'
+								ng-model="classification.code"
+								ng-class="{coloumnHighlightColor:classification.duplicateFlag}"
+								ng-blur="checkDuplicate(classification)"
+								pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+								minlength="2" maxlength="20" placeholder="Service Classification Id"
+								required="required"> <span class="procurment-pot-errors" 
+								ng-show="classificationform.code.$touched && classificationform.code.$error.required">This
+									field is required</span> <span class="procurment-pot-errors" 
+								ng-show="classificationform.code.$error.minlength">Too
+									Short!</span> <span ng-show="classificationform.code.$error.pattern" class="procurment-pot-errors" >At
+									Least One Alphabet is Mandatory</span></td>
+
+							<td ng-form name="classificationform1"><input data-test='CentralLibrary_ServiceClassification_Create_ServiceClassificationName' class="form-control" type="text"
+								name="name" ng-model="classification.name"
+								pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+								minlength="3" maxlength="50" placeholder="Service Classification Name"
+								required="required"> <span class="procurment-pot-errors" 
+								ng-show="classificationform1.name.$touched && classificationform1.name.$error.required">This
+									field is required</span> <span class="procurment-pot-errors" 
+								ng-show="classificationform1.name.$error.minlength">Too
+									Short!</span> <span ng-show="classificationform1.name.$error.pattern" class="procurment-pot-errors" >At
+									Least One Alphabet is Mandatory</span></td>
+
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		 </div>
+			<div class="panel-footer">
+				<div class="pull-left">
+					<input data-test='CentralLibrary_ServiceClassification_Create_addrows' type="submit"
+						ng-click="classificationForm.$valid && addRows()"
+						class="btn btn-primary btn-sm" ng-show="action =='Add'"
+						value="Add Rows" /> <input data-test='CentralLibrary_ServiceClassification_Create_deleterows' type="button" ng-click="deleteRows()"
+						value="Delete Rows" class="btn btn-secondary btn-sm"
+						ng-show="action =='Add'">
+				</div>
+				<div class="pull-right">
+					<input data-test='CentralLibrary_ServiceClassification_save' type="submit" class="btn  btn-primary btn-sm" value="Save"
+						ng-click="classificationForm.$valid && saveServiceClasses(classificationForm)" />
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</form>
+</div>
+
+
+
+
+
+
+
+
+
+

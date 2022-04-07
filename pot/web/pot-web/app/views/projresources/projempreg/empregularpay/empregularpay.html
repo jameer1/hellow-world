@@ -1,0 +1,71 @@
+<div ng-if="account.appCodeTemplate['RESOURCE_EMPREGULARPAYBLERATES_VIEW']" id="tab-pannel" ng-controller="EmpRegualrPayController">
+			<div class="tabTable_1_Res_height_topB">
+				<table class="table table-striped table-hover table-bordered tabTable_1_height_topB" >
+					<thead id="tab-head">
+						<tr>
+							<th>Project Posting#</th>
+							<th>Effective From</th>
+							<th>EPS Name</th>
+							<th>Project Name</th>
+							<th>Company Name</th>
+							<th>Employee Tax File Number</th>
+							<th>Currency</th>
+							<th>Unit of Pay Rate</th>
+							<th>Credit Cycle <span
+								style="color: red;">*</span></th>
+							<th>Pay Roll Status</th>
+							<th>Regular Pay and Allowances <br>-Code wise
+								applicable Rates
+							</th>
+							<th>Upload</th>
+							<th>Download</th>
+						</tr>
+
+					</thead>
+					<tbody>
+						<tr fixed-header="" ng-repeat ="regpay in employeeRegularPayTOs">
+							<td>{{regpay.projEmpRegisterTO.deploymentId}}</td>
+							<td>{{regpay.projEmpRegisterTO.enrollmentDate | date}}</td>
+							<td>{{regpay.projEmpRegisterTO.parentName}}</td>
+							<td>{{regpay.projEmpRegisterTO.name}}</td>
+							<td>{{selectedEmployeeData.cmpName}}</td>
+							<td>{{regpay.projEmpRegisterTO.taxFileNum}}</td>
+							<td>{{projGeneralLabelTO.displayNamesMap['currency']}}</td>
+							<td><select ng-model="regpay.unitPayRate" ng-required="true"
+								ng-options="unitPayRate for unitPayRate in unitPayRates"
+								ng-disabled="!regpay.latest  && regpay.id!=null ">
+							</select></td>
+							<td><select ng-model="regpay.payCycle" data-test='Resources_Employee_RegularPayableRates_CreditCycleField' ng-required="true"
+								ng-options="payCycle for payCycle in payCycles"
+								ng-change="changePayCycle(regpay) "
+								ng-disabled="!regpay.latest && regpay.id!=null ">
+									<option value="" disabled selected>Select</option>
+							</select></td>
+							<td>{{regpay.projEmpRegisterTO.empStatus}}</td>
+							<td><input type="button" class="btn btn-brown btn-sm" data-test='Resources_Employee_RegularPayableRates_Edit'
+								ng-click="viewEmpRegularPayAllowances(regpay, 'Edit')"  value="Edit"
+								ng-if="((regpay.latest || regpay.id==null) && ( account.appCodeTemplate['RESOURCE_EMPREGULARPAYBLERATES_ADD'] ))"> 
+								<input type="button" class="btn btn-primary btn-sm" ng-click="viewEmpRegularPayAllowances(regpay, 'View')" value="View"
+								ng-if="regpay.latest || regpay.id==null"></td>
+							<!-- <td><input type="file" name="file" tabindex="-1" placeholder="Doc" style="display: inline !important;" 
+									ng-disabled="!regpay.latest  && regpay.id!=null" ngf-select="fileUpload($file,regpay,$index)"></td> -->
+							<td class="text-center">
+								<!-- <span class="btn btn-primary btn-sm" data-test='PreContractList_Refdocument' ng-click="getRefDocument(regpay)">Ref Document</span>							
+								<span class="btn btn-primary btn-sm" data-test='PreContractList_Refdocument_Download' ng-click="empDownloadDocuments(regpay)">Download</span> -->
+								<span class="fa fa-upload" ng-click="getRefDocument(regpay)" title="Click to upload documents"> </span>																
+							</td>
+							<td><span class="fa fa-download" ng-click="empDownloadDocuments(regpay)" title="Click to download documents"></span></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="panel-footer padL-0">
+				<div class="pull-left">
+					<input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+					<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+					<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+					<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+					<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+				</div>
+			</div>
+	</div>

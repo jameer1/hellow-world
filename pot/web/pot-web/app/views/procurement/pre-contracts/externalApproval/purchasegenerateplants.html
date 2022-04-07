@@ -1,0 +1,99 @@
+<div class="tab-pannel">
+  <form name="plantForm1" validate>
+      <!--<div class="panel pane-default">
+          <div class="panel-body">-->
+              <div class="tabTable_1_Res_height">
+      <table id="vert-align" class="table table-striped table-hover table-bordered tabTable_1_height" >
+        <thead>
+          <tr>
+            <th>Item ID</th>
+            <th>Item Description</th>
+            <th>Plant Type</th>
+            <th>Procurement<br>SubCategory
+            </th>
+            <th>Cost Code</th>
+            <th>Delivery Place</th>
+            <th>Start Date</th>
+            <th>Finish Date</th>
+             <th>Unit Of Measure</th>
+            <th>Qty</th>
+            <th>Estimate Rate<br>( {{preContractObj.currencyTO.code}})
+            </th>
+            <th>Estimate Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr fixed-header="" ng-repeat ="item in preContractObj.preContractPlantDtlTOs" ng-init="getTotals(item)">
+
+            <td class="input-width5"><input type="text" ng-model="item.itemCode" placeHolder="Item Code" name="code" ng-disabled="true" maxlength="100" /> <span
+              ng-show="myForm.code.$error.maxlength">You Reached Max Length</span> <span ng-show="myForm.code.$dirty && myForm.code.$error.required">This field is mandatory</span> <span
+              ng-show="myForm.code.$error.pattern">Special Characters Not Allowed</span></td>
+
+            <td class="input-width2" ng-form name="myForm1"><input type="text" ng-model="item.itemDesc" placeHolder="Item Descripton" name="desc" maxlength="100" tabindex="-1"
+              pattern="^[a-zA-Z-\&\d\s.,]+$" required="required" ng-disabled="preContractObj.workFlowStatusTO.value ==5 " /> <span ng-show="myForm1.desc.$error.maxlength">You reached Max
+                Length</span> <span ng-show="myForm1.desc.$dirty && myForm1.desc.$error.required">This field is mandatory</span> <span ng-show="myForm1.desc.$error.pattern">Special Characters not
+                allowed</span></td>
+
+            <td class="input-width2" ng-form name="myFormsub"><input type="text" ng-model="procureCategoryMap[item.procureSubCatgId].code" ng-click="selectProcureSubCategory(2,item);"
+              placeHolder="Item SubCategory" name="subCategory" pattern="^[a-zA-Z-\&\d\s.,]+$" maxlength="100" required="required" readonly="readonly"
+              ng-disabled="preContractObj.workFlowStatusTO.value ==5 " /> <span ng-show="myFormsub.subCategory.$dirty && myFormsub.subCategory.$error.required">This field is mandatory</span> <span
+              ng-show="myFormsub.subCategory.$error.pattern">Special characters not allowed</span> <span ng-show="myFormsub.subCategory.$error.maxlength">You reached max length</span></td>
+
+            <td class="input-width2" ng-form name="myForm2"><input type="text" ng-model="projPlantClassmap[item.projPlantLabelKey.id].code"
+              ng-click="projPlantClassDetails(item.projPlantLabelKey);" placeHolder="Plant Type" required="required" name="plant" readonly="readonly"
+              ng-disabled="preContractObj.workFlowStatusTO.value ==5 " /> <span ng-show="myForm2.plant.$dirty && myForm2.plant.$error.required">This field is mandatory</span></td>
+
+            <td class="input-width0"><input type="text" ng-model="projcostCodeMap[item.projCostLabelKey.id].code" ng-click="projCostCodeDetails(item.projCostLabelKey)" readonly="readonly"
+              ng-disabled="preContractObj.workFlowStatusTO.value ==5 " required="required" /></td>
+
+            <td class="input-width"><input type="text" ng-model="item.deliveryPlace" tabindex="-1" ng-disabled="preContractObj.workFlowStatusTO.value ==5 " /></td>
+
+            <td class="input-width1"><potdate-picker ng-model="item.startDate" dir-index="$index" date-name="plantStartDate" placeholder="dd-mm-yyyy" required="required"
+                ng-disabled="preContractObj.workFlowStatusTO.value ==5 "></potdate-picker></td>
+            <td class="input-width1"><potdate-picker ng-model="item.finishDate" dir-index="$index" date-name="plantFinishDate" placeholder="dd-mm-yyyy" required="required"
+                ng-disabled="preContractObj.workFlowStatusTO.value ==5 "></potdate-picker></td>
+
+
+            <td class="input-width"><input type="text" ng-model="projPlantClassmap[item.projPlantLabelKey.id].unitOfMeasure" placeHolder="Unit Of Measure" name="unitOfMeasure" readonly="readonly" /></td>
+
+            <td ng-form name="myForm3"><input type="text" ng-model="item.quantity" pattern="^[\d]+$" placeHolder="Quantity" name="quan" required="required" maxlength="20" style="width: 50px;"
+              ng-disabled="preContractObj.workFlowStatusTO.value ==5 " /> <span ng-show="myForm3.quan.$error.maxlength">You Reached Max Length</span> <span ng-show="myForm3.quan.$error.pattern">Only
+                Digits Allowed</span> <span ng-show="myForm3.quan.$dirty && myForm3.quan.$error.required">This field is mandatory</span></td>
+
+            <td ng-form name="myForm4"><input type="text" ng-model="item.estimateCost" pattern="^[.\d]+$" required="required" placeHolder="EstimateCost" name="estcost" maxlength="20"
+              style="width: 50px;" ng-disabled="preContractObj.workFlowStatusTO.value ==5 " /> <span ng-show="myForm4.estcost.$error.maxlength">You Reached Max Length</span> <span
+              ng-show="myForm4.estcost.$error.pattern">Only Digits Allowed</span> <span ng-show="myForm4.estcost.$dirty && myForm4.estcost.$error.required">This field is mandatory</span></td>
+
+
+
+            <td class="input-width"><span>{{item.quantity * item.estimateCost}}<span></td>
+
+          </tr>
+        </tbody>
+        <tfoot ng-if="preContractObj.preContractPlantDtlTOs.length>0">
+          <tr>
+            <th>Total Amount</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <td>{{totalAmount}}</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+    <!--</div>-->
+    <div class="panel-footer">
+      <div class="pull-right">
+        <input type="Submit" value="Save" ng-click="plantForm1.$valid && savePlantDetails()" class="btn  btn-brown btn-sm" validate />
+      </div>
+    </div>
+  <!--</div>-->
+  </form>
+</div>

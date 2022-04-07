@@ -1,0 +1,132 @@
+<div id="tab-pannel" class="panel-group" ng-init="getMeasuresByProcureType();getPlantsActualQty()">
+	<form name="projForm" validate autocomplete="off">
+		<div id="tab-pannel" class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title" ng-show="action =='Add'">Add Plant Budgets</h4>
+				<h4 class="panel-title" ng-show="action =='Edit'">Edit Plant Budgets</h4>
+			</div>
+			<div id="tab-pannel" class="panel-body">
+				<div class="popUpTableResHeight">
+					<table class="table table-striped table-hover table-bordered popUpTableHeight">
+						<thead>
+							<tr>
+								<th>Select</th>
+								<th align="center">Plant Classification Code
+									<span style="color: red">*</span>
+								</th>
+								<th align="center">Plant Classification Name</th>
+								<th align="center">Unit of Measure
+									<span style="color: red">*</span>
+								</th>
+								<th align="center">Original Budget Hours
+									<span style="color: red">*</span>
+								</th>
+								<th align="center">Revised Budget Hours</th>
+								<th align="center">Actual Quantity to Date</th>
+								<th align="center">Remaining Hours</th>
+								<th align="center">Estimate to Complete</th>
+								<th align="center">Schedule Start</th>
+								<th align="center">Schedule Finish</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr fixed-header="" ng-repeat="plants in plantsList">
+								<td><input ng-disabled="action =='Edit'"
+										data-test='Projects_ProjectBudgets_Plants_Add_AddResource_checkbox'
+										type="checkbox" ng-model="plants.selected"
+										ng-change="plantsPopUpRowSelect(plants)"></td>
+								<td><input type="text" class="form-control"
+										data-test='Projects_ProjectBudgets_Plants_Add_ResourceId' custom-read-only
+										ng-model="plants.plantClassTO.code" name="resId"
+										ng-click="plantsDetails(plants)" ng-required="true" placeholder="Plant Classification Code"
+										ng-change="getPlantsActualQty()" /></td>
+								<td><input class="form-control"
+										data-test='Projects_ProjectBudgets_Plants_Add_ResourceName' type="text"
+										readonly="readonly" ng-model="plants.plantClassTO.name" name="resName"
+										placeholder="Plant Classification Name" ng-change="getPlantsActualQty()" /></td>
+
+								<td>
+									<select data-test='Projects_ProjectBudgets_Plants_Add_UnitOfMeasure'
+										ng-options="cat.name  for cat in measureUnitTO track by cat.name"
+										name="unitOfMeasure" ng-model="plants.measureUnitTO" required
+										class="form-control">
+										<option value="" selected>-select-</option>
+									</select>
+								</td>
+
+								<td><input type="text" class="form-control"
+										data-test='Projects_ProjectBudgets_Plants_Add_OriginalBudget'
+										ng-model="plants.originalQty" name="originalQty" placeholder="Original Budget"
+										ng-maxlength="15" valid-number ng-pattern="^[0-9/.,]+$" ng-required="true" /> <span
+										class="procurment-pot-errors"
+										ng-show="projForm.originalQty.$dirty && projForm.originalQty.$error.required">
+										Original Budget is Mandatory</span> <span class="procurment-pot-errors"
+										ng-show="projForm.originalQty.$error.pattern">Enter only
+										numbers/decimals </span> <span class="procurment-pot-errors"
+										ng-show="projForm.originalQty.$error.maxlength">You
+										reached max length </span>
+										</td>
+								<td><input type="text" class="form-control"
+										data-test='Projects_ProjectBudgets_Plants_Add_RevisedBudget'
+										ng-model="plants.revisedQty" name="revisedQty" placeholder="Revised Budget"
+										maxlength="15" ng-disabled="true" valid-number pattern="^[0-9/.,]+$" /> <span
+										class="procurment-pot-errors" ng-show="projForm.revisedQty.$error.pattern">Enter
+										only
+										numbers/decimals</span></td>
+								<td><input class="form-control" type="text"
+										data-test='Projects_ProjectBudgets_Plants_Add_ActualQuantity'
+										ng-model="plants.actualQty" ng-disabled="true" name="actQuntyToDate"
+										placeholder="Actual Quantity" maxlength="15" valid-number
+										pattern="^[0-9/.,]+$" /><span class="procurment-pot-errors"
+										ng-show="projForm.actQuntyToDate.$error.pattern">Enter
+										only numbers/decimals </span></td>
+
+								<td>{{plants.remainingQty =
+									calcRemainingUnits(plants)}}</td>
+								<td>
+									<span ng-if="plants.estimateType == 'Remaining Units'">{{ plants.estimateComplete }}</span>
+									<input ng-if="plants.estimateType == 'New Estimate'" class="form-control"
+										data-test='Projects_ProjectBudgets_Plants_Add_EstimateToComplete' type="text"
+										ng-model="plants.estimateComplete" name="estimateComplete"
+										placeholder="Estimate To Complete" maxlength="15" pattern="^[0-9/.,]+$" />
+									<span ng-if="plants.estimateType == 'New Estimate'"
+										ng-show="projForm.estimateComplete.$error.pattern">Enter only numbers/decimals
+									</span>
+								</td>
+								<td>
+									<span ng-show="isPrimaveraIntegrationEnabled!='No'">{{plants.startDate}}</span>
+									<potdate-picker data-test='Projects_ProjectBudgets_Plants_Add_ScheduleStart'
+										ng-model="plants.startDate" dir-index="$index" class="form-control"
+										date-name="schStartDate" placeholder="dd-mm-yyyy" required="required"
+										readonly ng-if="isPrimaveraIntegrationEnabled=='No'"/>
+								</td>
+								<td>
+									<span ng-show="isPrimaveraIntegrationEnabled!='No'">{{plants.finishDate}}</span>
+									<potdate-picker data-test='Projects_ProjectBudgets_Plants_Add_ScheduleFinish'
+										ng-model="plants.finishDate" dir-index="$index" class="form-control"
+										date-name="schFinishDate" placeholder="dd-mm-yyyy" required="required"
+										readonly ng-if="isPrimaveraIntegrationEnabled=='No'"/>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="panel-footer">
+				<div class="pull-left">
+					<input type="submit" class="btn  btn-primary btn-sm"
+						data-test='Projects_ProjectBudgets_Plants_Add_AddResource'
+						ng-click="projForm.$valid && addRows()" value="Add Rows" ng-show="action =='Add'" /> <input
+						type="button" data-test='Projects_ProjectBudgets_Plants_Add_Delete'
+						class="btn bottomaligned btn-secondary btn-sm" ng-click="deleteProjRows()" value="Delete Rows"
+						ng-show="action =='Add'" />
+				</div>
+				<div class="pull-right">
+					<input data-test='Projects_ProjectBudgets_Plants_Save' type="submit" class="btn  btn-primary btn-sm"
+						value="Save" ng-click="projForm.$valid && savePlants()" />
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</form>
+</div>

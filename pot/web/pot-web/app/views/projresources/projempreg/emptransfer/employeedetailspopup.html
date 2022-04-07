@@ -1,0 +1,45 @@
+<div id="tab-pannel" class="panel-group">
+	<form name="ApproverTransferForm" validate>
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Master Employee List</h4>
+			</div>
+			<div class="panel-body">
+					<div class="popUpTableResHeight">
+					<table class="table table-striped table-bordered popUpTableHeight">
+						<thead>
+							<tr>
+								<th>Select</th>
+								<th>Employee ID</th>
+								<th>First Name</th>
+								<th>Last Name</th>
+								<th>Designation</th>
+								<th>Company Name</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr fixed-header="" ng-repeat ="labelKeyTO in labelKeyTOs"
+								ng-if="empTransferExistingMap[labelKeyTO.id]==null">
+								<td><input data-test='Resources_Employee_RequestForTransfer_RequiredDateOfTransferField' type="checkbox" ng-model="labelKeyTO.select"
+									ng-change="popUpRowSelect(labelKeyTO)"></td>
+								<td>{{labelKeyTO.code}}</td>
+								<td>{{labelKeyTO.displayNamesMap.firstName}}</td>
+								<td>{{labelKeyTO.displayNamesMap.lastName}}</td>
+								<td>{{labelKeyTO.displayNamesMap.classType}}</td>
+								<td>{{labelKeyTO.displayNamesMap.cmpName}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+		<div class="panel-footer">
+			<div class="pull-right">
+				<input data-test='Resources_Employee_RequestForTransfer_EmployeeList_AddSelect' type="Submit" value="Add" ng-click="addToTransferRequest()"
+					class="btn btn-primary btn-sm" />
+			</div>
+		</div>
+	</div>
+	<div class="ngdialog-close"></div>
+	</form>
+</div>

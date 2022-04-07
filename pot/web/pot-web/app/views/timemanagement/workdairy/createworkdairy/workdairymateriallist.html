@@ -1,0 +1,42 @@
+<div id="tab-pannel" ng-init="getMaterialRegDetails()">
+	<div class="panel-group">
+		<div class="panel panel-default panel-body16">
+			<div class="panel-heading">
+				<h4 class="panel-title">Material List</h4>
+			</div>
+            <div class="panel-body">
+                <div class="row spacer0 b-sh panel-body-res">
+                    <table class="table table-striped table-hover table-bordered" >
+                        <thead>
+                            <tr>
+                                <th>Material Classification Id</th>
+                                <th>Material Id</th>
+                                <th>Material Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr fixed-header="" ng-repeat ="mat in materialDetails"
+                                ng-click="projMaterialRegPopUp(mat)">
+                                <td>{{mat.matClassId}}</td>
+                                <td>{{mat.matId}}</td>
+                                <td>{{mat.matName}}</td>
+                            </tr>
+                            <tr ng-show="materialDetails.length<=0">
+                                <td></td>
+                                <td colspan="2" style="color: red">
+                                    No Material Records for
+                                    selected project
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            </div>
+	</div>
+</div>
+
+
+
+
+

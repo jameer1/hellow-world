@@ -1,0 +1,6 @@
+/bower_components/
+/dist/
+/.classpath
+/.project
+/.target/
+/.settings/

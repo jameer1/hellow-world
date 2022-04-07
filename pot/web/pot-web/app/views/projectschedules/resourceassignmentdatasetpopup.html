@@ -1,0 +1,89 @@
+<div id="tab-pannel" class="panel-group">
+	<form name="baselineform" autocomplete="off">
+		<div class="panel panel-default"  modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Resource Assignment - Add Dataset</h4>
+			</div>
+
+			<div class="panel-body">
+				<div class="col-sm-12">
+					<div class="col-sm-5"></div>
+					<div class="col-sm-2">
+						<md-input-container class="md-block"><label class="labelName">Schedule Date</label>
+                            <pot-currentdate-display dir-index="$index" ng-model="scheduleActivityDataSet.scheduleDate" data-test='Schedules_ResourceAssignment_ScheduleDate' date-name="scheduleDate" readonly="readonly" />
+                        </md-input-container>
+                    </div>
+					<div class="col-sm-2">
+						<md-input-container class="md-block" ng-show="isPrimaveraIntegrationEnabled == 'Yes'">
+							<input type="file" ng-model="importfile" accept=".csv" ngf-select="parseScheduleFile($file)" data-test='Schedules_ResourceAssignment_PrepareScheduleFile'>
+						</md-input-container>
+						<div class="marT15" ng-show="isPrimaveraIntegrationEnabled == 'No'">
+							<input type="button" class="btn btn-primary btn-sm" ng-click="prepareDataset()" data-test='Schedules_ResourceAssignment_PrepareDataSet' value="Prepare Dataset">
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<md-input-container>
+	                        <label>Dataset Name</label>
+	                        <input type="text" ng-model="scheduleActivityDataSet.datasetName" data-test='Schedules_ResourceAssignment_DatasetName' autocomplete="off" ng-change = "duplicate(scheduleActivityDataSet.datasetName)">
+	                    </md-input-container>
+                    </div>
+                    <div class="col-sm-1">
+                    	<div class="pull-right marT15">
+	                    	<input type="button" class="btn btn-primary btn-sm" ng-click="saveDataset()" value="Save">
+	                    </div>
+                    </div>
+				</div>
+				<div class="singleTableResHeight" style="overflow-x:scroll;">
+					<table class="table table-striped table-hover table-bordered sticky-table">
+						<thead>
+							<tr>
+								<th><span class="fa fa-comment fa-flip-horizontal"></span></th>
+								<th class="text-nowrap">Resource ID</th>
+                                <th class="text-nowrap">Resource Name</th>
+                                <th class="text-nowrap">Resource Type</th>
+                                <th class="text-nowrap">Activity ID</th>
+                                <th class="text-nowrap">Activity Name</th>
+                                <th>WBS</th>
+                                <th class="text-nowrap">WBS Name</th>
+                                <th>SOE</th>
+                                <th>Start</th>
+                                <th>Finish</th>
+                                <th>Unit of Measure</th>
+                                <th>Budgeted Units</th>
+                                <th>Actual Units</th>
+                                <th>Remaining Units</th>
+                                <th>Calendar</th>
+                                <th>Curve</th>
+                                <th ng-repeat="headerColumn in headerColumns"><div style="writing-mode:vertical-rl;float:right;padding:7px;">{{headerColumn.forecastDate | date}}</div></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat ="resourceAssignmentDataTableTO in scheduleActivityDataSet.resourceAssignmentDataTableTOs" ng-class="{'danger' : resourceAssignmentDataTableTO.valid==false, 'info' : resourceAssignmentDataTableTO.code==selectedUniqueIdentifier}" ng-click="setSelectedRow(resourceAssignmentDataTableTO)">
+								<td><span class="fa fa-comment fa-flip-horizontal" ng-if="resourceAssignmentDataTableTO.validationMessages.length > 0" ng-click="showComments(resourceAssignmentDataTableTO.validationMessages)"></span></td>
+								<td colspan="{{resourceAssignmentDataTableTO.name == '' ? 2 : 1}}">{{resourceAssignmentDataTableTO.code}}</td>
+								<td class="text-nowrap" ng-show="resourceAssignmentDataTableTO.name != ''">{{resourceAssignmentDataTableTO.name}}</td>
+								<td>{{resourceAssignmentDataTableTO.type}}</td>
+								<td>{{resourceAssignmentDataTableTO.activityCode}}</td>
+								<td class="text-nowrap">{{resourceAssignmentDataTableTO.activityName}}</td>
+								<td>{{resourceAssignmentDataTableTO.wbsCode}}</td>
+								<td class="text-nowrap">{{resourceAssignmentDataTableTO.wbsName}}</td>
+								<td class="text-nowrap">{{resourceAssignmentDataTableTO.soeCode}}</td>
+								<td class="text-nowrap">{{resourceAssignmentDataTableTO.startDate | date}}</td>
+								<td class="text-nowrap">{{resourceAssignmentDataTableTO.finishDate | date}}</td>
+								<td class="text-nowrap">{{resourceAssignmentDataTableTO.unitOfMeasure}}</td>
+								<td class="text-right">{{resourceAssignmentDataTableTO.budgetUnits | number : 2}}</td>
+								<td class="text-right">{{resourceAssignmentDataTableTO.actualUnits | number : 2}}</td>
+								<td class="text-right">{{resourceAssignmentDataTableTO.budgetUnits - resourceAssignmentDataTableTO.actualUnits | number : 2}}</td>
+								<td class="text-nowrap">{{resourceAssignmentDataTableTO.calendar}}</td>
+								<td class="text-nowrap">{{resourceAssignmentDataTableTO.curve}}</td>
+                                <!-- Dynamic dates -->
+                                <td ng-repeat="resourceAssignmentDataValueTO in resourceAssignmentDataTableTO.resourceAssignmentDataValueTOs" class="text-right">{{resourceAssignmentDataValueTO.budget | number : 2}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="ngdialog-close"></div>
+		</div>
+	</form>
+</div>

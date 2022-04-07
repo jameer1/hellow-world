@@ -1,0 +1,58 @@
+<div ng-if="account.appCodeTemplate['RESOURCE_PLANTPROCDELDETLS_VIEW']" id="tab-pannel"
+	ng-controller="PlantProcureDeliveryController">
+	<div class="tabTable_1_Res_height">
+	<div id="grid" ui-grid="gridOptions" ng-if="stylesSvc.finishedStyling" 
+          ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-resize-columns class="grid"></div>
+		<!-- <table class="table table-hover table-bordered tabTable_1_height">
+			<thead id="tab-head">
+				<tr>
+					<th>EPS Name</th>
+					<th>Project Name</th>
+					<th>Purchase Order Number</th>
+					<th>PO Schedule Item ID</th>
+					<th>PO Schedule Item Description</th>
+					<th>Docket Details</th>
+					<th>Commissioning Date</th>
+					<th>First Odo Meter Reading</th>
+					<th>Records of Deliver Dockets <br> & Other Plant Records</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr fixed-header="" ng-repeat="plantProjPODtlTO in plantProjPODtlTOs">
+					<td>{{ plantProjPODtlTO.plantRegProjTO.parentName }}</td>
+					<td>{{ plantProjPODtlTO.plantRegProjTO.name }}</td>
+					<td>{{ plantProjPODtlTO.purchaseLabelKeyTO.code }}</td>
+					<td>{{ plantProjPODtlTO.purchaseSchLabelKeyTO.code }}</td>
+					<td>{{ plantProjPODtlTO.purchaseSchLabelKeyTO.name }}</td>
+
+					<td class="text-center">
+						<input type="button" class="btn btn-primary btn-sm"
+							ng-if="showEditButton==true && account.appCodeTemplate['RESOURCE_PLANTPROCDELDETLSDOCKETDETAILS_VIEW']"
+							ng-click="addplantpoList('Edit')" value="View/Edit">
+					</td>
+
+					<td>{{ plantProjPODtlTO.plantRegProjTO.commissionDate }}</td>
+					<td class="text-right">{{ plantProjPODtlTO.plantDocketDtlTOs[0].odoMeter }}</td>
+					<td class="text-center"><span class="fa fa-download" ng-show="plantProjPODtlTO.plantDocketDtlTOs[0].docKey != null"
+							ng-click="downloadDocketDoc(plantProjPODtlTO.plantDocketDtlTOs[0].id)"
+							title="Click To Download"></span>
+					</td>
+				</tr>
+			</tbody>
+		</table> -->
+	</div>
+	<div class="panel-footer">
+		<div class="pull-right">
+			<input type="Submit" ng-if="showCreateButton && account.appCodeTemplate['RESOURCE_PLANTPROCDELDETLS_ADD']"
+				data-test='PlantandEquipment_ProcurementandDeliveryDetails_Create' value="Create"
+				ng-click="addplantpoList('Add')" class="btn  btn-primary btn-sm" />
+		</div>
+		<!-- <div class="pull-left">
+			<input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+			<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+			<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+			<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+			<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+		</div> -->
+	</div>
+</div>

@@ -1,0 +1,46 @@
+<div id="tab-pannel" class="panel-group">
+    <div class="panel panel-default" modal-movable>
+        <div class="panel-heading">
+            <h4 class="panel-title">Tax Payments Receiver Details - Past Records</h4>
+        </div>
+        <div class="panel-body">
+            <div class="col-sm-12 col-md-12 col-lg-12 no-padding">
+                <div class="col-sm-5 col-md-5 col-lg-5">
+                    <md-input-container><label readonly="readonly" class="labelName">Country</label> <input type="text"
+                            ng-model="countryName" tabindex=-1 readonly="readonly" />
+                    </md-input-container>
+                </div>
+                <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                <div class="col-sm-5 col-md-5 col-lg-5">
+                    <md-input-container><label readonly="readonly" class="labelName">Province</label> <input type="text"
+                            tabindex=-1 ng-model="provisionName" readonly="readonly" />
+                    </md-input-container>
+                </div>
+            </div>
+
+            <div class="popUpTableResHeight">
+                <table class="table table-striped table-hover table-bordered popUpTableHeight">
+                    <thead>
+                        <tr>
+                            <th>Effective from Date</th>
+                            <th>Tax Payments Receiver List ID</th>
+                            <th>Current Status</th>
+                            <th style="text-align: center">More Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="unitPay in unitOfTaxReceiver">
+                            <td>{{unitPay.effectiveFrom}}</td>
+                            <td>{{unitPay.taxPaymentsReceivers[0].taxPaymentReceiverDisplayId}}</td>
+                            <td>{{unitPay.status == 1 ? 'Current' : 'Superseded' }}</td>
+                            <td style="text-align: center">
+                                <input type="button" value="More Details" class="btn btn-primary btn-sm" ng-click="moreDetailsTaxPaymentsReceiver(unitPay)" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="ngdialog-close"></div>
+    </div>
+</div>

@@ -1,0 +1,93 @@
+<section class="content-header">
+		<h1>Immovable Assets Category</h1>	
+		<!-- <input type="submit" value ="Help !"
+		ng-click="helpPage();" class="pull-right btn  btn-primary btn-sm help-each-page"> -->
+		<button class="pull-right btn btn-primary btn-sm help-each-page" 
+	onclick="window.open('views/helptutorials/ImmovableAssetsCategory.html', '_blank', 
+		'toolbar=yes,scrollbars=yes,resizable=no,top=50,left=100,width=1400,height=700')">
+		Help
+	</button>
+	</section>
+<section  ng-if="account.appCodeTemplate['ENTERPRISE_CENTLIB_IMMOVASSETCATEG_VIEW']" class="content">	
+<div id="tab-pannel" class="panel-group"
+	ng-init="getAssetCategory()">
+	<div class="panel panel-default block footer-parent">
+		<div class="panel-body">
+				<div class="row">
+			<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+				<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padL-0">
+					<md-input-container class="md-block">
+							<label>Asset Category Code</label>
+							<input data-test='CentralLibrary_ImmovableAssertsCategory_AssertCategorycode' type="text" 
+							    ng-model="immovableAssetSearch.code" autocomplete="off">
+					</md-input-container>
+				</div>
+				<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+					<md-input-container class="md-block">
+							<label>Asset Category Name</label>
+							<input data-test='CentralLibrary_ImmovableAssertsCategory_AssertCategory' type="text"
+							  ng-model="immovableAssetSearch.name" autocomplete="off">
+					</md-input-container>
+				</div>	
+				<div class="pull-right right-padding marT15">
+						<input data-test='CentralLibrary_ImmovableAssertsCategory_search' type="submit" ng-click="searchAssetCategory()"
+							class="btn  btn-primary btn-sm" value="Search" ng-model="searchText">
+						<input data-test='CentralLibrary_ImmovableAssertsCategory_refresh' type="reset" class="btn  btn-default btn-sm"
+							ng-click="resetAssetCategory()" value="Reset">
+					</div>
+			</div>
+		
+		<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+				<div class="singleTableResHeight_2">
+				<table id="tree" class="table table-striped table-hover table-bordered singleTableHeight_2" >
+					<thead>
+						<tr>
+							<th>Select</th>
+							<th>Asset Category Code</th>
+							<th>Asset Category Name</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr fixed-header="" ng-repeat="tab in AssetsData | orderBy: 'parent' | filter : code || name" class="abc{{tab.level}}"
+						 ng-show="!tab.collapse">
+							<td>
+								<input type="checkbox" ng-model="tab.select" ng-change="assetCategorySelect(tab)">
+							</td>
+							<td>
+									<span ng-repeat="level in [].constructor(tab.level) track by $index" class="xyz" style="padding-left: 30px;"></span>
+								<span ng-show="(tab.expand || (!tab.item  && tab.childAssetCategoryTOs.length <= 0))" ng-click="assetCategItemClick(tab,true);" class="fa fa-minus" title="Collapse Assets Category"></span>
+								<span ng-show="(!tab.expand && tab.childAssetCategoryTOs.length > 0)" ng-click="assetCategItemClick(tab,false);" class="fa fa-plus" title="Expand Assets Category"></span>
+								<i class="fa fa-leaf" ng-show="tab.item"> </i>
+								<span style="padding-left: 10px; color: black !important;">{{tab.code}}
+									<span style="padding-left: 5px;"></span>
+								</span>
+								<i class="fa fa-edit fa-fw" ng-show="tab.level==0 && !tab.item && account.appCodeTemplate['ENTERPRISE_CENTLIB_IMMOVASSETCATEG_ADD']"
+								 ng-click="editAssetCategoryDetails('Edit',tab)" title="Edit Asset Details"></i>
+								</i>
+							</td>
+							<td>{{tab.name}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		</div>
+	 </div>
+		<div class="panel-footer">
+			<div class="pull-right">
+				<input data-test='CentralLibrary_ImmovableAssertsCategory_Create' type="button" class="btn  btn-primary btn-sm"
+					ng-click="editAssetCategoryDetails('Add',null)" value="Create" ng-if="account.appCodeTemplate['ENTERPRISE_CENTLIB_IMMOVASSETCATEG_ADD']" />
+				<input data-test='CentralLibrary_ImmovableAssertsCategory_Deactivate' class="btn btn-secondary btn-sm" type="button"
+					ng-click="deleteAssetCategory()" value="Deactivate" ng-if="account.appCodeTemplate['ENTERPRISE_CENTLIB_IMMOVASSETCATEG_DELETE']" />
+			</div>
+			<div class="pull-left">
+				<input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+				<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+				<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+				<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+				<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+			</div>
+		</div>
+	</div>
+</div>
+</section>

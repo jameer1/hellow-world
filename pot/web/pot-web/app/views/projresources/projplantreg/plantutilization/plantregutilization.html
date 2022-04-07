@@ -1,0 +1,76 @@
+<div ng-if="account.appCodeTemplate['RESOURCE_PLANTUTILIZATIONRCD_VIEW']" id="tab-pannel" class="panel-group"
+	ng-controller="PlantUtilizationController">
+	<div class="tabTable_1_Res_height">
+	<div id="grid" ui-grid="gridOptions" ng-if="stylesSvc.finishedStyling" 
+            ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-resize-columns class="grid"></div>
+			<!-- <table class="table table-hover table-bordered tabTable_1_height" >
+
+			<thead>
+				<tr>
+
+					<th class="text-center" rowspan="2">Project <br>
+						Deployment#
+					</th>
+					<th class="text-center" rowspan="2">EPS Name</th>
+					<th class="text-center" rowspan="2">Project Name</th>
+					<th class="text-center" rowspan="2">Asset ID</th>
+					<th class="text-center" rowspan="2">Project plant ID</th>
+					<th class="text-center" rowspan="2">Unit of Measure</th>
+					<th class="text-center" rowspan="2">Mobilization Date</th>
+					<th class="text-center" rowspan="2">De-mobilization Date</th>
+					<th class="text-center" colspan="2">Project Wise</th>
+					<th class="text-center" colspan="2">Cumulative</th>
+					<th class="text-center" colspan="2">Odo meter reading-on</th>
+					<th class="text-center" rowspan="2">Project wise Units of <br>
+						Usage-as Per Meter
+					</th>
+ 					<th class="text-center" rowspan="2">Notes</th>
+
+ 				</tr>
+				<tr>
+					<th class="text-center">Used Units</th>
+					<th class="text-center">Idle Units</th>
+					<th class="text-center">Used Units</th>
+					<th class="text-center">Idle Units</th>
+					<th class="text-center">Mobilization</th>
+					<th class="text-center">De-Mobilization</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr fixed-header="" ng-repeat ="labelKeyTO in labelKeyTOs">
+
+					<td>{{labelKeyTO.displayNamesMap.DEPLOYMENT_ID}}</td>
+					<td>{{labelKeyTO.displayNamesMap.ParentName}}</td>
+					<td>{{labelKeyTO.displayNamesMap.projectName}}</td>
+					<td>{{selectedPlantData.assertId}}</td>
+					<td>{{selectedPlantData.procurecatgName}}</td>
+					<td>{{selectedPlantData.plantClassMeasureName}}</td>
+					<td>{{labelKeyTO.displayNamesMap.MOB_DATE}}</td>
+					<td>{{labelKeyTO.displayNamesMap.DEMOB_DATE}}</td>
+					<td>{{labelKeyTO.displayNamesMap.USED_TIME}}</td>
+					<td>{{labelKeyTO.displayNamesMap.IDLE_TIME}}</td>
+					<td>{{labelKeyTO.displayNamesMap.USED_TOTAL_TIME}}</td>
+					<td>{{labelKeyTO.displayNamesMap.IDLE_TOTAL_TIME}}</td>
+					<td>{{labelKeyTO.displayNamesMap.MOB_ODO_METER}}</td>
+					<td>{{labelKeyTO.displayNamesMap.DEMOB_ODO_METER}}</td>
+					<td>{{labelKeyTO.displayNamesMap.DEMOB_ODO_METER-labelKeyTO.displayNamesMap.MOB_ODO_METER}}</td>
+					<td class="text-left"><span name="comment" flip="horizontal"
+							ng-click="showUtilization(utilization.commentes)"></span></td>
+				</tr>
+			</tbody>
+
+		</table>
+ -->
+	</div>
+	<!-- <div class="panel-footer padL-0">
+		<div class="pull-left">
+			<input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+			<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+			<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+			<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+			<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+		</div>
+	</div> -->
+
+
+</div>

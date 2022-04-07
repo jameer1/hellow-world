@@ -1,0 +1,101 @@
+
+INSERT INTO client_registration_mstr
+(CRM_ADDRESS,
+CRM_BUS_TYPE,
+CRM_DETAILS_FILE_NAME,
+CRM_CODE,
+CRM_CONTACT_PERSON,
+CRM_COUNTRY,
+CRM_CREATED_BY,
+CRM_CREATED_ON,
+CRM_EMAIL,
+CRM_FAX,
+CRM_LICENCE_RENWAL,
+CRM_MOBILE_NUM,
+CRM_NAME,
+CRM_PHONE_NUM,
+CRM_REMARKS,
+CRM_STATUS,
+CRM_UPDATED_BY,
+CRM_UPDATED_ON,
+CRM_WEB_URL)
+VALUES
+('Australia',
+'Project Management S',
+NULL,
+'RajuTech1',
+'Raju',
+'AUS',
+NULL,
+NULL,
+'it-admin@rajutech.com',
+98745632145,
+to_date('2018-09-12', 'YYYY-MM-dd'),
+9874563214,
+'raju',
+9685741236,
+'Applicaiton Owner',
+1,
+NULL,
+to_timestamp('2018-05-30 16:49:43', 'YYYY-MM-dd HH24:MI:SS'),
+'www.projectontrack.net');
+
+
+
+INSERT INTO emp_register_dtl
+(ERD_CODE,
+ERD_DOB,
+ERD_FNAME,
+ERD_GENDER,
+ERD_LNAME,
+ERD_LOC)
+VALUES
+('E-113',
+to_date('2001-09-02', 'YYYY-MM-dd'),
+'Employee First Name 113',
+'Male',
+'Employee Last Name 113',
+'NonLocal Employee');
+
+
+
+INSERT INTO user_mstr
+(USR_CREATED_BY,
+USR_CREATED_ON,
+USR_DISPLAY_NAME,
+USR_EMAIL,
+USR_EMP_CODE,
+USR_EMP_DESG,
+USR_ERD_ID,
+USR_FIRST_NAME,
+USR_LAST_NAME,
+USR_MOBILE_NUM,
+USR_PASSWORD,
+USR_PHONE_NUM,
+USR_REMARKS,
+USR_STATUS,
+USR_UPDATED_BY,
+USR_UPDATED_ON,
+USR_USER_NAME,
+USR_TYPE,
+USR_CRM_ID)
+VALUES
+(NULL,
+NULL,
+'Raju',
+'raju@rajutech.com',
+'RT-101',
+'ADMIN',
+1,
+'RAJU ADMIN',
+'D',
+1234567890,
+'raju',
+0987456321,
+'Admin user',
+1,
+NULL,
+to_timestamp('2018-06-07 12:48:28', 'YYYY-MM-dd HH24:MI:SS'),
+'raju',
+1,
+1);

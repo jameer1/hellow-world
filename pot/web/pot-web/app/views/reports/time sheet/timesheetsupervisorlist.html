@@ -1,0 +1,37 @@
+<div id="tab-pannel" class="panel-group">
+	<div class="panel panel-default" modal-movable>
+		<div class="panel-heading">
+			<h4 class="panel-title">Time Sheet Supervisor Details</h4>
+		</div>
+		<div class="panel-body">
+			<div class="popUpTableResHeight">
+				<table class="table table-striped table-hover table-bordered popUpTableHeight scrollable-table">
+					<thead>
+						<tr>
+							<th>
+								<input type="checkbox" ng-change="selectAllUsers()" ng-model="selectAll">
+							</th>
+							<th>Request User ID</th>
+							<th>Request User Name</th>
+						</tr>
+					</thead>
+					<tbody class="popUpTableHeight">
+						<tr ng-repeat="timeSheet in labelKeyTOs" data-test="TimesheetSubmissionandApprovalStatus_Supervisorcheckbox">
+							<td>
+								<input type="checkbox" ng-model="timeSheet.select" data-test="timesheet_common_checkbox">
+							</td>
+							<td>{{timeSheet.code}}</td>
+							<td>{{timeSheet.name}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="panel-footer">
+			<div class="pull-right">
+				<input type="submit" ng-click="addSupervisorsToTimeSheet()" value="Add" class="btn  btn-primary btn-sm" data-test="TimesheetSubmissionandApprovalStatus_SupervisorAdd"/>
+			</div>
+		</div>
+	</div>
+	<div class="ngdialog-close"></div>
+</div>

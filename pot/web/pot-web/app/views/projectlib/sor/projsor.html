@@ -1,0 +1,147 @@
+<section class="content-header">
+	<h1>Schedule of Rates</h1>
+	<!-- <input type="submit" value ="Help !"
+		ng-click="helpPage();" class="pull-right btn  btn-primary btn-sm help-each-page"> -->
+	<button class="pull-right btn btn-primary btn-sm help-each-page" 
+		onclick="window.open('views/helptutorials/ScheduleofRates.html', '_blank', 
+		'toolbar=yes,scrollbars=yes,resizable=no,top=50,left=100,width=1400,height=700')">
+		Help
+	</button>
+</section>
+<section class="content">
+	<div id="tab-pannel" class="panel-group">
+		<div class="panel panel-default block footer-parent">
+			<div class="panel-body">
+				<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 no-padding">
+					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padL-0">
+						<md-input-container class="md-block">
+							<label>EPS ID/EPS Name</label>
+							<input data-test='Projects_ProjectLibrary_SOR_Eps' type="text"
+								ng-model="searchProject.parentName" class="labelName" ng-click="getUserProjects()"
+								readonly="readonly">
+						</md-input-container>
+					</div>
+
+					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+						<md-input-container class="md-block">
+							<label>Project ID/Project Name</label>
+							<input type="text" ng-model="searchProject.projName" ng-click="getUserProjects()"
+								readonly="readonly">
+						</md-input-container>						
+					</div>
+					<div class="col-lg-6 col-md-6 col-xs-6 col-sm-6 padR-0">
+						<div class="pull-left marT15">Status:
+							<strong>{{sorStatus}}</strong>
+						</div>
+						<div class="pull-right right-padding marT15">
+							<label><input type="checkbox" ng-model="subCategoryRatesNotRequired"> Sub Category Rates not Required</label>
+							<input data-test='Projects_ProjectLibrary_SOR_Search' type="button"
+								ng-click="getSORDetails(searchProject)" class="btn  btn-primary btn-sm" value="Search"
+								ng-model="searchText">
+							<input data-test='Projects_ProjectLibrary_SOR_Reset' type="reset"
+								class="btn  btn-default btn-sm" ng-click="resetSORData()" value="Reset">
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 no-padding">
+					<div class="singleTableResHeight_2">
+						<table id="tree" class="table table-striped table-hover table-bordered singleTableHeight_2">
+							<thead id="tab-head">
+								<tr>
+									<th class="justify-center">Select</th>
+									<th class="justify-center">SOR Id</th>
+									<th class="justify-center">SOR Name</th>
+									<th class="justify-center">Labour Rate</th>
+									<th class="justify-center">Plant Rate</th>
+									<th class="justify-center">Material Rate</th>
+									<th class="justify-center">Others Rate</th>
+									<th class="justify-center">Total Rate</th>
+									<th class="justify-center">Unit of Measure</th>
+									<th class="justify-center">Quantity</th>
+									<th class="justify-center">Amount</th>
+									<th class="justify-center">Manpower Hrs</th>
+									<th class="justify-center">Comments</th>
+									<th class="justify-center" ng-show="!disableBtnsArry.RETURN_WITH_COMMENTS">&nbsp;</th>
+								</tr>
+							</thead>
+							<tbody class="justify-center">
+								<tr fixed-header="" ng-repeat="tab in SORData | orderBy: 'parent'"
+									class="abc{{tab.level}}" ng-show="!tab.collapse">
+									<td class="justify-center">
+										<input type="checkbox" ng-model="tab.select" ng-change="rowSelect(tab)">
+									</td>
+									<td style="width: 100px !important">
+										<span ng-repeat="level in [].constructor(tab.level) track by $index" class="xyz"
+											style="padding-left: 10px;"></span>
+										<span ng-show="tab.expand || (!tab.item  && tab.childSORItemTOs.length <= 0)"
+											ng-click="sorItemClick(tab,true);" class="fa fa-minus" title="Collapse SOR"></span>
+										<span ng-show="!tab.expand && tab.childSORItemTOs.length > 0"
+											data-test='Projects_ProjectLibrary_SOR_SORexpandicon' title="Expand SOR"
+											ng-click="sorItemClick(tab,false);" class="fa fa-plus">
+										</span>
+										<i class="fa fa-leaf" ng-show="tab.item"> </i>
+										<span style="padding-left: 10px; color: black !important;">{{tab.code}}
+											<span style="padding-left: 5px;"></span>
+										</span>
+										<i class="fa fa-edit fa-fw" title="Edit SOR"
+											ng-show="tab.level==0 && !tab.item && account.appCodeTemplate['PRJ_PRJLIB_SCHEDOFRATE_ADD']"
+											data-test='Projects_ProjectLibrary_SOR_Edit'
+											ng-click="addSORDetails('Edit',tab,searchProject.projId)">
+										</i>
+									</td>
+									<td>{{tab.name}}</td>
+									<td class="justify-center"><span ng-show="tab.item">{{tab.labourRate | number:2}}</span></td>
+									<td class="justify-center"><span ng-show="tab.item">{{tab.plantRate | number:2}}</span></td>
+									<td class="justify-center"><span ng-show="tab.item">{{tab.materialRate | number:2}}</span></td>
+									<td class="justify-center"><span ng-show="tab.item">{{tab.othersRate | number:2}}</span></td>
+									<td class="justify-center">
+										<span ng-show="tab.item && (!tab.totalRateIfNoSubCategory)">{{tab.labourRate+tab.plantRate+tab.materialRate+tab.othersRate | number:2}}</span>
+										<span ng-show="tab.item && tab.totalRateIfNoSubCategory">{{tab.totalRateIfNoSubCategory | number:2}}</span>
+									</td>
+									<td><span ng-show="tab.item">{{tab.measureUnitTO.name}}</span></td>
+									<td class="justify-center"><span ng-show="tab.item">{{tab.quantity | number:2}}</span></td>
+									<td class="justify-center"><span
+											ng-show="tab.item">{{ tab.totalRateIfNoSubCategory ? tab.totalRateIfNoSubCategory*tab.quantity : (tab.labourRate+tab.plantRate+tab.materialRate+tab.othersRate)*tab.quantity | number:2}}</span>
+									</td>
+									<td class="justify-center"><span ng-show="tab.item">{{tab.manPowerHrs | number:2}}</span></td>
+									<td class="text-center">
+										<i class="fa fa-comment fa-flip-horizontal" ng-show="tab.item" flip="horizontal"
+											ng-click="show(tab.comments)" role="button" tabindex="0" title="Comments"></i>
+									</td>
+									<!-- <td>{{tab.sorStatus}}</td> -->
+									<td ng-show="!disableBtnsArry.RETURN_WITH_COMMENTS"><input type="button" class="btn btn-primary" value="Return" ng-click="returnWithComments(tab)" ng-show="tab.item==true"/></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="panel-footer">
+				<div class="pull-right">
+					<input data-test='Projects_ProjectLibrary_SOR_Deactive' class="btn  btn-default btn-sm"
+						type="button" ng-click="deactivateSORDetails()" value="Deactivate"
+						ng-if="account.appCodeTemplate['PRJ_PRJLIB_SCHEDOFRATE_DELETE'] && activeFlag==1" />
+					<input data-test='Projects_ProjectLibrary_SOR_Create' type="button" class="btn btn-primary btn-sm"
+						ng-click="addSORDetails('Add',null,searchProject.projId)" value="Create"
+						ng-if="account.appCodeTemplate['PRJ_PRJLIB_SCHEDOFRATE_ADD'] && activeFlag==1" ng-disabled="sorStatus=='FINALIZED'"/>
+				</div>
+				<div class="pull-left">
+					<input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+					<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+					<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+					<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+					<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+				</div>
+				<div class="pull-right">
+					<input type="button" class="btn btn-primary btn-sm" value="Submit for Internal Approval" ng-click="projSORSubmission('INTERNAL','SUBMIT')" ng-disabled="disableBtnsArry.SUBMIT_FOR_INTERNAL_APPROVAL">
+					<input type="button" class="btn btn-primary btn-sm" value="Submit for External Approval" ng-click="projSORSubmission('EXTERNAL','SUBMIT')" ng-disabled="disableBtnsArry.SUBMIT_FOR_EXTERNAL_APPROVAL">
+					<!-- <input type="button" class="btn btn-primary btn-sm" value="Returned with Comments" ng-click="returnWithComments()" ng-disabled="disableBtnsArry.RETURN_WITH_COMMENTS"> -->
+					<input type="button" class="btn btn-primary btn-sm" value="Internal Approval" ng-click="projSORApproval('INTERNAL','APPROVAL')" ng-disabled="disableBtnsArry.INTERNAL_APPROVAL">
+					<input type="button" class="btn btn-primary btn-sm" value="External Approval" ng-click="projSORApproval('EXTERNAL','APPROVAL')" ng-disabled="disableBtnsArry.EXTERNAL_APPROVAL">
+					<input type="button" class="btn btn-primary btn-sm" value="View Records" ng-click="viewActivityLog()">
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

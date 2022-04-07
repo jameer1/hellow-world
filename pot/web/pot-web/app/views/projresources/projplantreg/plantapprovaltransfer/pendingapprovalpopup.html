@@ -1,0 +1,262 @@
+<div id="tab-pannel" class="panel-group">
+	<form name="plntRegForm4" validate>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h4 class="panel-title">Requisition</h4>
+			</div>
+			<div class="panel-body">
+					<div class="row">
+							<div class="col-sm-12 col-md-9 col-lg-8">
+									<table id="input-width" class="table table-hover table-bordered">
+											<thead>
+												<tr>
+													<th>Date of Request</th>
+													<th>Requisition ID</th>
+													<th>Origin Project</th>
+													<th>Destination Project</th>
+													<th>Notification ID</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td class="input-width0"><potdate-picker class="form-control"
+															ng-model="currentDate" dir-index="$index"
+															date-name="reqDate" placeholder="dd-mm-yyyy" tabindex=-1
+															required="required" style="width:80px !important;"></td>
+				
+													<td class="input-width4"><input type="text" class="form-control"
+														ng-model="request.reqId" placeholder="Requistion ID"></td>
+				
+													<td class="input-width4"><input type="text" class="form-control"
+														ng-model="userProjectMap[searchProject.projId].displayNamesMap['ParentName']"
+														placeholder="EPS Name" ng-click="getUserProjects()"></td>
+				
+													<td class="input-width4"><input type="text" class="form-control"
+														ng-model="userProjectMap[searchProject.projId].name"
+														placeholder="Project Name" ng-click="getUserProjects()"></td>
+				
+				
+													<td class="input-width4"><input type="text" class="form-control"
+														ng-model="request.reqNotifyId" placeholder="Notification ID"></td>
+				
+												</tr>
+											</tbody>
+										</table>
+							</div>
+							<div class="col-sm-12 col-md-3 col-lg-4">
+									<table id="input-width" class="table table-hover table-bordered">
+											<thead>
+												<tr>
+													<th>Approval Date</th>
+													<th>Approval ID</th>
+													<th>Notification ID</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td class="input-width0"><potdate-picker class="form-control"
+															ng-model="currentDate" dir-index="$index"
+															date-name="apprlDate" placeholder="dd-mm-yyyy"
+															required="required" style="width:80px !important;"></td>
+					
+													<td class="input-width4"><input type="text" class="form-control"
+														ng-model="request.apprlId" placeholder="Approval ID"></td>
+					
+													<td class="input-width4"><input type="text" class="form-control"
+														ng-model="request.apprNotifyId" placeholder="Notification ID"></td>
+					
+												</tr>
+											</tbody>
+										</table>
+							</div>
+					</div>	
+			</div>
+			<div class="panel-heading">
+				<h4 class="panel-title">Requester</h4>
+			</div>
+			<div class="panel-body">
+					<div class="row">
+							<div class="col-sm-12 col-md-12 col-lg-12">
+							<div class="overflow-auto">
+				<table class="table table-hover table-bordered">
+					<thead>
+						<tr>
+							<th>Employee ID</th>
+							<th>First Name</th>
+							<th>Last Name</th>
+							<th>Designation</th>
+							<th>Current Project</th>
+							<th>Phone Number</th>
+							<th>Email Address</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+
+							<td><input type="text" class="form-control" ng-click="getEmployeeDetails(1)"
+								ng-model="requesterData.code" placeholder="Employee ID"></td>
+
+							<td><input type="text" class="form-control" ng-model="requesterData.firstName"
+								placeholder="First Name"></td>
+
+							<td><input type="text" class="form-control" ng-model="requesterData.lastName"
+								placeholder="Last Name"></td>
+
+							<td><input type="text" class="form-control"
+								ng-model="classificationMap[requesterData.empClassId].name"
+								placeholder="Designation" style="width: 115px !important"></td>
+
+							<td><input type="text" class="form-control" ng-model="request.currProj"
+								placeholder="Current Project"></td>
+
+							<td><input type="text" class="form-control" ng-model="request.phno"
+								placeholder="Phone Number"></td>
+
+							<td><input type="text" class="form-control" ng-model="request.email"
+								placeholder="Email ID"></td>
+
+						</tr>
+					</tbody>
+				</table>
+				</div>
+				</div>
+				</div>
+			</div>
+
+			<div class="panel-heading">
+				<h4 class="panel-title">Approver</h4>
+			</div>
+			<div class="panel-body">
+					<div class="row">
+							<div class="col-sm-12 col-md-12 col-lg-12">
+							<div class="overflow-auto">
+				<table class="table table-hover table-bordered">
+					<thead>
+						<tr>
+							<th>Employee ID</th>
+							<th>First Name</th>
+							<th>Last Name</th>
+							<th>Designation</th>
+							<th>Current Project</th>
+							<th>Phone Number</th>
+							<th>Email Address</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+
+							<td><input type="text" class="form-control" ng-click="getEmployeeDetails(2)"
+								ng-model="approverData.code" placeholder="Employee ID"></td>
+
+							<td><input type="text" class="form-control" ng-model="approverData.firstName"
+								placeholder="First Name"></td>
+
+							<td><input type="text" class="form-control" ng-model="approverData.lastName"
+								placeholder="Last Name"></td>
+							<td><input type="text" class="form-control"
+								ng-model="classificationMap[approverData.empClassId].name"
+								placeholder="Designation"></td>
+
+							<td><input type="text" class="form-control" ng-model="request.currProj"
+								placeholder="Current Project"></td>
+
+							<td><input type="text" class="form-control" ng-model="request.phno"
+								placeholder="Phone Number"></td>
+
+							<td><input type="text" class="form-control" ng-model="request.email"
+								placeholder="Email ID"></td>
+
+						</tr>
+					</tbody>
+				</table>
+				</div>
+				</div>
+				</div>
+			</div>
+
+			<div class="panel-heading">
+				<h4 class="panel-title">Plant List</h4>
+			</div>
+			<div class="panel-body">
+					<div class="tabTable_1_Res_height overflow-auto">
+							<table id="input-width3" class="table table-hover table-bordered tabTable_1_height">
+					<thead>
+						<tr>
+							<th>Select</th>
+							<th>Asset ID</th>
+							<th>Registration Number</th>
+							<th>Plant Description</th>
+							<th>Make</th>
+							<th>Model</th>
+							<th>Expected Date of Availability for Transfer</th>
+							<th>Required Date of Transfer</th>
+							<th>Approver Decision</th>
+							<th>Agreed Date for Transfer</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat ="plant in plantData"
+							ng-if="plantApprovalExistingMap[plant.assertId]==null">
+
+							<td><input type="checkbox" ng-model="plant.selected"
+								ng-change="plantRowSelect(plant)"></td>
+
+							<td class="input-width4"><input type="text" class="form-control"
+								ng-model="plant.assertId" placeholder="Asset ID"></td>
+
+							<td class="input-width4"><input type="text" class="form-control"
+								ng-model="plant.regNumber" placeholder="Registration Number"></td>
+
+							<td class="input-width4"><input type="text" class="form-control"
+								ng-model="plant.desc" placeholder="Plant Description"></td>
+
+							<td class="input-width4"><input type="text" class="form-control"
+								ng-model="plant.manfacture" placeholder="Make"></td>
+
+							<td class="input-width4"><input type="text" class="form-control"
+								ng-model="plant.model" placeholder="Model"></td>
+
+							<td class="input-width4"><input type="text" class="form-control"
+								ng-model="request.expectedDateOfTransfer"
+								placeholder="Expected Date" ng-disabled="true"></td>
+
+							<td class="input-width0"><potdate-picker class="form-control"
+									ng-model="request.requiredDateOfTransfer"
+									dir-index="$index" date-name="apprlDate"
+									placeholder="dd-mm-yyyy" ng-disabled="true"/></td>
+
+							<td class="input-width4"><select ng-model="approvalType"
+								name="approvalType" ng-required="true">
+									<option fixed-header="" ng-repeat ="approvalType in approvalTypes">{{approvalType.name}}</option>
+							</select></td>
+
+
+
+							<td class="input-width0"><potdate-picker class="form-control"
+									ng-model="request.actualDateOfTransfer" dir-index="$index"
+									date-name="apprlDate" placeholder="dd-mm-yyyy"
+									required="required" /></td>
+
+						</tr>
+					</tbody>
+				</table>
+				</div>
+			</div>
+
+			<div class="panel-footer">
+				<div class="pull-left">
+					<input type="button" class="btn  btn-primary btn-sm"
+						ng-click="getPlantDetails()" value="Add"> <input
+						type="button" class="btn  btn-primary btn-sm"
+						ng-click="deleteRows()" value="Delete" ng-show="action =='Add'">
+
+				</div>
+				<div class="pull-right">
+					<input type="button" class="btn  btn-primary btn-sm"
+						ng-click="save()" value="Apply">
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</form>
+</div>

@@ -1,0 +1,48 @@
+<div id="tab-pannel" class="panel-group">
+    <form name="materialSchItemForm" validate>
+        <div class="panel panel-default" modal-movable>
+            <div class="panel-heading">
+                <h4 class="panel-title">Supplier Delivery Docket Details</h4>
+            </div>
+            <div class="panel-body">
+                <div class="popUpTableResHeight">
+                    <table class="table table-striped table-hover table-bordered popUpTableHeight" >
+                        <thead>
+                            <tr>
+                                <th>Docket Number</th>
+                                <th>Docket Date</th>
+                                <th>Purchase Order</th>
+                                <th>Schedule Item</th>
+                                <th>Resource Name</th>
+                                <th>Supplier</th>
+                                <th>Received/Available Qty</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr fixed-header="" ng-repeat ="materialObj in labelKeyTOs"
+							ng-dblclick="selectMaterialDockcet(materialObj, ((materialObj.displayNamesMap['calculatedReceivedQty']) && 
+							(0 == convertToNumber(materialObj.displayNamesMap['calculatedReceivedQty']))))" 
+								ng-class="{'disabledItem' : ((materialObj.displayNamesMap['calculatedReceivedQty']) && 
+							(0 == convertToNumber(materialObj.displayNamesMap['calculatedReceivedQty'])))}">
+							<td><span>
+									{{materialObj.displayNamesMap['deliveryDockNo']}}</span></td>
+							<td><span>
+									{{materialObj.displayNamesMap['deliveryDockDate'] }}</span></td>
+							<td><span> {{materialObj.displayNamesMap['purCode']}}</span></td>
+							<td><span> {{materialObj.code}}</span></td>
+							<td><span>
+									{{materialObj.displayNamesMap['classType']}}</span></td>
+							<td><span>
+									{{materialObj.displayNamesMap['cmpCatgName']}}</span></td>
+							<td><span ng-if="materialObj.displayNamesMap['transsitQty']">
+									{{materialObj.displayNamesMap['calculatedReceivedQty'] - materialObj.displayNamesMap['transsitQty']}}</span>
+							</td>
+						</tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="ngdialog-close"></div>
+    </form>
+</div>

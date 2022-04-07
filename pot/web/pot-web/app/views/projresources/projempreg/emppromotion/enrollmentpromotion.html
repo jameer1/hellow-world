@@ -1,0 +1,60 @@
+<div ng-if="account.appCodeTemplate['RESOURCE_EMPENROLLMENTPROMOTION_VIEW']" id="tab-pannel" ng-controller="EmpPromotionsController">
+			<div class="tabTable_1_Res_height_topB">
+			<div id="grid" ui-grid="gridOptions" ng-if="stylesSvc.finishedStyling" 
+            ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-resize-columns class="grid"></div>
+				<!-- <table class="table table-striped table-hover table-bordered tabTable_1_height_topB" >
+					<thead id="tab-head">
+						<tr>
+							<th>Select</th>
+							<th title="Employee ID">Emp ID</th>
+							<th title="Employee Name">Emp Name</th>
+							<th title="EPS Name">EPS</th>
+							<th title="Project Name">Project</th>
+							<th title="Purchase Order Number">PO#</th>
+							<th title="PO Schedule Item ID">PO Sch ID</th>
+							<th title="Resource Classification Name">Res Class Name</th>
+							<th title="New Employee Enrollment Date">Enroll Date</th>
+							<th title="Enrollment Place/Location">Enroll Loc</th>
+							<th title="Reporting to-Employee ID and Name">Reporting to</th>
+							<th title="Employee Contract Date">Emp Con.Date</th>
+							<th title="Employee Contract Number">Emp Con#</th>
+							<th title="Employee Contract Document">Emp Con.Doc</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr fixed-header="" ng-repeat ="promotion in employeeProjDtlTOs">
+							<td><input data-test='Resources_Employee_EnrollmentTab_EditSelect' type="checkbox" value="id"
+								ng-model="promotion.selected"
+								ng-disabled="promotion.latest !='Y'"
+								ng-change="poRowSelect(promotion)"></td>
+							<td>{{promotion.empLabelKeyTO.code}}</td>
+							<td>{{promotion.empLabelKeyTO.name}}</td>
+							<td>{{promotion.parentName}}</td>
+							<td>{{promotion.name}}</td>
+							<td>{{promotion.projectPOTO.purchaseLabelKeyTO.code}}</td>
+							<td>{{promotion.projectPOTO.purchaseSchLabelKeyTO.code}}</td>
+							<td>{{promotion.empClassName}}</td>
+							<td>{{promotion.effectiveFrom}}</td>
+							<td>{{promotion.empLocation}}</td>
+							<td>{{promotion.reportingManagerLabelKeyTO.code}}
+								{{promotion.reportingManagerLabelKeyTO.name}}</td>
+							<td>{{promotion.contractDate | date}}</td>
+							<td>{{promotion.contractNumber}}</td>
+							<td><span class="fa fa-download" ng-if="promotion.contractDocumentFileName" ng-click="downloadContract(promotion.id,promotion.contractDocumentFileName)" title="Click To Download {{promotion.contractDocumentFileName}}"></span></td>
+						</tr>
+					</tbody>
+				</table> -->
+			</div>
+		<div class="panel-footer padL-0">
+			<div class="pull-left">
+			<!-- 	<input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+				<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+				<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+				<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+				<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();"> -->
+				<input ng-if="employeeProjDtlTOs.length > 0 && account.appCodeTemplate['RESOURCE_EMPENROLLMENTPROMOTION_ADD']" data-test='Resources_Employee_EnrollmentTab_Edit' type="button" class="btn btn-primary btn-sm"
+					ng-if="showEditButton" ng-click="addemployeepoList('Edit')"
+					value="Edit">
+			</div>
+		</div>
+</div>

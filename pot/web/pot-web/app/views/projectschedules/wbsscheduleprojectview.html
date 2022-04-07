@@ -1,0 +1,88 @@
+<section class="content-header">
+	<h1>SOW Schedule</h1>
+	<!-- <input type="submit" value ="Help !"
+		ng-click="helpPage();" class="pull-right btn  btn-primary btn-sm help-each-page"> -->
+	<button class="pull-right btn btn-primary btn-sm help-each-page" 
+		onclick="window.open('views/helptutorials/SOWSchedule.html', '_blank', 
+		'toolbar=yes,scrollbars=yes,resizable=no,top=50,left=100,width=1400,height=700')">
+		Help
+	</button>
+</section>
+
+<section class="content">
+	<div id="tab-pannel" class="panel-group panel panel-default block footer-parent">
+		<div class="panel-body">
+			<div class="col-sm-12">
+				<div class="col-sm-3 padL-0">
+					<md-input-container>
+						<label>EPS ID/Name</label>
+						<input type="text" data-test='Schedules_ProjectSchedules_EpsIdclick' ng-model="searchCriteria.searchProject.parentName" ng-click="getUserProjects()" class="form-control"
+							autocomplete="off" readonly>
+					</md-input-container>
+				</div>
+				<div class="col-sm-3">
+					<md-input-container>
+						<label>Project ID/Name</label>
+						<input type="text" data-test='Schedules_ProjectSchedules_ProjectIdClick' ng-model="searchCriteria.searchProject.projName" ng-click="getUserProjects()" class="form-control"
+							readonly>
+					</md-input-container>
+				</div>
+				<div class="col-sm-6">
+					<div class="pull-right marT15">
+						<input type="button" ng-click="onSearch()" class="btn  btn-primary btn-sm" value="Search">
+						<input type="reset" class="btn  btn-default btn-sm" ng-click="onReset()" value="Reset">
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-12">
+				<div class="col-sm-1  padL-0">
+					<md-input-container>
+						<label>Status Date</label>
+						<potdate-picker ng-model="options.currentDateValue" data-test='Schedules_WbsSchedule_StatusDate' dir-index="$index" date-name="statusDate" name=statusDate custom-read-only />
+					</md-input-container>
+				</div>
+				<div class="col-sm-1">
+					<md-input-container>
+						<label>Time Scale</label>
+						<md-select ng-model="options.selectedTimeScale" title="Select Time Scale" data-test="Schedules_WbsSchedule_TimeScale">
+							<md-option ng-repeat="timeScale in options.timeScales" ng-value="timeScale">
+								{{timeScale.type}} </md-option>
+						</md-select>
+					</md-input-container>
+				</div>
+				<div class="col-sm-2">
+					<md-input-container>
+						<label>Time Scale Size</label>
+						<input type="range" min="{{options.selectedTimeScale.minSize}}" max="{{options.selectedTimeScale.maxSize}}" ng-model="options.selectedTimeScale.selectedSize"/>
+					</md-input-container>
+				</div>
+				<div class="col-sm-2"><div class="marT15" style="text-align:center;">
+					<input type="button" class="btn btn-primary btn-sm"  value="Select Dataset" ng-click="selectMultipleScheduleActivityDataSetTOs()">
+				</div></div>
+				<div class="col-sm-6"><div class="marT15">
+					<label ng-style="{'color': colors[$index]}" style="border-bottom:3px solid;" class="checkbox-inline" ng-repeat="selectedScheduleActivityDataSetTO in selectedScheduleActivityDataSetTOs track by $index">
+						<input type="checkbox" disabled checked="true">{{getFullDatasetname(selectedScheduleActivityDataSetTO)}}
+					</label>
+				</div></div>
+			</div>
+			<div class="col-sm-12 no-padding">
+				<div class="singleTableResHeight_2" ng-show="options.showGanttChart">
+					<div gantt data="data" column-width="options.selectedTimeScale.selectedSize" headers="options.selectedTimeScale.header" headers-formats="options.selectedTimeScale.headerFormat" from-date="options.selectedTimeScale.fromDate" to-date="options.selectedTimeScale.toDate" current-date="options.currentDate" current-date-value="options.currentDateValue">
+						<gantt-tree keep-ancestor-on-filter-row="true"></gantt-tree>
+						<gantt-table columns="options.columns" headers="options.columnsHeaders" formatters="options.columnsFormatters" classes="options.columnsClasses"></gantt-table>
+						<gantt-tooltips></gantt-tooltips>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel-footer">
+			<div class="pull-left">
+				<input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+				<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+				<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+				<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+				<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+			</div>
+		</div>
+	</div>
+</section>

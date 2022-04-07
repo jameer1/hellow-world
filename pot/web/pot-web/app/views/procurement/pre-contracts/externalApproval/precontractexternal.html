@@ -1,0 +1,236 @@
+<div ng-init="getWorkFlowstatus();">
+	<section class="content-header">
+		<h1>Stage 2 {{stateParamsRequestPage ? 'Request': 'Approval'}}</h1>
+		<!-- <INPUT TYPE="SUBMIT" VALUE ="HELP !" NG-IF="STATEPARAMSREQUESTPAGE === TRUE"
+			NG-CLICK="HELPPAGE();" CLASS="PULL-RIGHT BTN  BTN-PRIMARY BTN-SM HELP-EACH-PAGE">
+		<INPUT TYPE="SUBMIT" VALUE ="HELP !" NG-IF="STATEPARAMSREQUESTPAGE === FALSE "
+			NG-CLICK="HELPPAGE1();" CLASS="PULL-RIGHT BTN  BTN-PRIMARY BTN-SM HELP-EACH-PAGE"> -->
+	<button class="pull-right btn btn-primary btn-sm help-each-page" 
+		onclick="window.open('views/helptutorials/Stage2Approval.html', '_blank', 
+		'toolbar=yes,scrollbars=yes,resizable=no,top=50,left=100,width=1400,height=700')">
+		Help
+	</button>
+	</section>
+	<section
+		ng-if="account.appCodeTemplate[stateParamsRequestPage ? 'PROCURMT_EXTRNLSTAGE2REQUEST_VIEW':'PROCURMT_EXTRNLSTAGE2APRVL_VIEW'] || account.appCodeTemplate[stateParamsRequestPage ? 'REQUEST_REQPROC_EXTRNLSTAGE2REQUEST_VIEW':'APPROVE_EXTRNLSTAGE2APRVL_VIEW']"
+		class="content">
+		<div class="panel panel-default block footer-parent">
+			<div class="panel-body">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-paddng">
+					<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2 padL-0">
+						<md-input-container class="md-block">
+							<label>EPS Name </label>
+							<input
+								data-test="{{stateParamsRequestPage ? 'Stage2Request_EPSname':'Stage2Approve_EPSname'}}"
+								type="text" ng-model="searchCriteria.searchProject.parentName"
+								ng-click="getUserProjects()" readonly autocomplete="off">
+							<span class="text-danger" ng-show="invalidProjectSelection">Please select a project</span>
+						</md-input-container>
+					</div>
+					<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+
+						<md-input-container class="md-block">
+							<label>Project Name</label>
+							<input type="text"
+								data-test="{{stateParamsRequestPage ? 'Stage2Request_Projectname':'Stage2Approve_Projectname'}}"
+								ng-model="searchCriteria.searchProject.projName" ng-click="getUserProjects()"
+								readonly autocomplete="off">
+
+							<!-- <br><span class="text-danger" ng-show="invalidProjectSelection">Please select a project</span>  -->
+
+							<span class="text-danger" ng-show="invalidProjectSelection">Please select a project</span>
+							<!-- <div ng-show="invalidProjectSelection">
+									<div ng-message="required">Please select a project</div>
+								</div> -->
+						</md-input-container>
+					</div>
+					<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+						<md-input-container class="md-block">
+							<label>Internal Status</label>
+							<md-select
+								data-test="{{stateParamsRequestPage ? 'Stage2Request_internalStatus':'Stage1Approve_internalStatus'}}"
+								id="contractStatus" name="contractStatus" ng-model="searchCriteria.contractStatus"
+								ng-required="true">
+								<md-option ng-value="contractStatus"
+									ng-repeat="contractStatus in workflowStatusList track by contractStatus.desc">
+									{{contractStatus.desc}}
+								</md-option>
+							</md-select>
+						</md-input-container>
+					</div>
+					<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+						<md-input-container class="md-block">
+							<label>From Date (dd-mm-yyyy)</label>
+							<potdate-picker
+								data-test="{{stateParamsRequestPage ? 'Stage2Request_fromdate':'Stage2Approve_fromdate'}}"
+								dir-index="$index" ng-model="searchCriteria.fromDate" date-name="fromDate"
+								max-date="searchCriteria.toDate" readonly>
+							</potdate-picker>
+						</md-input-container>
+					</div>
+					<div class="col-lg-2 col-md-2 col-xs-2 col-sm-2 padR-0">
+						<md-input-container class="md-block">
+							<label>To Date (dd-mm-yyyy)</label>
+							<potdate-picker
+								data-test="{{stateParamsRequestPage ? 'Stage2Request_todate':'Stage2Approve_todate'}}"
+								dir-index="$index" ng-model="searchCriteria.toDate" date-name="toDate"
+								min-date="searchCriteria.fromDate" max-date="todayDate" readonly> </potdate-picker>
+						</md-input-container>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+					<div class="col-xs-10 col-lg-10 col-sm-10 col-md-10 padL-0">
+						<!-- <md-input-container class="md-block">	 -->
+						<md-radio-group ng-model="searchCriteria.userType" layout="row">
+							<md-radio-button
+								data-test="{{stateParamsRequestPage ? 'Stage2Request_LoginUserRecords_Radiobutton':'Stage2Approve_LoginUserRecords_Radiobutton'}}"
+								value="1" class="md-primary" name="request">Login User Records</md-radio-button>
+							<md-radio-button
+								data-test="{{stateParamsRequestPage ? 'Stage2Request_AllUserRecords_Radiobutton':'Stage2Approve_AllUserRecords_Radiobutton'}}"
+								value="2" class="md-primary" name="request"> All User Records </md-radio-button>
+						</md-radio-group>
+						<!-- </md-input-container> -->
+
+					</div>
+					<div class="col-xs-2 col-lg-2 col-sm-2 col-md-2 padR-0">
+						<div class="pull-right marT15">
+							<input type="button" ng-click="getExternalPreContracts('click')"
+								class="btn btn-primary btn-sm" value="Search"
+								data-test="{{stateParamsRequestPage ? 'Stage2Request_search':'Stage2Approve_search'}}">
+							<input type="reset" class="btn btn-default btn-sm" ng-click="resetExternalRequest()"
+								value="Reset"
+								data-test="{{stateParamsRequestPage ? 'Stage2Request_refresh':'Stage2Approve_refresh'}}">
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+					<div class="singleTableResHeight_3 b-sh">
+						<!-- <table class="table table-striped table-hover table-bordered singleTableHeight_3">
+							<thead>
+								<tr>
+									<th>EPS Name</th>
+									<th>Project Name</th>
+									<th>Contract ID</th>
+									<th>Description</th>
+									<th>Type</th>
+									<th>Requisition ID</th>
+									<th class="text-center" ng-if="stateParamsRequestPage === false ">Requisition Date</th>
+									<th>Appr. Response ID</th>
+									<th>Requester</th>
+									<th>Date Of Request</th>
+									<th>Approver</th>
+									<th class="text-center">Schedule Items</th>
+									<th class="text-center">Stage 2 Approval Status</th>
+									<th class="text-center" ng-if="stateParamsRequestPage === false ">Requester Comments</th>
+									<th class="text-center">Approver Details</th>
+									<th class="text-center">Bid Analysis</th>
+									<th class="text-center" ng-show="!stateParamsRequestPage">Approve</th>
+									<th class="text-center" ng-if="stateParamsRequestPage === false ">Request for Additional Time</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr fixed-header="" ng-repeat="req in preContractTOs"
+									ng-click="viewPreconractDetails();">
+									<td ng-click="go(req,$index);" ng-class="{selected: $index ==selectedRow}">
+										{{userProjMap[req.projId].code}}</td>
+									<td ng-click="go(req,$index);" ng-class="{selected: $index ==selectedRow}">
+										{{userProjMap[req.projId].name}}</td>
+									<td ng-click="go(req,$index);" ng-class="{selected: $index ==selectedRow}">
+										{{req.code}}</td>
+									<td ng-click="go(req,$index);" ng-class="{selected: $index ==selectedRow}">
+										{{req.desc}}</td>
+									<td ng-click="go(req,$index);" ng-class="{selected: $index ==selectedRow}">
+										{{req.preContractType}}</td>
+									<td ng-click="go(req,$index);" ng-class="{selected: $index ==selectedRow}">
+										{{req.preContractReqApprTO.reqCode}}</td>
+									<td class="text-center" ng-if="stateParamsRequestPage === false" style="white-space: nowrap;">
+										{{req.preContractReqApprTO.apprDate}}</td>
+									<td ng-click="go(req,$index);" ng-class="{selected: $index ==selectedRow}">
+										{{req.preContractReqApprTO.apprCode}}</td>
+									<td ng-click="go(req,$index);" ng-class="{selected: $index ==selectedRow}">
+										{{req.preContractReqApprTO.reqUserLabelkeyTO.code}}</td>
+									<td ng-click="go(req,$index);" ng-class="{selected: $index ==selectedRow}" style="white-space: nowrap;">
+										{{req.preContractReqApprTO.reqDate}}</td>
+									<td ng-click="go(req,$index);" ng-class="{selected: $index ==selectedRow}">
+										{{req.preContractReqApprTO.apprUserLabelkeyTO.code}}</td>
+									<td class="text-center"><span class="link" data-test="Requests&Approvals_Request_stage2request_scheduleitemview"
+											ng-if="account.appCodeTemplate[stateParamsRequestPage ? 'PROCURMT_EXTRNLSTAGE2REQUEST_SCHEDULEOFITEMS' : 'PROCURMT_EXTRNLSTAGE2APPROVAL_SCHEDULEOFITEMS'] || 
+											account.appCodeTemplate[stateParamsRequestPage ? 'REQUEST_REQPROC_EXTRNLSTAGE2REQUEST_SCHEDULEOFITEMS' : 'APPROVE_EXTRNLSTAGE2APPROVAL_SCHEDULEOFITEMS']"
+											ng-click="addExternalRequest(req)">View</span></td>
+									<td>{{req.workFlowStatusTO.desc}}</td>
+									<td class="text-center" ng-if="stateParamsRequestPage === false "}>
+										{{req.preContractReqApprTO.reqComments}}</td>
+									<td class="text-center"><span class="link" data-test="Requests&Approvals_Request_stage2request_approverdetailsview"
+											ng-if="account.appCodeTemplate[stateParamsRequestPage ? 'PROCURMT_EXTRNLSTAGE2REQUEST_APPRVDETAILS' : 'PROCURMT_EXTRNLSTAGE2APPROVAL_APPRVDETAILS'] || 
+											account.appCodeTemplate[stateParamsRequestPage ? 'REQUEST_REQPROC_EXTRNLSTAGE2REQUEST_APPRVDETAILS' : 'APPROVE_EXTRNLSTAGE2APPROVAL_APPRVDETAILS']"
+											ng-click="getApprovelDetails(req)">View</span></td>
+									<td class="text-center"><span class="link"
+											data-test="{{stateParamsRequestPage ? 'Stage2Request_Bidanalys_View':'Stage2Approval_Bidanalys_View'}}"
+											ng-if="account.appCodeTemplate[stateParamsRequestPage ? 'PROCURMT_EXTRNLSTAGE2REQUEST_ADDBIDDERS_VIEW' : 'PROCURMT_EXTRNLSTAGE2APPROVAL_ADDBIDDERS_VIEW'] || 
+											account.appCodeTemplate[stateParamsRequestPage ? 'REQUEST_RssEQPROC_EXTRNLSTAGE2REQUEST_ADDBIDDERS_VIEW' : 'APPROVE_EXTRNLSTAGE2APPROVAL_ADDBIDDERS_VIEW']"
+											ng-click="getBidAnalysisDetails(req)">View</span></td> -->
+									<!-- <td class="text-center"><span class="btn btn-primary btn-sm" data-test="Requests&Approvals_Request_stage2request_refdocumentview"
+											ng-if="account.appCodeTemplate[stateParamsRequestPage ? 'PROCURMT_EXTRNLSTAGE2REQUEST_REFDOCUMENT_ADD' : 'PROCURMT_EXTRNLSTAGE2APPROVAL_REFDOCUMENT_ADD'] || 
+											account.appCodeTemplate[stateParamsRequestPage ? 'REQUEST_REQPROC_EXTRNLSTAGE2REQUEST_REFDOCUMENT_ADD' : 'APPROVE_EXTRNLSTAGE2APPROVAL_REFDOCUMENT_ADD']"
+											ng-click="getRefDocument(req)">Ref Document</span></td> -->
+									<!-- <td class="text-center">
+										<input type="button" class="btn btn-primary btn-sm" 
+											ng-if="req.workFlowStatusTO.value == 2 && (account.appCodeTemplate['PROCURMT_EXTRNLSTAGE2APPROVAL_APPROVE'] || 
+											account.appCodeTemplate['APPROVE_EXTRNLSTAGE2APPROVAL_APPROVE'])" ng-click="approveProcBidderItems(req,5)" 
+											 ng-disabled="{{req.procurementNormalTimeTOs[0].normalTimeFlag}}" data-test='Stage2Approval_Approvebutton' value="Approve"> -->
+										<!-- <span ng-if="!stateParamsRequestPage && (account.appCodeTemplate['PROCURMT_EXTRNLSTAGE2APPROVAL_APPROVE'] || 
+											account.appCodeTemplate['APPROVE_EXTRNLSTAGE2APPROVAL_APPROVE'])" class="btn btn-primary btn-sm"
+											ng-click="approveProcBidderItems(req,5)" ng-disabled="stage2AppoveFlag()"
+											class="btn btn-primary btn-sm" data-test='Stage2Approval_Approvebutton'>
+											Approve
+										</span> -->
+									<!-- </td>
+									<td class="text-center" ng-if="stateParamsRequestPage === false ">
+									<input type="button" class="btn btn-primary btn-sm" ng-click="getProcurement1Notifications(req, userProjMap)"
+									 value="Additional Time" ng-disabled="{{!(req.procurementNormalTimeTOs[0].normalTimeFlag)}}">
+								</tr>
+							</tbody>
+						</table> -->
+					
+						<div id="grid" ui-grid="gridOptions" class="singleTableResHeight_3 griddh" ng-if="stylesSvc.finishedStyling" 
+           ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-selection ui-grid-grouping  class="grid"></div>
+					</div>
+				</div>
+			</div>
+			<div class="panel-footer">
+				<div class="pull-right"
+					ng-if="selectedRow != undefined && checkExternalPrecontractStatus(preContractTOs[selectedRow].externalWorkFlowMap, 5)">
+					<input class="btn btn-primary btn-sm" type="button"
+						ng-hide="preContractTOs[selectedRow].allowMultiplePurchaseOrders" ng-click="generateSinglePO()" ng-disabled = "preContractTOs[selectedRow].purchaseOrderStatus == 'PO Issued'"
+						data-test='Stage2Approval_GenerateSinglePO' value="Generate Single PO">
+					<input class="btn btn-primary btn-sm" data-test='Stage2Approval_GenerateMultiplePO' type="button"
+						ng-show="preContractTOs[selectedRow].allowMultiplePurchaseOrders"
+						ng-click="generateMultiplePO()" value="Generate Multiple PO's">
+				</div>
+				<!-- <div class="pull-left">
+					<input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+					<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+					<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+					<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+					<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+				</div> -->
+			</div>
+		</div>
+		<script type="text/ng-template" id="template.html">
+			<button type="button" class="btn btn-primary btn-sm" 
+											ng-if="row.entity.workFlowStatusTO.value == 2 && (grid.appScope.account.appCodeTemplate['PROCURMT_EXTRNLSTAGE2APPROVAL_APPROVE'] || 
+											grid.appScope.account.appCodeTemplate['APPROVE_EXTRNLSTAGE2APPROVAL_APPROVE'])" ng-click="grid.appScope.approveProcBidderItems(row.entity,5)" 
+											 ng-disabled="{{row.entity.procurementNormalTimeTOs[0].normalTimeFlag}}" data-test='Stage2Approval_Approvebutton'>Approve</button>
+		</script>
+		<script type="text/ng-template" id="template1.html">
+			<div><button  ng-if="grid.appScope.stateParamsRequestPage === false" type="button" class="btn btn-primary btn-sm" ng-click="grid.appScope.getProcurement1Notifications(row.entity, userProjMap)"
+				value="Additional Time" ng-disabled="{{!(req.procurementNormalTimeTOs[0].normalTimeFlag)}}">Additional Time</button>
+			</div>
+		</script>
+	</section>
+</div>
+<style>
+.first-selection {
+	background-color: #efe8ed!important;
+  }
+</style>

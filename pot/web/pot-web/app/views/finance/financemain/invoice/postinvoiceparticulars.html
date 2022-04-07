@@ -1,0 +1,31 @@
+<div id="tab-pannel" class="panel-group" ng-init="postInvoiceParicularDetails()">
+  <div class="panel-group ">
+    <div class="panel-body21">
+      <table class="table table-striped table-hover table-bordered" style="height:365px !important;" >
+        <thead>
+          <tr>
+            <th>Invoice Date</th>
+            <th>Invoice Received Date</th>
+            <th>Payment Processing Period</th>
+            <th>Payment Due Date</th>
+            <th>Proposed Payment Due Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr fixed-header="" ng-repeat ="invoice in postInvoiceParicularDetails">
+            <td class="input-width1"><potdate-picker ng-model="invoice.invoiceDate" dir-index="$index" date-name="invoiceDate" placeholder="dd-mm-yyyy" tabindex="-1"> </pot-date-picker></td>
+            <td class="input-width1"><potdate-picker ng-model="invoice.invoiceReceivedDate" dir-index="$index" date-name="receivedDate" placeholder="dd-mm-yyyy" tabindex="-1"></potdate-picker></td>
+            <td class="input-width5"><input type="text" ng-model="paymentInDays" ng-disabled="true" /></td>
+            <td class="input-width1"><potdate-picker ng-model="invoice.invoiceDate--paymentInDays" dir-index="$index" date-name="dueDate" placeholder="dd-mm-yyyy" tabindex="-1"></potdate-picker></td>
+            <td class="input-width1"><potdate-picker ng-model="invoice.proposedPayDueDate" dir-index="$index" date-name="proposedDueDate" placeholder="dd-mm-yyyy" tabindex="-1"></potdate-picker></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="panel-footer">
+    <div class="pull-right">
+      <input type="Submit" value="Save" ng-click="savePostInvoiceParticulars(invoice)" class="btn  btn-brown btn-sm" validate />
+    </div>
+  </div>
+</div>

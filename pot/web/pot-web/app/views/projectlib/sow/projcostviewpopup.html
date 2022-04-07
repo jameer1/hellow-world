@@ -1,0 +1,52 @@
+<div id="tab-pannel" class="panel-group" ng-init="getCostDetails()">
+	<div class="panel panel-default" modal-movable>
+		<div class="panel-heading">
+			<h4 class="panel-title">CostCode</h4>
+		</div>
+
+		<div class="panel-body22 table-responsive">
+			<div class="popUpTableResHeight">
+				<table id="tree" class="table table-striped popUpTableHeight">
+					<thead>
+						<tr>
+							<th>Cost Id</th>
+							<th>Cost Item Name</th>
+							<th>Cost Class Id</th>
+							<th>Cost Class Name</th>
+							<th>Start Date</th>
+							<th>Finish Date</th>
+							<th>Work Dairy Entry</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr fixed-header="" ng-repeat="tab in costData" ng-dblclick="tab.item && selectCostDetails(tab)"
+							ng-show="!tab.collapse" class="abc{{tab.level}}">
+							<td>
+								<span ng-repeat="level in [].constructor(tab.level) track by $index" class="xyz"
+									style="padding-left: 30px;"></span>
+								<span ng-show="tab.expand || (!tab.item  && tab.projCostCodeItemTOs.length <= 0)"
+									ng-click="projCostFactoryItemClick(tab,true);" class="fa fa-minus" title="Collapse Cost Items"></span>
+								<span ng-click="projCostFactoryItemClick(tab,false);" class="fa fa-plus" title="Expand Cost Items"
+									ng-show="!tab.expand && tab.projCostCodeItemTOs.length > 0">
+								</span>
+								<i class="fa fa-leaf" ng-show="tab.item"> </i>
+								<span style="padding-left: 10px; color: black !important;">{{tab.code}}
+								</span>
+							</td>
+							<td>{{tab.name}}</td>
+							<td>{{tab.costCodeTO.code}}</td>
+							<td>{{tab.costCodeTO.name}}</td>
+							<td>{{tab.startDate | date}}</td>
+							<td>{{tab.finishDate | date }}</td>
+							<td><input type="checkbox" disabled="disabled" ng-model="tab.workdairyEntry"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="panel-footer"></div>
+		<div class="ngdialog-close"></div>
+
+	</div>
+
+</div>

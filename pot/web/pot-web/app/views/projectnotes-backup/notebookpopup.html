@@ -1,0 +1,55 @@
+<div class="panel-group">
+	<form name="projForm" validate>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h4 class="panel-title" ng-show="action =='Add'">Add Project</h4>
+				<h4 class="panel-title" ng-show="action =='Edit'">Edit Project</h4>
+			</div>
+			<div class="panel-body">
+	 <div class="popUpTableResHeight">
+            <table class="table table-striped table-hover table-bordered popUpTableHeight" >
+						<thead>
+							<tr>
+								<th ng-hide="action =='Edit'">Select</th>
+								<th>Note Book Topic</th>
+								<th>Description</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr fixed-header="" ng-repeat ="notebooks in noteBookList">
+								<td ng-hide="action =='Edit'"><input type="checkbox"
+									ng-model="notebooks.selected"
+									ng-change="notebooksPopUpRowSelect(notebooks)"></td>
+
+								<td><input type="text" ng-model="notebooks.topic" class="form-control"
+									name="topic" ng-required="true" placeholder="Topic" /><span
+									ng-show="projForm.topic.$dirty && projForm.topic.required">Resource
+										Id is mandatory</span></td>
+
+								<td><input type="text" ng-model="notebooks.description" class="form-control"
+									name="description" placeholder="Description" /><span
+									ng-show="projForm.description.$dirty && projForm.description.required">Resource
+										Id is mandatory</span></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="panel-footer">
+				<div class="pull-left">
+					<input type="submit" class="btn btn-secondary btn-sm"
+						ng-click="projForm.$valid && addRows()" value="Add"
+						ng-show="action =='Add'" /> <input type="button"
+						class="btn btn-secondary btn-sm"
+						ng-click="deleteProjRows()" value="Delete"
+						ng-show="action =='Add'" />
+				</div>
+				<div class="pull-right">
+					<input type="submit" class="btn btn-primary btn-sm"
+						value="Save" ng-click="projForm.$valid && saveNoteBook()" />
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</form>
+</div>

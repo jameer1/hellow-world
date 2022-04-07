@@ -1,0 +1,49 @@
+<div id="tab-pannel">
+
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h4 class="panel-title">External Stage2 Approval</h4>
+		</div>
+
+		<div class="spacer2 panel-body20">
+			<form name="procureForm" validate>
+				<div class="row" id="input-height">
+					<div class="col-md-3">
+						<input type="text" readonly="readonly"
+							ng-show="preContractObj.id > 0" ng-model="preContractObj.code">
+					</div>
+
+					<div class="col-md-3">
+						<input type="text" name="desc" ng-model="preContractObj.desc"
+							readonly="readonly">
+					</div>
+
+					<div class="col-md-3" ng-form name="form">
+						<select style="min-width: 200px !important;" id="contractType"
+							name="contractType" ng-model="preContractObj.preContractType"
+							ng-options="contract for contract in contractTypes track $index"
+							ng-disabled="true"></select>
+					</div>
+
+					<div class="col-md-3" ng-form name="myForm2">
+						<select id="currency" name="currency"
+							ng-model="preContractObj.currencyTO"
+							ng-options="currency.code for currency in currencyList track by currency.code"
+							ng-disabled="true"><option value="">Currency</option></select>
+					</div>
+				</div>
+			</form>
+			<div id="tabs1" class="spacer1">
+				<ul class="nav nav-tabs">
+					<li fixed-header="" ng-repeat ="preContarctDetailTab in preContrctDetailTabs"
+						ng-class="{active:isActiveTab1(preContarctDetailTab.url)}"><a
+						data-toggle="tab" ng-click="onClickTab1(preContarctDetailTab)">{{preContarctDetailTab.title}}</a></li>
+				</ul>
+				<div class="tab-content">
+					<div ng-include="currentTab1"></div>
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</div>
+</div>

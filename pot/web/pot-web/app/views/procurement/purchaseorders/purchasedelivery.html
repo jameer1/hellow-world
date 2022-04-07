@@ -1,0 +1,17 @@
+<form name="procureForm" validate>
+</form>
+<div class="nav-tabs-custom">
+  <ul class="nav nav-tabs">
+    <li fixed-header="" ng-repeat="tab in tabs[1].deliveryTabs" ng-show="tab.enabled" ng-class="{'active':account.appCodeTemplate[tab.purchaseorderappCodeTemplateKey] && isActiveDeliveryTab(tab.url),
+          'disabled': !account.appCodeTemplate[tab.purchaseorderappCodeTemplateKey] }">
+      <a ng-if="account.appCodeTemplate[tab.purchaseorderappCodeTemplateKey]"
+        data-test="{{tab.purchaseorderSeleniumLocator}}" data-toggle="tab"
+        ng-click="onClickDeliveryTab(tab,'click')">{{tab.title}}</a>
+      <a ng-if="!account.appCodeTemplate[tab.purchaseorderappCodeTemplateKey]"
+        data-test="{{tab.purchaseorderSeleniumLocator}}">{{tab.name}}</a> </li>
+    </li>
+  </ul>
+  <div class="tab-pane fade in active">
+    <div ng-include="currentDeliveryTab"></div>
+  </div>
+</div>

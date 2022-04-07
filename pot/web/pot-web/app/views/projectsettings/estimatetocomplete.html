@@ -1,0 +1,100 @@
+<div class="bottomTabTableResHeight no-border">
+	<div>
+		<div class="row">
+			<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+				<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padL-0">
+					<md-input-container class="md-block">
+						<label>Cost</label>
+						<md-select data-test='Projects_ProjectSettings_EstimateToCompleteTab_Cost' 
+							ng-change="changedEstimateToCompleteItem(projEstimateDetails[0], 'cost')"	
+							ng-model="projEstimateDetails[0].formulaType">
+							<md-option value="Remaining Units">Remaining Units</md-option>
+							<md-option value="BAC-EV">BAC-EV</md-option>
+							<md-option value="(BAC-EV)/CPI">(BAC-EV)/CPI</md-option>
+							<md-option value="(BAC-EV)/(CPI*SPI)">(BAC-EV)/(CPI*SPI)</md-option>
+							<md-option value="New Estimate">New Estimate</md-option>
+						</md-select>
+					</md-input-container>
+				</div>
+				<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+						<md-input-container class="md-block">
+							<label>Man Hours</label>
+							<md-select data-test='Projects_ProjectSettings_EstimateToCompleteTab_ManHours' 
+									ng-model="projEstimateDetails[1].formulaType"
+									ng-change="changedEstimateToCompleteItem(projEstimateDetails[1], 'manhrs')">
+									<md-option value="Remaining Units">Remaining Units</md-option>
+									<md-option value="BAC-EV">BAC-EV</md-option>
+									<md-option value="(BAC-EV)/PF">(BAC-EV)/PF</md-option>
+									<md-option value="(BAC-EV)/(PF*SPI)">(BAC-EV)/(PF*SPI)</md-option>
+									<md-option value="New Estimate">New Estimate</md-option>
+							</md-select>
+						</md-input-container>
+				</div>
+				<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+						<md-input-container class="md-block">
+							<label>Plant Hours</label>
+							<md-select data-test='Projects_ProjectSettings_EstimateToCompleteTab_PlantHours'
+							ng-change="changedEstimateToCompleteItem(projEstimateDetails[2], 'planthrs')"
+							 ng-model="projEstimateDetails[2].formulaType">
+									<md-option value="Remaining Units">Remaining Units</md-option>
+									<md-option value="New Estimate">New Estimate</md-option>
+							</md-select>
+						</md-input-container>
+				</div>
+				<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+						<md-input-container class="md-block">
+							<label>Materials</label>
+							<md-select data-test='Projects_ProjectSettings_EstimateToCompleteTab_Materials'
+							ng-change="changedEstimateToCompleteItem(projEstimateDetails[3], 'materials')"
+							 ng-model="projEstimateDetails[3].formulaType">
+									<md-option value="Remaining Units">Remaining Units</md-option>
+									<md-option value="New Estimate">New Estimate</md-option>
+							</md-select>
+						</md-input-container>
+				</div>
+			</div>
+		</div>
+		<div class="row horizontalSpace">
+				<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padL-0">
+						<md-input-container class="md-block">
+							<label>Others</label>
+							<md-select data-test='Projects_ProjectSettings_EstimateToCompleteTab_Others' 
+							ng-change="changedEstimateToCompleteItem(projEstimateDetails[4], 'others')"
+							ng-model="projEstimateDetails[4].formulaType">
+									<md-option value="Remaining Units">Remaining Units</md-option>
+									<md-option value="New Estimate">New Estimate</md-option>
+							</md-select>
+						</md-input-container>
+					</div>
+					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+							
+					</div>
+					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+								
+					</div>
+					
+				</div>
+		</div>
+		<div class="row horizontalSpace">
+				<center><b>COMMON NOTE </b>: <span style="color:green !important;"> EAC=AC+ETC<br>
+					Estimate At Completion=Actual Cost + Estimate To Complete</span></center>
+		</div>
+		</div>
+		
+</div>
+<div class="panel-footer">
+	<div class="pull-right">
+		<input data-test='Projects_ProjectSettings_EstimateToCompleteTab_Save' type="button" class="btn btn-primary btn-sm"
+			value="Save" ng-click="saveProjEstimate()" ng-disabled ="!account.appCodeTemplate['PRJ_PRJSTG_ESTTOCMPLT_ADD']"
+			title="{{ account.appCodeTemplate['PRJ_PRJSTG_ESTTOCMPLT_ADD'] ? '' : '! Permission Denied. Contact your admin.'}}">
+	</div>
+	<div class="pull-left">
+		<input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+		<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+		<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+		<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+		<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+	</div>
+</div>
+

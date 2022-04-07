@@ -1,0 +1,72 @@
+<div id="tab-pannel" class="panel panel-default">
+    <form name="baseLineForm" validate autocomplete="off">
+        <div class="panel-body">
+            <div class="popUpTableResHeight">
+                <table class="table table-hover table-bordered popUpTableHeight">
+                    <thead>
+                        <tr>
+                            <th>Select</th>
+                            <th>Name</th>
+                            <th>Status Date</th>
+                        </tr>
+                    </thead>
+                    <tr fixed-header="" ng-repeat="baseLine in projScheduleBaseLineTOs">
+                        <td>
+                            <input type="checkbox" ng-model="baseLine.select" ng-change="popupRowSelect(baseLine)" 
+                            data-test="Projects_ProjectSettings_CreateBaseLineTab_CreateTab_CheckBox"></td>
+
+                        <td ng-form name="classform">
+                            <input data-test='Projects_ProjectSettings_CreateBaseLineTab_CreateTab_NameField'
+                                type="text" name="name" class="form-control" ng-model="baseLine.name" minlength="2"
+                                maxlength="20" placeholder="Name" required="required">
+                            <span ng-show="classform.name.$dirty && classform.name.$error.required"
+                                class="procurment-pot-errors">This
+                                field is mandatory</span>  <span
+                                class="procurment-pot-errors" ng-show="classform.name.$error.pattern">Must enter
+                                required format</span> <span class="procurment-pot-errors"
+                                ng-show="classform.name.$error.maxlength">You
+                                reached max length</span></td>
+                        <td ng-form name="classform1">
+                            <pot-futuredate-picker class="form-control" ng-model="baseLine.date" dir-index="$index" data-test="Projects_ProjectSettings_CreateBaseLineTab_CreateTab_Date"
+                                date-name="statusDate" placeholder="dd-mm-yyyy" readonly="readonly"> <span
+                                    class="procurment-pot-errors"
+                                    ng-show="classform1.statusDate.$dirty && classform1.statusDate.$error.required">This
+                                    field is mandatory</span>
+                        </td>
+
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <div class="pull-left">
+                <input type="submit" data-test='Projects_ProjectSettings_CreateBaseLineTab_CreateTab_Add'
+                    ng-click="baseLineForm.$valid && addRows()" class="btn btn-primary btn-sm" value="Add" validate>
+                <input type="button" data-test='Projects_ProjectSettings_CreateBaseLineTab_CreateTab_Delete'
+                    ng-click="deleteRows()" value="Delete" class="btn btn-secondary btn-sm" validate>
+            </div>
+            <div class="pull-right">
+                <input type="submit" ng-if=" scheduleItemType=='E' "
+                    ng-click="baseLineForm.$valid && saveProjScheduleManPowerDetails()"
+                    data-test='Projects_ProjectSettings_CreateBaseLineTab_Manpower_CreateTab_Save' value="Save"
+                    class="btn btn-primary btn-sm" />
+                <input type="submit" ng-if=" scheduleItemType=='P' "
+                    ng-click="baseLineForm.$valid && saveProjSchedulePlantDetails()"
+                    data-test='Projects_ProjectSettings_CreateBaseLineTab_Plant_CreateTab_Save' value="Save"
+                    class="btn btn-primary btn-sm" />
+                <input type="submit" ng-if=" scheduleItemType=='M' "
+                    data-test='Projects_ProjectSettings_CreateBaseLineTab_Material_CreateTab_Save'
+                    ng-click="baseLineForm.$valid && saveProjScheduleMaterialDetails()" value="Save"
+                    class="btn btn-primary btn-sm" />
+                <input type="submit" ng-if=" scheduleItemType=='C' "
+                    data-test='Projects_ProjectSettings_CreateBaseLineTab_CostBudget_CreateTab_Save'
+                    ng-click="baseLineForm.$valid && saveProjScheduleCostCodeDetails()" value="Save"
+                    class="btn btn-primary btn-sm" />
+                <input type="submit" ng-if=" scheduleItemType=='S' "
+                    data-test='Projects_ProjectSettings_CreateBaseLineTab_ScopeOfWork_CreateTab_Save'
+                    ng-click="baseLineForm.$valid && saveProjScheduleSOWDetails()" value="Save"
+                    class="btn btn-primary btn-sm" />
+            </div>
+        </div>
+    </form>
+</div>

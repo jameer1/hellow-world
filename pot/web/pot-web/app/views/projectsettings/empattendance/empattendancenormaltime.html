@@ -1,0 +1,56 @@
+<div ng-if="account.appCodeTemplate['PRJ_PRJSTG_EMPNORMALTIME_VIEW']" id="tab-pannel" class="noTableInBottomBlockWithTabs">
+	<form name="attendanceForm">
+		<div class="bottomNestedTabTableResHeight no-border">
+			<div class="row" ng-repeat ="atten in empAttendDetails">
+				<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padL-0">
+						<md-input-container class="md-block">
+									<label>Cut off Days</label>
+									<input data-test='Projects_ProjectSettings_EmployeeAttendanceTab_NormalTimeTab_CutOffDays' type="text" id="cutOffDays" class="form-control"
+								ng-model="atten.cutOffDays" name="days" ng-required="true"
+								pattern="\d+" maxlength="11" /> <span
+								ng-show="attendanceForm.days.$dirty && attendanceForm.days.$error.required" class="procurment-pot-errors">This
+								field is required</span> <span
+								ng-show="attendanceForm.days.$error.pattern">Enter only
+								numbers </span> <span ng-show="attendanceForm.days.$error.maxlength">You
+								reached max length </span>
+						</md-input-container>
+					</div>
+					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+							<md-input-container class="md-block">
+										<label>Cut off Hours</label>
+										<input data-test='Projects_ProjectSettings_EmployeeAttendanceTab_NormalTimeTab_Cutoftimehours' type="number" min=0 max=23
+											 name="cutoffHours"  class="form-control"
+											ng-model="atten.cutOffHours" ng-required="true" />
+							</md-input-container>
+					</div>
+					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 ">
+							<md-input-container class="md-block">
+										<label>Cut off Minutes</label>
+										<input data-test='Projects_ProjectSettings_EmployeeAttendanceTab_NormalTimeTab_Cutoftimeminutes' type="number" min=0 max=59 
+											ng-required="true" name="cutoffMinutes"  
+											class="form-control"
+								ng-model="atten.cutOffMinutes" />
+							</md-input-container>
+					</div>
+				
+				</div>
+			</div>
+		</div>
+		<div class="panel-footer">
+				<div class="pull-right">
+					<input data-test='Projects_ProjectSettings_EmployeeAttendanceTab_NormalTimeTab_Save' type="submit" 
+						class="btn btn-primary btn-sm" value="Save" ng-click="attendanceForm.$valid && saveProjEmpAttendence()"
+						title="{{ account.appCodeTemplate['PRJ_PRJSTG_ATNDCERCDSTG_ADD'] ? '' : '! Permission Denied. Contact your admin.'}}"
+						ng-disabled="!account.appCodeTemplate['PRJ_PRJSTG_ATNDCERCDSTG_ADD']" title="Save Employee Details">
+				</div>
+				<div class="pull-left">
+                    <input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+                </div>
+		</div>
+	</form>
+</div>

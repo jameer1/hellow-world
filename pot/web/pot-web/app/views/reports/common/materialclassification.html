@@ -1,0 +1,40 @@
+<div id="tab-pannel" class="panel-group">
+	<div id="tab-pannel" class="panel panel-default">
+		<div class="panel-heading">
+			<th>Material Classification</th>
+		</div>
+		<div class="table-responsive panel-body18">
+			<table  id="tree" class="table table-striped table-bordered">
+				<thead>
+					<tr>
+						<th>Resource ID</th>
+						<th>Resource Name</th>
+						<th>Unit of Measure</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr
+							fixed-header="" ng-repeat ="tab in plantServiceMaterialDetails | materialCommonSelectFilterTree:itemId:isExpand"
+							class="abc{{tab.level}}"
+							ng-dblclick="plantServiceMaterialPopUp(tab)">
+							<td><span ng-repeat="level in [].constructor(tab.level) track by $index" class="xyz" style="padding-left: 30px;"></span> <span
+									ng-show="((!tab.leaf && tab.expand) || (!tab.leaf  && tab.childMaterialItemTOs.length <= 0))"
+									ng-click="itemClick(tab.id,tab.expand);" class="fa fa-minus"></span>
+								<span
+									ng-show="((!tab.leaf && !tab.expand) && (tab.childMaterialItemTOs.length > 0))"
+									ng-click="itemClick(tab.id,tab.expand);" class="fa fa-plus"></span>
+								<span ng-show="(tab.leaf)" name="leaf"> </span> <span
+								style="padding-left: 10px; color: black !important;">{{tab.code}}
+									<span style="padding-left: 5px;"></span>
+							</span></td>
+
+							<td>{{tab.name}}</td>
+
+							<td>{{tab.measureUnitTO.name}}</td>
+						</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="ngdialog-close"></div>
+	</div>
+</div>

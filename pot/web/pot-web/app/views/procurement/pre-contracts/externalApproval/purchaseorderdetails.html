@@ -1,0 +1,312 @@
+<div id="tab-pannel" class="panel-group">
+  <div class="panel panel-default" modal-movable>
+    <div class="panel-heading">
+      <h4 class="panel-title">Bid Analysis</h4>
+    </div>
+    <div class="panel-body">
+      <div class="col-md-12 col-lg-12 no-padding">
+        <div class="col-xs-2 col-sm-2 col-md-2">
+          <md-input-container><label>Sub Contract ID</label><input disabled="disabled" type="text"
+              ng-model="preContractData.code" /></md-input-container>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2">
+          <md-input-container><label>Contract Description</label><input disabled="disabled" type="text"
+              ng-model="preContractData.desc" /></md-input-container>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2">
+          <md-input-container><label>Company</label> <input type="text" ng-model="clientName" disabled />
+          </md-input-container>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2">
+          <md-input-container><label>Vendor</label> <input type="text" ng-model="vendorName" disabled />
+          </md-input-container>
+        </div>
+      </div>
+      <div class="col-md-12 col-lg-12 no-padding">
+
+        <div class="pull-right"
+          ng-if="!(preContractData.workFlowStatusTO.value ==5 || preContractData.workFlowStatusTO.value==6) && companyList.length > 0">
+          <input type="Submit" value="Send For Approval"
+            ng-if="preContractData.workFlowStatusTO.value ==1 || preContractData.workFlowStatusTO.value ==3"
+            ng-click="sendForApproval(2)" class="btn bottomaligned btn-primary btn-sm" />
+          <input ng-if="preContractData.workFlowStatusTO.value ==2" class="btn bottomaligned btn-primary btn-sm"
+            type="button" ng-click="approveOrRejectProcBidderItems(5)" value="Approve" />
+          <input class="btn bottomaligned btn-primary btn-sm" ng-if="preContractData.workFlowStatusTO.value ==2"
+            type="button" ng-click="approveOrRejectProcBidderItems(6)" value="Reject" />
+          <input ng-if="preContractData.workFlowStatusTO.value ==2" type="Submit" style="min-width: 140px !important;"
+            value="Send Back To Requestor" ng-click="saveProcBidderItems(3)"
+            class="btn bottomaligned btn-primary btn-sm" />
+          <input type="Submit" value="On Hold" ng-click="saveProcBidderItems(4)"
+            ng-if="preContractData.workFlowStatusTO.value ==2" class="btn bottomaligned btn-primary btn-sm" />
+          <input type="Submit" value="Release" ng-click="saveProcBidderItems(2)"
+            ng-if="preContractData.workFlowStatusTO.value ==4" class="btn bottomaligned btn-primary btn-sm" />
+
+        </div>
+      </div>
+      <div class="col-md-12 col-lg-12 no-padding">
+        <div class="popUpTableResHeight" style="overflow: auto;">
+          <table class="table table-striped table-hover table-bordered popUpTableHeight">
+            <thead>
+              <tr>
+                <th rowspan="2">Type</th>
+                <th rowspan="2">Item ID</th>
+                <th rowspan="2">Item Description</th>
+                <th rowspan="2">Classification</th>
+                <th rowspan="2">Procurement <br> Sub Category
+                </th>
+                <th rowspan="2">Delivery Place</th>
+                <th rowspan="2">Start Date</th>
+                <th rowspan="2">Finish Date</th>
+                <th rowspan="2">Unit of Measure</th>
+                <th rowspan="2">Quantity</th>
+
+                <th style="width: 155px;" ng-repeat="cmp in companyList"><span
+                    style="padding-left: 15px; !important">{{companyMap[cmp.companyId].code}}</span></th>
+
+              </tr>
+              <tr>
+                <th style="width: 155px;" ng-repeat="cmp in companyList" rowspan="1" colspan="1">
+                  <span style="padding-right: 10px; width: 60px !important">Qty</span>
+                  <span style="padding-right: 10px; width: 60px !important"> Rate</span>
+                  <span>Amount</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-if="preContractData.preContractEmpDtlTOs.length > 0">
+                <td colspan="30">
+                  <fa class="fa fa-plus" ng-if="!manpowerFlag" ng-click="expandCollapseManpower(manpowerFlag)" title="Expand Manpower Items"></fa>
+                  <fa class="fa fa-minus" ng-if="manpowerFlag" ng-click="expandCollapseManpower(manpowerFlag)" title="Collapse Manpower Items"></fa>
+                  <span style="position: relative; left: 10px; font-weight: bold;">
+                    Man Power
+                  </span>
+                </td>
+              </tr>
+              <!-- Man power schedule items -->
+              <tr ng-if="preContractData.preContractEmpDtlTOs.length > 0 && manpowerFlag"
+                ng-repeat="manpowerObj in preContractData.preContractEmpDtlTOs">
+                <td></td>
+                <td><span>{{manpowerObj.itemCode}}</span></td>
+                <td><span>{{manpowerObj.itemDesc}}</span></td>
+                <td><span>{{projEmpClassmap[manpowerObj.projEmpLabelKey.id].code}}</span></td>
+                <td><span>{{procureCategoryMap[manpowerObj.procureSubCatgId].code}}</span></td>
+                <td><span>{{manpowerObj.deliveryPlace}}</span></td>
+                <td><span>{{manpowerObj.startDate | date}}</span></td>
+                <td><span>{{manpowerObj.finishDate | date}}</span></td>
+                <td><span>{{projEmpClassmap[manpowerObj.projEmpLabelKey.id].unitOfMeasure}}</span></td>
+                <td><span>{{manpowerObj.quantity}}</span></td>
+
+                <td ng-repeat="cmp in companyList" ng-form="rateForm"
+                  ng-disabled="preContractData.workFlowStatusTO.value ==5">
+                  <span ng-repeat="itemCompany in manpowerObj.preContractsEmpCmpTOs">
+                    <span ng-if="cmp.id==itemCompany.preContractCmpId"
+                      ng-init="addAmount(('manPower_'+cmp.id), (itemCompany.quantity * itemCompany.rate))">
+                      <input ng-if="cmp.id==itemCompany.preContractCmpId" class="form-control"
+                        style="text-align: center; min-width: 40px !important; width: 40px !important;" type="text"
+                        ng-model="itemCompany.quantity" disabled placeholder="Qty" name="Qty" ng-required="true"
+                        ng-class="{'invalid-value': itemCompany.quantity > manpowerObj.quantity}" />
+                      <input ng-if="cmp.id==itemCompany.preContractCmpId"
+                        style="text-align: center; min-width: 40px !important; width: 40px !important;" type="text"
+                        ng-model="itemCompany.rate" disabled placeholder="Rate" name="Rate" class="form-control"
+                        ng-class="{'invalid-value': itemCompany.rate > manpowerObj.estimateCost}" />
+                      <span>{{itemCompany.quantity * itemCompany.rate}} </span>
+                    </span>
+                  </span>
+                </td>
+              </tr>
+              <!-- Man power total amount -->
+              <tr ng-if="preContractData.preContractEmpDtlTOs.length > 0 && manpowerFlag">
+                <td colspan="10" style="text-align: end;"><b>Total Amount</b></td>
+                <td ng-repeat="cmp in companyList" style="text-align: center;">
+                  <b>{{totalAmountMap['manPower_'+cmp.id]}}</b>
+                </td>
+              </tr>
+              <tr ng-if="preContractData.preContractPlantDtlTOs.length > 0">
+                <td colspan="30">
+                  <fa class="fa fa-plus" ng-click="expandCollapsePlant(plantFlag)" ng-if="!plantFlag" title="Expand Plant Items"></fa>
+                  <fa class="fa fa-minus" ng-click="expandCollapsePlant(plantFlag)" ng-if="plantFlag" title="Collapse Plant Items"></fa>
+                  <span style="position: relative; left: 10px; font-weight: bold;">Plants</span>
+                </td>
+              </tr>
+              <tr ng-if="preContractData.preContractPlantDtlTOs.length > 0 && plantFlag"
+                ng-repeat="plantObj in preContractData.preContractPlantDtlTOs">
+                <td></td>
+                <td><span>{{plantObj.itemCode}}</span></td>
+                <td><span>{{plantObj.itemDesc}}</span></td>
+                <td><span>{{projPlantClassmap[plantObj.projPlantLabelKey.id].code}}</span></td>
+                <td><span>{{procureCategoryMap[plantObj.procureSubCatgId].code}}</span></td>
+                <td><span> {{plantObj.deliveryPlace}}</span></td>
+                <td><span>{{plantObj.startDate | date}}</span></td>
+                <td><span>{{plantObj.finishDate | date}}</span></td>
+                <td><span>{{projPlantClassmap[plantObj.projPlantLabelKey.id].unitOfMeasure}}</span></td>
+                <td><span>{{plantObj.quantity}}</span></td>
+                <td ng-repeat="cmp in companyList" ng-form="rateForm">
+                  <span ng-repeat="itemCompany in plantObj.preContractPlantCmpTOs">
+                    <span ng-if="cmp.id==itemCompany.preContractCmpId"
+                      ng-init="addAmount(('plant_'+cmp.id), (itemCompany.quantity * itemCompany.rate))">
+                      <input ng-if="cmp.id==itemCompany.preContractCmpId" type="text" ng-model="itemCompany.quantity"
+                        disabled placeholder="quantity" name="quantity" ng-required="true"
+                        ng-class="{'invalid-value': itemCompany.quantity > plantObj.quantity}"
+                        style="text-align: center; min-width: 40px !important; width: 40px !important;"
+                        class="form-control" />
+                      <input ng-if="cmp.id==itemCompany.preContractCmpId"
+                        style="text-align: center; min-width: 40px !important; width: 40px !important;" type="text"
+                        ng-model="itemCompany.rate" disabled placeholder="rate" name="rate" class="form-control"
+                        ng-class="{'invalid-value': itemCompany.rate > plantObj.estimateCost}" />
+                      <span>{{itemCompany.quantity * itemCompany.rate}} </span>
+                    </span>
+                  </span>
+                </td>
+              </tr>
+              <!-- Plants total amount -->
+              <tr ng-if="preContractData.preContractPlantDtlTOs.length > 0 && plantFlag">
+                <td colspan="10" style="text-align: end;"><b>Total Amount</b></td>
+                <td ng-repeat="cmp in companyList" style="text-align: center;">
+                  <b>{{totalAmountMap['plant_'+cmp.id]}}</b>
+                </td>
+              </tr>
+              <tr ng-if="preContractData.preContractMaterialDtlTOs.length> 0">
+                <td colspan="30">
+                  <fa class="fa fa-plus" ng-click="expandCollapseMaterial(materialFlag)" ng-if="!materialFlag" title="Expand Material Items"></fa>
+                  <fa class="fa fa-minus" ng-click="expandCollapseMaterial(materialFlag)" ng-if="materialFlag" title="Collapse Material Items"></fa>
+                  <span style="position: relative; left: 10px; font-weight: bold;">Materials</span>
+                </td>
+              </tr>
+
+              <tr ng-if="preContractData.preContractMaterialDtlTOs.length> 0 && materialFlag"
+                ng-repeat="materialObj in preContractData.preContractMaterialDtlTOs">
+                <td></td>
+                <td><span>{{materialObj.itemCode}}</span></td>
+                <td><span>{{materialObj.itemDesc}}</span></td>
+                <td><span><span>{{projMaterialClassmap[materialObj.projMaterialLabelKey.id].code}}</span></span></td>
+                <td><span>{{procureCategoryMap[materialObj.procureSubCatgId].code}}</span></td>
+                <td><span>
+                    <span ng-if="materialObj.storeLabelKey.id > 0">{{storeClassmap[materialObj.storeLabelKey.id].code}}
+                      <span
+                        ng-if="materialObj.storeLabelKey.id <= 0 || materialObj.projStoreLabelKey.id > 0">{{projStoreClassmap[materialObj.projStoreLabelKey.id].code}}</span>
+                    </span>
+                </td>
+                <td><span>{{materialObj.startDate | date}}</span></td>
+                <td><span>{{materialObj.finishDate | date}}</span></td>
+                <td><span>{{projMaterialClassmap[materialObj.projMaterialLabelKey.id].unitOfMeasure}}</span></td>
+                <td><span>{{materialObj.quantity}}</span></td>
+                <td ng-repeat="cmp in companyList" ng-form="rateForm">
+                  <span ng-repeat="itemCompany in materialObj.preContractMaterialCmpTOs">
+                    <span ng-if="cmp.id==itemCompany.preContractCmpId"
+                      ng-init="addAmount(('material_'+cmp.id), (itemCompany.quantity * itemCompany.rate))">
+                      <input ng-if="cmp.id==itemCompany.preContractCmpId"
+                        style="text-align: center; min-width: 40px !important; width: 40px !important;" type="text"
+                        ng-model="itemCompany.quantity" placeholder="quantity" name="quantity" disabled
+                        ng-class="{'invalid-value': itemCompany.quantity > materialObj.quantity}"
+                        class="form-control" />
+                      <input ng-if="cmp.id==itemCompany.preContractCmpId" class="form-control"
+                        style="text-align: center; min-width: 40px !important; width: 40px !important;" type="text"
+                        ng-model="itemCompany.rate" disabled placeholder="rate" name="rate"
+                        ng-class="{'invalid-value': itemCompany.rate > materialObj.estimateCost}" />
+                      <span>{{itemCompany.quantity * itemCompany.rate}} </span>
+                    </span>
+                  </span>
+                </td>
+              </tr>
+              <!-- Materials total amount -->
+              <tr ng-if="preContractData.preContractMaterialDtlTOs.length> 0 && materialFlag">
+                <td colspan="10" style="text-align: end;"><b>Total Amount</b></td>
+                <td ng-repeat="cmp in companyList" style="text-align: center;">
+                  <b>{{totalAmountMap['material_'+cmp.id]}}</b>
+                </td>
+              </tr>
+              <tr ng-if="preContractData.preContractServiceDtlTOs.length > 0">
+                <td colspan="30">
+                  <fa class="fa fa-plus" ng-click="expandCollapseService(serviceFlag)" ng-if="!serviceFlag" title="Expand Service Items"> </fa>
+                  <fa class="fa fa-minus" ng-click="expandCollapseService(serviceFlag)" ng-if="serviceFlag" title="Collapse Service Items"></fa>
+                  <span style="position: relative; left: 10px; font-weight: bold;">Services</span>
+                </td>
+              </tr>
+              <tr ng-if="preContractData.preContractServiceDtlTOs.length > 0 && serviceFlag" style="padding: left:30px;"
+                ng-repeat="servciesObj in preContractData.preContractServiceDtlTOs">
+                <td></td>
+                <td><span>{{servciesObj.itemCode}}</span></span></td>
+                <td><span>{{servciesObj.itemDesc}}</span></span></td>
+                <td><span><span>{{projServiceClassmap[servciesObj.projServiceLabelKey.id].code}}</span></span></td>
+                <td><span>{{procureCategoryMap[servciesObj.procureSubCatgId].code}}</span></td>
+                <td><span> {{servciesObj.deliveryPlace}}</span></td>
+                <td><span>{{servciesObj.startDate | date}}</span></td>
+                <td><span>{{servciesObj.finishDate | date}}</span></td>
+                <td><span>{{projServiceClassmap[servciesObj.projServiceLabelKey.id].unitOfMeasure}}</span></td>
+                <td><span>{{servciesObj.quantity}}</span></td>
+                <td ng-repeat="cmp in companyList" ng-form="rateForm">
+                  <span ng-repeat="itemCompany in servciesObj.preContractServiceCmpTOs">
+                    <span ng-if="cmp.id==itemCompany.preContractCmpId" class="form-control"
+                      ng-init="addAmount(('services_'+cmp.id), (itemCompany.quantity * itemCompany.rate))">
+                      <input ng-if="cmp.id==itemCompany.preContractCmpId"
+                        style="text-align: center; min-width: 40px !important; width: 40px !important;" type="text"
+                        ng-model="itemCompany.quantity" placeholder="quantity" name="quantity" disabled
+                        ng-class="{'invalid-value': itemCompany.quantity > servciesObj.quantity}"
+                        class="form-control" />
+                      <input ng-if="cmp.id==itemCompany.preContractCmpId"
+                        style="text-align: center; min-width: 40px !important; width: 40px !important;" type="text"
+                        ng-model="itemCompany.rate" disabled placeholder="rate" name="rate" class="form-control"
+                        ng-class="{'invalid-value': itemCompany.rate > servciesObj.estimateCost}" />
+                      <span>{{itemCompany.quantity * itemCompany.rate}} </span>
+                    </span>
+                  </span>
+                </td>
+              </tr>
+              <!-- Services total amount -->
+              <tr ng-if="preContractData.preContractServiceDtlTOs.length > 0 && serviceFlag">
+                <td colspan="10" style="text-align: end;"><b>Total Amount</b></td>
+                <td ng-repeat="cmp in companyList" style="text-align: center;">
+                  <b>{{totalAmountMap['services_'+cmp.id]}}</b>
+                </td>
+              </tr>
+
+              <tr ng-if="preContractData.precontractSowDtlTOs.length > 0">
+                <td colspan="30">
+                  <fa class="fa fa-plus" ng-click="expandCollapseSow(sowFlag)" ng-if="!sowFlag" title="Expand SOW Items"> </fa>
+                  <fa class="fa fa-minus" ng-click="expandCollapseSow(sowFlag)" ng-if="sowFlag" title="Collapse SOW Items"></fa>
+                  <span style="position: relative; left: 10px; font-weight: bold;">Project Sub Contract</span>
+                </td>
+              </tr>
+              <tr ng-if="preContractData.precontractSowDtlTOs.length > 0 && sowFlag" style="padding: left:30px;"
+                ng-repeat="sowObj in preContractData.precontractSowDtlTOs">
+                <td></td>
+                <td><span>{{projSOWMap[sowObj.sowId].code}}</span></span></td>
+                <td><span>{{projSOWMap[sowObj.sowId].name}}</span></span></td>
+                <td><span>{{projSOWMap[sowObj.sowId].displayNamesMap.soeCode}}</span></span></td>
+                <td><span>{{projSOWMap[sowObj.sowId].displayNamesMap.sorCode}}</span></span></td>
+                <td><span>{{sowObj.deliveryPlace}}</span></td>
+                <td><span>{{sowObj.startDate}}</span></td>
+                <td><span>{{sowObj.finishDate}}</span></td>
+                <td><span>{{projSOWMap[sowObj.sowId].unitOfMeasure}}</span></td>
+                <td><span>{{sowObj.quantity}}</span></td>
+                <td ng-repeat="cmp in companyList" ng-form="rateForm">
+                  <span ng-repeat="itemCompany in sowObj.precontractSowCmpTOs">
+                    <span ng-if="cmp.id==itemCompany.preContractCmpId"
+                      ng-init="addAmount(('sow_'+cmp.id), (itemCompany.quantity * itemCompany.rate))">
+                      <input type="text" ng-model="itemCompany.quantity" disabled placeholder="quantity" name="quantity"
+                        ng-required="true" ng-class="{'invalid-value': itemCompany.quantity > sowObj.quantity }"
+                        style="text-align: center; min-width: 40px !important; width: 40px !important;"
+                        class="form-control" />
+                      <input type="text" ng-model="itemCompany.rate" placeholder="rate" name="rate" disabled
+                        ng-class="{'invalid-value': itemCompany.rate > sowObj.estimateCost }" class="form-control"
+                        style="text-align: center; min-width: 40px !important; width: 40px !important;" />
+                      <span>{{itemCompany.quantity * itemCompany.rate}} </span>
+                    </span>
+                  </span>
+                </td>
+              </tr>
+              <!-- SOW total amount -->
+              <tr ng-if="preContractData.precontractSowDtlTOs.length > 0 && sowFlag">
+                <td colspan="10" style="text-align: end;"><b>Total Amount</b></td>
+                <td ng-repeat="cmp in companyList" style="text-align: center;">
+                  <b>{{totalAmountMap['sow_'+cmp.id]}}</b>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ngdialog-close"></div>
+</div>

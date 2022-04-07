@@ -1,0 +1,180 @@
+<div id="tab-pannel" class="panel-group">
+	<form name="assetlongtermForm" validate>
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Long Term Lease: Rental/Revenue-Actual Returns</h4>
+			</div>
+			<div id="tab-pannel" class="panel-body">
+				<div class="topTableResHeight" style="overflow:auto">
+					<table class="table table-striped table-bordered topTableHeight"
+						ng-init="calcCummAmountandTax();">
+						<thead id="tab-head">
+							<tr>
+								<th>Date</th>
+								<th>Lease Sr No.</th>
+								<th>Lease agreement #</th>
+								<th>Tenant ID</th>
+								<th>Tenant Name</th>
+								<th>Mode of Payment</th>
+								<th>Receiver Bank Name</th>
+								<th>Receiver Bank Code</th>
+								<th>Receiver Bank AC</th>
+								<th>Transfer Receipt No</th>
+							</tr>
+						</thead>
+						<tbody>
+
+							<tr ng-repeat="longterm in longTermLease">
+								<td class="input-width3">
+									<potdate-picker dir-index="$index" tabindex="-1" date-name="date"
+										ng-model="longterm.date" class="form-control" custom-read-only
+										data-test="TermLeaseRentalRevenueActualReturns_Create_Date"
+										placeholder="dd-mm-yyyy" min-date="longterm.plantCommissioningDate"></potdate-picker>
+								</td>
+
+								<td><input type="text" name="lease" ng-click="leaseSrNo(longterm)"
+										data-test="TermLeaseRentalRevenueActualReturns_Create_LeaseSrNo"
+										ng-model="longterm.lease" tabindex="-1" placeholder="Lease"
+										class="form-control"></td>
+
+								<td><input type="text" name="leaseAgreement"
+										data-test="TermLeaseRentalRevenueActualReturns_Create_LeaseAgreementNo"
+										ng-model="longterm.leaseAgreement" tabindex="-1" placeholder="Lease Agreement"
+										class="form-control"></td>
+
+								<td><input type="text" name="tenantID"
+										data-test="TermLeaseRentalRevenueActualReturns_Create_TenantID"
+										ng-model="longterm.tenantId" tabindex="-1" placeholder="Tenant ID"
+										class="form-control"></td>
+
+								<td><input type="text" name="tenantName"
+										data-test="TermLeaseRentalRevenueActualReturns_Create_TenantName"
+										ng-model="longterm.tenantName" tabindex="-1" placeholder="Tenant Name"
+										class="form-control"></td>
+
+								<td><select ng-model="longterm.modeOfPayment" class="form-control"
+										data-test="TermLeaseRentalRevenueActualReturns_Create_ModeOfPayment"
+										tabindex="-1">
+										<option value="">-Select-</option>
+										<option value="cheque">Bank Cheque</option>
+										<option value="deposit">Cash Deposit</option>
+										<option value="credit">Credit Card</option>
+										<option value="debit">Debit Card</option>
+										<option value="direct">Direct Debit from Bank Account</option>
+									</select></td>
+
+								<td><input type="text" name="receiverBankName"
+										data-test="TermLeaseRentalRevenueActualReturns_Create_ReceiverBankName"
+										ng-model="longterm.receiverBankName" tabindex="-1"
+										placeholder="Receiver BankName" class="form-control"></td>
+
+								<td><input type="text" name="receiverBankCode"
+										data-test="TermLeaseRentalRevenueActualReturns_Create_ReceiverBankCode"
+										ng-model="longterm.receiverBankCode" tabindex="-1"
+										placeholder="Receiver BankCode" class="form-control"></td>
+
+								<td><input type="text" name="receiverBankAC"
+										data-test="TermLeaseRentalRevenueActualReturns_Create_ReceiverBankAC"
+										ng-model="longterm.receiverBankAC" pattern= "[0-9]+" placeholder="Receiver BankAC" tabindex="-1"
+										class="form-control"></td>
+
+								<td><input type="text" name="transferReceiptNo"
+										data-test="TermLeaseRentalRevenueActualReturns_Create_TransferReceiptNo"
+										ng-model="longterm.transferReceiptNo" placeholder="Transfer ReceiptNo"
+										tabindex="-1" class="form-control"></td>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="topTableResHeight" style="overflow: auto">
+					<table class="table table-striped table-bordered topTableHeight">
+						<thead id="tab-head">
+							<tr>
+								<th>Net Rental Amount Received
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th>Tax amount Received
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th>Cumulative Net Rent Amount Received -Tenant wise</th>
+								<th>Cumulative Tax Amount Received-Tenant wise</th>
+								<th>Cumulative Rent amount amount due from The Tenant</th>
+								<th>Cumulative Tax amount due from The Tenant</th>
+								<th>Short fall in net Rent Receipts fromTenant(Cumulative)</th>
+								<th>Short fall in Tax Receipts from Tenant(Cumulative)</th>
+								<th>Upload Money Transaction Documents</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="longterm in longTermLease">
+								<td class="input-width3"><input type="text" ng-required="true"
+										data-test="TermLeaseRentalRevenueActualReturns_Create_NetRentalAmountReceived"
+										name="netRentalAmountReceived" ng-blur="calCummNetRent(longterm)"
+										ng-model="longterm.rentalAmountReceived" placeholder="RentalAmount Received"
+										tabindex="-1" class="form-control" ng-change="calCumnetRent(longterm)" readonly></td>
+
+								<td class="input-width2"><input type="text" ng-required="true"
+										data-test="TermLeaseRentalRevenueActualReturns_Create_TaxAmountReceived"
+										name="taxamountReceived" ng-model="longterm.taxAmountReceived"
+										ng-blur="calCummTaxAmount(longterm)" placeholder="Taxamount Received"
+										tabindex="-1" class="form-control" ng-change="calCumTaxAmount(longterm)" readonly></td>
+
+								<td><input type="text" name="cumulativeNetRent"
+										data-test="TermLeaseRentalRevenueActualReturns_Create_CumulativeNetRentAmountReceived"
+										ng-model="longterm.cumulativeNetRent" readonly placeholder="Cumulative NetRent"
+										tabindex="-1" class="form-control"></td>
+
+								<td><input type="text" name="cumulativeTaxAmount"
+										data-test="TermLeaseRentalRevenueActualReturns_Create_CumulativeTaxAmountReceived"
+										ng-model="longterm.cumulativeTaxAmount" readonly
+										placeholder="Cumulative TaxAmount" tabindex="-1" class="form-control" readonly></td>
+								<td><input type="text" name="cumulativeNetRentTenant"
+										data-test="TermLeaseRentalRevenueActualReturns_Create_CumulativeRentAmountDuefromTenant"
+										ng-model="longterm.cumulativeNetRentTenant" tabindex="-1"
+										placeholder="Cumulative NetRentTenant" class="form-control" readonly></td>
+
+								<td><input type="text" name="cumulativeTaxAmountTenant"
+										data-test="TermLeaseRentalRevenueActualReturns_Create_CumulativeTaxAmountDuefromTenant"
+										ng-model="longterm.cumulativeTaxAmountTenant" tabindex="-1"
+										placeholder="Cumulative TaxAmountTenant" read class="form-control"></td>
+
+								<td><input type="text" name="shortFallRent"
+										data-test="TermLeaseRentalRevenueActualReturns_Create_ShortFallinNetRentReceipts"
+										ng-model="longterm.shortFallRent" placeholder="ShortFall Rent" tabindex="-1"
+										class="form-control"></td>
+
+								<td><input type="text" name="shortFallTax"
+										data-test="TermLeaseRentalRevenueActualReturns_Create_ShortFallinTaxReceipts"
+										ng-model="longterm.shortFallTax" placeholder="ShortFall Tax" tabindex="-1"
+										class="form-control"></td>
+
+								<td><input data-test='TermLeaseRentalRevenueActualReturns_Create_ChooseFile'
+										ng-disabled="isDisabled" type="file" fileread="longTermLeaseDoc" name="file"
+										ngf-select="checkFile($file)" ngf-accept="'*'" tabindex="20">
+									<span class="help-block" style="color: red" ng-show="!longTermLeaseDoc.isValid">
+										{{longTermLeaseDoc.errorMessage}}</span>
+								</td>
+
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="panel-footer">
+					<div class="pull-left">
+						<!-- <input type="submit" class="btn btn-primary  btn-sm" ng-click="addRows()" value="Add"
+							data-test="TermLeaseRentalRevenueActualReturns_Create_Add" ng-show="action =='Add'"> <input
+							type="button" data-test="TermLeaseRentalRevenueActualReturns_Create_Delete"
+							class="btn btn-secondary  btn-sm" ng-click="deleteRows()" value="Delete"
+							ng-show="action =='Add'"> -->
+					</div>
+					<div class="pull-right">
+						<input type="submit" class="btn btn-primary btn-sm"
+							data-test="TermLeaseRentalRevenueActualReturns_Create_Save" ng-click="assetlongtermForm.$valid && saveAssetslongterm()"
+							value="Save">
+					</div>
+				</div>
+			</div>
+			<div class="ngdialog-close"></div>
+	</form>
+</div>

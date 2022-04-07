@@ -1,0 +1,23 @@
+{
+  "ecmaVersion": 5,
+  "plugins": {
+    "guess-types": {
+      
+    },
+    "outline": {
+      
+    },
+    "complete_strings": {
+      
+    },
+    "angular1": {
+      
+    },
+    "cordovajs": {
+      
+    }
+  },
+  "libs": [
+    "browser"
+  ]
+}

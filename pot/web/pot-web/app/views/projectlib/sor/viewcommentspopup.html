@@ -1,0 +1,61 @@
+<!-- <link rel="stylesheet" href="../../../styles/templates.css"></link> -->
+<style>
+ul.nav.nav-tabs.gridExamples {
+    border-bottom: none;
+    border-top: 1px solid #ddd;
+}
+ul.nav.nav-tabs.gridExamples > li.active > a, ul.nav.nav-tabs.gridExamples > li > a, ul.nav.nav-tabs.gridExamples > li.focus > a {
+    padding: 3px 10px 2px 10px !important;
+    background: #2d7ab5;
+    color: #fff;
+    border-top: #ddd solid 1px;
+}
+ul.nav.nav-tabs.gridExamples > li{
+    margin-bottom:0px !important;
+}
+ul.nav.nav-tabs.gridExamples > li.active > a {
+    background: #7db9e8;
+    color: #000000;
+}
+</style>
+<div id="tab-pannel" ng-controller="ProjSORController" ng-model="SORData" ng-required="true">
+	<div class="panel-group">
+		<div class="panel panel-default" modal-movable>
+			<!-- <div class="panel-heading">
+				<h4 class="panel-title">Comments</h4>
+			</div> -->
+			<div class="panel-body">
+				<div class="tab-content" ng-show="displayCommentsDiv">
+					<ul class="nav nav-tabs gridExamples">
+                         <li class="active"><a data-toggle="tab" href="#originatorcomments">Originator Comments</a></li>
+                         <li><a data-toggle="tab" href="#intapprovercomments">Internal Approver Comments</a></li>
+                         <li><a data-toggle="tab" href="#extapprovercomments">External Approver Comments</a></li>
+                     </ul>
+					<div class="tab-pane fade in active" id="originatorcomments" >
+						<div class="comment-margin">
+							<textarea disabled="disabled" class="form-control input-lg">{{comments}}</textarea>
+						</div>
+					</div>
+					<div id="intapprovercomments" class="tab-pane fade">
+						<div class="comment-margin">
+								<textarea disabled="disabled" class="form-control input-lg">Please enter your comments....</textarea>
+						</div>						
+					</div>
+					<div id="extapprovercomments" class="tab-pane fade">
+						<div class="comment-margin">
+								<textarea disabled="disabled" class="form-control input-lg">Please enter your comments.......</textarea>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-12" ng-show="displayReturnCommentsDiv">					
+					<div class="col-md-12">						
+						<div><textarea id="textarea1" rows="5" cols="50" ng-model="returncomments" placeholder="Please enter you comments.........."></textarea></div>
+						<!-- <div>{{returncomments}}</div> -->
+						<div><input type="button" class="btn btn-primary" value="Return" ng-click="return()"/></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="ngdialog-close"></div>
+</div>

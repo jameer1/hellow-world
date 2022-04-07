@@ -1,0 +1,103 @@
+<!-- <div id="tab-pannel" class="panel-group">
+	<form name="enrollmentpromotionForm" validate>
+		<div class="panel panel-default" modal-movable>						
+			<div class="panel-body">
+				<div class="popUpTableResHeight" style="overflow: auto;">
+					<table class="table table-striped table-hover table-bordered popUpTableHeight">
+						<thead>
+							<tr>
+								<th>Document Id <span style="color: red; ">*</span></th>
+								<th>Document Name<span style="color: red; ">*</span></th>
+								<th>Download</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat ="promotion in employeeProjDtlTOs">
+								<td class="input-width3">Document Id</td>
+								<td class="input-width3">Document Name</td>
+								<td class="input-width3"><span class="fa fa-download" ng-click="downloadRegisterDocs(promotion.id,promotion.contractDocumentFileName)" title="Click To Download {{promotion.contractDocumentFileName}}"></span></a></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</form>
+</div> -->
+<div id="tab-pannel">
+	<div class="panel panel-default" modal-movable>
+		<div class="panel-heading">
+			<h4 class="panel-title">{{title}}</h4>
+		</div>
+		<div class="panel-body" ng-init="getEmpDocumentDetails()">
+			<div class="b-sh popUpTableResHeight overflow-auto" ng-if="documentMode=='Add'">
+				<table class="table table-striped table-hover table-bordered popUpTableHeight"  >
+					<thead>
+						<tr>
+							  <th>Select</th>
+							  <th>Document ID</th>
+							  <th>Description</th>
+							  <th>Version</th>
+							  <th>Upload / View File</th>
+							  <th>Type of File</th>
+							  <th>Size of File</th>
+							  <th>Status</th>
+						</tr>
+					</thead>
+					<tbody>
+						 <tr fixed-header="" ng-repeat ="reference in refdocuments1">
+				              <td class="input-width0">
+				              	<input data-test='PreContractList_Refdocument_Add_Checkbox1' type="checkbox"
+											ng-model="reference.select" ng-change="referencerowSelect(reference)" ng-disabled="reference.id>0" />
+				              </td>
+				              <td><input type="text" ng-model="reference.code" placeholder="Auto Generate" readonly="readonly" style="width: 115px !important"></td>	
+				
+				              <td class="input-width2"><input type="text" ng-disabled="reference.id > 0" name="description" ng-model="reference.description" placeholder="description" required="required"></td>
+				
+				              <td class="input-width2"><input type="text" name="version" ng-disabled="reference.id > 0" ng-model="reference.version" placeholder="version" required="required"></td>
+				              <td class="input-width3"><input type="file" name="doc" ngf-select="fileUpload($file,reference,$index)" tabindex="-1" placeholder="Doc"
+				                style="display: inline !important;"></td>
+				
+				              <td class="input-width2"><input type="text" ng-disabled="reference.id > 0" name="typeofFile" ng-model="reference.fileType" placeholder="Type of File" readonly="readonly"></td>
+				
+				              <td class="input-width2"><input type="text" name="sizeofFile" ng-model="reference.fileSize" placeholder="Sizeof File" readonly="readonly"></td>
+				
+				              <td class="input-width2"><span>{{reference.version >1 ? 'Superseded' : 'Current'}}</span></td>	
+	            		</tr> 
+					</tbody>
+				</table>
+			</div>
+			<div class="popUpTableResHeight" style="overflow: auto;" ng-if="documentMode=='Download'" ng-init="empDownloadDocuments()">
+				<table class="table table-striped table-hover table-bordered popUpTableHeight">
+					<thead>
+						<tr>
+							<th>Document Id <span style="color: red; ">*</span></th>
+							<th>Document Name<span style="color: red; ">*</span></th>
+							<th>Download</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat ="reference in refdocuments1">
+							<td class="input-width3">{{reference.id}}</td>
+							<td class="input-width3">{{reference.name}}</td>
+							<td class="input-width3"><span class="fa fa-download" ng-click="downloadEmpDocument(reference)" title="Click To Download {{reference.name}}"></span></a></td>							
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>		
+		<div class="panel-footer" ng-if="documentMode=='Add'">
+			<div class="pull-left">
+				<input type="submit" class="btn btn-primary btn-sm" ng-click="addRows()" value="Add Rows" />
+			</div>
+			<div class="pull-left" ng-hide="hideDeleteButtonDiv">
+				<input type="submit" class="btn btn-primary btn-sm" ng-click="deleteRows()" value="Delete Rows" />
+			</div>
+			<div class="pull-right">
+				<input type="submit" class="btn btn-primary btn-sm" ng-click="saveReferenceDocumentList()" value="Save" />
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</div>
+</div>

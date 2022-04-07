@@ -1,0 +1,164 @@
+<div id="tab-pannel" class="panel-group">
+    <form name="assetCostForm" validate>
+        <div class="panel panel-default" modal-movable>
+            <div class="panel-heading">
+                <h4 class="panel-title">Bank Finance (Overdraft) List</h4>
+            </div>
+
+            <div id="tab-pannel" class="panel-body">
+                <div class="topTableResHeight" style="overflow:auto">
+                    <table class="table table-striped table-bordered topTableHeight">
+                        <thead id="tab-head">
+                            <tr>
+                                <th>Bank Loan #</th>
+                                <th>Country</th>
+                                <th>Province (Bank Location)</th>
+                                <th>Name of the Bank/Institution (Lender)</th>
+                                <th>Bank Address</th>
+                                <th>Bank Reg Number</th>
+                                <th>Bank Tax File Number</th>
+                                <th>Company Name (Borrower)</th>
+                                <th>Type of Loan or Finance</th>
+                                <th>Loan Start Date</th>
+                                <th>Loan Finish Date</th>
+                                <th>Original Loan principal amount</th>
+                                <th>Remaining Loan principal amount</th>
+                                <th>Fixed or variable rate of Interest</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="text" name="bankLoan" ng-model="" placeholder="Bank Loan"
+                                        class="form-control"></td>
+
+                                <td><input type="text" name="country" ng-model="" placeholder="Country"
+                                        class="form-control"></td>
+
+                                <td><input type="text" name="province" ng-model="" placeholder="Province"
+                                        class="form-control"></td>
+
+                                <td><input type="text" name="nameBank" ng-model="" placeholder="Name of Bank"
+                                        class="form-control"></td>
+
+                                <td><input type="text" name="bankadd" ng-model="" placeholder="Bank Address"
+                                        class="form-control"></td>
+
+                                <td><input type="text" name="bankregnum" ng-model="" placeholder="Bank Reg Number"
+                                        class="form-control"></td>
+
+                                <td><input type="text" name="banktaxfileno" ng-model=""
+                                        placeholder="Bank Tax File Number" class="form-control"></td>
+
+
+                                <td><input type="text" name="compname" ng-model="" placeholder="Company Name"
+                                        class="form-control"></td>
+
+                                <td><input type="text" name="typeofloanorfin" ng-model=""
+                                        placeholder="Type of Loan or Finance" class="form-control">
+                                </td>
+                                <td>
+                                    <potdate-picker ng-model="" dir-index="$index" date-name="fromdate"
+                                        placeholder="dd-mm-yyyy" class="form-control" name=date custom-read-only />
+                                </td>
+                                <td>
+                                    <potdate-picker ng-model="" dir-index="$index" date-name="todate"
+                                        placeholder="dd-mm-yyyy" class="form-control" name=date custom-read-only />
+                                </td>
+                                <td><input type="text" name="loanprincipal" ng-model=""
+                                        placeholder="Original Loan Principal amount" class="form-control">
+                                </td>
+                                <td><input type="text" name="remainloan" ng-model=""
+                                        placeholder="Remaining Loan Principal amount" class="form-control">
+                                </td>
+                                <td><input type="text" name="fixedorvariable" ng-model=""
+                                        placeholder="Fixed or Variable rate of interest" class="form-control">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="topTableResHeight" style="overflow: auto">
+                    <table class="table table-striped table-bordered topTableHeight">
+                        <thead id="tab-head">
+                            <tr>
+                                <th>If Variable interest, Minimum Repayment amount</th>
+                                <th>If fixed, Rate of Interest per annum</th>
+                                <th>Payment Cycle</th>
+                                <th>Payment Cycle Due Date</th>
+                                <th>Principle repayment amount per cycle</th>
+                                <th>Interest amount per Cycle</th>
+                                <th>Tax Payment per cycle</th>
+                                <th>Total Gross Repayment per cycle</th>
+                                <th>Expenditure Type</th>
+                                <th>Receiver Bank/Institution Name</th>
+                                <th>Receiver Bank Code #</th>
+                                <th>Receiver Bank AC #</th>
+                                <th>Account Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="text" name="minpayment" ng-model=""
+                                        placeholder="If Variable interest, Minimum Repayment amount"
+                                        class="form-control"></td>
+
+                                <td><input type="text" name="rateofinterest" ng-model=""
+                                        placeholder="If fixed, Rate of Interest per annum" class="form-control"></td>
+
+                                <td><input type="text" name="paymentcycle" ng-model="" placeholder="Payment Cycle"
+                                        class="form-control"></td>
+
+                                <td>
+                                    <potdate-picker ng-model="" dir-index="$index" date-name="date"
+                                        placeholder="dd-mm-yyyy" class="form-control" name=date custom-read-only />
+                                </td>
+
+                                <td><input type="text" name="principalamount" ng-model=""
+                                        placeholder="Principle repayment amount per cycle" class="form-control"></td>
+
+                                <td><input type="text" name="interestamount" ng-model=""
+                                        placeholder="Interest amount per Cycle" class="form-control"></td>
+
+                                <td><input type="text" name="taxamount" ng-model="" placeholder="Tax Payment per cycle"
+                                        class="form-control"></td>
+
+                                <td><input type="text" name="totalgross" ng-model=""
+                                        placeholder="Total Gross Repayment per cycle" class="form-control"></td>
+
+                                <td>
+                                    <select class="form-control" ng-model="" ng-required="true" name="typeexpenditure">
+                                        <option value="">Select</option>
+                                        <option value="captial">Capital Expenditure</option>
+                                        <option value="revenue">Revenue Expenditure</option>
+                                        <option value="defrevenue">Deferred Revenue Expenditure</option>
+
+                                    </select>
+                                </td>
+
+                                <td><input type="text" name="recbankname" ng-model=""
+                                        placeholder="Receiver Bank/Institution Name" class="form-control"></td>
+
+                                <td><input type="text" name="recbankcode" ng-model="" placeholder="Receiver Bank Code #"
+                                        class="form-control"></td>
+
+                                <td><input type="text" name="recbankaccount" ng-model=""
+                                        placeholder="Receiver Bank AC #" class="form-control"></td>
+
+                                <td><input type="text" name="accstatus" ng-model="" placeholder="Account Status"
+                                        class="form-control"></td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <div class="pull-right">
+                    <input type="button" class="btn bottomaligned btn-primary btn-sm"
+                        data-test="AssetCostandValueStatus_Create_Save" ng-click="saveAssetsCost()" value="Save">
+                </div>
+            </div>
+        </div>
+        <div class="ngdialog-close"></div>
+    </form>
+</div>

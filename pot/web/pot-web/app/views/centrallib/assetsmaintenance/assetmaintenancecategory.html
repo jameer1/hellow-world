@@ -1,0 +1,93 @@
+<section class="content-header">
+		<h1>Assets Maintenance & Repair Category</h1>	
+		<!-- <input type="submit" value ="Help !"
+		ng-click="helpPage();" class="pull-right btn  btn-primary btn-sm help-each-page"> -->
+		<button class="pull-right btn btn-primary btn-sm help-each-page" 
+	onclick="window.open('views/helptutorials/AssetsMaintenanceRepairCategory.html', '_blank', 
+		'toolbar=yes,scrollbars=yes,resizable=no,top=50,left=100,width=1400,height=700')">
+		Help
+	</button>
+	</section>
+<section ng-if="account.appCodeTemplate['ENTERPRISE_CENTLIB_ASSETMAINTEN_VIEW']" class="content">
+<div id="tab-pannel" class="panel-group"
+	ng-init="getAssetMaintenanceCategory()">
+	<div class="panel panel-default  block footer-parent">
+		<div class="panel-body">
+				<div class="row">
+			<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+				<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padL-0">
+					<md-input-container class="md-block">
+						<label>Maintenance Category Code</label>
+						<input data-test='CentralLibrary_AssetMaintenanceCategory_MaintenanceCategorycode'
+						  type="text" ng-model="assetMaintenanceSearch.code" autocomplete="off">
+					</md-input-container>
+				</div>
+				<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+					<md-input-container class="md-block">
+						<label>Maintenance Category Name</label>
+						<input data-test='CentralLibrary_AssetMaintenanceCategory_MaintenanceCategoryName'
+						   type="text" ng-model="assetMaintenanceSearch.name" autocomplete="off">
+					</md-input-container>
+				</div>
+				<div class="pull-right right-padding marT15">
+						<input data-test='CentralLibrary_AssetMaintenanceCategory_search' type="submit" ng-click="SearchAssetMaintenanceCategory()"
+							class="btn  btn-primary btn-sm" value="Search" ng-model="searchText">
+						<input data-test='CentralLibrary_AssetMaintenanceCategory_refresh' type="reset" class="btn btn-default btn-sm"
+							ng-click="resetAssetMaintenanceCategory()" value="Reset">
+					</div>
+			</div>
+		
+		<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+				<div class="singleTableResHeight_2">
+				<table id="tree" class="table table-striped table-hover table-bordered singleTableHeight_2" >
+					<thead>
+						<tr>
+							<th>Select</th>
+							<th>Maintenance Category Code</th>
+							<th>Maintenance Category Name</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr fixed-header="" ng-repeat="tab in AssetsMaintenanceData | orderBy: 'parent' | filter : code || name" class="abc{{tab.level}}"
+						 ng-show="!tab.collapse">
+							<td>
+								<input type="checkbox" ng-model="tab.select" ng-change="assetMaintenanceCategorySelect(tab)"></td>
+							<td>
+									<span ng-repeat="level in [].constructor(tab.level) track by $index" class="xyz" style="padding-left: 30px;"></span>
+								<span ng-show="(tab.expand || (!tab.item  && tab.childAssetMaintenanceCategoryTOs.length <= 0))" ng-click="assetMaintananceItemClick(tab,true);"
+								 class="fa fa-minus"  title="Collapse Maintanence Category"></span>
+								<span ng-show="(!tab.expand && tab.childAssetMaintenanceCategoryTOs.length > 0)" ng-click="assetMaintananceItemClick(tab,false);"
+								 class="fa fa-plus" title="Expand Maintanence Category"></span>
+								<i class="fa fa-leaf" ng-show="tab.item"> </i>
+								<span style="padding-left: 10px; color: black !important;">{{tab.code}}
+									<span style="padding-left: 5px;"></span>
+								</span>
+								<i class="fa fa-edit fa-fw" ng-if="tab.level==0 && !tab.item && account.appCodeTemplate['ENTERPRISE_CENTLIB_ASSETMAINTEN_ADD']" ng-click="editAssetMaintenanceCategory('Edit',tab)" title="Edit Maintanence Details">
+								</i>
+							</td>
+							<td>{{tab.name}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		</div>
+	 </div>
+		<div class="panel-footer">
+			<div class="pull-right">
+				<input data-test='CentralLibrary_AssetMaintenanceCategory_Create' type="button" class="btn bottomaligned btn-primary btn-sm"
+					ng-click="editAssetMaintenanceCategory('Add',null)"  ng-if="account.appCodeTemplate['ENTERPRISE_CENTLIB_ASSETMAINTEN_ADD']" value="Create" />
+				<input data-test='CentralLibrary_AssetMaintenanceCategory_Deactivate' class="btn bottomaligned btn-secondary btn-sm" type="button"
+					ng-click="deleteAssetMaintenanceCategory()" value="Deactivate" ng-if="account.appCodeTemplate['ENTERPRISE_CENTLIB_ASSETMAINTEN_DELETE']" />
+			</div>
+			<div class="pull-left">
+				<input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+				<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+				<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+				<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+				<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+			</div>
+		</div>
+	</div>
+</div>
+</section>

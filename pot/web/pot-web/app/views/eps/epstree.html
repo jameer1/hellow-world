@@ -1,0 +1,83 @@
+<!-- <section class="content-header">
+	<h1>Enterprise Project Structure (EPS)</h1>
+	<input type="submit" value ="Help !"
+		ng-click="helpPage();" class="pull-right btn  btn-primary btn-sm help-each-page">
+	
+</section> -->
+<section class="content-header">
+	<h1>Enterprise Project Structure (EPS)</h1>
+	<!-- <button class="pull-right btn btn-primary btn-sm help-each-page" 
+onclick="window.open('views/help&tutorials/htmlhelptesting/EnterpriseProjectStructure.html', '_blank', 
+		'toolbar=yes,scrollbars=yes,resizable=no,top=50,left=100,width=1400,height=700')">
+Help
+</button> -->
+<button class="pull-right btn btn-primary btn-sm help-each-page" 
+onclick="window.open('views/helptutorials/EnterpriseProjectStructure.html', '_blank', 
+		'toolbar=yes,scrollbars=yes,resizable=no,top=50,left=100,width=1400,height=700')">
+Help
+</button>
+
+</section>
+<section ng-if="account.appCodeTemplate['ENTRPRSE_EPS_VIEW']" class="content">
+	<div class="panel panel-default block footer-parent">
+			<div class="panel-body">
+			<div class="singleTableResHeight">
+			<table id="tree" class="table table-hover table-bordered singleTableHeight" >
+				<thead>
+					<tr>
+						<th>Select</th>
+						<th>
+							<span>EPS ID </span>
+						</th>
+						<th>EPS Name</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr fixed-header="" ng-repeat ="item in epsData |  orderBy: 'parentProj'" class="abc{{item.level}}" ng-show="!item.collapse">
+						<td>
+								<input type="checkbox" ng-model="item.select" ng-change="rowSelect(item)">
+								<span class="checkmark"></span>
+						</td>
+							<!-- <input type="checkbox" ng-model="item.select"
+							  ng-change="rowSelect(item)"></td> -->
+						<td>
+								<span ng-repeat="level in [].constructor(item.level) track by $index" class="xyz" style="padding-left: 30px;"></span>
+							<span ng-show="((item.expand) || (!item.leaf  && item.childProjs.length <= 0))" ng-click="itemClick(item,true);"
+							 class="fa fa-minus" title="Collapse EPS"></span>
+							<span ng-show="(!item.expand && item.childProjs.length > 0)" ng-click="itemClick(item,false);" class="fa fa-plus" title="Expand EPS"></span>
+							<span ng-show="(item.leaf)" class="leaf"></span>
+							<span style="padding-left: 10px; color: black !important;">{{item.projCode}}
+								<span style="padding-left: 5px;"></span>
+							</span>
+							<i class="fa fa-edit fa-fw" ng-if="item.level==0 && (!item.leaf)&& account.appCodeTemplate['ENTRPRSE_EPS_ADD'] " data-test='EPS_Editicon' ng-click="editTreeDetails('Edit',item)"
+							 name="pencil" title="Edit EPS"></i>
+						</td>
+						<td>{{item.projName}}</td>
+					</tr>
+				</tbody>
+			</table>
+			</div>
+			<div class="panel-footer">
+					<div class="pull-right">
+							<input data-test='EPS_Deactivate' type="button" class="btn  btn-secondary btn-sm marR10" ng-click="deactivateEPSDetails()" value="Deactivate"
+							 ng-if="account.appCodeTemplate['ENTRPRSE_EPS_DELETE'] " />
+							<input data-test='EPS_create' type="button" class="btn btn-primary btn-sm btn-create marginLeft10" style="float: right;" ng-click="editTreeDetails('Add',null)"
+							 ng-if="account.appCodeTemplate['ENTRPRSE_EPS_ADD'] " value="Create">
+			
+					</div>
+					<div class="pull-left">
+						<input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+						<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+						<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+						<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+						<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+					</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+
+
+

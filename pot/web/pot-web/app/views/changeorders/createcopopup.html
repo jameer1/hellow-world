@@ -1,0 +1,142 @@
+<div id="tab-pannel">
+	<div class="panel panel-default" modal-movable>
+		<div class="panel-heading">
+			<h4 class="panel-title">Change Order Requisition Form</h4>
+		</div>
+		<div class="panel-body">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+				<div class="col-sm-3 col-xs-12 col-md-3 col-lg-3">
+					<md-input-container>
+						<label class="labelName">Date</label>
+						<input type="text" name="current_date" value="{{current_date|date:'yyyy-MM-dd'}}"/>
+					</md-input-container>
+				</div>
+				<div class="col-sm-3 col-xs-12 col-md-3 col-lg-3" ng-if="coEditType=='CREATE'">
+					<md-input-container>
+						<label class="labelName">Project</label> 
+						<input type="text" data-test='CO_ProjectName' ng-model="coSearchReq.projName" readonly="readonly" ng-click="getUserProjects(coSearchReq)">
+					</md-input-container>
+				</div>
+				<div class="col-sm-3 col-xs-12 col-md-3 col-lg-3" ng-if="coEditType=='EDIT'">
+					<md-input-container>
+						<label class="labelName">Project</label> 
+						<input type="text" data-test='CO_ProjectName' ng-model="coSearchReq.projName" readonly="readonly" ng-value="coSearchReq.projName">
+					</md-input-container>
+				</div>
+				<div class="col-sm-3 col-xs-12 col-md-3 col-lg-3">
+					<md-input-container>
+					<label class="labelName">Change Required For</label>
+						<md-select placeholder="Contract Type" ng-model="coSearchReq.contractType" ng-change="CoReqFo()">
+                            <md-option value="Head Contract">Head Contract</md-option>
+                            <md-option value="Sub Contract">Sub Contract</md-option>
+                            <md-option value="Services Agreement">Services Agreement</md-option>
+                            <md-option value="Purchase Order/Supply Order">Purchase Order/Supply Order</md-option>
+                        </md-select>
+					</md-input-container>
+				</div>
+		<div class="col-sm-3 col-xs-12 col-md-3 col-lg-3">
+					<md-input-container ng-show="coSearchReq.contractType=='Head Contract'">
+                        <label>Contract Id</label>
+                        <input type="text" ng-model="coSearchReq.contractId" readonly="readonly">
+                    </md-input-container>
+                    <md-input-container ng-show="coSearchReq.contractType!='Head Contract'">
+                        <label>PO Id</label>
+                        <input type="text" ng-model="coSearchReq.purchaseOrderCode" ng-click="selectCoSubContract(coSearchReq.projId)">
+                    </md-input-container>
+				</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+			
+			<div class="col-sm-3 col-xs-12 col-md-3 col-lg-3">
+					<md-input-container>
+						<label class="labelName">Reason For Change</label>
+					  	<md-select ng-model="coSearchReq.reasonForChange">
+					  		<md-option value="Scope Changes">Scope Changes</md-option>
+					  		<md-option value="Time Delays">Time Delays</md-option>
+					  		<md-option value="Budget Transfer">Budget Transfer</md-option>
+					  	</md-select>
+					</md-input-container>
+				</div>
+			
+				<div class="col-sm-3 col-xs-12 col-md-3 col-lg-3">
+					<md-input-container>
+						<label class="labelName">Change Order Id</label>
+					  	<input data-test='CO_changeorder_code' type="text" ng-disabled="true" ng-model="coSearchReq.code">
+					</md-input-container>
+				</div>
+				<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+					<md-input-container>
+						<label class="labelName">Change Order Description</label>
+					  	<textarea rows="1" cols="45" ng-model="coSearchReq.description"></textarea>
+					</md-input-container>
+				</div>
+				<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+					<md-input-container>
+						<label class="labelName">Requested By</label>
+					  	<input data-test='co_requested_by' type="text" ng-disabled="true" ng-model="coSearchReq.requestorUser.name">
+					</md-input-container>
+				</div>
+				
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+			
+				
+				<!-- <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+					<md-input-container>
+						<label class="labelName">Requested By</label>
+					  	<input data-test='co_requested_by' type="text" ng-disabled="true" ng-model="coSearchReq.requestorUser.name">
+					</md-input-container>
+				</div> -->
+				 <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+					<md-input-container>
+						<label>Internal Approver</label>
+						<input type="text" ng-click="getApproverUsersList()" ng-model="coSearchReq.internalApproverUser.name"/>
+					</md-input-container>
+				</div>
+				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+				<md-checkbox md-no-ink aria-label="Checkbox No Ink" ng-model="coSearchReq.externalApproverUser.name" class="md-primary">
+            		External Approver Required
+          		</md-checkbox>
+				</div>
+				
+				<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+					<md-input-container>
+						<label class="labelName">External Approver</label>
+						<input type="text" ng-click="getApproverUsersList('external')" ng-model="coSearchReq.externalApproverUser.name"/>
+					</md-input-container>
+				</div> 
+				 
+			</div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pull-right">
+				<input type="button" class="btn btn-primary" value="Create" ng-click="createCONew()" />
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+				<div class="nav-tabs-custom">
+                     <ul class="nav nav-tabs">
+                         <li fixed-header="" ng-repeat="tab in coDetailTabs" ng-class="{active:isActiveTab(tab.url)}">
+                             <a data-toggle="tab" ng-click="onClickTab1(tab)">{{tab.title}}</a>
+                         </li>
+                     </ul>
+                </div>				
+				<div class="tab-content">
+					<div ng-include="currentTab1"></div>
+				</div>				
+			</div>
+		</div>
+		<div class="panel-footer">
+			<div class="pull-left">
+				<input data-test='CO_Submit_For_Internal_Approval' type="button" class="btn btn-primary btn-sm" value="Submit For Internal Approval" ng-click="submitForApproval('INTERNAL')" ng-disabled="disableInternalBtn"/>
+				<input data-test='CO_Submit_For_External_Approval' type="button" class="btn btn-primary btn-sm" value="Submit For External Approval" ng-click="submitForApproval('EXTERNAL')" ng-disabled="disableExternalBtn"/>
+				<input data-test='CO_Submit_For_Return_Approval' type="button" class="btn btn-primary btn-sm" value="Return with Comments" ng-click="coReturnWithComments()" ng-disabled="disableReturnBtn"/>
+				<input data-test='CO_Submit_For_Internal_Approval' type="button" class="btn btn-primary btn-sm" value="Approve" ng-click="coApprove()" ng-disabled="disableApproveBtn"/>
+				<input data-test='CO_Submit_For_Internal_Approval' type="button" class="btn btn-primary btn-sm" value="Reject" ng-click="coReject()" ng-disabled="disableRejectBtn"/>
+				<!-- <input data-test='CO_Submit_For_Return_Approval' type="button" class="btn btn-primary btn-sm" value="Return with Comments" ng-click="coReturnWithComments()"/>
+				<input data-test='CO_Submit_For_Internal_Approval' type="button" class="btn btn-primary btn-sm" value="Approve" ng-click="coApprove()"/>
+				<input data-test='CO_Submit_For_Internal_Approval' type="button" class="btn btn-primary btn-sm" value="Reject" ng-click="coReject()"/> -->
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</div>
+
+</div>
+

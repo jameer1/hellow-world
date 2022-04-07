@@ -1,0 +1,87 @@
+<section class="content-header">
+	<h1>Tangible Items Schedule</h1>
+	<!-- <input type="submit" value ="Help !"
+		ng-click="helpPage();" class="pull-right btn  btn-primary btn-sm help-each-page"> -->
+	<button class="pull-right btn btn-primary btn-sm help-each-page" 
+		onclick="window.open('views/helptutorials/TangibleItemsSchedule.html', '_blank', 
+		'toolbar=yes,scrollbars=yes,resizable=no,top=50,left=100,width=1400,height=700')">
+		Help
+	</button>
+</section>
+<section class="content" id="tab-pannel">
+
+	<div class="panel panel-default twinBlock footer-parent">
+		<div class="panel-body">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<div class="col-lg-2 col-md-2 col-xs-2 col-sm-2 padL-0 schedules_field">
+					<md-input-container class="md-block">
+						<label>EPS ID/Name</label>
+						<input data-test='Schedules_ProjectSchedules_EpsIdclick' type="text"
+							ng-model="searchProject.parentName" class="form-control" ng-click="getUserProjects()"
+							readonly>
+					</md-input-container>
+				</div>
+				<div class="col-lg-2 col-md-2 col-xs-2 col-sm-2 schedules_field">
+					<md-input-container class="md-block">
+						<label>Project ID/Name</label>
+						<input data-test='Schedules_ProjectSchedules_ProjectIdClick' type="text"
+							ng-model="searchProject.projName" ng-click="getUserProjects()" class="form-control"
+							readonly>
+					</md-input-container>
+				</div>
+				<div class="col-lg-8 col-md-8 col-xs-8 col-sm-8 padR-0">
+					<div class="pull-right marT15">
+						<input type="submit" ng-click="onSearchClick()" class="btn  btn-primary btn-sm" value="Search">
+						<input type="reset" class="btn  btn-default btn-sm" ng-click="resetData()" value="Reset">
+						<input type="button" ng-click="saveResourceCurveMapping()" class="btn  btn-primary btn-sm" value="Save"
+							ng-if="isPrimaveraIntegrationEnabled == 'No'">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			<div class="tabTable_2_10_Res_height ui-rid-customization-pot" id="tab-pannel">
+				<div id="grid" ui-grid="gridOptions" class="tabTable_2_10_Res_height" ng-if="stylesSvc.finishedStyling" 
+					ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-selection ui-grid-grouping class="grid">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="panel panel-default twinBlock footer-parent">
+			<div class="col-sm-9">
+				<div class="col-sm-6">
+					<label class="checkbox-inline" ng-repeat="selectedScheduleActivityDataSetTO in selectedScheduleActivityDataSetTOs">
+						<input type="checkbox" disabled checked="true">{{getFullDatasetname(selectedScheduleActivityDataSetTO)}}
+					</label>
+				</div>
+				<div class="col-sm-2" ng-show="selectedScheduleActivityDataSetTOs.length == 0"></div>
+				<div class="col-sm-2" ng-show="selectedScheduleActivityDataSetTOs.length > 0">
+					<input type="button" class="btn btn-primary btn-sm" value="Select Dataset" ng-click="selectMultipleScheduleActivityDataSetTOs()">
+				</div>
+				<div class="col-sm-2">
+					<md-input-container>
+						<label>Time Scale</label>
+						<md-select ng-model="selectedTimeScale" title="Select"
+							data-test="Schedules_ProjectSchedules_MaterialsTab_TimeScale">
+							<md-option ng-repeat="timeScaleType in timeScales" ng-value="timeScaleType">
+								{{timeScaleType.type}} </md-option>
+						</md-select>
+					</md-input-container>
+				</div>
+				<div class="col-sm-2"><div class="pull-right">
+					<input data-test='Schedules_ProjectSchedules_MaterialsTab_GetCurve' type="button"
+							ng-click="getCurve()" class="btn btn-primary btn-sm" value="Get Curve"
+							data-toggle="tooltip" title="Get Curve">
+				</div></div>
+			</div>
+
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<div class="row schedulesChart marTB10">
+					<canvas class="chart chart-bar" chart-data="data" chart-labels="labels" chart-series="series"
+						chart-options="options" chart-colors="colors" height="40"
+						chart-dataset-override="datasetOverride"></canvas>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

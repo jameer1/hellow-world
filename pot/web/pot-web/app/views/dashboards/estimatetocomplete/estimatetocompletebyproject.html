@@ -1,0 +1,10 @@
+<div ng-repeat="estimateToCompleteByProjectTab in estimateToCompleteByProjectTabs">
+  <div class="dbmodulecard">
+    <p class="ngdialog-close dbdclose" style="font-size: 26px; margin-right: 10px;"
+      ng-click="estimateToCompleteByProjectTabs.splice($index,1)"></p>
+    <canvas id="bar" class="chart chart-bar" chart-data="estimateToCompleteByProjectTab.data"
+      chart-labels="estimateToCompleteByProjectTab.labels" height="50" chart-type="chart_type"
+      chart-options="options" chart-series="estimateToCompleteByProjectTab.series"
+      scontext-menu="menuOptions"></canvas>
+  </div>
+</div>

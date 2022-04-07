@@ -1,0 +1,75 @@
+<div id="tab-pannel" class="panel-group"
+	ng-controller="PlantTransferApprovalController">
+	<div class="panel-body2 spacer2">
+		<div class="pull-left left-padding input-width1">
+			<span>From Date<br></span>
+			<pot-currentdate-picker dir-index="$index" ng-model="fromDate"
+				date-name="fromDate" placeholder="dd-mm-yyyy" />
+		</div>
+		<div class="pull-left left-padding input-width1">
+			<span>To Date<br></span>
+			<pot-currentdate-picker dir-index="$index" ng-model="toDate"
+				date-name="toDate" placeholder="dd-mm-yyyy" />
+		</div>
+
+		<div class="pull-left left-padding input-width1">
+			<span>Approval Status</span> <br> <select
+				ng-model="approvalType" name="approvalType" ng-required="true"
+				ng-options="approvalType for approvalType in approvalTypeList">
+			</select>
+
+		</div>
+
+		<div class="pull-left left-padding spacer3">
+			<input type="radio" name="request" ng-model="userType" value="1">Login
+			User Records <input type="radio" name="request" ng-model="userType"
+				value="2">All User Records
+		</div>
+
+		<div class="pull-right right-padding spacer3">
+			<input type="button" ng-click="getPlantTransfers(false)"
+				class="btn  btn-brown btn-sm" value="Search">
+		</div>
+
+	</div>
+	<div class="panel-body5-2  table-responsive ">
+		<table class="table table-striped table-bordered">
+			<thead>
+				<tr>
+					<th>Date of Request</th>
+					<th>Requester</th>
+					<th>Approver</th>
+					<th>Origin Project</th>
+					<th>Destination Project</th>
+					<th>Requisition ID</th>
+					<th>Approval ID</th>
+					<th>Notification</th>
+					<th>Approval Status</th>
+					<th>More Details</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr fixed-header="" ng-repeat ="plantTransReqApprTO in plantTransferReqApprTOs">
+					<td>{{plantTransReqApprTO.reqDate}}</td>
+					<td>{{plantTransReqApprTO.reqUserTO.empCode}}</td>
+					<td>{{plantTransReqApprTO.apprUserTO.empCode}}</td>
+					<td>{{plantReqTransMap.userProjMap[plantTransReqApprTO.fromProjId].name}}</td>
+					<td>{{plantReqTransMap.userProjMap[plantTransReqApprTO.toProjId].name}}</td>
+					<td>{{plantTransReqApprTO.reqCode}}</td>
+					<td>{{plantTransReqApprTO.apprCode}}</td>
+					<td>{{plantTransReqApprTO.notifyCode}}</td>
+					<td>{{plantTransReqApprTO.apprStatus}}</td>
+					<td><span
+						ng-click="getPlantTransReqDetails(plantTransReqApprTO)">View</span></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="panel-footer">
+		<div class="pull-right">
+			<input type="button" class="btn btn-primary btn-sm"
+				ng-click="requestForAdditionalTime()"
+				value="Request For Additional Time">
+		</div>
+	</div>
+</div>

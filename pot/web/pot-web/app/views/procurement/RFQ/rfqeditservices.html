@@ -1,0 +1,64 @@
+<div class="tab-pannel">
+    <form name="serviceForm" validate>
+        <div class="panel-body">
+            <div class="tabTable_3_Res_height">
+                <table id="vert-align" class="table table-hover table-bordered tabTable_3_height">
+                    <thead>
+                        <tr>
+                            <th>Item ID</th>
+                            <th style="max-width:15%">Item Description</th>
+                            <th>Service Type</th>
+                            <th>
+                                Procurement<br>SubCategory
+                            </th>
+                            <th>Cost Code</th>
+                            <th>Delivery Place</th>
+                            <th style="max-width:8%">Start Date</th>
+                            <th style="max-width:8%">Finish Date</th>
+                            <th style="max-width:7%">Qty</th>
+                            <th style="max-width:7%">Quoted Rate</th>
+                            <th style="max-width:7%">Quoted Rate <br> Amount ({{preContractObj.currencyCode}} )</th>
+                            <th>Comment / Conditions from Vendor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in preContractObj.preContractServiceDtlTOs">
+                            <td><span>{{item.itemCode}}</span></td>
+                            <td><span>{{item.itemDesc}}</span></td>
+                            <td><span>{{projServiceClassmap[item.projServiceLabelKey.id].code}}</span></td>
+                            <td><span>{{procureCategoryMap[item.procureSubCatgId].code}}</span></td>
+                            <td><span>{{item.costCode}}</span></td>
+                            <td><span> {{item.deliveryPlace}}</span></td>
+                            <td>{{item.startDate | date}}</td>
+                            <td>{{item.finishDate | date}}</td>
+                            <td><span>{{item.quantity}}</span></td>
+                            <td class="input-width">
+                                <input type="text" class="form-control"
+                                    data-test='RFQ_EditQuotesfromVendor_ViewEdit_Services_quoterate'
+                                    ng-model="item.preContractServiceCmpTOs[0].rate" name="rate" pattern="^(([0]+)?([\.\d+])?([1-9]))+([0-9]+)?"
+                                    ng-disabled="preContractCmpTO.biddingStatus=='Closed'" /><span style="color: red" ng-show="serviceForm.rate.$error.pattern">Enter value</span>
+                            <td class="input-width">
+                                <span>
+                                    {{item.quantity *item.preContractServiceCmpTOs[0].rate}}</span>
+                            </td>
+                            <td class="input-width">
+                                <textarea type="text" class="form-control"
+                                    data-test='RFQ_EditQuotesfromVendor_ViewEdit_Services_comments'
+                                    ng-model="item.preContractServiceCmpTOs[0].comments"
+                                    ng-disabled="preContractCmpTO.biddingStatus=='Closed'"></textarea>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <div class="pull-right"
+                ng-show="preContractObj.workFlowStatusTO.value ==5 || preContractObj.workFlowStatusTO.value ==6">
+                <input type="Submit" value="Save" data-test='RFQ_EditQuotesfromVendor_ViewEdit_save' ng-hide="preContractCmpTO.biddingStatus=='Closed'"
+                    ng-click="serviceForm.$valid && saveServiceDetails()" class="btn btn-primary btn-sm" validate />
+            </div>
+        </div>
+
+    </form>
+</div>

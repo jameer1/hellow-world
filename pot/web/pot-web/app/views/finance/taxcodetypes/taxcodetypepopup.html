@@ -1,0 +1,47 @@
+<div id="tab-pannel" class="panel-group" ng-init="taxType()">
+	<form name="taxcodetypeForm" validate>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h4 class="panel-title">Tax Code Types</h4>
+			</div>
+			<div class="panel-body">
+					<div class="popUpTableResHeight">
+				<table class="table table-striped table-hover table-bordered popUpTableHeight" >
+					<thead>
+						<tr>
+							<th>Select</th>
+							<th>Tax Code Type</th>
+							<th>Tax Type</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr fixed-header="" ng-repeat ="taxcodetype in taxcodetypeDetails">
+							<td><input type="checkbox" ng-model="taxcodetype.select" 
+								ng-change="selectedTaxTypes(taxcodetype)"></td>
+							<td>{{taxcodetype.name}}</td>
+							<td><select id="taxcodetypes" name="Taxable"
+								ng-change="updateTaxcodeTypes(taxcodetype)"
+								ng-model="taxcodetype.type" class="form-control"
+								ng-options="taxcodetype for taxcodetype in codeTypes">
+									<option value="">Select</option>
+							</select></td>
+						</tr>
+					</tbody>
+				</table>
+				</div>
+			</div>
+			<div class="panel-footer">
+				<div class="pull-right">
+					<input type="submit" ng-click="saveTaxCodeType()" value="Save"
+						class="btn btn-primary btn-sm" />
+				</div>
+			</div>
+			<div class="ngdialog-close"></div>
+		</div>
+	</form>
+</div>
+
+
+
+
+

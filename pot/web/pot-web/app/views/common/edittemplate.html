@@ -1,0 +1,72 @@
+<style>    
+ul.nav.nav-tabs.styledNav li.active {
+    border: none;
+}
+ul.nav.nav-tabs.styledNav li {
+    width: 50%;
+    border: solid 1px #ddd;
+    text-align:center;
+}
+ul.nav.nav-tabs.styledNav li a{
+padding:4px;
+margin-right:0px;
+}
+ul.nav.nav-tabs.styledNav li.active a {
+    background: #2d7ab5;
+    color: #fff;
+}
+.mt-2 {
+    margin-top: 10px;
+}
+.required_field {
+	color: red;
+}
+</style>
+<div id="tab-pannel" class="panel-group">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h4 class="panel-title">Edit Template</h4>
+		</div>
+		<div class="panel-body">
+			<div class="popUpTableResHeight" style="overflow-y:auto;">			
+				<div class="col-md-12" style="height: 320px;">
+					<div ng-if="error==true">
+						<ul>
+							<li ng-repeat="message in errormsgs" style="color:red;">{{message}}</li>
+						</ul>
+					</div>
+					<div>
+						<div class="col-md-6">
+							<md-input-container class="md-block">
+								<label> Template Name<span class="required_field">*</span></label>
+		                        <input type="text" name="tempname" id="template_name" />
+							</md-input-container>
+		                </div>
+			 			<div class="col-md-6">
+	                    	<md-input-container class="md-block">
+	                          <label>Template Id</label>
+	                          <input type="text" name="tempid" id="template_id" ng-readonly="true" value="{{templateCode}}"/>
+	                      	</md-input-container>
+	                	</div>
+	                        <div class="col-md-6">
+	                         <md-input-container class="md-block">
+	                            <label>Form Name<span class="required_field">*</span></label>
+	                            <input type="text" name="formName" id="form_name" />
+	                        </md-input-container>
+	                        </div>
+	                        <div class="col-md-6">
+	                        <md-input-container class="md-block">
+	                            <label>  Template Category </label>
+	                            <input type="text" name="formcategory" id="template_category" ng-readonly="true" value="{{templateCategoryName  | capitalizeWord}}"/>
+	                        </md-input-container>
+	                        </div>
+					</div>					
+				</div>
+				<div class="col-md-12">
+					<input type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary btn-sm pull-right" value="Next" ng-click="next();">
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</div>
+</div>

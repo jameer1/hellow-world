@@ -1,0 +1,162 @@
+<section class="content-header">
+    <h1>Plant and Equipments Usage Cost</h1>
+</section>
+<section class="content">
+    <div class="panel panel-default block footer-parent">
+        <div class="panel-body" ng-init="getCountries();">
+            <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12 no-padding">
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2 padL-0">
+                    <md-input-container>
+                        <label>Country</label>
+                        <md-select ng-model="" ng-change="getCountryDetailsById(item,$index);">
+                            <md-option fixed-header="" ng-repeat="" ng-value="">
+                                {{  }}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+                    <md-input-container>
+                        <label>Province</label>
+                        <md-select ng-model="" ng-change="getCountryDetailsById(item,$index);">
+                            <md-option fixed-header="" ng-repeat="" ng-value="">
+                                {{  }}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+                    <md-input-container>
+                        <label>Plant Owners</label>
+                        <input type="text" name="plantOwner" ng-model="" ng-click="getPlantOwners()" readonly>
+                    </md-input-container>
+                </div>
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+                    <md-input-container>
+                        <label>Profit Center</label>
+                        <input type="text" name="profitcenter" ng-model="" readonly="readonly" ng-click="">
+                    </md-input-container>
+                </div>
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+                    <md-input-container>
+                        <label>Plant Purchase Category</label>
+                        <md-select ng-model="">
+                            <md-option value="lease">Lease</md-option>
+                            <md-option value="hire">Hire</md-option>
+                            <md-option value="purchase">Purchase</md-option>
+                            <md-option value="all">All</md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+                    <md-input-container>
+                        <label>Plant Cost run Cycle</label>
+                        <input type="text" name="plantcostrun" ng-model="" readonly="readonly" ng-click="">
+                    </md-input-container>
+                </div>
+            </div>
+            <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12 no-padding">
+                <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3 padL-0">
+                    <md-input-container>
+                        <label>Plant Cost run Period From (dd-mm-yyyy)</label>
+                        <potdate-picker dir-index="$index" date-name="fromDate" ng-model="" custom-read-only />
+                    </md-input-container>
+                </div>
+                <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3">
+                    <md-input-container>
+                        <label>Plant Cost run Period To (dd-mm-yyyy)</label>
+                        <potdate-picker dir-index="$index" date-name="toDate" ng-model="" custom-read-only />
+                    </md-input-container>
+                </div>
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+                    <md-input-container>
+                        <label>Plant Cost sheet run Date</label>
+                        <potdate-picker dir-index="$index" date-name="date" ng-model="" custom-read-only />
+                    </md-input-container>
+                </div>
+                <div class="col-md-1 col-lg-1 col-sm-1 col-xs-1">
+                    <md-input-container>
+                        <label>Plant Cost Report #</label>
+                        <input type="text" name="plantcostreport" ng-model="" readonly="readonly" ng-click="">
+                    </md-input-container>
+                </div>
+                <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3">
+                    <div class="pull-right marT15">
+                        <input type="button" class="btn btn-primary btn-sm" value="Trail Run" ng-click="" />
+                        <input type="button" ng-click="" class="btn btn-primary btn-sm" value="Run">
+                        <input type="button" ng-click="" class="btn btn-primary btn-sm" value="View Past Records">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12 no-padding">
+                <div class="singleTableResHeight_3 overflow-auto">
+                    <table class="table table-hover table-bordered singleTableHeight_3">
+                        <thead>
+                            <tr>
+                                <th>Country</th>
+                                <th>Province</th>
+                                <th>Company ( Plant Owner)</th>
+                                <th>EPS</th>
+                                <th>Project</th>
+                                <th>Profit Center</th>
+                                <th>Date</th>
+                                <th>Cost Code ID</th>
+                                <th>Cost Code Description</th>
+                                <th>Plant ID(Company Asset ID)</th>
+                                <th>Plant Reg Number</th>
+                                <th>Plant Make</th>
+                                <th>Plant Model</th>
+                                <th>Plant Description</th>
+                                <th>Plant Used Hours</th>
+                                <th>Plant Idle Hours</th>
+                                <th>Used Hours Rate</th>
+                                <th>Idle Hours Rate</th>
+                                <th>Plant Used Hours-Cost</th>
+                                <th>Plant Idle Hours-Cost</th>
+                                <th>Mobilization Cost</th>
+                                <th>Demobilization Cost</th>
+                                <th>Date wise and Plant wise Total cost</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="">
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <div class="pull-left">
+                    <input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

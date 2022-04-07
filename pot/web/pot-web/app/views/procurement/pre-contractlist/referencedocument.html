@@ -1,0 +1,128 @@
+<div id="tab-pannel" class="panel-group" ng-init="getDocumentDetails()">
+	<form name="referenceDocForm" validate>
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Reference Documents</h4>
+			</div>
+			<div class="panel-body">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+					<div class="col-sm-3 col-xs-3 col-md-3 col-lg-3 padR-0">
+						<md-input-container>
+							<label>Pre-Contract ID </label>
+							<input type="text" ng-model="preContractTO.code" readonly="readonly" />
+						</md-input-container>
+					</div>
+					<div class="col-sm-3 col-xs-3 col-md-3 col-lg-3">
+						<md-input-container>
+							<label>Contract Description</label>
+							<input type="text" ng-model="preContractTO.desc" readonly="readonly" style="width:300%;word-wrap:break-word">
+						</md-input-container>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+					<div class="popUpTableResHeight overflow-auto">
+						<table class="table table-bordered table-hover popUpTableHeight">
+							<thead>
+								<tr>
+									<th style="width: 50px !important">Select</th>
+									<th>Date</th>
+									<th>Document ID</th>
+									<th>Description</th>
+									<th>Version
+										<span class="procurment-pot-errors">*</span>
+									</th>
+									<th>Upload File
+										<span class="procurment-pot-errors">*</span>
+									</th>
+									<th>File Name</th>
+									<th>Type of File</th>
+									<th>Size of File</th>
+									<th>Status</th>
+									<!-- <th>View</th> -->
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="reference in refdocumentslist">
+									<td>
+										<input data-test='PreContractList_Refdocument_Add_Checkbox1' type="checkbox"
+											ng-model="reference.select" ng-change="referencerowSelect(reference)"
+											ng-disabled="reference.id>0" />
+									</td>
+									<td class="input-width0">
+										<pot-currentdate-picker dir-index="$index" class="form-control" ng-model="date"
+											date-name="date" placeholder="dd-mm-yyyy" ng-disabled="true">
+										</pot-currentdate-picker>
+									</td>
+									<td>
+										<input type="text" ng-model="reference.code" class="form-control"
+											placeholder="Auto Generate" readonly="readonly"
+											style="width: 115px !important">
+									</td>
+
+									<td class="input-width2">
+										<input data-test='PreContractList_Refdocument_Add_Description' type="text"
+											name="description" maxlength="400" class="form-control"
+											ng-model="reference.description" placeholder="description" 
+											ng-disabled="reference.id > 0" pattern="^[A-Za-z0-9\s]+$" >
+									</td>
+									<td class="input-width2" ng-form="versionNumber">
+										<input data-test='PreContractList_Refdocument_Add_Version' type="text"
+											name="version" ng-model="reference.version" class="form-control"
+											placeholder="version" required="required" maxlength="10" 
+											pattern="[1-9]+"  ng-trim="false"  ng-disabled="reference.id && reference.id > 0" valid-number>
+										<span ng-show="versionNumber.version.$error.pattern" class="procurment-pot-errors">Invalid Version</span>
+										</td>
+									<td class="input-width3">
+										<!-- <select-existing-file proj-id="preContractTO.projId"></select-existing-file> -->
+										<input data-test='PreContractList_Refdocument_Add_Uploadfile' type="file"
+											name="doc" tabindex="-1" ngf-select="fileUpload($file,reference,$index)"
+											style="display: inline !important;margin-left: 10px">
+									</td>
+									<td class="input-width2">
+										<input type="text" name="FileName" class="form-control"
+											ng-model="reference.name" title="{{reference.name}}" placeholder="File Name"
+											ng-disabled="true">
+									</td>
+									<td class="input-width2">
+										<input type="text" name="typeofFile" class="form-control"
+											ng-model="reference.fileType" title="{{reference.fileType}}"
+											placeholder="Type of File" readonly="readonly">
+									</td>
+									<td class="input-width2">
+										<input type="text" name="sizeofFile" class="form-control"
+											ng-model="reference.fileSize" placeholder="Size of File" readonly="readonly">
+									</td>
+									<td class="input-width2">
+										<span>{{$last ? 'Current' : 'Superseded' }}</span>
+									</td>
+									<!-- <td class="input-width2">
+								<input type="button" style="max-width: 50px" class="btn btn-primary btn-sm" ng-click="downloadDocs(reference.id)"
+								 value="View">
+							</td> -->
+
+								</tr>
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="panel-footer">
+				<div class="pull-left">
+					<input data-test='PreContractList_Refdocument_Add' type="button" class="btn btn-primary btn-sm"
+						ng-click="referenceDocForm.$valid && addRows()" value="Add Rows">
+					<input data-test='PreContractList_Refdocument_delete' type="button" class="btn btn-secondary btn-sm"
+						ng-hide="hideDeleteButton" ng-click="deleteRows()" value="Delete Rows">
+
+				</div>
+				<div class="pull-right">
+					<input data-test='PreContractList_Refdocument_Save' type="submit" class="btn btn-primary btn-sm"
+						ng-click="referenceDocForm.$valid && saveReferenceDocument()" value="Save">
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close" data-test="Requests&Approvals_Request_Stage1Requestrefdocumentinto"></div>
+
+	</form>
+
+</div>

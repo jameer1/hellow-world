@@ -1,0 +1,26 @@
+<!-- <table class="table table-striped table-hover table-bordered tabTable_1_height">
+    <thead>
+        <tr>
+            <th>EPS</th>
+            <th>Project Name</th>
+            <th>Original Budget</th>
+            <th>Actual To Date</th>
+            <th>Estimate To Complete</th>
+            <th>Estimate At Completion</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr  ng-repeat="costDetails in costSchedPerformanceData">
+            <td>{{costDetails.epsName}}</td>
+            <td>{{costDetails.projName}}</td>
+            <td>{{costDetails.originalBudgetTotal | number: 2}}</td>
+            <td>{{costDetails.actualCostTotal | number: 2}}</td>
+            <td>{{costDetails.estCompletion | number: 2}}</td>
+            <td>{{costDetails.estAtCompletionTotal | number: 2}}</td>
+        </tr>
+    </tbody>
+</table> -->
+<div class="singleTableResHeight_3 marT15 ui-rid-customization-pot">
+	<div id="grid" ui-grid="gridOptions" class="singleTableResHeight_3" ng-if="stylesSvc.finishedStyling"
+		ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize></div>
+</div>

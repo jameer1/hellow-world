@@ -1,0 +1,40 @@
+<div id="tab-pannel" ng-controller="InvoiceWiseStatusController">
+	<div class="tabTable_1_Res_height">
+		<table class="table table-striped table-hover table-bordered tabTable_1_height">
+			<thead id="tab-head">
+				<tr>
+					<th colspan="4" style="text-align: center">PO Wise Payment
+						Status(For All Purchase Orders)</th>
+					<th colspan="2" style="text-align: center">PO Wise Payment
+						Status(For Admin Category Items</th>
+					<th colspan="2" style="text-align: center">PO Wise Payment
+						Status(For Service Category Items</th>
+				</tr>
+				<tr>
+					<th>PO Wise Cumulative<br /> Invoice Amount</th>
+					<th>PO Wise-Cost Accruals</th>
+					<th>PO Wise-Paid Amount</th>
+					<th>PO Wise-Balance Amount</th>
+					<th>PO Wise-Cost Accruals</th>
+					<th>PO Wise-Paid Amount</th>
+					<th>PO Wise-Services-Cost<br /> Accruals</th>
+					<th>PO Wise-Services-Paid<br /> Amount</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr fixed-header="" ng-repeat="invoice in purchaseOrderInvoiceDtlTOs">
+					<td>{{invoiceTotal($index)}}</td>
+					<td ng-if="invoice.accruedCostAmount">{{invoice.accruedCostAmount}}</td>
+					<td ng-if="invoice.payStatus=='Paid'">{{invoice.invoiceAmount}}</td>
+					<td ng-if="invoice.payStatus=='UnPaid'">{{0}}</td>
+					<td ng-if="invoice.payStatus=='Paid'">{{poAmount-invoice.invoiceAmount}}</td>
+					<td ng-if="invoice.payStatus=='UnPaid'">{{poAmount-0}}</td>
+					<td>{{invoice.poAmount}}</td>
+					<td>{{invoice.paymentPeriod }}</td>
+					<td>{{invoice.dueDate}}</td>
+					<td>{{invoice.paymentStatus}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

@@ -1,0 +1,94 @@
+<div id="tab-pannel">
+  <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12 no-padding">
+    <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3">
+      <!-- new code -->
+      <md-input-container>
+        <label>Invoice Current Status</label>
+        <md-select ng-model="currentStatus">
+          <md-option ng-repeat="currentStatus in currentStatusList" ng-value="currentStatus">
+            {{currentStatus.name}}
+          </md-option>
+        </md-select>
+      </md-input-container>
+      <!-- end -->
+      <!-- old code -->
+      <!-- <span class="labelName pull-left">Invoice Current Status </span>
+              <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
+                <select class="form-control" ng-model="currentStatus"
+                  ng-options="currentStatus.name for currentStatus in currentStatusList track by currentStatus.name">
+                  <option value="" readonly="readonly">Select</option>
+                </select></div> -->
+    </div>
+    <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4">
+
+      <md-radio-group ng-model="userType" layout="row">
+        <md-radio-button value="1" class="md-primary">Login User Records</md-radio-button>
+        <md-radio-button value="2" class="md-primary">All User Records</md-radio-button>
+      </md-radio-group>
+
+      <!-- old code -->
+      <!-- <input type="radio" name="request" ng-model="userType" value="1">Login User Records 
+        <input type="radio" name="request" ng-model="userType" value="2">All User Records -->
+
+    </div>
+    <div class="col-md-5 col-lg-5 col-sm-5 col-xs-5">
+      <div class="pull-right marT15">
+        <input type="submit" ng-click="getApproveInvocie()" class="btn btn-primary btn-sm" value="Search">
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 no-padding">
+    <div class="tabTable_2_Res_height">
+      <table class="table table-striped table-hover table-bordered tabTable_2_height">
+        <thead id="tab-head">
+          <tr>
+            <th>Select</th>
+            <th>Invoice Date</th>
+            <th>Invoice Number</th>
+            <th>Net Invoice Amount</th>
+            <th>GST or Tax Amount</th>
+            <th>Total Invoice Amount Incl Tax</th>
+            <th>Invoice Received Date</th>
+            <th>Payment Processing Period</th>
+            <th>Payment Due Date</th>
+            <th>Procurement Category</th>
+            <th>Procurement Sub Category</th>
+            <th>Originator Employee Name</th>
+            <th>Approver Employee Name</th>
+            <th>Finance Controller (Name)</th>
+            <th>Cost Code</th>
+            <th>Invoice Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr fixed-header="" ng-repeat="invoice in purchaseOrderInvoiceDtlTOs">
+            <td><input type="checkbox" value="invoice.id" ng-model="invoice.selected" ng-change="rowSelect(invoice)"
+                ng-disabled="invoice.currentStatus=='Approved'"></td>
+            <td>{{invoice.invoiceDate}}</td>
+            <td>{{invoice.invoiceNum}}</td>
+            <td>{{invoice.netAmount}}</td>
+            <td>{{invoice.taxAmount}}</td>
+            <td>{{invoice.netAmount--invoice.taxAmount}}</td>
+            <td>{{invoice.receivedDate}}</td>
+            <td>{{paymentInDays}}</td>
+            <td>{{invoice.invoiceDate--paymentInDays}}</td>
+            <td>{{procureCatg}}</td>
+            <td>{{invoice.subCategory}}</td>
+            <td>{{userMap[invoice.reqUserId].name}}</td>
+            <td>{{userMap[invoice.apprUserId].name}}</td>
+            <td>{{}}</td>
+            <td>{{projCostItemMap[invoice.costId].code}}</td>
+            <td>{{invoice.currentStatus}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="panel-footer">
+    <div class="pull-left">
+      <input type="submit" class="btn btn-primary btn-sm" ng-click="addPostAnInvoiceDetails('Edit')" value="Edit">
+    </div>
+  </div>
+
+</div>

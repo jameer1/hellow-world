@@ -1,0 +1,72 @@
+<div id="tab-pannel">
+	<div class="tabTable_1_Res_height">
+		<table class="table table-striped table-hover table-bordered tabTable_1_height">
+			<thead id="tab-head">
+				<tr>
+					<th colspan="10" style="text-align: center">Invoice Details</th>
+					<th colspan="6" style="text-align: center">Invoice
+						Wise-Payment Status</th>
+				</tr>
+				<tr>
+					<th>Select</th>
+					<th>Invoice Date</th>
+					<th>Invoice Number</th>
+					<th>Delivery Dockets List</th>
+					<th>Net Invoice Amount</th>
+					<th>Goods or Services Tax Amount</th>
+					<th>Total Invoice Amount Incl Tax</th>
+					<th>Payment Processing Period in Days</th>
+					<th>Upload/View Invoice Copy</th>
+					<th>Payment Due Date</th>
+					<th>Payment Status</th>
+					<th>Actual Payment Date</th>
+					<th>Payment Release Ref Number</th>
+					<th>Invoice Wise-Cost Accruals(Excl.Tax)</th>
+					<th>Invoice Wise-Amount Paid(Excl.Tax)</th>
+					<th>Invoice Wise-Amount Paid(Incl.Tax)</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr fixed-header="" ng-repeat="invoice in purchaseOrderInvoiceDtlTOs">
+					<td><input type="checkbox" value="invoice.id" ng-model="invoice.selected"
+							ng-change="rowSelect(invoice)"></td>
+					<td>{{invoice.invoicedate}}</td>
+					<td>{{invoice.invoiceNo}}</td>
+					<td><span ng-click="viewInvoiceDocketDetails(projId)">View/Edit</span></td>
+					<td>{{invoice.invoiceAmount }}</td>
+					<td>{{invoice.taxAmout}}</td>
+					<td>{{invoice.invoiceAmount--invoice.taxAmout}}</td>
+					<td>{{}}</td>
+					<td class="input-width3"><input type="file" name="doc" ng-model="invoice.doc" tabindex="-1"
+							ng-click="fileUpload(reference.uploadViewFile)" placeholder="Doc"
+							style="display: inline !important;"></td>
+					<td>{{invoice.invoicedate--invoice.paymentInDays}}</td>
+					<td>{{invoice.payStatus}}</td>
+					<td>{{invoice.actualPaymentDate }}</td>
+					<td>{{invoice.payReleaseRefNo}}</td>
+					<td>{{invoice.accruedCostAmount}}</td>
+					<td ng-if="invoice.payStatus=='Paid'">{{invoice.invoiceAmount}}</td>
+					<td ng-if="invoice.payStatus=='Paid'">{{invoice.invoiceAmount}}</td>
+					<td ng-if="invoice.payStatus=='UnPaid'"></td>
+					<td ng-if="invoice.payStatus=='UnPaid'"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<!-- <div class="panel panel-default">
+      <ul class="nav nav-tabs">
+        <li fixed-header="" ng-repeat ="tab in invoiceTabs" ng-class="{active:isActiveTab1(tab.url)}"><a data-toggle="tab" ng-click="onClickTab1(tab)">{{tab.title}}</a></li>
+      </ul>
+      <div class="tab-content">
+        <div ng-include="currentTab1"></div>
+      </div>
+    </div> -->
+	<div class="panel-footer">
+		<div class="pull-right">
+			<input type="submit" class="btn btn-primary btn-sm" ng-click="addInvoices('Add')" value="Create">
+		</div>
+		<div class="pull-left">
+			<input type="submit" class="btn btn-primary btn-sm" ng-click="addInvoices('Edit')" value="Edit">
+		</div>
+	</div>
+</div>

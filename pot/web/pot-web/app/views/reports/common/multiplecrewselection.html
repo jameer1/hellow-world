@@ -1,0 +1,47 @@
+<div id="tab-pannel" class="panel-group">
+	<div class="panel panel-default" modal-movable>
+		<div class="panel-heading">
+			<h4 class="panel-title">Crew List</h4>
+		</div>
+        <div class="panel-body">
+            <div class="popUpTableResHeight" style="overflow: auto;">
+                <table class="table table-hover table-bordered popUpTableHeight">
+                    <thead>
+                        <tr>
+                            <th>
+                                <input type="checkbox"
+                                       ng-change="selectAllCrews(selectAll)" ng-model="selectAll">
+                            </th>
+                            <th>Code</th>
+                            <th>Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-test='AsbuiltRecords_AttendanceRecords_PlantAttendance_CrewSelect' ng-repeat="crew in crews">
+                            <td>
+                                <input type="checkbox" ng-model="crew.select" data-test="common_crew_checkbox"
+                                       ng-change="selectedCrews(crew)">
+                            </td>
+                            <td>{{crew.code}}</td>
+                            <td>{{crew.desc}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br> <br>
+                <div ng-show="crews.length <= 0">
+                    <h5 align="center" style="color: red">
+                        No Crews for selected
+                        project
+                    </h5>
+                </div>
+            </div>
+        </div>
+		<div class="panel-footer">
+			<div class="pull-right">
+				<input type="submit" ng-click="addCrews()" value="Add"
+					class="btn btn-primary btn-sm" data-test="AsbuiltRecords_AttendanceRecords_PlantAttendance_CrewAdd"/>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</div>
+</div>

@@ -1,0 +1,49 @@
+<div id="tab-pannel" class="panel-group">
+	<div class="panel panel-default" modal-movable>
+		<div class="panel-heading">
+			<h4 class="panel-title">Purchase Order Schedule Items</h4>
+		</div>
+		<div class="popUpTableResHeight">
+			<table class="table table-striped table-bordered popUpTableHeight">
+				<thead>
+					<tr>
+						<th>Select</th>
+						<th>Schedule Item ID</th>
+						<th>Schedule Item Desc</th>
+						<th>Schedule Item Qty</th>
+						<th>Schedule Item Rate</th>
+						<th>Location Of Delivery</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr fixed-header="" ng-repeat ="labelKeyTO in labelKeyTOs">
+						<td><input type="checkbox" ng-model="labelKeyTO.select"
+							ng-change="selectRecord(labelKeyTO)" /></td>
+						<td>{{labelKeyTO.code}}</td>
+						<td>{{labelKeyTO.name}}</td>
+						<td>{{labelKeyTO.displayNamesMap.qty}}</td>
+						<td>{{labelKeyTO.displayNamesMap.unitOfRate}}</td>
+						<td>{{labelKeyTO.displayNamesMap.deliveryPlace}}</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<br>
+			<br>
+			<br>
+			<div ng-show="labelKeyTOs.length <= 0">
+				<h5 align="center" style="color: red">Schedule Items are not
+					available for selected Purchase Order</h5>
+			</div>
+		</div>
+
+		<div class="panel-footer">
+			<div class="pull-right">
+				<input type="submit" class="btn btn-primary btn-sm"
+					ng-click="saveScheduleItems()" value="Save">
+			</div>
+		</div>
+	</div>
+	<div class="ngdialog-close"></div>
+</div>
+

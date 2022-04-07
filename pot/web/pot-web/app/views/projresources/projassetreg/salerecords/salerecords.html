@@ -1,0 +1,65 @@
+<div id="tab-pannel" ng-controller="AssetSaleRecordController">
+	<div class="table-responsive tabTable_1_Res_height">
+	<div id="grid" ui-grid="gridOptions" ng-if="stylesSvc.finishedStyling" 
+		ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-grouping class="grid"></div>
+		<!-- <table class="table table-striped table-bordered tabTable_1_height" > 
+			<thead id="tab-head">
+				<tr>
+					<th>Select</th>
+					<th>Date of Sale</th>
+					<th>Sale Type</th>
+					<th>Buyer Name</th>
+					<th>Buyer Address</th>
+					<th>Land Register Office Details</th>
+					<th>Land Valuation</th>
+					<th>Structure Valuation</th>
+					<th>Plant & Equipment Valuation</th>
+					<th>Total Valuation</th>
+					<th>Total Sale Amount</th>
+					<th>Buyer Solicitor</th>
+					<th>Vendor Solicitor</th>
+					<th>Sale Records(Upload & View)</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr  ng-repeat ="saleRecord in salesRecordsDtlTOs">
+					<td><input type="checkbox" ng-model="saleRecord.selected" ng-change="saleRecordPopUpRowSelect(saleRecord)" data-test="AssetSaleRecords_Checkbox"></td>
+					<td>{{saleRecord.dateOfSale}}</td>
+					<td>{{saleRecord.saleType}}</td>
+					<td>{{saleRecord.buyerName}}</td>
+					<td>{{saleRecord.buyerAddress}}</td>
+					<td>{{saleRecord.landRegisterOfficeDetails}}</td>
+					<td>{{saleRecord.landValudation}}</td>
+					<td>{{saleRecord.structureValuation}}</td>
+					<td>{{saleRecord.plantEquipmentValutaion}}</td>
+					<td>{{saleRecord.totalValuation}}</td>
+					<td>{{saleRecord.totalSalesAmount}}</td>
+					<td>{{saleRecord.buyerSolicitor}}</td>
+					<td>{{saleRecord.vendorSolicitor}}</td>
+					<td><a class="fa fa-download" ng-if="saleRecord.salesRecordsDetailsFileName" href="{{saleRecord.docUrl}}"
+						 title="Click To Download {{saleRecord.salesRecordsDetailsFileName}}"/></td>
+					<td><button ng-click="downloadRecordSaleFile(saleRecord.id,element)">download</button></td>
+					<td><span class="fa fa-download" ng-if="saleRecord.salesRecordsDetailsFileName" ng-click="downloadRecordSaleFile(saleRecord.id,saleRecord.salesRecordsDetailsFileName)" title="Click To Download {{saleRecord.salesRecordsDetailsFileName}}"></span></td>
+				</tr>
+			</tbody>
+		</table> -->
+	</div>
+	<div class="panel-footer">
+		<div class="pull-right padR-0">
+			<input type="button" class="btn btn-primary btn-sm"
+				ng-click="addSaleRecordList('Add')" value="Add" data-test="AssetSaleRecords_Create">
+		</div>
+		<div class="pull-left padL-0">
+			<!-- <input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+			<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+			<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+			<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+			<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();"> -->
+			<input type="button" class="btn btn-primary btn-sm"
+				ng-click="addSaleRecordList('Edit')" value="Edit" data-test="AssetSaleRecords_Edit"> <input
+				type="button" class="btn btn-secondary btn-sm"
+				ng-click="deleteSaleRecord()" value="Deactivate" data-test="AssetSaleRecords_Deactivate">
+		</div>
+	</div>
+</div>
+

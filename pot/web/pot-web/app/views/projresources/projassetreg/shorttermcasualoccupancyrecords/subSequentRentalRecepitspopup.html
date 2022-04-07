@@ -1,0 +1,90 @@
+<div id="tab-pannel" class="panel-group">
+	<form name="assetshorttermForm" validate>
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Sub Sequent Rental Receipts</h4>
+			</div>
+			<div id="tab-pannel" class="panel-body">
+			<div class="popUpTableResHeight"  style="overflow:auto">
+					<table class="table table-striped table-bordered popUpTableHeight" >
+						<thead id="tab-head">
+							<tr>
+							    <th>Select</th>
+								<th>Date</th>
+								<th>Currency</th>
+								<th>Mode of Payment</th>
+								<th>Amount Paid</th>
+								<th>Note</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat ="subSequentRentalRecepits in subSequentRentalRecepitsData">							
+								<td>
+									<input type="checkbox"  ng-model="subSequentRentalRecepits.selected" data-test="SubsequentRentalReceipts_Checkbox"
+									ng-change="subSequentRentalRecepitsPopUpRowSelect(subSequentRentalRecepits)">								
+									
+								<td class="input-width3"><potdate-picker dir-index="$index" custom-read-only
+										tabindex="-1" date-name="givenDate" class="form-control"
+										ng-model="subSequentRentalRecepits.givenDate" data-test="SubsequentRentalReceipts_Date"
+										placeholder="dd-mm-yyyy"></potdate-picker></td>								
+
+								<td><input type="text" name="subSequentRentalRecepitsCurrency" data-test="SubsequentRentalReceipts_Currency"
+									ng-model="subSequentRentalRecepits.currency" tabindex="-1"
+									placeholder="Currency" class="form-control"></td>								
+
+								<td>
+									<select name="subSequentRentalRecepitsModeOfPayment" ng-model="subSequentRentalRecepits.modeOfPayment"
+										class="form-control">
+										<option value="">-Select-</option>
+										<option value="cheque">Bank Cheque</option>
+										<option value="deposit">Cash Deposit</option>
+										<option value="credit">Credit Card</option>
+										<option value="debit">Debit Card</option>
+										<option value="direct">Direct Debit from Bank Account</option>
+									</select>
+								</td>
+								
+								<!-- <td><input type="text" name="subSequentRentalRecepitsModeOfPayment"
+									ng-model="subSequentRentalRecepits.modeOfPayment" placeholder="Mode of Payment" data-test="SubsequentRentalReceipts_ModeOfPayment"
+									tabindex="-1" ng-required="true" class="form-control"></td> -->
+
+								<td><input type="text" name="subSequentRentalRecepitsAmountPaid"
+									ng-model="subSequentRentalRecepits.amountPaid" placeholder="Amount Paid" tabindex="-1" data-test="SubsequentRentalReceipts_AmountPaid"
+									valid-number class="form-control"></td>
+									
+								<td><input type="text" name="subSequentRentalRecepitsNote"
+									ng-model="subSequentRentalRecepits.note" placeholder="Note" tabindex="-1" data-test="SubsequentRentalReceipts_Note"
+									class="form-control"></td>											
+							</tr>
+						</tbody>
+					</table>
+					</div>
+		        </div>
+		        <div>
+		        <tr>
+		        <td>
+		       &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		       &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		       &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		       &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		       &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		        Total
+		        </td>
+		        <td>{{addamounpaid}}
+		        </td>
+		        </tr>
+		        </div>
+			<div class="panel-footer">
+				<div class="pull-left">
+					<input type="submit" class="btn btn-primary  btn-sm" ng-click="addRows()" value="Add" data-test="SubsequentRentalReceipts_Add">
+					<!-- <input type="button" class="btn btn-default  btn-sm" ng-click="deleteRows()" value="Delete" ng-show="action =='Add'" data-test="SubsequentRentalReceipts_Delete">-->
+				</div> 
+				<div class="pull-right">
+					<input type="submit" class="btn btn-primary  btn-sm" data-test="SubsequentRentalReceipts_Save"
+						ng-click="saveSubSequentRentalRecepitsRecords()" value="Save">
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+</div>

@@ -1,0 +1,65 @@
+<div id="tab-pannel" class="panel-group">
+	<form name="myForm" validate>
+		<div id="tab-pannel" class="panel-group">
+			<div id="tab-pannel" class="panel panel-default">
+				<div class="panel-heading">
+					<h4 class="panel-title">Plant Classifications</h4>
+				</div>
+				<div class="panel-body15">
+					<div id="tableHeight13-2" class="table-responsive">
+						<table class="table" >
+							<thead>
+								<tr>
+									<th ng-show="action=='Add'">Select</th>
+									<th>Resource ID-Resource Name</th>
+									<th>Plant Name As Per Contract</th>
+									<th>Unit Of Measure</th>
+								</tr>
+							</thead>
+							<tr fixed-header="" ng-repeat ="tab in addprojetplant">
+								<td ng-show="action=='Add'"><input type="checkbox"
+									ng-model="tab.select" ng-change="popUpRowSelect(tab)"></td>
+
+								<td ng-form name="myform1"><select
+									ng-options="res.dispName for res  in resourceData track by res.code"
+									name="value" ng-change="updateResCode(tab.plantClassTO,tab);"
+									ng-model="tab.plantClassTO" ng-required="true">
+										<span
+										ng-show="myform1.value.$dirty && myform1.value.$error.required">This
+											field is required</span>
+										<option value="">-select-</option>
+								</select></td>
+								<td ng-form name="myform"><input type="text"
+									ng-model="tab.plantContrName" name="client" maxlength="50"
+									pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+									ng-required="true" /> <span ng-show="myform.client.$dirty">This
+										field is mandatory</span> <span
+									ng-show="myform.client.$error.pattern">Alpha numeric
+										data should be allowed</span></td>
+								<td ng-form name=myform2><input type="text"
+									ng-model="tab.plantClassTO.measureUnitTO.name" name="client"
+									readonly="readonly" /></td>
+
+							</tr>
+						</table>
+					</div>
+				</div>
+				<div class="panel-footer">
+					<div class="pull-left">
+						<input type="submit" class="btn btn-secondary btn-sm"
+							ng-click="myForm.$valid && addprojetplantClass()"
+							value="Add Rows" ng-show="action =='Add'" validate> <input
+							type="button" class="btn btn-secondary btn-sm"
+							ng-click="deleteRows()" value="Delete Rows"
+							ng-show="action =='Add'">
+					</div>
+					<div class="pull-right">
+						<input type="submit" class="btn btn-primary btn-sm"
+							ng-click="myForm.$valid && saveProjPlantClasses()" value="Save" />
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</form>
+</div>

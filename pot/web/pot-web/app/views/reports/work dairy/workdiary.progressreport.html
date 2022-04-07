@@ -1,0 +1,45 @@
+<div id="tab-pannel" class="panel-body17">
+	<div class=" panel-body">
+		<div class="tabTable_5_Res_Height" style="overflow: auto">
+			<table class="table table-striped table-hover table-bordered tabTable_5_Height">
+				<thead>
+					<th rowspan="2" class="text-center">SOW Item ID</th>
+					<th rowspan="2" class="text-center">SOW Description</th>
+					<th rowspan="2" class="text-center">SOE Item ID</th>
+					<th rowspan="2" class="text-center">SOR Item ID</th>
+					<th rowspan="2" class="text-center">Cost Code ID</th>
+					<th rowspan="2" class="text-center">Unit Of Measure</th>
+					<th rowspan="2" class="text-center">Approval Type</th>
+					<th colspan="{{workDairyCostCodeList.length}}" class="text-center">
+						Cost
+						Code Wise Progress Utilization
+					</th>
+					<th rowspan="2" class="text-center">Cost
+						Code Utilization Total</th>
+					<tr>
+						<th ng-repeat="workDairyCostCode in  workDairyCostCodeList" class="text-center">
+							{{workDairyCostCode.code}}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="progress in workDairyProgressDtlTOs" 
+					ng-class="{coloumnHighlightColor3:progress.apprStatus==null,coloumnHighlightColor1:progress.apprStatus=='Approved',coloumnHighlightColor2:progress.apprStatus=='Client Approved',
+					coloumnHighlightColor:progress.apprStatus!=null}">
+						<td>{{progress.sowCode}}</td>
+						<td>{{progress.sowDesc}}</td>
+						<td>{{progress.soeCode}}</td>
+						<td>{{progress.sorCode}}</td>
+						<td>{{progress.costCode}}</td>
+						<td>{{progress.measureCode}}</td>
+						<td>{{progress.apprStatus==null?'Under Preparation':progress.apprStatus}}</td>
+						<td ng-repeat="workDairyCostCode in workDairyCostCodeList" class="text-center">
+							<span ng-show="progress.costId === workDairyCostCode.costId">{{progress.value}}</span>
+							<span ng-show="progress.costId != workDairyCostCode.costId">0</span>
+						</td>
+						<td class="text-center">{{progress.value}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

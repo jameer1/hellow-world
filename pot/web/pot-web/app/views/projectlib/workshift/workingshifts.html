@@ -1,0 +1,126 @@
+<section class="content-header">
+	<h1>Working Shifts</h1>	
+	<!-- <input type="submit" value ="Help !"
+		ng-click="helpPage();" class="pull-right btn  btn-primary btn-sm help-each-page"> -->
+	<button class="pull-right btn btn-primary btn-sm help-each-page" 
+		onclick="window.open('views/helptutorials/WorkingShifts.html', '_blank', 
+		'toolbar=yes,scrollbars=yes,resizable=no,top=50,left=100,width=1400,height=700')">
+		Help
+	</button>
+</section>
+<section class="content">
+<div  id="tab-pannel">
+		<div class="panel panel-default block footer-parent">
+			<div class="panel-body">
+					<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 no-padding">
+							<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padL-0">
+								<md-input-container class="md-block">
+										<input data-test='Projects_ProjectLibrary_WorkingShifts_EpsId' type="text" ng-model="searchProject.parentName"
+										placeholder="Select EPS ID/EPS Name" ng-click="getUserProjects()"
+										readonly="readonly">
+							</div>
+							<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+									<md-input-container class="md-block">
+											<input type="text" ng-model="searchProject.projName"
+												placeholder="Select Project ID/Project Name"
+												ng-click="getUserProjects()" readonly="readonly">
+									</md-input-container>
+								</div>
+							<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+									<md-input-container >
+											<md-select data-test='Projects_ProjectLibrary_WorkingShifts_Status' ng-model="workShiftReq.status">
+												<md-option  value="1" selected="selected" label="Active">Active</md-option>
+												<md-option  value="2" label="In Active">In Active</md-option>
+											</md-select>
+										</md-input-container>		
+							</div>
+							<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padR-0">
+								<div class="pull-right marT15">
+										<input data-test='Projects_ProjectLibrary_WorkingShifts_Search' type="button" ng-click="getProjWorkShifts()" 
+							class="btn  btn-primary btn-sm" value="Search"
+							ng-model="searchText"> <input data-test='Projects_ProjectLibrary_WorkingShifts_Reset' type="reset"
+							class="btn  btn-default btn-sm" ng-click="resetProjWorkShift()"
+							value="Reset">
+								</div>
+							</div>
+						</div>
+				
+				<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 no-padding">
+						<div class="singleTableResHeight_2">
+						<div id="grid" ui-grid="gridOptions" class="singleTableResHeight_3" ng-if="stylesSvc.finishedStyling" 
+            			 ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-resize-columns class="grid"></div>
+						<!-- <table class="table table-striped table-hover table-bordered singleTableHeight_2" >
+							<thead id="tab-head">
+								<tr>
+									<th style="width: 50px !important">Select</th>
+
+									<th><span
+										ng-click="sortType = 'code'; sortReverse = !sortReverse">
+											Shift <span ng-show="sortType == 'code'"
+												ng-class="(sortReverse ? 'fa fa-caret-up':'fa fa-caret-down')"></span>
+											<span ng-show="sortType != 'code'" class="fa fa-sort"></span>
+									</span></th>
+
+
+									<th><span
+										ng-click="sortType = 'startHours'; sortReverse = !sortReverse">
+											Start Hour <span ng-show="sortType == 'startHours'"
+												ng-class="(sortReverse ? 'fa fa-caret-up':'fa fa-caret-down')"></span>
+											<span ng-show="sortType != 'startHours'" class="fa fa-sort"></span>
+									</span></th>
+
+
+									<th><span
+										ng-click="sortType = 'finishHours'; sortReverse = !sortReverse">
+										Duration in Hours <span ng-show="sortType == 'finishHours'"
+												ng-class="(sortReverse ? 'fa fa-caret-up':'fa fa-caret-down')"></span>
+											<span ng-show="sortType != 'finishHours'" class="fa fa-sort"></span>
+									</span></th>
+
+									<th>Status</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr fixed-header="" ng-repeat ="tab in tableData | orderBy:sortType:sortReverse">
+									<td><input type="checkbox" ng-model="tab.select"
+										ng-change="rowSelect(tab)"></td>
+									<td>{{tab.code}}</td>
+									<td>{{tab.startHours}} <span>:</span>{{tab.startMinutes}}
+									</td>
+									<td>{{tab.finishHours}}<span>:</span>{{tab.finishMinutes}}
+									</td>
+									<td>{{tab.status | potstatusfilter:tab.status}}</td>
+								</tr>
+							</tbody>
+						</table> -->
+						<div class="panel-footer">
+				<div class="pull-right padR-0">
+					<input type="submit" ng-click="addTableData('Add',searchProject)"
+						class="btn  btn-primary btn-sm" value="Create" data-test='Projects_ProjectLibrary_WorkingShifts_Create'
+						ng-if="account.appCodeTemplate['PRJ_PRJLIB_WRKGSHFT_ADD'] && activeFlag==	1" />
+				</div>
+				<div class="pull-left padL-0">
+					 <!-- <input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+					<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+					<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+					<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+					<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();"> -->
+					<input data-test='Projects_ProjectLibrary_WorkingShifts_Edit' type="submit" ng-click="addTableData('Edit',searchProject)"
+						value="Edit" class="btn  btn-primary btn-sm"
+						ng-if="account.appCodeTemplate['PRJ_PRJLIB_WRKGSHFT_ADD'] && activeFlag==1" />
+					<input data-test='Projects_ProjectLibrary_WorkingShifts_Deactive' type="button" ng-click="deleteWorkShifts()"
+						value="Deactivate" class="btn btn-secondary btn-sm"
+						ng-if="account.appCodeTemplate['PRJ_PRJLIB_WRKGSHFT_DELETE'] && activeFlag==1" />
+					<input data-test='Projects_ProjectLibrary_WorkingShifts_Active' type="button" ng-click="activeWorkShifts()" value="Activate"
+						class="btn btn-primary btn-sm"
+						ng-if="account.appCodeTemplate['PRJ_PRJLIB_WRKGSHFT_ADD']  && activeFlag==2" />
+				</div>
+			</div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+</div>
+</section>
+

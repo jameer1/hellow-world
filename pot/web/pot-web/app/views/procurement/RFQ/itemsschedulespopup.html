@@ -1,0 +1,80 @@
+<div class="panel panel-default" modal-movable>
+		<div class="panel-heading">
+			<h4 class="panel-title">Procurement Items Schedule</h4>
+		</div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+                    <md-input-container class="md-block">
+                        <label>Pre Contract ID</label>
+                        <input type="text"
+                               ng-model="scheduleDetails.preContractLabelKeyTO.code"
+                               placeholder="" ng-click="getPreContractDetails()">
+                    </md-input-container>
+                </div>
+                <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+                    <md-input-container class="md-block">
+                        <label>Pre Contarct Description</label>
+                        <input type="text"
+                               ng-model="scheduleDetails.preContractLabelKeyTO.name"
+                               placeholder=""
+                               ng-click="getPreContractDetails()"> 
+                    </md-input-container>
+                </div>
+                <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+                    <md-input-container class="md-block">
+                        <label>Comapny</label>
+                        <input type="text" ng-model="preContractCompanyMap[scheduleDetails.companyId].name" placeholder=""> 
+                    </md-input-container>
+                </div>
+                <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+                    <md-input-container class="md-block">
+                        <label>RFQ Ref</label>
+                        <input type="text" ng-model="searchProject.projName"/>
+                    </md-input-container>
+                </div>
+                </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+               
+                <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+                    <md-input-container class="md-block">
+                        <label>RFQ Issue Date</label>
+                        <potdate-picker dir-index="$index" date-name="rfqissuedate"
+                                        ng-model="chargeOutRatesTO.effectiveFrom"></potdate-picker>
+                    </md-input-container>
+                </div>
+                <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+                    <md-input-container class="md-block">
+                        <label>Vendor</label>
+                        <input type="text" ng-model="" placeholder="">
+                    </md-input-container>
+                </div>
+                <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+                    <md-input-container class="md-block">
+                        <label>Quotation Date</label>
+                          <potdate-picker dir-index="$index" date-name="quotationdate" ng-model="chargeOutRatesTO.effectiveFrom"></potdate-picker>
+                    </md-input-container>
+                </div>
+                <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+                    <md-input-container class="md-block">
+                        <label>Quotation Reference</label>
+                        <input type="text" ng-model="">
+                    </md-input-container>
+                </div>
+            </div>
+            </div>
+            <div ng-show="scheduleDetails.preContractId > 0" id="tabs1" class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    <li fixed-header="" ng-repeat ="preContarctDetailTab in preContrctDetailTabs"
+                        ng-class="{active:isActiveTab1(preContarctDetailTab.url)}">
+                        <a data-toggle="tab" ng-click="onClickTab1(preContarctDetailTab)">{{preContarctDetailTab.title}}</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div ng-include="currentTab1"></div>
+                </div>
+            </div>
+            <div class="ngdialog-close"></div>
+        </div>
+    </div>

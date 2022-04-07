@@ -1,0 +1,126 @@
+<div class="panel-body">
+       <div class="tabTable_5_Res_Height overflow-auto" >
+           <table class="table table-striped tabTable_5_Height table-hover table-bordered" >
+               <thead>
+                   <tr>
+                       <th rowspan="2">Select</th>
+                       <th rowspan="2">Source Of Material</th>
+                       <th rowspan="2">Docket Type</th>
+                       <th rowspan="2">Docket Number</th>
+                       <th rowspan="2">Docket Date</th>
+                       <th rowspan="2">Purchase Order</th>
+                       <th rowspan="2">Schedule Item</th>
+                       <th rowspan="2">Resource Name</th>
+                       <th rowspan="2">Supplier</th>
+                       <th rowspan="2">Unit Of Rate</th>
+                       <th rowspan="2">Unit Of Measure	</th>
+                       <th rowspan="2">Delivery Location</th>
+                       <th rowspan="2">Defects If Any</th>
+                       <th colspan="{{workDairyCostCodeList.length}}" class="text-center">
+                           Cost
+                           Code Wise Material Utilisation
+                       </th>
+                       <th rowspan="2">Total Consumption Quantity</th>
+                       <th rowspan="2">Comments</th>
+                       <!--      <th rowspan="2">Upload Copy Of Delivery Docket</th>-->
+                   </tr>
+                   <tr>
+                       <th ng-repeat ="workDairyCostCode in  workDairyCostCodeList"
+                           class="text-center">{{workDairyCostCode.code}}</th>
+                   </tr>
+               </thead>
+               <tbody>
+                   <tr ng-repeat ="materialObj in workDairyMaterialDtlTOs">
+                       <td>
+                           <input type="checkbox" ng-if="materialObj.id==undefined || materialObj.id <=0"
+                                  ng-change="materialStoreRowSelect(materialObj)"
+                                  ng-model="materialObj.select" value="id">
+                       </td>
+                       <td class="input-width0">
+                           <input type="text" class="form-control" 
+                                  ng-model="materialObj.sourceType">
+                       </td>
+                       <td class="input-width0">
+                           <input type="text" class="form-control" 
+                                  ng-model="materialObj.docketType">
+                       </td>
+                       <td class="input-width0">
+                           <input type="text" class="form-control" 
+                                  ng-model="materialObj.docketNum" ng-click="getDeliveryDockets()">
+                       </td>
+                       <td class="input-width0">
+                           <input type="text" class="form-control" 
+                                  ng-model="materialObj.docketDate">
+                       </td>
+                       <td class="input-width0">
+                           <input type="text" class="form-control" 
+                                  ng-disabled="materialObj.sourceType=='Project Delivery'"
+                                  ng-click="getPurchaseOrdersForMaterial(materialObj)"
+                                  ng-model="materialObj.purchaseLabelKeyTO.code">
+                       </td>
+                       <td class="input-width0">
+                           <input type="text" class="form-control" 
+                                  ng-click="getScheduleItems(materialObj)"
+                                  ng-model=materialObj.purchaseSchLabelKeyTO.code>
+                       </td>
+                       <td class="input-width4">
+                           <input type="text" class="form-control" 
+                                  name="materialDescription"
+                                  ng-model="classificationMap[materialObj.purchaseSchLabelKeyTO.displayNamesMap['purClassId']].name"
+                                  placeholder="SchaterialDescription" readonly="readonly">
+                       </td>
+                       <td class="input-width0">
+                           <input type="text" class="form-control" 
+                                  ng-model="companyMap[materialObj.purchaseSchLabelKeyTO.displayNamesMap['cmpId']].name">
+                       </td>
+                       <td class="input-width4">
+                           <input type="text" class="form-control"  name="ratePerUnit"
+                                  ng-model="materialObj.purchaseSchLabelKeyTO.displayNamesMap['unitOfRate']"
+                                  placeholder="Rate PerUnit" readonly="readonly">
+                       </td>
+                       <td class="input-width4">
+                           <input type="text" class="form-control"  name="ratePerUnit"
+                                  ng-model="classificationMap[materialObj.purchaseSchLabelKeyTO.displayNamesMap['purClassId']].displayNamesMap['UnitOfMeasure']"
+                                  placeholder="Rate Per Unit" readonly="readonly">
+                       </td>
+
+                       <td class="input-width0">
+                           <input type="text" class="form-control" 
+                                  ng-model="materialObj.deliveryPlace">
+                       </td>
+                       <td class="input-width0">
+                           <input type="text" class="form-control" 
+                                  ng-model="materialObj.defectComments">
+                       </td>
+                       <td colspan="{{workDairyCostCodeList.length}}">
+                           <table id="tableBorder0" class="table"
+                                  ng-if="materialObj.workDairyMaterialStatusTOs.length > 0">
+                               <tr ng-repeat ="materialObjStatusTO in materialObj.workDairyMaterialStatusTOs">
+                                   <td ng-repeat ="usedMaterialObj in  materialObjStatusTO.workDairyMaterialCostTOs"
+                                       id="input-width">
+                                       <input maxlength="5" placeholder=HH.MM
+                                              ng-class="{coloumnHighlightColor:materialObjStatusTO.apprStatus==null,coloumnHighlightColor1:materialObjStatusTO.apprStatus=='Approved'}"
+                                              ng-disabled="materialObjStatusTO.apprStatus!='SubmittedForApproval'"
+                                              type="text" ng-model="usedMaterialObj.quantity" />
+                                   </td>
+                               </tr>
+                           </table>
+                       </td>
+                       <td class="input-width0">
+                            <input type="text" class="form-control" 
+                                   readonly="readonly"
+                                   ng-class="{coloumnHighlightColor:materialObjStatusTO.apprStatus==null,coloumnHighlightColor1:materialObjStatusTO.apprStatus=='Approved'}"
+                                   ng-disabled="materialObjStatusTO.apprStatus!='SubmittedForApproval'"
+                                   ng-model="materialObjStatusTO.total" />
+                        </td>
+                        <td class="input-width0">
+                            <input type="text" class="form-control" 
+                                   ng-model="materialObj.apprComments"
+                                   ng-class="{coloumnHighlightColor:materialObjStatusTO.apprStatus==null,coloumnHighlightColor1:materialObjStatusTO.apprStatus=='Approved'}"
+                                   ng-disabled="materialObjStatusTO.apprStatus!='SubmittedForApproval'" />
+                        </td>
+                   </tr>
+               </tbody>
+           </table>
+       </div>
+</div>

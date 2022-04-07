@@ -1,0 +1,163 @@
+<div id="tab-pannel" class="panel-group" ng-init="getUserServiceMap()">
+	<form name="userForm" validate>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h4 class="panel-title" ng-show="action=='Add'">Create Users</h4>
+				<h4 class="panel-title" ng-hide="action=='Add'">Create Users</h4>
+			</div>
+			<div class="panel-body">
+                <div class=" popUpTableResHeight" style="overflow:auto">
+                    <table class="table table-striped table-hover table-bordered popUpTableHeight">
+                        <thead>
+                            <tr>
+                                <th ng-show="action=='Add'">Select</th>
+                                <th>User Name</th>
+                                <th>Password</th>
+                                <th>Employee Code</th>
+                                <th>Employee Desg</th>
+                                <th>Display Name</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Mobile</th>
+                                <th>Profile Name</th>
+                                <th>Remarks</th>
+                            </tr>
+                        </thead>
+                        <tbody id="input-width1">
+                            <tr fixed-header="" ng-repeat ="user in addUsers">
+                                <td ng-show="action=='Add'">
+                                    <input type="checkbox"
+                                           class="ng-pristine ng-valid" ng-model="user.select"
+                                           ng-change="popUpRowSelect(user)">
+                                </td>
+                                <td ng-form name="userForm9">
+                                    <input data-test='Admin_ClientUser_Create_UserName' type="text" class="form-control"
+                                           name="userName" placeholder="User Name"
+                                           ng-model="user.userName" ng-required="true"
+                                           pattern="[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))"
+                                           maxlength="50" ng-change="checkDuplicate(user)"
+                                           ng-class="{coloumnHighlightColor:user.duplicateFlag}">
+                                    <span ng-show="userForm9.userName.$error.minlength">
+                                        Too
+                                        Short
+                                    </span> <span ng-show="required">
+                                        <i class="fa fa-star"
+                                           aria-hidden="true"></i>
+                                    </span> <span ng-show="userForm9.userName.$error.pattern">
+                                        At Least One
+                                        Alphabet is mandatory
+                                    </span> <span ng-show="userForm6.userName.$dirty &&userForm6.userName.$error.required">*</span>
+                                </td>
+
+                                <td><input type="text" data-test='Admin_ClientUser_Create_PassWord' class="form-control" placeholder="password" ng-model="user.password" name="<td><input type='text' placeholder='password' ng-model='user.password' name='password' maxlength='50' ng-required='true'></td>" maxlength="50" ng-required="true"></td>
+                                <td>
+                                    <input data-test='Admin_ClientUser_Create_EmployeeCode' type="text" class="form-control" placeholder="Employee Code"
+                                           ng-model="user.empCode" name="empCode" maxlength="50"
+                                           ng-required="true" ng-if="registeredUsers != null" ng-change="checkDuplicate(user)">
+                                    <input data-test='Admin_ClientUser_Create_EmployeeCode' type="text" class="form-control" placeholder="Employee Code"
+                                           ng-model="user.empCode" name="empCode" maxlength="50"
+                                           ng-required="false" ng-if="registeredUsers == null" ng-change="checkDuplicate(user)">
+                                </td>
+                                <td>
+                                    <input data-test='Admin_ClientUser_Create_EmployeeDesignation' type="text" class="form-control" ng-model="user.empDesg"
+                                           placeholder="Employee Designation" name="empDesg"
+                                           ng-required="true" maxlength="100">
+                                </td>
+                                <td>
+                                    <input data-test='Admin_ClientUser_Create_EmployeeDisplayName' type="text" class="form-control" placeholder="Display Name"
+                                           ng-model="user.dispName" name="dispName" ng-required="true"
+                                           maxlength="200">
+                                </td>
+                                <td ng-form name="userForm4">
+                                    <input data-test='Admin_ClientUser_Create_FirstName' type="text" class="form-control"
+                                           ng-model="user.firstName" name="firstName"
+                                           placeholder="First Name" maxlength="50"> <span ng-show="userForm4.firstName.$error.minlength">
+                                        Too
+                                        Short!
+                                    </span>
+                                </td>
+                                <td ng-form name="userForm5">
+                                    <input data-test='Admin_ClientUser_Create_LastName' type="text" class="form-control"
+                                           ng-model="user.lastName" name="lastName"
+                                           placeholder="Last Name" maxlength="50">
+                                </td>
+                                <td ng-form name="userForm6">
+                                    <input data-test='Admin_ClientUser_Create_Email' type="email" class="form-control"
+                                           ng-model="user.email" name="email" placeholder="Email ID"
+                                           ng-required="true" maxlength="50"> <span ng-show="userForm6.email.$dirty &&userForm6.email.$error.required">
+                                        Please
+                                        enter email
+                                    </span> <span ng-show="userForm6.email.$dirty &&userForm6.email.$error.required">*</span>
+                                    <span ng-show="userForm6.email.$dirty && userForm6.email.$invalid">
+                                        Invalid
+                                        Email
+                                    </span>
+                                </td>
+                                <td ng-form name="userForm7">
+                                    <input data-test='Admin_ClientUser_Create_Phone' type="text" class="form-control"
+                                           pattern="^[\d\.,%]+$" ng-model="user.phone"
+                                           placeholder="Phone Number" name="phone" minlength="10"
+                                           maxlength="20"> <span ng-show="userForm7.phone.$error.pattern">
+                                        Enter Only
+                                        Digits
+                                    </span> <span ng-show="userForm7.phone.$error.minlength">
+                                        Mobile
+                                        number must be 10 characters
+                                    </span>
+                                </td>
+                                <td ng-form name="userForm8">
+                                    <input data-test='Admin_ClientUser_Create_Mobile' type="text" class="form-control"
+                                           pattern="^[\d\.,%]+$" ng-model="user.mobile" name="mobile"
+                                           placeholder="Mobile Number" minlength="10" maxlength="20"
+                                           ng-required="true"> <span ng-show="userForm8.mobile.$error.pattern">
+                                        Enter Only
+                                        numbers
+                                    </span> <span ng-show="userForm8.mobile.$error.minlength">
+                                        Mobile
+                                        number must be 10 characters
+                                    </span>
+                                </td>
+                                <td>
+                                    <input data-test='Admin_ClientUser_Create_ProfileName' type="text" class="form-control" ng-click="rolesdisplay(user)"
+                                           placeholder="Select Role" ng-model="user.roleDisplay"
+                                           ng-required="true" readonly>
+                                </td>
+                                <td ng-form="userForm10">
+                                    <input data-test='Admin_ClientUser_Create_Remarks' type="text" class="form-control"
+                                           ng-model="user.remarks" placeholder="Remarks" name="comments"
+                                           maxlength="50"
+                                           pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))>
+                                    <span ng-show="userForm10.comments.$error.pattern">
+                                        At
+                                        Least One Alphabet is mandatory
+                                    </span> <span ng-show="userForm10.comments.$error.maxlenth">
+                                        Only 50
+                                        characters are allowed
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+			</div>
+			<div class="panel-footer">
+				<div class="pull-left">
+					<input data-test='Admin_ClientUser_Create_AddRows' type="submit" class="btn btn-secondary btn-sm"
+						ng-show="action=='Add'" ng-click="userForm.$valid && addRows()"
+						value="AddRows"> <input data-test='Admin_ClientUser_Create_DeleteRows' type="button"
+						class="btn btn-secondary btn-sm" ng-click="deleteRows()"
+						ng-show="action=='Add'" value="DeleteRows">
+				</div>
+				<div class="pull-right">
+					<input data-test='Admin_ClientUser_Create_Save' type="submit" class="btn btn-primary btn-sm"
+						ng-click="userForm.$valid && saveUser(userForm)" value="Save"
+						validate />
+					<!-- <button type="submit" style="float: right;"   ng-click="userForm.$valid && saveUser()" class="btn bottomaligned btn-brown btn-sm" validate>Save</button> -->
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</form>
+</div>

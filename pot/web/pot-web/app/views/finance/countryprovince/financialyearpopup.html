@@ -1,0 +1,45 @@
+<div id="tab-pannel" class="panel-group">
+	<div id="tab-pannel" class="panel panel-default" modal-movable>
+		<div class="panel-heading">
+			<h4 class="panel-title">Financial Year</h4>
+		</div>
+		<div class="panel-body">
+				
+			<table class="table table-striped table-bordered">
+				<thead>
+					<tr>
+					        <th>From Date</th>
+					        <th>To Date</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat ="item in FinancialYearDetails" >
+				<td ng-if="item.actionType == 'View' ">{{item.fromDate}}</td>
+					<td ng-if="item.actionType == 'View' ">{{item.toDate}}</td>
+						<td ng-if="item.actionType != 'View'"><ng-form name="dateForm"> <potdate-picker
+								ng-model="item.fromDate" date-name="date" data-test="CountryProvinceCodes_FinancialYear_FromDate"
+								min-mode="year" datepicker-mode="'year'" max-date="item.toDate"
+								placeholder="dd-mm-yyyy" ng-change="getToDate(item)" readonly="readonly"
+								class="form-control" 
+							/></ng-form></td>
+						<td ng-if="item.actionType != 'View' "><ng-form name="dateForm"> <potdate-picker
+								ng-model="item.toDate" date-name="date" data-test="CountryProvinceCodes_FinancialYear_ToDate"
+								min-mode="year" datepicker-mode="'year'" disabled min-date="item.fromDate"
+								placeholder="dd-mm-yyyy" readonly="readonly"
+								class="form-control" 
+							/></ng-form></td>
+
+					</tr>
+				</tbody>
+			</table>
+			
+		</div>
+		<div class="panel-footer">
+		<div class="pull-right" ng-if="actionTypeSave != 'View' ">
+				<input type="submit" class="btn  btn-primary btn-sm" value="Save" data-test="CountryProvinceCodes_FinancialYear_Date_Save"
+					ng-click="saveFinancialYear()" />
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</div>
+</div>

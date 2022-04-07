@@ -1,0 +1,50 @@
+<div id="tab-pannel" class="panel-group" ng-init="payPeriodCycle()">
+	<form name="taxcountryForm" validate>
+		<div id="tab-pannel" class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Tax code List</h4>
+			</div>
+			<div class="panel-body">
+					<div class="b-sh popUpTableResHeight">
+				<table class="table table-striped table-hover table-bordered popUpTableHeight" >
+					<thead>
+						<tr>
+							<th ng-hide="action =='Edit'">Select</th>
+							<th>TaxCode</th>
+							<th>Description</th>
+							<th>Applicable</th>
+							<th>Pay period</th>
+							<th>Due Date</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr fixed-header="" ng-repeat ="taxcodemapping in taxmappingDetails"
+							ng-if="existingTaxTypesMap[taxcodemapping.taxCodesTO.id]==null">
+							<td><input type="checkbox" ng-model="taxcodemapping.select"
+								ng-change="selectedTaxCodes(taxcodemapping)"></td>
+							<td>{{taxcodemapping.taxCodesTO.code}}</td>
+							<td>{{taxcodemapping.taxCodesTO.name}}</td>
+							<td>{{taxcodemapping.taxCodesTO.taxType}}</td>
+							<td><select class="form-control" style="min-width: 150px;" id="periodCycle"
+								name="periodCycle" ng-model="taxcodemapping.periodCycle"
+								ng-options="periodCycle for periodCycle in periodCycles">
+									<option value="">Select</option>
+							</select></td>
+							<td class="input-width0"><potdate-picker class="form-control"
+									ng-model="taxcodemapping.dueDate" dir-index="$index"
+									date-name="dueDate" placeholder="dd-mm-yyyy"></td>
+						</tr>
+					</tbody>
+				</table>
+				</div>
+			</div>
+			<div class="panel-footer">
+				<div class="pull-right">
+					<input type="submit" class="btn  btn-primary btn-sm" value="Save"
+						ng-click="saveTaxCodeDetails()" />
+				</div>
+			</div>
+			<div class="ngdialog-close"></div>
+		</div>
+	</form>
+</div>

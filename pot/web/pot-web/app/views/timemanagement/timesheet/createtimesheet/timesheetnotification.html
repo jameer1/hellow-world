@@ -1,0 +1,60 @@
+<div id="tab-pannel" class="panel-group" ng-init="timeSheetOnLoadRecords()">
+  <div class="panel panel-default" modal-movable>
+    <div class="panel-heading">
+      <h4 class="panel-title">Time Sheet Notification</h4>
+    </div>
+    <div class="panel-body">
+      <div class="row text-black">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+            <span class="labelName">Project Name</span>
+          </div>
+          <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+            <span ng-show="crewTypeId == 1">Crew</span><span ng-show="crewTypeId == 2">Individual</span>
+          </div>
+          <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+            <span class="labelName">From </span>
+          </div>
+          <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+            <span class="labelName">TO - {{empId}}</span>
+          </div>
+          <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+            <span class="labelName">Approver</span>
+          </div>
+          <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+            <span class="labelName">Comments</span>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+            <input type="text" class="form-control" ng-model="projName" placeholder="Project Name" readonly="readonly">
+          </div>
+          <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+            <input type="text" class="form-control" placeholder="Select Crew" ng-model="crewName" readonly="readonly" ng-show="crewTypeId == 1"> 
+            <input type="text" class="form-control" ng-model="userName" readonly="readonly" ng-show="crewTypeId == 2">
+          </div>
+          <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+            <potdate-picker dir-index="$index" class="form-control" date-name="notificationDate" ng-model="tableData.weekStartDate" min-date="tableData.weekStartDate" max-date="tableData.weekEndDate" placeholder="dd-mm-yyyy" required="required">
+          </div>
+          <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+            <potdate-picker dir-index="$index" class="form-control" date-name="notificationDate" ng-model="tableData.weekEndDate" placeholder="dd-mm-yyyy" required="required">
+          </div>
+          <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+            <input type="text" class="form-control" placeholder="Select Approver" ng-model="approverTo.name" ng-click="getModuleUserDetails(approverTo)" required>
+          </div>
+          <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+            <textarea type="text" class="form-control" ng-model="comments" placeholder="Comments"></textarea>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="panel-footer">
+      <div class="pull-right">
+        <input type="button" ng-click="submitNotifications(projId)" class="btn btn-primary btn-sm" value="Submit"  >
+      </div>
+    </div>
+  </div>
+  <div class="ngdialog-close"></div>
+</div>

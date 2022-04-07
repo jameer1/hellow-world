@@ -1,0 +1,35 @@
+<div id="tab-pannel">
+	<div class="panel panel-default" modal-movable>
+		<div class="panel-heading">
+			<h4 class="panel-title">{{popupTitle}}</h4>
+		</div>
+		<div class="panel-body">
+			<form name="procureForm" validate>
+			<div class="" id="input-height">
+				<div ng-show="displayApprovalList">Approver<span class="procurment-pot-errors">*</span></div>
+				<div ng-show="displayApprovalList">
+					<input data-test='Stage1Request_viewedit_Sendforapproval_Approver' type="text" name="approver" class="form-control"
+						ng-click="getApproverUsersList();" ng-model="apprUserLabelkeyTO.name" placeholder="Approver ID" maxlength="100" readonly="readonly">
+					<span ng-show="myForm7.approver.$error.maxlength">You reached max length</span>
+				</div>
+				<div>Comments</div>
+				<textarea data-test='Stage1Request_viewedit_Sendforapproval_Comments' class="form-control" 
+					ng-model="coData.comments" name="comment" placeholder="Approver Comments" maxlength="200">
+					<span>You reached max length</span>
+				</textarea>
+				<div ng-show="displayExtApprovalRequired">Is External Approval Required</div>
+				<div ng-show="displayExtApprovalRequired">
+					<input type="checkbox" ng-model="coData.isExtApprovalRequired" name="externalApproval" ng-change="selectExtApprRequired(phone)"/>
+				</div>
+			</div>
+			</form>
+		</div>
+		<div class="panel-footer">
+			<div class="pull-right">
+				<input type="Submit" data-test='Stage1Approve_viewedit_submit' value="Submit" data-test='Stage1Request_viewedit_Sendforapproval_Submit' ng-click="submit()"
+					class="btn btn-primary btn-sm">
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</div>
+</div>

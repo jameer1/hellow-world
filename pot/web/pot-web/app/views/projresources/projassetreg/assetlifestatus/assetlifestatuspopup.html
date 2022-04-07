@@ -1,0 +1,122 @@
+<div id="tab-pannel" class="panel-group">
+	<form name="assetLifeStatusForm" validate>
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Asset Life Status</h4>
+			</div>
+			<div id="tab-pannel" class="panel-body">
+			  <div class="popUpTableResHeight">
+					<table class="table table-striped table-bordered popUpTableHeight" >
+						<thead id="tab-head">
+							<tr>
+							 <th class="text-center" ng-if="action ==='Add'">Select</th>
+							    <th>EffectiveDate
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th>Year Build for Structure</th>
+								<th>Plant Commissioning Date</th>
+								<th>Structure Total Use full Life (in Years)
+									<span class="procurment-pot-errors">*</span>
+								</th>
+							    <th>Plant & Equipment Total use full Life (in Years)
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th>Age for Structure (In Years)</th>
+							    <th>Age for Plant & Equipment (In Years)</th>
+							    <th>Remaining Use full Life for Structure</th>
+							    <th>Remaining Use full Life for Plant & Equipment</th>
+							    <th>Life Assignment Records</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat ="lifestatus in assetLifeStatus">
+
+							   <td ng-if="action =='Add'"><ng-form name="selectboxForm">
+								<input type="checkbox"  ng-model="lifestatus.selected"
+								data-test="AssetLifeStatus_Create_Checkbox"
+									ng-change="assetLifeStatusPopUpRowSelect(lifestatus)" ></ng-form></td>
+
+								<td class="input-width3"><potdate-picker dir-index="$index"
+										date-name="effectiveDate" tabindex="-1" custom-read-only
+										data-test="AssetLifeStatus_Create_EffectiveDate" ng-required="true"
+										ng-model="lifestatus.effectiveDate" class="form-control"
+										placeholder="dd-mm-yyyy" min-date="currentDate" ></potdate-picker></td>
+							<!--lifestatus.plantCommissioningDate123-->
+								<td><input type="text" name="buildStructure"
+									data-test="AssetLifeStatus_Create_YearBuildforStructure"
+									ng-model="lifestatus.buildStructure" placeholder="Build Structure"
+									 tabindex="-1" readonly class="form-control"></td>
+
+								<td><input type="text" name="plantCommissioningDate"
+									data-test="AssetLifeStatus_Create_PlantCommissioningDate"
+									ng-model="lifestatus.plantCommissioningDate" placeholder="plant CommissioningDate"
+									 tabindex="-1" readonly class="form-control"></td>
+
+								<td><input type="text" name="structureTotal" ng-required="true"
+									data-test="AssetLifeStatus_Create_StructureTotalUsefullLife"
+									ng-model="lifestatus.structureTotal" tabindex="-1"
+									placeholder="Structure Total" pattern="[0-9]+"  class="form-control">
+									<span ng-show="assetLifeStatusForm.structureTotal.$error.pattern">only
+										Numerics allowed</span></td>
+
+								<td><input type="text" name="plantEquipmentTotal" ng-required="true"
+									data-test="AssetLifeStatus_Create_PlantEseFullLife"
+									ng-model="lifestatus.plantEquipmentTotal" tabindex="-1"
+									placeholder="Plant EquipmentTotal" pattern="[0-9]+"
+									 class="form-control"> <span
+									ng-show="assetLifeStatusForm.structureTotal.$error.pattern">only
+										Numerics allowed</span></td>
+
+								<td><input type="text" name="ageStructure"
+									data-test="AssetLifeStatus_Create_AgeforStructure"
+									ng-model="lifestatus.ageStructure" placeholder="Age Structure" ng-click="ageStructureplantEquipmentTotal(lifestatus)"
+									readonly tabindex="-1"  class="form-control"></td>
+
+								<td><input type="text" name="ageEquipment"
+									data-test="AssetLifeStatus_Create_AgeforPlantEquipment"
+									ng-model="lifestatus.ageEquipment" placeholder="Age Equipment" ng-click="ageStructureplantEquipmentTotal(lifestatus)"
+									readonly tabindex="-1"  class="form-control"></td>
+
+								<td><input type="text" name="remainingStructure"
+									ng-model="lifestatus.remainingStruture"
+									data-test="AssetLifeStatus_Create_RemainingUsefullLifeforStructure"
+									placeholder="Remaining Structure" pattern="[0-9]+" ng-click="remainingStructureEquipment(lifestatus)"
+									readonly tabindex="-1"  class="form-control"> <span
+									ng-show="lifestatusForm.remainingStructure.$error.pattern">only
+										Numerics allowed</span></td>
+
+								<td><input type="text" name="remainingEquipment"
+									data-test="AssetLifeStatus_Create_RemainingUsefullLifeforPlantEquipment"
+									ng-model="lifestatus.remainingEquipment" ng-click="remainingStructureEquipment(lifestatus)"
+									placeholder="Remaining Equipment" pattern="[0-9]+"
+									readonly tabindex="-1"  class="form-control"> <span
+									ng-show="lifestatusForm.remainingEquipment.$error.pattern">only
+										Numerics allowed</span></td>
+
+								<td><input data-test='AssetLifeStatus_Create_ChooseFile' ng-disabled="isDisabled" type="file"  fileread="assetLifeStatusDoc" name="file"
+										ngf-select="checkFile($file)" ngf-accept="'*'" tabindex="20">
+								<span class="help-block" style="color: red"	ng-show="!assetLifeStatusDoc.isValid">
+										{{assetLifeStatusDoc.errorMessage}}</span>
+							</td>
+					</tr>
+				</tbody>
+				</table>
+				</div>
+		</div>
+			<div class="panel-footer">
+			<div class="pull-left">
+					<input type="submit" class="btn btn-primary  btn-sm" data-test="AssetLifeStatus_Create_Add"
+						ng-click="addRows()" value="Add"
+						ng-show="action =='Add'"> <input type="button" data-test="AssetLifeStatus_Create_Delete"
+						class="btn btn-default  btn-sm" ng-click="deleteRows()"
+						value="Delete" ng-show="action =='Add'">
+				</div>
+				<div class="pull-right">
+					<input type="submit" class="btn btn-primary  btn-sm" data-test="AssetLifeStatus_Create_Save"
+						ng-click="assetLifeStatusForm.$valid && saveAssetsLifeStatus()" value="Save">
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</form>
+</div>

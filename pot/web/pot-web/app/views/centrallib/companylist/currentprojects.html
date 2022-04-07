@@ -1,0 +1,59 @@
+<div id="tab-pannel" ng-if="account.appCodeTemplate['CMPLIST_CURRENTPROJ_VIEW']">
+	<div id='views/companylist/currentprojects.html'>
+		<form id="currentProjects" autocomplete="off">
+				<div>
+				<!-- <table class="table table-striped table-bordered tabTable_1_height" >
+					<thead>
+						<tr>
+							<th>Select</th>
+							<th class="text-center">Project ID</th>
+							<th class="text-center">Project Name</th>
+							<th class="text-center">Contract Value</th>
+							<th class="text-center">Contract Start Date</th>
+							<th class="text-center">Expected Contract Finish Date</th>
+							<th class="text-center">Performance</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr fixed-header="" ng-repeat ="current in currentProjs">
+							<td><input type="checkbox" ng-model="current.selected"
+								ng-change="currentProjRowSelect(current)" /></td>
+							<td class="text-center">{{current.projCode}}</td>
+							<td class="text-center">{{current.projName}}</td>
+							<td class="text-center">{{current.contractValue}}</td>
+							<td class="text-center">{{current.startDate}}</td>
+							<td class="text-center">{{current.finishDate}}</td>
+							<td class="text-center">{{current.performance}}</td>
+						</tr>
+					</tbody>
+				</table> -->
+				<div id="grid" ui-grid="gridOptions4" ng-if="stylesSvc.finishedStyling" ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize class="grid grid-tabs"></div>
+			</div>
+			<div class="panel-footer tab-footer" style="height:175px";>
+				<div class="pull-right">
+					<input data-test='Companylist_CurrentProjects_Create' type="button" class="btn btn-primary btn-sm"
+						ng-click="addProjs('Add')" value="Create"
+						ng-if="account.appCodeTemplate['CMPLIST_CURRENTPROJ_ADD']" />
+				</div>
+				<div class="pull-left">
+					<input type="button" data-test='Companylist_CurrentProjects_Edit' class="btn btn-primary btn-sm"
+						ng-click="addProjs('Edit')" value="Edit"
+						ng-if="account.appCodeTemplate['CMPLIST_CURRENTPROJ_ADD']">
+					<input type="button" data-test='Companylist_CurrentProjects_MoveToClosebutton' value="Move To Closed"
+						class="btn btn-secondary btn-sm"
+						ng-click="moveToClosedProj()"
+						ng-if="account.appCodeTemplate['CMPLIST_CURRENTPROJ_MOVETOCLOSE']" />
+					<input data-test='Companylist_CurrentProjects_Deactivate' type="button" class="btn btn-secondary btn-sm"
+						ng-click="deleteCompanyCurrentProjs()" value="Deactivate"
+						ng-if="account.appCodeTemplate['CMPLIST_CURRENTPROJ_DELETE']" />
+					<!-- <input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+                    <input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();"> -->
+					
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

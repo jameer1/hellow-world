@@ -1,0 +1,50 @@
+<div id="tab-pannel" class="panel-group">
+
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<span class="panel-title">Employee Details</span>
+		</div>
+		<div class="panel-body">
+			<div class="popUpTableResHeight">
+			<table class="table table-hover table-bordered popUpTableHeight">
+				<thead>
+					<tr>
+
+						<th>Employee ID</th>
+						<th>First Name</th>
+						<th>Last Name</th>
+
+						<th>Company Name</th>
+						<th>Gender</th>
+
+						<th>Designation</th>
+
+						<th>Existing or New</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr fixed-header="" ng-repeat ="employee in empDetails"
+						ng-dblclick="empRowselect(employee)">
+
+
+						<td>{{employee.code }}
+						<td>{{employee.firstName}}
+						<td>{{employee.lastName}}
+						<td>{{empCompanyMap[employee.cmpId].name}}
+						<td>{{employee.gender}}
+						<td>{{empClassMap[employee.empClassId].name}}
+						<td>{{employee.empStatus}}
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		</div>
+		<div class="panel-footer"></div>
+		<div class="ngdialog-close"></div>
+
+	</div>
+
+
+</div>
+
+

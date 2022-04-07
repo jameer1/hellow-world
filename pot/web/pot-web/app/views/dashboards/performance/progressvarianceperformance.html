@@ -1,0 +1,154 @@
+<!-- <table class="table table-striped table-hover table-bordered" >
+    <thead>
+        <tr>
+            <th>EPS Name</th>
+            <th>Project Name</th>
+            <th>Project Status</th>
+            <th>Progress %</th>
+            <th>Schedule Variance (Cost)</th>
+            <th>Cost Variance (Cost)</th>
+            <th>Schedule Performance Index (SPI)</th>
+            <th>Cost Performance Index (CPI)</th>
+            <th>To Complete Performance Index (TCPI)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat ="costValue in progVarPerIdxData">
+            <td>{{costValue.epsName}}</td>
+            <td>{{costValue.projName}}</td>
+            <td>{{costValue.currentPhase}}</td>
+            <td>{{costValue.progressOfWorkPercentage | number: 2}}</td>
+            <td>
+                <span ng-if="costValue.svExceptional == true" class="exceptional">
+                	<i class="fa fa-star"></i>
+                    {{costValue.scheduleVarienceCost | number: 2}} 
+                    Ahead of  Schedule
+                </span> 
+                <span ng-if="costValue.svAcceptable == true" class="acceptable">
+                	<i class="fa fa-square"></i>
+                    {{costValue.scheduleVarienceCost | number: 2}} 
+                    Ahead of Schedule
+                </span> 
+                <span ng-if="costValue.svWarning == true" class="warning">
+                	<i class="fa fa-exclamation-triangle"></i>
+                    {{costValue.scheduleVarienceCost | number: 2}} 
+                    Behind Schedule
+                </span> 
+                <span ng-if="costValue.svCritical == true" class="critical">
+                	<img src="images/critical.png" style="padding-left:5px !important;"> 
+                    {{costValue.scheduleVarienceCost | number: 2}}
+                    Behind Schedule
+                </span>
+            </td>
+
+            <td>
+                <span ng-if="costValue.costVarience > costValue.excvLowerLimit
+                	&& costValue.excvUpperLimit == 'Infinite'" class="exceptional">
+                	<i class="fa fa-star"></i>
+                    {{costValue.costVarience | number: 2}} 
+                    Under Budget
+                </span> 
+                <span ng-if="costValue.costVarience > costValue.wacvLowerLimit 
+                	&& costValue.costVarience <= costValue.wacvUpperLimit" class="warning">
+                	<i class="fa fa-exclamation-triangle"></i>
+                    {{costValue.costVarience | number: 2}} 
+                    Over Budget
+                </span> 
+                <span ng-if="costValue.costVarience < costValue.accvLowerLimit 
+                	&& costValue.costVarience <= costValue.accvUpperLimit" class="acceptable">
+                	<i class="fa fa-square"></i>
+                    {{costValue.costVarience | number: 2}} 
+                    Under Budget
+                </span> 
+                <span ng-if="costValue.costVarience < costValue.crcvLowerLimit 
+                	&& costValue.costVarience <= costValue.crcvUpperLimit" class="critical">
+                	<img src="images/critical.png" style="padding-left:5px !important;"> 
+                    {{costValue.costVarience | number: 2}} 
+                    Over Budget
+                </span>
+            </td>
+
+            <td>
+                <span ng-if="costValue.schedulePerformanceIndex > costValue.exspiLowerLimit 
+                	&& costValue.exspiUpperLimit == 'Infinite'" class="exceptional">
+                	<i class="fa fa-star"></i>
+                    {{costValue.schedulePerformanceIndex | number: 2}} 
+                    Project in Acceleration
+                </span> <span ng-if="costValue.schedulePerformanceIndex > costValue.waspiLowerLimit 
+                	&& costValue.schedulePerformanceIndex <= costValue.waspiUpperLimit" class="warning">
+                	<i class="fa fa-exclamation-triangle"></i>
+                    {{costValue.schedulePerformanceIndex | number: 2}} 
+                    Project is Delayed
+                </span> <span ng-if="costValue.schedulePerformanceIndex > costValue.acspiLowerLimit 
+                	&& costValue.schedulePerformanceIndex <= costValue.acspiUpperLimit " class="acceptable">
+                	<i class="fa fa-square"></i>
+                    {{costValue.schedulePerformanceIndex | number: 2}} 
+                    On Schedule
+                </span> <span ng-if="costValue.schedulePerformanceIndex < costValue.crspiLowerLimit  
+                	|| costValue.schedulePerformanceIndex == costValue.crspiUpperLimit" class="critical">
+                	<img src="images/critical.png" style="padding-left:5px !important;"> 
+                            {{costValue.schedulePerformanceIndex | number: 2}} 
+                            Project is Delayed
+                        </span>
+                    </td>
+                    <td>
+<span ng-if="costValue.costPerformanceIndex > (costValue.excpiLowerLimit + '').replace('>', '') 
+	&& costValue.excpiUpperLimit == 'Infinite'" class="exceptional">
+	<i class="fa fa-star"></i>
+    {{costValue.costPerformanceIndex | number: 2}} 
+    Project in Acceleration
+</span> <span ng-if="costValue.costPerformanceIndex > (costValue.wacpiLowerLimit + '').replace('>', '') 
+	&& costValue.costPerformanceIndex <= costValue.wacpiUpperLimit" class="warning">
+	<i class="fa fa-exclamation-triangle"></i>
+    {{costValue.costPerformanceIndex | number: 2}} 
+    Project is Delayed
+</span> <span ng-if="costValue.costPerformanceIndex > (costValue.accpiLowerLimit + '').replace('>', '') 
+	&& costValue.costPerformanceIndex <= costValue.accpiUpperLimit" class="acceptable">
+	<i class="fa fa-square"></i>
+    {{costValue.costPerformanceIndex | number: 2}} 
+    Project in Acceleration
+</span> <span ng-if="costValue.costPerformanceIndex < (costValue.crcpiLowerLimit + '').replace('<', '') 
+	&& costValue.costPerformanceIndex == costValue.crcpiUpperLimit" class="critical">
+	<img src="images/critical.png" style="padding-left:5px !important;"> 
+    {{costValue.costPerformanceIndex | number: 2}} 
+    Project is Delayed
+</span>
+		</td>
+
+                    <td>
+                        <span ng-if="costValue.toCompleteCostPerformanceIndex >= costValue.exTcpiUpperLimit  
+                        	&& costValue.toCompleteCostPerformanceIndex < (costValue.exTcpiLowerLimit + '').replace('<', '')" class="exceptional">
+                        	<i class="fa fa-star"></i>
+                            {{costValue.toCompleteCostPerformanceIndex | number: 2}}
+                            No need for  budget revision
+                            
+                        </span> 
+                        <span ng-if="costValue.toCompleteCostPerformanceIndex >= costValue.waTcpiUpperLimit 
+                        	&& costValue.toCompleteCostPerformanceIndex < (costValue.waTcpiLowerLimit + '').replace('<', '') " class="warning">
+                        	<i class="fa fa-exclamation-triangle"></i>
+                            {{costValue.toCompleteCostPerformanceIndex | number: 2}} 
+                            Need for  budget revision
+                        </span> 
+                        <span ng-if="costValue.toCompleteCostPerformanceIndex >= costValue.acTcpiUpperLimit 
+                        	&& costValue.toCompleteCostPerformanceIndex < (costValue.acTcpiLowerLimit + '').replace('<', '')" class="acceptable">
+                        	<i class="fa fa-square"></i>
+                            {{costValue.toCompleteCostPerformanceIndex | number: 2}} 
+                             No need for budget revision
+                        </span> 
+                        <span ng-if="costValue.toCompleteCostPerformanceIndex >= costValue.crTcpiUpperLimit 
+                        	&& costValue.toCompleteCostPerformanceIndex >= (costValue.crTcpiLowerLimit + '').replace('>', '')" class="critical">
+                            <img src="images/critical.png" style="padding-left:5px !important;"> 
+                    {{costValue.toCompleteCostPerformanceIndex | number: 2}} 
+                    Need for  budget revision
+                   
+
+                </span>
+            </td>
+        </tr>
+    </tbody>
+</table> -->
+
+<div>
+          <div id="grid1" ui-grid="gridOptions" class="singleTableResHeight_3" ng-if="stylesSvc.finishedStyling"
+            ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize></div>
+        </div>

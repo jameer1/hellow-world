@@ -1,0 +1,40 @@
+<div class="tab-content panel-body">
+    <div class="tabTable_5_Res_Height overflow-auto">
+        <table class="table table-hover table-bordered tabTable_5_Height">
+            <thead>
+                <tr>
+                    <th><input type="checkbox" ng-model="selectAll" ng-change="selectAllMaterials(selectAll)"></th>
+                    <th rowspan="2">Source Of Materials</th>
+                    <th rowspan="2">Type Of Docket</th>
+                    <th rowspan="2">Docket Number</th>
+                    <th rowspan="2">Docket Date</th>
+                    <th rowspan="2">Location Of Delivery</th>
+                    <th rowspan="2">PO Schedule Item</th>
+                    <th rowspan="2">Purchase Order</th>
+                    <th rowspan="2">Supplier</th>
+                    <th rowspan="2">Material</th>
+                    <th rowspan="2">Unit Of Measure</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat ="matestore in workDairyMaterialDtlTOs">
+                    <td>
+                        <input type="checkbox"
+                               ng-change="selectMaterial(matestore)"
+                               ng-model="matestore.select" value="id">
+                    </td>
+                    <td>{{matestore.sourceType}}</td>
+                    <td>{{matestore.docketType}}</td>
+                    <td>{{matestore.docketNum}}</td>
+                    <td>{{matestore.docketDate}}</td>
+                    <td>{{matestore.deliveryPlace}}</td>
+                    <td>{{matestore.materialProjDtlTO[0].purchaseSchLabelKeyTO.code}}</td>
+                    <td>{{matestore.materialProjDtlTO[0].purchaseSchLabelKeyTO.displayNamesMap.purCode}}</td>
+                    <td>{{matestore.materialProjDtlTO[0].purchaseSchLabelKeyTO.displayNamesMap.cmpName}}</td>
+                    <td>{{matestore.materialProjDtlTO[0].purchaseSchLabelKeyTO.displayNamesMap.purClassName}}</td>
+                    <td>{{matestore.materialProjDtlTO[0].purchaseSchLabelKeyTO.displayNamesMap.purClassUnitOfMeasure}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

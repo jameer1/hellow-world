@@ -1,0 +1,61 @@
+<style>
+.currentRecord {
+    color: #000000;  
+}
+.pastRecords
+{
+	color:#0099cc;
+}
+</style>
+<div id="tab-pannel" ng-controller="AssetRentValueController">
+	<div class="tabTable_1_Res_height">
+	<div id="grid" ui-grid="gridOptions" ng-if="stylesSvc.finishedStyling" 
+		ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-grouping class="grid"></div>
+		<!-- <table class="table table-striped table-bordered tabTable_1_height" >
+			<thead id="tab-head">
+				<tr>
+					<th>Select</th>
+					<th>Effective Date</th>
+					<th>Asset Current Life Status</th>
+					<th>Revenue Status</th>
+					<th>Revenue Collection Cycle</th>
+					<th>Fixed or Variable Rent/Income</th>
+					<th>Estimated Rent per Cycle(Amount)</th>
+					<th>Applicable for Revenue Forecast</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr fixed-header="" ng-repeat=" status in rentalValueDtlTOs" ng-style="status.effectiveDate==maxDate && {'color':'black'} || status.effectiveDate!=maxDate && {'color':'#0099cc'}">
+				<tr fixed-header="" ng-repeat=" status in rentalValueDtlTOs" ng-class="{'currentRecord':status.effectiveDate==maxDate,'pastRecords':status.effectiveDate!=maxDate}">
+					<td><input type="checkbox" ng-model="status.selected" ng-change="rentalRecordPopUpRowSelect(status)" data-test="RentalValue_Checkbox" ng-blur="changeColor(status)"></td>
+				    <td>{{status.effectiveDate}}</td>
+				    <td ng-style="status.effectiveDate==maxDate && {'font-weight':'bold'}">{{status.effectiveDate}}</td> 
+					<td ng-style="status.effectiveDate==maxDate && {'font-weight':'bold'}">{{status.assetCurrentLifeSataus}}</td>
+					<td ng-style="status.effectiveDate==maxDate && {'font-weight':'bold'}">{{status.owenerShipStatus}}</td>
+					<td ng-style="status.effectiveDate==maxDate && {'font-weight':'bold'}">{{status.revenueCollectionCycle}}</td>
+					<td ng-style="status.effectiveDate==maxDate && {'font-weight':'bold'}">{{status.fixedOrRentIncome}}</td>
+					<td ng-style="status.effectiveDate==maxDate && {'font-weight':'bold'}">{{status.estimatedRentPerCycle}}</td>
+					<td ng-style="status.effectiveDate==maxDate && {'font-weight':'bold'}">{{status.applicableRevenue}}</td>
+				</tr>
+			</tbody>
+		</table> -->
+		<div class="panel-footer">
+		<div class="pull-right">
+			<input type="button" class="btn btn-primary btn-sm"
+				ng-click="addRentValueList('Add')" value="Add" data-test="RentalValue_Create">
+		</div>
+		<div class="pull-left">
+			<!-- <input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+			<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+			<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+			<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+			<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();"> -->
+			<input type="button" class="btn btn-primary btn-sm"
+				ng-click="addRentValueList('Edit')" value="Edit" data-test="RentalValue_Edit"> <input
+				type="button" class="btn btn-secondary btn-sm"
+				ng-click="deleteRentValue()" value="Deactivate" data-test="RentalValue_Deactivate">
+		</div>
+	</div>
+	</div>
+</div>
+

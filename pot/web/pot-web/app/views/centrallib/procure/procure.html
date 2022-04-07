@@ -1,0 +1,129 @@
+<section class="content-header">
+		<h1>Procurement Category</h1>	
+		<!-- <input type="submit" value ="Help !"
+		ng-click="helpPage();" class="pull-right btn  btn-primary btn-sm help-each-page"> -->
+	<button class="pull-right btn btn-primary btn-sm help-each-page" 
+		onclick="window.open('views/helptutorials/ProcurementCategory.html', '_blank', 
+		'toolbar=yes,scrollbars=yes,resizable=no,top=50,left=100,width=1400,height=700')">
+		Help
+	</button>
+	</section>
+<section ng-if="account.appCodeTemplate['ENTRPRSE_CENTLIB_PROCURCATGRY_VIEW']" class="content">
+<div id="tab-pannel"
+	ng-init="getprocures();procureSearch();">
+			<div class="panel panel-default block footer-parent">
+				<div class="panel-body">
+						<div class="row">
+					<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+						<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padL-0">
+								<md-input-container class="md-block">
+										<label>Category Name</label>
+										<md-select data-test='CentralLibrary_ProcurementCategory_Catagoryname' ng-model="procReq.procureClassName" ng-change="updateCatgCode(procReq.procurement);">
+											<md-option fixed-header="" ng-repeat ="item in proCategory" ng-value="item.name">
+													{{ item.name }}
+											</md-option>
+										</md-select>
+									</md-input-container>
+						</div>
+						<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+						<md-input-container class="md-block">
+							<label>Sub Category Name</label>
+							<input data-test='CentralLibrary_ProcurementCategory_SubCatagoryname' type="text" ng-model="procReq.subProcureName" class="form-control" autocomplete="off">
+							</md-input-container>
+							</div>
+
+						<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+								<md-input-container>
+										<label>Select Status</label>
+										<md-select data-test='CentralLibrary_ProcurementCategory_Status' ng-model="procReq.status" >
+										<md-option value="1">Active</md-option>
+										<md-option value="2">Inactive</md-option>
+										</md-select>
+									</md-input-container>
+						</div>
+						<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padR-0">
+								<div class="pull-right right-padding marT15">
+										<input data-test='CentralLibrary_ProcurementCategory_search' type="submit" ng-click="procureSearch('click')" value="Search"
+											class="btn btn-primary btn-sm" /> <input data-test='CentralLibrary_ProcurementCategory_refresh' type="reset"
+											value="Reset" ng-click="reset()" class="btn btn-secondary btn-sm" />
+									</div>
+						</div>
+						<div class="pull-left left-padding">
+						<input type="text" ng-model="procReq.procureId" ng-hide="true" class="form-control">
+					</div> 	
+				</div>
+				<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+						<div class="singleTableResHeight_2">
+						<div id="grid" ui-grid="gridOptions" class="singleTableResHeight_3" ng-if="stylesSvc.finishedStyling" 
+             ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-resize-columns class="grid"></div>
+						<!-- <table class="table table-striped table-hover table-bordered singleTableHeight_2" >
+							<thead>
+								<tr>
+									<th style="width: 50px !important">Select</th>
+									<th><span
+										ng-click="sortType = 'procurement.name'; sortReverse = !sortReverse">Procurement
+											Category<span ng-show="sortType == 'procurement.name'"
+												ng-class="(sortReverse ? 'fa fa-caret-up' :'fa fa-caret-down')"></span>
+											<span ng-show="sortType != 'procurement.name'"
+												class="fa fa-sort"></span>
+
+									</span></th>
+									<th><span
+										ng-click="sortType = 'code'; sortReverse = !sortReverse">Sub
+											Category Code<span ng-show="sortType == 'code'"
+												ng-class="(sortReverse ? 'fa fa-caret-up' :'fa fa-caret-down')"></span>
+											<span ng-show="sortType != 'code'" class="fa fa-sort"></span>
+
+									</span></th>
+									<th><span
+										ng-click="sortType = 'desc'; sortReverse = !sortReverse">Sub
+											Category Name<span ng-show="sortType == 'desc'"
+												ng-class="(sortReverse ? 'fa fa-caret-up' :'fa fa-caret-down')"></span>
+											<span ng-show="sortType != 'desc'" class="fa fa-sort"></span>
+
+									</span></th>
+									<th>Status</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr
+									fixed-header="" ng-repeat ="proCat in categories |  orderBy:sortType:sortReverse">
+									<td><input type="checkbox" ng-model="proCat.selected" ng-disabled=(proCat.procureId=="Plants"||proCat.procureId=="Manpower")?true:false
+										ng-change="rowSelect(proCat)" /></td>
+									<td>{{proCat.procureId}}</td>
+									<td>{{proCat.code}}</td>
+									<td>{{proCat.desc}}</td>
+									<td>{{proCat.status | potstatusfilter:proCat.status}}</td>
+								</tr>
+							</tbody>
+						</table> -->
+						<div class="panel-footer">
+					<div class="pull-right">
+						<input type="button" data-test='CentralLibrary_ProcurementCategory_Create' ng-click="addCategories('Add')"
+							value="Create" class="btn btn-primary btn-sm"
+							ng-if="account.appCodeTemplate['ENTRPRSE_CENTLIB_PROCURCATGRY_ADD'] && procReq.status==1" />
+					</div>
+					<div class="pull-left">
+						<!-- <input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+						<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+						<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+						<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+						<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();"> -->
+						<input data-test='CentralLibrary_ProcurementCategory_Edit' type="button" ng-click="addCategories('Edit')" value="Edit"
+							class="btn btn-primary btn-sm"
+							ng-if="account.appCodeTemplate['ENTRPRSE_CENTLIB_PROCURCATGRY_ADD'] && procReq.status==1" />
+						<input data-test='CentralLibrary_ProcurementCategory_Deactivate' type="button" ng-click="deleteProcureCatgs()"
+							value="Deactivate" class="btn btn-secondary btn-sm"
+							ng-if="account.appCodeTemplate['ENTRPRSE_CENTLIB_PROCURCATGRY_DELETE'] && procReq.status==1" />
+						<input data-test='CentralLibrary_ProcurementCategory_Activate' type="button" ng-click="activeProcureCatgs()"
+							value="Activate" class="btn btn-primary btn-sm"
+							ng-if="account.appCodeTemplate['ENTRPRSE_CENTLIB_PROCURCATGRY_ACTIVATE'] && procReq.status==2" />
+					</div>
+				</div>
+					</div>
+				</div>
+				</div>
+			</div>	
+		</div>
+</div>
+</section>

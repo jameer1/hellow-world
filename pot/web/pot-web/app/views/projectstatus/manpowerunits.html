@@ -1,0 +1,51 @@
+<div ng-if="account.appCodeTemplate['PRJ_PROGRESS_SUMMARY_MANPOWER_VIEW']" id="tab-pannel">
+		<div class="panel-default">
+			<div class="panel-body">
+				<div class="tabTable_3_Res_height">
+				<div id="grid" ui-grid="gridOptions1" ng-if="stylesSvc.finishedStyling"
+					ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-resize-columns class="grid"></div>
+				<!-- <table class="table table-striped table-hover table-bordered tabTable_3_height">
+					<thead>
+						<tr>
+							<th class="vert-align">Category ID</th>
+							<th class="text-center">Budget Units</th>
+							<th class="text-center">Revised Units</th>
+							<th class="text-center">Actual Units</th>
+							<th class="text-center">Remaining Units</th>
+							<th class="text-center">% Spent</th>
+							<th class="text-center">Estimate to Complete</th>
+							<th class="text-center">Estimate at Completion</th>
+							<th class="text-center">Completion Variance</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr fixed-header="" ng-repeat ="measure in measureunits">
+							<td>{{ measure.empCatgName }}</td>
+							<td>{{ measure.originalQty }}</td>
+							<td>{{ measure.revisedQty > 0 ? measure.revisedQty : '' }}</td>
+							<td>{{ measure.actualQty }}</td>
+							<td>{{ measure.remainingQty=(measure.revisedQty > 0 ? measure.revisedQty : measure.originalQty)-(measure.actualQty) }}</td>
+							<td>{{ measure.percentageSpent | number: 2 }}</td>
+							<td>{{ measure.estimateComplete | number: 2 }}</td>
+							<td>{{ measure.estimateCompletion | number: 2 }}</td>
+							<td>{{ measure.compVariance | number: 2}}</td>
+						</tr>
+					</tbody>
+					<tbody style="border-top: 2px solid #191970 !important;width:100%;">
+						<tr>
+							<td style="padding-top: 8px !important;"><b>Total</b></td>
+							<td>{{ getTotal('originalQty') }}</td>
+							<td>{{ getTotal('revisedQty') }}</td>
+							<td>{{ getTotal('actualQty') }}</td>
+							<td>{{ getTotal('remainingQty') }}</td>
+							<td>{{ getTotal('percentageSpent') | number:2 }}</td>
+							<td>{{ getTotal('estimateComplete') | number:2 }}</td>
+							<td>{{ getTotal('estimateCompletion') | number:2 }}</td>
+							<td>{{ getTotal('compVariance') | number:2 }}</td>
+						</tr>
+					</tbody>
+				</table> -->
+				</div>
+			</div>
+		</div>
+</div>

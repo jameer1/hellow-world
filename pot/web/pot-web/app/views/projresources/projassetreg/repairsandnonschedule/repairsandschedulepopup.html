@@ -1,0 +1,99 @@
+<div id="tab-pannel" class="panel-group">
+	<form name="repairsForm" validate>
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Repairs and Non Schedule Maintenance
+					Records</h4>
+			</div>
+			<div id="tab-pannel" class="panel-body">
+			<div class="popUpTableResHeight"  style="overflow:auto">
+					<table class="table table-striped table-bordered  popUpTableHeight" >
+						<thead id="tab-head">
+							<tr>
+								<th>Start Date
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th>Finish Date</th>
+								<th>Responsible Supervisor
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th>Maintenance Category
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th>Maintenance Sub Category</th>
+								<th>Purchase Order Number (Sub Contractor Services)</th>
+								<th>Materials Consumption Records (Project Docket)</th>
+								<th>Completion Records (Upload Documents)</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="asset in repairsRecord">
+								<td  class="input-width0"><ng-form
+									name="dateForm"> <potdate-picker custom-read-only ng-required="true"
+									ng-model="asset.startDate" dir-index="$index"
+									data-test="RepairsandNonSchedule_Create_StartDate"
+									date-name="date" placeholder="dd-mm-yyyy" class="form-control" /></ng-form></td>
+
+								<td  class="input-width0"><ng-form
+										name="dateForm"> <potdate-picker custom-read-only
+										data-test="RepairsandNonSchedule_Create_FinishDate"
+										ng-model="asset.finishDate" dir-index="$index" date-name="date"
+										placeholder="dd-mm-yyyy" class="form-control" /></ng-form></td>
+
+								<td><input type="text" name="responsibleSupervisor"
+									ng-model="asset.responsibleSupervisor"
+									data-test="RepairsandNonSchedule_Create_ResponsibleSupervisor"
+									placeholder="Responsible Supervisor" ng-required="true"
+									tabindex="-1" class="form-control" ng-click="employeeDetails(asset)"></td>
+
+								<td><input type="text" name="maintenanceCategory"
+									ng-model="asset.maintenanceCategory" custom-read-only
+									data-test="RepairsandNonSchedule_Create_MaintenanceCategory"
+									ng-click="getAssetMaintenanceCategory(assetMaintenanceCategoryTO,asset)"
+									placeholder="Maintenance Category" ng-required="true"
+									tabindex="-1" class="form-control"></td>
+
+								<td><input type="text" name="maintenanceSubCategory"
+									data-test="RepairsandNonSchedule_Create_MaintenanceSubCategory"
+									ng-model="asset.maintenanceSubCategory" readonly="readonly"
+									ng-click="getAssetMaintenanceSubCategory(assetMaintenanceCategoryTO,asset)"
+									placeholder="Maintenance SubCategory"
+									tabindex="-1" class="form-control"></td>
+
+								<td><input type="text" name="purchaseOrderNumber"
+									data-test="RepairsandNonSchedule_Create_PurchaseOrderNumber"
+									ng-model="asset.purchaseOrderNumber"
+									placeholder="Purchase OrderNumber"
+									tabindex="-1" class="form-control" ng-click="getProjectPoDetails(asset)"></td>
+
+								<td><input type="text" name="materialsConsumptionRecords"
+									data-test="RepairsandNonSchedule_Create_MaterialsConsumptionRecords"
+									ng-model="asset.materialsConsumptionRecords" ng-click="getMaterialProjDockets(asset)"
+									placeholder="Materials ConsumptionRecords"
+									tabindex="-1" class="form-control"></td>
+
+								<td><ng-form name="repairDocForm"> <input
+									data-test='RepairsandNonSchedule_Create_ChooseFile'
+									ng-model="asset.fileInfo"
+									ng-disabled="isDisabled" type="file" fileread="carParkingTollDoc"
+									name="file" ngf-select="checkFile($file)" ngf-accept="'*'"
+									tabindex="20"> <span
+									class="help-block" style="color: red"
+									ng-show="!asset.carParkingTollDoc.isValid">
+									{{carParkingTollDoc.errorMessage}}</span> </ng-form></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="panel-footer">
+				<div class="pull-right">
+					<input type="submit" class="btn btn-primary btn-sm"
+					data-test="RepairsandNonSchedule_Create_Save"
+						ng-click="repairsForm.$valid && saveRepairsSchedules()" value="Save">
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</form>
+</div>

@@ -1,0 +1,112 @@
+<div id="tab-pannel" class="panel-group">
+    <div class="panel panel-default" modal-movable>
+        <div class="panel-heading">
+            <h4 class="panel-title">Purchase-Order / Contract-Terms And Conditions</h4>
+        </div>
+        <!-- Main content -->
+        <div class="panel-body">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                        <md-input-container class="md-block">
+                            <span>Sub Contract ID</span>
+                            <input disabled="disabled" type="text" ng-model="subContractId">
+                        </md-input-container>
+                    </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                        <md-input-container class="md-block">
+                            <span>Sub Contract Description</span>
+                            <input disabled="disabled" type="text" title="{{subContractDesc}}"
+                                ng-model="subContractDesc">
+                        </md-input-container>
+                    </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                        <md-input-container class="md-block">
+                            <span>Company</span>
+                            <input disabled="disabled" type="text" ng-model="clientName" />
+                        </md-input-container>
+                    </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                        <md-input-container class="md-block">
+                            <span>Vendor</span>
+                            <input disabled="disabled" type="text" ng-model="vendorName" />
+                        </md-input-container>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <!-- <md-input-container class="md-block">
+                        <label>Terms and Conditions</label>
+
+                    </md-input-container> -->
+
+                    <div>Terms and Conditions</div>
+                    <textarea ng-model="termsAndConditionsObj.termsAndConditionsText" maxlength="150"
+                        rows="4" class="form-control"></textarea>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="topTableResHeight">
+                        <table class="table table-stripe1d table-hover table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Document ID</th>
+                                    <th>Document Category</th>
+                                    <th>Version</th>
+                                    <th>Document Status</th>
+                                    <th>File Name</th>
+                                    <th>File Type</th>
+                                    <th>Size</th>
+                                    <th>View</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr 
+                                    ng-repeat="reference in termsAndConditionsObj.termsAndConditionsFiles">
+                                    <td><input type="text" class="form-control" ng-model="reference.code"
+                                            placeholder="Auto Generate" readonly="readonly"
+                                            style="width: 115px !important"></td>
+                                    <td><input type="text" class="form-control" ng-model="reference.category"
+                                            ng-disabled="reference.id > 0" style="width: 115px !important"></td>
+                                    <td class="input-width-1">
+                                        <input type="text" class="form-control" ng-model="reference.version"
+                                            ng-disabled="reference.id > 0" style="width: 50px !important"
+                                            ng-required="true">
+                                    </td>
+                                    <td><input type="text" class="form-control" ng-value="reference.status==1?'Active':'Inactive'" ng-model = "reference.fileStatus"
+                                            ng-disabled="reference.id > 0" style="width: 115px !important"></td>
+                                    <td class="input-width2">
+                                        <input type="text" class="form-control" title="{{reference.name}}" disabled
+                                            name="nameofFile" ng-model="reference.name" placeholder="Name ofFile">
+                                    </td>
+                                    <td class="input-width2">
+                                        <input type="text" class="form-control" title="{{reference.fileType}}"
+                                            name="typeofFile" ng-model="reference.fileType" placeholder="Type of File"
+                                            disabled>
+                                    </td>
+                                    <td class="input-width2">
+                                        <input type="text" class="form-control" name="sizeofFile"
+                                            ng-model="reference.fileSize" placeholder="Sizeof File" disabled>
+                                    </td>
+                                    <td class="input-width2">
+                                        <input type="button" style="max-width: 50px" class="btnbtn-primary btn-sm"
+                                            ng-click="downloadDocs(reference.projDocFileId)" placeholder="Sizeof File"
+                                            value="View">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <div class="pull-left">
+                <select-existing-file proj-id="projId" file-selected="addTermsAndConditionsDocs"
+                    button-text="'Add Documents'"></select-existing-file>
+            </div>
+            <div class="pull-right">
+                <input class="btn btn-primary btn-sm" type="button" ng-click="saveTermsAndConditions()" value="Save">
+            </div>
+        </div>
+        <div class="ngdialog-close"></div>
+    </div>
+</div>

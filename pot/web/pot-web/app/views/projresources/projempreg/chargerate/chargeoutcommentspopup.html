@@ -1,0 +1,19 @@
+<div id="tab-pannel" ng-controller="PlantRegController"
+	ng-model="chargeData" ng-required="true">
+	<div class="panel-group">
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Comments</h4>
+			</div>
+			<div id="textarea" class="panel-body">
+				<div class="popUpTableResHeight">
+				<div class="comment-margin">
+					<textarea disabled="disabled" class="form-control input-lg"
+						ng-model="notes">{{notes}}</textarea>
+				</div>
+			</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</div>
+</div>

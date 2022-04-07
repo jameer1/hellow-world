@@ -1,0 +1,49 @@
+<div ng-if="account.appCodeTemplate['PROCURMT_PURCHASEORDR_STAGE1APPR_VIEW']" ng-controller="PurchaseInternalApprovalController">
+    <div class="tabTable_3_Res_height">
+    <div id="grid" ui-grid="gridOptions" ng-if="stylesSvc.finishedStyling" 
+           ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-resize-columns class="grid proc-tabs"></div>
+   <!-- <table id="" class="table table-hover table-bordered tabTable_3_height">
+    <thead>
+      <tr>
+        <th>EPS Name</th>
+        <th>Project Name</th>
+        <th>Pre-Contract ID</th>
+        <th>Pre-Contract Description</th>
+        <th>Requisition ID</th>
+        <th>Requestor</th>
+         <th>Approver</th>
+        <th>Pre-Contract Type</th>
+        <th>Schedule Items</th>
+        <th>Response Status</th>
+        <th>Approve Details</th>
+        <th>Reference Documents</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr fixed-header="" ng-repeat ="req in preContractTOs">
+        <td>{{userProjMap[req.projId].code}}</td>
+        <td>{{userProjMap[req.projId].name}}</td>
+        <td>{{req.code}}</td>
+        <td>{{req.desc}}</td>
+        <td>{{req.preContractReqApprTO.reqCode}}</td>
+        <td>{{req.preContractReqApprTO.reqUserLabelkeyTO.code}}</td>
+        <td>{{req.preContractReqApprTO.apprUserLabelkeyTO.code}}</td>
+        <td>{{req.preContractType}}</td>
+        <td class="text-center"><span class="link" data-test="PurchaseOrders_Stage1Approvescheduleview" ng-if="account.appCodeTemplate['PROCURMT_PURCHASEORDR_STAGE1APPRSCHEDULEOFITEMS_VIEW']" ng-click="viewInternalRequestById(req)">View</span></td>
+        <td class="text-center">{{req.workFlowStatusTO.desc}}</td>
+        <td class="text-center"><span class="link" data-test="PurchaseOrders_Stage1Approveapprovedetailsview" ng-if="account.appCodeTemplate['PROCURMT_PURCHASEORDR_STAGE1APPRAPPROVEDETAIILS_VIEW']" ng-click="getApprovelDetailss(req)">View</span></td>
+        <td class="text-center"><span class="btn btn-primary btn-sm" data-test="PurchaseOrders_Stage1Approverefdocument" ng-if="account.appCodeTemplate['PROCURMT_PURCHASEORDR_STAGE1APPRREFDOCUMENTS_VIEW']" ng-click="getRefDocument(req)">Ref Document</span></td>
+      </tr>
+    </tbody>
+  </table> -->
+  </div>
+  <!-- <div class="panel-footer">
+    <div class="pull-left">
+      <input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+      <input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+      <input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+      <input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+      <input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+    </div>
+  </div> -->
+</div>

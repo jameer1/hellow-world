@@ -1,0 +1,80 @@
+<div id="tab-pannel" class="panel-group" ng-controller="LongTermLeaseRentalController">
+	<div class="tabTable_1_Res_height table-responsive">
+	<div id="grid" ui-grid="gridOptions" ng-if="stylesSvc.finishedStyling" 
+             ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-resize-columns class="grid resource-asset"></div>
+		<!-- <table class="table table-striped table-bordered tabTable_1_height" >
+			<thead id="tab-head"> 
+				<tr>
+					<th>Select</th>					
+					<th>Date</th>
+					<th>Lease Sr No.</th>
+					<th>Lease agreement #</th>
+					<th>Tenant ID</th>
+					<th>Tenant Name</th>
+					<th>Mode of Payment</th>
+					<th>Receiver Bank Name</th>
+					<th>Receiver Bank Code</th>
+					<th>Receiver Bank AC</th>
+					<th>Transfer Receipt No</th>				
+					<th>Net Rental Amount Received</th>
+					<th>Tax amount Received</th>
+					<th>Cumulative Net Rent Amount Received -Tenant wise</th>
+					<th>Cumulative Tax Amount Received-Tenant wise</th>
+					<th>Cumulative Rent amount due from The Tenant</th>
+					<th>Cumulative Tax amount due from The Tenant</th>
+					<th>Short fall in net Rent Receipts from Tenant</th>
+					<th>Short fall in Tax Receipts From Tenant</th>
+					<th>Upload Money Transaction Documents</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr  ng-repeat ="longterm in longTermLeaseActualRetrunsDtlTOs">
+					<td><input type="checkbox" ng-model="longterm.selected" ng-change="longTermLeasePopUpRowSelect(longterm)" data-test="TermLeaseRentalRevenueActualReturns_Checkbox"></td>
+					<td>{{longterm.date}}</td>
+					<td>{{longterm.lease}}</td>
+					<td>{{longterm.leaseAgreement}}</td>
+					<td>{{longterm.tenantId}}</td>
+					<td>{{longterm.tenantName}}</td>
+					<td>{{longterm.modeOfPayment}}</td>
+					<td>{{longterm.receiverBankName}}</td>
+					<td>{{longterm.receiverBankCode}}</td>
+					<td>{{longterm.receiverBankAC}}</td>
+					<td>{{longterm.transferReceiptNo}}</td>
+					<td>{{longterm.rentalAmountReceived}}</td>
+					<td>{{longterm.taxAmountReceived}}</td>
+					<td>{{longterm.cumulativeNetRent}}</td>
+					<td>{{longterm.cumulativeTaxAmount}}</td>
+					<td>{{longterm.cumulativeNetRentTenant}}</td>
+					<td>{{longterm.cumulativeTaxAmountTenant}}</td>
+					<td>{{longterm.shortFallRent}}</td>
+					<td>{{longterm.shortFallTax}}</td>
+					<td>
+						<a class="fa fa-download" ng-if="longterm.uploadMoneyDocumentFileName" href="{{longterm.docUrl}}" 
+						title="Click To Download {{longterm.uploadMoneyDocumentFileName}}"></a>
+					</td>
+					<td><span class="fa fa-download" ng-if="longterm.uploadMoneyDocumentFileName" ng-click="downloadLongTermLeaseActualRetrunsFile(longterm.id,longterm.uploadMoneyDocumentFileName)" title="Click To Download {{longterm.uploadMoneyDocumentFileName}}"></span></td>
+				</tr>
+			</tbody>
+		</table> -->
+		<div class="panel-footer">
+		<div class="pull-right padR-0">
+			<input type="button" class="btn btn-primary btn-sm" data-test="TermLeaseRentalRevenueActualReturns_Create"
+				ng-click="createLongTermLease('Add')" value="Add">
+		</div>
+		<div class="pull-left padL-0">
+			<!-- <input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+			<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+			<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+			<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+			<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();"> -->
+			<input type="button" class="btn btn-primary btn-sm" data-test="TermLeaseRentalRevenueActualReturns_Edit"
+				ng-click="createLongTermLease('Edit')" value="Edit"> <input
+				type="button" class="btn btn-secondary btn-sm" data-test="TermLeaseRentalRevenueActualReturns_Deactivate"
+				ng-click="deleteLongTermLease()" value="Deactivate">
+			</div>
+		</div>
+	</div>
+</div>
+
+
+

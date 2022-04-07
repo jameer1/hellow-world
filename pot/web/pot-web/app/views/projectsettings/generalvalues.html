@@ -1,0 +1,261 @@
+<div ng-if="account.appCodeTemplate['PRJ_PRJSTG_GNRLVLU_VIEW']" ng-init="ProjGeneralMap()">
+	<form name="generalFrm" validate autocomplete="off">
+		<div class="bottomTabTableResHeight no-border" style="overflow-x:hidden;">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padL-0">
+						<md-input-container class="md-block">
+							<label>Manager</label>
+							<input type="text" data-test='Projects_ProjectSettings_GeneralValuesTab_ResponsibleManager'
+								name="manager" ng-required="true"
+								ng-click="getApproverDetails(generalValues.userLabelKeyTO)"
+								ng-model="generalValues.userLabelKeyTO.name" readonly>
+							<span ng-show="generalFrm.manager.$touched && generalFrm.manager.$error.required"
+								class="procurment-pot-errors">This field is mandatory</span>
+						</md-input-container>
+					</div>
+					<div class="col-sm-3">
+						<md-input-container class="md-block">
+							<label>Integrate With Primavera?</label>
+							<md-select name="primaveraIntegration" ng-model="generalValues.primaveraIntegration" ng-required="true" ng-change="primaveraIntegrationChanged(generalValues.primaveraIntegration)">
+							  <md-option value="No" ng-selected="true">No</md-option>
+							  <md-option value="Yes">Yes</md-option>
+							</md-select>
+							<span ng-show="generalFrm.primaveraIntegration.$touched && generalFrm.primaveraIntegration.$error.required"
+										class="procurment-pot-errors">This field is mandatory</span>
+						</md-input-container>
+					</div>
+					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+						<md-input-container class="md-block" ng-if="activeFlag==0">
+							<label>Calendar</label>
+							<input data-test='Projects_ProjectSettings_GeneralValuesTab_DefaultCalendar' name="calender"
+								ng-required="generalValues.primaveraIntegration == 'No'" type="text"  class="form-control"
+								ng-disabled="generalValues.primaveraIntegration == 'Yes'"
+								ng-model="generalValues.calenderTO.code"
+								ng-click="selectCalendars(generalValues.calenderTO,generalValues.projCalenderTO);"
+								readonly /></md-input-container>
+						<md-input-container class="md-block" ng-if="activeFlag==1">
+							<label>Calendar</label>
+							<input type="text"  ng-model="generalValues.globalCalenderTO.name"
+								ng-click="selectCalendars(generalValues.globalCalenderTO,generalValues.projCalenderTO);"
+								ng-disabled="generalValues.primaveraIntegration == 'Yes'"
+								readonly /></md-input-container>
+						<md-input-container class="md-block" ng-if="activeFlag==2">
+							<label>Calendar</label>
+							<input type="text"  ng-model="generalValues.projCalenderTO.name"
+								ng-disabled="generalValues.primaveraIntegration == 'Yes'"
+								ng-click="selectCalendars(globalCalenderTO,generalValues.projCalenderTO);" readonly />
+							<span ng-show="generalFrm.calender.$touched && generalFrm.calender.$error.required"
+								class="procurment-pot-errors">This field is mandatory</span>
+						</md-input-container>
+					</div>
+					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+						<md-input-container class="md-block">
+							<label>Standard Hours/Day</label>
+							<input data-test='Projects_ProjectSettings_GeneralValuesTab_DefaultHoursPerDay'
+								type="number" name="defHrs" class="form-control" name="hours" ng-required="true"
+								ng-model="generalValues.defualtHrs" min="0" max="24">
+							<span ng-show="generalFrm.hours.$error.min || generalFrm.hours.$error.max"
+								class="procurment-pot-errors">
+								The value must be in range 0 to 24</span>
+							<span ng-show="generalFrm.defHrs.$touched && generalFrm.defHrs.$error.required"
+								class="procurment-pot-errors">This field is mandatory</span>
+						</md-input-container>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+					<div class="col-lg-2 col-md-2 col-xs-2 col-sm-2 padL-0">
+						<md-input-container class="md-block">
+							<label>Max Hours/Day</label>
+							<input data-test='Projects_ProjectSettings_GeneralValuesTab_MaximumHoursPerDay'
+								type="number" ng-model="generalValues.maxHrs" class="form-control" name="maxnumner"
+								min="0" max="24" ng-required="true">
+							<span ng-show="generalForm1.maxnumner.$error.min || gegeneralForm1.maxnumner.$error.max"
+								class="procurment-pot-errors">
+								The value must be in range 0 to 24</span>
+							<span ng-show="generalFrm.maxnumner.$touched && generalFrm.maxnumner.$error.required"
+								class="procurment-pot-errors">This field is mandatory</span>
+						</md-input-container>
+					</div>
+					<div class="col-lg-2 col-md-2 col-xs-2 col-sm-2">
+						<md-input-container class="md-block">
+							<label>Country</label>
+							<md-select data-test='Projects_ProjectSettings_GeneralValuesTab_Country'
+								ng-change="getCountryDetailsById(generalValues.isoAlpha3);"
+								ng-model="generalValues.isoAlpha3" ng-required="true">
+								<md-option>-Select Country-</md-option>
+								<md-option ng-repeat="coun  in  countries | orderBy : 'countryName'" ng-value="coun">
+									{{coun.countryName}}</md-option>
+								</md-select>
+								<span ng-show="generalFrm.coun.$touched && generalFrm.coun.$error.required"
+									class="procurment-pot-errors">This field is mandatory</span>
+						</md-input-container>
+					</div>
+					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+						<md-input-container class="md-block">
+							<label>Base Currency</label>
+							<input data-test='Projects_ProjectSettings_GeneralValuesTab_Currency' type="text"
+								class="form-control" ng-required="true" name="currency"
+								ng-model="generalValues.currency" disabled/>
+							<span ng-show="generalFrm.currency.$touched && generalFrm.currency.$error.required"
+								class="procurment-pot-errors">This field is mandatory</span>
+						</md-input-container>
+					</div>
+					<div class="col-lg-2 col-md-2 col-xs-2 col-sm-2">
+						<md-input-container class="md-block">
+							<label>Reporting Currency</label>
+								<md-select name="reportingCurrency" ng-model="reportingCurrency">
+									<md-option value="baseCurrency" selected="selected">Base Currency</md-option>
+									<md-option ng-option value="globalCurrency">Global Currency</md-option>
+								  </md-select>
+								<span ng-show="generalFrm.coun.$touched && generalFrm.coun.$error.required"
+									class="procurment-pot-errors">This field is mandatory</span>
+						</md-input-container>
+					</div>
+					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+						<md-input-container class="md-block">
+							<label>State/Province</label>
+							<md-select data-test='Projects_ProjectSettings_GeneralValuesTab_ProvinceState'
+								ng-change="getTimeZone(generalValues.provisionName);"
+								ng-model="generalValues.provisionName" ng-required="true">
+								<md-option>-Select Province/State-</md-option>
+								<md-option value="province.name"
+									ng-repeat="province  in  generalValues.provisionTOs  track by province.name | orderBy : 'name'"
+									ng-value="province">{{province.name}}</md-option>
+							</md-select>
+							<span ng-show="generalFrm.province.$touched && generalFrm.province.$error.required"
+								class="procurment-pot-errors">This field is mandatory</span>
+						</md-input-container>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padL-0">
+						<md-input-container class="md-block">
+							<label>Time Zone</label>
+							<input data-test='Projects_ProjectSettings_GeneralValuesTab_Timezone' type="text"
+								class="form-control" ng-required="true" ng-model="generalValues.timezone"
+								name="timezone" disabled/>
+							<span ng-show="generalFrm.timezone.$touched && generalFrm.timezone.$error.required"
+								class="procurment-pot-errors">This field is mandatory</span>
+						</md-input-container>
+					</div>
+					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+						<md-input-container class="md-block">
+							<label>Resource Curve</label>
+							<md-select data-test='Projects_ProjectSettings_GeneralValuesTab_ResourceCurve'
+								ng-model="generalValues.resourceCurveTO" ng-required="generalValues.primaveraIntegration == 'No'" ng-disabled="generalValues.primaveraIntegration == 'Yes'">
+								<md-option>-Select Curve Type-</md-option>
+								<md-option ng-value="resCurve"
+									ng-repeat="resCurve  in  resourceCurves  track by  resCurve.curveType">
+									{{resCurve.curveType}}</md-option>
+							</md-select>
+							<div>
+							</div>
+							<span ng-show="generalFrm.resCurve.$touched && generalFrm.resCurve.$error.required"
+								class="procurment-pot-errors">This field is mandatory</span>
+						</md-input-container>
+					</div>
+					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+						<md-input-container class="md-block">
+							<label>Project Owner</label>
+							<input data-test='Projects_ProjectSettings_GeneralValuesTab_ProjectOwner' type="text"
+								class="form-control" ng-model="generalValues.companyTO.cmpName" name="owner"
+								ng-click="companyList(generalValues.companyTO)" ng-required="true" readonly>
+							<span ng-show="generalFrm.owner.$touched && generalFrm.owner.$error.required"
+								class="procurment-pot-errors">This field is mandatory</span>
+						</md-input-container>
+					</div>
+					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+						<md-input-container class="md-block">
+							<label>Contract Number</label>
+							<input data-test='Projects_ProjectSettings_GeneralValuesTab_ContractNumber' type="text"
+								name="number" class="form-control" ng-model="generalValues.contractNumber" 
+								ng-required="true">
+							<span ng-show="generalFrm.number.$touched && generalFrm.number.$error.required"
+								class="procurment-pot-errors">This field is mandatory</span>
+						</md-input-container>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padL-0">
+						<md-input-container class="md-block">
+							<label>Project Address</label>
+							<input data-test='Projects_ProjectSettings_GeneralValuesTab_ProjectAddress' type="text"
+								class="form-control" id="addr" name="projAddr" ng-model="generalValues.address"
+								ng-required="true"></textarea>
+							<span ng-show="generalFrm.projAddr.$touched && generalFrm.projAddr.$error.required"
+								class="procurment-pot-errors">This field is mandatory</span>
+						</md-input-container>
+					</div>
+					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+						<md-input-container class="md-block">
+							<label>Profit Center</label>
+							<input data-test='Projects_ProjectSettings_GeneralValuesTab_ProfitCenter' type="text"
+								ng-model="generalValues.profitCentreTO.name" ng-required="true" readonly
+								ng-click="getProfitCentres(generalValues.profitCentreTO)">
+						</md-input-container>
+					</div>
+					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+						<md-input-container class="md-block">
+							<label>Finance Center</label>
+							<input type="text" ng-model="generalValues.financeCentre" ng-click="" name="financeCentre">
+						</md-input-container>
+					</div>
+					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+			            <md-input-container class="md-block">
+			              <label>Contract Type</label>
+			              <md-select name="contractType" ng-model="generalValues.contractType"  ng-change="updateContractType(generalValues,generalValues.contractType);">
+			                <md-option value="SORcontract" ng-selected="true">Schedule of Rates Contract</md-option>
+			                <md-option value="CPPTypecontract">Cost Plus % Type Contract</md-option>
+			                <md-option value="LContractMile">Lumpsum Contract with Milestones</md-option>
+			              </md-select>
+			            </md-input-container>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padL-0">
+						<md-input-container class="md-block">
+							<label>% Over Cost</label>
+							<input type="text" ng-model="generalValues.percentOverCost"  ng-disabled="isPercentOverCostAllowed" name="percentOverCost"
+		                   maxlength="5" name="plantrate" pattern="^[\d\.,%]+$" ng-required="false" valid-number type="number"
+		                   ng-keypress="count = count + 1" ng-init="count=0"
+		            ><span ng-show="generalValues.percentOverCost>100"
+		                   class="procurment-pot-errors">Provide value less than or equal 100</span>
+						</md-input-container>
+					</div>
+					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+						<md-input-container class="md-block">
+							<label>Earned Hours Source</label>
+							<md-select ng-model="generalValues.earnedHourSource" ng-required="true">
+								<md-option ng-repeat="earnedHour in earnedHoursSource" ng-value="earnedHour">{{earnedHour}}</md-option>
+							</md-select>
+						</md-input-container>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel-footer">
+			<div class="pull-right">
+				<input type="submit" data-test='Projects_ProjectSettings_GeneralValuesTab_Save'
+					class="btn btn-primary btn-sm" value="Save" ng-click="generalFrm.$valid && saveGeneralValues()"
+					title="{{ account.appCodeTemplate['PRJ_PRJSTG_GNRLVLU_ADD'] ? '' : '! Permission Denied. Contact your admin.'}}"
+					ng-disabled="!account.appCodeTemplate['PRJ_PRJSTG_GNRLVLU_ADD']">
+			</div>
+			<div class="pull-left">
+				<input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+				<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+				<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+				<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+				<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+			</div>
+		</div>
+	</form>
+</div>

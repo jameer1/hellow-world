@@ -1,0 +1,35 @@
+<div id="tab-pannel" class="panel-group">
+	<div id="tab-pannel" class="panel panel-default" modal-movable>
+		<div class="panel-heading">
+			<h4 class="panel-title">Notifications</h4>
+		</div>
+		<div class="table-responsive panel-body10-2">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Notification Number</th>
+						<th>Requisition Date</th>
+						<th>Requester</th>
+					</tr>
+
+				</thead>
+				<tbody>
+					<tr data-test='Projects_ProjectSettings_LeaveApprovalTab_AdditionalTime_RequisitionNotificationNumber_Select' ng-repeat ="notification in notifications"
+						ng-dblclick="getLeaveNotificationPopup(notification)">
+						<td>{{notification.code}}</td>
+						<td>{{notification.date}}</td>
+						<td>{{notification.fromUserName}}</td>
+					</tr>
+				</tbody>
+			</table>
+			<br> <br>
+			<div ng-show="notifications.length <= 0">
+				<h5 align="center" style="color: red">Notifications details are
+					not found for selected project</h5>
+			</div>
+		</div>
+
+		<div class="panel-footer"></div>
+		<div class="ngdialog-close"></div>
+	</div>
+</div>

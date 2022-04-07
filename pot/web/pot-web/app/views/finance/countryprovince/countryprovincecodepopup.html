@@ -1,0 +1,57 @@
+<div id="tab-pannel" class="panel-group">
+	<form name="countrycodepopupform" validate autocomplete="off">
+		<div id="tab-pannel" class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title" ng-if="actionType=='Add'">Add Country Province Year</h4>
+				<h4 class="panel-title" ng-if="actionType!='Add'">Edit Country Province Year</h4>
+			</div>
+			<div class="panel-body">
+
+				<table class="table table-striped table-bordered">
+					<thead>
+						<tr>
+							<th style="text-align: center">Country Code<span class="procurment-pot-errors">*</span></th>
+							<th style="text-align: center">Country<span class="procurment-pot-errors">*</span></th>
+							<th style="text-align: center">Province<span class="procurment-pot-errors">*</span></th>
+							<th>Financial year</th>
+							<th>Financial Half year</th>
+							<th>Financial Quarter year</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="item in CountryProvinceDetails">
+							<td><select class="form-control" data-test="CountryProvinceCodes_CountryCode"
+									ng-options="coun.countryCode as coun.isoAlpha3 for coun in countries"
+									placeholder="Country" ng-init="getCountries(item);"
+									ng-change="getCountryDetailsById(item,$index);" ng-model="item.countryCode" ng-required="true" >
+									<option value="">-select-</option>
+								</select>
+							</td>
+							<td><input type="text" name="item.CountryName" disabled ng-model="item.countryName" tabindex="-1"
+									placeholder="CountryName" class="form-control">
+							</td>
+							<td><select class="form-control" data-test="CountryProvinceCodes_Country_Province"
+									ng-options="provision.name as provision.name for provision in item.provisionTOs"
+									ng-model="item.provisionName" ng-required="true"><option value="">-select-</option></select> </td>
+							<td style="text-align: center"><input type="submit" class="btn  btn-primary btn-sm" value="Add/Edit" name="startdate" data-test="CountryProvinceCodes_FinancialYear_AddEdit"
+									ng-click="addFinancialYear(item)" required/></td>
+							<td style="text-align: center"><input type="submit" class="btn  btn-primary btn-sm" value="Add/Edit" data-test="CountryProvinceCodes_FinancialHalfYear_AddEdit"
+									ng-disabled="startdate.$invalid" ng-click="addFinancialHalfYear(item)" /></td>
+							<td style="text-align: center"><input type="submit" class="btn  btn-primary btn-sm" value="Add/Edit" data-test="CountryProvinceCodes_FinancialQuarterYear_AddEdit"
+									ng-click="addFinancialQuarterYear(item)" /></td>								
+
+						</tr>
+					</tbody>
+				</table>					
+
+			</div>
+			<div class="panel-footer">
+				<div class="pull-right">
+					<input type="submit" class="btn  btn-primary btn-sm" value="Save" data-test="CountryProvinceCodes_Save"
+						ng-click="countrycodepopupform.$valid && saveCountryProvinceCodes()" />
+				</div>
+			</div>
+			<div class="ngdialog-close"></div>
+		</div>
+	</form>
+</div>

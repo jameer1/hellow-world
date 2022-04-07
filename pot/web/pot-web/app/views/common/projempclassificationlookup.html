@@ -1,0 +1,25 @@
+<div id="tab-pannel" class="panel-group" >
+	<div id="tab-pannel" class="panel panel-default">
+		<div class="panel-heading">
+			<th>Project Plant List</th>
+		</div>
+		<div class="table-responsive panel-body9">
+			<table class="table table-striped table-bordered">
+				<thead>
+					<tr>
+						<th>Plant ID</th>
+						<th>Plant Name</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr fixed-header="" ng-repeat ="detail in projectPlantDetails"
+						ng-click="plantDetailsPopUp(detail)">
+						<td>{{detail.plantClassTO.code}}</td>
+						<td>{{detail.plantClassTO.name}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="ngdialog-close"></div>
+	</div>
+</div>

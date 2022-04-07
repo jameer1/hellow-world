@@ -1,0 +1,104 @@
+<section class="content-header">
+	<h1>Material Transfer</h1>
+</section>
+<section class="content">
+	<div class="panel panel-default block footer-parent">
+		<div class="panel-body">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+				<div class="col-xs-3 col-sm-3 col-md-2 col-lg-2 padL-0">
+					<md-input-container>
+						<label>EPS ID/EPS Name</label>
+						<input type="text" ng-model="searchProject.parentName" ng-click="getUserProjects()" readonly="readonly" data-test='Notifications_MaterialsTransfer_epsid'>
+					</md-input-container>
+				</div>
+				<div class="col-xs-3 col-sm-3 col-md-2 col-lg-2">
+					<md-input-container>
+						<label>Project ID/Project Name </label>
+						<input type="text" ng-model="searchProject.projName" ng-click="getUserProjects()" readonly="readonly" data-test='Notifications_MaterialsTransfer_project'>
+					</md-input-container>
+				</div>
+				<div class="col-xs-3 col-sm-3 col-md-2 col-lg-2">
+
+					<md-input-container>
+						<label>From Date(dd-mm-yyyy)</label>
+						<potdate-picker dir-index="$index" date-name="fromDate" ng-model="fromDate" data-test='Notifications_MaterialsTransfer_fromdate'> </potdate-picker>
+					</md-input-container>
+				</div>
+				<div class="col-xs-3 col-sm-3 col-md-2 col-lg-2">
+					<md-input-container>
+						<label>To Date</label>
+						<potdate-picker dir-index="$index" date-name="toDate" ng-model="toDate" data-test='Notifications_MaterialsTransfer_todate'> </potdate-picker>
+					</md-input-container>
+				</div>
+				<div class="col-xs-3 col-sm-3 col-md-2 col-lg-2">
+					<md-input-container>
+						<label>Notification Code</label>
+						<input type="text" ng-model="code" data-test='Notifications_MaterialsTransfer_notificationcode'>
+					</md-input-container>
+				</div>
+				<div class="col-xs-3 col-sm-3 col-md-2 col-lg-2 padR-0">
+
+					<md-input-container>
+						<label>Status</label>
+						<md-select ng-model="notifyStatus" ng-required="true" data-test='Notifications_MaterialsTransfer_status'>
+							<md-option name="notifyStatus" ng-repeat="notify in notificationStatus"  
+								ng-value="notify.title" ng-if="account.appCodeTemplate[notify.notifyappCodeTemplateKey]">
+								{{notify.title}}</md-option>
+						</md-select>
+						<md-input-container>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+				<div class="pull-right marB15">
+					<input type="button" ng-click="getMaterialNotificationDetails()" class="btn btn-primary btn-sm" value="Search" data-test='Notifications_MaterialsTransfer_search'
+					 ng-model="searchText"> <input type="reset" class="btn btn-default btn-sm" ng-click="resetMaterialNotifications()"
+					 value="Reset" data-test='Notifications_MaterialsTransfer_reset'>
+				</div>
+
+			</div>
+			<!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+				<div class="singleTableResHeight_3">
+					<table class="table table-hover table-bordered singleTableHeight_3">
+						<thead>
+							<tr>
+								<th>Date</th>
+								<th>EPS Name</th>
+								<th>Project Name</th>
+								<th>Requisition ID</th>
+								<th>Notification Number</th>
+								<th>Notification</th>
+								<th>From User</th>
+								<th>To User</th>
+								<th>Status</th> -->
+								<!-- <th>Comments</th> -->
+							<!-- </tr>
+						</thead>
+						<tr ng-repeat="material in materialNotification | filter:code"> -->
+							<!-- <td><input type="checkbox" ng-model="tab.select"
+							ng-change="rowSelect(tab)"></td> -->
+							<!-- <td>{{material.date}}</td>
+							<td>{{userProjMap[material.projId].code}}</td>
+							<td>{{userProjMap[material.projId].name}}</td>
+							<td>{{material.requistionCode}}</td>
+							<td>{{material.code}}</td>
+							<td>{{material.type}}</td>
+							<td>{{material.fromUserName}}</td>
+							<td>{{material.toUserName}}</td>
+							<td>{{material.notifyStatus}}</td> -->
+							<!--        <td>{{material.notification}}</td> -->
+							<!--   <td>{{material.emailMsg}}</td> -->
+							<!-- <td class="text-left"><span name="comment" flip="horizontal" ng-click="show(material.comments)"></span></td> -->
+						<!-- </tr>
+					</table>
+				</div>
+			</div> -->
+		</div>
+		<div>
+			<div id="grid" ui-grid="gridOptions" class="singleTableResHeight_3"
+				ng-if="stylesSvc.finishedStyling" ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize
+				ui-grid-resize-columns ui-grid-grouping class="grid">
+			</div>
+		</div>
+		
+	</div>
+</section>

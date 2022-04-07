@@ -1,0 +1,102 @@
+
+<div ng-if="account.appCodeTemplate['RESOURCE_EMPCONTRACTDETAILS_VIEW']" id="tab-pannel" ng-controller="EmpContactsController">
+	<form name="contactDetailsForm" validate>
+				<div class="tabTable_1_Res_height_topB">
+						<table class="table table-striped table-hover table-bordered tabTable_1_height_topB" >
+						<thead id="tab-head">
+							<tr>
+								<th>Date <span style="color: red;">*</span></th>
+								<th>Residential Address<span
+									style="color: red;">*</span></th>
+								<th>Postal Address <span
+									style="color: red;">*</span></th>
+								<th>Phone number <span
+									style="color: red;">*</span></th>
+								<th>Alternate Phone Number</th>
+								<th>E-mail Address <span
+									style="color: red;">*</span></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr fixed-header="" ng-repeat ="contact in empContactDtlTOs">
+								<td><potdate-picker data-test='Resources_Employee_EmployeeContactDetails_Date' dir-index="index" 
+									date-name="fromDate"
+										tabindex=-1 ng-model="contact.fromDate" class="form-control"
+										placeholder="Effective From" custom-read-only ng-required="true"></td>
+								<td><textarea data-test='Resources_Employee_EmployeeContactDetails_ResidentialAddress' 
+									ng-model="contact.residentAddr" class="form-control"
+										ng-required="true" placeholder="Residential Address" name="resAdd"
+										maxlength="100" />
+									</textarea>
+									<span class="procurment-pot-errors" 
+									ng-show="contactDetailsForm.resAdd.$error.required && contactDetailsForm.resAdd.$touched">
+										This field is mandatory
+									</span>
+								</td>
+								<td><textarea data-test='Resources_Employee_EmployeeContactDetails_PostalAddress' 
+									ng-model="contact.postalAddr" class="form-control"
+										ng-required="true" placeholder="Postal Address" name="postAdd"
+										maxlength="100">
+									</textarea>
+									<span class="procurment-pot-errors" 
+									ng-show="contactDetailsForm.postAdd.$error.required && contactDetailsForm.postAdd.$touched">
+										This field is mandatory
+									</span>
+								</td>
+								
+										
+
+								<td><input type="text" ng-model="contact.phoneNumber" name="phone" class="form-control" 
+									ng-class="{ 'has-error' : contactDetailsForm.phone.$invalid && !contactDetailsForm.phone.$pristine }"
+									pattern="^[\d\.,]+$" tabindex="9" maxlength="15" minlength=6 valid-number
+									ng-required="true" placeholder="Phone Number"> <span class="procurment-pot-errors"
+									ng-show="contactDetailsForm.phone.$error.pattern">Enter
+										Only Digits </span> <span class="help-block procurment-pot-errors"
+									ng-show="contactDetailsForm.phone.$touched && contactDetailsForm.phone.$error.required">Phone
+										Number is Required</span> <span class="procurment-pot-errors"
+									ng-show="contactDetailsForm.phone.$error.minlength">Phone
+										Number must be minimum 6 digits</span>
+								</td>
+								
+								<td><input type="text" ng-model="contact.alternatePhone"
+									name="alternum" class="form-control" data-test='Resources_Employee_EmployeeContactDetails_AlternativePhoneNumber'
+									ng-class="{ 'has-error' : contactDetailsForm.alternum.$invalid && !contactDetailsForm.alternum.$pristine }"
+									pattern="^[\d\.,]+$" tabindex="9" maxlength="15" minlength=6 valid-number
+									placeholder="Alternate Phone Number"> <span class="procurment-pot-errors"
+									ng-show="contactDetailsForm.alternum.$error.pattern">Enter
+										Only Digits </span> <span class="procurment-pot-errors"
+									ng-show="contactDetailsForm.alternum.$error.minlength">
+										Phone Number must be minimum 6 digits</span></td>
+
+								<td><input type="email" name="email" data-test='Resources_Employee_EmployeeContactDetails_EmailAddress'
+									placeholder="Email Address" class="form-control"	
+									ng-class="{ 'has-error' :contactDetailsForm.email.$invalid && !contactDetailsForm.email.$pristine }"
+									ng-model="contact.email" tabindex="6" ng-required="true" /><span
+									class="help-block procurment-pot-errors"
+									ng-show="contactDetailsForm.email.$touched&&contactDetailsForm.email.$error.required">Email
+										ID is Required</span>
+									<p class="help-block procurment-pot-errors"
+										ng-show="contactDetailsForm.email.$error.email">Your Email
+										ID is Invalid</p></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+	
+	<div class="panel-footer padR-0">
+		<div class="pull-right">
+			<input ng-if="selectedEmployeeData && account.appCodeTemplate['RESOURCE_EMPCONTRACTDETAILS_ADD']" 
+			type="submit" class="btn btn-primary btn-sm" data-test='Resources_Employee_EmployeeContactDetails_Save'
+				ng-click="contactDetailsForm.$valid && saveEmpContactDetails()"  value="Save" validate>
+		</div>
+		<div class="pull-left">
+			<input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+			<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+			<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+			<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+			<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+		</div>
+	</div>
+</form>
+</div>
+

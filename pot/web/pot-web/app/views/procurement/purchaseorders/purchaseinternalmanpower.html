@@ -1,0 +1,65 @@
+<div class="tab-pannel">
+  <form name="manpowerInternalForm" validate>
+    <div class="tabTable_3_Res_height">
+      <table id="" class="table table-hover table-bordered tabTable_3_height">
+        <thead>
+          <tr>
+            <th>Schedule<br>Item ID
+            </th>
+            <th>Item<br>Description
+            </th>
+            <th>Procurement<br>SubCategory
+            </th>
+            <th>Employee Class</th>
+            <th>Unit Of Measure</th>
+            <th>Cost Code</th>
+            <th>Delivery Place</th>
+            <th>Start Date</th>
+            <th>Finish Date</th>
+            <th>Qty</th>
+            <th>Estimate Rate<br>({{preContractObj.currencyTO.code}})
+            </th>
+            <th>Estimate Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr fixed-header="" ng-repeat ="item in preContractObj.preContractEmpDtlTOs" >
+
+            <td class="input-width3" ng-form name="myForm"><input type="text" ng-model="item.itemCode" name="icode" placeHolder="Item Code" tabindex="-1" readonly="readonly" /></td>
+
+            <td class="input-width2" ng-form name="myForm1"><input type="text" ng-model="item.itemDesc" placeHolder="Item Description" name="desc" tabindex="-1" readonly="readonly"/></td>
+
+            <td class="input-width2" ng-form name="myFormsub"><input type="text" ng-model="procureCategoryMap[item.procureSubCatgId].code"
+              tabindex="-1" placeHolder="SubCategory" name="subCategory" readonly="readonly" /></td>
+
+            <td class="input-width1"><input type="text" ng-model="projEmpClassmap[item.projEmpLabelKey.id].code" name="empType"
+              placeHolder="Employee Class" tabindex="-1" readonly="readonly" /></td>
+
+            <td class="input-width2"><input type="text" ng-model="projEmpClassmap[item.projEmpLabelKey.id].unitOfMeasure" name="empType"
+              placeHolder="Unit Of Measure" tabindex="-1" readonly="readonly" /></td>
+
+            <td class="input-width0"><input type="text" ng-model="projcostCodeMap[item.projCostLabelKey.id].code" readonly="readonly"
+              required="required" tabindex="-1" /></td>
+
+            <td class="input-width"><input type="text" ng-model="item.deliveryPlace" tabindex="-1" readonly="readonly"/></td>
+
+            <td class="input-width1"><potdate-picker ng-model="item.startDate" dir-index="$index" date-name="manstartDate" placeholder="dd-mm-yyyy" readonly="readonly" /></td>
+            <td class="input-width1"><potdate-picker ng-model="item.finishDate" dir-index="$index" date-name="manfinishDate" placeholder="dd-mm-yyyy" readonly="readonly" /></td>
+
+
+            <td ng-form name="myForm3"><input type="text" ng-model="item.quantity" placeHolder="Quantity" pattern="^[\d]+$" name="quan" tabindex="-1" maxlength="20" readonly="readonly"
+              style="width: 50px;" /> <span ng-show="myForm3.quan.$dirty && myForm3.quan.$error.required">This field is mandatory</span> <span ng-show="myForm3.quan.$error.pattern">Only digits
+                Allowed</span> <span ng-show="myForm3.quan.$error.maxlength">You reached max length</span></td>
+
+            <td ng-form name="myForm4"><input type="text" placeHolder="EstimateCost" name="escost" ng-model="item.estimateCost" tabindex="-1" pattern="^[\d]+$" readonly="readonly"
+              style="width: 50px;" /> <span ng-show="myForm4.escost.$dirty && myForm4.escost.$error.required">This field is mandatory</span> <span ng-show="myForm4.escost.$error.pattern">Only
+                digits Allowed</span> <span ng-show="myForm4.escost.$error.maxlength">You reached max length</span></td>
+
+            <td class="input-width"><span>{{item.quantity * item.estimateCost}}<span></td>
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </form>
+</div>

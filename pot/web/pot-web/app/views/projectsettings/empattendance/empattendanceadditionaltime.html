@@ -1,0 +1,94 @@
+<div ng-if="account.appCodeTemplate['PRJ_PRJSTG_EMPADDITIONALTIME_VIEW']">
+	<div class="bottomNestedTabTableResHeight no-border">
+		<div class="row">
+			<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+				<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padL-0">
+					<md-input-container class="md-block">
+						<label>Request Notification #</label>
+						<input type="text"
+							data-test='Projects_ProjectSettings_EmployeeAttendanceTab_AdditionalTimeTab_Requestnotification'
+							ng-model="attendEmpAppr.notification" class="form-control"
+							ng-click="attendenceList('EMP', attendEmpAppr)" readonly>
+					</md-input-container>
+				</div>
+				<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+					<md-input-container class="md-block">
+						<label>Crew Name</label>
+						<input type="text" class="form-control"
+							data-test='Projects_ProjectSettings_EmployeeAttendanceTab_AdditionalTimeTab_Crewname'
+							ng-model="attendEmpAppr.crewName" readonly>
+					</md-input-container>
+				</div>
+				<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padL-0">
+					<md-input-container class="md-block">
+						<label>From Date</label>
+						<potdate-picker
+							data-test='Projects_ProjectSettings_EmployeeAttendanceTab_AdditionalTimeTab_daterangeFromdate'
+							dir-index="$index" ng-model="attendEmpAppr.fromDate" date-name="endDate" readonly="readonly"
+							required ng-disabled="true"/>
+					</md-input-container>
+				</div>
+				<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+					<md-input-container class="md-block">
+						<label>To Date</label>
+						<potdate-picker
+							data-test='Projects_ProjectSettings_EmployeeAttendanceTab_AdditionalTimeTab_daterangeTodate'
+							dir-index="$index" ng-model="attendEmpAppr.toDate" date-name="endDate" readonly="readonly"
+							required ng-disabled="true"/>
+					</md-input-container>
+				</div>
+			</div>
+		</div>
+		<div class="row horizontalSpace">
+			<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+				<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padL-0 space0">
+					<span>Additional Time</span>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+				<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padL-0">
+					<md-input-container class="md-block">
+						<label>Cut Off Days</label>
+						<input data-test='Projects_ProjectSettings_EmployeeAttendanceTab_AdditionalTimeTab_days'
+							type="text" ng-model="attendEmpAppr.cutOffDays" valid-number>
+					</md-input-container>
+				</div>
+				<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+					<md-input-container class="md-block">
+						<label>Cut Off Hours</label>
+						<input type="number" min=0 max=23
+							data-test='Projects_ProjectSettings_EmployeeAttendanceTab_AdditionalTimeTab_hours'
+							name="cutoffHours" class="form-control" ng-model="attendEmpAppr.cutOffHours"
+							ng-required="true" maxlength=2 />
+					</md-input-container>
+				</div>
+				<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+					<md-input-container class="md-block">
+						<label>Cut Off Minutes</label>
+						<input data-test='Projects_ProjectSettings_EmployeeAttendanceTab_AdditionalTimeTab_minutes'
+							type="number" min=0 max=59 class="form-control" ng-model="attendEmpAppr.cutOffMinutes"
+							name="cutoffMinutes">
+					</md-input-container>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<div class="panel-footer">
+		<div class="pull-right">
+			<input type="submit" class="btn btn-primary btn-sm" value="Approve" ng-click="saveProjEmpAttendenceAppr()"
+				data-test='Projects_ProjectSettings_EmployeeAttendanceTab_AdditionalTimeTab_Approve'
+				title="{{ account.appCodeTemplate['PRJ_PRJSTG_ATNDCERCDSTG_APPROVE'] ? '' : '! Permission Denied. Contact your admin.'}}"
+				ng-disabled="!account.appCodeTemplate['PRJ_PRJSTG_ATNDCERCDSTG_APPROVE']">
+		</div>
+		<div class="pull-left">
+			<input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+			<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+			<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+			<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+			<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+		</div>
+	</div>
+</div>

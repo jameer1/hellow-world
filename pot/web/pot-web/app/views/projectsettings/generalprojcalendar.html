@@ -1,0 +1,21 @@
+<div id="tab-pannel" ng-init="getProjCalendars()">
+	<div class="panel-group">
+			<div class="panel-body">
+				<div class="panel-collapse collapse in popUpTableResHeight">
+	<table class="table table-striped table-hover table-bordered popUpTableHeight" >
+					<thead>
+						<tr>
+							<th>Project Calendar Name</th>
+						</tr>
+					</thead>
+					<tbody>
+					<tr class="cursorPointer" data-test='Projects_ProjectSettings_GeneralValuesTab_Project_SelectCalendar' fixed-header="" ng-repeat ="calendar in projCalDetails"
+						ng-dblclick="deliveryPlacePopup(calendar,2)">
+						<td>{{calendar.name}}</td>
+					</tr>
+				</tbody>
+				</table>
+				</div>
+			</div>
+		</div>
+	</div>

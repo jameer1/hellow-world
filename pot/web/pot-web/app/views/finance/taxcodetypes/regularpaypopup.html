@@ -1,0 +1,79 @@
+<div id="tab-pannel" class="panel-group" ng-init="payPeriodCycle()">
+	<form name="regularPayForm" validate>
+		<div id="tab-pannel" class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Regular Pay and Allowances - Codes</h4>
+			</div>
+			<div id="tab-pannel" class="panel-body9">
+				<table class="table table-striped table-hover table-bordered" style="height: 200px !important;" >
+					<thead>
+						<tr>
+							<th ng-show="action=='Add'">Select</th>
+							<th>Code</th>
+							<th>Description</th>
+							<th>Taxable or Not</th>
+							<th>Notes</th>
+						</tr>
+					</thead>
+					<tr fixed-header="" ng-repeat ="regularPay in addregularPayTOs">
+						<td ng-show="action=='Add'"><input type="checkbox"
+							value="regularPay.id" ng-model="regularPay.selected"
+							ng-change="regularPayRatePopupRowSelect(regularPay)"></td>
+
+						<td ng-form name="classform"><input type="text" name="code"
+							ng-model="regularPay.code"
+							pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+							minlength="2" maxlength="20" placeholder="Code"
+							required="required"> <span
+							ng-show="classform.code.$dirty && classform.code.$error.required">This
+								field is mandatory</span> <span
+							ng-show="classform.code.$error.pattern">Must enter
+								required format</span> <span ng-show="classform.code.$error.maxlength">You
+								reached max length</span></td>
+
+						<td ng-form name="classform1"><input type="text" name="name"
+							ng-model="regularPay.name"
+							pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+							minlength="3" maxlength="50" placeholder="Description"
+							required="required"> <span
+							ng-show="classform1.name.$dirty && classform1.name.$error.required">This
+								field is mandatory</span>  <span
+							ng-show="classform1.name.$error.pattern">Must enter
+								required format</span> <span ng-show="classform1.name.$error.maxlength">You
+								reached max length</span></td>
+
+						<td><select style="min-width: 150px;" id="regularPay"
+							name="Taxable" ng-change="updateRegularPay(regularPay)"
+							ng-model="regularPay.regularLabelKeyTO"
+							ng-options="regularPay.name for regularPay in regularPayList track by regularPay.name"
+							ng-required="true">
+								<option value="">Select</option>
+						</select></td>
+						<td><textarea cols="20" rows="3"
+								ng-model="regularPay.comments" placeholder="Notes"></textarea></td>
+					</tr>
+				</table>
+			</div>
+			<div class="panel-footer">
+				<div class="pull-left">
+					<input type="submit" ng-click="regularPayForm.$valid && addRows()"
+						class="btn  btn-brown btn-sm" value="Add" ng-show="action =='Add'"
+						validate> <input type="button" ng-click="deleteRows()"
+						value="Delete" ng-show="action =='Add'"
+						class="btn bottomaligned btn-brown btn-sm" validate>
+				</div>
+				<div class="pull-right">
+					<input type="submit"
+						ng-click="regularPayForm.$valid && saveregularPayRate()"
+						value="Save" class="btn  btn-brown btn-sm" />
+				</div>
+			</div>
+			<div class="ngdialog-close"></div>
+		</div>
+	</form>
+</div>
+
+
+
+
+

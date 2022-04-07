@@ -1,0 +1,199 @@
+<div id="tab-pannel" class="panel-group">
+	<form name="TollPopUpForm" validate>
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title" ng-show="action=='Add'">Add Toll Collections</h4>
+				<h4 class="panel-title" ng-show="action=='Edit'">Edit Toll Collections</h4>
+
+			</div>
+			<div class="panel-body">
+				<div class="topTableResHeight" style="overflow: auto">
+					<table class="table table-striped table-bordered topTableHeight">
+						<thead id="tab-head">
+							<tr>
+								<!-- <th ng-show="action=='Add'" class="text-center">Select</th> -->
+								<th>Date
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th>Mode of Payment
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th>Bank Name
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th>Bank Code
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th>Bank AC
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th>Transfer Receipt No
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th>Net amount
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th>Tax amount
+									<span class="procurment-pot-errors">*</span>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+
+							<tr ng-repeat="tollTO in TollRecord">
+								<!-- <td ng-show="action =='Add'"><ng-form name="selectboxForm">
+								<input type="checkbox" value="asset.id"
+									ng-model="asset.selected" data-test="CarParkingTollCollections_Create_Checkbox"
+									ng-change="assetPurchaseRecordPopUpRowSelect(asset)"></ng-form></td> -->
+								<td class="input-width0">
+									<ng-form name="dateForm">
+										<potdate-picker custom-read-only ng-required="true"
+											data-test="TollCollections_Create_date"
+											ng-model="tollTO.date" dir-index="$index" date-name="date"
+											placeholder="dd-mm-yyyy" class="form-control" min-date="tollTO.plantCommissioningDate" />
+									</ng-form>
+								</td>
+
+								<td><select ng-model="tollTO.modeOfPayment" ng-required="true" tabindex="-1"
+										class="form-control" data-test="TollCollections_Create_ModeOfPayment">
+										<option value="">-Select-</option>
+										<option fixed-header="" ng-repeat="modeOfPayment in modeOfPayments">
+											{{modeOfPayment.name}}</option>
+									</select></td>
+
+								<td>
+									<ng-form name="bankname">
+										<input type="text" name="bankName"
+											data-test="TollCollections_Create_BankName"
+											ng-model="tollTO.bankName" tabindex="-1" placeholder="Bank Name"
+											ng-required="true" class="form-control">
+									</ng-form>
+								</td>
+
+								<td>
+									<ng-form name="bankcode">
+										<input type="text" name="bankCode"
+											data-test="TollCollections_Create_BankCode"
+											ng-model="tollTO.bankCode" tabindex="-1" placeholder="Bank Code"
+											ng-required="true" class="form-control">
+									</ng-form>
+								</td>
+
+								<td>
+									<ng-form name="bankacctno">
+										<input type="text" name="bankAcctNo"
+											data-test="TollCollections_Create_BankAC"
+											ng-model="tollTO.bankAc" tabindex="-1" placeholder="Bank Acct No"
+											ng-required="true" class="form-control">
+									</ng-form>
+								</td>
+
+
+								<td>
+									<ng-form name="transferrecptno">
+										<input type="text" name="transfrRecptNo"
+											data-test="TollCollections_Create_TransferReceiptNo"
+											ng-model="tollTO.transferReceiptNo" tabindex="-1"
+											placeholder="Transfr Recpt No" ng-required="true" class="form-control">
+									</ng-form>
+								</td>
+								<td>
+									<ng-form name="netamount">
+										<input type="text" name="netAmount" valid-number
+											data-test="TollCollections_Create_NetAmount"
+											ng-model="tollTO.netAmount" placeholder="Net Amount" tabindex="-1"
+											ng-required="true" class="form-control" ng-change="Netamount(tollTO)">
+									</ng-form>
+								</td>
+
+								<td>
+									<ng-form name="taxamount">
+										<input type="text" name="taxAmount" valid-number
+											data-test="TollCollections_Create_TaxAmount"
+											ng-model="tollTO.taxAmount" placeholder="Tax Amount" tabindex="-1"
+											ng-required="true" class="form-control" ng-change="Taxamount(tollTO)">
+									</ng-form>
+								</td>
+
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="topTableResHeight" style="overflow: auto">
+					<table class="table table-striped table-bordered topTableHeight">
+						<thead id="tab-head">
+							<tr>
+								<th>Cumulative Net Amount</th>
+								<th>Cumulative Tax Amount</th>
+								<th>Forecast - Cumulative Net amount
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th>Forecast - Cumulative Tax amount
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th>Cumulative Net Revenue</th>
+								<th>Cumulative tax amount</th>
+								<th>Car Parking Toll Records(Upload & View)</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="tollTO in TollRecord">
+								<td><input type="text" name="cumulativenetamount" valid-number
+										data-test="TollCollections_Create_CumulativeNetAmount"
+										ng-model="tollTO.cumulativeNetAmount" tabindex="-1"
+													placeholder="Cumulative Net Amount" class="form-control"></td>
+
+								<td><input type="text" name="cumulativetaxamount" valid-number
+										data-test="TollCollections_Create_CumulativeTaxAmount"
+										ng-model="tollTO.cumulativeTaxAmount"
+
+										placeholder="Cumulative Tax Amount" tabindex="-1" class="form-control"></td>
+								<td><input type="text" name="forecastNetAmt" valid-number
+
+										data-test="TollCollections_Create_ForecastCumulativeNetAmount"
+										ng-model="tollTO.forecastNetAmt" placeholder="Forecast Net Amt"
+										tabindex="-1" ng-required="true" class="form-control" readonly></td>
+
+								<td><input type="text" name="forecastTaxAmt" valid-number
+										data-test="TollCollections_Create_ForecastCumulativeTaxAmount"
+										ng-model="tollTO.forecastTaxAmt" placeholder="Forecast Tax Amt"
+										tabindex="-1" ng-required="true" class="form-control" readonly></td>
+
+								<td><input type="text" name="cumulativeNetRevenue" valid-number
+										data-test="TollCollections_Create_CumulativeNetRevenue"
+										ng-model="tollTO.cumulativeNetRevenue" tabindex="-1"
+										placeholder="Cumulative Net Revenue" class="form-control" readonly></td>
+
+								<td><input type="text" name="cumulativeTax" valid-number
+										data-test="TollCollections_Create_CumulativeTax"
+										ng-model="tollTO.cumulativeTax" placeholder="Cumulative Tax"
+										tabindex="-1" class="form-control" readonly></td>
+
+								<td>
+									<ng-form name="TollDocForm"> <input
+											data-test='TollCollections_Create_ChooseFile'
+											ng-model="tollTO.fileInfo" ng-disabled="isDisabled" type="file"
+											fileread="carParkingTollDoc" name="file" ngf-select="checkFile($file)"
+											ngf-accept="'*'" tabindex="20"> <span class="help-block" style="color: red"
+											ng-show="!asset.carParkingTollDoc.isValid">
+											{{carParkingTollDoc.errorMessage}}</span> </ng-form>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="panel-footer">
+					<div class="panel-footer">
+						<div class="pull-right">
+							<input type="submit" class="btn btn-primary btn-sm"
+								data-test="TollCollections_Create_Save"
+								ng-click="TollPopUpForm.$valid && saveToll()" value="Save">
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<div class="ngdialog-close"></div>
+	</form>
+</div>

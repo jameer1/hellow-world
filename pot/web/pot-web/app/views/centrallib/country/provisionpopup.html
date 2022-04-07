@@ -1,0 +1,70 @@
+<div id="tab-pannel" class="panel-group">
+	<form name="countryForm" validate autocomplete="off">
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Country Provisions</h4>
+			</div>
+			<div class="panel-body10">
+				<div class="table-responsive">
+					<table class="table" >
+						<thead id="tab-head">
+							<tr>
+								<th ng-show="action ==='Add'">Select</th>
+								<th>Provision Code<span
+									style="color: red; font-sfont-size: '50px'"> *</span></th>
+								<th>Provision Name<span
+									style="color: red; font-sfont-size: '50px'"> *</span></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr fixed-header="" ng-repeat ="provision in CountryProvisionDetails">
+								<td ng-show="action ==='Add'"><input type="checkbox"
+									ng-model="provision.selected"
+									ng-change="popUpRowSelect(provision)"></td>
+								<td ng-form name="countryform">
+									<select style="width: 154px;"
+									ng-class="{coloumnHighlightColor:provision.duplicateFlag}"
+									ng-options="prov.adminCodes1.ISO3166_2   for  prov  in  provisions  track by  prov.adminCodes1.ISO3166_2"
+									name="code"
+									ng-model="provision.code" 
+									ng-init="provision.code==''?provision.code =prov:provision.code=provision.code  "
+									ng-change="checkDuplicate(provision,provision.code)"
+									ng-required="true">
+									<option value="" selected="selected">-Select provision code-</option>
+									</select>
+								
+								</td>
+
+								<td ng-form name="countryform1">
+										<select style="width: 154px;"
+										ng-options="prov.name   for  prov  in  provisions  track by  prov.name"	
+										ng-model="provision.name" ng-required="true"
+										ng-init="provision.name==''?provision.name =prov:provision.name=provision.name  "
+										ng-change="checkDuplicate(provision,provision.name)">
+										<option value="" selected="selected">-Select provision code-</option>
+										</select>
+									
+									</td>
+
+							</tr>
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="panel-footer">
+				<div class="pull-left">
+					<input type="submit" ng-click="countryForm.$valid && addRows()" value="Add Rows"
+						class="btn  btn-brown btn-sm" ng-show="action =='Add'"> <input
+						type="button" ng-click="deleteRows()" value="Delete Rows"
+						class="btn  btn-brown btn-sm" ng-show="action =='Add'">
+				</div>
+				<div class="pull-right">
+					<input type="submit" class="btn  btn-brown btn-sm" value="Save"
+						ng-click="countryForm.$valid && saveCountryProvisions()" />
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</form>
+</div>

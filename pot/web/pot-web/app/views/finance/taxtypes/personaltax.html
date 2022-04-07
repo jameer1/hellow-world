@@ -1,0 +1,53 @@
+<div id="tab-pannel">
+	<div class="panel-group panel panel-default" modal-movable>
+		<div class="panel-heading">
+			<h4 class="panel-title">Personal Tax Rates</h4>
+		</div>
+		<div class="panel-body10">
+			<table class="table table-striped table-bordered">
+				<thead>
+					<tr>
+						<th rowspan=2>Select</th>
+						<th colspan=2>Employee Annual Taxable Income Range</th>
+						<th rowspan=2>Fixed amount of Tax</th>
+						<th rowspan=2>variable Tax Rate in % over the lower range
+							value</th>
+						<th rowspan=2>Notes</th>
+					</tr>
+					<tr>
+						<th class="text-center">Min</th>
+						<th class="text-center">Max</th>
+					</tr>
+
+				</thead>
+				<tbody>
+					<tr fixed-header="" ng-repeat ="personal in personalTax">
+
+						<td><input type="checkbox" ng-model="personal.selected"
+							ng-change="personaltaxrowselect(personal)"></td>
+
+						<td>{{personal.annualMinTax}}</td>
+						<td>{{personal.annualMaxTax}}</td>
+						<td>{{personal.fixedTax}}</td>
+						<td>{{personal.variableTax}}</td>
+						<td>{{personal.comments}}</td>
+
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<div class="panel-footer">
+			<div class="pull-right">
+				<input type="button" class="btn  btn-brown btn-sm" value="Create"
+					ng-click="addPersonalTax('Add')">
+			</div>
+			<div class="pull-left">
+				<input type="button" class="btn  btn-brown btn-sm" value="Edit"
+					ng-click="addPersonalTax('Edit')"> <input type="button"
+					class="btn  btn-brown btn-sm" value="Deactivate"
+					ng-click="detetePersonalTax('Deactivate')">
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</div>

@@ -1,0 +1,85 @@
+<section class="content-header">
+    <h1>Actual Cost- Based on Asbuilt Records</h1>
+</section>
+<section class="content">
+    <div id="tab-pannel" class="panel-group panel panel-default block footer-parent">
+        <div class="panel-body">
+            <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12 no-padding">
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2 padL-0">
+                    <md-input-container>
+                        <label>Project Status</label>
+                        <md-select ng-model="proStatus">
+                            <md-option value="open">Open</md-option>
+                            <md-option value="closed">Closed</md-option>
+                            <md-option value="all">All</md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+                    <md-input-container>
+                        <label>Project</label>
+                        <input type="text" ng-model="searchProject.projName" ng-click="getUserProjects()" autocomplete="off" readonly>
+                    </md-input-container>
+                </div>
+                <div class="col-md-8 col-lg-8 col-sm-8 col-xs-8 padR-0">
+                    <div class="pull-right marT15">
+                        <input type="button" ng-click="getDetails()" class="btn  btn-primary btn-sm"
+                            value="Generate Report">
+                        <input type="reset" class="btn  btn-secondary btn-sm" ng-click="resetDetails()" value="Reset" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12 no-padding">
+                <div class="singleTableResHeight_2">
+                    <table class="table table-striped table-hover table-bordered singleTableHeight_2">
+                        <thead>
+                            <tr>
+                                <th rowspan="2">Country</th>
+                                <th rowspan="2">Province</th>
+                                <th rowspan="2">EPS</th>
+                                <th rowspan="2">Project</th>
+                                <th rowspan="2">Project Manager</th>
+                                <th rowspan="2">Project Status</th>
+                                <th rowspan="2">Currency</th>
+                                <th colspan="5" class="text-center">Actual Cost</th>
+                                <th rowspan="2">Cost Accurals</th>
+                                <th rowspan="2">Grand Total</th>
+                            </tr>
+                            <tr>
+                                <th>Labour</th>
+                                <th>Plants</th>
+                                <th>Materials</th>
+                                <th>Services</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <div class="pull-left">
+                <input type="button" class="btn btn-primary btn-sm" value="Dynamic Analysis"
+                    ng-click="dynamicAnalysis();">
+            </div>
+        </div>
+    </div>
+</section>

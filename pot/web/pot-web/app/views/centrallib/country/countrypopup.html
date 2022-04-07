@@ -1,0 +1,95 @@
+<div id="tab-pannel" class="panel-group">
+	<form name="countryForm" validate autocomplete="off">
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title" ng-if="actionType=='Add'">Add Country Codes</h4>
+				<h4 class="panel-title" ng-if="actionType!='Add'">Edit Country Codes</h4>
+			</div>
+			<div class="panel-body">
+				<div class="popUpTableResHeight">
+					<table class="table table-striped table-hover table-bordered popUpTableHeight">
+						<thead id="tab-head">
+							<tr>
+								<th>Select</th>
+								<th>Country Code<span style="color: red; font-sfont-size: '50px'"> *</span></th>
+								<th>Country Name<span style="color: red; font-sfont-size: '50px'"> *</span></th>
+								<th>Financial Year ( From Date Cycle Period)</th>
+								<th>Financial Year ( Finish Date Cycle Period)</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr fixed-header="" ng-repeat="country in addCountryDetails">
+								<td><input ng-disabled="actionType =='Edit'"
+										data-test='CentralLibrary_CountryStateProvinceCodes_Create_addrows_Checkbox1'
+										type="checkbox" ng-model="country.selected" ng-change="popUpRowSelect(country)">
+								</td>
+
+								<td ng-form name="countryform">
+
+									<select class="form-control" style="width: 154px;"
+										ng-class="{coloumnHighlightColor:country.duplicateFlag}"
+										ng-options="coun.isoAlpha3   for  coun  in  countries  track by  coun.isoAlpha3"
+										data-test='CentralLibrary_CountryStateProvinceCodes_Create_countrycode'
+										ng-model="country.code" ng-required="true"
+										ng-init="country.code==''?country.code =coun:country.code=country.code "
+										ng-change="checkDuplicate(country)">
+										<option value="">-Select Country-</option>
+									</select>
+									<span ng-show="countryform.code.$dirty && countryform.code.$error.required">This
+										field is required</span> <span ng-show="countryform.code.$error.pattern"
+										pattern1="Alpha numeric data should be allowed "> </span> <span
+										ng-show="countryform.code.$dirty && countryform.code.$error.maxlength">Enter
+										upto 20 chars only</span>
+									<span ng-show="country.duplicateFlag">Country already exist</span>
+								</td>
+
+
+								<td ng-form name="countryform1"><input
+										data-test='CentralLibrary_CountryStateProvinceCodes_Create_countryname'
+										class="form-control" type="text" name="name" ng-model="country.name"
+										ng-class="{coloumnHighlightColor:country.duplicateFlag}"
+										pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*)) ng-maxlength="50"
+										placeholder="country Name" ng-required="true" readonly>
+									<span ng-show="countryform1.name.$dirty && countryform1.name.$error.required">This
+										field is required</span> <span ng-show="countryform1.name.$error.pattern">Alpha
+										numeric
+										data should be allowed </span> <span
+										ng-show="countryform1.name.$error.maxlength">Enter upto
+										50 chars only</span></td>								
+
+								<td>
+									<potdate-picker ng-model="country.startDate" dir-index="$index"
+										data-test='CentralLibrary_CountryStateProvinceCodes_Create_startdate'
+										date-name="country.startDate" placeholder="dd-mmm-yyyy" class="form-control"
+										required="required"  ng-change="gotodate(country)" max-date="country.finishDate" custom-read-only />
+								</td>
+								<td>
+									<potdate-picker data-test='CentralLibrary_CountryStateProvinceCodes_Create_enddate'
+										ng-model="country.finishDate"  dir-index="$index" date-name="country.finishDate"
+										placeholder="dd-mmm-yyyy" class="form-control" required="required"
+										custom-read-only   min-date="country.startDate" />
+								</td>
+								
+							</tr>							
+							
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="panel-footer">
+				<div ng-if="actionType=='Add'" class="pull-left">
+					<input data-test='CentralLibrary_CountryStateProvinceCodes_Create_addrows' type="submit"
+						ng-click="countryForm.$valid && addRows()" value="Add Rows" class="btn  btn-primary btn-sm">
+					<input data-test='CentralLibrary_CountryStateProvinceCodes_Create_deleterows' type="button"
+						ng-click="deleteRows()" value="Delete Rows" class="btn  btn-secondary btn-sm">
+				</div>
+				<div class="pull-right">
+					<input type="submit" data-test='CentralLibrary_CountryStateProvinceCodes_save'
+						class="btn  btn-primary btn-sm" value="Save"
+						ng-click="countryForm.$valid && saveCountryProvisions(countryForm)" />
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="ngdialog-close"></div>
+</div>

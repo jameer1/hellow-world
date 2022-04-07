@@ -1,0 +1,187 @@
+<div id="tab-pannel" class="panel-group">
+	<form name="nonRegularpayForm" validate>
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Employee Charge Out Rates</h4>
+			</div>
+			<div class="panel-body">
+					<div class="popUpTableResHeight overflow-auto">
+							<table class="table table-striped table-hover table-bordered popUpTableHeight" >
+								<thead id="tab-head">
+									<tr>
+										<th class="text-center" rowspan="2">Project Posting</th>
+										<th class="text-center" rowspan="2">Effective From<span
+											style="color: red;">*</span></th>
+										<th class="text-center" rowspan="2">EPS</th>
+										<th class="text-center" rowspan="2">Project</th>
+										<th class="text-center" rowspan="2">Parent Company</th>
+										<th class="text-center" rowspan="2">Charge out unit</th>
+										<th class="text-center" rowspan="2">Currency</th>
+										<th class="text-center" rowspan="2">Rate/Unit Normal Time
+											<span class="procurment-pot-errors">*</span>
+										</th>
+										<th class="text-center" rowspan="2">Rate/unit-Idle Time
+												<span class="procurment-pot-errors">*</span>
+										</th>
+										<th class="text-center" rowspan="2">Paid Leave-Rate/day
+												<span class="procurment-pot-errors">*</span>
+										</th>
+										<th class="text-center" rowspan="2">Paid Leave-Cost Code
+												<span class="procurment-pot-errors">*</span>
+										</th>
+										<th class="text-center" rowspan="2">Mobilization Cost code</th>
+										<th class="text-center" rowspan="2">Mobilization Rate</th>
+										<th class="text-center" rowspan="2">De-Mobilization Cost Code</th>
+										<th class="text-center" rowspan="2">De-Mobilization Rate</th>
+										<th class="text-center" rowspan="2">Post De-Mobilization Status</th>
+										<th class="text-center" rowspan="2">Notes</th>			
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+			
+										<td class="input-width"><input type="text" data-test='Resources_Employee_ChargeOutRatesTab_Edit_ProjectPosting'
+											name="projectPosting" class="form-control"
+											ng-model="chargeOutRate.projEmpRegisterTO.deploymentId"
+											placeholder="Project Posting ID" readonly="readonly"></td>
+			
+										<td class="input-width1"><pot-futuredate-picker data-test='Resources_Employee_ChargeOutRatesTab_Edit_EffectiveFrom'
+												dir-index="index" date-name="effectiveDate" custom-read-only
+												ng-model="chargeOutRate.fromDate" class="form-control" min-date="maxDate"
+												placeholder="Effective Date" ng-required="true"></td>
+			
+										<td class="input-width3"><input type="text" name="epsName" class="form-control"
+											ng-model="chargeOutRate.projEmpRegisterTO.parentName" data-test='Resources_Employee_ChargeOutRatesTab_Edit_EPSName'
+											placeholder="EPS Name" ng-disabled="true"></td>
+			
+										<td class="input-width3"><input type="text" name="projName" class="form-control"
+											ng-model="chargeOutRate.projEmpRegisterTO.name" data-test='Resources_Employee_ChargeOutRatesTab_Edit_ProjectName'
+											placeholder="Project Name" ng-disabled="true"></td>
+			
+										<td class="input-width"><input type="text" name="cmpName" 
+											data-test='Resources_Employee_ChargeOutRatesTab_Edit_ParentCompanyName'
+											ng-model="selectedEmployeeData.cmpName" class="form-control"
+											readonly=readonly placeholder="Company Name"></td>
+			
+										<td class="input-width1"><input type="text" class="form-control"
+											name="chargeOutUnit" ng-model="chargeOutRate.unit" 
+											data-test='Resources_Employee_ChargeOutRatesTab_Edit_Chargeoutunit'
+											ng-disabled="true" placeholder="Charge out unit"></td>
+			
+										<td class="input-width0"><input type="text" name="currency" class="form-control" 
+											ng-model="projGeneralLabelTO.displayNamesMap['currency']" 
+											data-test='Resources_Employee_ChargeOutRatesTab_Edit_Currency'
+											placeholder="currency" readonly="readonly"></td>
+			
+										<td class="input-width0"><ng-form name="myForm"> <input class="form-control"
+												type="text" placeholder="Normal Time" valid-number data-test='Resources_Employee_ChargeOutRatesTab_Edit_RateperUnitNormalTime'
+												ng-model="chargeOutRate.normalRate" name="normal"
+												pattern="^[.\d]+" maxlength="10" ng-required="true">
+												<span 
+												class="procurment-pot-errors"
+												ng-show="myForm.normal.$dirty && myForm.normal.$error.required">Enter Only
+												Digits Normal
+												Time is mandatory</span>
+											</td>
+			
+										<td class="input-width0"><ng-form name="myForm1">
+											<input type="text" ng-model="chargeOutRate.idleRate"  valid-number
+												placeholder="Idle Time" name="idle" pattern="^[.\d]+" class="form-control"
+												maxlength="10" data-test='Resources_Employee_ChargeOutRatesTab_Edit_RateperunitIdleTime'
+												ng-required="true">
+												<span
+												ng-show="myForm1.idle.$error.pattern">Enter Only Numbers
+												and Not allowed Spaces</span> <span
+												ng-show="myForm1.idle.$error.maxlength">Idle Time is Too
+												long!</span> <span 
+												class="procurment-pot-errors"
+												ng-show="myForm1.idle.$dirty && myForm1.idle.$error.required">Enter Only
+												Digits Idle
+												Time is mandatory</span>
+										</td>
+			
+										<td class="input-width1"><ng-form name="myForm2">
+											<input type="text" name="paidLeave" valid-number class="form-control"
+												ng-model="chargeOutRate.paidLeaveRate" placeholder="Paid Leave" 
+												data-test='Resources_Employee_ChargeOutRatesTab_Edit_PaidLeaveRateperday'
+												maxlength="16.2" pattern="^[.\d]+" ng-required="true"/> 
+												<span
+												ng-show="myForm2.paidLeave.$error.pattern">Enter Only
+												Digits </span> <span ng-show="myForm2.paidLeave.$error.maxlength">paid
+												leave is Too long!</span>
+												<span 
+												class="procurment-pot-errors"
+												ng-show="myForm2.paidLeave.$dirty && myForm2.paidLeave.$error.required">Enter Only
+												Digits Paid
+												Leave rate is mandatory</span>
+										</td>
+			
+										<td class="input-width1"><input type="text" 
+											data-test='Resources_Employee_ChargeOutRatesTab_Edit_PaidLeaveCostCode'
+											name="paidCostCode" class="form-control"
+											ng-model="chargeOutRate.leaveCostItemCode"
+											ng-click="getCostCode(chargeOutRate,1)"
+											placeholder="Paid Cost Code" readonly="readonly"></td>
+			
+										<td class="input-width1"><input type="text" name="mobilCost" class="form-control"
+											ng-model="chargeOutRate.mobCostItemCode" 
+											data-test='Resources_Employee_ChargeOutRatesTab_Edit_MobilizationCostcode'
+											ng-click="getCostCode(chargeOutRate,2)"
+											placeholder="Mobil Cost Code" readonly></td>
+			
+										<td class="input-width1"><ng-form name="mobRateForm">
+											<input type="text" name="mobRate" valid-number class="form-control"
+												ng-model="chargeOutRate.mobRate" placeholder="Mobl Rate" data-test='Resources_Employee_ChargeOutRatesTab_Edit_MobilizationRate'
+												pattern="^[.\d]+" maxlength="16.2"> 
+												<!-- <span
+												ng-show="mobRateForm.mobRate.$error.pattern">Enter Only
+												Digits </span> <span ng-show="mobRateForm.mobRate.$error.maxlength">
+												Mobilization Rate is Too Long</span> -->
+											</td>
+			
+										<td class="input-width1"><input type="text"
+											name="deMobilCost" class="form-control" 
+											data-test='Resources_Employee_ChargeOutRatesTab_Edit_DeMobilizationCostCode'
+											ng-model="chargeOutRate.deMobCostItemCode"
+											ng-click="getCostCode(chargeOutRate,3)"
+											placeholder="De Mobil Cost" readonly></td>
+			
+										<td class="input-width1"><ng-form name="deMobRateForm">
+											<input type="text" name="deMobRate" valid-number class="form-control"
+												ng-model="chargeOutRate.deMobRate" placeholder="De Mobl Rate" 
+												pattern="^[.\d]+" maxlength="16.2" data-test='Resources_Employee_ChargeOutRatesTab_Edit_DeMobilizationRate'>
+											<!-- <span ng-show="deMobRateForm.deMobRate.$error.pattern">Enter
+												Only Digits </span> <span
+												ng-show="deMobRateForm.deMobRate.$error.maxlength">DeMobilization
+												Rate is Too Long</span> -->
+											</td>
+			
+										<td class="input-width0"><input type="text" id="runDate" 
+											data-test='Resources_Employee_ChargeOutRatesTab_Edit_PostDeMobilizationStatus'
+											name="runDate"  class="form-control"
+											ng-model="chargeOutRate.projEmpRegisterTO.empStatus"
+											placeholder="status" readonly="readonly"></td>
+			
+										<td>
+												<textarea cols="20" rows="2" name="notes" class="form-control"
+												data-test='Resources_Employee_ChargeOutRatesTab_Edit_Notes'
+												ng-model="chargeOutRate.comments"
+												placeholder="Notes" style="width:150px;"></textarea>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+			</div>
+			
+			<div class="panel-footer">
+				<div class="pull-right">
+					<input type="submit" class="btn btn-primary btn-sm" data-test='Resources_Employee_ChargeOutRatesTab_Save'
+						ng-click="nonRegularpayForm.$valid && saveEmpChargeOutRates()"
+						value="Save">
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</form>
+</div>

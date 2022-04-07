@@ -1,0 +1,104 @@
+<div id="tab-pannel" class="panel-group">
+	<form name="contactsForm" validate>
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title" ng-show="action =='Add'">Add Contacts</h4>
+				<h4 class="panel-title" ng-show="action =='Edit'">Edit Contacts</h4>
+			</div>
+			<div class="panel-body">
+			  <div class="popUpTableResHeight overflow-auto">
+				<table class="table table-striped table-hover table-bordered popUpTableHeight" >
+					<thead>
+						<tr>
+							<th>Select</th>
+							<th>Contact Name<span class="procurment-pot-errors">*</span></th>
+							<th>Email <span style="color: red; font-sfont-size: '50px'"> *</span></th>
+							<th>Mobile<span style="color: red; font-sfont-size: '50px'"> *</span></th>
+							<th>Phone</th>
+							<th>Fax</th>
+							<th>Designation</th>
+						</tr>
+					</thead>
+					<tr fixed-header="" ng-repeat ="contact in contactList">
+						<td><input data-test='Companylist_Contact_Create_addrows_Checkbox1' ng-disabled="action =='Edit'" type="checkbox"
+							ng-model="contact.selected" 
+							ng-change="contactsPopUpRowSelect(contact)"></td>
+
+						<td> <ng-form name="desgForm1"><input data-test='Companylist_Contact_Create_ContactName' type="text"
+							ng-model="contact.contactName" name="Cname" class="form-control"
+							pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+							minlength=3 maxlength=50  placeholder="Contact Name" ng-required="true"/> <span
+							class="procurment-pot-errors"
+							ng-show="desgForm1.Cname.$touched && desgForm1.Cname.$error.required">
+								Contact Name is mandatory</span> 
+								<span class="procurment-pot-errors"
+								ng-show="desgForm1.Cname.$error.pattern">Alpha numeric
+								data should be allowed </span> </ng-form> </td>
+
+						<td ng-form="emailFrm"><input data-test='Companylist_Contact_Create_Email' type="email"
+							ng-model="contact.email" name="email" ng-trim="false" class="form-control"
+							placeholder="Email" maxlength=50 ng-required="true"/> 
+							<span class="procurment-pot-errors"
+							ng-show="emailFrm.email.$touched && emailFrm.email.$error.required">Email
+								is mandatory</span> 
+								<span class="procurment-pot-errors"
+							ng-show="emailFrm.email.$dirty && emailFrm.email.$invalid">Invalid
+								Email </span></td>
+
+						<td ng-form="mobileFrm"><input data-test='Companylist_Contact_Create_Mobile' type="text"
+							ng-model="contact.mobile" name="mobile" ng-trim="false" class="form-control"
+							placeholder="Mobile" pattern="^[\d\s\+\.,]+$" minlength=10
+							maxlength=15 ng-required="true" valid-number/> <span class="procurment-pot-errors"
+							ng-show="mobileFrm.mobile.$touched && mobileFrm.mobile.$error.required">Mobile
+								number is mandatory</span> <span class="procurment-pot-errors"
+							ng-show="mobileFrm.mobile.$error.minlength">Mobile number
+								should be 10 digits</span> <span class="procurment-pot-errors"
+							ng-show="mobileFrm.mobile.$dirty && mobileFrm.mobile.$error.pattern">Mobile
+								number must be digits</span></td>
+
+						<td ng-form="phoneFrm"><input data-test='Companylist_Contact_Create_Phone' type="text" class="form-control"
+							ng-model="contact.phone" name="phone" ng-trim="false"
+							placeholder="Phone" pattern="^[\d\s\+\.,]+$" minlength=10
+							maxlength=15 valid-number/> <span ng-show="phoneFrm.phone.$error.pattern" class="procurment-pot-errors">Phone
+								number must be digits</span> <span class="procurment-pot-errors"
+							ng-show="phoneFrm.phone.$error.minlength">Phone number
+								should be 10 digits</span></td>
+
+						<td ng-form="faxFrm"><input data-test='Companylist_Contact_Create_Fax' type="text" class="form-control"
+							ng-model="contact.fax" name="phone" ng-trim="false"
+							placeholder="Fax" pattern="^[\d\s\+\.,]+$" minlength=10
+							maxlength=20 valid-number/> <span ng-show="faxFrm.fax.$error.pattern" class="procurment-pot-errors">Fax
+								number must be digits</span> <span
+							ng-show="faxFrm.fax.$error.minlength" class="procurment-pot-errors">Fax number should be
+								digits</span></td>
+
+						<td ng-form="desgForm"><input data-test='Companylist_Contact_Create_Designation' type="text" class="form-control"
+							ng-model="contact.designation" name="desg"
+							placeholder="Designation"
+							pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+							minlength=3 maxlength=50 /> <span class="procurment-pot-errors"
+							ng-show="desgForm.desg.$error.pattern">Atleast one
+								alphabet is mandatory</span> </td>
+
+					</tr>
+				</table>
+				</div>
+			</div>
+
+			<div class="panel-footer">
+				<div class="pull-left">
+					<input data-test='Companylist_Contact_Create_addrows' type="submit" class="btn btn-primary btn-sm"
+						ng-click="contactsForm.$valid && addRows()" value="Add Rows"
+						ng-show="action =='Add'" /> <input data-test='Companylist_Contact_Create_deleterows' type="button"
+						class="btn btn-secondary btn-sm" ng-click="deleteContactRows()"
+						value="Delete Rows" ng-show="action =='Add'" />
+				</div>
+				<div class="pull-right">
+					<input data-test='Companylist_Contact_save' type="submit" class="btn btn-primary btn-sm" value="Save"
+						ng-click="contactsForm.$valid && saveContacts()" />
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</form>
+</div>

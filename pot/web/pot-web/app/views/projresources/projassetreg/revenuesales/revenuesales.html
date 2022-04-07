@@ -1,0 +1,86 @@
+<div id="tab-pannel" ng-controller="AssetRevenueSaleController">
+	<div class="table-responsive tabTable_1_Res_height">
+        <div id="grid" ui-grid="gridOptions" ng-if="stylesSvc.finishedStyling" 
+        ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-grouping class="grid"></div>
+		<!-- <table class="table table-striped table-bordered tabTable_1_height" >
+			<thead id="tab-head">
+				<tr>
+					<th>Select</th>
+					<th>Effective Date</th>
+					<th>Buyer Name</th>
+					<th>Buyer Address</th>
+					<th>Total Sale Amount</th>
+					<th>Initial Deposit Amount</th>
+					<th>Remaining Sale Amount</th>
+					<th>Payment Terms for Remaining Amount</th>
+					<th ng-if="status.paymentTermsForRemainingAmount ==='Single'">Due Date for Single Payment</th>
+					<th>Number of Part Payments</th>
+					<th>Payment Cycle for Installments</th>         
+					<th>Due Date per Cycle</th>
+					<th>First Installment Due Date</th>
+					<th>Last Installment Due Date</th>
+					<th>Principal Amount per Cycle</th>
+					<th>Rate of Interest per Annum</th>
+					<th>Gross Amount Due per Cycle</th>
+					<th>Payer Bank Name</th>
+					<th>Payer Bank code</th>
+					<th>Payer Bank Account</th>
+					<th>Account Status</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat ="status in revenueSalesDtlTOs">
+				<td><input type="checkbox" ng-model="status.selected" ng-change="revenueSaleRowSelect(status)" data-test="RevenuefromAssetSales_Checkbox"></td>	
+						
+					<td>{{status.effectiveDate}}</td>
+					<td>{{status.buyerName}}</td>
+					<td>{{status.buyerAddress}}</td>
+					<td>{{status.totalSaleAmount}}</td>
+					<td>{{status.initialDepositAmount}}</td>
+					<td>{{status.remainingSaleAmount}}</td>
+                    <td>{{status.paymentTermsForRemainingAmount}}</td>                   
+                    <td ng-if="status.paymentTermsForRemainingAmount ==='Single'">{{status.dueDateForSinglePayent}}</td>
+                    <td ng-if="status.paymentTermsForRemainingAmount ==='Installments'">NA</td>
+                    <td ng-if="status.paymentTermsForRemainingAmount ==='Installments'">{{status.paymentCycleForInstallments}}</td>    
+                    <td ng-if="status.paymentTermsForRemainingAmount ==='Single'">NA</td>                
+                    <td ng-if="status.paymentTermsForRemainingAmount ==='Installments'">{{status.dueDatePerCycle}}</td>
+                    <td ng-if="status.paymentTermsForRemainingAmount ==='Single'">NA</td> 
+					<td ng-if="status.paymentTermsForRemainingAmount ==='Installments'">{{status.firstInstallmentDueDate}}</td>
+                    <td ng-if="status.paymentTermsForRemainingAmount ==='Single'">NA</td> 
+                    <td ng-if="status.paymentTermsForRemainingAmount ==='Installments'">{{status.lastInstallmentsDueDate}}</td>
+                    <td ng-if="status.paymentTermsForRemainingAmount ==='Single'">NA</td> 
+                    <td ng-if="status.paymentTermsForRemainingAmount ==='Installments'">{{status.principalAmountPerCycle}}</td>
+                    <td ng-if="status.paymentTermsForRemainingAmount ==='Single'">NA</td> 
+                    <td ng-if="status.paymentTermsForRemainingAmount ==='Installments'">{{status.rateOfInterestPerAmount}}</td>
+                    <td ng-if="status.paymentTermsForRemainingAmount ==='Single'">NA</td> 
+                    <td ng-if="status.paymentTermsForRemainingAmount ==='Installments'">{{status.grossAmountDuePerCycle}}</td>
+                    <td ng-if="status.paymentTermsForRemainingAmount ==='Single'">NA</td> 
+                    <td>{{status.payerBankName}}</td>
+                    <td>{{status.payerBankCode}}</td>
+                    <td>{{status.payerBankAccount}}</td>
+                    <td>{{status.accountStatus}}</td>
+				</tr>
+			</tbody>
+		</table> -->
+	</div>
+	<div class="panel-footer">
+		<div class="pull-right padR-0">
+			<input type="button" class="btn btn-primary btn-sm"
+				ng-click="addRevenueSaleList('Add')" value="Add" data-test="RevenuefromAssetSales_Create">
+		</div>
+		<div class="pull-left padL-0">
+			<!-- <input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="groupPage();">
+			<input type="button" class="btn btn-primary btn-sm" value="UnGroup" ng-click="unGroupPage();">
+			<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sortPage();">
+			<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+			<input type="button" class="btn btn-primary btn-sm" value="UnSummary" ng-click="unSummarize();">
+			<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+			<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();"> -->
+			<input type="button" class="btn btn-primary btn-sm"
+				ng-click="addRevenueSaleList('Edit')" value="Edit" data-test="RevenuefromAssetSales_Edit"> <input
+				type="button" class="btn btn-secondary btn-sm"
+				ng-click="deleteRevenueSale()" value="Deactivate" data-test="RevenuefromAssetSales_Deactivate">
+		</div>
+	</div>
+</div>
+

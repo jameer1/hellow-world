@@ -1,0 +1,30 @@
+<div id="tab-pannel" class="panel-group">
+ <div class="panel panel-default" modal-movable>
+  <div class="panel-heading">
+   <h4 class="panel-title">Approve User Details</h4>
+  </div>
+  <div class="panel-body">
+        <div class="b-sh popUpTableResHeight">
+				<table class="table table-striped table-hover table-bordered popUpTableHeight"  >
+    <thead>
+     <tr>
+      <th>User Name</th>
+      <th>Email</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr data-test='CommonApproverUserDetailsSelect' ng-dblclick="selectedUser(approverTo)" data-test='Resources_Employee_ApprovalForTransfer_RequestForAdditionalTime_ApproverSelect' fixed-header="" ng-repeat ="approverTo in userList">
+      <td>{{approverTo.name}}</td>
+      <td>{{approverTo.displayNamesMap.userEmail}}</td>
+     </tr>
+     <tr ng-show="userList.length<=0">
+      <td></td>
+      <td colspan="2" style="color: red">No User Records for selected project</td>
+     </tr>
+    </tbody>
+   </table>
+   </div>
+  </div>
+  <div class="ngdialog-close"></div>
+ </div>
+</div>

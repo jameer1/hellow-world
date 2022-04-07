@@ -1,0 +1,47 @@
+<div ng-if="account.appCodeTemplate['PRJ_PROJECT_STATUS_RESOURCE_STATUS_VIEW']" id="tab-pannel" align="left">
+	<div class="panel-body">
+		<div class="tabTable_3_Res_height">
+	<table class="table-hover table-bordered tabTable_3_height" >
+		<tr>
+			<td class="col-sm-2 col-xs-2 col-md-2 col-lg-2 labelName">Resource</td>
+			<td class="col-sm-2 col-xs-2 col-md-2 col-lg-2"><select style="width: 120px;"
+				size="0.2" ng-change="changeResourceStatus()"
+				ng-options="resourceType for resourceType in resourceTypes" data-test='Projects_ProjectStatus_ProjectStatusTab_ResourceStatusTab_Resources'
+				ng-model="projStatusReq.resourceType" name="resourceType"
+				ng-required="true" class="form-control"></select></td>
+		</tr>
+		<tr>
+			<td class="col-sm-2 col-xs-2 col-md-2 col-lg-2 labelName">Original Budget</td>
+			<td class="col-sm-2 col-xs-2 col-md-2 col-lg-2"><input data-test='Projects_ProjectStatus_ProjectStatusTab_ResourceStatusTab_OriginalBudget' type="text"
+				ng-model="resourceStatus.originalBudget" name="originalBudget"
+				disabled class="form-control"></td>
+		</tr>
+		<tr>
+			<td class="col-sm-2 col-xs-2 col-md-2 col-lg-2 labelName">Revised Budget</td>
+			<td class="col-sm-2 col-xs-2 col-md-2 col-lg-2"><input data-test='Projects_ProjectStatus_ProjectStatusTab_ResourceStatusTab_RevisedBudget' type="text"
+				ng-model="resourceStatus.revisedBudget" name="revisedBudget"
+				disabled class="form-control"/></td>
+		</tr>
+		<tr>
+			<td class="col-sm-2 col-xs-2 col-md-2 col-lg-2 labelName">Actual</td>
+			<td class="col-sm-2 col-xs-2 col-md-2 col-lg-2"><input data-test='Projects_ProjectStatus_ProjectStatusTab_ResourceStatusTab_Actual' type="text"
+				ng-model="resourceStatus.actual" name="actual" disabled class="form-control"/></td>
+		</tr>
+		<tr>
+			<td class="col-sm-2 col-xs-2 col-md-2 col-lg-2 labelName">Remaining</td>
+			<td class="col-sm-2 col-xs-2 col-md-2 col-lg-2"><input data-test='Projects_ProjectStatus_ProjectStatusTab_ResourceStatusTab_Remaining' type="text"
+				ng-model="resourceStatus.remaining" name="remaining" disabled class="form-control"/></td>
+		</tr>
+	</table>
+		</div>
+	</div>
+	<div class="panel-footer">
+		<div class="pull-left">
+			<input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+			<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+			<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+			<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+			<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+		</div>
+	</div>
+</div>

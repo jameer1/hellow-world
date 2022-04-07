@@ -1,0 +1,12 @@
+<div class="nav-tabs-custom">
+  <ul class="nav nav-tabs">
+    <li fixed-header="" ng-repeat ="tab in plantDetailsTabs[6].serviceHistorySubTabs" ng-class="{'active':account.appCodeTemplate[tab.plantappCodeTemplateKey] &&  isActiveServiceHistoryTab(tab.url),
+     'disabled': !account.appCodeTemplate[tab.plantappCodeTemplateKey]}">
+    <a ng-if="account.appCodeTemplate[tab.plantappCodeTemplateKey]" data-toggle="tab" ng-click="onClickServiceHistoryTab(tab)" data-test="{{tab.plantSelenumLocator}}">{{tab.title}}</a>
+    <a ng-if="!account.appCodeTemplate[tab.plantappCodeTemplateKey]"  data-test="{{tab.plantSelenumLocator}}">{{tab.title}}</a>	</li>
+  </li>
+  </ul>
+  <div class="tab-pane fade in active">
+    <div ng-include="currentServiceHistoryTab"></div>
+  </div>
+</div>

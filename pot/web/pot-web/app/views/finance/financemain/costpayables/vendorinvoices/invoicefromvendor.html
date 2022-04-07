@@ -1,0 +1,107 @@
+<section class="content-header">
+    <h1>Invoices from Vendors/Subcontractors</h1>
+</section>
+<section class="content" id="tab-pannel">
+    <div class="panel panel-default twinBlock footer-parent">
+        <div class="panel-body">
+            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 no-padding">
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 padL-0">
+                    <md-input-container class="md-block">
+                        <label>EPS ID/Name</label>
+                        <input data-test='PlantandEquipment_EpsID' type="text" ng-model="searchProject.parentName"
+                            ng-click="getUserProjects()" readonly />
+                    </md-input-container>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <md-input-container>
+                        <label>Project ID/Name</label>
+                        <input data-test='PlantandEquipment_ProjectName' type="text" ng-model="searchProject.projName"
+                            ng-click="getUserProjects()" readonly>
+                    </md-input-container>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <md-input-container>
+                        <label>PO Status</label>
+                        <md-select ng-model="status">
+                            <md-option value="1" selected="true">Open</md-option>
+                            <md-option value="0">Closed</md-option>
+                            <md-option value="2">All</md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <div class="pull-right right-padding marT15">
+                        <input type="button" ng-click="getPurchaseOrderSearch(searchProject.projIds,status)" class="btn btn-primary btn-sm" value="Search">
+                        <input type="reset" class="btn btn-secondary btn-sm" ng-click="reset()" value="Reset">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 no-padding">
+                <div class="firstTableResHeight" style="overflow-y:scroll;">
+                    <table id="table" class="table table-striped table-hover table-bordered firstTableHeight" >
+                        <thead>
+                            <tr>
+                            	
+                                <th>EPS Name</th>
+                                <th>Project Name</th>
+                                <th>PO Number</th>
+                                <th>PO Description</th>
+                                <th>Vendor/Supplier Id</th>
+                                <th>Vendor/Supplier Name</th>
+                                <th>PO Amount</th>
+                                <th>Payment Processing Period</th>
+                                <th>PO or SubContract Current Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                          
+                            <tr *ng-if="purchaseOrdersList" ng-repeat="purchaseOrder in purchaseOrdersList">  <!-- ng-dblclick="selectPurchaseOrders(purchaseOrder); -->
+                              
+                              <!-- <td>
+									<input type="checkbox" value="id" ng-model="purchaseOrder.selected"
+										ng-change="invoiceRowSelect($index,purchaseOrdersList)">
+								</td> -->
+                              
+                              <td class="input-width5" ng-class="{selected: $index ==selectedRow}" ng-click="go(purchaseOrdersList,$index,purchaseOrder);">{{userProjMap[purchaseOrder.projId].code}}</td>  <!-- ng-class="{selected: $index ==selectedRow}" -->
+                              <td class="input-width5" ng-class="{selected: $index ==selectedRow}" ng-click="go(purchaseOrdersList,$index,purchaseOrder);">{{userProjMap[purchaseOrder.projId].name}}</td>
+                              <td class="input-width5" ng-class="{selected: $index ==selectedRow}" ng-click="go(purchaseOrdersList,$index,purchaseOrder);">{{purchaseOrder.code}}</td>
+                              <td class="input-width5" ng-class="{selected: $index ==selectedRow}" ng-click="go(purchaseOrdersList,$index,purchaseOrder);">{{purchaseOrder.preContractCmpTO.preContractTO.desc}}</td>
+                              <td class="input-width5" ng-class="{selected: $index ==selectedRow}" ng-click="go(purchaseOrdersList,$index,purchaseOrder);">{{companyMap[purchaseOrder.preContractCmpTO.companyId].name}}</td>
+                     		  <td class="input-width5" ng-class="{selected: $index ==selectedRow}" ng-click="go(purchaseOrdersList,$index,purchaseOrder);">{{purchaseOrder.apprUserName}}</td>
+                     		   <td class="input-width5" ng-class="{selected: $index ==selectedRow}" ng-click="go(purchaseOrdersList,$index,purchaseOrder);">{{purchaseOrder.amount}}</td>
+                     		   <td class="input-width5" ng-class="{selected: $index ==selectedRow}" ng-click="go(purchaseOrdersList,$index,purchaseOrder);">{{purchaseOrder.paymentInDays}}</td>
+                     		   <td class="input-width5" ng-class="{selected: $index ==selectedRow}" ng-click="go(purchaseOrdersList,$index,purchaseOrder);">{{purchaseOrder.status | potstatusfilter :purchaseOrder.status}}</td>
+							</tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="tabs" class="panel panel-default twinBlock footer-parent">
+        <div class="panel-body">
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    <li fixed-header="" ng-repeat="tab in tabs" ng-class="{active:isActiveTab(tab.url)}"
+                        ng-click="onClickTab(tab)">
+                        <a data-toggle="tab">{{tab.title}}</a>
+                    </li>
+                </ul>
+                 <div class="tab-content">
+                    <div ng-include="currentTab"></div>
+                </div> 
+                              
+            </div>
+              
+        </div>
+        
+       <!--   <div class="panel-footer" style="margin-top:25%;">
+		   <div class="pull-right">
+		        <input type="Submit" class="btn btn-primary btn-sm" ng-disabled="invalidProjectSelection" ng-click="addPostAnInvoiceDetails('Add')" value="Add">
+				 <input type="submit" class="btn btn-primary btn-sm" ng-click="addPostAnInvoiceDetails('Edit')" value="Edit" ng-disabled="invalidProjectSelection">
+		    </div>
+	     </div> -->
+         
+    </div>
+    
+</section>

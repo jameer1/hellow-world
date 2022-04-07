@@ -1,0 +1,34 @@
+<div id="tab-pannel" class="panel-group">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">Request Approval Details</h4>
+    </div>
+    <div class="panel-body">
+          <div class="singleTableResHeight">
+              <table class="table table-striped table-hover table-bordered singleTableHeight" >
+                  <thead>
+                      <tr>
+                          <th>Requester</th>
+                          <th>Requester Comments</th>
+                          <th>Request Date</th>
+                          <th>Approver</th>
+                          <th>Approver Comments</th>
+                          <th>Response Date</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr ng-repeat ="reqApprObj in preContractReqApprList" ng-click="selectRecord(reqApprObj)">
+                          <td>{{approverUserMap[reqApprObj.reqUserLabelkeyTO.id].name}}</td>
+                          <td>{{reqApprObj.reqComments}}</td>
+                          <td>{{reqApprObj.reqDate | date}}</td>
+                          <td>{{approverUserMap[reqApprObj.apprUserLabelkeyTO.id].name}}</td>
+                          <td>{{reqApprObj.apprComments}}</td>
+                          <td>{{reqApprObj.apprDate | date}}</td>
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+      </div>
+    <div class="panel-footer"></div>
+  </div>
+</div>

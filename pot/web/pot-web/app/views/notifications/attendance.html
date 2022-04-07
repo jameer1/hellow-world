@@ -1,0 +1,108 @@
+<section class="content-header">
+	<h1>Attendance Records</h1>
+</section>
+
+<section class="content" ng-init="getClients()">
+	<div class="panel panel-default block footer-parent">
+		<div class="panel-body">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+				<div class="col-xs-3 col-sm-3 col-md-2 col-lg-2">
+					<md-input-container>
+						<label>EPS ID/EPS Name</label>
+						<input type="text" data-test='Notifications_Attendance_epsid' ng-model="searchProject.parentName" ng-click="getUserProjects()" readonly="readonly">
+					</md-input-container>
+				</div>
+				<div class="col-xs-3 col-sm-3 col-md-2 col-lg-2">
+					<md-input-container>
+						<label>Project ID/Name</label>
+						<input type="text" data-test='Notifications_Attendance_project' ng-model="searchProject.projName" ng-click="getUserProjects()" readonly="readonly">
+					</md-input-container>
+				</div>
+				<div class="col-xs-3 col-sm-3 col-md-2 col-lg-2">
+					<md-input-container>
+						<label>From Date(dd-mm-yyyy)</label>
+						<potdate-picker dir-index="$index" data-test='Notifications_Attendance_fromdate' date-name="fromDate" ng-model="fromDate"> </potdate-picker>
+					</md-input-container>
+				</div>
+				<div class="col-xs-3 col-sm-3 col-md-2 col-lg-2">
+					<md-input-container>
+						<label>To Date</label>
+						<potdate-picker dir-index="$index" data-test='Notifications_Attendance_todate' date-name="toDate" ng-model="toDate"> </potdate-picker>
+					</md-input-container>
+				</div>
+				<div class="col-xs-3 col-sm-3 col-md-2 col-lg-2">
+					<md-input-container>
+						<label>Notification Code</label>
+						<input data-test='Notifications_Attendance_notificationcode' type="text" ng-model="code">
+					</md-input-container>
+				</div>
+				<div class="col-xs-3 col-sm-3 col-md-2 col-lg-2">
+
+					<md-input-container>
+						<label>Status</label>
+						<md-select data-test='Notifications_Attendance_status' ng-model="notifyStatus" ng-required="true">
+							<md-option name="notifyStatus" ng-repeat="notifyStatus in notificationStatus" ng-value="notifyStatus.title" ng-if="account.appCodeTemplate[notifyStatus.notifyappCodeTemplateKey]">{{notifyStatus.title}}</md-option>
+						</md-select>
+						<md-input-container>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+				<div class="pull-right marB15">
+					<input type="button" data-test='Notifications_Attendance_search' ng-click="getAttendanceNotificDetails()" class="btn btn-primary btn-sm" value="Search"
+					 ng-model="searchText"> <input type="reset" data-test='Notifications_Attendance_reset' class="btn  btn-default btn-sm" ng-click="resetAttendanceNotificDetails()"
+					 value="Reset">
+				</div>
+			</div>
+			<!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+				<div class="singleTableResHeight_3">
+					<table class="table table-hover table-bordered singleTableHeight_3">
+						<thead>
+							<tr>
+								<th>Date</th>
+								<th>EPS Name</th>
+								<th>Project Name</th>
+								
+								<th>Crew Name</th>
+								<th>Month</th>
+								<th>From Date</th>
+								<th>To Date</th>
+								<th>Notification Number</th>
+								<th>From User</th>
+								<th>To User</th>
+								<th>Type</th>
+								<th>Status</th>
+								<th>Comments</th>
+
+							</tr>
+						</thead>
+						<tr ng-repeat="attendance in attendanceNotification  | filter : code ">
+							<td>{{attendance.date}}</td>
+							<td>{{attendance.parentName}}</td>
+							<td>{{attendance.name}}</td>
+							
+							<td>{{attendance.crewName}}</td>
+							<td>{{attendance.attendenceMonth}}</td>
+							<td>{{attendance.fromDate}}</td>
+							<td>{{attendance.toDate}}</td>
+							<td>{{attendance.code}}</td>
+							<td>{{attendance.fromUserName}}</td>
+							<td>{{attendance.toUserName}}</td>
+							<td>{{attendance.type}}</td>
+							<td>{{attendance.notificationStatus}}</td>
+							<td>{{attendance.reqComments}}</td>
+							<td class="text-left"><span name="comment" flip="horizontal" ng-click="show(attendance.reqComments)"></span></td>
+
+						</tr>
+
+					</table>
+				</div>
+			</div> -->
+		</div>
+		<div>
+			<div id="grid" ui-grid="gridOptions" class="singleTableResHeight_3"
+				ng-if="stylesSvc.finishedStyling" ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize
+				ui-grid-resize-columns ui-grid-grouping class="grid">
+			</div>
+		</div>
+	</div>
+</section>

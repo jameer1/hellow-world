@@ -1,0 +1,70 @@
+<section class="content-header">
+	<h1>Stock Piles - Stock Balance Report</h1>
+	<!-- <input type="submit" value ="Help !"
+		ng-click="helpPage();" class="pull-right btn  btn-primary btn-sm help-each-page"> -->
+		<button class="pull-right btn btn-primary btn-sm help-each-page" 
+	onclick="window.open('views/helptutorials/StockPiles-StockBalance.html', '_blank', 
+		'toolbar=yes,scrollbars=yes,resizable=no,top=50,left=100,width=1400,height=700')">
+		Help
+	</button>
+</section>
+<section class="content ui-rid-customization-pot">
+	<div id="tab-pannel">
+		<div class="panel panel-default block footer-parent">
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+						<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padL-0">
+							<md-input-container class="md-block">
+								<label>EPS</label>
+								<input type="text" data-test='Materials_StockPilesStockBalance_Epsname'
+									ng-model="searchProject.parentName" class="form-control"
+									ng-click="getUserProjects()" readonly>
+							</md-input-container>
+						</div>
+						<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+							<md-input-container class="md-block">
+								<label>Project</label>
+								<input data-test='Materials_StockPilesStockBalance_Projectname' type="text"
+									ng-model="searchProject.projName" class="form-control" ng-click="getUserProjects()"
+									readonly>
+							</md-input-container>
+						</div>
+						<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+							<md-input-container>
+								<label>From Date</label>
+								<potdate-picker dir-index="$index" class="form-control" date-name="fromDate" data-test="Materials_StockPilesStockBalance_Fromdate"
+									ng-model="fromDate" readonly max-date="todayDate">
+							</md-input-container>
+						</div>
+
+						<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+							<md-input-container>
+								<label>To Date</label>
+								<potdate-picker dir-index="$index" class="form-control" date-name="toDate" data-test="Materials_StockPilesStockBalance_Todate"
+									ng-model="toDate" readonly min-date="fromDate" max-date="todayDate">
+							</md-input-container>
+						</div>
+
+					</div>
+					<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+						<div class="marB5 pull-right" style="margin-right: 10px;">
+							<input type="button" ng-click="getStockPilesDetails()" class="btn btn-primary btn-sm" data-test="Materials_StockPilesStockBalance_Generatereportbutton"
+								value="Generate Report">
+							<input type="reset" class="btn btn-secondary btn-sm" ng-click="resetDeliverySupplyDetails()" data-test="Materials_StockPilesStockBalance_Reset"
+								value="Reset">
+						</div>
+					</div>
+					<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 marT15">
+						<div class="singleTableResHeight_3">
+							<div id="grid" ui-grid="gridOptions" class="singleTableResHeight_3"
+								ng-if="stylesSvc.finishedStyling" ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize
+								ui-grid-resize-columns ui-grid-grouping class="grid">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

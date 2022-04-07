@@ -1,0 +1,53 @@
+<section class="content-header">
+	<h1>Client List</h1>
+</section>
+<!-- Main content -->
+<section class="content" id="tab-pannel" ng-init="getPreContractCompanies()">
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+	<div class="panel-group">
+		<div class="panel panel-default block footer-parent">
+			<div class="panel-body">
+				<div class="singleTableResHeight">
+					<table class="table table-striped table-hover table-bordered singleTableHeight" >
+						<thead>
+							<tr>
+								<th>Select</th>
+								<th>Company ID</th>
+								<th>Company Name</th>
+								<th>Upload Documents</th>
+
+							</tr>
+						</thead>
+						<tbody>
+							<tr fixed-header="" ng-repeat ="cmp in precontractCmpData">
+								<td><input type="checkbox" ng-model="cmp.select"
+									ng-change="rowSelect(cmp)" /></td>
+								<td>{{preContractCompanyMap[cmp.companyId].code}}</td>
+
+								<td>{{preContractCompanyMap[cmp.companyId].name}}</td>
+								<td><input type="file" ng-model="cmp.doc"
+									placeholder="Documents"></td>
+
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="panel-footer">
+				<div class="pull-left">
+					<input type="button" class="btn btn-primary btn-sm"
+						ng-click="addCompanyRows()" value="Add">
+				</div>
+				<div class="pull-right">
+					<input type="button" class="btn btn-secondary btn-sm"
+						ng-click="deactivateCompanies()" value="Deactivate"> <input
+						type="button" class="btn btn-primary btn-sm"
+						ng-click="saveCompanies(2)" value="Save">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+</section>

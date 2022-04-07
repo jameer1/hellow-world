@@ -1,0 +1,55 @@
+<style>
+#builder .btn
+{
+	padding-left: 4px !important;
+}
+#builder .form-builder-panel
+{
+	border: 1px solid #ddd;
+	padding: 4px;
+}
+#builder #group-container-basic span, #builder #group-container-advanced span, #builder #group-container-layout span, #builder #group-container-data span, #builder #group-container-premium span
+{
+	background-color: #2780e3;
+	border-color: #2780e3;
+}
+#builder #group-container-basic span:hover, #builder #group-container-advanced span:hover, #builder #group-container-layout span:hover
+, #builder #group-container-data span:hover, #builder #group-container-premium span:hover
+{
+	background-color: #2e2ed1;
+}
+#builder .formarea {
+	border: 1px solid #ccc;
+}
+#builder .formio-component.formio-component-label-hidden {
+	max-height : 610px;
+	overflow-y : auto;
+	width : 99.3%;
+	margin-top: 10px;
+}
+#builder .drag-container {
+	width: 99%;
+}
+
+</style>
+<section class="content-header">
+	<h1>Plugin</h1>	
+</section>
+<!-- Main content -->
+<section class="content">
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			<input type="button" class="btn btn-primary btn-sm pull-right" value="Save" ng-click="save()"/>
+		</div>		
+	</div>
+	<!-- <div class='row'>
+		<div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+			<div ng-repeat="item in inputs"><div class="pull-left" style="width:20%"><input type="text" name="stage1" ng-model="item.value"/></div></div>
+		</div>		
+		<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3"><input type="text" name="add" class="btn btn-primary" value="Add" ng-click="addField()"/></div>
+	</div> -->
+	<input type="hidden" name="loggedin_user" id="loggedin_user" value="Pavani Kota"/>
+	<div class="row" ng-init="doInit()">
+		<div id="builder"></div>
+	</div>
+</section>

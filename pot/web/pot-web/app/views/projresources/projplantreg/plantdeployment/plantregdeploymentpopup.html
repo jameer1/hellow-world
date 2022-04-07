@@ -1,0 +1,142 @@
+<div id="tab-pannel" class="panel-group" ng-init="getProcureDetails();">
+	<form name="plntRegForm3" validate>
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Deployment History</h4>
+			</div>
+			<div class="panel-body">
+				<div class="popUpTableResHeight overflow-auto">
+					<table class="table table-hover table-bordered popUpTableHeight" >
+						<thead>
+							<tr>
+
+								<th rowspan="2">EPS Name</th>
+
+								<th rowspan="2">Project Name</th>
+								<th rowspan="2">Commission Date of New Asset
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th rowspan="2">Asset ID</th>
+								<th rowspan="2">Project Plant Id</th>
+								<!--<th rowspan="2">Classification as per Project Contract</th>-->
+								<th rowspan="2">Mobilization Date
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th rowspan="2">Expected<br>De-Mobilization Date
+								</th>
+								<th rowspan="2">De-Mobilization Date</th>
+								<th rowspan="2">Post De-Mobilization Status </th><!-- <span class="procurment-pot-errors">*</span> -->
+								<th class="text-center" colspan="2">Odo Meter Reading</th>
+
+								<th rowspan="2">Notes
+									<span class="procurment-pot-errors">*</span>
+								</th>
+
+							</tr>
+							<tr>
+								<th>Mobilization
+									<span class="procurment-pot-errors">*</span>
+								</th>
+								<th>De-Mobilization
+									<!--span class="procurment-pot-errors">*</span-->
+								</th>
+							</tr>
+
+						</thead>
+						<tbody>
+							<tr>
+								<td><input type="text" class="form-control" data-test='PlantandEquipment_DeploymentHistory_Edit_EPSName'
+									ng-model="addDeploymentData.parentName"
+									placeholder="EPS Name" ng-click="getUserProjects()"
+									ng-disabled="selectedPlantData.assetType=='New Plant'"
+									custom-read-only ng-required="true"></td>
+
+								<td><input type="text" class="form-control" data-test='PlantandEquipment_DeploymentHistory_Edit_ProjectName'
+									ng-model="addDeploymentData.name"
+									placeholder="Project Name" ng-click="getUserProjects()"
+									ng-disabled="selectedPlantData.assetType=='New Plant'"
+									readonly="readonly"></td>
+
+								<td><potdate-picker class="form-control" data-test='PlantandEquipment_DeploymentHistory_Edit_CommissionDateofNewAsset'
+										ng-model="addDeploymentData.commissionDate"
+										dir-index="$index" date-name="date" placeholder="dd-mm-yyyy"
+										ng-model="addDeploymentData.commissionDate" custom-read-only ng-required="true" /></td>
+
+								<td><input type="text" class="form-control" data-test='PlantandEquipment_DeploymentHistory_Edit_AssetID' name="assetId"
+									ng-model="selectedPlantData.assertId" readonly=readonly
+									placeholder="assetId" ng-required="true"></td>
+
+								<td><input type="text" class="form-control" data-test='PlantandEquipment_DeploymentHistory_Edit_ProjectPlantId'
+									name="projectplntId"
+									ng-model="selectedPlantData.plantClassMstrName"
+									placeholder="projectplntId" readonly="readonly"></td>
+
+								<!-- 			<td class="input-width3"><input type="text" class="form-control"
+									name="projectplntId"
+									ng-model="projPlantMap[addDeploymentData.projPlantClassTypeId].name"
+									placeholder="projectplntName"
+									ng-click="getPlantDetails(searchProject.projId)"
+									ng-required="true" ></td> -->
+
+								<td><potdate-picker class="form-control" data-test='PlantandEquipment_DeploymentHistory_Edit_MobilizationDate' 
+										ng-model="addDeploymentData.mobDate" dir-index="$index"
+										date-name="date" min-date="minDate"
+										placeholder="dd-mm-yyyy" custom-read-only ng-required="true" /></td>
+
+								<td><potdate-picker class="form-control" data-test='PlantandEquipment_DeploymentHistory_Edit_AnticipatedDeMobilizationDate'
+										ng-model="addDeploymentData.anticipatedDeMobDate" min-date="addDeploymentData.mobDate"
+										ng-model="addDeploymentData.anticipatedDeMobDate"
+										dir-index="$index" date-name="date" placeholder="dd-mm-yyyy" readonly /></td>
+
+								<td><potdate-picker class="form-control" data-test='PlantandEquipment_DeploymentHistory_Edit_DeMobilizationDate'
+										ng-change="enabledeMobStatus()" min-date="addDeploymentData.mobDate"
+										ng-model="addDeploymentData.deMobDate" dir-index="$index"
+										date-name="date" placeholder="dd-mm-yyyy" readonly /></td>
+
+								<td class="input-width">
+									<select class="form-control" data-test='PlantandEquipment_DeploymentHistory_Edit_DeMobilizationDateStatus' ng-disabled=" addDeploymentData.deMobDate== null"
+										ng-options="postDemobilisation.code as postDemobilisation.code for postDemobilisation in postDemobilisations"
+										ng-model="addDeploymentData.postDeMobStatus" ng-required="true" ng-disabled="isDisabled">
+									</select>
+								</td>
+
+								<td><input type="text" class="form-control" data-test='PlantandEquipment_DeploymentHistory_Edit_odoMobilization'
+									name="odoMeterRdngMobi" ng-model="addDeploymentData.odoMeter"
+									placeholder="odoMeterRdngMobi" ng-required="true"
+									class="text-right" valid-number
+									ng-disabled="selectedPlantData.assetType == 'New Plant' || odoMeterLength > 0"></td>
+								<td>
+								<ng-form name="odoMeterRdngDeMobiForm">
+								<input type="text" class="form-control" data-test='PlantandEquipment_DeploymentHistory_Edit_odoDeMobilization'
+									name="odoMeterRdngDeMobi" valid-number
+									ng-model="addDeploymentData.deMobOdoMeter"
+									placeholder="odoMeterRdngDeMobi"
+									class="text-right" ng-pattern="/^[1-9]+[0-9]*$/">
+									<span ng-show="odoMeterRdngDeMobiForm.odoMeterRdngDeMobi.$error.pattern" class="text-right">The
+											value is not a valid integer</span></ng-form>
+									</td>
+								<td class="input-width4"><input type="text" class="form-control" name="notes" data-test='PlantandEquipment_DeploymentHistory_Edit_Notes'
+									ng-model="addDeploymentData.comments" placeholder="notes"
+									ng-required="true" data-toggle="tooltip"
+									title="{{addDeploymentData.comments}}">
+									</td>
+								</tr>
+						</tbody>
+					</table>
+
+				</div>
+				<div class="panel-footer">
+					<div class="pull-right">
+						<input type="submit" class="btn btn-primary btn-sm"
+							ng-click="plntRegForm3.$valid && savePlantDeploymentRecords()" data-test='PlantandEquipment_DeploymentHistory_Save' value="Save">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</form>
+</div>
+
+
+
+

@@ -1,0 +1,128 @@
+<section class="content-header">
+    <h1 ng-if="!subReport.name">Manpower - Periodical Actual Hours</h1>
+    <h1 ng-if="subReport.name">Manpower - Periodical Actual Hours - {{subReport.name}}</h1>
+     <!-- <input type="submit" value ="Help !"
+		ng-click="helpPage();" class="pull-right btn  btn-primary btn-sm help-each-page"> -->
+		<button class="pull-right btn btn-primary btn-sm help-each-page" 
+	onclick="window.open('views/helptutorials/ActualVsStandardHours.html', '_blank', 
+		'toolbar=yes,scrollbars=yes,resizable=no,top=50,left=100,width=1400,height=700')">
+		Help
+	</button>
+</section>
+<!-- Main content -->
+<section class="content ui-rid-customization-pot">
+    <div class="panel panel-default block footer-parent">
+        <div class="panel-body">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 padL-0">
+                    <md-input-container>
+                        <label class="labelName">EPS Name</label>
+                        <input type="text" ng-model="searchProject.parentName" ng-click="getUserProjects()" readonly data-test="PeriodicalActualHours_Epsname">
+                    </md-input-container>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <md-input-container>
+                        <label class="labelName">Project Name</label>
+                        <input type="text" ng-model="searchProject.projName" ng-click="getUserProjects()" readonly>
+                    </md-input-container>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <md-input-container>
+                        <label class="labelName">Company</label>
+                        <input type="text" ng-click="getCompanyList()" ng-model="companyNameDisplay" readonly data-test="PeriodicalActualHours_Company">
+                    </md-input-container>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <md-input-container>
+                        <label class="labelName">Category</label>
+                        <md-select ng-model="categoryName" data-test="PeriodicalActualHours_Category">
+                            <md-option ng-value="category.code"
+                                ng-repeat="category in categories track by category.name">
+                                {{category.name}}</md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <md-input-container>
+                        <label class="labelName">From Date(dd-mm-yyyy)</label>
+                        <potdate-picker dir-index="$index" readonly ng-model="fromDate" date-name="fromDate" max-date="todayDate" data-test="PeriodicalActualHours_Fromdate"/>
+                    </md-input-container>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 padR-0">
+                    <md-input-container>
+                        <label class="labelName">To Date(dd-mm-yyyy)</label>
+                        <potdate-picker dir-index="$index" ng-model="toDate" readonly date-name="toDate" min-date="fromDate" max-date="todayDate" data-test="PeriodicalActualHours_Todate"/>
+                    </md-input-container>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 padL-0">
+                    <md-input-container>
+                        <label class="labelName">Sub Reports</label>
+                        <md-select ng-model="subReport" ng-change="changeSubReport()" data-test="PeriodicalActualHours_Subreports">
+                            <md-option value="">None</md-option>
+                            <md-option ng-value="subReport" ng-repeat="subReport in subReports">{{subReport.name}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    <md-radio-group ng-model="type" layout="row" ng-show="subReport.code">
+                        <md-radio-button id="chart" value="chart" name="content" class="md-primary" data-test="PeriodicalActualHours_Chart">Chart
+                        </md-radio-button>
+                        <md-radio-button id="table" value="table" name="content" class="md-primary" data-test="PeriodicalActualHours_Table">Table
+                        </md-radio-button>
+                        <md-radio-button id="chartTable" value="chartTable" name="content" class="md-primary" data-test="PeriodicalActualHours_ChartTable">Chart &
+                            Table</md-radio-button>
+                    </md-radio-group>
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 padR-0">
+                    <div class="pull-right marB15">
+                        <input type="button" ng-click="getManpowerPeriodicalDetails()" class="btn btn-primary btn-sm" data-test="PeriodicalActualHours_Generatereportbutton"
+                            value="Generate Report">
+                        <input type="reset" class="btn btn-secondary btn-sm" ng-click="resetManpowerPeriodicalDetails()" data-test="PeriodicalActualHours_Reset"
+                            value="Reset">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+                <div class="singleTableResHeight_3" ng-hide="subReport.name">
+                    <div id="grid" ui-grid="gridOptions1" class="singleTableResHeight_3"
+                        ng-if="stylesSvc.finishedStyling" ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize
+                        ui-grid-resize-columns ui-grid-grouping class="grid"></div>
+
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding" ng-if="subReport.code">
+
+                <!-- charts  -->
+
+                <div ng-if="type == 'chart'" class="singleTableResHeight_3">
+                    <canvas class="chart-base" chart-data="data" chart-labels="labels" chart-series="series" height="90"
+                        chart-type="chart_type" chart-colors="colors" chart-options="options" context-menu="menuOptions"
+                        chart-dataset-override="datasetOverride"></canvas>
+                </div>
+                <div ng-if="type == 'chartTable'" class="chartResHeight">
+                    <canvas class="chart-base" chart-data="data" chart-labels="labels" chart-series="series" height="50"
+                        chart-type="chart_type" chart-colors="colors" chart-options="options" context-menu="menuOptions"
+                        chart-dataset-override="datasetOverride"></canvas>
+                </div>
+
+                <!-- sub reports -->
+
+                <div ng-if="type == 'chartTable'">
+                    <div id="grid" ui-grid="gridOptions" class="tableWithChartResHeight"
+                        ng-if="stylesSvc.finishedStyling" ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-grouping class="grid">
+                    </div>
+                </div>
+                <div ng-if="type == 'table'">
+                    <div id="grid" ui-grid="gridOptions" class="singleTableResHeight_3"
+                        ng-if="stylesSvc.finishedStyling" ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-grouping class="grid">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+           </div>
+</section>

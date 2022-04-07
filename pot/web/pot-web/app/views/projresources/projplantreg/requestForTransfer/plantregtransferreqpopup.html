@@ -1,0 +1,339 @@
+<div id="tab-pannel" class="panel-group">
+	<form name="plntRegTransferForm" validate>
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Requisition</h4>
+			</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-sm-12 col-md-9 col-lg-8">
+						<table id="input-width4" class="table table-hover table-bordered"
+							ng-init="getEmployeeByUserId()">
+							<thead>
+								<tr>
+									<th>Date of Request<span style="color: red; ">*</span></th>
+									<th>Requisition ID</th>
+									<th>Origin Project<span style="color: red; ">*</span></th>
+									<th>Destination Project<span style="color: red; ">*</span></th>
+									<th>Notification ID</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td class="input-width4"><input
+											data-test='PlantandEquipment_RequestForTransfer_newrequest_DateofRequest'
+											type="text" class="form-control" ng-disabled="true"
+											ng-model="plantTransReqData.reqDate"></td>
+									<td class="input-width4"><input
+											data-test='PlantandEquipment_RequestForTransfer_newrequest_RequisitionID'
+											type="text" class="form-control" ng-disabled="true"
+											ng-model="plantTransReqData.reqCode" placeholder="Requistion ID"></td>
+
+									<td class="input-width4"><input
+											data-test='PlantandEquipment_RequestForTransfer_newrequest_originproject'
+											type="text" class="form-control" ng-model="plantTransReqData.fromProjName"
+											placeholder="Origin Project" ng-click="getUserProjects(1)" 
+											ng-required="true" custom-read-only></td>
+
+									<td class="input-width4"><input type="text" class="form-control"
+											data-test='PlantandEquipment_RequestForTransfer_newrequest_destinationproject'
+											ng-model="plantTransReqData.toProjName" placeholder="Destination Project"
+											ng-click="getUserProjects(2)" custom-read-only ng-required="true">
+									</td>
+
+
+									<td class="input-width4"><input type="text"
+											data-test='PlantandEquipment_RequestForTransfer_newrequest_NotificationID'
+											class="form-control" ng-disabled="true"
+											ng-model="plantTransReqData.notifyCode" placeholder="Notification ID"></td>
+
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="col-sm-12 col-md-3 col-lg-4">
+						<table id="input-width4" class="table table-hover table-bordered">
+							<thead>
+								<tr>
+									<th>Approval Date</th>
+									<th>Approval ID</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td class="input-width0">
+										<pot-futuredate-picker
+											data-test='PlantandEquipment_RequestForTransfer_newrequest_ApprovalDate'
+											ng-disabled="true" ng-model="plantTransReqData.apprDate" dir-index="$index"
+											date-name="apprlDate" placeholder="dd-mm-yyyy" 
+											class="form-control""></td>
+
+								<td class=" input-width4"><input type="text"
+												data-test='PlantandEquipment_RequestForTransfer_newrequest_ApprovalID'
+												class="form-control" ng-disabled="true"
+												ng-model="plantTransReqData.apprCode" placeholder="Approval ID">
+									</td>
+
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="panel-heading">
+				<h4 class="panel-title">Requester</h4>
+			</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-sm-12 col-md-12 col-lg-12">
+						<div class="overflow-auto">
+							<table id="input-width4" class="table table-hover table-bordered">
+								<thead>
+									<tr>
+										<th>Employee ID<span style="color: red; ">*</span></th>
+										<th>First Name</th>
+										<th>Last Name</th>
+										<th>Designation</th>
+										<th>Current Project</th>
+										<th>Phone Number</th>
+										<th>Email Address</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td><input type="text"
+												data-test='PlantandEquipment_RequestForTransfer_newrequest_Request_employeeID'
+												ng-click="getUserEmployees('SUBMIT')"
+												ng-model="plantTransReqData.reqUserTO.empCode" readonly="readonly"
+												class="form-control" ng-disabled="plantTransReqData.apprStatus!=null"
+												placeholder="Employee ID"></td>
+
+										<td><input
+												data-test='PlantandEquipment_RequestForTransfer_newrequest_Request_FirstName'
+												type="text" readonly="readonly" class="form-control"
+												ng-model="plantTransReqData.reqUserTO.firstName"
+												placeholder="First Name"></td>
+
+										<td><input
+												data-test='PlantandEquipment_RequestForTransfer_newrequest_Request_LastName'
+												type="text" readonly="readonly" class="form-control"
+												ng-model="plantTransReqData.reqUserTO.lastName" placeholder="Last Name">
+										</td>
+
+										<td><input
+												data-test='PlantandEquipment_RequestForTransfer_newrequest_Request_Designation'
+												type="text" readonly="readonly" class="form-control"
+												ng-model="plantTransReqData.reqUserTO.empDesg" placeholder="Designation"
+												style="width: 115px !important"></td>
+
+										<td><input
+												data-test='PlantandEquipment_RequestForTransfer_newrequest_Request_CurrentProject'
+												type="text" readonly="readonly" class="form-control"
+												ng-model="plantTransReqData.reqCurrentProj"
+												placeholder="Current Project"></td>
+
+										<td><input
+												data-test='PlantandEquipment_RequestForTransfer_newrequest_Request_PhoneNumber'
+												type="text" readonly="readonly" class="form-control"
+												ng-model="plantTransReqData.reqUserTO.phone" placeholder="Phone Number">
+										</td>
+
+										<td><input
+												data-test='PlantandEquipment_RequestForTransfer_newrequest_Request_EmailAddress'
+												type="text" readonly="readonly" class="form-control"
+												ng-model="plantTransReqData.reqUserTO.email" placeholder="Email ID">
+										</td>
+
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="panel-heading">
+				<h4 class="panel-title">Approver</h4>
+			</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-sm-12 col-md-12 col-lg-12">
+						<div class="overflow-auto">
+							<table id="input-width4" class="table table-hover table-bordered">
+								<thead>
+									<tr>
+										<th>Employee ID<span style="color: red;">*</span></th>
+										<th>First Name</th>
+										<th>Last Name</th>
+										<th>Designation</th>
+										<th>Current Project</th>
+										<th>Phone Number</th>
+										<th>Email Address</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+
+										<td><input type="text" 
+												data-test='PlantandEquipment_RequestForTransfer_newrequest_Approver_employeeID'
+												class="form-control" ng-click="getUserEmployees('APPROVE')"
+												ng-model="plantTransReqData.apprUserTO.empCode"
+												placeholder="Employee ID"
+												ng-disabled="plantTransReqData.apprStatus!=null"
+												custom-read-only ng-required="true"></td>
+
+										<td><input
+												data-test='PlantandEquipment_RequestForTransfer_newrequest_Approver_FirstName'
+												type="text" readonly="readonly" class="form-control"
+												ng-model="plantTransReqData.apprUserTO.firstName"
+												placeholder="First Name"></td>
+
+										<td><input
+												data-test='PlantandEquipment_RequestForTransfer_newrequest_Approver_LastName'
+												type="text" readonly="readonly" class="form-control"
+												ng-model="plantTransReqData.apprUserTO.lastName"
+												placeholder="Last Name"></td>
+
+										<td><input
+												data-test='PlantandEquipment_RequestForTransfer_newrequest_Approver_Designation'
+												type="text" readonly="readonly" class="form-control"
+												ng-model="plantTransReqData.apprUserTO.empDesg"
+												placeholder="Designation" style="width: 115px !important"></td>
+
+										<td><input
+												data-test='PlantandEquipment_RequestForTransfer_newrequest_Approver_CurrentProject'
+												type="text" readonly="readonly" class="form-control"
+												ng-model="plantTransReqData.apprCurrentProj"
+												placeholder="Current Project"></td>
+
+										<td><input
+												data-test='PlantandEquipment_RequestForTransfer_newrequest_Approver_PhoneNumber'
+												type="text" readonly="readonly" class="form-control"
+												ng-model="plantTransReqData.apprUserTO.phone"
+												placeholder="Phone Number"></td>
+
+										<td><input
+												data-test='PlantandEquipment_RequestForTransfer_newrequest_Approver_EmailAddress'
+												type="text" readonly="readonly" class="form-control"
+												ng-model="plantTransReqData.apprUserTO.email" placeholder="Email ID">
+										</td>
+
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="panel-heading">
+				<h4 class="panel-title">Plant List</h4>
+			</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-md-12 col-lg-12">
+						<div class="tabTable_1_Res_height overflow-auto">
+							<table id="input-width3" class="table table-hover table-bordered tabTable_1_height">
+								<thead>
+									<tr>
+										<th>Select</th>
+										<th>Asset ID<span style="color: red; font-size:6px;">*</span></th>
+										<th>Registration Number</th>
+										<th>Plant Description</th>
+										<th>Make</th>
+										<th>Model</th>
+										<th>Expected Date of Availability for Transfer<span
+												style="color: red; font-size:6px;">*</span></th>
+										<th>Required Date of Transfer<span style="color: red; font-size:6px;">*</span>
+										</th>
+										<th>Approver Decision</th>
+										<th>Date Set for Asset Transfer</th>
+										<th>Plant Transfer Note Records</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr fixed-header="" ng-repeat="plant in plantTransReqData.plantTransReqApprDtlTOs">
+										<!-- ng-if="plantTransferExistingMap[plant.assertId]==null"> -->
+
+										<td><input type="checkbox" ng-model="plant.select" ng-disabled="true"
+												ng-change="plantRowSelect(plant)"></td>
+
+										<td class="input-width4"><input type="text" class="form-control"
+												ng-disabled="true"
+												data-test='PlantandEquipment_RequestForTransfer_newrequest_AssetID'
+												ng-model="plant.plantAssetId" placeholder="Asset ID">
+										</td>
+
+										<td class="input-width4"><input type="text"
+												data-test='PlantandEquipment_RequestForTransfer_newrequest_RegistrationNumber'
+												ng-disabled="true" class="form-control" ng-model="plant.plantRegNo"
+												placeholder="Registration Number"></td>
+
+										<td class="input-width4"><input type="text"
+												data-test='PlantandEquipment_RequestForTransfer_newrequest_PlantDescription'
+												ng-disabled="true" class="form-control" ng-model="plant.plantDesc"
+												placeholder="Plant Description"></td>
+
+										<td class="input-width4"><input type="text"
+												data-test='PlantandEquipment_RequestForTransfer_newrequest_Make'
+												ng-disabled="true" class="form-control" ng-model="plant.plantManfature"
+												placeholder="Make"></td>
+
+										<td class="input-width4"><input type="text"
+												data-test='PlantandEquipment_RequestForTransfer_newrequest_Model'
+												ng-disabled="true" class="form-control" ng-model="plant.plantModel"
+												placeholder="Model"></td>
+
+										<td class="input-width0">
+											<pot-futuredate-picker
+												data-test='PlantandEquipment_RequestForTransfer_newrequest_ExpectedDateofAvailability'
+												class="form-control" ng-model="plant.expectedTransDate"
+												dir-index="$index" date-name="expectedTransDate"
+												placeholder="Expected Date" ng-required="true" ng-disabled="true">
+										</td>
+
+										<td class="input-width0">
+											<pot-futuredate-picker class="form-control"
+												data-test='PlantandEquipment_RequestForTransfer_newrequest_requireddateoftransfer'
+												ng-model="plant.transDate" dir-index="$index" date-name="trasnferDate" min-date="plant.deMob"
+												placeholder="dd-mm-yyyy" custom-read-only ng-required="true" >
+										</td>
+
+										<td class="input-width4"><input type="text" class="form-control"
+												data-test='PlantandEquipment_RequestForTransfer_newrequest_ApproverDecision'
+												ng-disabled="true" ng-model="plantTransReqData.apprStatus"
+												readonly="readonly" placeholder="Approver Decision"></td>
+
+										<td class="input-width0">
+											<pot-futuredate-picker
+												data-test='PlantandEquipment_RequestForTransfer_newrequest_DateSetforAssetTransfer'
+												ng-disabled="true" ng-model="plantTransReqData.apprDate"
+												dir-index="$index" date-name="apprlDate" placeholder="dd-mm-yyyy"
+												readonly="readonly" class="form-control">
+										</td>
+
+										<td class="input-width4"><input type="file"
+												data-test='PlantandEquipment_RequestForTransfer_newrequest_fileUpload'
+												ng-model="plant.documents" placeholder="Documents"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="panel-footer" ng-if="plantTransReqData.apprStatus==null ">
+				<div class="pull-left">
+					<input data-test='PlantandEquipment_RequestForTransfer_newrequest_add' type="button"
+						class="btn  btn-primary btn-sm" ng-click="addPlantDetails()" value="Add"> <input
+						data-test='PlantandEquipment_RequestForTransfer_newrequest_delete' type="button"
+						class="btn  btn-secondary btn-sm" ng-click="deleteRows()" value="Delete">
+				</div>
+				<div class="pull-right">
+					<input data-test='PlantandEquipment_RequestForTransfer_newrequest_submit' type="submit"
+						class="btn btn-primary btn-sm" ng-click="plntRegTransferForm.$valid && submitReqTransferDetails()" value="Submit">
+						
+				</div>
+			</div>
+		</div>
+		<div class="ngdialog-close"></div>
+	</form>
+</div>

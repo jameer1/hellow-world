@@ -1,0 +1,10 @@
+<div ng-repeat="remainingBudgetByProvinceTab in remainingBudgetByProvinceTabs">
+    <div class="dbmodulecard">
+        <p class="ngdialog-close dbdclose" style="font-size: 26px; margin-right: 10px;"
+            ng-click="remainingBudgetByProvinceTabs.splice($index,1)"></p>
+        <canvas class="chart chart-base" chart-data="remainingBudgetByProvinceTab.data"
+            chart-labels="remainingBudgetByProvinceTab.labels"
+            chart-series="remainingBudgetByProvinceTab.series" height="70" chart_type="chart_type"
+            chart-colors="colors" chart-options="options" context-menu="menuOptions"></canvas>
+    </div>
+</div>

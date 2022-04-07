@@ -1,0 +1,18 @@
+<div ng-if="type == 'chart'" class="singleTableResHeight_2">
+    <canvas class="chart chart-line" chart-data="chartData" chart-labels="chartLabels" chart-series="chartSeries"
+        chart-options="chartOptions" chart-colors="colors" height="90" chart-dataset-override="datasetOverride"></canvas>
+</div>
+<div ng-if="type == 'chartTable'" class="chartResHeight">
+    <canvas class="chart chart-line" chart-data="chartData" chart-labels="chartLabels" chart-series="chartSeries"
+        chart-options="chartOptions" chart-colors="colors" height="50" chart-dataset-override="datasetOverride"></canvas>
+</div>
+<div ng-if="type == 'chartTable'">
+	<div id="grid" ui-grid="gridOptions" class="tableWithChartResHeight" style="height: 275px;"
+		ng-if="stylesSvc.finishedStyling" ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize>
+	</div>
+</div>
+<div ng-if="type == 'table'">
+	<div id="grid" ui-grid="gridOptions" class="singleTableResHeight_2"
+		ng-if="stylesSvc.finishedStyling" ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize>
+	</div>
+</div>

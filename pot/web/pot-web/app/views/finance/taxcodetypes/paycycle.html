@@ -1,0 +1,59 @@
+<div id="tab-pannel" ng-init="payPeriodCycle();getData()">
+	<div class="panel-group">
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Pay Roll Cycle</h4>
+			</div>
+
+			<div class="panel-body13">
+				<div class="panel-collapse collapse in">
+					<table class="table table-striped table-hover table-bordered" style="height: 200px !important;" >
+						<thead id="tab-head">
+							<tr>
+								<th>Select</th>
+								<th>Payroll Cycle / Credit cycle</th>
+								<th>Start-Day count or day or Month</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr fixed-header="" ng-repeat ="payCycle in payCycleList">
+								<td><input type="checkbox" ng-model="payCycle.selected"
+									ng-change="payCycleRowSelect(payCycle)"></td>
+
+								<td><select style="min-width: 150px;" id="payCyclePeriod"
+									name="type" ng-model="payCycle.value"
+									ng-options="payCycle.value for payCycle in periodCycleTOs"
+									ng-change="upDateData(payCycle.value)" ng-required="true">
+										<option value="">Select</option>
+								</select></td>
+
+
+
+								<td><select style="min-width: 150px;" id="payCycleYear"
+									name="payCycleYear" ng-model="payCycle.desc"
+									ng-options="year.desc for year in payPeriodCycleList track by year.desc"
+									ng-required="true">
+										<option value="">Select</option>
+								</select></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="panel-footer">
+				<div class="pull-left">
+					<input type="submit" ng-click="addRows()"
+						class="btn bottomaligned btn-brown btn-sm" value="Add" validate>
+					<input type="button" ng-click="deleteRows()" value="Delete"
+						class="btn bottomaligned btn-brown btn-sm" validate>
+				</div>
+				<div class="pull-right">
+					<input type="submit" ng-click="savePayTypeCycle()" value="Save"
+						class="btn bottomaligned btn-brown btn-sm" />
+				</div>
+			</div>
+			<div class="ngdialog-close"></div>
+		</div>
+	</div>
+</div>
+

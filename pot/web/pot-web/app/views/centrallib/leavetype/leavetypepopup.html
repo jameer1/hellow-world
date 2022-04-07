@@ -1,0 +1,113 @@
+<div id="tab-pannel" class="panel-group">
+	<form name="leaveForm" validate autocomplete="off">
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Leave Types</h4>
+			</div>
+			<div class="panel-body">
+				<div class="popUpTableResHeight" style="height: 325.41776px;">
+					<div class="col-md-12 col-lg-12 no-padding" ng-if="action =='Add'">
+						<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2 padL-0">
+							<md-input-container>
+								<label>Country Code</label>
+								<md-select ng-model="leaveReq.countryName" ng-required="true"
+									ng-change="changeCountry()">
+									<md-option ng-repeat="coun in countries | orderBy : 'countryName'"
+										ng-value="coun.isoAlpha3">
+										{{coun.countryName}}</md-option>
+								</md-select>
+							</md-input-container>
+						</div>
+						<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+							<md-input-container class="md-block">
+								<label>Effective From</label>
+								<pot-month-year-picker dir-index="index" date-name="effectiveFrom" tabindex=-1
+									ng-model="leaveReq.effectiveFrom" placeholder="Effective From" readonly
+									ng-required />
+							</md-input-container>
+						</div>
+					</div>
+					<div class="popUpTableSmallResHeight">
+						<table class="table table-striped table-hover table-bordered popUpTableSmallHeight">
+							<thead>
+								<tr>
+									<th>Leave Code</th>
+									<th>Leave Name</th>
+									<th ng-repeat="leaveCategory in projLeaveTypes[0].leaveCategoryTOs">
+										{{ leaveCategory.procureType }}
+									</th>
+									<th>Prior Approval</th>
+									<th>Medical Form</th>
+									<th>Evidence & Approval ASAP</th>
+									<th>Maximum days allowed in a year</th>
+									<th>Maximum days allowed per Event</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr fixed-header="" ng-repeat="tab in projLeaveTypes">
+									<td ng-form name="leavecodeform"><input
+											data-test='CentralLibrary_LeaveTypeClassification_create_leavecode'
+											class="form-control" type="text" ng-model="tab.code" name="code"
+											pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*)) ng-maxlength="20"
+											ng-required="true" disabled> <span
+											ng-show="leavecodeform.code.$touched && leavecodeform.code.$error.required">This
+											field is required</span> <span
+											ng-show="leavecodeform.code.$error.pattern">Alpha
+											numeric
+											data should be allowed</span> <span
+											ng-show="leavecodeform.code.$error.maxlength">Enter up to
+											20 characters length</span>
+									</td>
+									<td ng-form name="leavenameform"><input
+											data-test='CentralLibrary_LeaveTypeClassification_create_leavename'
+											class="form-control" type="text" ng-model="tab.name" name="name"
+											pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*)) ng-maxlength="50"
+											ng-required="true" disabled> <span
+											ng-show="leavenameform.name.$touched && leavenameform.name.$error.required">This
+											field is required</span> <span
+											ng-show="leavenameform.name.$error.pattern">Alpha
+											numeric
+											data should be allowed</span> <span
+											ng-show="leavenameform.name.$error.maxlength">Enter up to
+											50 characters length</span>
+									</td>
+
+									<td ng-repeat="leaveCategory in tab.leaveCategoryTOs">
+										<select class="form-control" ng-options="category for category  in categoryData"
+											style="padding: 0 !important" name="category"
+											ng-model="leaveCategory.payType" ng-required="true"
+											title="{{ leaveCategory.payType }}">
+										</select>
+									</td>
+
+									<td><input type="checkbox" ng-model="tab.priorApproval"></td>
+									<td><input type="checkbox" ng-model="tab.medicalForm"></td>
+									<td><input type="checkbox" ng-model="tab.evidenceForm"></td>
+									<td><input type="number" ng-model="tab.maxAllowYear" class="form-control"></td>
+									<td><input type="number" ng-model="tab.maxAllowEvent" class="form-control"></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="panel-footer">
+				<div class="pull-left" ng-hide="true">
+					<!--No support to this buttons for noe-->
+					<input data-test='CentralLibrary_LeaveTypeClassification_create_addrows' type="submit"
+						class="btn bottomaligned btn-primary btn-sm" ng-click="leaveForm.$valid && addLeaveClass()"
+						value="Add Rows" ng-show="action =='Add'"> <input
+						data-test='CentralLibrary_LeaveTypeClassification_create_deleterows' type="button"
+						class="btn bottomaligned btn-secondary btn-sm" ng-click="deleteRows()" value="Delete Rows"
+						ng-show="action =='Add'">
+				</div>
+				<div class="pull-right">
+					<input data-test='CentralLibrary_LeaveTypeClassification_save' type="submit"
+						class="btn bottomaligned btn-primary btn-sm" ng-click="leaveForm.$valid && saveLeaveClass()"
+						value="Save" required="required" />
+				</div>
+			</div>
+			<div class="ngdialog-close"></div>
+		</div>
+	</form>
+</div>

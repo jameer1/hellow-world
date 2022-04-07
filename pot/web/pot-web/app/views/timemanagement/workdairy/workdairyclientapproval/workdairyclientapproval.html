@@ -1,0 +1,135 @@
+<section class="content-header">
+    <h1>Work Diary Client Approval</h1>	
+    <input type="submit" value ="Help !"
+		ng-click="helpPage();" class="pull-right btn  btn-primary btn-sm help-each-page">
+</section>
+<section class="content">
+		<div class="panel panel-default block footer-parent">
+			<div class="panel-body">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 padL-0"> 
+                            <md-input-container>
+                                <label>EPS</label>
+                                <input type="text"
+                                ng-model="workDairySearchReq.projectLabelKeyTO.parentName" data-test='AsbuiltRecords_WorkDiary_ClientApproval_EpsName'
+                                ng-click="getUserProjects(workDairySearchReq.projectLabelKeyTO);clear1();" readonly>
+                                </md-input-container>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                            <md-input-container>
+                                <label>Project</label>
+                                <input type="text" 
+                                ng-model="workDairySearchReq.projectLabelKeyTO.projName"
+                                ng-click="getUserProjects(workDairySearchReq.projectLabelKeyTO)" readonly>
+                                    </md-input-container>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                            <md-input-container>
+                                <label>Contract Type</label>
+                                    <md-select ng-model="workDairySearchReq.contractType" ng-change="selectContractType()">
+                                        <md-option value="Head-Company">Head-Company</md-option>
+                                        <md-option value="Sub-Contract">Sub-Contract</md-option>
+                                    </md-select>
+                               </md-input-container>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"> 
+                            <md-input-container ng-show="workDairySearchReq.contractType=='Head-Company'">
+                                <label>Contract No</label>
+                                <input type="text"
+                                ng-model="workDairySearchReq.contractNo" readonly="readonly" > 
+                                </md-input-container>
+                                <md-input-container ng-show="workDairySearchReq.contractType!='Head-Company'">
+                                        <label>Contract No</label>
+                                       <input type="text" ng-model="workDairySearchReq.contractNo" ng-click="selectSubContract(workDairySearchReq.projectLabelKeyTO.projId)">
+                                        </md-input-container>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 padR-0" >
+                            <md-input-container>
+                                <label>Date(dd-mm-yyyy)</label>
+                                <pot-currentdate-picker dir-index="$index" date-name="workDairyDate" data-test='AsbuiltRecords_WorkDiary_ClientApproval_Date'
+                                ng-model="workDairySearchReq.workDairyDate" readonly>
+                               </pot-currentdate-picker>
+                            </md-input-container>
+                        </div>
+                     </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 padL-0">
+                            <md-input-container>
+                                <label>Crew</label>
+                                <input type="text" 
+                                ng-click="getCrewList(workDairySearchReq.projectLabelKeyTO.projId,workDairySearchReq.crewLabelKeyTO)" readonly
+                                ng-model="workDairySearchReq.crewLabelKeyTO.code" data-test='AsbuiltRecords_WorkDiary_ClientApproval_Crew'>
+                                </md-input-container>
+                        </div>
+
+                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                            <md-input-container>
+                                <label>Work Diary ID</label>
+                                <input type="text" readonly
+                                ng-model="workDairySearchReq.code">
+                               </md-input-container>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                            <md-input-container>
+                                <label>WorkShift</label>
+                                <input type="text" readonly
+                                ng-click="getWorkingShiftId(workDairySearchReq.projectLabelKeyTO.projId,workDairySearchReq.shiftLabelKeyTO)"
+                                ng-model="projShiftMap[workDairySearchReq.shiftLabelKeyTO.id].code">
+                                </md-input-container>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                            <md-input-container>
+                                <label>Weather</label>
+                                <input type="text" readonly
+                                ng-click="getWeatherClassId(workDairySearchReq.projectLabelKeyTO.projId,workDairySearchReq.weatherLabelKeyTO)"
+                                ng-model="weatherMap[workDairySearchReq.weatherLabelKeyTO.id].code">
+                               </md-input-container>
+                        </div>
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 padR-0">
+                        <div class="pull-right marT15">
+                            <input type="button"  ng-click="getWorkDairyDetails(workDairySearchReq.projectLabelKeyTO.projId)"  class="btn  btn-primary btn-sm" value="Search" ng-model="searchText" data-test='AsbuiltRecords_WorkDiary_ClientApproval_Search'>
+                            <input type="button" class="btn  btn-secondary btn-sm" ng-if="account.appCodeTemplate['ASBUILTRCRD_WRKDIRY_CLIENTAPPROVAL_REQUESTFORADDTIONALTIME']" ng-click="getWorkDairyNotifications()" value="Request For Additional Time" ng-disabled="timeFlag">
+                            <input type="reset" class="btn btn-default btn-sm"  ng-click="resetCreateWorkDairy()" value="Reset" data-test='AsbuiltRecords_WorkDiary_ClientApproval_Reset'>
+                        </div>
+                        </div>
+                    </div>
+			
+                <div  class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+                    <div class="nav-tabs-custom">
+                        <ul class="nav nav-tabs">
+                            <li fixed-header="" ng-repeat ="tab in approveWorkDiaryTabs"
+                                ng-class="{active:isActiveTab(tab.url)}">
+                                <a data-toggle="tab"
+                                   ng-click="onClickTab(tab)" data-test="{{tab.clientapprovalSeleniumLocator}}">{{tab.title}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-content">
+                        <div ng-include="currentTab"></div>
+                    </div>
+                    </div> 
+               </div>
+            <div class="panel-footer">
+                <div class="pull-left">
+					<input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+					<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+					<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+					<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+					<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+				</div>
+                <span ng-if="!disableButton && workDairySearchReq.workDairyId > 0">
+                <div class="pull-left">
+                    <input type="button" class="btn btn-secondary btn-sm"
+                           value="Print Preview">
+                </div>
+                <div class="pull-right">
+                    <input type="button" class="btn btn-primary btn-sm"
+                           ng-if="!(workDairySearchReq.apprStatus=='Client Approved')"
+                           ng-click="workdairyClientApproval()" ng-if="account.appCodeTemplate['ASBUILTRCRD_WRKDIRY_CLIENTAPPROVAL_APPROVE']" value="Approve" data-test='AsbuiltRecords_WorkDiary_ClientApproval_Approve'
+                           ng-disabled="!timeFlag">
+                </div>
+                </span>
+            </div>
+	</div>
+
+</section>

@@ -1,0 +1,28 @@
+<div id="tab-pannel" class="panel-group">
+	<div id="tab-pannel" class="panel panel-default">
+		<div class="panel-heading">
+			<th>Crew List</th>
+		</div>
+		<div class="table-responsive panel-body10-2">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Code</th>
+						<th>Name</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr data-test='AsbuiltRecords_AttendanceRecords_EmployeeAttendance_CrewSelect' fixed-header="" ng-repeat ="crew in crews" ng-dblclick="crewlistpopup(crew)">
+						<td>{{crew.code}}</td>
+						<td>{{crew.desc}}</td>
+					</tr>
+				</tbody>
+			</table>
+			<br>
+			<br>
+			<div  ng-show ="crews.length <= 0">
+			<h5 align="center" style="color: red"> No Crews for selected project</h5>
+			</div>
+		</div>
+	</div>
+</div>

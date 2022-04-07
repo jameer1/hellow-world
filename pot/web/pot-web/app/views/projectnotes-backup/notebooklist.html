@@ -1,0 +1,25 @@
+<div class="panel panel-default" ng-init="getProjNoteBookDetails()">
+    <div class="panel-heading">
+        <h4 class="panel-title">MeterialsList</h4>
+    </div>
+    <div class="panel-body">
+        <div class="popUpTableResHeight">
+            <table class="table table-striped table-hover table-bordered popUpTableHeight" >
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr fixed-header="" ng-repeat ="detail in projNotebookDetails"
+                        ng-click="projNoteBookPopUp(detail)">
+                        <td>{{detail.code}}</td>
+                        <td>{{detail.name}}</td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

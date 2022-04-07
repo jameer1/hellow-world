@@ -1,0 +1,159 @@
+<section class="content-header">
+    <h1>Create Work Diary</h1>
+    <input type="submit" value ="Help !"
+		ng-click="helpPage();" class="pull-right btn  btn-primary btn-sm help-each-page">
+</section>
+<section class="content">
+    <div id="tab-pannel">
+        <div class="panel panel-default block footer-parent">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="col-sm-2 col-xs-2 col-md-2 col-lg-2 padL-0">
+                            <md-input-container>
+                                <label>EPS</label>
+                                <input type="text" data-test='AsbuiltRecords_WorkDiary_CreateWorkDiary_EpsName'
+                                    ng-model="workDairySearchReq.projectLabelKeyTO.parentName" readonly="readonly"
+                                    ng-click="getUserProjects(workDairySearchReq.projectLabelKeyTO);clear1();">
+                            </md-input-container>
+                        </div>
+                        <div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+                            <md-input-container>
+                                <label>Project</label>
+                                <input type="text" data-test='AsbuiltRecords_WorkDiary_CreateWorkDiary_ProjectName'
+                                    ng-model="workDairySearchReq.projectLabelKeyTO.projName" readonly="readonly"
+                                    ng-click="getUserProjects(workDairySearchReq.projectLabelKeyTO)">
+                            </md-input-container>
+                        </div>
+                        <div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+                            <md-input-container>
+                                <md-select placeholder="Contract Type" ng-model="workDairySearchReq.contractType"
+                                    ng-change="selectContractType()">
+                                    <md-option value="Head-Company">Head-Company</md-option>
+                                    <md-option value="Sub-Contract">Sub-Contract</md-option>
+                                </md-select>
+                            </md-input-container>
+                        </div>
+                        <div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+                            <md-input-container class="md-block"
+                                ng-show="workDairySearchReq.contractType=='Head-Company'">
+                                <label>Contract No</label>
+                                <input type="text" ng-model="workDairySearchReq.contractNo" readonly="readonly">
+                            </md-input-container>
+                            <md-input-container class="md-block"
+                                ng-show="workDairySearchReq.contractType!='Head-Company'">
+                                <label>Contract No</label>
+                                <input type="text" ng-model="workDairySearchReq.contractNo" readonly
+                                    ng-click="selectSubContract(workDairySearchReq.projectLabelKeyTO.projId)">
+                            </md-input-container>
+                        </div>
+                        <div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+                            <md-input-container>
+                                <label>Date</label>
+                                <pot-currentdate-picker data-test='AsbuiltRecords_WorkDiary_CreateWorkDiary_Date'
+                                    dir-index="$index" date-name="workDairyDate"
+                                    ng-model="workDairySearchReq.workDairyDate" readonly="readonly">
+                            </md-input-container>
+                        </div>
+                        <div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+                            <md-input-container>
+                                <label>Crew</label>
+                                <input type="text" data-test='AsbuiltRecords_WorkDiary_CreateWorkDiary_Crew'
+                                    ng-click="getCrewList(workDairySearchReq.projectLabelKeyTO.projId,workDairySearchReq.crewLabelKeyTO)"
+                                    ng-model="workDairySearchReq.crewLabelKeyTO.code" readonly="readonly">
+                            </md-input-container>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="col-sm-2 col-xs-2 col-md-2 col-lg-2 padL-0">
+                            <md-input-container class="md-block">
+                                <label>WorkShift</label>
+                                <input type="text" data-test='AsbuiltRecords_WorkDiary_CreateWorkDiary_WorkShift'
+                                    ng-click="getWorkingShiftId(workDairySearchReq.projectLabelKeyTO.projId,workDairySearchReq.shiftLabelKeyTO)"
+                                    ng-model="workDairySearchReq.shiftLabelKeyTO.code"
+                                    readonly="readonly">
+                            </md-input-container>
+                        </div>
+                        <div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+                            <md-input-container>
+                                <label>Weather</label>
+                                <input type="text" data-test='AsbuiltRecords_WorkDiary_CreateWorkDiary_Weather'
+                                    readonly="readonly"
+                                    ng-click="getWeatherClassId(workDairySearchReq.projectLabelKeyTO.projId,workDairySearchReq.weatherLabelKeyTO)"
+                                    ng-model="workDairySearchReq.weatherLabelKeyTO.code">
+                            </md-input-container>
+                        </div>
+                        <div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+                            <md-input-container class="md-block">
+                                <label>Work Diary Id</label>
+                                <input type="text" ng-model="workDairySearchReq.code" readonly="readonly">
+                            </md-input-container>
+                        </div>
+                        <div class="col-sm-6 col-xs-6 col-md-6 col-lg-6 padR-0">
+                            <div class="pull-right marT15">
+                                <input data-test='AsbuiltRecords_WorkDiary_CreateWorkDiary_Create' type="button"
+                                    class="btn btn-primary btn-sm"
+                                    ng-if="account.appCodeTemplate['ASBUILTRCRD_WRKDIRY_CREATWRKDIRY_VIEW']"
+                                    ng-click="createWorkDairy(workDairySearchReq.projectLabelKeyTO.projId,workDairySearchReq.crewLabelKeyTO.id)"
+                                    value="Create"> <input type="button"
+                                    data-test='AsbuiltRecords_WorkDiary_CreateWorkDiary_Search'
+                                    ng-click="getWorkDairyDetails(workDairySearchReq.projectLabelKeyTO.projId)"
+                                    class="btn btn-primary btn-sm" value="Search" ng-model="searchText"> 
+                                <input type="button" data-test='AsbuiltRecords_WorkDiary_CreateWorkDiary_CopyTemplate'
+                                    ng-click="getCopyTemplate()" class="btn btn-primary btn-sm" value="Copy Template"
+                                    ng-model="searchText"> 
+                                <input type="button"
+                                    data-test='AsbuiltRecords_WorkDiary_CreateWorkDiary_AddCostCodes'
+                                    class="btn btn-primary btn-sm"
+                                    ng-click="addCostCodeItemsToWorkDairy(workDairySearchReq.projectLabelKeyTO.projId,workDairySearchReq.crewLabelKeyTO.id)"
+                                    value="Add Cost Codes"> 
+                                <input type="button"
+                                    ng-if="account.appCodeTemplate['ASBUILTRCRD_WRKDIRY_CREATWRKDIRY_REQUESTFORADDTIONALTIME']"
+                                    class="btn btn-primary btn-sm" ng-click="getWorkDairyNotifications(disableButton);"
+                                    value="Request For Additional Time" ng-disabled="timeFlag">
+                                <input type="reset" data-test='AsbuiltRecords_WorkDiary_CreateWorkDiary_Reset'
+                                    class="btn btn-primary btn-sm" ng-click="resetCreateWorkDairy()" value="Reset">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="nav-tabs-custom">
+                            <ul class="nav nav-tabs">
+                                <li fixed-header="" ng-repeat="tab in createWorkDiaryTabs"
+                                    ng-class="{active:isActiveTab(tab.url)}">
+                                    <a data-toggle="tab" ng-click="onClickTab(tab)"
+                                        data-test="{{tab.createWorkDairySeleniumLocator}}">{{tab.title}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tab-content">
+                            <div ng-include="currentTab"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="panel-footer">
+                <div class="pull-left">
+                    <input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+					<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+					<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+					<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+					<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+                    <input type="button" class="btn btn-secondary btn-sm" value="Print Preview"
+                        data-test='AsbuiltRecords_WorkDiary_CreateWorkDiary_PrintPreview'>
+                </div>
+                <div class="pull-right">
+                    <input type="button" class="btn btn-primary btn-sm"
+                        ng-disabled="(!timeFlag && 
+                            account.appCodeTemplate['ASBUILTRCRD_WRKDIRY_CREATWRKDIRY_SUBMIT'])"
+                        ng-click="submitWorkDairyForapproval()"
+                        data-test='AsbuiltRecords_WorkDiary_CreateWorkDiary_SubmitForApproval'
+                        value="Submit for Approval">
+                        
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

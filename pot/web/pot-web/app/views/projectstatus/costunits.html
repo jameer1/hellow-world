@@ -1,0 +1,78 @@
+<div ng-if="account.appCodeTemplate['PRJ_PROGRESS_SUMMARY_COSTS_VIEW']" id="tab-pannel">
+	<div class="panel-default">
+		<div class="panel-body">
+			<div class="tabTable_3_Res_height">
+					<div id="grid" ui-grid="gridOptions3" ng-if="stylesSvc.finishedStyling" 
+             ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-resize-columns class="grid"></div>
+				<!-- <table class="table table-striped table-bordered table-hover tabTable_3_height" >
+					<thead>
+						<tr>
+							<th class="vert-align">Cost Category Name</th>
+							<th>Budget Units</th>
+							<th>Revised Units</th>
+							<th>Actual Units</th>
+							<th>Remaining Units</th>
+							<th>% Spent</th>
+							<th>Estimate to Complete</th>
+							<th>Estimate at Completion Quality</th>
+							<th>Completion Variance</th> 
+						</tr>
+					</thead>
+					<tbody>
+						<tr fixed-header="" ng-repeat ="projCostCatg in projCostStatementsSummaryTOs">
+							<td>{{projCostCatg.catgType}} Cost</td>
+							
+							<td>{{projCostCatg.originalCostBudget.cost | number: 2 }}</td>
+							<td>{{projCostCatg.revisedCostBudget.cost | number: 2 }}</td>
+							<td>{{projCostCatg.actualCostBudget.cost | number: 2 }}</td>
+							   
+							remaining units
+							<td>
+								{{ (projCostCatg.revisedCostBudget.cost >0? projCostCatg.revisedCostBudget.cost 
+									: (projCostCatg.originalCostBudget.cost ? projCostCatg.originalCostBudget.cost : 0)) 
+									- projCostCatg.actualCostBudget.cost | number: 2 }}
+									{{ projCostCatg.revisedCostBudget.cost=((projCostCatg.revisedCostBudget.cost > 0 ? projCostCatg.revisedCostBudget.cost : projCostCatg.originalCostBudget.cost)-(projCostCatg.actualCostBudget.cost)) | number: 2   }}
+							</td>
+							
+							% spent
+							<td>
+								{{ (projCostCatg.actualCostBudget.cost / (projCostCatg.revisedCostBudget.cost ? projCostCatg.revisedCostBudget.cost 
+									: (projCostCatg.originalCostBudget.cost ? projCostCatg.originalCostBudget.cost : 0))) * 100 | number: 2 }}
+							</td>
+							
+							estimate to complete
+							<td>
+								{{ projCostCatg.estimateCompleteBudget.cost }}
+							</td>
+							  
+							estimate to completion
+							<td>
+								{{ projCostCatg.actualCostBudget.cost + projCostCatg.estimateCompleteBudget.cost  | number: 2 }}
+							</td>
+							
+							<td>
+								{{ (projCostCatg.actualCostBudget.cost + projCostCatg.estimateCompleteBudget.cost) 
+									- (projCostCatg.revisedCostBudget.cost ? projCostCatg.revisedCostBudget.cost 
+									: (projCostCatg.originalCostBudget.cost ? projCostCatg.originalCostBudget.cost : 0))  | number: 2 }}
+							</td>
+						</tr>
+					</tbody>
+					<tbody style="border-top: 2px solid #191970 !important;width:100%;">
+						<tr>
+							<td style="padding-top: 8px !important;"><b>Total</b></td>
+							<td>{{ costColumnTotals.originalCostTotal | number: 2 }}</td>
+							<td>{{ costColumnTotals.revisedCostTotal | number: 2}}</td>
+							<td>{{ costColumnTotals.actualCostTotal | number: 2 }}</td>
+							<td>{{ costColumnTotals.remainingCostTotal | number: 2 }}</td>
+							<td>{{ costColumnTotals.percentageSpentTotal | number: 2 }}</td>
+							<td>{{ costColumnTotals.etcTotal | number: 2 }}</td>
+							<td>{{ costColumnTotals.estAtCompletionCostTotal | number: 2 }}</td>
+							<td>{{ costColumnTotals.compVarianceTotal | number: 2 }}</td>
+						</tr>
+					</tbody>
+				</table> -->
+			</div>
+		</div>
+	</div>
+</div>
+

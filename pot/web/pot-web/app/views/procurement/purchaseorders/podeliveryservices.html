@@ -1,0 +1,75 @@
+<div ng-if="account.appCodeTemplate['PROCURMT_PURCHASEORDR_RESOURDELSERVICE_VIEW']" id="tab-pannel" class="panel-group" 
+ng-controller="PurchaseDeliveryController" ng-init="getServicePoDetails()">
+  <form ng-show="servicesTabEnabled" name="plantForm" validate>
+      <div class="tabTable_3_Res_height" style="height: 158.91036px !important">
+          <table class="table table-hover table-bordered tabTable_3_height" >
+        <thead>
+          <tr>
+            <th rowspan="2">Item ID</th>
+            <th rowspan="2">Item Description</th>
+            <th rowspan="2">Procurement<br>SubCategory
+            </th>
+            <th rowspan="2">Service Type</th>
+           <th colspan="3">As Per Purchase Order</th>
+            <th colspan="2">As Per Actual Delivery Status</th>
+            <th colspan="2">Balance Status</th>
+            <th rowspan="2">Cost Code</th>
+            <th rowspan="2">Start Date</th>
+            <th rowspan="2">Finish Date</th>
+            <th rowspan="2">Delivery Place</th>
+          </tr>
+           <tr>
+            <th>Quantity</th>
+            <th>Estimated Rate({{preContractObj.currencyTO.code}})</th>
+            <th>Amount</th>
+            <th>Quantity</th>
+            <th>Amount</th>
+            <th>Quantity</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr fixed-header="" ng-repeat="item in preContractData.preContractServiceDtlTOs" ng-init="getTotals(item)">
+            <td><span>{{item.itemCode}}</span></td>
+            <td><span>{{item.itemDesc}}</span></td>
+            <td><span>{{procureCategoryMap[item.procureSubCatgId].code}}</span></td>
+            <td><span>{{projServiceClassmap[item.projServiceLabelKey.id].code}}</span></td>
+            <td><span>{{item.quantity}}</span></td>
+            <td><span>{{item.estimateCost}}</span></td>
+            <td><span>{{item.quantity * item.estimateCost}}</span></td>
+            <td><span>{{item.actualQty}}</span></td>
+            <td><span>{{item.estimateCost*item.actualQty}}</span></td>
+            <td><span>{{item.quantity-item.actualQty}}</span></td>
+            <td><span>{{(item.quantity-item.actualQty)* item.estimateCost}}</span></td>
+            <td><span>{{item.costCode}}</span></td>
+            <td>{{item.startDate | date}}</td>
+            <td>{{item.finishDate | date}}</td>
+            <td>{{item.deliveryPlace}}</td>
+          </tr>
+        </tbody>
+         <tfoot ng-if="preContractData.preContractServiceDtlTOs.length>0">
+            <tr>
+                <th colspan="4">Total</th>
+                <td>{{totalQuantity}}</td>
+                <td>{{totalEstimated}}</td>
+                <td>{{totalAmount}}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td colspan="4"></td>
+              </tr>
+        </tfoot>
+      </table>
+    </div>
+    <div class="panel-footer">
+      <div class="pull-left">
+        <input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+        <input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+        <input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+        <input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+        <input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+      </div>
+    </div>
+  </form>
+</div>

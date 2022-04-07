@@ -1,0 +1,326 @@
+<section class="content-header">
+		<h1 ng-if="!subReport.name">Date Wise - Actual Hours</h1>
+		<h1 ng-if="subReport.name">Date Wise - Actual Hours - {{subReport.name}}</h1>
+		<!-- <input type="submit" value ="Help !"
+		ng-click="helpPage();" class="pull-right btn  btn-primary btn-sm help-each-page"> -->
+	<button class="pull-right btn btn-primary btn-sm help-each-page" 
+		onclick="window.open('views/helptutorials/DateWise-ActualHours1.html', '_blank', 
+		'toolbar=yes,scrollbars=yes,resizable=no,top=50,left=100,width=1400,height=700')">
+		Help
+	</button>
+</section>
+<section id="tab-pannel" class="content ui-rid-customization-pot">
+	<div class="panel panel-default block">
+		<div class="panel-body">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+				<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 padL-0">
+					<md-input-container>
+						<label>EPS ID/Name</label>
+						<input type="text" ng-model="searchProject.parentName" ng-click="getUserProjects();" readonly data-test="Plant_DatewiseActualHours_Epsname">
+					</md-input-container>
+				</div>
+				<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 ">
+					<md-input-container>
+						<label>Project ID/Name</label>
+						<input type="text" ng-model="searchProject.projName" ng-click="getUserProjects();" readonly>
+					</md-input-container>
+				</div>
+				<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 ">
+					<md-input-container>
+						<label>Company</label>
+						<input type="text" ng-click="getCompanyList();" ng-model="companyNameDisplay" readonly data-test="Plant_DatewiseActualHours_Company">
+					</md-input-container>
+				</div>
+				<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 ">
+					<md-input-container>
+						<label>Crew Name</label>
+						<input type="text" ng-click="getCrewList();" ng-model="crewNameDisplay" readonly data-test="Plant_DatewiseActualHours_Crew">
+					</md-input-container>
+				</div>
+				<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 ">
+					<md-input-container>
+						<label>From Date</label>
+						<potdate-picker ng-model="fromDate" dir-index="$index" date-name="fromDate" max-date="todayDate" data-test="Plant_DatewiseActualHours_Fromdate"
+							ng-change="clearSubReportDetails()" readonly>
+					</md-input-container>
+				</div>
+				<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 ">
+					<md-input-container>
+						<label>To Date</label>
+						<potdate-picker ng-model="toDate" dir-index="$index" date-name="toDate" min-date="fromDate" max-date="todayDate" data-test="Plant_DatewiseActualHours_Todate"
+							ng-change="clearSubReportDetails()" readonly>
+					</md-input-container>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+				<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 padL-0">
+					<md-input-container>
+						<label>Sub Reports</label>
+						<md-select ng-model="subReport" ng-change="changeSubReport()" data-test="Plant_DatewiseActualHours_Subreports">
+							<md-option value="None">None</md-option>
+							<md-option ng-repeat="subReport in subReports" ng-value="subReport">
+								{{subReport.name}}
+							</md-option>
+						</md-select>
+					</md-input-container>
+				</div>
+				<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+					<md-radio-group ng-model="type" layout="row" ng-show="subReportName">
+						<md-radio-button id="chart" value="chart" class="md-primary" name="content" checked="checked" data-test="Plant_DatewiseActualHours_Chart"
+							ng-true-value="1" ng-false-value="0">Chart</md-radio-button>
+						<md-radio-button id="table" value="table" ng-true-value="1" ng-false-value="0" data-test="Plant_DatewiseActualHours_Table"
+							class="md-primary" name="content" ng-model="type">Table</md-radio-button>
+						<md-radio-button id="chartTable" value="chartable" ng-true-value="1" ng-false-value="0" data-test="Plant_DatewiseActualHours_ChartTable"
+							class="md-primary" name="content">Chart & Table</md-radio-button>
+					</md-radio-group>
+				</div>
+				<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 padR-0">
+					<div class="pull-right marB15">
+						<input type="button" ng-click="getPlantDetails()" class="btn btn-primary btn-sm" data-test="Plant_DatewiseActualHours_Generatereportbutton"
+							value="Generate Report">
+						<input type="reset" class="btn btn-secondary btn-sm" ng-click="resetPlantDetails()" data-test="Plant_DatewiseActualHours_Reset"
+							value="Reset">
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+				<div class="singleTableResHeight_3" ng-if="subReport == 'None'">
+						<div id="grid" ui-grid="gridOptions" 
+						class="singleTableResHeight_3" 
+						ng-if="stylesSvc.finishedStyling" 
+						ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize></div>
+
+					
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding"
+					ng-if="type=='chart' || type=='chartable' || type=='table'">
+					
+					<div>
+						<div ng-if="type=='chart' || type=='chartable'" ng-class="{ chartResHeight : type == 'chartable',  singleTableResHeight_3 : type == 'chart'}">
+							<canvas ng-if="type=='chartable'" class="chart-base"
+                                
+                                chart-data="data" chart-series="series" chart-labels="labels" height="50"
+                                chart-type="chart_type" chart-colors="colors" chart-options="options"
+                                context-menu="menuOptions" chart-dataset-override="datasetOverride">
+                            </canvas>
+                            <canvas ng-if="type=='chart'" class="chart-base" chart-data="data" chart-labels="labels"
+                                chart-type="chart_type" chart-dataset-override="datasetOverride" chart-colors="colors"
+                                chart-options="options" context-menu="menuOptions" height="90" chart-series="series">
+                            </canvas>
+						</div>
+						<div ng-if="type=='table' || type == 'chartable'"
+							class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<div ng-if="type=='table' && subReportCode=='name'"
+								ng-class="{ tableWithChartResHeight : type == 'chartable',  singleTableResHeight_3 : type == 'table'}">
+								<div id="grid" ui-grid="gridOptions1"ng-if="stylesSvc.finishedStyling" class="singleTableResHeight_3" 
+								ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-grouping class="grid"></div>
+							</div>
+							<div ng-if="type=='chartable' && subReportCode=='name'"
+								ng-class="{ tableWithChartResHeight : type == 'chartable',  singleTableResHeight_3 : type == 'table'}">
+								<div id="grid" ui-grid="gridOptions1" ng-if="stylesSvc.finishedStyling" 
+								ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-grouping class="grid"></div>
+							</div>
+							<div ng-if="type=='table' && subReportCode=='proj'"
+								ng-class="{ tableWithChartResHeight : type == 'chartable',  singleTableResHeight_3 : type == 'table'}">
+								<div id="grid" ui-grid="gridOptions1"ng-if="stylesSvc.finishedStyling" class="singleTableResHeight_3" 
+								ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-grouping class="grid"></div>
+							</div>
+							<div ng-if="type=='chartable' && subReportCode=='proj'"
+								ng-class="{ tableWithChartResHeight : type == 'chartable',  singleTableResHeight_3 : type == 'table'}">
+								<div id="grid" ui-grid="gridOptions1" ng-if="stylesSvc.finishedStyling" 
+								 ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-grouping class="grid"></div>
+							</div>
+							<div ng-if="type=='table' && subReportCode=='eps' "
+								ng-class="{ tableWithChartResHeight : type == 'chartable',  singleTableResHeight_3 : type == 'table'}">
+								<div id="grid" ui-grid="gridOptions1"ng-if="stylesSvc.finishedStyling" class="singleTableResHeight_3" 
+								ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-grouping class="grid"></div>
+							</div>
+							<div ng-if="type=='chartable' && subReportCode=='eps' "
+								ng-class="{ tableWithChartResHeight : type == 'chartable',  singleTableResHeight_3 : type == 'table'}">
+								<div id="grid" ui-grid="gridOptions1" ng-if="stylesSvc.finishedStyling" 
+								ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-grouping class="grid"></div>
+							</div>
+							
+							<div ng-if="type=='table' && subReportCode=='costcode'" 
+							ng-class="{ tableWithChartResHeight : type == 'chartable',  singleTableResHeight_3 : type == 'table'}">							
+							<!-- 	<table class="table table-hover table-bordered "
+								ng-class="{ tableWithChartHeight : type == 'chartable',   singleTableHeight_3 : type == 'table'}">
+									<thead>
+										<tr>
+											<th>Cost Code Sub Group ID</th>
+											<th>Cost Code Sub Group Name</th>
+											<th>Cost Code Item ID</th>
+											<th>Cost Code Item Name</th>
+											<th>Unit Of Measure</th>
+											<th>Used Hours</th>
+											<th>Idle Hours</th>
+											<th>Total Hours</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr fixed-header="" ng-repeat="plant in subReportData">
+											<td>{{ plant.parentCostCode }}</td>
+											<td>{{ plant.parentCostName }}</td>
+											<td>{{ plant.mapValue }}</td>
+											<td>{{ plant.costName }}</td>
+											<td>{{ plant.unitOfMeasure }}</td>
+											<td>{{ plant.usedHrsCount }}</td>
+											<td>{{ plant.idleHrsCount }}</td>
+											<td>{{ plant.usedHrsCount + plant.idleHrsCount }}</td>
+										</tr>
+									</tbody>
+								</table>
+								<table style="border-top: 2px solid #191970 !important;width:100%;">
+						<tr>
+						 	<td colspan="4" width="18%" style="padding-top: 15px;">&nbsp;</td>
+						 	<td width="59%"><b>Total</b></td>
+						 	<td width="9%"><b>{{usedTotal}}</b></td>
+						    <td width="7%"><b>{{idleHoursTotal}}</b></td>
+	                        <td><b>{{usedTotal + idleHoursTotal}}</b></td>
+						 	<td colspan="7" width="19%">&nbsp;</td>
+						 </tr>
+					</table> -->
+					<div id="grid" ui-grid="gridOptions1"ng-if="stylesSvc.finishedStyling" class="singleTableResHeight_3" 
+								ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-grouping class="grid"></div>
+							</div>
+							<div ng-if="type=='table' && subReportCode=='date'" 
+							ng-class="{ tableWithChartResHeight : type == 'chartable',  singleTableResHeight_3 : type == 'table'}">
+							<!-- 	<table class="table table-hover table-bordered "
+								ng-class="{ tableWithChartHeight : type == 'chartable',   singleTableHeight_3 : type == 'table'}">
+									<thead>
+										<tr>
+											<th>
+												<span ng-show="subReportCode=='date'">Date</span>
+												<span ng-show="subReportCode=='name'">Plant Name</span>
+												<span ng-show="subReportCode=='proj'">Project Name</span>
+												<span ng-show="subReportCode=='eps'">EPS Name</span>
+											</th>
+											<th>Unit Of Measure</th>
+											<th>Used Hours</th>
+											<th>Idle Hours</th>
+											<th>Total Hours</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr fixed-header="" ng-repeat="plant in subReportData">
+											<td>{{ plant.mapValue }}</td>
+											<td>{{ plant.unitOfMeasure }}</td>
+											<td>{{ plant.usedHrsCount }}</td>
+											<td>{{ plant.idleHrsCount }}</td>
+											<td>{{ plant.usedHrsCount + plant.idleHrsCount }}</td>
+										</tr>
+									</tbody>
+								</table>
+								<table style="border-top: 2px solid #191970 !important;width:100%;">
+						<tr>
+						 	<td colspan="4" width="18%" style="padding-top: 15px;">&nbsp;</td>
+						 	<td width="29.2%"><b>Total</b></td>
+						 	<td width="19%"><b>{{usedTotal}}</b></td>
+						    <td width="17%"><b>{{idleHoursTotal}}</b></td>
+	                        <td><b>{{usedTotal + idleHoursTotal}}</b></td>
+						 	<td colspan="7" width="19%">&nbsp;</td>
+						 </tr>
+					</table> -->
+					<div id="grid" ui-grid="gridOptions1"ng-if="stylesSvc.finishedStyling" class="singleTableResHeight_3" 
+								ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-grouping class="grid"></div>
+							</div>
+							<div ng-if="type=='chartable' && subReportCode=='costcode'" 
+							ng-class="{ tableWithChartResHeight : type == 'chartable',  singleTableResHeight_3 : type == 'table'}">
+							<!-- 	<table class="table table-hover table-bordered "
+								ng-class="{ tableWithChartHeight : type == 'chartable',   singleTableHeight_3 : type == 'table'}">
+									<thead>
+										<tr>
+											<th>Cost Code Sub Group ID</th>
+											<th>Cost Code Sub Group Name</th>
+											<th>Cost Code Item ID</th>
+											<th>Cost Code Item Name</th>
+											<th>Unit Of Measure</th>
+											<th>Used Hours</th>
+											<th>Idle Hours</th>
+											<th>Total Hours</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr fixed-header="" ng-repeat="plant in subReportData">
+											<td>{{ plant.parentCostCode }}</td>
+											<td>{{ plant.parentCostName }}</td>
+											<td>{{ plant.mapValue }}</td>
+											<td>{{ plant.costName }}</td>
+											<td>{{ plant.unitOfMeasure }}</td>
+											<td>{{ plant.usedHrsCount }}</td>
+											<td>{{ plant.idleHrsCount }}</td>
+											<td>{{ plant.usedHrsCount + plant.idleHrsCount }}</td>
+										</tr>
+									</tbody>
+								</table>
+								<table style="border-top: 2px solid #191970 !important;width:100%;">
+						<tr>
+						 	<td colspan="4" width="18%" style="padding-top: 15px;">&nbsp;</td>
+						 	<td width="59%"><b>Total</b></td>
+						 	<td width="9%"><b>{{usedTotal}}</b></td>
+						    <td width="7%"><b>{{idleHoursTotal}}</b></td>
+	                        <td><b>{{usedTotal + idleHoursTotal}}</b></td>
+						 	<td colspan="7" width="19%">&nbsp;</td>
+						 </tr>
+					</table> -->
+					<div id="grid" ui-grid="gridOptions1" ng-if="stylesSvc.finishedStyling" 
+					ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-grouping class="grid"></div>
+							</div>
+							<div ng-if="type=='chartable' && subReportCode=='date'" 
+							ng-class="{ tableWithChartResHeight : type == 'chartable',  singleTableResHeight_3 : type == 'table'}">
+								<!-- <table class="table table-hover table-bordered "
+								ng-class="{ tableWithChartHeight : type == 'chartable',   singleTableHeight_3 : type == 'table'}">
+									<thead>
+										<tr>
+											<th>
+												<span ng-show="subReportCode=='date'">Date</span>
+												<span ng-show="subReportCode=='name'">Plant Name</span>
+												<span ng-show="subReportCode=='proj'">Project Name</span>
+												<span ng-show="subReportCode=='eps'">EPS Name</span>
+											</th>
+											<th>Unit Of Measure</th>
+											<th>Used Hours</th>
+											<th>Idle Hours</th>
+											<th>Total Hours</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr fixed-header="" ng-repeat="plant in subReportData">
+											<td>{{ plant.mapValue }}</td>
+											<td>{{ plant.unitOfMeasure }}</td>
+											<td>{{ plant.usedHrsCount }}</td>
+											<td>{{ plant.idleHrsCount }}</td>
+											<td>{{ plant.usedHrsCount + plant.idleHrsCount }}</td>
+										</tr>
+									</tbody>
+								</table>
+								<table style="border-top: 2px solid #191970 !important;width:100%;">
+						<tr>
+						 	<td colspan="4" width="18%" style="padding-top: 15px;">&nbsp;</td>
+						 	<td width="37%"><b>Total</b></td>
+						 	<td width="16%"><b>{{usedTotal}}</b></td>
+						    <td width="14%"><b>{{idleHoursTotal}}</b></td>
+	                        <td><b>{{usedTotal + idleHoursTotal}}</b></td>
+						 	<td colspan="7" width="19%">&nbsp;</td>
+						 </tr>
+					</table> -->
+					<div id="grid" ui-grid="gridOptions1" ng-if="stylesSvc.finishedStyling" 
+					ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-grouping class="grid"></div>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- <div class="panel-footer">
+			<div class="pull-left">
+				<input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+				<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+				<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+				<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+				<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+			</div>
+		</div> -->
+	</div>
+</section>

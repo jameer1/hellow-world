@@ -1,0 +1,113 @@
+<div class="tabTable_5_Res_Height overflow-auto" >
+    <table class="table table-striped tabTable_5_Height table-hover table-bordered">
+        <thead>
+            <tr>
+                <th rowspan="3">Select</th>
+                <th rowspan="3">Employee ID</th>
+                <th rowspan="3">First Name</th>
+                <th rowspan="3">Last Name</th>
+                <th rowspan="3">Designation</th>
+                <th class="text-center" rowspan="3" >
+                            Category
+                        </th>
+                <th rowspan="3">Unit Of Measure </th>
+                <th rowspan="3" style="width: 15px;"></th>
+                <th rowspan="3" style="width: 100px;">Wage Factor</th>
+                <th class="text-center" colspan="{{workDairyCostCodeList.length * 2 + 2}}">
+                    Cost Code Wise Manpower Utilisation
+                </th>
+                <th rowspan="3" style="width:50px;" class="text-right">Total</th>
+                <th rowspan="3" style="width:100px;">Comments</th>
+            </tr>
+            <tr>
+                <th class="text-center" colspan="{{workDairyCostCodeList.length + 1}}">Used Time</th>
+                <th class="text-center" colspan="{{workDairyCostCodeList.length + 1}}">Idle Time</th>
+            </tr>
+            <tr>
+                <th ng-repeat="workDairyUsedCostCode in  workDairyCostCodeList">
+                    {{workDairyUsedCostCode.code}}</th>
+                <th ng-show="workDairyCostCodeList.length>0">Total</th>
+                <th ng-repeat="workDairyIdleCostCode in  workDairyCostCodeList">
+                    {{workDairyIdleCostCode.code}}</th>
+                <th ng-show="workDairyCostCodeList.length>0">Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="empObj in workDairyEmpDtlTOs" ng-class="{rowHighlightColor:$index==selectedRow}"
+                ng-click="rowSelectEmpReg(empObj,$index)">
+                <td>
+                    <input type="checkbox" ng-change="manpowerRowSelect(empObj)" ng-model="empObj.select"
+                        ng-if="empObj.id==undefined || empObj.id <=0">
+                </td>
+                <td>{{empObj.code}}</td>
+                <td>{{empObj.firstName}}</td>
+                <td>{{empObj.lastName}}</td>
+                <td>{{empObj.classType}}</td>
+                <td>{{empObj.procureCatg}}
+                <td>{{empObj.unitOfMeasure}}</td>
+                <td colspan="{{workDairyCostCodeList.length * 2 + 6}}">
+                    <table class="table table-striped table-bordered">
+                        <tr ng-repeat="wageDetails in empObj.workDairyEmpWageTOs">
+                            <td style="width: 15px;">
+                                <span name='fa fa-trash' ng-click="deleteEmpReg(empObj,wageDetails)"
+                                    ng-if="wageDetails.id == undefined  ||  wageDetails.id <= 0"
+                                    ng-if="$index == 0"></span></td>
+                            <td style="width: 100px;">
+                                <input type="text" class="form-control" ng-click="getWageFactor(wageDetails)"
+                                    ng-model="empWageFactorMap[wageDetails.wageId].code" readonly="readonly"
+                                    placeholder="Wage Factor"
+                                    ng-class="{coloumnHighlightColor:wageDetails.apprStatus==null,coloumnHighlightColor1:wageDetails.apprStatus=='Approved'}"
+                                    ng-disabled="wageDetails.apprStatus!='SubmittedForApproval'">
+                            </td>
+                            <td ng-repeat="userCostObj in wageDetails.workDairyEmpCostDtlTOs">
+                                <input placeholder="" type="text" maxlength="2" valid-number
+                                    ng-disabled="wageDetails.apprStatus!='SubmittedForApproval'"
+                                    ng-class="{coloumnHighlightColor:(userCostObj.errorFlag || (userCostObj.usedTime > userCostObj.oldUsedTime)  || 	wageDetails.apprStatus==null),coloumnHighlightColor1:wageDetails.apprStatus=='Approved'}"
+                                    ng-change="checkDecimal(userCostObj,1);calculateUsedTotal(wageDetails);"
+                                    ng-model="userCostObj.usedTime" class="form-control">
+                            </td>
+                            <td>
+                                <input type="text" class="form-control"
+                                    ng-value="wageDetails.usedTotal | number : 2" readonly="readonly"
+                                    ng-class="{coloumnHighlightColor:wageDetails.apprStatus==null,coloumnHighlightColor1:wageDetails.apprStatus=='Approved'}"
+                                    ng-disabled="wageDetails.apprStatus!='SubmittedForApproval'">
+                            </td>
+                            <td ng-repeat="idleCostObj in wageDetails.workDairyEmpCostDtlTOs">
+                                <input class="form-control"
+                                    ng-class="{coloumnHighlightColor:(idleCostObj.errorFlag  || (userCostObj.idledTime > userCostObj.oldIdleTime) || 	wageDetails.apprStatus==null),coloumnHighlightColor1:wageDetails.apprStatus=='Approved'}"
+                                    placeholder="" type="text" maxlength="2" valid-number
+                                    ng-disabled="wageDetails.apprStatus!='SubmittedForApproval'"
+                                    ng-change="checkDecimal(idleCostObj,2);calculateIdleTotal(wageDetails)"
+                                    ng-model="idleCostObj.idleTime">
+                            </td>
+
+                            <td>
+                                <input type="text" class="form-control" readonly="readonly"
+                                    ng-value="wageDetails.idleTotal | number : 2"
+                                    ng-class="{coloumnHighlightColor:wageDetails.apprStatus==null,coloumnHighlightColor1:wageDetails.apprStatus=='Approved'}"
+                                    ng-disabled="wageDetails.apprStatus!='SubmittedForApproval'">
+                            </td>
+                            <td style="width:50px;" class="text-right">
+                            	<span ng-class="{coloumnHighlightColor:wageDetails.apprStatus==null,coloumnHighlightColor1:wageDetails.apprStatus=='Approved'}">{{totalUsedIdleCount(wageDetails.usedTotal,wageDetails.idleTotal)| number : 2}}</span>
+                            </td>
+                            <td style="width: 100px;">
+                                <input type="text" class="form-control"
+                                    ng-class="{coloumnHighlightColor:wageDetails.apprStatus==null,coloumnHighlightColor1:wageDetails.apprStatus=='Approved'}"
+                                    ng-model="wageDetails.apprComments" placeholder="approvercomments"
+                                    ng-class="{coloumnRowtColor:wageDetails.apprStatus==null}"
+                                    ng-disabled="wageDetails.apprStatus!='SubmittedForApproval'">
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="pull-right">
+    <input type="button" class="btn btn-primary btn-sm"
+        ng-if="account.appCodeTemplate['APPROVE_ASBUILTRCRD_WRKDIRY_APRVEWRKDIRY_ADD'] || account.appCodeTemplate['ASBUILTRCRD_WRKDIRY_APRVEWRKDIRY_ADD']"
+        ng-click="saveWorkDairyEmpDetails(workDairySearchReq)" value="Save"
+        data-test='AsbuiltRecords_WorkDiary_ApproveWorkDiary_ManpowerUtilization_Save'>
+</div>

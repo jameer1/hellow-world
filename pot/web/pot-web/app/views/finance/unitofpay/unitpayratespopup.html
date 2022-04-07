@@ -1,0 +1,78 @@
+<div id="tab-pannel" class="panel-group">
+	<form name="unitPayRateForm" validate>
+		<div  class="panel panel-default">
+			<div class="panel-heading">
+				<h4 class="panel-title">Unit Of Pay Rate For Employees</h4>
+			</div>
+			<div class="panel-body">
+			 <div class="col-sm-12 col-md-12 col-lg-12 no-padding">
+                        <div class="col-sm-2 col-md-2 col-lg-2">
+                            <md-input-container><label readonly="readonly" class="labelName">Country</label> <input type="text" ng-model="countryName" tabindex=-1 readonly="readonly"  /></md-input-container>
+                        </div>
+                        <div class="col-sm-2 col-md-2 col-lg-2">
+                            <md-input-container><label readonly="readonly" class="labelName">Province</label> <input type="text" tabindex=-1 ng-model="provisionName" readonly="readonly"  /></md-input-container>
+                        </div>
+                        <div class="col-sm-2 col-md-2 col-lg-2">
+                            <md-input-container><label readonly="readonly" class="labelName">Effective Date </label> <input type="text" tabindex=-1 ng-model="effectiveDate" name="yard" readonly="readonly"  /></md-input-container>
+                        </div>
+					</div>   
+					
+				<div  class="popUpTableResHeight">
+				<table class="table table-striped table-hover table-bordered popUpTableHeight">
+					<thead>
+						<tr>
+							<th >Select</th>
+							<th>Id</th>
+							<th>Code</th>
+							<th>Description</th>
+							<th>Notes</th>
+						</tr>
+					</thead>
+					<tbody>
+					<tr fixed-header="" ng-repeat ="unitPay in unitOfPayRates">
+						<td >
+							<input type="checkbox" value="unitPay.id" ng-model="unitPay.selected" ng-change="unitPayRatePopupRowSelect(unitPay)"></td>
+						<td>{{unitPay.unitOfPayDisplayId}}</td>
+							<td ng-if="unitPay.actionType == 'View' ">{{unitPay.code}}</td> 
+						<td ng-if="unitPay.actionType != 'View'" ng-form name="classform">
+							<input class="form-control" type="text" name="code" ng-model="unitPay.code" pattern="^[a-zA-Z\d\s.,]+$" minlength="1" maxlength="20" placeholder="Code" required="required"> 
+							<span ng-show="classform.code.$dirty && classform.code.$error.required">This field is mandatory</span> 
+							<span ng-show="classform.code.$error.pattern">Must enter required format</span> 
+							<span ng-show="classform.code.$error.maxlength">You reached max length</span>
+						</td>
+							<td ng-if="unitPay.actionType == 'View' ">{{unitPay.name}}</td> 
+						<td ng-if="unitPay.actionType != 'View' " ng-form name="classform">
+							<input class="form-control" type="text" name="name" ng-model="unitPay.name" pattern="^[a-zA-Z\d\s.,]+$" minlength="2" maxlength="50" placeholder="Description" required="required">
+							<span ng-show="classform1.name.$dirty && classform1.name.$error.required">This field is mandatory</span> 
+							<span ng-show="classform1.name.$error.pattern">Must enter required format</span> 
+							<span ng-show="classform1.name.$error.maxlength">You reached max length</span>
+						</td>
+							<td ng-if="unitPay.actionType == 'View' ">{{unitPay.notes}}</td> 
+						<td ng-if="unitPay.actionType != 'View' " ng-form name="classform">
+							<textarea cols="20" rows="3" ng-model="unitPay.notes" placeholder="Notes"></textarea>
+						</td>
+					</tr>
+				</tbody>
+				</table>
+			</div>
+		 </div>
+			<div class="panel-footer">
+				<div class="pull-left">
+					<input type="submit" ng-click="unitPayRateForm.$valid && addRows()" class="btn btn-primary btn-sm" value="Add" ng-show="action =='Add' || action =='Edit'" validate> 
+					<input type="button" ng-click="deleteRows()" value="Delete" ng-show="action =='Add' || action =='Edit'" class="btn  btn-secondary btn-sm" validate>
+				</div>
+				
+		<div class="pull-right" ng-if="actionTypeSave != 'View' ">
+					<input type="submit" ng-click="unitPayRateForm.$valid && saveUnitPayRate()" value="Save" class="btn btn-primary btn-sm" />
+				</div>
+			</div>
+			<div class="ngdialog-close"></div>
+		</div>
+	</form>
+</div>
+
+
+
+
+
+
