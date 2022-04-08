@@ -9,6 +9,6 @@ import com.rjtech.eps.model.ProjGeneralMstrEntityCopy;
 
 public interface ProjGeneralRepositoryCopyCopy extends CommonBaseRepository<ProjGeneralMstrEntityCopy, Long> {
 
-	@Query("SELECT PGV FROM ProjGeneralMstrEntityCopy PGV WHERE PGV.projMstrEntity.projectId=:projId AND PGV.status=:status AND PGV.isLatest='Y' ")
+	@Query("SELECT PGV FROM com.rjtech.eps.model.ProjGeneralMstrEntityCopy PGV WHERE PGV.projMstrEntity.projectId=:projId AND PGV.status=:status AND PGV.isLatest='Y' ")
     public List<ProjGeneralMstrEntityCopy> findProjGenerals(@Param("projId") Long projId, @Param("status") Integer status);
 }
