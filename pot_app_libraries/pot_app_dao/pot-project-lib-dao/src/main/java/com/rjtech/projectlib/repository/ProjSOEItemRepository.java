@@ -14,7 +14,7 @@ public interface ProjSOEItemRepository extends ProjLibBaseRepository<ProjSOEItem
     @Query("SELECT SOE FROM ProjSOEItemEntity SOE WHERE SOE.projMstrEntity.projectId=:projId AND SOE.projSOEItemEntity.id IS NULL AND SOE.status=:status  ORDER BY  SOE.code")
     public List<ProjSOEItemEntity> findSOEDetails(@Param("projId") Long projId, @Param("status") Integer status);
     
-    @Query("SELECT SOE FROM ProjSOEItemEntity SOE WHERE SOE.projMstrEntity.projectId=:projId AND SOE.projSOEItemEntity.id IS NULL AND SOE.status NOT IN (2,3) ORDER BY SOE.code")
+    @Query("SELECT SOE FROM com.rjtech.projectlib.model.ProjSOEItemEntity SOE WHERE SOE.projMstrEntity.projectId=:projId AND SOE.projSOEItemEntity.id IS NULL AND SOE.status NOT IN (2,3) ORDER BY SOE.code")
     public List<ProjSOEItemEntity> findSOEDetails(@Param("projId") Long projId);
 
     @Query("SELECT SOE FROM ProjSOEItemEntity SOE WHERE  SOE.projMstrEntity.projectId in :projIds AND SOE.projSOEItemEntity.id IS NULL AND SOE.status=:status  ORDER BY  SOE.code")

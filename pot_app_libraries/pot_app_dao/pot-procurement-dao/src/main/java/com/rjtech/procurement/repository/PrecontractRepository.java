@@ -31,12 +31,13 @@ public interface PrecontractRepository extends ProcurementBaseRepository<PreCont
     @Query("UPDATE PreContractEntity PRC SET PRC.status=:status  WHERE PRC.id in :contractIds")
     void deactivatePrecontacts(@Param("contractIds") List<Long> contractIds, @Param("status") Integer status);
 
-    @Query("SELECT PRC FROM PreContractEntity PRC WHERE PRC.status=:status AND ((:reqUserId IS NOT NULL AND PRC.reqUserId.userId =:reqUserId ) OR :reqUserId IS NULL)"
+    @Query("SELECT PRC FROM com.rjtech.procurement.model.PreContractEntity PRC WHERE PRC.status=:status AND ((:reqUserId IS NOT NULL AND PRC.reqUserId.userId =:reqUserId ) OR :reqUserId IS NULL)"
             + "   AND  PRC.projId.projectId in ( :projIds )  AND PRC.updatedOn between :fromDate AND :toDate  AND PRC.isLatest = true ORDER BY PRC.updatedOn DESC")
     List<PreContractEntity> findLatestPreContracts(@Param("status") Integer status, @Param("reqUserId") Long reqUserId,
             @Param("projIds") List<Long> projIds, @Param("fromDate") Date fromDate, @Param("toDate") Date toDate);
 
-    @Query("SELECT PRC FROM PreContractEntity PRC WHERE PRC.status=:status AND ((:reqUserId IS NOT NULL AND PRC.reqUserId.userId =:reqUserId ) OR :reqUserId IS NULL) "
+    @Query("SELECT PRC FROM \r\n"
+    		+ "com.rjtech.procurement.model.PreContractEntity PRC WHERE PRC.status=:status AND ((:reqUserId IS NOT NULL AND PRC.reqUserId.userId =:reqUserId ) OR :reqUserId IS NULL) "
             + " AND ( :preContarctStatus IS NOT NULL AND PRC.preContarctStatus=:preContarctStatus ) AND  PRC.projId.projectId in ( :projIds ) "
             + " AND PRC.preContractsCmpEntities IS EMPTY AND PRC.updatedOn between :fromDate AND :toDate  ORDER BY PRC.updatedOn DESC")
     List<PreContractEntity> findInternalPreContracts(@Param("status") Integer status,

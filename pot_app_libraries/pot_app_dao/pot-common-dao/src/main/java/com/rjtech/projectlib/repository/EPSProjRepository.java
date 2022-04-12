@@ -11,7 +11,7 @@ import com.rjtech.eps.model.ProjMstrEntity;
 
 @Repository
 public interface EPSProjRepository extends EPSProjBaseRepository<ProjMstrEntity, Long> {
-    @Query("SELECT proj FROM ProjMstrEntity proj WHERE proj.status=:status and proj.parentProjectMstrEntity.projectId is null and proj.clientId.clientId=:clientId ORDER BY  proj.code")
+    @Query("SELECT proj FROM com.rjtech.eps.model.ProjMstrEntity proj WHERE proj.status=:status and proj.parentProjectMstrEntity.projectId is null and proj.clientId.clientId=:clientId ORDER BY  proj.code")
     public List<ProjMstrEntity> findEPSProjects(@Param("clientId") Long clientId, @Param("status") Integer status);
 
     @Query("SELECT proj FROM ProjMstrEntity proj WHERE  proj.clientId.clientId=:clientId and proj.projectId=:projId and proj.status=:status  ORDER BY  proj.code")

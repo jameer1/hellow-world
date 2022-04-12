@@ -10,7 +10,7 @@ import com.rjtech.notification.model.ProcurementNormalTimeEntity;
 @Repository
 public interface ProcurementNormalTimeRepository extends JpaRepository<ProcurementNormalTimeEntity, Long> {
 
-	@Query("SELECT PNT FROM ProcurementNormalTimeEntity PNT WHERE PNT.projId.projectId=:projId AND PNT.status=1 AND PNT.procureType=:contractStageStatus")
+	@Query("SELECT PNT FROM com.rjtech.notification.model.ProcurementNormalTimeEntity PNT WHERE PNT.projId.projectId=:projId AND PNT.status=1 AND PNT.procureType=:contractStageStatus")
     public ProcurementNormalTimeEntity findCutOffDaysForProject(@Param("projId") Long projId, @Param("contractStageStatus") String contractStageStatus);
 	
 	@Query("SELECT PNT FROM ProcurementNormalTimeEntity PNT WHERE PNT.projId.projectId=:projId AND PNT.status=1 AND PNT.procureType=:contractStageStatus")

@@ -13,11 +13,11 @@ import com.rjtech.projsettings.model.ProjManpowerEntity;
 
 public interface ProjManpowerRepository extends ProjSettingsBaseRepository<ProjManpowerEntity, Long> {
 
-    @Query("SELECT MPD FROM ProjManpowerEntity MPD  WHERE MPD.projMstrEntity.projectId=:projId AND MPD.status=:status ")
+    @Query("SELECT MPD FROM com.rjtech.projsettings.model.ProjManpowerEntity MPD  WHERE MPD.projMstrEntity.projectId=:projId AND MPD.status=:status ")
     public List<ProjManpowerEntity> findManpowersByProject(@Param("projId") Long projId,
             @Param("status") Integer status);
 	
-	@Query("SELECT MPD FROM ProjManpowerEntity MPD  WHERE MPD.projMstrEntity.projectId=:projId AND MPD.status NOT IN (2,3) ")
+	@Query("SELECT MPD FROM com.rjtech.projsettings.model.ProjManpowerEntity MPD  WHERE MPD.projMstrEntity.projectId=:projId AND MPD.status NOT IN (2,3) ")
     public List<ProjManpowerEntity> findManpowersByProject(@Param("projId") Long projId);
 
     @Query("SELECT WDMW.workDairyEmpDtlEntity.empRegId.empClassMstrEntity.id, SUM(WDMW.usedTotal + WDMW.idleTotal) FROM WorkDairyEmpWageEntity WDMW "

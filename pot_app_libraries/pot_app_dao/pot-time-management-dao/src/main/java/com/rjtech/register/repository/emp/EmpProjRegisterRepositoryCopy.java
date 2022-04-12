@@ -23,7 +23,7 @@ public interface EmpProjRegisterRepositoryCopy extends JpaRepository<EmpProjRigi
             + " join ped.empchargeOutRateEntities ecr WHERE ped.projMstrEntity.projectId = :projId")
     List<EmpChargeOutRateEntity> findChargeOutRates(@Param("projId") Long projId);
     
-    @Query("SELECT ecr FROM EmpProjRigisterEntity ped "
+    @Query("SELECT ecr FROM com.rjtech.register.emp.model.EmpProjRigisterEntity ped "
             + " join ped.empchargeOutRateEntities ecr WHERE ped.projMstrEntity = :projMstrEntity ")
     List<EmpChargeOutRateEntityCopy> findChargeOutRates(@Param("projMstrEntity") ProjMstrEntity projMstrEntity);
 
