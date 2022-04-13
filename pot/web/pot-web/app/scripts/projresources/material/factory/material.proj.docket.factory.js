@@ -127,7 +127,7 @@ app.factory('ProjDocketGenerateFactory', ["ngDialog", "$q", "$filter", "$timeout
 					}
 						if ($scope.approvalType == 'No' && $scope.materialProjDocketTO.notifyLabelKeyTO.id == null) {
 						GenericAlertService.alertMessage("Filter applied successfully", 'Info');
-						return;
+						//return;
 					}
 					$scope.applyFlag = true;
 					if ($scope.materialProjDocketTO.notifyLabelKeyTO.id) {

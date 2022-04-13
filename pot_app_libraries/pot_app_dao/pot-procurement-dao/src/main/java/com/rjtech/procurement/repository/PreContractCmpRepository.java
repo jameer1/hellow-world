@@ -11,15 +11,15 @@ import com.rjtech.procurement.model.PreContractsCmpEntity;
 
 public interface PreContractCmpRepository extends ProcurementBaseRepository<PreContractsCmpEntity, Long> {
 
-    @Query("SELECT PCC FROM PreContractsCmpEntity PCC  WHERE PCC.preContractEntity.id=:contractId AND  PCC.status=:status ")
+    @Query("SELECT PCC FROM com.rjtech.procurement.model.PreContractsCmpEntity PCC  WHERE PCC.preContractEntity.id=:contractId AND  PCC.status=:status ")
     List<PreContractsCmpEntity> findPreContractCompnies(@Param("contractId") Long contractId,
             @Param("status") Integer status);
 
     @Modifying
-    @Query("UPDATE PreContractsCmpEntity PCC SET PCC.status=:status  WHERE PCC.id in :preContractCmpIds")
+    @Query("UPDATE com.rjtech.procurement.model.PreContractsCmpEntity PCC SET PCC.status=:status  WHERE PCC.id in :preContractCmpIds")
     void deactivateCompanies(@Param("preContractCmpIds") List<Long> preContractCmpIds, @Param("status") Integer status);
 
-    @Query("SELECT PCC FROM PreContractsCmpEntity PCC  WHERE PCC.status=:status "
+    @Query("SELECT PCC FROM com.rjtech.procurement.model.PreContractsCmpEntity PCC  WHERE PCC.status=:status "
             + " AND PCC.biddingStatus=:biddingStatus  AND   PCC.preContractEntity.projId.projectId in :projIds AND  ( (:reqUserId IS NOT NULL AND  PCC.preContractEntity.reqUserId.userId =:reqUserId)  OR :reqUserId IS NULL )   "
             + " AND PCC.preContractEntity.isLatest= true AND PCC.preContractEntity.preContarctStatus = 5 AND  PCC.updatedOn between :fromDate AND :toDate  ORDER  BY PCC.updatedOn  DESC")
     List<PreContractsCmpEntity> findPreContractRFQs(@Param("status") Integer status,
@@ -27,7 +27,7 @@ public interface PreContractCmpRepository extends ProcurementBaseRepository<PreC
             @Param("projIds") List<Long> projIds, @Param("fromDate") Date fromDate, @Param("toDate") Date toDate);
 
     @Modifying
-    @Query("UPDATE PreContractsCmpEntity T SET T.cmpStatus=1, T.biddingStatus=:biddingStatus, T.quotedDate= current_timestamp(), "
+    @Query("UPDATE com.rjtech.procurement.model.PreContractsCmpEntity T SET T.cmpStatus=1, T.biddingStatus=:biddingStatus, T.quotedDate= current_timestamp(), "
             + "T.quoteRefCode=:quoteRefCode  WHERE T.id=:preContractCmpId")
     void updateCmpBidStatus(@Param("preContractCmpId") Long preContractCmpId,
             @Param("biddingStatus") String biddingStatus, @Param("quoteRefCode") String quoteRefCode);

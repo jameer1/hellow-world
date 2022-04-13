@@ -11,7 +11,7 @@ import com.rjtech.register.emp.model.EmpRegisterDtlEntity;
 
 public interface EmpRegisterRepositoryCpy extends CrudRepository<EmpRegisterDtlEntity, Long> {
 
-    @Query("SELECT erd FROM EmpRegisterDtlEntityCopy erd where erd.clientId.clientId= :clientId and erd.status=:status "
+    @Query("SELECT erd FROM EmpRegisterDtlEntity erd where erd.clientId.clientId= :clientId and erd.status=:status "
             + " and erd.id NOT IN (select coalesce(empRegId,0) from UserMstrEntity usr where status=:status)")
     public List<EmpRegisterDtlEntity> findNewEmployees(@Param("clientId") Long clientId,
             @Param("status") Integer status);

@@ -10,18 +10,21 @@ import com.rjtech.procurement.model.PreContractsPlantDtlEntity;
 
 public interface PrecontractPlantRepository extends ProcurementBaseRepository<PreContractsPlantDtlEntity, Long> {
 
-    @Query("SELECT PCP FROM PreContractsPlantDtlEntity PCP  WHERE PCP.preContractEntity.id=:contractId AND  PCP.status=:status ORDER BY PCP.id")
+    @Query("SELECT PCP FROM \r\n"
+    		+ "com.rjtech.procurement.model.PreContractsPlantDtlEntity PCP  WHERE PCP.preContractEntity.id=:contractId AND  PCP.status=:status ORDER BY PCP.id")
     List<PreContractsPlantDtlEntity> findPreContractPlants(@Param("contractId") Long contractId,
             @Param("status") Integer status);
 
-    @Query("SELECT PCP FROM PreContractsPlantDtlEntity PCP JOIN FETCH "
+    @Query("SELECT PCP FROM \r\n"
+    		+ "com.rjtech.procurement.model.PreContractsPlantDtlEntity PCP JOIN FETCH "
             + "PCP.preContractsPlantCmpEntities PCM WHERE PCP.preContractEntity.id=:contractId AND "
             + "PCM.preContractsCmpEntity.id=:plantCmpId AND PCM.quantity > 0 AND  PCP.status=:status ORDER BY PCP.id")
     List<PreContractsPlantDtlEntity> findPreContractPlantDtlByCmpId(@Param("contractId") Long contractId,
             @Param("plantCmpId") Long plantCmpId, @Param("status") Integer status);
 
     @Modifying
-    @Query("UPDATE PreContractsPlantDtlEntity PRC SET PRC.status=:status  WHERE PRC.id in :plantDtlIds")
+    @Query("UPDATE \r\n"
+    		+ "com.rjtech.procurement.model.PreContractsPlantDtlEntity PRC SET PRC.status=:status  WHERE PRC.id in :plantDtlIds")
     void deactivatePlantDetails(@Param("plantDtlIds") List<Long> plantDtlIds, @Param("status") Integer status);
 
     @Query("SELECT PCP.projcostStatement.projCostItemEntity.id,SUM(PCP.quantity * PCP.estimateCost)  FROM  PreContractsPlantDtlEntity PCP WHERE "

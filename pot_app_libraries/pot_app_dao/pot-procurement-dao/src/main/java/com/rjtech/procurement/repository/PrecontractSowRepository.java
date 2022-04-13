@@ -9,11 +9,13 @@ import com.rjtech.procurement.model.PrecontractSowDtlEntity;
 
 public interface PrecontractSowRepository extends ProcurementBaseRepository<PrecontractSowDtlEntity, Long> {
 
-    @Query("SELECT PCSW FROM PrecontractSowDtlEntity PCSW  WHERE PCSW.preContractEntity.id=:contractId AND  PCSW.status=:status ORDER BY PCSW.id")
+    @Query("SELECT PCSW FROM \r\n"
+    		+ "com.rjtech.procurement.model.PrecontractSowDtlEntity PCSW  WHERE PCSW.preContractEntity.id=:contractId AND  PCSW.status=:status ORDER BY PCSW.id")
     List<PrecontractSowDtlEntity> findPrecontractSowTypes(@Param("contractId") Long contractId,
             @Param("status") Integer status);
 
-    @Query("SELECT PCSW FROM PrecontractSowDtlEntity PCSW JOIN FETCH "
+    @Query("SELECT PCSW FROM \r\n"
+    		+ "com.rjtech.procurement.model.PrecontractSowDtlEntity PCSW JOIN FETCH "
             + "PCSW.precontractSowCmpEntites PSC WHERE PCSW.preContractEntity.id=:contractId  AND "
             + "PSC.preContractsCmpEntity.id=:cmpId  AND PSC.quantity > 0 AND PCSW.status=:status ORDER BY PCSW.id")
     List<PrecontractSowDtlEntity> findPreContractSowDtlByCmpId(@Param("contractId") Long contractId,
