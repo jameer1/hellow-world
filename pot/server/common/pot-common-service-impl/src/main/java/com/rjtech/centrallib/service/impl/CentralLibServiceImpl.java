@@ -601,7 +601,7 @@ public class CentralLibServiceImpl implements CentralLibService {
     	System.out.println("companyBankSaveReqqqqqqq======@@#@E@$@$@$"+companyBankSaveReq);
     	
    // 	addressRepository.save(AddressHandler.convertPOJOToEntity(AddressSaveReq));
-    	bankAccountRepository.save(BankAccountHandler.convertPOJOToEntity(companyBankSaveReq));
+    	bankAccountRepository.save(BankAccountHandler.convertPOJOToEntity(companyBankSaveReq,bankAccountRepository));
     	System.out.println("companyBankSaveReqqqqqqq@@#@E@$@$@$"+companyBankSaveReq);
     	
 		/*

@@ -336,9 +336,10 @@
 							<div class="col-xs-12 col-sm-6 col-md-3">
 								<label>Client Document</label><br /> <label> <span>
 								
-										<span ng-if="actionType == 'Edit'">{{ addClient.clientDetailsFileName == null ? 'No Document' : addClient.clientDetailsFileName }}</span>
+								<!--Commented the below line because upload button should be in enable in editing also
+										<span ng-if="actionType == 'Edit'">{{ addClient.clientDetailsFileName == null ? 'No Document' : addClient.clientDetailsFileName }}</span>-->
 										
-										<input ng-if="actionType == 'Add'" data-test='Admin_clientregistratration_Create_UploadFile' type="file"  
+										<input ng-if="actionType == 'Add' || 'Edit'" data-test='Admin_clientregistratration_Create_UploadFile' type="file"  
 										fileread="clientDoc" name="file"
 										ngf-select="checkFile($file)" ngf-accept="'*'" tabindex="20"  >
 								</span>

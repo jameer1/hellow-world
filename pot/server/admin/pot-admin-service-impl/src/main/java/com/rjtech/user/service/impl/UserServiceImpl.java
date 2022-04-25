@@ -181,7 +181,10 @@ public class UserServiceImpl implements UserService {
                     sendEmail(userToSave.getEmail(), userToSave.getUserName(), userToSave.getPassword(),
                             clientReg.getCode(), CommonUtil.convertDateToDDMMYYYYString(clientReg.getLicence()));
                 } else {
-                    sendUserEmail(saveReq, null, AppUserUtils.getClientId(),
+                    /*sendUserEmail(saveReq, null, AppUserUtils.getClientId(),
+                            userToSave.getClientRegMstrEntity().getCode());*/
+                    
+                    sendUserEmail(userToSave.getEmail(), userToSave.getUserName(), userToSave.getPassword(),AppUserUtils.getClientId(),
                             userToSave.getClientRegMstrEntity().getCode());
                 }
             }
@@ -457,6 +460,45 @@ public class UserServiceImpl implements UserService {
                     sender.send(message);
                 }
 
+            } catch (MailException e) {
+                log.info("Mail Exception {}", e);
+
+            } catch (MessagingException e) {
+                log.info("Messaging Exception {}", e);
+            }
+        }
+    }
+    
+    @Async
+    private void sendUserEmail(String email, String userName, String password, Long clientId, String clientCode) {
+
+        EmailSettingGetReq emailSettingGetReq = new EmailSettingGetReq();
+        EmailSettingResp emailSettingResp = getEmailSettings(emailSettingGetReq, clientId);
+
+        List<EmailSettingTO> emailSettingsTo = emailSettingResp.getEmailSettingTOs();
+        for (EmailSettingTO emailSettingTo : emailSettingsTo) {
+            JavaMailSenderImpl sender = new JavaMailSenderImpl();
+            sender.setHost(emailSettingTo.getHost());
+            sender.setPort(emailSettingTo.getPort());
+            sender.setUsername(emailSettingTo.getFromEmail());
+            sender.setPassword(emailSettingTo.getPassword());
+
+            Properties javaMailProperties = new Properties();
+            javaMailProperties.put("mail.smtp.starttls.enable", "true");
+            javaMailProperties.put("mail.smtp.auth", "true");
+            javaMailProperties.put("mail.transport.protocol", "smtp");
+            javaMailProperties.put("mail.debug", "true");
+
+            sender.setJavaMailProperties(javaMailProperties);
+            MimeMessage message = sender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message);
+            try {
+                helper.setFrom(emailSettingTo.getFromEmail());
+                    helper.setTo(email);
+                    helper.setSubject("User Registration");
+                    helper.setText("You are registered for Raju Tech India Pvt Ltd:\n\n" + "User Name : " + userName
+                            + "\n\nPassword : " + password + "\n\nYour Company Client Code : " + clientCode);
+                    sender.send(message);
             } catch (MailException e) {
                 log.info("Mail Exception {}", e);
 

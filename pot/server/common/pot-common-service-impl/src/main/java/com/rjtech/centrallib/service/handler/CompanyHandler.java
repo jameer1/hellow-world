@@ -212,6 +212,12 @@ public class CompanyHandler {
     	bankTO.setAccountNumber(cmpBankAccountEntity.getBankAccNo());
     	bankTO.setBankAddress(cmpBankAccountEntity.getBankAddr());
     	bankTO.setStatus(cmpBankAccountEntity.getStatus());
+    	if(cmpBankAccountEntity.getIsLatest() != null) {
+    		if(cmpBankAccountEntity.getIsLatest().equals(1)) {
+        		bankTO.setBankStatus("Active");
+        	}else
+        		bankTO.setBankStatus("InActive");
+    	}	
         return bankTO;
     }
     

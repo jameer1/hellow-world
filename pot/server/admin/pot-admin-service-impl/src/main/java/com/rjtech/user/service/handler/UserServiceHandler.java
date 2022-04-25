@@ -66,10 +66,13 @@ public class UserServiceHandler {
         userTO.setPhone(userMstr.getPhoneNo());
         userTO.setMobile(userMstr.getMobileNo());
         userTO.setRemarks(userMstr.getRemarks());
+        ClientRegMstrEntity clientRegMstrEntity = userMstr.getClientRegMstrEntity();
         EmpRegisterDtlEntity empRegisterDtlEntity = userMstr.getEmpRegId();
         if (empRegisterDtlEntity != null) {
             userTO.setEmpRegId(empRegisterDtlEntity.getId());
         }
+        if(clientRegMstrEntity != null)
+        	userTO.setRegisteredUsers(clientRegMstrEntity.getRegisteredUsers());
         userTO.setEmpCode(userMstr.getEmpCode());
         userTO.setEmpCode(userMstr.getEmpCode());
 

@@ -639,7 +639,7 @@ app.factory('AssetRegisterService', ["Restangular", "Principal", "$http", "appUr
 					}
 				});
 			}
-			var url = appUrl.appurl + "register/actualDocDownloadFile?periodicalRecordId=" + periodicalRecordId + "&pottoken=" + token;
+			var url = appUrl.appurl + "register/actualDocDownloadFile?periodicalRecordId=" + purchaseRecordId + "&pottoken=" + token;
 			var popUp = window.open(url);
 			if (popUp == null || typeof (popUp) == 'undefined') {
 				alert('Pop-up is blocked, please enable poup for this site and try again.');

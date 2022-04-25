@@ -147,9 +147,13 @@ $scope.resetChartDetails = function () {
 				chartData.push({tangibleItemId: periodicalData[i].tangibleItemId, tangibleName: periodicalData[i].tangibleName,
 					estimatedProductivity: periodicalData[i].estimatedQuantity / periodicalData[i].estimatedHours,
 					actualProductivity: periodicalData[i].actualQuantity / periodicalData[i].actualHours});
-			} else {		
+			} else {
+				let actual = periodicalData[i].actualQuantity / periodicalData[i].actualHours;
+				if(periodicalData[i].actualQuantity / periodicalData[i].actualHours == Infinity || (periodicalData[i].actualQuantity==0 && periodicalData[i].actualHours==0)){
+					actual = 0;	
+					}
 				chartData[index].estimatedProductivity += periodicalData[i].estimatedQuantity / periodicalData[i].estimatedHours;				
-				chartData[index].actualProductivity += periodicalData[i].actualQuantity / periodicalData[i].actualHours;			
+				chartData[index].actualProductivity += actual;			
 			}
 		}		
 		$scope.chartData1=chartData;

@@ -31,7 +31,16 @@ public class UserTO extends ProjectTO {
     private Long empRegId;
     private boolean select;
     private String roleDisplay;
-    private List<UserRoleTO> userRoles = new ArrayList<UserRoleTO>();
+    private Long registeredUsers;
+    public Long getRegisteredUsers() {
+		return registeredUsers;
+	}
+
+	public void setRegisteredUsers(Long registeredUsers) {
+		this.registeredUsers = registeredUsers;
+	}
+
+	private List<UserRoleTO> userRoles = new ArrayList<UserRoleTO>();
 
     public Long getUserId() {
         return userId;

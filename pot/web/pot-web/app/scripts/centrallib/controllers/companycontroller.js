@@ -582,7 +582,7 @@ app.config(["$stateProvider", function($stateProvider) {
 	$scope.closedProjs = [];
 	$scope.currentProjs = [];
 	$scope.contacts = [];
-
+    $scope.bankDetails=[];
 	$scope.getCmpAddress = function(companyId) {
 		$scope.currentTab = 'views/centrallib/companylist/address.html';
 		$scope.isActiveTab = function(tabUrl) {
@@ -601,13 +601,19 @@ app.config(["$stateProvider", function($stateProvider) {
 				$scope.closedProjs = value.closedProjs;
 				$scope.currentProjs = value.currentProjs;
 				$scope.bankList= value.bankList;
+				$scope.bankDetails=[];
+				for(var i=$scope.bankList.length-1; i>=0; i--){
+					$scope.bankDetails.push($scope.bankList[i]);
+				}
+				console.log($scope.bankDetails,1111);
+				console.log($scope.bankList)
 			});
 			console.log($scope.currentProjs, 'Hi...');
 			$scope.gridOptions1.data = angular.copy($scope.address);
 			$scope.gridOptions2.data = angular.copy($scope.contacts);
 			$scope.gridOptions3.data = angular.copy($scope.closedProjs);
 			$scope.gridOptions4.data = angular.copy($scope.currentProjs);
-			$scope.gridOptions5.data = angular.copy($scope.bankList);
+			$scope.gridOptions5.data = angular.copy($scope.bankDetails);
 		});console.log($scope.address);
 	}, $scope.addressRowSelect = function(addrVar) {
 		if (addrVar.selected) {
@@ -709,7 +715,8 @@ app.config(["$stateProvider", function($stateProvider) {
 				{ name: 'bankName',displayName:'Name Of Bank/Institution',headerTooltip: "Name Of Bank/Institution", groupingShowAggregationMenu: false},
 				{ name: 'bankCode',displayName:'Bank Code',headerTooltip: "Bank Code", groupingShowAggregationMenu: false},	
 				{ name: 'accountNumber',displayName:'Account Number',headerTooltip: "Account Number", groupingShowAggregationMenu: false},	
-				{ name: 'bankAddress',displayName:'Bank Address',headerTooltip: "Bank Address", groupingShowAggregationMenu: false}	
+				{ name: 'bankAddress',displayName:'Bank Address',headerTooltip: "Bank Address", groupingShowAggregationMenu: false},
+				{ name: 'bankStatus',displayName:'Status',headerTooltip: "Status", groupingShowAggregationMenu: false}	
 				]
 			let data = [];
 			$scope.gridOptions5 = ngGridService.initGrid($scope, columnDefs, data, "Enterprise_CompanyList_Bank Account Details	");

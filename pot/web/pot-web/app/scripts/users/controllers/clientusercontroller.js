@@ -30,7 +30,7 @@ app.config(["$stateProvider", function($stateProvider) {
 	var deferred = $q.defer();
 	$scope.ngDialog = ngDialog, $scope.tableData = [];
 	$scope.registeredUsers = localStorageService.get('registeredUsers');
-	var exceededMaxUsers = false;
+	$scope.exceededMaxUsers = false;
 	$scope.deleteIds = [];
 	$scope.flag1= true;
 	$scope.userReq = {
@@ -46,6 +46,8 @@ app.config(["$stateProvider", function($stateProvider) {
 		UserService.getUsers($scope.userReq).then(function(data) {
 			// $scope.activeFlag = 0;
 			$scope.users = data.users;
+			if($scope.users.length >= 1)
+				$scope.registeredUsers = $scope.users[0].registeredUsers;
 			if ($scope.users.length <= 0) {
 				GenericAlertService.alertMessage('Users not available for given search criteria', "Warning");
 				return;
@@ -57,11 +59,11 @@ app.config(["$stateProvider", function($stateProvider) {
 			// 		$scope.userProjects = [];
 			// 		$scope.activeFlag = 2;
 			// 	}
-			// 	if ($scope.registeredUsers == null) {
-			// 		exceededMaxUsers = false;
-			// 	} else {
-			// 		exceededMaxUsers = ($scope.users.length >= $scope.registeredUsers);
-			// 	}
+			 	if ($scope.registeredUsers == null) {
+			 		$scope.exceededMaxUsers = false;
+			 	} else {
+			 		$scope.exceededMaxUsers = ($scope.users.length >= $scope.registeredUsers);
+			 	}
 			// } else {
 			// 	if ($scope.userReq.status == 1) {
 			// 		$scope.activeFlag = 1;
@@ -256,7 +258,7 @@ app.config(["$stateProvider", function($stateProvider) {
 		});
 	}
 	addservice.addUserDetails = function(actionType, editUsersList) {
-		if (exceededMaxUsers && !(actionType == 'Edit' && editUsersList <= 0)) {
+		if ($scope.exceededMaxUsers && !(actionType == 'Edit' && editUsersList <= 0)) {
 			GenericAlertService.alertMessage('Maximum registered usres limit exceeded.', "Warning");
 		} else {
 		var deferred = $q.defer();

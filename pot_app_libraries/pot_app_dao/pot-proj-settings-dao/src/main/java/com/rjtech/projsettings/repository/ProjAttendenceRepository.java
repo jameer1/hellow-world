@@ -15,4 +15,8 @@ public interface ProjAttendenceRepository extends ProjSettingsBaseRepository<Att
 
     @Query("SELECT PJA FROM AttendanceNormalTimeEntity PJA WHERE PJA.isDefault='Y' AND PJA.projId.projectId IS NULL ")
     public List<AttendanceNormalTimeEntity> findDefaultProjAttendence();
+    
+    @Query("SELECT PJA FROM AttendanceNormalTimeEntity PJA WHERE PJA.projId.projectId=:projId  AND PJA.type=:type  AND PJA.status=:status")
+    public List<AttendanceNormalTimeEntity> findProjAttendences(@Param("projId") Long projId, @Param("type") String type,
+            @Param("status") Integer status);
 }

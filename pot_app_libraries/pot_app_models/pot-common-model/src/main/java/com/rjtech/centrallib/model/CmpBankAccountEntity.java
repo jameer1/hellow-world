@@ -74,6 +74,9 @@ public class CmpBankAccountEntity implements Serializable {
     @Column(name = "CBM_STATUS")
     private Integer status;
     
+    @Column(name = "CBM_ISLATEST")
+    private Integer isLatest;
+    
     public CmpBankAccountEntity() {
     }
 
@@ -179,6 +182,14 @@ public class CmpBankAccountEntity implements Serializable {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+    
+    public Integer getIsLatest() {
+        return isLatest;
+    }
+
+    public void setIsLatest(Integer isLatest) {
+        this.isLatest = isLatest;
     }
 
 }

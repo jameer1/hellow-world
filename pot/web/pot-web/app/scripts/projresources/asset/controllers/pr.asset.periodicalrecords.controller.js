@@ -123,13 +123,14 @@ app.config(["$stateProvider", function($stateProvider) {
 
 	}
 	$scope.downloadRecordPeriodicalFile = function (periodicalRecordId,file_name,type) {
-		/*if(type == "Plan"){
+		console.log(periodicalRecordId);
+		if(type == "Plan"){
 		AssetRegisterService.downloadRecordPlanPeriodicalFile(periodicalRecordId);
 		}
 		else
 			{
 			AssetRegisterService.downloadRecordActualPeriodicalFile(periodicalRecordId);
-			}*/
+			}
 		
 	}
 	

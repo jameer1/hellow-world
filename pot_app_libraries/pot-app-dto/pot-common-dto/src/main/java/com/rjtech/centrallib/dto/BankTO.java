@@ -19,6 +19,7 @@ public class BankTO extends ClientTO {
 	    private String bankAddress;
 	    private String designation;
 	    private boolean defaultContact;
+	    private String bankStatus;
 
 	    public Long getBankAccountId() {
 	        return bankAccountId;
@@ -91,6 +92,15 @@ public class BankTO extends ClientTO {
 	    public void setDesignation(String designation) {
 	        this.designation = designation;
 	    }
+	    
+	    public String getBankStatus() {
+	    	return bankStatus;
+	    }
+	    
+	    public void setBankStatus(String bankStatus) {
+	    	this.bankStatus = bankStatus;
+	    }
+	    
         public String toString() {
         	return bankAccountId+"accountName :"+accountName;
         }

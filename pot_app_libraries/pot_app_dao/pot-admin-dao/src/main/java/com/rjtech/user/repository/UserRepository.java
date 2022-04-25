@@ -25,7 +25,7 @@ public interface UserRepository extends AdminRepository<UserEntity, Long> {
     public List<UserEntity> findVendorUsers(@Param("clientId") Long clientId, @Param("userName") String userName,
             @Param("empCode") String empCode, @Param("status") Integer status);
 
-    @Query("SELECT USR FROM UserEntity USR where USR.userType=:userType AND USR.status=:status and USR.client = true")
+    @Query("SELECT USR FROM UserEntity USR where USR.userType=:userType AND USR.status=:status and USR.client = true ORDER BY USR.userId DESC")
     public List<UserEntity> findClientParentUser(@Param("userType") Integer userType, @Param("status") Integer status);
 
     @Modifying
