@@ -100,7 +100,7 @@
 						<version>2.6</version>
 						<configuration>
 							<failOnMissingWebXml>false</failOnMissingWebXml>
-							<outputDirectory>E:\POT\tomcat-8.5-ALL-8080\webapps</outputDirectory>
+							<outputDirectory>target</outputDirectory>
 						</configuration>
 					</plugin>
 				</plugins>
