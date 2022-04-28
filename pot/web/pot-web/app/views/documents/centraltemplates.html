@@ -31,10 +31,10 @@
                                                 		<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                                                	  			<i class="fa fa-pencil" aria-hidden="true"></i>
                                                 		</a>
-		                                                <div class="dropdown-menu popoveronclick">
+		                                                <div class="dropdown-menu popoveronclick" style="position:absolute; left:0px; width:230px;">
 		                                                    <i class="arrow left"></i>
 		                                                    <span>Edit</span> <span class="color-box pull-right" style="background-color:#{{category.colorCode}}"></span> 
-		                                                    <input class="form-control popstyle" type="text" id="editcategory{{category.categoryId}}" value="{{category.categoryName| capitalizeWord}}"> 
+		                                                    <input class="form-control popstyle" type="text" id="editcategory{{category.categoryId}}" value="{{category.categoryName| capitalizeWord}}" style="width:200px"> 
 		                                                    <div class="pull-right">
 		                                                        <button id="cancel1" class="btn btn-default btn-sm">Cancel</button> <button class="btn btn-primary btn-sm" id="update{{category.categoryId}}" ng-click="updateTemplateCategory($event)">Update</button>
 		                                                    </div>

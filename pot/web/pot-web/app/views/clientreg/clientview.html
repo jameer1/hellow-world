@@ -1,11 +1,42 @@
 <section class="content-header">
 	<h1>Client List</h1>
+	<button class="pull-right btn btn-primary btn-sm help-each-page" 
+	   onclick="window.open('views/helptutorials/clientview.html', '_blank', 
+		'toolbar=yes,scrollbars=yes,resizable=no,top=50,left=100,width=1400,height=700')"> 
+		Help
+	</button>
 </section>
 <section class="content">
 			<div class="panel panel-default block footer-parent" ng-init="getClients()">
 				<div class="panel-body">
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+						<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padL-0">
+							<md-input-container class="md-block">
+								<label>Client Code</label>
+								<input data-test='Admin_clientregistratration_Clientcode' type="text"
+									ng-model="account1.code" class="form-control" autocomplete="off">
+							</md-input-container>
+						</div>
+						<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padL-0">
+							<md-input-container class="md-block">
+								<label>Client Name</label>
+								<input data-test='Admin_clientregistratration_Clientname' type="text"
+									ng-model="account1.name" class="form-control" autocomplete="off">
+							</md-input-container>
+						</div>
+						<div class="col-lg-6 col-md-6 col-xs-6 col-sm-6 padR-0">
+							<div class="pull-right marT15">
+								<input data-test='Admin_clientregistratration_Search' type="submit"
+								    class="btn btn-primary btn-sm" ng-click="getClients1('click')" value="Search"/> 
+							    <input data-test='Admin_clientregistratration_Refresh' ng-click="reset1()" type="reset"
+									class="btn btn-secondary btn-sm" value="Reset" />
+							</div>
+						</div>
 					<div class="singleTableResHeight b-sh">
-						<table class="table table-striped table-hover table-bordered singleTableHeight">
+					<div id="grid" ui-grid="gridOptions" ng-if="stylesSvc.finishedStyling" 
+							ui-grid-exporter ui-grid-move-columns  ui-grid-grouping class="grid" style="height:510px; margin-top:55px";></div> 
+						 <!-- <table class="table table-striped table-hover table-bordered singleTableHeight">
 							<thead>
 								<tr>
 									<th>Client Code</th>
@@ -42,24 +73,29 @@
 								<td>{{client.address}}</td>
 								<td><a class="fa fa-download"  title="Click To Download" href="/static/{{client.clientDetailsFileName}}" download ng-if="client.clientDetailsFileName"></a></td>
 								<td class="text-center"><span name="comment" class="fa fa-comment" flip="horizontal" ng-click="show(client.remarks)"></span></td>
+							
 							</tr>
 						</tbody>
-						</table>
+						</table>  -->
 					</div>
+				</div>
+				<div class="pull-left">
+				<input data-test='Admin_clientregistratration_Edit' type="button" class="btn btn-primary btn-sm"
+							ng-click="clientDetails('Edit',client, $index)" value="Edit"  style="margin-left:20px;"/>
 				</div>
 				<div class="panel-footer-horizontal-scroll panel-footer">
 					<div class="pull-right">
 						<input type="button" class="btn  btn-primary btn-sm" ng-click="deactivateClient(client)" value="Deactivate" ng-hide="true"
 						ng-if="account.appCodeTemplate['ADMIN_CLIENTREG_DELETE']">
-						<input type="button" data-test='Admin_clientregistratration_Create' class="btn btn-primary btn-sm" ng-click="clientDetails('Add',null)" value="Create" ng-if="account.appCodeTemplate['ADMIN_CLIENTREG_ADD']">
+						<input type="button" data-test='Admin_clientregistratration_Create' class="btn btn-primary btn-sm" ng-click="clientDetails('Add',null)" value="Create" ng-if="account.appCodeTemplate['ADMIN_CLIENTREG_ADD']" style="margin-right:20px;">
 					</div>
-					<div class="pull-left">
+					<!-- <div class="pull-left">
 						<input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
 						<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
 						<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
 						<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
 						<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
-					</div>
+					</div> -->
 				</div>
 	</div>
 </section>

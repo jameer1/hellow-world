@@ -208,11 +208,11 @@
 						</li>
 						<li data-test='Projects_ProjectLibrary_MaterialTransferRestrictionList'
 							ng-if="account.appCodeTemplate['PRJ_PRJLIB_PRJMATRLCLSFY_VIEW']">
-							<a ui-sref="projmaterial" ui-sref-opts="{reload: true}">Project Material Transfer Restriction List</a>
+							<a ui-sref="projmaterial" ui-sref-opts="{reload: true}">Project Material Transfer <br/> Restriction List</a>
 						</li>
 						<li ng-if="account.appCodeTemplate['PRJ_PRJLIB_STOREANDSTOKITM_VIEW']">
 							<a data-test='Projects_ProjectLibrary_WarehouseandStockYardList' ui-sref="projstore"
-								ui-sref-opts="{reload: true}">Project Warehouse and Stockyard List </a>
+								ui-sref-opts="{reload: true}">Project Warehouse and <br/> Stockyard List </a>
 						</li>
 						<li ng-if="account.appCodeTemplate['PRJ_PRJLIB_PRJPLANTCLSFY_VIEW']">
 							<a data-test='Projects_ProjectLibrary_PlantClassification' ui-sref="projplantclass"
@@ -548,6 +548,23 @@
 								ui-sref-opts="{reload: true}">List of Time Sheets for Approval</a>
 						</li>
 					</ul>
+				</li>
+			</ul>
+		</li>
+		<li class="treeview">
+			<a data-test='changeOrders' ng-if="account.appCodeTemplate['ASBUILTRCRD_VIEW']">
+				<!-- <img src="images/records.jpg" class="records"> -->
+				<i class="fa fa-wrench"></i>
+				<span>Change Orders</span>
+				<span class="pull-right-container">
+					<i class="fa fa-angle-left pull-right"></i>
+				</span>
+			</a>
+			<ul class="treeview-menu">
+				<li ng-if="account.appCodeTemplate['ASBUILTRCRD_ATNDNCERCRDS_LIST_EMPATNDNCE_VIEW']">
+					<a data-test='ChangeOrder_ChangeOrVariationOrders_changeOrdersListCount' ui-sref="co"
+						ui-sref-opts="{reload: true}">Change Or Variation Orders
+					</a>
 				</li>
 			</ul>
 		</li>

@@ -20,16 +20,16 @@ app.config(["$stateProvider", function ($stateProvider) {
 	})
 
 }]).controller('ProjectSettingsController', ["$rootScope", "$scope", "$state", "$q", "blockUI",
-	"GeneralValuesCalendarFactory", "$filter", "ProfitCentrePopUpFactory", "ProjectSettingsService",
+	"GeneralValuesCalendarFactory", "$filter", "ProfitCentrePopUpFactory", "FinanceCentrePopUpFactory", "ProjectSettingsService",
 	"ProjMaterialTransferNotificationPopupService", "ProjPlantTransferNotificationPopupService",
 	"ProjEmpTransferNotificationPopupService", "EmpRegisterService", "MaterialRegisterService", "PlantRegisterService",
 	"ngDialog", "NotificationService", "GenericAlertService", "moduleservice", "ProjManPowerFactory",
 	"PerformanceThresholdFactory", "CompanyListPopUpFactory", "ProjPlantFactory", "ProjectCrewPopupService", "EpsService",
 	"ProjectSettingCostItemFactory", "ProjectSettingSOWItemFactory", "ProjectWorkDairyNotificationPopupService",
 	"ProjectAttendencePopupService", "ProjectProcurementNotificationPopupService",
-	"LeaveApprNotificationPopupService", "generalservice", "CountryService", "TreeService", "ProcureService","ProjectSoeNotificationPopupService","ProjectTimeSheetNotificationPopupService",
+	"LeaveApprNotificationPopupService", "generalservice", "CountryService", "TreeService", "ProcureService","ProjectSoeNotificationPopupService","ProjectTimeSheetNotificationPopupService","stylesService", "ngGridService",
 	function ($rootScope, $scope, $state, $q, blockUI,
-	GeneralValuesCalendarFactory, $filter, ProfitCentrePopUpFactory, ProjectSettingsService,
+	GeneralValuesCalendarFactory, $filter, ProfitCentrePopUpFactory, FinanceCentrePopUpFactory, ProjectSettingsService,
 	ProjMaterialTransferNotificationPopupService, ProjPlantTransferNotificationPopupService,
 	ProjEmpTransferNotificationPopupService, EmpRegisterService, MaterialRegisterService,
 	PlantRegisterService, ngDialog, NotificationService, GenericAlertService, moduleservice,
@@ -37,7 +37,7 @@ app.config(["$stateProvider", function ($stateProvider) {
 	ProjectCrewPopupService, EpsService, ProjectSettingCostItemFactory, ProjectSettingSOWItemFactory,
 	ProjectWorkDairyNotificationPopupService,
 	ProjectAttendencePopupService, ProjectProcurementNotificationPopupService, LeaveApprNotificationPopupService,
-	generalservice, CountryService, TreeService, ProcureService, ProjectSoeNotificationPopupService,ProjectTimeSheetNotificationPopupService) {
+	generalservice, CountryService, TreeService, ProcureService, ProjectSoeNotificationPopupService,ProjectTimeSheetNotificationPopupService,stylesService,ngGridService) {
 
 	$rootScope.projId = null;
 
@@ -959,7 +959,19 @@ app.config(["$stateProvider", function ($stateProvider) {
 				GenericAlertService.alertMessage("Error occured while selecting Profit Center  details", 'Error');
 			});
 		},
-
+		
+		$scope.getFinanceCentre = function(generalValues){
+			var req = {
+				"status": 1,
+       			"countryCode": generalValues.provisionName.countryCode,
+       			"provinceCode":generalValues.provisionName.name
+			}
+			var financeCentrePopup = FinanceCentrePopUpFactory.getFinancecentre(req);
+			financeCentrePopup.then(function (data) {
+			$scope.generalValues.financeCentre = data.selectedSubcategory.displayFinanceCenterId;
+			})
+		}
+		
 		$scope.getCountryDetailsById = function (country) {
 			console.log("==country==",country)
 			if (country) {
@@ -1934,6 +1946,15 @@ app.config(["$stateProvider", function ($stateProvider) {
 		};
 		ProjectSettingsService.getProjPerformenceThreshold(getProjPerformenceThresholdReq).then(function (data) {
 			$scope.performenceThresholdData = data.projPerformenceThresholdTOs;
+			for(var performance of $scope.performenceThresholdData){
+				
+				performance.category1= performance.category == "Warning" ? true : false;
+				performance.category2= performance.category == "Critical" ? true :false;
+				performance.category3=performance.category == "Exceptional" ? true  : false; 
+				performance.category4= performance.category == "Acceptable" ? true :false;
+			}
+			console.log($scope.performenceThresholdData,"performenceThresholdData")
+			$scope.gridOptions1.data= angular.copy($scope.performenceThresholdData);
 		}, function (error) {
 			GenericAlertService.alertMessage("Error occured while getting Project Reports Details", "Error");
 		});
@@ -1952,6 +1973,7 @@ app.config(["$stateProvider", function ($stateProvider) {
 		var popUpDetails = PerformanceThresholdFactory.performancePopupDetails(editPerformanceRecords);
 		popUpDetails.then(function (data) {
 			$scope.performenceThresholdData = data.projPerformenceThresholdTOs;
+			$scope.getProjPerformenceThresholdRecords();
 			editPerformanceRecords = [];
 		}, function (error) {
 			GenericAlertService.alertMessage("Error occurred while selecting Project Man Power Details", 'Info');
@@ -1966,6 +1988,31 @@ app.config(["$stateProvider", function ($stateProvider) {
 			GenericAlertService.alertMessage('Performance Threshold values are Restored to Default settings successfully', "Info");
 		})
 	}
+	var linkCellTemplate ='	<input type="checkbox" ng-model="row.entity.select" ng-change="grid.appScope.selectPerformanceThreshold(row.entity)">';
+	$scope.$watch(function () { return stylesService.finishedStyling; },
+			function (newValue, oldValue) {
+				if (newValue) {
+					let columnDefs = [
+						{ name: 'selected',width:65,cellTemplate: linkCellTemplate, displayName: 'Select', headerTooltip : "Select" },
+						{ field: 'category', displayName: 'Threshold Category', headerTooltip: "Threshold Category",
+						cellTemplate:'<span class="warning" ng-show="row.entity.category1== true"><i class="fa fa-exclamation-triangle" aria-hidden="true" ></i>{{row.entity.category}}</span><span class="critical" ng-show="row.entity.category2== true"><img src="images/critical.png" style="padding-left:5px !important;"><span style="padding-left:5px !important;">{{row.entity.category}}</span></span><span class="exceptional" ng-show="row.entity.category3== true"><i class="fa fa-star" aria-hidden="true"></i>{{row.entity.category}}</span><span class="acceptable" ng-show="row.entity.category4== true"><i class="fa fa-square" aria-hidden="true"></i>{{row.entity.category}}</span>'},
+						{ field: 'svLowerLimit', displayName: "SV% Lower Limit", headerTooltip: "SV%(Schedule Variance %)Lower Limit", },
+						{ field: 'svUpperLimit', displayName: "SV% Upper Limit", headerTooltip: "SV%(Schedule Variance %)Upper Limit", },
+						{ name: 'cvLowerLimit', displayName: "CV% Lower Limit", headerTooltip: "CV%(Cost Variance %)Lower Limit" },
+						{ name: 'cvUpperLimit', displayName: "CV% Upper Limit", headerTooltip: "CV%(Cost Variance %)Upper Limit" },
+						{ name: 'spiLowerLimit', displayName: "SPI Lower Limit", headerTooltip : "SPI(Schedule Performance Index) Lower Limit" },
+						{ name: 'spiUpperLimit', displayName: "SPI Upper Limit", headerTooltip : "SPI(Schedule Performance Index) Upper Limit" },
+						{ field: 'cpiLowerLimit', displayName: "CPI Lower Limit", headerTooltip: "CPI(Cost Performance Index) Lower Limit"},
+						{ field: 'cpiUpperLimit', displayName: "CPI Upper Limit", headerTooltip: "CPI(Cost Performance Index) Upper Limit"},
+						{ field: 'tcpiLowerLimit', displayName: "TCPI Lower Limit", headerTooltip: "TCPI(To Complete Performance Index) Lower Limit" },
+						{ field: 'tcpiUpperLimit', displayName: "TCPI Upper Limit", headerTooltip: "TCPI(To Complete Performance Index) Upper Limit" },
+					
+						];
+					let data = [];
+					$scope.gridOptions1 = ngGridService.initGrid($scope, columnDefs, data, "Projects-Project Settings-Performance Threshold");
+					
+				}
+			});
 
 	/* Project Reports */
 	$scope.getProjReportsRecords = function () {

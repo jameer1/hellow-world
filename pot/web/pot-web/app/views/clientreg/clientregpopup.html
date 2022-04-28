@@ -17,11 +17,11 @@
 										id="client_code" class="form-control input-md"
 										ng-model="addClient.code" placeholder="Client Code"
 										tabindex="1" maxlength="50"
-										pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+										pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*)){3,}
 										ng-required="true" ng-keydown="$event.keyCode != 32 ? $event:$event.preventDefault()"> 
 										<span class="procurment-pot-errors1" ng-show="userForm1.clientCode.$touched && userForm1.clientCode.$error.required">
 										Client Code is Required</span> 
-										<span class="procurment-pot-errors1" ng-show="userForm1.clientCode.$error.pattern">Atleast one alphabet is mandatory </span></ng-form>
+										<span class="procurment-pot-errors1" ng-show="userForm1.clientCode.$error.pattern">Atleast three alphabet is mandatory </span></ng-form>
 								</div>
 							</div>
 							<div class="col-xs-12 col-sm-6 col-md-3">
@@ -32,13 +32,13 @@
 									<input data-test='Admin_clientregistratration_Create_client_name' ng-disabled="isDisabled" type="text" name="clientName"
 										id="client_name" class="form-control input-md"
 										ng-model="addClient.name"
-										pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+										pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*)){3,}
 										placeholder="Client Name" tabindex="2" maxlength="100"
 										ng-required="true"> <span class="procurment-pot-errors1"
 										ng-show="userForm2.clientName.$touched && userForm2.clientName.$error.required">Client
 										Name is Required</span> <span class="procurment-pot-errors1"
 										ng-show="userForm2.clientName.$error.pattern">Atleast
-										one alphabet is mandatory </span>
+										three alphabet is mandatory </span>
 									</ng-form>
 								</div>
 							</div>
@@ -51,12 +51,12 @@
 										id="userName" class="form-control input-md"
 										ng-model="addClient.userTO.userName"
 										placeholder="User Name"
-										pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
-										tabindex="3" minlength="1" maxlength="35" ng-required="true" ng-keydown="$event.keyCode != 32 ? $event:$event.preventDefault()">
+										pattern=[^\w\d]*((.*[A-Za-z]+.*){3,}|[A-Za-z]+.*([0-9]+.*))
+										tabindex="3" minlength="1" maxlength="100" ng-required="true" ng-keydown="$event.keyCode != 32 ? $event:$event.preventDefault()">
 									<span class="procurment-pot-errors1"
 										ng-show="userForm3.userName.$touched && userForm3.userName.$error.required">User
 										Name is Required</span> <span class="procurment-pot-errors1"
-										ng-show="userForm3.userName.$error.pattern">Atleast one alphabet is mandatory </span>
+										ng-show="userForm3.userName.$error.pattern">Atleast three character/number is mandatory </span>
 							
 									</ng-form>
 								</div>
@@ -102,11 +102,11 @@
 									<input data-test='Admin_clientregistratration_Create_first_name' ng-disabled="isDisabled" type="text" name="firstName"
 										id="first_name" class="form-control input-md"
 										placeholder="First Name" tabindex="5"
-										pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+										pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*)){3,}
 										maxlength="100" ng-model="addClient.userTO.firstName"
 										ng-required="true"> <span class="procurment-pot-errors1"
 										ng-show="userForm5.firstName.$error.pattern">Atleast
-										one alphabet is mandatory </span>
+										three alphabet is mandatory </span>
 										<span class="procurment-pot-errors1"
 										ng-show="userForm5.firstName.$touched && userForm5.firstName.$error.required">First
 										Name is Required</span>
@@ -121,10 +121,10 @@
 									<input data-test='Admin_clientregistratration_Create_last_name' ng-disabled="isDisabled" type="text" name="lastName"
 										id="last_name" class="form-control input-md"
 										ng-model="addClient.userTO.lastName" placeholder="Last Name"
-										pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+										pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*)){3,}
 										tabindex="6" maxlength="100" ng-required="true"> <span class="procurment-pot-errors1"
 										ng-show="userForm6.lastName.$error.pattern">Atleast
-										one alphabet is mandatory </span>
+										three alphabet is mandatory </span>
 										<span class="procurment-pot-errors1"
 										ng-show="userForm6.lastName.$touched && userForm6.lastName.$error.required">Last
 										Name is Required</span>
@@ -142,12 +142,12 @@
 										class="form-control input-md"
 										ng-model="addClient.userTO.dispName"
 										placeholder="Display Name" tabindex="7"
-										pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+										pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*)){3,}
 										maxlength="100" ng-required="true"> <span
 										class="procurment-pot-errors1"
 										ng-show="userForm7.displayName.$touched&&userForm7.displayName.$error.required">Display
 										Name is Required</span> <span class="procurment-pot-errors1"
-										ng-show="userForm7.displayName.$error.pattern">Atleast one alphabet is mandatory </span>
+										ng-show="userForm7.displayName.$error.pattern">Atleast three alphabet is mandatory </span>
 									</ng-form>
 								</div>
 							</div>
@@ -182,14 +182,15 @@
 									<label>Business Type <span class="procurment-pot-errors1">*</span></label> <ng-form name="userForm9">
 									<input data-test='Admin_clientregistratration_Create_BusinessType' ng-disabled="isDisabled" type="text"
 										name="businessType" id="business_type"
-										pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+										pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*)){3,}
 										class="form-control input-md"
+										onkeypress="return /[0-9a-zA-Z]/i.test(event.key)"
 										ng-model="addClient.businessType" placeholder="Business Type"
 										tabindex="9" maxlength="50" ng-required="true"> <span
 										class="procurment-pot-errors1"
 										ng-show="userForm9.businessType.$touched && userForm9.businessType.$error.required">Business
 										Type is Required</span> <span class="procurment-pot-errors1"
-										ng-show="userForm9.businessType.$error.pattern">Atleast one alphabet is mandatory </span>
+										ng-show="userForm9.businessType.$error.pattern">Atleast three alphabet is mandatory </span>
 									</ng-form>
 								</div>
 							</div>
@@ -236,7 +237,7 @@
 									<input ng-disabled="isDisabled" type="text" data-test='Admin_clientregistratration_Create_RegisteredUsers'
 										name="registeredUsers" id="registeredUsers" class="form-control input-md" ng-required="true"
 										ng-model="addClient.registeredUsers" placeholder="Registered Users" tabindex="13" minlength="1" maxlength="5" valid-number
-										pattern="^[\d\.,]+$">
+										pattern="^[\d]+$">
 										<span class="procurment-pot-errors1" 
 										ng-show="userForm11.registeredUsers.$touched && userForm11.registeredUsers.$error.required">Max Users are required</span>
 										<span class="procurment-pot-errors1"
@@ -263,20 +264,26 @@
 							<div class="col-xs-12 col-sm-6 col-md-3">
 								<div class="form-group"
 									ng-class="{ 'has-error' : clientForm.fax.$invalid && !clientForm.fax.$pristine }">
-									<label>Contact Person <span class="procurment-pot-errors1">*</span></label> <input data-test='Admin_clientregistratration_Create_contactperson' type="text"
-										name="contactperson" id="contactperson" class="form-control input-md"
-										ng-model="addClient.contactPerson"
-										placeholder="Contact Person" tabindex="15" maxlength="35"
-										ng-required="true">
+									<label>Contact Person <span class="procurment-pot-errors1">*</span></label><ng-form name="userForm16"> <input data-test='Admin_clientregistratration_Create_contactperson' type="text"
+										name="contactperson" id="contactperson" class="form-control input-md" ng-required="true"
+										ng-model="addClient.contactPerson" placeholder="Contact Person" 
+										pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*)){3,}
+										 tabindex="15" maxlength="20">
+										<span class="procurment-pot-errors1" 
+										ng-show="userForm16.contactperson.$error.pattern">Atleast three alphabet is mandatory</span></ng-form>
+										
 								</div>
 							</div>
 							<div class="col-xs-12 col-sm-6 col-md-3">
 								<div class="form-group"
 									ng-class="{ 'has-error' : clientForm.fax.$invalid && !clientForm.fax.$pristine }">
-									<label>Address <span class="procurment-pot-errors1">*</span></label> <input data-test='Admin_clientregistratration_Create_address' type="text" name="address"
-										id="address" class="form-control input-md"
+									<label>Address <span class="procurment-pot-errors1">*</span></label><ng-form name="userForm17"> <input data-test='Admin_clientregistratration_Create_address' type="text" name="address"
+										id="address" 
+										pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*)){3,}
+										class="form-control input-md"
 										ng-model="addClient.address" placeholder="Address"
-										tabindex="16" maxlength="200" ng-required="true">
+										tabindex="16" maxlength="200" ng-required="true"><span class="procurment-pot-errors1" 
+										ng-show="userForm17.address.$error.pattern">Atleast three alphabet is mandatory</span></ng-form>
 								</div>
 							</div>
 
@@ -289,7 +296,7 @@
 									<input data-test='Admin_clientregistratration_Create_Fax' type="text" id="fax"
 										class="form-control input-md" ng-model="addClient.fax"
 										placeholder="Fax" tabindex="17" maxlength="20" name="fax"
-										pattern="^[\d\.,]+$" valid-number> <span class="procurment-pot-errors1"
+										pattern="^[\d]+$" valid-number> <span class="procurment-pot-errors1"
 										ng-show="userForm13.fax.$error.pattern">Enter Only
 										Numbers with Pattern</span> 
 									</ng-form>
@@ -306,7 +313,7 @@
 									<input data-test='Admin_clientregistratration_Create_mobile_number' type="text" name="mobile"
 										id="mobile_number" class="form-control input-md"
 										ng-model="addClient.mobile" placeholder="Mobile Number"
-										pattern="^[\d\.,]+$" tabindex="18" minlength=10 maxlength="15"
+										pattern="^[\d]+$" tabindex="18" minlength=10 maxlength="15"
 										ng-required="true" valid-number> <span class="procurment-pot-errors1"
 										ng-show="userForm14.mobile.$touched&&userForm14.mobile.$error.required">Mobile
 										Number is Required</span> <span class="procurment-pot-errors1"
@@ -324,7 +331,7 @@
 									<input data-test='Admin_clientregistratration_Create_phoneNumber' type="text" name="phone"
 										id="phone_number" class="form-control input-md"
 										ng-model="addClient.phone" placeholder="Phone Number"
-										pattern="^[\d\.,]+$" tabindex="19" maxlength="15" minlength="6"
+										pattern="^[\d]+$" tabindex="19" maxlength="15" minlength="6"
 										valid-number> <span class="procurment-pot-errors1"
 										ng-show="userForm15.phone.$error.pattern">Enter Only
 										Digits </span>  <span class="procurment-pot-errors1"
@@ -336,10 +343,9 @@
 							<div class="col-xs-12 col-sm-6 col-md-3">
 								<label>Client Document</label><br /> <label> <span>
 								
-								<!--Commented the below line because upload button should be in enable in editing also
-										<span ng-if="actionType == 'Edit'">{{ addClient.clientDetailsFileName == null ? 'No Document' : addClient.clientDetailsFileName }}</span>-->
+										<span ng-if="actionType == 'Edit'">{{ addClient.clientDetailsFileName == null ? 'No Document' : addClient.clientDetailsFileName }}</span>
 										
-										<input ng-if="actionType == 'Add' || 'Edit'" data-test='Admin_clientregistratration_Create_UploadFile' type="file"  
+										<input ng-if="actionType == 'Add'" data-test='Admin_clientregistratration_Create_UploadFile' type="file"  
 										fileread="clientDoc" name="file"
 										ngf-select="checkFile($file)" ngf-accept="'*'" tabindex="20"  >
 								</span>

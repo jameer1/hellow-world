@@ -808,6 +808,11 @@ app.config(["$stateProvider", function ($stateProvider) {
 	$scope.lastTemplateId = 0;
 	$scope.crmName = '';
 	$scope.selected_category_color_code = "";
+	$scope.resetGrid= function () {
+						$scope.gridOptions1.data= [];
+						$scope.centralTemplatesList=[];
+		
+	}
 	
 	$scope.getCentralCategories = function(category) {
 		console.log("stateParams:");
@@ -913,6 +918,7 @@ app.config(["$stateProvider", function ($stateProvider) {
 		}
 	},
 	$scope.getCentralTemplates = function(event) {
+		$scope.resetGrid();
 		console.log(" This is from getCentralTemplates function");
 		console.log(event.target.id);
 		let category_element_id = event.target.id;
