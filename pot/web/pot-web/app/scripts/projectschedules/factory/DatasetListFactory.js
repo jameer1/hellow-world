@@ -133,10 +133,12 @@ app.factory('DatasetListFactory', ["ngDialog", "$q", "$filter", "$timeout", "$ro
             		for (let i=0; i < $scope.scheduleActivityDataSetTOs.length; i++){
             			if ($scope.scheduleActivityDataSetTOs[i].id == $scope.selectedCurrent){
             				$scope.scheduleActivityDataSetTOs[i].current = true;
+            				$scope.scheduleActivityDataSetTOs[i].baseline = false;
             				newScheduleActivityDataSetTOs.push($scope.scheduleActivityDataSetTOs[i])
             			}
             			if ($scope.scheduleActivityDataSetTOs[i].id == $scope.selectedBaseline){
             				$scope.scheduleActivityDataSetTOs[i].baseline = true;
+            				$scope.scheduleActivityDataSetTOs[i].current = false;
             				newScheduleActivityDataSetTOs.push($scope.scheduleActivityDataSetTOs[i])
             			}
             		}

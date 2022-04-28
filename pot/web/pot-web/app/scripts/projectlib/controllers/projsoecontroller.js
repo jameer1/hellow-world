@@ -271,7 +271,6 @@ app.config(["$stateProvider", function($stateProvider) {
 			          $scope.disableCreateBtn = false;
                //       $scope.disableBtns.disableInternalSubmitBtn = false;
 			}*/
-			
 			if($scope.soeStatus == 'RETURNED_FROM_EXTERNAL_APPROVER'){
 				$scope.disableBtns.disableInternalSubmitBtn = true;
 				
@@ -294,10 +293,18 @@ app.config(["$stateProvider", function($stateProvider) {
 			GenericAlertService.alertMessage("Error occured while getting EPS Projects", 'Error');
 		});
 	};
-	
+	$rootScope.$on('soeRefresh', function(){
+	   $scope.resetSOEDatas();
+    });
+    $scope.resetSOEDatas = function(){
+	  if($scope.soeStatus != null)
+		$scope.soeStatus = "";  
+      $scope.getSOEDetails();
+      $scope.disableBtns = {"disableInternalSubmitBtn":true,"disableInternalApproveBtn":true,"disableExternalSubmitBtn":true,"disableExternalApproveBtn":true,"displayReturnBtn":true,"displayAddtlTime":false};
+    }
 	function retrieveSOEStatus(soeItemsData) {
 		angular.forEach(soeItemsData,function(value,key){
-			console.log(value);
+			$scope.soeStatus = null;
 			if( value.item && ( $scope.soeStatus==null || $scope.soeStatus == "" ) )
 			{
 				$scope.soeStatus = value.soeItemStatus;
@@ -312,8 +319,10 @@ app.config(["$stateProvider", function($stateProvider) {
 
 	$scope.resetSOEData = function() {
 		$scope.SOEData = [];
+		$scope.soeStatus = "";
 		$scope.activeFlag=0;
 		$scope.searchProject = {};
+		$scope.disableBtns = {"disableInternalSubmitBtn":true,"disableInternalApproveBtn":true,"disableExternalSubmitBtn":true,"disableExternalApproveBtn":true,"displayReturnBtn":true,"displayAddtlTime":false};
 	},
 			
     $scope.requestForAddtinalTimeSoe = function(){

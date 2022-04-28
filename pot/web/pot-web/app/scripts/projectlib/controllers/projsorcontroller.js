@@ -15,6 +15,7 @@ app.config(["$stateProvider", function ($stateProvider) {
 }]).controller("ProjSORController", ["$rootScope", "$scope", "$q", "$state", "ngDialog", "blockUI", "ProjSORService", "ProjEmpClassService", "GenericAlertService", "EpsProjectSelectFactory", "TreeService","ProjSORFactory", function ($rootScope, $scope, $q, $state, ngDialog, blockUI, ProjSORService,
 	ProjEmpClassService, GenericAlertService, EpsProjectSelectFactory, TreeService, ProjSORFactory) {
 	$scope.SORData = [];
+	$scope.sorData =[];
 	var deleteSORData = [];
 	var selectedSORItemsData = [];
 	var selectedSORIds = [];
@@ -51,13 +52,15 @@ app.config(["$stateProvider", function ($stateProvider) {
 			return;
 		}
 		ProjSORService.getSORDetails(sorReq).then(function (data) {
-			$scope.sorStatus = null;
+		//	$scope.sorStatus = null;
 			console.log(data);
+			$scope.sorData = data.projSORItemTOs;
 			$scope.activeFlag = 1
 			$scope.SORData = populateSorData(data.projSORItemTOs);
 			if(data!=null && data.projSORItemTOs.length!=0)
 			{
 				selectedSORItemsData = [];
+				selectedSORIds = [];
 				generateSORIds($scope.SORData);
 				console.log(selectedSORItemsData);
 				console.log($scope.sorStatus);
@@ -141,7 +144,8 @@ app.config(["$stateProvider", function ($stateProvider) {
 			return;
 		}
 		console.log(selectedSORItemsData);
-		if( selectedSORItemsData.length != 0 )
+		ProjSORFactory.viewSORHistory(selectedSORIds,$scope.searchProject.projId);
+		/*if( selectedSORItemsData.length != 0 )
 		{
 			ProjSORFactory.viewSORHistory(selectedSORItemsData);
 		}
@@ -149,7 +153,7 @@ app.config(["$stateProvider", function ($stateProvider) {
 		{
 			GenericAlertService.alertMessage("No SOR Items to display the past records", 'Warning');
 			return;
-		}
+		}*/
 	}
 
 	function generateSORIds(sorDataIds)
@@ -204,11 +208,21 @@ app.config(["$stateProvider", function ($stateProvider) {
 	function populateSorData(data) {
 		return TreeService.populateTreeData(data, 0, [], 'code', 'childSORItemTOs');
 	}
-
+    $rootScope.$on('sorRefresh', function(){
+	   $scope.resetSORDatas();
+    });
+    $scope.resetSORDatas = function(){
+		$scope.sorStatus = "";  
+      $scope.getSORDetails();
+      selectedSORIds = [];
+      $scope.disableBtnsArry = {"SUBMIT_FOR_INTERNAL_APPROVAL":true,"SUBMIT_FOR_EXTERNAL_APPROVAL":true,"INTERNAL_APPROVAL":true,"EXTERNAL_APPROVAL":true,"RETURN_WITH_COMMENTS":true};
+    }
 	$scope.resetSORData = function () {
 		$scope.activeFlag = 0;
 		$scope.SORData = [];
+		$scope.sorStatus = "";
 		$scope.searchProject = {};
+		$scope.disableBtnsArry = {"SUBMIT_FOR_INTERNAL_APPROVAL":true,"SUBMIT_FOR_EXTERNAL_APPROVAL":true,"INTERNAL_APPROVAL":true,"EXTERNAL_APPROVAL":true,"RETURN_WITH_COMMENTS":true};
 	}
 	$scope.rowSelect = function (rowData) {
 		if (rowData.select) {
@@ -220,16 +234,16 @@ app.config(["$stateProvider", function ($stateProvider) {
 
 	$scope.projSORSubmission = function(mode,approvalType) {
 		console.log("returnWithComments function");
-		ProjSORFactory.approvalUserPopup(deleteSORData,selectedSORIds,$scope.searchProject.projId,mode,approvalType);
+		ProjSORFactory.approvalUserPopup($scope.sorData,deleteSORData,selectedSORIds,$scope.searchProject.projId,mode,approvalType);
 	}
 	
 	$scope.projSORApproval = function(mode,approvalType) {
 		console.log("projSORApproval function");
-		ProjSORFactory.approvalUserPopup(deleteSORData,selectedSORIds,$scope.searchProject.projId,mode,approvalType);
+		ProjSORFactory.approvalUserPopup($scope.sorData,deleteSORData,selectedSORIds,$scope.searchProject.projId,mode,approvalType);
 	}
 	$scope.returnWithComments = function(sorData) {
 		console.log("returnWithComments function"+JSON.stringify(sorData)+"!!!!"+selectedSORIds);
-		ProjSORFactory.approvalUserPopup(sorData.id,selectedSORIds,$scope.searchProject.projId,null,"RETURN");
+		ProjSORFactory.approvalUserPopup($scope.sorData,sorData.id,selectedSORIds,$scope.searchProject.projId,null,"RETURN");
 	//	ProjSORFactory.returnComments(sorData.id,selectedSORIds,$scope.searchProject.projIdsorData,$scope.sorStatus,sorData,null,"RETURN");
 	//	ProjSORFactory.returnComments(sorData.id,selectedSORIds,$scope.searchProject.projId,null,"RETURN");	
 	}
@@ -419,7 +433,8 @@ app.config(["$stateProvider", function ($stateProvider) {
 							const data = TreeService.extractTreeDataForSaving($scope.addSORData, 'childSORItemTOs');
 							var sorSaveReq = {
 								"projSORItemTOs": data,
-								"projId": $scope.searchProject.projId
+								"projId": $scope.searchProject.projId,
+								"actionType" : actionType
 							};
 							blockUI.start();
 							ProjSORService.saveSORDetails(sorSaveReq).then(function (data) {

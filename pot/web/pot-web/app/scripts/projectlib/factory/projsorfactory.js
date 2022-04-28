@@ -44,7 +44,7 @@ app.factory('ProjSORFactory', ["ngDialog", "$q", "$filter", "$timeout", "$rootSc
 		});
 		return deferred.promise;
 	},
-	service.approvalUserPopup = function(selectedSORItemId,selectedSORData,projectId,approvalMode,approvalType) {
+	service.approvalUserPopup = function(SORData,selectedSORItemId,selectedSORData,projectId,approvalMode,approvalType) {
 		var deferred = $q.defer();
 		var approvalPopup = ngDialog.open({
 			template: 'views/projectlib/sor/sorsubmit.html',
@@ -77,7 +77,20 @@ app.factory('ProjSORFactory', ["ngDialog", "$q", "$filter", "$timeout", "$rootSc
 				{
 					$scope.displayApproverList = true;
 				}
+				var viewSORIds = [];
+				let activity_request = {
+					sorIds : selectedSORData
+				};
 				
+				console.log(activity_request);
+				ProjSORService.viewSORActivityLog(activity_request).then(function(data){
+				//	$scope.activityData = data.projSORActivityLogTOs;
+					for(var i=0;i<data.projSORActivityLogTOs.length;i++){
+						viewSORIds.push(data.projSORActivityLogTOs[i].sorId);
+					}
+					console.log(data);
+				})
+				console.log(viewSORIds);
 				/*$scope.approveSelection = true;
 				$scope.returnSelection = false;
 				$scope.displayApproveSelection = true;*/
@@ -118,7 +131,9 @@ app.factory('ProjSORFactory', ["ngDialog", "$q", "$filter", "$timeout", "$rootSc
 					let approval_request = {
 						sorIds : selectedSORData,
 						projId : projectId,
-						loggedInUser : $rootScope.account.userId						
+						loggedInUser : $rootScope.account.userId,
+						projSORItemTOs : SORData,
+						viewSORIds : viewSORIds 				
 					};
 					if( $scope.approvalMode == "INTERNAL" )
 					{
@@ -150,6 +165,7 @@ app.factory('ProjSORFactory', ["ngDialog", "$q", "$filter", "$timeout", "$rootSc
 						console.log(data);
 						GenericAlertService.alertMessage("Submitted successfully for the approval", 'Info');
 						ngDialog.close(approvalPopup);
+						$rootScope.$broadcast('sorRefresh');	
 					})
 					console.log("submitForApproval function");
 				}
@@ -166,7 +182,9 @@ app.factory('ProjSORFactory', ["ngDialog", "$q", "$filter", "$timeout", "$rootSc
 					let approval_request = {
 						sorIds : selectedSORData,
 						projId : projectId,
-						loggedInUser : $rootScope.account.userId
+						loggedInUser : $rootScope.account.userId,
+						projSORItemTOs : SORData,
+						viewSORIds : viewSORIds 	
 					};
 					
 					if( $scope.approvalMode == "INTERNAL" )
@@ -201,6 +219,7 @@ app.factory('ProjSORFactory', ["ngDialog", "$q", "$filter", "$timeout", "$rootSc
 							GenericAlertService.alertMessage("Submitted successfully for the approval", 'Info');
 							}
 							ngDialog.close(approvalPopup);
+							$rootScope.$broadcast('sorRefresh');
 						})
 					}else{
 						approval_request.sorId = selectedSORItemId;//selectedSorItemId;
@@ -212,6 +231,7 @@ app.factory('ProjSORFactory', ["ngDialog", "$q", "$filter", "$timeout", "$rootSc
 							GenericAlertService.alertMessage("Returned with comments successfully....",'Info');
 						//	ngDialog.close(approvalUserPopup)
 							ngDialog.close(approvalPopup)
+							$rootScope.$broadcast('sorRefresh');
 						})
 					}
 					console.log(approval_request)										
@@ -220,7 +240,7 @@ app.factory('ProjSORFactory', ["ngDialog", "$q", "$filter", "$timeout", "$rootSc
 		});
 		return deferred.promise;
 	},
-	service.viewSORHistory = function(selectedSORItemsIds) {
+	service.viewSORHistory = function(selectedSORItemsIds,projectId) {
 		var deferred = $q.defer();
 		var viewRecordsPopup = ngDialog.open({
 			template: 'views/projectlib/soe/viewrecordspopup.html',
@@ -245,8 +265,39 @@ app.factory('ProjSORFactory', ["ngDialog", "$q", "$filter", "$timeout", "$rootSc
 		//			}
 					console.log(data);
 				})
-				$scope.viewDetail = function() {
+				$scope.viewDetail = function(description) {
 					console.log("viewDetail function");
+					var viewSORDetailsPopup = ngDialog.open({
+						template: 'views/projectlib/sor/projsortrackrecords.html',
+			            className: 'ngdialog-theme-plain ng-dialogueCustom4',
+			            closeByDocument: false,
+			            scope: $rootScope,
+			            showClose: false,
+                        controller: ['$scope','$rootScope',function($scope,$rootScope){
+	                   //    console.log("inside the viewDetail function");
+                            $scope.SORData = [];
+                       //    console.log(status);
+                           var sorReq = {
+			                              "status" : 1,
+			                              "projId" : projectId,
+			                              "loggedInUser" : $rootScope.account.userId,
+                                          "sorStatus" : description
+		                   };
+		                    console.log(sorReq);
+							ProjSORService.getProjSORTrackDetails(sorReq).then(function(data) {
+								console.log(data);
+								$scope.sorDataItems = data.projSORTrackTOs;
+								$scope.SORData = populateSorData(data.projSORTrackTOs);
+							//	$scope.SORData = populateSoeData(data.projSORTrackTOs, 0, []);
+							})	
+							function populateSorData(data) {
+								return TreeService.populateTreeData(data, 0, [], 'code', 'childSORItemTOs');
+							}
+							$scope.sorItemClick = function(item, collapse) {
+								TreeService.treeItemClick(item, collapse, 'childSORItemTOs');
+							};
+                        }]
+					})
 				}
 			}]
 		});

@@ -151,7 +151,8 @@ app.factory('ProjSOEFactory', ["ngDialog", "$q", "blockUI", "GenericAlertService
 						console.log(data);
 						GenericAlertService.alertMessage("Submitted successfully for the approval", 'Info');
 						ngDialog.close(approvalPopup);
-						$scope.trackDetails();				
+						$scope.trackDetails();
+						$rootScope.$broadcast('soeRefresh');			
 					})
 					console.log("submitForApproval function");
 				}
@@ -239,6 +240,7 @@ app.factory('ProjSOEFactory', ["ngDialog", "$q", "blockUI", "GenericAlertService
 								GenericAlertService.alertMessage("Submitted successfully for the approval", 'Info');
 							}
 							ngDialog.close(approvalPopup);
+							$rootScope.$broadcast('soeRefresh');
 						})
 					}
 					else
@@ -250,6 +252,7 @@ app.factory('ProjSOEFactory', ["ngDialog", "$q", "blockUI", "GenericAlertService
 							console.log(data);
 							GenericAlertService.alertMessage("Returned with comments successfully....", 'Info');
 							ngDialog.close(approvalPopup);
+							$rootScope.$broadcast('soeRefresh');
                          if(approval_request.soeStatus == "RETURN_FROM_INTERNAL_APPROVER")
 						   $scope.trackDetails();		
 						})
