@@ -9,7 +9,7 @@ import com.rjtech.projsettings.model.SchofEstimateNormalTimeEntity;
 
 public interface SchofEstimatesRepository extends ProjSettingsBaseRepository<SchofEstimateNormalTimeEntity, Long>{
 	
-  @Query("SELECT PJA FROM SchofEstimateNormalTimeEntity PJA WHERE (( :projId IS NULL AND PJA.projId IS NULL) OR PJA.projId.projectId=:projId) AND PJA.status=:status ORDER BY PJA.apprTypeId")
+  @Query("SELECT PJA FROM com.rjtech.projsettings.model.SchofEstimateNormalTimeEntity PJA WHERE (( :projId IS NULL AND PJA.projId IS NULL) OR PJA.projId.projectId=:projId) AND PJA.status=:status ORDER BY PJA.apprTypeId")
   public List<SchofEstimateNormalTimeEntity> findProjSchofEstimates(@Param("projId") Long projId, @Param("status") Integer status);
   
   @Query("SELECT PJA FROM SchofEstimateNormalTimeEntity PJA WHERE PJA.isDefault='Y' AND PJA.projId IS NULL")

@@ -102,6 +102,9 @@ app.config(["$stateProvider", function ($stateProvider) {
 			console.log(data);
 			$scope.userProjMap = data.userProjMap;
 			$scope.preContractTOs = data.preContractTOs;
+			for(var val of $scope.preContractTOs){
+				val.userProjMap=$scope.userProjMap;
+			}
 			$scope.gridOptions.data = angular.copy($scope.preContractTOs);
 			console.log($scope.preContractTOs);
 			$scope.usersMap = data.usersMap;

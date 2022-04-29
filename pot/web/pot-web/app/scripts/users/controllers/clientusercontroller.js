@@ -19,7 +19,8 @@ app.config(["$stateProvider", function($stateProvider) {
 			}
 		}
 	})
-}]).controller('ClientUserController', ["$scope", "ngDialog", "$q", "$state", "UserService", "blockUI", "RoleService", "GenericAlertService", "UsersByClientPopupService", "localStorageService", function($scope, ngDialog, $q, $state, UserService,blockUI, RoleService, GenericAlertService, UsersByClientPopupService, localStorageService) {
+}]).controller('ClientUserController', ["$scope", "ngDialog", "$q", "$state", "UserService", "blockUI", "RoleService", "GenericAlertService", "UsersByClientPopupService", "localStorageService","stylesService", "ngGridService", function($scope, ngDialog, $q, $state, UserService,blockUI, RoleService, GenericAlertService, UsersByClientPopupService, localStorageService,stylesService,ngGridService) {
+	$scope.stylesSvc = stylesService;
 	$scope.tabopen = 'home';
 	$scope.sortType = "userName"
 	$scope.userId = null;
@@ -46,8 +47,14 @@ app.config(["$stateProvider", function($stateProvider) {
 		UserService.getUsers($scope.userReq).then(function(data) {
 			// $scope.activeFlag = 0;
 			$scope.users = data.users;
-			if($scope.users.length >= 1)
-				$scope.registeredUsers = $scope.users[0].registeredUsers;
+			for (var user1 of $scope.users){
+						for (var user2 of user1.userRoles){
+							user1.roleName=user2.roleName;
+						    }
+						user1.status1= user1.status == 1 ? "Active" : "InActive";
+					    }
+			 $scope.gridOptions1.data = angular.copy($scope.users);
+					
 			if ($scope.users.length <= 0) {
 				GenericAlertService.alertMessage('Users not available for given search criteria', "Warning");
 				return;
@@ -80,7 +87,38 @@ app.config(["$stateProvider", function($stateProvider) {
 			// }
 
 		});
-	}, $scope.originUser = angular.copy($scope.resetUser);
+	};
+	$scope.$watch(function () { return stylesService.finishedStyling; },
+			function (newValue, oldValue) {
+				if (newValue) {
+						var linkCellTemplate2 ='<input type="checkbox" ng-model="row.entity.select" ng-change="grid.appScope.rowSelect(row.entity)">';
+					let columnDefs = [
+						{ field: 'select1',cellTemplate: linkCellTemplate2,displayName: "Select", headerTooltip: "Select", width:'8%',cellClass:'justify-center',headerCellClass:'justify-center'},
+						{ field: 'userName',cellTemplate:"<div ng-click=grid.appScope.getUserProjects(row.entity)>{{row.entity.userName}}</div>",displayName: "User Name", headerTooltip: "User Name"},
+						{ name: 'empCode',cellTemplate:"<div ng-click=grid.appScope.getUserProjects(row.entity)>{{row.entity.empCode}}</div>",displayName: "Employee Code", headerTooltip: "Employee Code"},
+						{ field: 'empDesg',cellTemplate:"<div ng-click=grid.appScope.getUserProjects(row.entity)>{{row.entity.empDesg}}</div>", displayName: "Employee Designation", headerTooltip: "Employee Designation" },
+						{ field: 'dispName',cellTemplate:"<div ng-click=grid.appScope.getUserProjects(row.entity)>{{row.entity.dispName}}</div>", displayName: "Display Name", headerTooltip: "Display Name"},
+						{ name: 'firstName',cellTemplate:"<div ng-click=grid.appScope.getUserProjects(row.entity)>{{row.entity.firstName}}</div>",displayName: "First Name", headerTooltip: " First Name"},
+						{ field: 'lastName',cellTemplate:"<div ng-click=grid.appScope.getUserProjects(row.entity)>{{row.entity.lastName}}</div>",displayName: "Last Name", headerTooltip: "Last Name"},
+						{ field: 'email',cellTemplate:"<div ng-click=grid.appScope.getUserProjects(row.entity)>{{row.entity.email}}</div>",displayName: "Email", headerTooltip: "Email"},
+						{ name: 'phone',cellTemplate:"<div ng-click=grid.appScope.getUserProjects(row.entity)>{{row.entity.phone}}</div>",displayName: "Phone", headerTooltip: "Phone"},
+						{ name: 'mobile',cellTemplate:"<div ng-click=grid.appScope.getUserProjects(row.entity)>{{row.entity.mobile}}</div>",displayName: "Mobile", headerTooltip: " Mobile"},
+						{ field: 'roleName',cellTemplate:"<div ng-click=grid.appScope.getUserProjects(row.entity)>{{row.entity.roleName}}</div>",displayName: "Profile Name", headerTooltip: "Profile Name"},
+						{ field: 'remarks',cellTemplate:"<div ng-click=grid.appScope.getUserProjects(row.entity)>{{row.entity.remarks}}</div>",displayName: "Remarks", headerTooltip: "Remarks"},
+						{ name: 'status1',cellTemplate:"<div ng-click=grid.appScope.getUserProjects(row.entity)>{{row.entity.status1}}</div>",displayName: "Status", headerTooltip: "Status"}
+
+					];
+					let data = [];
+					$scope.gridOptions1 = ngGridService.initGrid($scope, columnDefs, data, "Admin-User List");
+					$scope.searchUsers(false);
+					$scope.users1=$scope.users;
+					
+				    //$scope.gridOptions1.data = angular.copy($scope.users1);
+				    	}
+			});
+	$scope.originUser = angular.copy($scope.resetUser);
+	
+	
 	$scope.reset = function() {
 		$scope.resetUser = angular.copy($scope.originUser);
 		editUsers = [];
@@ -153,6 +191,7 @@ app.config(["$stateProvider", function($stateProvider) {
 		GenericAlertService.confirmMessageModal('Do you want to activate the record', 'Warning', 'YES', 'NO').then(function() {
 			UserService.activateUser(req).then(function(data) {
 				GenericAlertService.alertMessage('User(s) Activated successfully', 'Info');
+				$scope.searchUsers();
 				angular.forEach(editUsers, function(value, key) {
 					$scope.users.splice($scope.users.indexOf(value), 1);
 					editUsers = [];
@@ -184,8 +223,10 @@ app.config(["$stateProvider", function($stateProvider) {
 				"userIds" : deleteIds,
 				"status" : 2
 			};
-			GenericAlertService.confirmMessageModal('Do you really want to delete the record', 'Warning', 'YES', 'NO').then(function() {
+			GenericAlertService.confirmMessageModal('Do you really want to Deactivate the record', 'Warning', 'YES', 'NO').then(function() {
+				$scope.searchUsers();
 				UserService.deleteUser(req).then(function(data) {
+					$scope.searchUsers();
 				});
 				GenericAlertService.alertMessage('User(s) deactivated successfully', 'Info');
 				angular.forEach(editUsers, function(value, key) {
@@ -222,6 +263,7 @@ app.config(["$stateProvider", function($stateProvider) {
 				"status" : 1
 			};
 			UserService.deleteUser(req).then(function(data) {
+				$scope.searchUsers();
 			});
 			GenericAlertService.alertMessage('users are Activated successfully', 'Info');
 			angular.forEach(editUsers, function(value, key) {
@@ -424,7 +466,7 @@ app.config(["$stateProvider", function($stateProvider) {
 				$scope.saveUser = function() {
 					var flag = false;
 					var userClassMap = [];
-					console.log($scope.users);
+					//console.log($scope.users);
 					angular.forEach($scope.addUsers, function(value, key) {
 						value.empCode = (value.empCode) ? value.empCode : "";
 						if ($scope.userUniqueMap[value.userName.toUpperCase() + "-" + value.empCode.toUpperCase()] != null) {
@@ -512,6 +554,7 @@ app.config(["$stateProvider", function($stateProvider) {
 					UserService.saveUser(req).then(function(data) {
 						blockUI.stop();
 						results = data.users;
+						$scope.searchUsers();
 						// var succMsg = GenericAlertService.alertMessageModal('User Details ' + data.message, data.status);
 						var succMsg = GenericAlertService.alertMessageModal('User Details saved successfully',"Info");
 						succMsg.then(function(data1) {
@@ -536,13 +579,21 @@ app.config(["$stateProvider", function($stateProvider) {
 
 		$scope.changeField = function(proj) {
 			if (proj.usrProj) {
-			$scope.flag1= false;
+					$scope.flag1= false;
+				for(var i=0; i<$scope.userProjects.length; i++){
+					if($scope.userProjects[i].projId == proj.projId){
+						$scope.userProjects[i].usrProj=true;
+					}
+				}
+			
 			}
-			else{
-
+			else if(proj.usrProj == false){
 				$scope.flag1= false;
-
-
+				for(var i=0; i<$scope.userProjects.length; i++){
+					if($scope.userProjects[i].projId == proj.projId){
+						$scope.userProjects[i].usrProj=false;
+					}
+				}
 			}
 		}
 		var req = {
@@ -553,6 +604,7 @@ app.config(["$stateProvider", function($stateProvider) {
 
 		UserService.getUserProjects(req).then(function(data) {
 			$scope.userProjects = data.userProjDetailsTOs;
+			$scope.gridOptions3.data = angular.copy($scope.userProjects);
 			$scope.copyProjects = angular.copy($scope.userProjects);
 			/*
 			 * $scope.c = 0;
@@ -631,7 +683,20 @@ app.config(["$stateProvider", function($stateProvider) {
 				$scope.remarks = remarks;
 			} ]
 		});
-	}
+	}                                                         
+	var linkCellTemplate4 ='<input type="checkbox" ng-change="grid.appScope.changeField(row.entity)" ng-model="row.entity.usrProj">';
+	$scope.$watch(function () { return stylesService.finishedStyling; },
+			function (newValue, oldValue) {
+				if (newValue) {
+					let columnDefs = [
+						{ name: 'parentName', displayName: 'EPS Name', headerTooltip : "EPS Name" },
+						{ field: 'projCode', displayName: 'Project Name', headerTooltip: "Project Name"},
+						{ field: 'selectt',cellTemplate:linkCellTemplate4, displayName: "Assign Projects Access", headerTooltip: "Assign Projects Access" }
+						];
+					let data = [];
+					$scope.gridOptions3 = ngGridService.initGrid($scope, columnDefs, data, "Admin-UserList-Project List");
+				}
+			});
 	var HelpService = {};
 	$scope.helpPage = function () {
 		var help = HelpService.pageHelp();
