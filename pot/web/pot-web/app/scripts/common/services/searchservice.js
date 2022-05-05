@@ -291,7 +291,7 @@ app.service('potSearchService', function () {
             path:"Schedules"
         },
         {
-            searchkeyWord: "WBS Schedules",
+            searchkeyWord: "SOW Schedule",
             url: "wbsschedules",
             class: "glyphicon glyphicon-calendar glyphstyle",
             path:"Schedules"
@@ -305,6 +305,12 @@ app.service('potSearchService', function () {
         {
             searchkeyWord: "Activity Schedules",
             url: "actschedules",
+            class: "glyphicon glyphicon-calendar glyphstyle",
+            path:"Schedules"
+        },
+        {
+            searchkeyWord: "Resource Assignment Data Table",
+            url: "resourceassignment",
             class: "glyphicon glyphicon-calendar glyphstyle",
             path:"Schedules"
         },

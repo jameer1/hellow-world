@@ -2349,99 +2349,99 @@ function getReportModule() {
       resourcesModule.childModules.push(materialsModule);
 
       var fixedAssetsModule = createModule("Immovable Assets", true, "", "Y");
-      fixedAssetsModule.permissionTOs.push(createPermission("RESOURCE_EMPREG_VIEW", "VIEW", false));
+      fixedAssetsModule.permissionTOs.push(createPermission("RESOURCES_IMMVBLEASSETS_VIEW", "VIEW", false));
 
       var immovableAssetsList = createModule("Immovable Assets List", true, "assetregister", "Y");
-      immovableAssetsList.permissionTOs.push(createPermission("RESOURCE_EMPREG_VIEW", "VIEW", false));
-      immovableAssetsList.permissionTOs.push(createPermission("RESOURCE_EMPREG_VIEW", "ADD", false));
-      immovableAssetsList.permissionTOs.push(createPermission("RESOURCE_EMPREG_VIEW", "DEACTIVATE", false));
+      immovableAssetsList.permissionTOs.push(createPermission("RESOURCES_IMMVBLEASSETS_LIST_VIEW", "VIEW", false));
+      immovableAssetsList.permissionTOs.push(createPermission("RESOURCES_IMMVBLEASSETS_LIST_ADD", "ADD", false));
+      immovableAssetsList.permissionTOs.push(createPermission("RESOURCES_IMMVBLEASSETS_LIST_DEACTIVATE", "DEACTIVATE", false));
 
       var purchaseAcquisitionRecords = createModule("Purchase/Acquisition Records", true, "assetregister", "Y");
-      purchaseAcquisitionRecords.permissionTOs.push(createPermission("RESOURCE_EMPREG_VIEW", "VIEW", false));
-      purchaseAcquisitionRecords.permissionTOs.push(createPermission("RESOURCE_EMPREG_VIEW", "ADD", false));
-      purchaseAcquisitionRecords.permissionTOs.push(createPermission("RESOURCE_EMPREG_VIEW", "DEACTIVATE", false));
+      purchaseAcquisitionRecords.permissionTOs.push(createPermission("RESOURCES_IMMVBLEASSETS_LIST_ PURCHASE_VIEW", "VIEW", false));
+      purchaseAcquisitionRecords.permissionTOs.push(createPermission("RESOURCES_IMMVBLEASSETS_LIST_ PURCHASE_ADD", "ADD", false));
+      purchaseAcquisitionRecords.permissionTOs.push(createPermission("RESOURCES_IMMVBLEASSETS_LIST_ PURCHASE_DEACTIVATE", "DEACTIVATE", false));
       immovableAssetsList.childModules.push(purchaseAcquisitionRecords);
 
       var rentalValueRevenue = createModule("Rental Value/Revenue", true, "assetregister", "Y");
-      rentalValueRevenue.permissionTOs.push(createPermission("RESOURCE_EMPREG_VIEW", "VIEW", false));
-      rentalValueRevenue.permissionTOs.push(createPermission("RESOURCE_EMPREG_VIEW", "ADD", false));
-      rentalValueRevenue.permissionTOs.push(createPermission("RESOURCE_EMPREG_VIEW", "DEACTIVATE", false));
+      rentalValueRevenue.permissionTOs.push(createPermission("RESOURCES_IMMVBLEASSETS_LIST_ RENTAL_VIEW", "VIEW", false));
+      rentalValueRevenue.permissionTOs.push(createPermission("RESOURCES_IMMVBLEASSETS_LIST_ RENTAL_ADD", "ADD", false));
+      rentalValueRevenue.permissionTOs.push(createPermission("RESOURCES_IMMVBLEASSETS_LIST_ RENTAL_DEACTIVATE", "DEACTIVATE", false));
       immovableAssetsList.childModules.push(rentalValueRevenue);
 
 
       var assetSaleRecords = createModule("Asset Sale Records", true, "assetregister", "Y");
-      assetSaleRecords.permissionTOs.push(createPermission("RESOURCE_EMPREG_VIEW", "VIEW", false));
-      assetSaleRecords.permissionTOs.push(createPermission("RESOURCE_EMPREG_VIEW", "ADD", false));
-      assetSaleRecords.permissionTOs.push(createPermission("RESOURCE_EMPREG_VIEW", "DEACTIVATE", false));
+      assetSaleRecords.permissionTOs.push(createPermission("RESOURCES_IMMVBLEASSETS_LIST_ SALERCDS_VIEW", "VIEW", false));
+      assetSaleRecords.permissionTOs.push(createPermission("RESOURCES_IMMVBLEASSETS_LIST_ SALERCDS_ADD", "ADD", false));
+      assetSaleRecords.permissionTOs.push(createPermission("RESOURCES_IMMVBLEASSETS_LIST_ SALERCDS_DEACTIVATE", "DEACTIVATE", false));
       immovableAssetsList.childModules.push(assetSaleRecords);
 
       var mortgaggePayments = createModule("Mortgagge Payments", true, "assetregister", "Y");
-      mortgaggePayments.permissionTOs.push(createPermission("RESOURCE_EMPREG_VIEW", "VIEW", false));
-      mortgaggePayments.permissionTOs.push(createPermission("RESOURCE_EMPREG_VIEW", "ADD", false));
-      mortgaggePayments.permissionTOs.push(createPermission("RESOURCE_EMPREG_VIEW", "DEACTIVATE", false));
+      mortgaggePayments.permissionTOs.push(createPermission("RESOURCES_IMMVBLEASSETS_LIST_ MORTGAGE_VIEW", "VIEW", false));
+      mortgaggePayments.permissionTOs.push(createPermission("RESOURCES_IMMVBLEASSETS_LIST_ MORTGAGE_ADD", "ADD", false));
+      mortgaggePayments.permissionTOs.push(createPermission("RESOURCES_IMMVBLEASSETS_LIST_ MORTGAGE_DEACTIVATE", "DEACTIVATE", false));
       immovableAssetsList.childModules.push(mortgaggePayments);
 
 
       var revenuefromAssetSales = createModule("Revenue from Asset Sales", true, "assetregister", "Y");
-      revenuefromAssetSales.permissionTOs.push(createPermission("RESOURCE_EMPREG_VIEW", "VIEW", false));
-      revenuefromAssetSales.permissionTOs.push(createPermission("RESOURCE_EMPREG_VIEW", "ADD", false));
-      revenuefromAssetSales.permissionTOs.push(createPermission("RESOURCE_EMPREG_VIEW", "DEACTIVATE", false));
+      revenuefromAssetSales.permissionTOs.push(createPermission("RESOURCES_IMMVBLEASSETS_LIST_ REVENUE_VIEW", "VIEW", false));
+      revenuefromAssetSales.permissionTOs.push(createPermission("RESOURCES_IMMVBLEASSETS_LIST_ REVENUE_ADD", "ADD", false));
+      revenuefromAssetSales.permissionTOs.push(createPermission("RESOURCES_IMMVBLEASSETS_LIST_ REVENUE_DEACTIVATE", "DEACTIVATE", false));
       immovableAssetsList.childModules.push(revenuefromAssetSales);
 
       var longTermLeasingRentalHistory = createModule("Long Term Leasing/Rental History", true, "assetregister", "Y");
-      longTermLeasingRentalHistory.permissionTOs.push(createPermission("RESOURCE_EMPREG_VIEW", "VIEW", false));
-      longTermLeasingRentalHistory.permissionTOs.push(createPermission("RESOURCE_EMPREG_VIEW", "ADD", false));
-      longTermLeasingRentalHistory.permissionTOs.push(createPermission("RESOURCE_EMPREG_VIEW", "DEACTIVATE", false));
+      longTermLeasingRentalHistory.permissionTOs.push(createPermission("RESOURCES_IMMVBLEASSETS_LIST_ LONGTERM_VIEW", "VIEW", false));
+      longTermLeasingRentalHistory.permissionTOs.push(createPermission("RESOURCES_IMMVBLEASSETS_LIST_ LONGTERM_ADD", "ADD", false));
+      longTermLeasingRentalHistory.permissionTOs.push(createPermission("RESOURCES_IMMVBLEASSETS_LIST_ LONGTERM_DEACTIVATE", "DEACTIVATE", false));
       immovableAssetsList.childModules.push(longTermLeasingRentalHistory);
 
       var casualOccupancyRecords = createModule("Short Term/Casual Occupancy Records & Rental Returns", true, "assetregister", "Y");
-      casualOccupancyRecords.permissionTOs.push(createPermission("RESOURCE_EMPREG_VIEW", "VIEW", false));
-      casualOccupancyRecords.permissionTOs.push(createPermission("RESOURCE_EMPREG_VIEW", "ADD", false));
-      casualOccupancyRecords.permissionTOs.push(createPermission("RESOURCE_EMPREG_VIEW", "DEACTIVATE", false));
+      casualOccupancyRecords.permissionTOs.push(createPermission("RESOURCES_IMMVBLEASSETS_LIST_ SHORTTERM_VIEW", "VIEW", false));
+      casualOccupancyRecords.permissionTOs.push(createPermission("RESOURCES_IMMVBLEASSETS_LIST_ SHORTTERM_ADD", "ADD", false));
+      casualOccupancyRecords.permissionTOs.push(createPermission("RESOURCES_IMMVBLEASSETS_LIST_ SHORTTERM_DEACTIVATE", "DEACTIVATE", false));
       immovableAssetsList.childModules.push(casualOccupancyRecords);
 
 
       var revenueActualReturns = createModule("Long Term Lease:Rental/Revenue-Actual Returns", true, "assetregister", "Y");
-      revenueActualReturns.permissionTOs.push(createPermission("RESOURCE_EMPREG_VIEW", "VIEW", false));
-      revenueActualReturns.permissionTOs.push(createPermission("RESOURCE_EMPREG_VIEW", "ADD", false));
-      revenueActualReturns.permissionTOs.push(createPermission("RESOURCE_EMPREG_VIEW", "DEACTIVATE", false));
+      revenueActualReturns.permissionTOs.push(createPermission("RESOURCES_IMMVBLEASSETS_LIST_ LTERMACTL_VIEW", "VIEW", false));
+      revenueActualReturns.permissionTOs.push(createPermission("RESOURCES_IMMVBLEASSETS_LIST_ LTERMACTL_ADD", "ADD", false));
+      revenueActualReturns.permissionTOs.push(createPermission("RESOURCES_IMMVBLEASSETS_LIST_ LTERMACTL_DEACTIVATE", "DEACTIVATE", false));
       immovableAssetsList.childModules.push(revenueActualReturns);
 
       var carParkingAndTollCollections = createModule("Car Parking And Toll Collections - Actual Revenue", true, "assetregister", "Y");
-      carParkingAndTollCollections.permissionTOs.push(createPermission("RESOURCE_EMPREG_VIEW", "VIEW", false));
-      carParkingAndTollCollections.permissionTOs.push(createPermission("RESOURCE_EMPREG_VIEW", "ADD", false));
-      carParkingAndTollCollections.permissionTOs.push(createPermission("RESOURCE_EMPREG_VIEW", "DEACTIVATE", false));
+      carParkingAndTollCollections.permissionTOs.push(createPermission("RESOURCES_IMMVBLEASSETS_LIST_ CARPARKING_VIEW", "VIEW", false));
+      carParkingAndTollCollections.permissionTOs.push(createPermission("RESOURCES_IMMVBLEASSETS_LIST_ CARPARKING_ADD", "ADD", false));
+      carParkingAndTollCollections.permissionTOs.push(createPermission("RESOURCES_IMMVBLEASSETS_LIST_ CARPARKING_DEACTIVATE", "DEACTIVATE", false));
       immovableAssetsList.childModules.push(carParkingAndTollCollections);
 
 
       var occupancyUtilisationRecords = createModule("Occupancy/Utilisation Records-Statistics", true, "assetregister", "Y");
-      occupancyUtilisationRecords.permissionTOs.push(createPermission("RESOURCE_EMPREG_VIEW", "VIEW", false));
-      occupancyUtilisationRecords.permissionTOs.push(createPermission("RESOURCE_EMPREG_VIEW", "ADD", false));
-      occupancyUtilisationRecords.permissionTOs.push(createPermission("RESOURCE_EMPREG_VIEW", "DEACTIVATE", false));
+      occupancyUtilisationRecords.permissionTOs.push(createPermission("RESOURCES_IMMVBLEASSETS_LIST_ OCCUPANCY_VIEW", "VIEW", false));
+      occupancyUtilisationRecords.permissionTOs.push(createPermission("RESOURCES_IMMVBLEASSETS_LIST_ OCCUPANCY_ADD", "ADD", false));
+      occupancyUtilisationRecords.permissionTOs.push(createPermission("RESOURCES_IMMVBLEASSETS_LIST_ OCCUPANCY_DEACTIVATE", "DEACTIVATE", false));
       immovableAssetsList.childModules.push(occupancyUtilisationRecords);
 
       var periodicalScheduleMaintenanceRecords = createModule("Periodical and Schedule MaintenanceRecords", true, "assetregister", "Y");
-      periodicalScheduleMaintenanceRecords.permissionTOs.push(createPermission("RESOURCE_EMPREG_VIEW", "VIEW", false));
-      periodicalScheduleMaintenanceRecords.permissionTOs.push(createPermission("RESOURCE_EMPREG_VIEW", "ADD", false));
-      periodicalScheduleMaintenanceRecords.permissionTOs.push(createPermission("RESOURCE_EMPREG_VIEW", "DEACTIVATE", false));
+      periodicalScheduleMaintenanceRecords.permissionTOs.push(createPermission("RESOURCES_IMMVBLEASSETS_LIST_ PERIODICAL_VIEW", "VIEW", false));
+      periodicalScheduleMaintenanceRecords.permissionTOs.push(createPermission("RESOURCES_IMMVBLEASSETS_LIST_ PERIODICAL_ADD", "ADD", false));
+      periodicalScheduleMaintenanceRecords.permissionTOs.push(createPermission("RESOURCES_IMMVBLEASSETS_LIST_ PERIODICAL_DEACTIVATE", "DEACTIVATE", false));
       immovableAssetsList.childModules.push(periodicalScheduleMaintenanceRecords);
 
       var repairsandNonSchedule = createModule("Repairs and NonSchedule", true, "assetregister", "Y");
-      repairsandNonSchedule.permissionTOs.push(createPermission("RESOURCE_EMPREG_VIEW", "VIEW", false));
-      repairsandNonSchedule.permissionTOs.push(createPermission("RESOURCE_EMPREG_VIEW", "ADD", false));
-      repairsandNonSchedule.permissionTOs.push(createPermission("RESOURCE_EMPREG_VIEW", "DEACTIVATE", false));
+      repairsandNonSchedule.permissionTOs.push(createPermission("RESOURCES_IMMVBLEASSETS_LIST_ REPAIRS_VIEW", "VIEW", false));
+      repairsandNonSchedule.permissionTOs.push(createPermission("RESOURCES_IMMVBLEASSETS_LIST_ REPAIRS_ADD", "ADD", false));
+      repairsandNonSchedule.permissionTOs.push(createPermission("RESOURCES_IMMVBLEASSETS_LIST_ REPAIRS_DEACTIVATE", "DEACTIVATE", false));
       immovableAssetsList.childModules.push(repairsandNonSchedule);
 
       var assetLifeStatus= createModule("Asset Life Status", true, "assetregister", "Y");
-      assetLifeStatus.permissionTOs.push(createPermission("RESOURCE_EMPREG_VIEW", "VIEW", false));
-      assetLifeStatus.permissionTOs.push(createPermission("RESOURCE_EMPREG_VIEW", "ADD", false));
-      assetLifeStatus.permissionTOs.push(createPermission("RESOURCE_EMPREG_VIEW", "DEACTIVATE", false));
+      assetLifeStatus.permissionTOs.push(createPermission("RESOURCES_IMMVBLEASSETS_LIST_ ASETLIFE_VIEW", "VIEW", false));
+      assetLifeStatus.permissionTOs.push(createPermission("RESOURCES_IMMVBLEASSETS_LIST_ ASETLIFE_ADD", "ADD", false));
+      assetLifeStatus.permissionTOs.push(createPermission("RESOURCES_IMMVBLEASSETS_LIST_ ASETLIFE_DEACTIVATE", "DEACTIVATE", false));
       immovableAssetsList.childModules.push(assetLifeStatus);
 
       var assetCostandValueStatus= createModule("Asset Cost and Value Status", true, "assetregister", "Y");
-      assetCostandValueStatus.permissionTOs.push(createPermission("RESOURCE_EMPREG_VIEW", "VIEW", false));
-      assetCostandValueStatus.permissionTOs.push(createPermission("RESOURCE_EMPREG_VIEW", "ADD", false));
-      assetCostandValueStatus.permissionTOs.push(createPermission("RESOURCE_EMPREG_VIEW", "DEACTIVATE", false));
+      assetCostandValueStatus.permissionTOs.push(createPermission("RESOURCES_IMMVBLEASSETS_LIST_ ASETCOST_VIEW", "VIEW", false));
+      assetCostandValueStatus.permissionTOs.push(createPermission("RESOURCES_IMMVBLEASSETS_LIST_ ASETCOST_ADD", "ADD", false));
+      assetCostandValueStatus.permissionTOs.push(createPermission("RESOURCES_IMMVBLEASSETS_LIST_ ASETCOST_DEACTIVATE", "DEACTIVATE", false));
       immovableAssetsList.childModules.push(assetCostandValueStatus);
 
       fixedAssetsModule.childModules.push(immovableAssetsList);

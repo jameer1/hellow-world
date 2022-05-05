@@ -12,6 +12,7 @@ app.factory('ResourceAssignmentAddDataSetFactory', ["ngDialog", "$q", "$filter",
             closeByDocument: false,
             controller: ['$scope', function ($scope) {
             	$scope.searchProject = searchProject;
+            	$scope.name = "";
             	$scope.isPrimaveraIntegrationEnabled = 'Yes';
             	ProjectScheduleService.getDatasetList({"projId": $scope.searchProject.projId, "type": "R"}).then(function(data){
             		$scope.scheduleActivityDataSetTOs = data.scheduleActivityDataSetTOs
@@ -54,6 +55,7 @@ app.factory('ResourceAssignmentAddDataSetFactory', ["ngDialog", "$q", "$filter",
         			});
             	},
             	$scope.duplicate = function(name){
+					$scope.name = name;
             		for(let i=0;i<$scope.scheduleActivityDataSetTOs.length;i++){
             			if(($scope.scheduleActivityDataSetTOs[i].datasetName).toUpperCase() == name.toUpperCase()){
             			    GenericAlertService.alertMessage("Dataset name already exists", 'Warning');
@@ -63,7 +65,7 @@ app.factory('ResourceAssignmentAddDataSetFactory', ["ngDialog", "$q", "$filter",
             		}
             	}
             	$scope.saveDataset = function(){
-            	$scope.duplicate();
+            	$scope.duplicate($scope.name);
             		if ($scope.scheduleActivityDataSet.datasetName == null){
             			GenericAlertService.alertMessage("Please enter dataset name", 'Info');
             			return;

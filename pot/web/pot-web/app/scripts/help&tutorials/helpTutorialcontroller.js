@@ -54,6 +54,16 @@ app.config(["$stateProvider", function($stateProvider) {
 			url : 'views/help&tutorials/centrallibrary/CLServiceClassification.html'
 		} ]
 	}, {
+		title : 'Schedules',
+		url : 'null',
+		subTasks : [ {
+			title : 'Resource Schedule',
+			url : 'views/help&tutorials/scheduleshelp/resourceschedulehelp.html'
+		}, {
+			title : 'SOW Schedule',
+			url : 'views/help&tutorials/scheduleshelp/sowschedulehelp.html'
+		} ]
+	},{
 		title : 'Project Library',
 		url : 'null',
 		subTasks : [ {

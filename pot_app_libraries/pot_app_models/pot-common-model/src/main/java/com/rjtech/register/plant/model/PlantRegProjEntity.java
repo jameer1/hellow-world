@@ -108,7 +108,7 @@ public class PlantRegProjEntity implements Serializable {
     private String assignStatus;
     
     @OneToMany(mappedBy = "plantRegProjEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<PlantChargeOutRatesEntity> plantChargeOutRatesEntities = new ArrayList<>();
+    private List<PlantChargeOutRatesEntityCopy> plantChargeOutRatesEntities = new ArrayList<>();
 
     public PlantRegProjEntity() {
 

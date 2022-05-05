@@ -23,9 +23,10 @@ public interface EmpProjRegisterRepositoryCopy extends JpaRepository<EmpProjRigi
             + " join ped.empchargeOutRateEntities ecr WHERE ped.projMstrEntity.projectId = :projId")
     List<EmpChargeOutRateEntity> findChargeOutRates(@Param("projId") Long projId);
     
+    //changed the return type from EmpChargeOutRateEntityCopy to EmpChargeOutRateEntity
     @Query("SELECT ecr FROM com.rjtech.register.emp.model.EmpProjRigisterEntity ped "
             + " join ped.empchargeOutRateEntities ecr WHERE ped.projMstrEntity = :projMstrEntity ")
-    List<EmpChargeOutRateEntityCopy> findChargeOutRates(@Param("projMstrEntity") ProjMstrEntity projMstrEntity);
+    List<EmpChargeOutRateEntity> findChargeOutRates(@Param("projMstrEntity") ProjMstrEntity projMstrEntity);
 
     @Query("SELECT DISTINCT PED, PEC.projEmpCategory FROM EmpProjRigisterEntity PED JOIN PED.empchargeOutRateEntities ECR "
             + " LEFT JOIN ProjEmpClassMstrEntity PEC ON PEC.empClassMstrEntity = PED.empRegisterDtlEntity.empClassMstrEntity AND PEC.projectId = PED.projMstrEntity "

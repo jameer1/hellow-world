@@ -23,9 +23,21 @@ public interface PlantChargeOutRateRepositoryCopy extends JpaRepository<PlantCha
     public PlantChargeOutRatesEntity findPlantChargeOutRates(@Param("plantId") Long plantId,
             @Param("projId") Long projId);
     
+    @Query("SELECT T FROM PlantChargeOutRatesEntityCopy T "
+            + " WHERE T.plantRegProjEntity.plantRegisterDtlEntity.id = :plantId"
+            + " AND T.plantRegProjEntity.projId.projectId = :projId " + " AND T.latest = 1 ")
+    public PlantChargeOutRatesEntityCopy findPlantChargeOutRate(@Param("plantId") Long plantId,
+            @Param("projId") Long projId);
+    
     @Query("SELECT PCR FROM PlantRegProjEntity PPJD "
             + " join PPJD.plantChargeOutRatesEntities PCR WHERE PPJD.projId = :projMstrEntity ")
     public List<PlantChargeOutRatesEntityCopy> findPlantChargeOutRates(
+            @Param("projMstrEntity") ProjMstrEntity projMstrEntity);
+    
+    // New One
+    @Query("SELECT PCR FROM PlantRegProjEntity PPJD "
+            + " join PPJD.plantChargeOutRatesEntities PCR WHERE PPJD.projId = :projMstrEntity ")
+    public List<PlantChargeOutRatesEntityCopy> findPlantChargeOutRatesNew(
             @Param("projMstrEntity") ProjMstrEntity projMstrEntity);
 
     @Query("SELECT PPJD.projId, PCR.projMobCostItem, PPJD.plantRegisterDtlEntity, PPJD.mobDate, PCR.mobChargeOutRate, PCR.category, PGV.currency "

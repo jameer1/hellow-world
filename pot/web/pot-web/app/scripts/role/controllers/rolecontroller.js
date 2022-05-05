@@ -310,6 +310,7 @@ app.config(["$stateProvider", function ($stateProvider) {
 			"permissions": permissions,
 			"roleId": $scope.roleId
 		};
+		console.log(savePermissionReq);
 		blockUI.start();
 		RoleService.saveRolePermission(savePermissionReq).then(function (data) {
 			permissions = [];
@@ -346,6 +347,7 @@ app.config(["$stateProvider", function ($stateProvider) {
 			};
 			selectedPermission.toBeSavedPerm = permission;
 			permissions.push(permission);
+			console.log(permissions);
 		}
 	};
 

@@ -2805,7 +2805,7 @@ public class WorkDairyServiceImpl implements WorkDairyService {
             namesMap.put("plantModel", plantDtl.getModel());
             namesMap.put("plantManfacture", plantDtl.getManfacture());
             PlantChargeOutRatesEntityCopy chargeOutRates = plantChargeOutRateRepository
-                    .findPlantChargeOutRates(plantDtl.getId(), projId);
+                    .findPlantChargeOutRate(plantDtl.getId(), projId);
             if (null != chargeOutRates) {
                 if (chargeOutRates.getCategory().equalsIgnoreCase("WITHOUT FUEL")) {
                     namesMap.put("unitOfRate", String.valueOf(chargeOutRates.getRateWithOutFualNRShift()));

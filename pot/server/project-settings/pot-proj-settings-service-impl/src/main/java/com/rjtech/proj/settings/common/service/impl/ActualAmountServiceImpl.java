@@ -31,6 +31,7 @@ import com.rjtech.projsettings.model.ProjGeneralMstrEntity;
 import com.rjtech.projsettings.register.emp.dto.EmpChargeOutRateTO;
 import com.rjtech.projsettings.register.plant.dto.PlantChargeOutRateTO;
 import com.rjtech.projsettings.repository.ProjGeneralRepository;
+import com.rjtech.register.emp.model.EmpChargeOutRateEntity;
 import com.rjtech.register.emp.model.EmpChargeOutRateEntityCopy;
 //import com.rjtech.register.EmpChargeOutRateEntityCopy;
 import com.rjtech.register.plant.model.PlantChargeOutRatesEntityCopy;
@@ -550,7 +551,7 @@ public class ActualAmountServiceImpl implements ActualAmountService {
     private Map<Long, Map<Date, PlantChargeOutRateTO>> getPlantChargeOutRates(ProjMstrEntity projMstrEntity) {
         Map<Long, Map<Date, PlantChargeOutRateTO>> plantRates = new HashMap<>();
         List<PlantChargeOutRatesEntityCopy> rates = plantChargeOutRateRepository
-                .findPlantChargeOutRates(projMstrEntity);
+                .findPlantChargeOutRatesNew(projMstrEntity);
         for (PlantChargeOutRatesEntityCopy rateEntity : rates) {
             if (rateEntity.getPlantRegProjEntity() == null
                     || rateEntity.getPlantRegProjEntity().getPlantRegisterDtlEntity() == null
@@ -606,8 +607,9 @@ public class ActualAmountServiceImpl implements ActualAmountService {
      */
     private Map<Long, Map<Date, EmpChargeOutRateTO>> getEmpChargeOutRates(ProjMstrEntity projMstrEntity) {
         Map<Long, Map<Date, EmpChargeOutRateTO>> empRates = new HashMap<>();
-        List<EmpChargeOutRateEntityCopy> rates = empProjRegisterRepository.findChargeOutRates(projMstrEntity);
-        for (EmpChargeOutRateEntityCopy rateEntity : rates) {
+        //changed from EmpChargeOutRateEntityCopy to EmpChargeOutRateEntity
+        List<EmpChargeOutRateEntity> rates = empProjRegisterRepository.findChargeOutRates(projMstrEntity);
+        for (EmpChargeOutRateEntity rateEntity : rates) {
             if (rateEntity.getEmpRegisterDtlEntity() == null)
                 continue;
             Long key = rateEntity.getEmpRegisterDtlEntity().getId();
@@ -625,7 +627,7 @@ public class ActualAmountServiceImpl implements ActualAmountService {
      * @param rateEntity
      * @return
      */
-    private EmpChargeOutRateTO processEmpRates(EmpChargeOutRateEntityCopy rateEntity) {
+    private EmpChargeOutRateTO processEmpRates(EmpChargeOutRateEntity rateEntity) {
         EmpChargeOutRateTO empRate = new EmpChargeOutRateTO();
         empRate.setEmpRegId(rateEntity.getEmpRegisterDtlEntity().getId());
         ProjCostItemEntity leaveCost = rateEntity.getLeaveCostItemEntity();
