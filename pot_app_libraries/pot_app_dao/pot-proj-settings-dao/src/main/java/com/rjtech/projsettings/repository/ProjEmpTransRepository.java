@@ -13,7 +13,7 @@ public interface ProjEmpTransRepository extends ProjSettingsBaseRepository<EmpTr
     public List<EmpTransNormalTimeEntity> findProjEmpTrans(@Param("projId") Long projId,
             @Param("status") Integer status);
 
-    @Query("SELECT PET FROM EmpTransNormalTimeEntity PET WHERE PET.isDefault='Y' AND PET.projId IS NULL ")
+    @Query("SELECT PET FROM com.rjtech.projsettings.model.EmpTransNormalTimeEntity PET WHERE PET.isDefault='Y' AND PET.projId IS NULL ")
     public List<EmpTransNormalTimeEntity> findDefaultProjEmpTrans();
 
     @Query("SELECT PET FROM EmpTransNormalTimeEntity PET where PET.status = 1 and PET.projId.projectId = :projId and "

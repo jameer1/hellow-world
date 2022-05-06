@@ -24,7 +24,7 @@ public interface ProjEstimateRepository extends ProjSettingsBaseRepository<ProjE
     @Query("SELECT PJEC FROM ProjEstimateEntity PJEC WHERE  PJEC.projMstrEntity.projectId=:projId AND PJEC.resourceType='cost'")
     public ProjEstimateEntity findEstimateCostEstimate(@Param("projId") Long projId);
 
-    @Query("SELECT PJEC FROM ProjEstimateEntity PJEC WHERE PJEC.projMstrEntity is null")
+    @Query("SELECT PJEC FROM com.rjtech.projsettings.model.ProjEstimateEntity PJEC WHERE PJEC.projMstrEntity is null")
     public List<ProjEstimateEntity> findDefaultProjEstimate();
 
 }

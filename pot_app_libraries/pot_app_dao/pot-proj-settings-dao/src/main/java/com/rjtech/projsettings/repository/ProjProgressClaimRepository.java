@@ -13,7 +13,7 @@ public interface ProjProgressClaimRepository extends ProjSettingsBaseRepository<
     public List<ProgressClaimNormalTimeEntity> findProjProgressClaim(@Param("projId") Long projId,
             @Param("status") Integer status);
 
-    @Query("SELECT PGC FROM ProgressClaimNormalTimeEntity PGC WHERE  PGC.isDefault='Y' AND PGC.projId IS NULL")
+    @Query("SELECT PGC FROM com.rjtech.projsettings.model.ProgressClaimNormalTimeEntity PGC WHERE  PGC.isDefault='Y' AND PGC.projId IS NULL")
     public List<ProgressClaimNormalTimeEntity> findDefaultProjProgressClaim();
 
 }

@@ -13,7 +13,7 @@ public interface ProjPlantTransRepository extends ProjSettingsBaseRepository<Pla
     public List<PlantTransNormalTimeEntity> findProjPlantTrans(@Param("projId") Long projId,
             @Param("status") Integer status);
 
-    @Query("SELECT PTR FROM PlantTransNormalTimeEntity PTR WHERE PTR.isDefault='Y' AND PTR.projId.projectId IS NULL")
+    @Query("SELECT PTR FROM com.rjtech.projsettings.model.PlantTransNormalTimeEntity PTR WHERE PTR.isDefault='Y' AND PTR.projId.projectId IS NULL")
     public List<PlantTransNormalTimeEntity> findDefaultProjPlantTrans();
     
     @Query("SELECT PTR FROM PlantTransNormalTimeEntity PTR WHERE (( :projId IS NULL AND PTR.projId.projectId IS NULL) OR PTR.projId.projectId=:projId ) "

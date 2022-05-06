@@ -12,7 +12,7 @@ public interface ProjReportsRepository extends ProjSettingsBaseRepository<Projec
     @Query("SELECT PJR FROM ProjectReportsEntity PJR WHERE PJR.projMstrEntity.projectId = :projId AND PJR.status=:status ORDER BY PJR.id")
     public List<ProjectReportsEntity> findProjReports(@Param("projId") Long projId, @Param("status") Integer status);
 
-    @Query("SELECT PJR FROM ProjectReportsEntity PJR WHERE PJR.projMstrEntity IS NULL ")
+    @Query("SELECT PJR FROM com.rjtech.projsettings.model.ProjectReportsEntity PJR WHERE PJR.projMstrEntity IS NULL ")
     public List<ProjectReportsEntity> findAllProjReports();
 
     @Query("SELECT PJR FROM ProjectReportsEntity PJR WHERE PJR.projMstrEntity.projectId IN :projIds")

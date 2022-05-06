@@ -13,7 +13,7 @@ public interface ProjLeaveRequestRepository extends ProjSettingsBaseRepository<L
     public List<LeaveNormalTimeEntity> findProjLeaveApproval(@Param("projId") Long projId,
             @Param("status") Integer status);
 
-    @Query("SELECT p FROM LeaveNormalTimeEntity p WHERE p.isDefault='Y' AND p.projId.projectId IS NULL ")
+    @Query("SELECT p FROM com.rjtech.projsettings.model.LeaveNormalTimeEntity p WHERE p.isDefault='Y' AND p.projId.projectId IS NULL ")
     public List<LeaveNormalTimeEntity> findDefalutProjLeaveApproval();
     
     @Query("SELECT p FROM LeaveNormalTimeEntity p WHERE p.projId.projectId=:projId AND p.status=:status  ORDER BY  p.id")

@@ -14,7 +14,8 @@ public interface ProjProgressClaimePeriodRepository
     public List<ProgressClaimPeriodCycleEntity> findProjProgressClaimePeroid(@Param("projId") Long projId,
             @Param("status") Integer status);
 
-    @Query("SELECT PCP FROM ProgressClaimPeriodCycleEntity PCP WHERE  PCP.isDefault='Y' AND PCP.projId IS NULL ")
+    @Query("SELECT PCP FROM \r\n"
+    		+ "com.rjtech.projsettings.model.ProgressClaimPeriodCycleEntity PCP WHERE  PCP.isDefault='Y' AND PCP.projId IS NULL ")
     public List<ProgressClaimPeriodCycleEntity> findDefaultProjProgressClaimePeriods();
 
 }

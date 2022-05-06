@@ -15,7 +15,8 @@ public interface ProjPerformenceThresholdRepository
     public List<ProjPerformenceThresholdEntity> findProjPerformenceThresholds(@Param("projId") Long projId,
             @Param("status") Integer status);
 
-    @Query("SELECT PPFT FROM ProjPerformenceThresholdEntity PPFT WHERE PPFT.isDefault='Y' AND PPFT.projMstrEntity IS NULL")
+    @Query("SELECT PPFT FROM \r\n"
+    		+ "com.rjtech.projsettings.model.ProjPerformenceThresholdEntity PPFT WHERE PPFT.isDefault='Y' AND PPFT.projMstrEntity IS NULL")
     public List<ProjPerformenceThresholdEntity> findDefaultProjPerformenceThresholds();
 
     @Modifying

@@ -13,6 +13,6 @@ public interface ProjProcureRepository extends ProjSettingsBaseRepository<Procur
     public List<ProcurementNormalTimeEntity> findProjProcure(@Param("projId") Long projId,
             @Param("status") Integer status);
 
-    @Query("SELECT PPR FROM ProcurementNormalTimeEntity PPR WHERE PPR.isDefault='Y' AND PPR.projId IS NULL ")
+    @Query("SELECT PPR FROM com.rjtech.projsettings.model.ProcurementNormalTimeEntity PPR WHERE PPR.isDefault='Y' AND PPR.projId IS NULL ")
     public List<ProcurementNormalTimeEntity> findDefaultProjProcure();
 }

@@ -13,7 +13,7 @@ public interface ProjMaterialTransRepository extends ProjSettingsBaseRepository<
     public List<MaterialTransNormalTimeEntity> findProjMaterialTrans(@Param("projId") Long projId,
             @Param("status") Integer status);
 
-    @Query("SELECT PMT FROM MaterialTransNormalTimeEntity PMT WHERE  PMT.isDefault='Y'  AND PMT.projId.projectId IS NULL ")
+    @Query("SELECT PMT FROM com.rjtech.projsettings.model.MaterialTransNormalTimeEntity PMT WHERE  PMT.isDefault='Y'  AND PMT.projId.projectId IS NULL ")
     public List<MaterialTransNormalTimeEntity> findDefaultProjMaterialTrans();
     
     @Query("SELECT PMT FROM MaterialTransNormalTimeEntity PMT WHERE  (( :projId IS NULL AND PMT.projId.projectId IS NULL) OR PMT.projId.projectId=:projId) "
