@@ -1,9 +1,16 @@
 <section class="content">
-	<div class="panel panel-default block footer-parent">
+	<div class="panel panel-default block footer-parent" >
 		<div class="panel-body">
 		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding table-responsive" ng-show="displayHeadContractBlock">
 				<table class="table table-striped table-hover table-bordered tabTable_5_Height">
 		            <thead>
+						<tr>
+							<th class="text-center" colspan="6">Scope of Works  Items</th>
+							<th class="text-center" colspan="4"> Quantities</th>
+							<th class="text-center" colspan="4"> Schedule of Rates ( Payable Rates)</th>
+							<th class="text-center" colspan="4"> Amount</th>
+							<th class="text-center" colspan="2"> Documents</th>
+						</tr>
 		                <tr>
 		                    <th>Select</th>
 		                    <th class="text-center">SOW Item ID</th>
@@ -34,7 +41,7 @@
 		            <tbody>
 		                <tr ng-repeat="row in coHeadContractRows">
 		                    <td>		                    	
-		                    	<select ng-model="coSowItemType" ng-change="changeItemType(row)">
+		                    	<select ng-model="coSowItemType" ng-change="changeItemType(row, row.coitemtype)">
 		                    		<option value="existingitem">Existing Item</option>		                    		
 		                    		<option value="newitem">New Item</option>		                    		
 		                    	</select>
@@ -72,6 +79,12 @@
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding table-responsive" ng-show="displaySubContractBlock">
 				<table class="table table-striped table-hover table-bordered tabTable_5_Height">
 		            <thead>
+						<tr>
+							<th class="text-center" colspan="4">List of pay  Items</th>
+							<th class="text-center" colspan="4"> Quantities</th>
+							<th class="text-center" colspan="6"> Amount</th>
+							<th class="text-center" colspan="2"> Documents</th>
+						</tr>
 		                <tr>
 		                    <th>Select</th>
 		                    <th class="text-center">SOW Item ID</th>
@@ -126,6 +139,13 @@
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding table-responsive" ng-show="displayPoContractBlock">
 				<table class="table table-striped table-hover table-bordered tabTable_5_Height">
 		            <thead>
+						<tr>
+							<th class="text-center" colspan="7">List of existing pay Items</th>
+							<th class="text-center" colspan="4">Scope  as per Approved Order</th>
+							<th class="text-center" colspan="4">Scope  as per  Current  Change  Order</th>
+							<th class="text-center" colspan="4">Cumulative  Scope of Work</th>
+							<th class="text-center" colspan="2">Documents</th>
+						</tr>
 		                <tr>
 		                    <th class="text-center">Schedule Item ID</th>
 		                    <th class="text-center">Schedule Item Description</th>                    
