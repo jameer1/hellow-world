@@ -2286,7 +2286,7 @@ public class ProjLibServiceImpl implements ProjLibService {
 			resp.setType("DeMobilization");
 			resp.setPlantRateType((String) mobRate[5]);
 			resp.setCurrencyCode((String) mobRate[6]);
-			BigDecimal rate = BigDecimal.valueOf((double)mobRate[4]);
+			BigDecimal rate = (BigDecimal) mobRate[4];
 			if (rate != null)
 				resp.setCostAmount(rate.doubleValue());
 			list.add(resp);
@@ -2364,7 +2364,7 @@ public class ProjLibServiceImpl implements ProjLibService {
 			resp.setType("Mobilization");
 			resp.setPlantRateType((String) mobRate[5]);
 			resp.setCurrencyCode((String) mobRate[6]);
-			BigDecimal rate = BigDecimal.valueOf((double)mobRate[4]);
+			BigDecimal rate = (BigDecimal) mobRate[4];
 			if (rate != null)
 				resp.setCostAmount(rate.doubleValue());
 			list.add(resp);

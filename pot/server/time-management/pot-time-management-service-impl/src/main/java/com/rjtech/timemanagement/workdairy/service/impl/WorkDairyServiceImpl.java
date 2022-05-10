@@ -2305,7 +2305,9 @@ public class WorkDairyServiceImpl implements WorkDairyService {
                 materialLedgerResTo.setMaterialId((Long) workDairyMaterial[9]);
                 materialLedgerResTo.setCostCodeId((Long) workDairyMaterial[10]);
                 materialLedgerResTo.setEpsId((Long) workDairyMaterial[11]);
-                materialLedgerResTo.setProjId((List<Long>) workDairyMaterial[12]);
+                List<Long> proj = new ArrayList<>();
+                proj.add((long)workDairyMaterial[12]);
+                materialLedgerResTo.setProjId(proj);
                 if ((materialLedgerResTo.getDate()
                         .compareTo(CommonUtil.convertStringToDate(materialFilterReq.getFromDate())) >= 0)
                         && (materialLedgerResTo.getDate()

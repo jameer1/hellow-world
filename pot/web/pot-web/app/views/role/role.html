@@ -25,7 +25,7 @@
               </thead>
               <tbody>
                 <tr data-test='Admin_ClientUser_UserProfile_SelectProfile' ng-class="{'selected':$index == selectedRow}" ng-click="setClickedRow($index)" fixed-header="" ng-repeat ="userProfile in userProfiles">
-                  <td ng-click="getRolePermissions(userProfile)"><input type="checkbox" ng-disabled="userProfile.defaultRole" ng-model="userProfile.selected" ng-change="rowSelect(userProfile)" /></td>
+                  <td><input type="checkbox" ng-disabled="userProfile.defaultRole" ng-model="userProfile.selected" ng-change="rowSelect(userProfile)" /></td>
                   <td style="width: 750px;" ng-click="getRolePermissions(userProfile)"><span ng-show="userProfile.roleId > 0">{{userProfile.roleName}}</span></td>
                 </tr>
               </tbody>

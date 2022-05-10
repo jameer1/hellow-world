@@ -9,7 +9,7 @@ import com.rjtech.procurement.model.PreContractReqApprEntity;
 
 public interface PrecontractReqApprRepository extends ProcurementBaseRepository<PreContractReqApprEntity, Long> {
 
-    @Query("SELECT PRA FROM PreContractReqApprEntity PRA  WHERE PRA.preContractEntity.id =:contractId AND  PRA.status=:status")
+    @Query("SELECT PRA FROM com.rjtech.procurement.model.PreContractReqApprEntity PRA  WHERE PRA.preContractEntity.id =:contractId AND  PRA.status=:status")
     List<PreContractReqApprEntity> findPreContractReqApprs(@Param("contractId") Long contractId,
             @Param("status") Integer status);
 

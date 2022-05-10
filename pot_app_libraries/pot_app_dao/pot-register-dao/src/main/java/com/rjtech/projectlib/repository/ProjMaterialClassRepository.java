@@ -17,6 +17,13 @@ public interface ProjMaterialClassRepository extends JpaRepository<ProjMaterialM
             + "AND  PMCM.status=:status ")
     List<MaterialClassMstrEntity> getInternalProjMaterialMstrEntity(@Param("projId") Long projId,
             @Param("status") Integer status);
+    
+    @Query("SELECT PMCM.groupId FROM ProjMaterialMstrEntity PMCM  WHERE  PMCM.projectId.projectId =:projId "
+            + "AND PMCM.intrlApproved <> 1" 
+            + "AND  PMCM.status=:status ")
+    List<MaterialClassMstrEntity> getInternalProjMaterialMstrEntiti(@Param("projId") Long projId,
+            @Param("status") Integer status);
+
 
     @Query("SELECT PMCM.groupId FROM ProjMaterialMstrEntity PMCM " 
             + "WHERE PMCM.projectId.projectId =:projId "

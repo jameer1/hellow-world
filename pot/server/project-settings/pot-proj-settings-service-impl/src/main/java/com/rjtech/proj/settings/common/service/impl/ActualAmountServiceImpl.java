@@ -247,7 +247,9 @@ public class ActualAmountServiceImpl implements ActualAmountService {
         Date weekStartDate = (Date) timesheetHr[3];
         Date nextDay;
         for (int i = 0; i < 7; i++) {
-            Instant weekStartInstant = weekStartDate.toInstant();
+            //Instant weekStartInstant = weekStartDate.toInstant();
+        	Instant weekStartInstant =  Instant.ofEpochMilli(weekStartDate.getTime());
+              
             nextDay = Date.from(weekStartInstant.plus(i, ChronoUnit.DAYS));
             Double hrs = (Double) timesheetHr[i + 4];
             if (CommonUtil.isNonBlankDouble(hrs)) {

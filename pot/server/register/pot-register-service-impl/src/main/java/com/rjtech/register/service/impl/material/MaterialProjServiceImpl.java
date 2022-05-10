@@ -499,7 +499,7 @@ public class MaterialProjServiceImpl implements MaterialProjService {
 
         if (CommonConstants.PROJ_MATERIAL_DOCKET_TYPE_INTERNAL.equalsIgnoreCase(req.getMaterialDockReqType())) {
             List<MaterialClassMstrEntity> restrictedMaterials = projMaterialClassRespository
-                    .getInternalProjMaterialMstrEntity(projId, 1);
+                    .getInternalProjMaterialMstrEntiti(projId, 1);
             if (req.getMaterialClassList() == null || !req.getMaterialClassList().isEmpty()) {
                 if (restrictedMaterials.size() == 0)
                     materialProjDtlEntities = materialProjRepository.getProjectLocSchItemsForProjDocket(projId,
