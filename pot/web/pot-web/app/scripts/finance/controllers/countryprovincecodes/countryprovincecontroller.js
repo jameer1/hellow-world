@@ -63,6 +63,7 @@ app
 						var countryProvinceCodeGetReq = {
 							"status": 1,
 						};
+						editCountryProvinceDetails=[];
 						CountryProvinceCodeService.getCountryProvinceCodes(countryProvinceCodeGetReq).then(function (data) {
 							//console.log('data===>'+data)
 							$scope.countryProvinceCodeToTOs = data.countryProvinceCodeToTOs;
