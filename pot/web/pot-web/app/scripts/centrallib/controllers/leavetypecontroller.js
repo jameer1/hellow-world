@@ -12,10 +12,11 @@ app.config(["$stateProvider", function ($stateProvider) {
 			}
 		}
 	})
-}]).controller("LeaveTypeController", ["$rootScope", "$q", "$scope", "ngDialog", "CountryService", "utilservice", "ProjLeaveTypeService", "ProjectLeaveTypePopUpService", "GenericAlertService", function ($rootScope, $q, $scope,ngDialog, CountryService, utilservice, ProjLeaveTypeService,
-	ProjectLeaveTypePopUpService, GenericAlertService) {
+}]).controller("LeaveTypeController", ["$rootScope", "$q", "$scope", "ngDialog", "CountryService", "utilservice", "ProjLeaveTypeService", "ProjectLeaveTypePopUpService", "GenericAlertService","stylesService", "ngGridService",  function ($rootScope, $q, $scope,ngDialog, CountryService, utilservice, ProjLeaveTypeService,
+	ProjectLeaveTypePopUpService, GenericAlertService,stylesService, ngGridService) {
 	$scope.toggleTable = true;
 	let editLeaveClass = [];
+	$scope.stylesSvc = stylesService;
 	$scope.leaveReq = {
 		"countryName": "",
 		"effectiveFrom": ""
@@ -58,6 +59,7 @@ app.config(["$stateProvider", function ($stateProvider) {
 		};
 		ProjLeaveTypeService.getLeaveTypesByCountry(req).then(function (data) {
 			$scope.toggleTable = false;
+			$scope.gridOptions.data = angular.copy(data.projLeaveTypeTOs);
 			$scope.tableData = data.projLeaveTypeTOs;
 			$scope.toggleTable = true;
 		}, function () {
@@ -142,4 +144,27 @@ app.config(["$stateProvider", function ($stateProvider) {
 		});
 		return deferred.promise;
 	}
+		var linkCellTemplate ='	<input type="checkbox" ng-model="row.entity.select" ng-change="grid.appScope.rowSelect(row.entity)">';
+		 var linkCellTemplate1='<input type="checkbox" ng-model="row.entity.priorApproval" ng-disabled="true">';
+		 var linkCellTemplate2='<input type="checkbox" ng-model="row.entity.medicalForm" ng-disabled="true">';
+		 var linkCellTemplate3='<input type="checkbox" ng-model="row.entity.evidenceForm" ng-disabled="true">';
+ $scope.$watch(function () { return stylesService.finishedStyling; }, function (newValue, oldValue) {
+		if (newValue) {
+			let columnDefs = [
+				{  name: 'select', displayName: "Select", headerTooltip : "Select",  width:'5%',cellClass:'justify-center',headerCellClass:'justify-center',
+				   cellTemplate: linkCellTemplate,groupingShowAggregationMenu: false },
+				{ field: 'code', displayName: "Leave Code", headerTooltip: "$scope.userReq", groupingShowAggregationMenu: false },
+				{ field: 'name', displayName: "Leave Name", headerTooltip: "Leave Name", groupingShowAggregationMenu: false },				
+				{ field: 'Prior Approval',displayName:'Prior Approval',cellClass:'justify-center', cellTemplate: linkCellTemplate1,headerTooltip: "Prior Approval", groupingShowAggregationMenu: false},
+				{ field: 'Medical Form', displayName: "Medical Form",cellClass:'justify-center', cellTemplate: linkCellTemplate2, headerTooltip: "Medical Form", groupingShowAggregationMenu: false },
+				{ field: 'Evidence & Approval ASAP', displayName: "Evidence & Approval ASAP",cellClass:'justify-center', cellTemplate: linkCellTemplate3, headerTooltip: "Evidence & Approval ASAP", groupingShowAggregationMenu: false },
+				{ field: 'maxAllowYear', displayName: "Maximum days allowed in a Year", headerTooltip: "Maximum days allowed in a Year", groupingShowAggregationMenu: false },
+				{ field: 'maxAllowEvent', displayName: "Maximum days allowed per Event", headerTooltip: "Maximum days allowed per Event", groupingShowAggregationMenu: false },
+				{ name: 'status',cellFilter: 'potstatusfilter:tab.status', displayName: "Status", headerTooltip: "Status", groupingShowAggregationMenu: false },				
+				]
+			let data = [];
+			$scope.gridOptions = ngGridService.initGrid($scope, columnDefs, data, "Enterprise_Central Library_Leave Types & Attendance Record Codes");
+			$scope.gridOptions.showColumnFooter = false;
+		}
+	});
 }]);

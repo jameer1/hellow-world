@@ -36,6 +36,16 @@
 								data-test="Dashboard_MasterDashboard_Dashboards">
 						</md-input-container>
                     </div>
+                    <div class="col-xs-2 col-sm-2 col-md-2  col-lg-2" ng-show = "categoryDetails.catgName == 'Earned Value'">
+                        <md-input-container>
+                            <label>Earned value Type</label>
+                            <md-select ng-model="earnedValueType" ng-required="true" >
+                                <md-option ng-repeat="type in earnedValueTypes" ng-value="type">
+                                    {{type.name}}
+                                </md-option>
+                            </md-select>
+                        </md-input-container>
+                    </div>
                     <div class="col-xs-8 col-sm-8 col-md-8 col-lg-4">
                         <div class="pull-right spacer3 marT15">
 							<input type="button" ng-click="getMasterDashboardDetails()" data-test="Dashboard_MasterDashboard_Apply"
@@ -356,7 +366,9 @@
 </table>  -->
            </div>
           <div ng-if="dashboard.title=='Cost Schedule Variance - Units'">
-                 <table class="table table-striped table-hover table-bordered" >
+           <div id="grid" ui-grid="gridOptions13" ng-if="stylesSvc.finishedStyling" 
+				 ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-grouping class="grid"></div>          
+                <!--  <table class="table table-striped table-hover table-bordered" >
      <thead>
          <tr>
              <th rowspan="2" width="16%">EPS Name</th>
@@ -469,10 +481,13 @@
           </td>
         </tr>
     </tbody>
-</table>  
+</table>   -->
            </div>
         <div ng-if="dashboard.title=='Cost Schedule Variance - %'">
-                  <table class="table table-striped table-hover table-bordered" >
+         <div id="grid" ui-grid="gridOptions14" ng-if="stylesSvc.finishedStyling" 
+				 ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-grouping class="grid"></div>
+        
+                 <!--  <table class="table table-striped table-hover table-bordered" >
 	<thead>
 		<tr>
 			<th rowspan="2" width="16%">EPS Name</th>
@@ -581,12 +596,13 @@
 			</td>
 		</tr>
 	</tbody>
-</table>  
+</table>   -->
            </div>
            
           <div ng-if="dashboard.title=='Cost Schedule Performance Indices'">
-                    
-           <table class="table table-striped table-hover table-bordered" >
+            <div id="grid" ui-grid="gridOptions15" ng-if="stylesSvc.finishedStyling" 
+				 ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-grouping class="grid"></div>
+          <!--  <table class="table table-striped table-hover table-bordered" >
 	<thead>
 		<tr>
 			<th rowspan="2" width="16%">EPS Name</th>
@@ -695,7 +711,7 @@
 			</td>
 		</tr>
 	</tbody>
-</table> 
+</table>  -->
            </div>
         <div ng-if="dashboard.title=='To Complete Performance Index'">
               
@@ -785,7 +801,9 @@
   </div>
 
 <div ng-if="dashboard.title=='Current Dates & Progress %'">
-<table class="table table-striped table-hover table-bordered singleTableHeight">
+<div id="grid" ui-grid="gridOptions8" ng-if="stylesSvc.finishedStyling" 
+							ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-grouping class="grid"></div>
+<!-- <table class="table table-striped table-hover table-bordered singleTableHeight">
 	<thead>
 		<tr>
 			<th>EPS Name</th>
@@ -826,7 +844,7 @@
 		</td>
 		<td>{{progress.currentPhase}}</td>
 	</tr>
-</table> 
+</table>  -->
 </div>
 
 <div ng-if="dashboard.title =='Projects Gantt Chart'">
@@ -1011,7 +1029,9 @@
 
 
 <div ng-if="dashboard.title =='Original Vs Estimate At Completion Cost'">
-<table class="table table-striped table-hover table-bordered tabTable_1_height">
+<div id="grid" ui-grid="gridOptions5" ng-if="stylesSvc.finishedStyling" 
+							ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-grouping class="grid"></div>
+<!-- <table class="table table-striped table-hover table-bordered tabTable_1_height">
     <thead>
         <tr>
             <th>EPS</th>
@@ -1032,12 +1052,14 @@
             <td>{{costDetails.estAtCompletionTotal | number: 2}}</td>
         </tr>
     </tbody>
-</table>
+</table> -->
 </div>
 
 
 <div ng-if="dashboard.title =='Plan Vs Actual Vs Earned Value Cost'">
-<table class="table table-striped table-hover table-bordered tabTable_1_height">
+<div id="grid" ui-grid="gridOptions6" ng-if="stylesSvc.finishedStyling" 
+							ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-grouping class="grid"></div>
+<!-- <table class="table table-striped table-hover table-bordered tabTable_1_height">
 	<thead>
 		<tr>
 			<th>EPS</th>
@@ -1056,11 +1078,13 @@
 			<td>{{planActual.earnedValueTotal | number:2}}</td>
 		</tr>
 	</tbody>
-</table>
+</table> -->
 </div>
 
 <div ng-if="dashboard.title =='Cost Work Sheet'">
-<table class="table table-striped table-hover table-bordered tabTable_1_height">
+<div id="grid" ui-grid="gridOptions7" ng-if="stylesSvc.finishedStyling" 
+							ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-grouping class="grid"></div>
+<!-- <table class="table table-striped table-hover table-bordered tabTable_1_height">
 	<thead>
 		<tr>
 			<th>EPS Name</th>
@@ -1095,7 +1119,7 @@
 			<td>{{dashboards.estAtCompletionTotal | number : 2}}</td>
 		</tr>
 	</tbody>
-</table> 
+</table>  -->
 </div>
 <div ng-if="dashboard.title =='Labour Hours Health Check'">
 <div id="grid" ui-grid="gridOptions1" ng-if="stylesSvc.finishedStyling" 
@@ -1267,7 +1291,9 @@
 </table>  -->
 </div>
 <div ng-if="dashboard.title =='Plan Vs Actual Vs Earned - Direct Man Hours'">
-<table class="table table-striped table-hover table-bordered tabTable_1_height">
+<div id="grid" ui-grid="gridOptions3" ng-if="stylesSvc.finishedStyling" 
+							ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-grouping class="grid"></div>
+<!-- <table class="table table-striped table-hover table-bordered tabTable_1_height">
 	<thead>
 		<tr>
 			<th>Project Name</th>
@@ -1284,7 +1310,7 @@
 			<td>{{labour.earnedManHoursTotal | number:2}}</td>
 		</tr>
 	</tbody>
-</table> 
+</table> --> 
 </div>
 
 <div ng-if="dashboard.title =='S Curve - Cost'">
@@ -1419,50 +1445,6 @@
 </section>  
 </div>
 
-<div ng-if="dashboard.title =='Remaining Budget by Country'">
-<section class="content">
-    <div class="panel panel-default block footer-parent">
-        <div class="panel-body">
-            <div>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 padL-0">
-                        <md-input-container>
-                            <label class="labelName">EPS Name</label>
-                            <input type="text" ng-model="searchProjectCoun.parentName" ng-click="getUserProjectsCoun()"
-                                readonly data-test="RemainingBudget_RemainingBudgetByCountry_EPS">
-                        </md-input-container>
-                    </div>
-                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                        <md-input-container>
-                            <label class="labelName">Project Name</label>
-                            <input type="text" ng-model="searchProjectCoun.projName" ng-click="getUserProjectsCoun()" readonly data-test="RemainingBudget_RemainingBudgetByCountry_Project">
-                        </md-input-container>
-                    </div>
-                    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 padR-0">
-                        <div class="pull-right spacer3 marT15">
-                            <input type="button" ng-click="getRemainingBudgetByCountryDetailsCoun()"
-                                class="btn btn-primary btn-sm" value="Apply" data-test="RemainingBudget_RemainingBudgetByCountry_Apply">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="singleTableResHeight_2" style="overflow: auto;">
-               <div ng-repeat="remainingBudgetByCountryTab in remainingBudgetByCountryTabsCoun">
-    <div class="dbmodulecard">
-        <p class="ngdialog-close dbdclose" style="font-size: 26px; margin-right: 10px;"
-            ng-click="remainingBudgetByCountryTabsCoun.splice($index,1)"></p>
-        <canvas class="chart chart-base" chart-data="remainingBudgetByCountryTab.data"
-            chart-labels="remainingBudgetByCountryTab.labels" height="50" chart-type="chart_type"
-            chart-options="optionsCoun" chart-colors="colors"
-            chart-series="remainingBudgetByCountryTab.series" context-menu="menuOptions"></canvas>
-    </div>
-</div>
-            </div>
-        </div>
-    </div>
-</section>
-</div>
-
 <div ng-if="dashboard.title !='Progress, Variance & Performance Indices'">
 <div ng-if="dashboard.title !='Cost Schedule & Performance'">
 <div ng-if="dashboard.title !='Cost Schedule Variance - Units'">
@@ -1476,7 +1458,6 @@
 <div ng-if="dashboard.title !='Cost Schedule Variance - Units'">
 <div ng-if="dashboard.title !='Projects Gantt Chart'">
 <div ng-if="dashboard.title !='Cost Health Check'">
-<div ng-if="dashboard.title !='Remaining Budget by Country'">
 <div ng-if="dashboard.title !='Original Vs Estimate At Completion Cost'">
 <div ng-if="dashboard.title !='Plan Vs Actual Vs Earned Value Cost'">
 <div ng-if="dashboard.title !='Cost Work Sheet'">
