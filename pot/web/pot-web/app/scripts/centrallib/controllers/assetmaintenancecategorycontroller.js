@@ -49,7 +49,6 @@ app.config(["$stateProvider", function($stateProvider) {
 
 	$scope.SearchAssetMaintenanceCategory = function () {
 		if ($scope.assetMaintenanceSearch.code || $scope.assetMaintenanceSearch.name) {
-			//$scope.getAssetMaintenanceCategory();
 			const assetMaintenanceTOs = new Array();
 			for (const assetObj of assetMaintenanceDataCopy) {
 				if (($scope.assetMaintenanceSearch.code && assetObj.code && assetObj.code.toUpperCase() ===
@@ -80,7 +79,6 @@ app.config(["$stateProvider", function($stateProvider) {
 		assetspopup = addAssetCategoryservice.addAssetMaintenanceDetails(actionType,itemData);
 		assetspopup.then(function(data) {
 			$scope.AssetsMaintenanceData = populateAssetMaintananceData(data.assetMaintenanceCategoryTOs,0,[]);
-			$scope.getAssetMaintenanceCategory();
 		}, function(error) {
 			GenericAlertService.alertMessage("Error Occured While Getting  Assets Maintenance Category", "Error");
 		});
