@@ -847,7 +847,7 @@ app.config(["$stateProvider", function($stateProvider) {
 			GenericAlertService.alertMessage('Please select atleast one row to modify', "Warning");
 			return;
 		} else if (companyId != undefined && companyId != null) {
-			var compContPopup = CompanyContactFactory.companyContactPopUp(actionType, editContacts, companyId);
+			var compContPopup = CompanyContactFactory.companyContactPopUp(actionType, editContacts, companyId, $scope.contacts);
 			compContPopup.then(function(data) {
 				$scope.contacts = data.contactsTOs;
 				editContacts = [];
@@ -999,6 +999,7 @@ app.config(["$stateProvider", function($stateProvider) {
 		});
 
 	}, $scope.currentProjRowSelect = function(proj) {
+		editProjs = [];
 		if (proj.selected) {
 			editProjs.push(proj);
 		} else {
@@ -1011,7 +1012,7 @@ app.config(["$stateProvider", function($stateProvider) {
 			GenericAlertService.alertMessage('Please select atleast one row to modify', "Warning");
 			return;
 		} else if (companyId != undefined && companyId != null) {
-			var compProjectPopup = CompanyCurrentProjectsFactory.projectPopUp(actionType, editProjs, companyId);
+			var compProjectPopup = CompanyCurrentProjectsFactory.projectPopUp(actionType, editProjs, companyId, $scope.currentProjs);
 			compProjectPopup.then(function(data) {
 				$scope.currentProjs = data.companyProjectsTO;
 				editProjs = [];

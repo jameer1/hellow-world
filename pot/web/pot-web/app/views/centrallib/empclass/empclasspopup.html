@@ -28,20 +28,19 @@
 								name="code" ng-model="employees.code"
 								ng-class="{coloumnHighlightColor:employees.duplicateFlag}"
 								ng-change="duplicateCode(employees)"
-								pattern="[a-zA-Z0-9\s]+"
+								pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
 								minlength="2" maxlength="20"
 								placeholder="Employee Classification Code" ng-required="true">
 								<span
 								ng-show="employeesform.code.$touched && employeesform.code.$error.required" class="procurment-pot-errors">This
 									field is mandatory</span> 
-								<span ng-show="employeesform.code.$error.pattern"  class="procurment-pot-errors">Alpha
-									numeric data should be allowed</span>
+								<span ng-show="employeesform.code.$error.pattern"  class="procurment-pot-errors">Atleast one alphabet is mandatory</span>
 							<td ng-form name="employeesform1">
 								
 								<input data-test='CentralLibrary_Employeclassification_Create_Employeclassificationname' 
 								class="form-control" type="text"
 								name="name" ng-model="employees.name"
-								pattern="[a-zA-Z0-9\s]+"
+								pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
 								minlength="3" maxlength="50"
 								placeholder="Employee Classification Name" ng-required="true">
 								<span
@@ -49,8 +48,7 @@
 								class="procurment-pot-errors">This
 									field is mandatory</span> 
 								<span ng-show="employeesform1.name.$error.pattern" 
-								class="procurment-pot-errors">Alpha
-									numeric data should be allowed</span></td>
+								class="procurment-pot-errors">Atleast one alphabet is mandatory</span></td>
 
 
 							<td ng-form="empClassificationMeasure"><select data-test='CentralLibrary_Employeclassification_Create_unitofmeasure' class="form-control"

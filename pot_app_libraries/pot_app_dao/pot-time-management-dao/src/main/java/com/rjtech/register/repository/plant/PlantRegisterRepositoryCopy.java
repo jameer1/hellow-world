@@ -24,4 +24,10 @@ public interface PlantRegisterRepositoryCopy extends JpaRepository<PlantRegister
             + " AND TO_CHAR(PPAT.plantAttendanceMstrEntity.attendanceMonth,'MON-YYYY') = TO_CHAR(:startDate,'MON-YYYY')")
     List<PlantRegisterDtlEntity> findAttendanceForByProjIdCrewId(@Param("projId") long projId,
             @Param("crewId") long crewId, @Param("startDate") Date startDate);
+    
+    @Query("SELECT DISTINCT PPAT.plantRegisterDtlEntity FROM PlantAttendanceEntity PPAT "
+            + " WHERE PPAT.plantAttendanceMstrEntity.projMstrEntity.projectId =:projId AND PPAT.plantAttendanceMstrEntity.projCrewMstrEntity.id=:crewId "
+            + " AND TO_CHAR(PPAT.plantAttendanceMstrEntity.attendanceMonth,'MON-YYYY') = TO_CHAR(:startDate,'MON-YYYY')")
+    List<PlantRegisterDtlEntity> findAttendanceForCopyByProjIdCrewId(@Param("projId") long projId,
+            @Param("crewId") long crewId, @Param("startDate") Date startDate);
 }

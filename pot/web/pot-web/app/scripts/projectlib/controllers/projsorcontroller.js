@@ -17,6 +17,7 @@ app.config(["$stateProvider", function ($stateProvider) {
 	$scope.SORData = [];
 	$scope.sorData =[];
 	var deleteSORData = [];
+	$scope.flag = false;
 	var selectedSORItemsData = [];
 	var selectedSORIds = [];
 	$scope.searchProject = {};
@@ -47,9 +48,11 @@ app.config(["$stateProvider", function ($stateProvider) {
 			"displayActiveItems" : 0,
 			"loggedInUser": $rootScope.account.userId
 		};
-		if (sorReq.projId == null || sorReq.status == undefined) {
+		if(!$scope.flag){
+		  if (sorReq.projId == null || sorReq.status == undefined) {
 			GenericAlertService.alertMessage("Please select EPS/Project", 'Warning');
 			return;
+		  }	
 		}
 		ProjSORService.getSORDetails(sorReq).then(function (data) {
 		//	$scope.sorStatus = null;
@@ -213,6 +216,7 @@ app.config(["$stateProvider", function ($stateProvider) {
     });
     $scope.resetSORDatas = function(){
 		$scope.sorStatus = "";  
+		 $scope.flag = true;
       $scope.getSORDetails();
       selectedSORIds = [];
       $scope.disableBtnsArry = {"SUBMIT_FOR_INTERNAL_APPROVAL":true,"SUBMIT_FOR_EXTERNAL_APPROVAL":true,"INTERNAL_APPROVAL":true,"EXTERNAL_APPROVAL":true,"RETURN_WITH_COMMENTS":true};

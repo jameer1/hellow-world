@@ -12,8 +12,39 @@ app.factory('CountryProvinceCodeFactory', ["ngDialog", "$q", "$filter", "$timeou
 			showClose : false,
 			controller : [ '$scope', function($scope) {
 				$scope.CountryProvinceDetails=[];
+				$scope.item=[];
+				var countryCode;
 				$scope.actionType = actionType;
-
+                $scope.getCountryDetailsByIdz = function(item) {
+					countryCode = item[0].countryCode;
+					$scope.getCountriesz(item);
+				}
+				$scope.getCountriesz = function() {
+					console.log("hllo")
+					CountryService.getCountries().then(function(data) {
+						console.log(data)
+						$scope.countriesz = data.countryInfoTOs;
+						$scope.countryObjz = $scope.countriesz.find(function(country) {
+							return country.countryCode === countryCode;
+						});
+						if ($scope.countryObjz) {
+							const req = { "geonameId": $scope.countryObjz.geonameId };
+							CountryService.getProvince(req).then(function(data) {
+								$scope.item = data.provisionTOs;
+								$scope.datas=editCountryProvinceDetails;
+								for(var i=0; i<$scope.datas.length; i++){
+									$scope.datas[i].provisionTOs=[];
+									$scope.datas[i].provisionTOs=$scope.item
+								}
+								$scope.CountryProvinceDetails = angular.copy($scope.datas);
+							}, function(error) {
+								GenericAlertService.alertMessage("Error occured while getting Province Details", "Error");
+							});
+						}
+					}, function(error) {
+						GenericAlertService.alertMessage("Error occured while getting Countries", "Error");
+					});
+				}
 				let financialYearData ;
 				let financialHalfYearData;
 				let financialQuarterYearData ;
@@ -31,13 +62,13 @@ app.factory('CountryProvinceCodeFactory', ["ngDialog", "$q", "$filter", "$timeou
 				if (actionType === 'Add') {
 					$scope.CountryProvinceDetails.push($scope.CountryProvinceDetailsData);
 				} else {
-					$scope.CountryProvinceDetails = angular.copy(editCountryProvinceDetails);
+					$scope.getCountryDetailsByIdz(editCountryProvinceDetails);
 				}
+				$scope.details = editCountryProvinceDetails;
 				
 				$scope.getCountries = function() {
 					CountryService.getCountries().then(function(data) {
 						$scope.countries = data.countryInfoTOs;
-						
 					}, function(error) {
 						GenericAlertService.alertMessage("Error occured while getting Countries", "Error");
 					});

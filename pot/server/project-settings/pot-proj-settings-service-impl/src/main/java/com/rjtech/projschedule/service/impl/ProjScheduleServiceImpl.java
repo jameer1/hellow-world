@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -397,7 +398,7 @@ public class ProjScheduleServiceImpl implements ProjScheduleService {
             while (startDate.before(endDate) || startDate.equals(endDate)) {
                 dateWiseActualQuantity.add(getActualValuesLabelTo(timesheetHrs[0], startDate, timesheetHrs[hrsIndex]));
                 hrsIndex++;
-                startDate = Date.from(startDate.toInstant().plus(1, ChronoUnit.DAYS));
+                startDate = Date.from(Instant.ofEpochMilli(startDate.getTime()).plus(1, ChronoUnit.DAYS));
             }
         }
         for (Object[] workDairyHrs : workDairyEmpHrs) {

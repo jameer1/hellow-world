@@ -25,6 +25,7 @@ app.config(["$stateProvider", function($stateProvider) {
 	$scope.searchProject = {};
 	var deferred = $q.defer();
 	$scope.activeFlag=0;
+	$scope.flag = false;
 	$scope.submitTime = false;
 	$scope.submitReTime = false;
 //	$scope.submitTime = true;
@@ -66,9 +67,11 @@ app.config(["$stateProvider", function($stateProvider) {
 			"loggedInUser" : $rootScope.account.userId
 		};
 		console.log(soeReq);
-		if (soeReq.projId == null || soeReq.status == undefined) {
+	     if(!$scope.flag){
+		 if (soeReq.projId == null || soeReq.status == undefined) {
 			GenericAlertService.alertMessage("Please select EPS/Project", 'Warning');
 			return;
+		 }	
 		}
 		ProjSOEService.getSOEDetails(soeReq).then(function(data) {
 			console.log(data);
@@ -299,6 +302,7 @@ app.config(["$stateProvider", function($stateProvider) {
     $scope.resetSOEDatas = function(){
 	  if($scope.soeStatus != null)
 		$scope.soeStatus = "";  
+		$scope.flag = true;
       $scope.getSOEDetails();
       $scope.disableBtns = {"disableInternalSubmitBtn":true,"disableInternalApproveBtn":true,"disableExternalSubmitBtn":true,"disableExternalApproveBtn":true,"displayReturnBtn":true,"displayAddtlTime":false};
     }

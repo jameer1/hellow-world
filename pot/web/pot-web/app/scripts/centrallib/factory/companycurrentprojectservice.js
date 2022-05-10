@@ -2,7 +2,7 @@
 app.factory('CompanyCurrentProjectsFactory', ["ngDialog", "$q", "$filter", "blockUI", "$timeout", "$rootScope", "CompanyService", "GenericAlertService", function(ngDialog, $q, $filter,blockUI, $timeout, $rootScope, CompanyService, GenericAlertService) {
 	var projectPopUp;
 	var service = {};
-	service.projectPopUp = function(actionType, editProjs, companyId) {
+	service.projectPopUp = function(actionType, editProjs, companyId, data) {
 		var deferred = $q.defer();
 		projectPopUp = ngDialog.open({
 			template : 'views/centrallib/companylist/currentprojpopup.html',
@@ -76,6 +76,7 @@ app.factory('CompanyCurrentProjectsFactory', ["ngDialog", "$q", "$filter", "bloc
 					});
 				}
 				$scope.savePojects = function() {
+					 var flag = false;
 					angular.forEach($scope.projectList, function(value) {
 						if(value.startDate=="" || value.startDate==null){
 							GenericAlertService.alertMessage('Please enter start date', 'Warning');
@@ -89,7 +90,17 @@ app.factory('CompanyCurrentProjectsFactory', ["ngDialog", "$q", "$filter", "bloc
 							forEach.break();
 							return;
 						}
+					   
+						for (var i = 0; i < data.length; i++) {
+							if (data[i].projCode == value.projCode && data[i].contractValue == value.contractValue && data[i].startDate == value.startDate && data[i].finishDate == value.finishDate && data[i].performance == value.performance) {
+								flag = true;
+							}
+						}	
 					})
+					if (flag) {
+							GenericAlertService.alertMessage('Duplicate Current Projects are not allowed', 'Warning');
+							return;
+						}
 					angular.forEach($scope.projectList, function(value) {
 						if(value.projCode==null || value.projName==null ||value.projCode==undefined || value.projName==undefined || value.projCode==""|| value.projName==""){
 							GenericAlertService.alertMessage('Please select Project Id', 'Warning');

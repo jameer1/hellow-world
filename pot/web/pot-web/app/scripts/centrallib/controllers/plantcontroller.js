@@ -281,6 +281,7 @@ app.config(["$stateProvider", function($stateProvider) {
 				"plantClassIds" : deleteIds,
 				"status" : 1
 			};
+			GenericAlertService.confirmMessageModal('Do you really want to Activate the record', 'Warning', 'YES', 'NO').then(function() {
 			PlantClassService.deletePlantClasses(req).then(function(data) {
 			});
 			angular.forEach(editplantClassification, function(value, key) {
@@ -291,6 +292,7 @@ app.config(["$stateProvider", function($stateProvider) {
 			});
 			editplantClassification = [];
 			$scope.deleteIds = [];
+		})
 		}
 	}
 	$scope.deletePlantClasses = function() {

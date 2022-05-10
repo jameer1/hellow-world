@@ -2,7 +2,8 @@
 app.factory('CompanyContactFactory',	["ngDialog", "$q", "$filter", "blockUI", "$timeout", "$rootScope", "CompanyService", "GenericAlertService", function(ngDialog, $q, $filter,blockUI, $timeout, $rootScope,CompanyService,GenericAlertService ) {
 		var companyContactPopUp;
 		var service = {};
-		service.companyContactPopUp = function(actionType,editContacts,companyId) {
+		service.companyContactPopUp = function(actionType,editContacts,companyId,data) {
+		//	console.log(data)
 		var deferred = $q.defer();
 		companyContactPopUp = 	ngDialog.open({
 			template : 'views/centrallib/companylist/addcontactspopup.html',
@@ -39,31 +40,48 @@ app.factory('CompanyContactFactory',	["ngDialog", "$q", "$filter", "blockUI", "$
 												'status' : '1',
 												'selected' : false
 											});
-								},
-								$scope.saveContacts = function() {
-									var req = {
-										"contactsTOs" : $scope.contactList,
-										'companyId' : companyId,
-									};
-									blockUI.start();
-									CompanyService.saveContacts(req).then(function(data) {
-										blockUI.stop();
-										var results = data.contactsTOs;
-										// var succMsg = GenericAlertService.alertMessageModal('Company Contact(s) is/are '+ data.message,data.status);
-										var succMsg = GenericAlertService.alertMessageModal('Company Contact(s) saved successfully',"Info");
-										       succMsg.then(function(popData) {
-															ngDialog.close(companyContactPopUp);
-															var returnPopObj = {
-															"contactsTOs" : results
-															};
-															deferred.resolve(returnPopObj);
-														});
-								},
-								function(error) {
-									blockUI.stop();
-									GenericAlertService.alertMessage('Contact(s) is/are failed to save','Error');
-								});
-			},
+								},						
+									$scope.saveContacts = function() {
+										var flag = false;
+										console.log(data)
+									for (var i = 0; i < data.length; i++) {
+										for(var j=0;j<$scope.contactList.length;j++){
+											if (data[i].contactName == $scope.contactList[j].contactName && data[i].email == $scope.contactList[j].email && data[i].mobile == $scope.contactList[j].mobile && data[i].phone == $scope.contactList[j].phone && data[i].designation == $scope.contactList[j].designation) {
+											//	console.log("hello")
+											flag = true;
+
+											//	break;
+										}
+										}
+										
+									}
+										if (flag) {
+											GenericAlertService.alertMessage('Duplicate Contacts are not allowed', 'Warning');
+											return;
+										}
+										var req = {
+											"contactsTOs": $scope.contactList,
+											'companyId': companyId,
+										};
+										blockUI.start();
+										CompanyService.saveContacts(req).then(function(data) {
+											blockUI.stop();
+											var results = data.contactsTOs;
+											// var succMsg = GenericAlertService.alertMessageModal('Company Contact(s) is/are '+ data.message,data.status);
+											var succMsg = GenericAlertService.alertMessageModal('Company Contact(s) saved successfully', "Info");
+											succMsg.then(function(popData) {
+												ngDialog.close(companyContactPopUp);
+												var returnPopObj = {
+													"contactsTOs": results
+												};
+												deferred.resolve(returnPopObj);
+											});
+										},
+											function(error) {
+												blockUI.stop();
+												GenericAlertService.alertMessage('Contact(s) is/are failed to save', 'Error');
+											});
+									},
 								$scope.contactsPopUpRowSelect = function(contact) {
 									if (contact.selected) {
 										selectedContacts.push(contact);
