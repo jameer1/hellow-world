@@ -211,4 +211,6 @@ public interface MWProjLibService {
     ProjSOETrackLogResp saveProjSOETrackDetails(ProjSOETrackSaveReq projSOETrackSaveReq);
     
     ProjSOETrackLogResp getProjSOETrackDetails(ProjSOETrackGetReq projSOETrackGetReq);
+    
+    ProjSORTrackDetailsResp getProjSORTrackDetails(ProjSORTrackGetReq projSORTrackGetReq);
 }

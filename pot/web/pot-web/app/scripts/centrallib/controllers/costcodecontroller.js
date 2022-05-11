@@ -285,6 +285,7 @@ app.config(["$stateProvider", function ($stateProvider) {
 					"costCodeIds": deleteIds,
 					"status": 1
 				};
+				GenericAlertService.confirmMessageModal('Do you really want to Activate the record', 'Warning', 'YES', 'NO').then(function() {
 				CostCodeService.deleteCostCodes(req).then(function (data) { });
 				angular.forEach(editcostCodesClass, function (value, key) {
 					GenericAlertService.alertMessage('Cost code(s) activated successfully', 'Info');
@@ -293,9 +294,12 @@ app.config(["$stateProvider", function ($stateProvider) {
 					function (error) {
 						GenericAlertService.alertMessage('Cost code(s) is/are failed to activate', "Error");
 					});
+					
 				editcostCodesClass = [];
 				$scope.deleteIds = [];
+				});
 			}
+			
 		}
 	$scope.deleteCostCodes = function () {
 		if (editcostCodesClass.length <= 0) {

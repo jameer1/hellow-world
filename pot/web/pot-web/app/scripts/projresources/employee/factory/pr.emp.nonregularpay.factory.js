@@ -37,8 +37,8 @@ app.factory('NonRegularPayFactory', ["ngDialog", "$q", "$filter", "$timeout", "$
 				$scope.projEmployeeClassMap = itemData.projEmployeeClassMap;
 				$scope.empDropDown = itemData.empDropDown;
 				$scope.nonRegularPayCodeMap = nonRegularPayCodeMap;
-				console.log("$scope.nonRegularPayCodeMap",$scope.nonRegularPayCodeMap)
-				console.log("$scope.nonRegularPayCodeMap.code",$scope.nonRegularPayCodeMap[61].code)
+				//console.log("$scope.nonRegularPayCodeMap",$scope.nonRegularPayCodeMap)
+				//console.log("$scope.nonRegularPayCodeMap.code",$scope.nonRegularPayCodeMap[61].code)
 				var oldEffectiveFromDate = $scope.empNonRegularPay.fromDate;
 				$scope.searchEffectiveDetails = function(empNonRegularPay) {
 					var req = {

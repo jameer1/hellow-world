@@ -307,6 +307,7 @@ app.config(["$stateProvider", function ($stateProvider) {
 				"empClassIds": deleteIds,
 				"status": 1
 			};
+			GenericAlertService.confirmMessageModal('Do you really want to Activate the record', 'Warning', 'YES', 'NO').then(function() {
 			EmpService.deleteEmpClasses(req).then(function (data) { });
 			GenericAlertService.alertMessage('Employee(s) activated successfully', 'Info');
 			angular.forEach(editemployeesClassification, function (value, key) {
@@ -317,7 +318,7 @@ app.config(["$stateProvider", function ($stateProvider) {
 				});
 			editemployeesClassification = [];
 			$scope.deleteIds = [];
-
+			});
 		}
 	}
 	$scope.deleteEmpClasses = function () {

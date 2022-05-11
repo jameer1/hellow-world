@@ -35,6 +35,8 @@ import com.rjtech.mw.service.user.MWUserService;
 import com.rjtech.projectlib.req.ProjGetReq;
 import com.rjtech.projsettings.constans.ProjSettingsURLConstants;
 import com.rjtech.projsettings.dto.ProjGenCurrencyResp;
+import com.rjtech.projsettings.req.ChangeOrderDetailsGetReq;
+import com.rjtech.projsettings.req.ChangeOrderDetailsSaveReq;
 import com.rjtech.projsettings.req.ProjAttendenceApprSaveReq;
 import com.rjtech.projsettings.req.ProjAttendenceGetReq;
 import com.rjtech.projsettings.req.ProjAttendenceSaveReq;
@@ -102,6 +104,7 @@ import com.rjtech.projsettings.req.ProjectMaterialSaveReq;
 import com.rjtech.projsettings.req.ProjectPlantsGetReq;
 import com.rjtech.projsettings.req.ProjectPlantsSaveReq;
 import com.rjtech.projsettings.req.ProjectTangibleReq;
+import com.rjtech.projsettings.resp.ChangeOrderDetailsResp;
 import com.rjtech.projsettings.resp.ProjAttendenceResp;
 import com.rjtech.projsettings.resp.ProjCostBudgetResp;
 import com.rjtech.projsettings.resp.ProjCostCodeStatusResp;
@@ -976,4 +979,17 @@ public class MWProjectSettingsController {
     public ResponseEntity<ProjResourceBudgetResp> getProjResBudget(@RequestBody ResourceBudgetGetReq resBudgetGetReq){
     	return new ResponseEntity<ProjResourceBudgetResp>(mwProjectSettingsService.getProjResBudget(resBudgetGetReq), HttpStatus.OK);
     }
+    
+    @RequestMapping(value=ProjSettingsURLConstants.GET_CHANGE_ORDER_ONLOAD, method=RequestMethod.POST)
+    public ResponseEntity<ChangeOrderDetailsResp> getProjChangeOrderDetail(@RequestBody ChangeOrderDetailsGetReq changeOrderDetailsGetReq){
+    	return new ResponseEntity<ChangeOrderDetailsResp>(mwProjectSettingsService.getProjChangeOrderDetail(changeOrderDetailsGetReq), HttpStatus.OK);
+    }
+    
+    
+    @RequestMapping(value=ProjSettingsURLConstants.SAVE_CHANGE_ORDER_ONLOAD, method= RequestMethod.POST)
+    public ResponseEntity<ChangeOrderDetailsResp>  saveProjChangeOrderDetail(@RequestBody ChangeOrderDetailsSaveReq changeOrderDetailsSaveReq){
+    	return new ResponseEntity<ChangeOrderDetailsResp>(mwProjectSettingsService.saveProjChangeOrderDetail(changeOrderDetailsSaveReq), HttpStatus.OK);
+    }
+    
+    
 }

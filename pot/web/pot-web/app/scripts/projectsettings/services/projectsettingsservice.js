@@ -594,5 +594,19 @@ app.factory('ProjectSettingsService', ["Restangular", "$http", "$q", "appUrl", f
 			});
 			return saveSoeApprReq;
 		},
+		
+		projchangeOrderOnLoad: function(req){
+			var result = Restangular.one('projsettings/getChangeOrderDetails').customPOST(req, '', {}, {
+				ContentType: 'application/json'
+			});
+			return result;
+		},
+		
+		saveChangeOrderDetails: function(req) {
+			var saveChangeOrderDetailsReq = Restangular.one('projsettings/saveChangeOrderDetails').customPOST(req, '', {}, {
+				ContentType: 'application/json'
+			});
+			return saveChangeOrderDetailsReq;
+		},
 	}
 }]);

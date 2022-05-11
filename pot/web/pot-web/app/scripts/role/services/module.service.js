@@ -1451,8 +1451,21 @@ function getReportModule() {
     performanceThreshold.permissionTOs.push(createPermission("PRJ_PRJSTG_PRFMTHRSHLD_ADD", "ADD", false));
     projectSettings.childModules.push(performanceThreshold);
 
-
-
+	var changeOrder = createModule("Change Orders", true, "", "Y");
+	changeOrder.permissionTOs.push(createPermission("PRJ_PRJSTG_CHANGEORDER_TAB", "VIEW", false));
+	
+	var changeOrderNormalTime = createModule("Normal Time", true, "changeOrders", "Y");
+	changeOrderNormalTime.permissionTOs.push(createPermission("PRJ_PRJSTG_CHANGEORDERNORMALTIME_VIEW", "VIEW", false));
+	changeOrderNormalTime.permissionTOs.push(createPermission("PRJ_PRJSTG_CHANGEORDERNORMALTIME_ADD", "ADD", false));
+	changeOrder.childModules.push(changeOrderNormalTime);
+	
+	var changeOrderAdditionalTime = createModule("Additional Time", true, "changeOrders", "Y");
+	changeOrderAdditionalTime.permissionTOs.push(createPermission("PRJ_PRJSTG_CHANGEORDERADDITIONALTIME_VIEW", "VIEW", false));
+	changeOrderAdditionalTime.permissionTOs.push(createPermission("PRJ_PRJSTG_CHANGEORDERADDITIONALTIME_ADD", "ADD", false));
+	changeOrder.childModules.push(changeOrderAdditionalTime);
+	
+	projectSettings.childModules.push(changeOrder);
+	
     var reports = createModule("Reports", true, "prjstgreports", "Y");
     reports.permissionTOs.push(createPermission("PRJ_PRJSTG_REPORT_VIEW", "VIEW", false));
     reports.permissionTOs.push(createPermission("PRJ_PRJSTG_REPORT_ADD", "ADD", false));

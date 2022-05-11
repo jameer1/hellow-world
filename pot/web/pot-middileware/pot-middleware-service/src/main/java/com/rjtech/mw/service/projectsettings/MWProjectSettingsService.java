@@ -11,6 +11,8 @@ import com.rjtech.common.req.NotificationFilterReq;
 import com.rjtech.common.resp.AppResp;
 import com.rjtech.common.resp.NotificationResp;
 import com.rjtech.projsettings.dto.ProjGenCurrencyResp;
+import com.rjtech.projsettings.req.ChangeOrderDetailsGetReq;
+import com.rjtech.projsettings.req.ChangeOrderDetailsSaveReq;
 import com.rjtech.projsettings.req.ProjAttendenceApprSaveReq;
 import com.rjtech.projsettings.req.ProjAttendenceGetReq;
 import com.rjtech.projsettings.req.ProjAttendenceSaveReq;
@@ -81,6 +83,7 @@ import com.rjtech.projsettings.req.ProjectPlantsGetReq;
 import com.rjtech.projsettings.req.ProjectPlantsSaveReq;
 import com.rjtech.projsettings.req.ProjectTangibleReq;
 import com.rjtech.projsettings.resp.CalenderResp;
+import com.rjtech.projsettings.resp.ChangeOrderDetailsResp;
 import com.rjtech.projsettings.resp.ProjAttendenceResp;
 import com.rjtech.projsettings.resp.ProjCostBudgetResp;
 import com.rjtech.projsettings.resp.ProjCostCodeStatusResp;
@@ -371,4 +374,10 @@ public interface MWProjectSettingsService {
     ProjResourceBudgetResp getProjResBudget(ResourceBudgetGetReq resBudgetGetReq);
     
     AppResp saveSoeAppr(ProjSoeApprSaveReq projSoeApprSaveReq);
+    
+    ChangeOrderDetailsResp getProjChangeOrderDetail(ChangeOrderDetailsGetReq changeOrderDetailsGetReq);
+
+	ChangeOrderDetailsResp saveProjChangeOrderDetail(ChangeOrderDetailsSaveReq changeOrderDetailsSaveReq);
+    
+    
 }

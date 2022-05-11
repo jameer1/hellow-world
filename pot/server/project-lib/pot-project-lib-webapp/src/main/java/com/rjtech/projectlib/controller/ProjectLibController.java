@@ -369,7 +369,7 @@ public class ProjectLibController {
     @RequestMapping(value = ProjLibURLConstants.SAVE_SOR_ITEMS, method = RequestMethod.POST)
     public ResponseEntity<ProjSORItemResp> saveProjSORDetails(@RequestBody ProjSORItemSaveReq projSORItemSaveReq) {
         projLibService.saveProjSORDetails(projSORItemSaveReq);
-
+        projLibService.saveProjSORTrackDetails(projSORItemSaveReq);
         ProjSORItemGetReq projSORItemGetReq = new ProjSORItemGetReq();
         projSORItemGetReq.setProjId(projSORItemSaveReq.getProjId());
 
@@ -1014,5 +1014,10 @@ public class ProjectLibController {
     @RequestMapping(value = ProjLibURLConstants.UPDATE_CO_APPROVER_DETAILS, method = RequestMethod.POST)
     public ResponseEntity<ChangeOrderResp> updateCoApproverDetails( @RequestBody ChangeOrderReq changeOrderReq ) {
         return new ResponseEntity<ChangeOrderResp>( projLibService.updateCoApproverDetails( changeOrderReq ), HttpStatus.OK );
+    }
+    
+    @RequestMapping(value = ProjLibURLConstants.GET_SOR_TRACK_RECORDS, method = RequestMethod.POST)
+    public ResponseEntity<ProjSORTrackDetailsResp> getProjSORTrackDetails(@RequestBody ProjSORTrackGetReq projSORTrackGetReq){
+    	return new ResponseEntity<ProjSORTrackDetailsResp>(projLibService.getProjSORTrackDetails(projSORTrackGetReq),HttpStatus.OK);
     }
 }

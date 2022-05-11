@@ -19,7 +19,7 @@ app.config(["$stateProvider", function ($stateProvider) {
 			}
 		}
 	})
-}]).controller('RoleController', ["$scope", "ngDialog", "$q", "$state", "RoleService", "UserService", "blockUI", "GenericAlertService", "moduleservice", function ($scope, ngDialog, $q, $state, RoleService, UserService, blockUI, GenericAlertService, moduleservice) {
+}]).controller('RoleController', ["$scope", "ngDialog", "$q", "$state", "RoleService", "UserService", "blockUI", "GenericAlertService", "moduleservice","stylesService", "ngGridService", function ($scope, ngDialog, $q, $state, RoleService, UserService, blockUI, GenericAlertService, moduleservice, stylesService, ngGridService) {
 	$scope.users = {};
 	$scope.currentRole = null;
 	$scope.moduleTreeData = [];
@@ -27,6 +27,7 @@ app.config(["$stateProvider", function ($stateProvider) {
 	$scope.uniqueRoleMap = [];
 	var deleteIds = [];
 	var saveData = [];
+	$scope.stylesSvc = stylesService;
 	var editProfiles = [];
 	$scope.defaultRole = false;
 	$scope.roleId = null;
@@ -129,6 +130,7 @@ app.config(["$stateProvider", function ($stateProvider) {
 						RoleService.saveRoles(saveRoleReq).then(function (data) {
 							blockUI.stop();
 							var succMsg = GenericAlertService.alertMessageModal("User Profile saved successfully", "Info");
+							$scope.getRoles();
 							succMsg.then(function () {
 								$scope.closeThisDialog();
 								var returnPopObj = {
@@ -171,6 +173,7 @@ app.config(["$stateProvider", function ($stateProvider) {
 		};
 		RoleService.getRoles(roleReq).then(function (data) {
 			$scope.userProfiles = data.roleTOs;
+			$scope.gridOptions.data = angular.copy($scope.userProfiles);
 		});
 	}
 	var userRoles = [];
@@ -246,6 +249,11 @@ app.config(["$stateProvider", function ($stateProvider) {
 		};
 		RoleService.getRolePermissions(rolePermissionReq).then(function (data) {
 			var moduleTreeData = angular.copy(moduleservice.modules);
+			console.log(moduleservice.modules)
+			if(moduleservice.modules)
+			for(var s of moduleTreeData){
+				moduleTreeData[5].childModules[1].childModules[15].childModules[2].permissionTOs[1].actionName="APPROVE"
+			}
 			if (data) {
 				setPermissions(data.permissions, moduleTreeData);
 				rolePermissions = data.rolePermissions;
@@ -310,13 +318,13 @@ app.config(["$stateProvider", function ($stateProvider) {
 			"permissions": permissions,
 			"roleId": $scope.roleId
 		};
-		console.log(savePermissionReq);
 		blockUI.start();
 		RoleService.saveRolePermission(savePermissionReq).then(function (data) {
 			permissions = [];
 			blockUI.stop();
 			// GenericAlertService.alertMessage('Role Permission(s) is/are ' + data.message, data.status);
 			GenericAlertService.alertMessage('User Profile permissions saved successfully', "Info");
+			$scope.getRoles();
 		}, function (error) {
 			permissions = [];
 			blockUI.stop();
@@ -347,7 +355,6 @@ app.config(["$stateProvider", function ($stateProvider) {
 			};
 			selectedPermission.toBeSavedPerm = permission;
 			permissions.push(permission);
-			console.log(permissions);
 		}
 	};
 
@@ -412,6 +419,21 @@ app.config(["$stateProvider", function ($stateProvider) {
 			GenericAlertService.alertMessage("Error",'Info');
 		})
 	}
+	var linkCellTemplate ='	<input type="checkbox" ng-click="grid.appScope.getRolePermissions(row.entity)" ng-disabled="row.entity.defaultRole" ng-model="row.entity.selected" ng-change="grid.appScope.rowSelect(row.entity)">';
+		$scope.$watch(function () { return stylesService.finishedStyling; },
+			function (newValue, oldValue) {
+				if (newValue) {
+					let columnDefs = [
+					    { name: 'select', cellTemplate: linkCellTemplate,  displayName: "Select", headerTooltip : "Select" },
+						{ field: 'roleName',cellTemplate:"<span style='width:750px;' ng-click='grid.appScope.getRolePermissions(row.entity)'>{{row.entity.roleName}}</span>", displayName: "Profile Name", headerTooltip: "Emp ID"}
+						];
+					let data = [];
+					$scope.getRoles();
+					$scope.gridOptions = ngGridService.initGrid($scope, columnDefs, data, "Admin_User profiles & privileges");
+					$scope.gridOptions.gridMenuCustomItems = false;
+				}
+			});
+	
 	var helppagepopup;
 	HelpService.pageHelp = function () {
 		var deferred = $q.defer();

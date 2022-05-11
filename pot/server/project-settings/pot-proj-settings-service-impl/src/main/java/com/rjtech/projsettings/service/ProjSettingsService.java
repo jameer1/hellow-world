@@ -11,6 +11,9 @@ import com.rjtech.common.dto.FinancePeriodPayCyclesTO;
 import com.rjtech.common.dto.LabelKeyTO;
 import com.rjtech.progress.reports.req.ProgressReportGetReq;
 import com.rjtech.projsettings.dto.ProjGenCurrencyResp;
+import com.rjtech.projsettings.model.ChangeOrderNormalTimeEntity;
+import com.rjtech.projsettings.req.ChangeOrderDetailsGetReq;
+import com.rjtech.projsettings.req.ChangeOrderDetailsSaveReq;
 import com.rjtech.projsettings.req.ProjAttendenceApprSaveReq;
 import com.rjtech.projsettings.req.ProjAttendenceGetReq;
 import com.rjtech.projsettings.req.ProjAttendenceSaveReq;
@@ -76,6 +79,7 @@ import com.rjtech.projsettings.req.ProjectMaterialSaveReq;
 import com.rjtech.projsettings.req.ProjectPlantsGetReq;
 import com.rjtech.projsettings.req.ProjectPlantsSaveReq;
 import com.rjtech.projsettings.req.ProjectTangibleReq;
+import com.rjtech.projsettings.resp.ChangeOrderDetailsResp;
 import com.rjtech.projsettings.resp.ProjAttendenceResp;
 import com.rjtech.projsettings.resp.ProjCostCodeStatusResp;
 import com.rjtech.projsettings.resp.ProjCostStaementsResp;
@@ -349,4 +353,8 @@ public interface ProjSettingsService {
 	ProjResourceBudgetResp getProjResBudget(ResourceBudgetGetReq resBudgetGetReq);
 	
 	void saveSoeAppr(ProjSoeApprSaveReq projSoeApprSaveReq);
+
+	ChangeOrderDetailsResp getProjChangeOrderDetail(ChangeOrderDetailsGetReq changeOrderDetailsGetReq);
+	
+	void saveProjChangeOrderDetail(ChangeOrderDetailsSaveReq changeOrderDetailsSaveReq);
 }

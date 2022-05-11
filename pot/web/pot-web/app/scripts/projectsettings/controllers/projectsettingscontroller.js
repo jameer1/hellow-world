@@ -338,6 +338,26 @@ app.config(["$stateProvider", function ($stateProvider) {
 				"appCodeTemplateKey": 'PRJ_PRJSTG_PRFMTHRSHLD_VIEW',
 				"SelenumLocator": 'Projects_ProjectSettings_PerformanceThresholdTab',
 
+			},{
+				"name": "Change Orders",
+				"urlValue": "views/projectsettings/changeordersTab.html",
+				"appCodeTemplateKey": 'PRJ_PRJSTG_CHANGEORDER_TAB',
+				"selenumLocator": 'Projects_ProjectSettings_ChangeOrderTab',
+				"childTabs": [
+					{
+						"name": "Normal Time",
+						"urlValue": "views/projectsettings/changeordercreate.html",
+						"childTabs": [],
+						"appCodeTemplateKey": 'PRJ_PRJSTG_CHANGEORDERNORMALTIME_VIEW',
+						"SelenumLocator": 'Projects_ProjectSettings_ChangeOrderTab_NormalTime'
+					},{
+						"name": "Additional Time",
+						"urlValue": "views/projectsettings/changeorderAdditionalTime.html",
+						"childTabs": [],
+						"appCodeTemplateKey": 'PRJ_PRJSTG_CHANGEORDERADDITIONALTIME_VIEW',
+						"SelenumLocator": 'Projects_ProjectSettings_ChangeOrderTab_AdditionalTime'
+					}
+				]
 			},
 			{
 				"name": "Reports",
@@ -444,6 +464,7 @@ app.config(["$stateProvider", function ($stateProvider) {
 	$scope.schofEstimites = [];
 	$scope.schofRates = [];
 	$scope.resourceBudget = [];
+	$scope.changeOrders = [];
 
 	$scope.procureAppr = [];
 
@@ -603,6 +624,16 @@ app.config(["$stateProvider", function ($stateProvider) {
 		"externalType": false,
 		"internalType": false
 	};
+	$scope.changeOrders = {
+		"status": 1,
+		"projName": null,
+		"coNumber": null,
+		"toUserName": null,
+		"appUserId": null,
+		"originalType": false,
+		"externalType": false,
+		"internalType": false
+	};
 
 	$scope.projReportsDtls = {
 		id: null,
@@ -682,15 +713,18 @@ app.config(["$stateProvider", function ($stateProvider) {
 			$scope.getEstimateRecords();
 		} else if ($scope.projTabs[0].childTabs[10+3].urlValue === innerTab.urlValue) {
 			$scope.getProjPerformenceThresholdRecords();
-		} else if ($scope.projTabs[0].childTabs[11+3].urlValue === innerTab.urlValue) {
-			$scope.getProjReportsRecords();
+		} else if($scope.projTabs[0].childTabs[11+3].urlValue === innerTab.urlValue){
+			$scope.currentChangeOrderTab = $scope.projTabs[0].childTabs[11+3].childTabs[0].urlValue;
+			$scope.getChangeOrderRecords();
 		} else if ($scope.projTabs[0].childTabs[12+3].urlValue === innerTab.urlValue) {
-			$scope.currentProgressTab = $scope.projTabs[0].childTabs[12+3].childTabs[0].urlValue;
-			$scope.getProjClaimsRecords();
+			$scope.getProjReportsRecords();
 		} else if ($scope.projTabs[0].childTabs[13+3].urlValue === innerTab.urlValue) {
-			$scope.getPayRollOnLoadRecords();
+			$scope.currentProgressTab = $scope.projTabs[0].childTabs[13+3].childTabs[0].urlValue;
+			$scope.getProjClaimsRecords();
 		} else if ($scope.projTabs[0].childTabs[14+3].urlValue === innerTab.urlValue) {
-			$scope.currentLeaveTab = $scope.projTabs[0].childTabs[14+3].childTabs[0].urlValue;
+			$scope.getPayRollOnLoadRecords();
+		} else if ($scope.projTabs[0].childTabs[15+3].urlValue === innerTab.urlValue) {
+			$scope.currentLeaveTab = $scope.projTabs[0].childTabs[15+3].childTabs[0].urlValue;
 			$scope.getLeaveApprovalRecords();
 		}
 		$scope.currentTab1 = innerTab.urlValue;
@@ -797,6 +831,13 @@ app.config(["$stateProvider", function ($stateProvider) {
 			$scope.currentLeaveTab = leaveTabs.urlValue;
 		}, $scope.isActiveLeaveTab = function (leaveTaburlValue) {
 			return leaveTaburlValue == $scope.currentLeaveTab;
+		},
+		
+		/*-----------Change Order tabs */
+		$scope.onClickChangeOrderTab = function(changeTabs){
+			$scope.currentChangeOrderTab = changeTabs.urlValue;
+		},$scope.isActiveChangeTab = function(changeTaburlValue){
+			return changeTaburlValue == $scope.currentChangeOrderTab;
 		},
 
 		/* EPS Projects */
@@ -2013,6 +2054,47 @@ app.config(["$stateProvider", function ($stateProvider) {
 					
 				}
 			});
+			
+	/* change order  */
+	$scope.getChangeOrderRecords = function(){
+		if($rootScope.projId == null || $rootScope.projId == undefined){
+			GenericAlertService.alertMessage("Please select the Project", "Info");
+			return;
+		}
+		var request = {
+			"status": 1,
+			"projId": $rootScope.projId
+		};
+		console.log(request);
+		ProjectSettingsService.projchangeOrderOnLoad(request).then(function (data){
+			$scope.changeOrders = data.projChangeOrderDetailsTOs;
+			console.log(data);
+     		console.log($scope.changeOrders);
+			$scope.cutOffDays = $scope.changeOrders[0].cutOffDays;
+			$scope.cutOffHours = $scope.changeOrders[0].cutOffHours;
+			$scope.cutOffMinutes = $scope.changeOrders[0].cutOffMinutes;
+			$scope.count = (($scope.cutOffDays * 24 + $scope.cutOffHours + $scope.cutOffMinutes / 60) * 60) * 60;
+			$scope.numdays = Math.floor($scope.count / 86400);
+		}, function(error){
+			GenericAlertService.alertMessage("Error occured while geeting the Project Change order details", "Error");
+		});
+	},
+	//mamatha CON
+	$scope.saveChangeOrder= function(){
+			
+			var saveChangeOrderDetailsReq = {
+				"projChangeOrderDetailsTOs": $scope.changeOrders
+			};
+			console.log(saveChangeOrderDetailsReq)
+			blockUI.start();
+			ProjectSettingsService.saveChangeOrderDetails(saveChangeOrderDetailsReq).then(function (data){
+				blockUI.stop();
+				GenericAlertService.alertMessage('Change Order Details saved successfully', "Info");
+			},function(error){
+				blockUI.stop();
+				GenericAlertService.alertMessage('Change Order Details failed to save',"Error");
+			});
+		}
 
 	/* Project Reports */
 	$scope.getProjReportsRecords = function () {

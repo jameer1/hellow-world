@@ -157,11 +157,12 @@
 								<div class="form-group"
 									ng-class="{ 'has-error' : clientForm.email.$invalid && !clientForm.email.$pristine }">
 									<label>Email Address <span class="procurment-pot-errors1">*</span></label><ng-form name="userForm8">
-									<input data-test='Admin_clientregistratration_Create_Email' ng-disabled="isDisabled" type="email" name="email"
+									<input data-test='Admin_clientregistratration_Create_Email' ng-disabled="isDisabled"  name="email"
 										id="email" class="form-control input-md"
 										ng-model="addClient.email" placeholder="Email Address"
-										ng-blur="checkEmail(userForm8); showError=true;" maxlength="60"
-										tabindex="8" ng-required="true"> <span
+										ng-blur="checkEmail(userForm8); showError=true;" 
+										pattern="^[A-Z0-9a-z._%+-]+@[a-zA-Z0-9.-]+\.[A-Za-z]{2,4}$"
+										maxlength="60" tabindex="8" ng-required="true"> <span
 										class="procurment-pot-errors1"
 										ng-show="userForm8.email.$touched&&userForm8.email.$error.required">Email
 										ID is Required</span>
@@ -170,6 +171,8 @@
 										<span class="procurment-pot-errors1" ng-show="showError && !(userForm8.email.$error.email
 										||userForm8.email.$error.required)&&
 										userForm8.email.$invalid">{{userForm8.email.errorMessage}}</span>
+										<span class="procurement-pot-errors1"
+										ng-show="userForm8.email.$error.pattern" style="color:red; font-size:11px;" >Email ID is Invalid</span>
 										</ng-form>
 								</div>
 							</div>

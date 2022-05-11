@@ -861,4 +861,11 @@ public class MWProjectLibServiceImpl extends RestConfigServiceImpl implements MW
         strResponse = constructPOSTRestTemplate( url, AppUtils.toJson( changeOrderReq ) );
         return AppUtils.fromJson( strResponse.getBody(), ChangeOrderResp.class );
     }
+    
+    public ProjSORTrackDetailsResp getProjSORTrackDetails(ProjSORTrackGetReq projSORTrackGetReq) {
+        ResponseEntity<String> strResponse = null;
+        String url = getProjectLibExchangeUrl(ProjLibURLConstants.PARH_URL + ProjLibURLConstants.GET_SOR_TRACK_RECORDS);
+        strResponse = constructPOSTRestTemplate(url, AppUtils.toJson(projSORTrackGetReq));
+        return AppUtils.fromJson(strResponse.getBody(), ProjSORTrackDetailsResp.class);
+    }
 }

@@ -292,4 +292,8 @@ public class ProjSettingsURLConstants implements Serializable {
     
     public final static String GET_RESOURCE_BUDGET = "getProjResBudget";
     
+    public final static String GET_CHANGE_ORDER_ONLOAD ="getChangeOrderDetails";
+    
+    public final static String SAVE_CHANGE_ORDER_ONLOAD ="saveChangeOrderDetails";
+    
 }

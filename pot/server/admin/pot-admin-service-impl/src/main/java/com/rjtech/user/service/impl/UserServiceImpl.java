@@ -232,7 +232,8 @@ public class UserServiceImpl implements UserService {
         }else{
 			userEntity = UserServiceHandler.populateUserEntityFromClientTO(clientRegMstrEntity, clientRegReq.getClientRegTO());
 		}
-        
+        sendEmail(clientRegMstrEntity.getEmail(),userEntity.getUserName(),userEntity.getPassword(),clientRegMstrEntity.getCode(),
+        		                CommonUtil.convertDateToDDMMYYYYString(clientRegMstrEntity.getLicence()));
         Long proj_document_file_id = clientRegMstrEntity.getProjDocFile().getId();
         projDocFileRepository.updateCreatedUserAndUpdatedUserById( proj_document_file_id, userEntity.getUserId() );
         return UserServiceHandler.convertClientUserEntiryToPOJO(clientRegMstrEntity, UserServiceHandler.convertUserEntityToPOJO(userEntity));

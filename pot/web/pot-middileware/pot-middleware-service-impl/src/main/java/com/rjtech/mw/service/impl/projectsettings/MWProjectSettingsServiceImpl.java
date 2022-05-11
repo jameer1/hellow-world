@@ -21,6 +21,8 @@ import com.rjtech.mw.service.projectsettings.MWProjectSettingsService;
 import com.rjtech.pot.mw.restconfig.service.impl.RestConfigServiceImpl;
 import com.rjtech.projsettings.constans.ProjSettingsURLConstants;
 import com.rjtech.projsettings.dto.ProjGenCurrencyResp;
+import com.rjtech.projsettings.req.ChangeOrderDetailsGetReq;
+import com.rjtech.projsettings.req.ChangeOrderDetailsSaveReq;
 import com.rjtech.projsettings.req.ProjAttendenceApprSaveReq;
 import com.rjtech.projsettings.req.ProjAttendenceGetReq;
 import com.rjtech.projsettings.req.ProjAttendenceSaveReq;
@@ -92,6 +94,7 @@ import com.rjtech.projsettings.req.ProjectPlantsSaveReq;
 import com.rjtech.projsettings.req.ProjectTangibleReq;
 import com.rjtech.projsettings.req.ProvinenceGetReq;
 import com.rjtech.projsettings.resp.CalenderResp;
+import com.rjtech.projsettings.resp.ChangeOrderDetailsResp;
 import com.rjtech.projsettings.resp.ProjAttendenceOnLoadResp;
 import com.rjtech.projsettings.resp.ProjAttendenceResp;
 import com.rjtech.projsettings.resp.ProjCostBudgetResp;
@@ -1163,4 +1166,20 @@ public class MWProjectSettingsServiceImpl extends RestConfigServiceImpl implemen
                 ProjSettingsURLConstants.PROJ_SETTINGS_PARH_URL + ProjSettingsURLConstants.SAVE_PROJ_SOEAPPR);
         return AppUtils.fromJson(strResponse.getBody(), AppResp.class);
     }
+	
+	public ChangeOrderDetailsResp getProjChangeOrderDetail(ChangeOrderDetailsGetReq changeOrderDetailsGetReq) {
+		System.out.println("ChangeOrderDetailsGetReq1170 "+changeOrderDetailsGetReq.getProjId());
+		  ResponseEntity<String> strResponse = null;
+	        strResponse = getProjectSettingsPOSTRestTemplate(AppUtils.toJson(changeOrderDetailsGetReq),
+	                ProjSettingsURLConstants.PROJ_SETTINGS_PARH_URL + ProjSettingsURLConstants.GET_CHANGE_ORDER_ONLOAD);
+		
+		return AppUtils.fromJson(strResponse.getBody(), ChangeOrderDetailsResp.class);
+			}
+	
+	public ChangeOrderDetailsResp saveProjChangeOrderDetail(ChangeOrderDetailsSaveReq changeOrderDetailsSaveReq) {
+		ResponseEntity<String> strResponse = null;
+		strResponse = getProjectSettingsPOSTRestTemplate(AppUtils.toJson(changeOrderDetailsSaveReq),
+				ProjSettingsURLConstants.PROJ_SETTINGS_PARH_URL + ProjSettingsURLConstants.SAVE_CHANGE_ORDER_ONLOAD);
+		return AppUtils.fromJson(strResponse.getBody(), ChangeOrderDetailsResp.class);
+	}
 }

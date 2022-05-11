@@ -16,7 +16,9 @@
         </div>
         <div class="panel-body">
           <div class="topHeaderFooterTableResHeight">
-            <table class="table table-striped table-hover table-bordered topHeaderFooterTableHeight" >
+          	<div id="grid" ui-grid="gridOptions" ng-if="stylesSvc.finishedStyling" 
+							ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-grouping class="grid" style="height:145px";></div>
+           <!--  <table class="table table-striped table-hover table-bordered topHeaderFooterTableHeight" >
               <thead>
                 <tr>
                   <th>Select</th>
@@ -25,11 +27,11 @@
               </thead>
               <tbody>
                 <tr data-test='Admin_ClientUser_UserProfile_SelectProfile' ng-class="{'selected':$index == selectedRow}" ng-click="setClickedRow($index)" fixed-header="" ng-repeat ="userProfile in userProfiles">
-                  <td><input type="checkbox" ng-disabled="userProfile.defaultRole" ng-model="userProfile.selected" ng-change="rowSelect(userProfile)" /></td>
+                  <td ng-click="getRolePermissions(userProfile)"><input type="checkbox" ng-disabled="userProfile.defaultRole" ng-model="userProfile.selected" ng-change="rowSelect(userProfile)" /></td>
                   <td style="width: 750px;" ng-click="getRolePermissions(userProfile)"><span ng-show="userProfile.roleId > 0">{{userProfile.roleName}}</span></td>
                 </tr>
               </tbody>
-            </table>
+            </table> -->
           </div>
         </div>
         <div class="panel-footer">
@@ -54,7 +56,7 @@
             <table id="tree" class="table table-striped table-hover table-bordered bottomHeaderFooterTableHeight" >
               <thead>
                 <tr>
-                  <th>Module Name</th>
+                  <th style="width: 740px;">Module Name</th>
                   <th>Permissions</th>
                 </tr>
               </thead>

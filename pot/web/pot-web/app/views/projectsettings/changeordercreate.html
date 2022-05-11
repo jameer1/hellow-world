@@ -1,0 +1,49 @@
+<div id="tab-pannel" class="noTableInBottomBlockWithTabs">
+	<form name="changeorderform">
+		<div class="bottomNestedTabTableResHeight no-border overflow-auto" style="overflow-x: hidden !important;">
+			<div class="row" ng-repeat="works in changeOrders">
+				<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+					<div  class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+						<md-input-container class="md-block">
+							<label>{{works.apprType}} Cut of Days</label>
+							<input type="text" data-test="{{works.type}}_Projects_ProjectSettings_changeOrderTab_Cutoffdays" ng-model="works.cutOffDays" class="form-control" ng-required="true" name="days" pattern="\d+" maxlength="11" />
+							<span ng-show="changeorderform.days.$dirty && changeorderform.days.$error.required">This field is mandatory</span>
+							<span ng-show="changeorderform.days.$error.pattern">Enter only numbers</span>
+							<span ng-show="changeorderform.days.$error.maxlength">You reached max length</span>
+						</md-input-container>
+					</div><!-- end of row-1 -->
+					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+						<md-input-container class="md-block">
+							<label>{{works.apprType}} Cut of Hours</label>
+							<input type="text" data-test="{{works.type}}_Projects_ProjectSettings_changeOrderTab_Cutoffhours" ng-model="works.cutOffHours" class="form-control" ng-required="true" name="hours" min="0" max="24" />
+							<span ng-show="changeorderform.hours.$dirty && changeorderform.hours.$error.required">This field is mandatory</span>
+							<!-- <span ng-show="changeorderform.hours.$error.pattern">Enter only numbers</span> -->
+							<span ng-show="changeorderform.hours.$error.max">You reached max length</span>
+						</md-input-container>
+					</div><!-- end of row-2 -->
+					<div class="col-lg-3 col-sm-3 col-xs-3 col-md-3">
+						<md-input-container class="md-block">
+							<label>{{works.apprType}} Cut of Minutes</label>
+							<input type="text" data-test="{{works.type}}_Projects_ProjectSettings_changeOrderTab_Cutoffminutes" ng-model="works.cutOffMinutes" class="form-control" ng-required="true" name="minutes" min=0 max="59"/>
+							<span ng-show="changeorderform.minutes.$dirty && changeorderform.minutes.$error.required">This field is mandatory</span>
+							<span ng-show="changeorderfrom.minutes.$error.max">You reached max length</span>
+						</md-input-container>
+					</div><!-- end of row-3 -->
+				</div>
+			</div>
+		</div>
+		<div class="panel-footer">
+			<div class="pull-right">
+				<input data-test='Projects_ProjectSettings_changeOrderTab_Save' type="submit" class="btn btn-primary btn-sm" ng-click="changeorderform.$valid && saveChangeOrder()" value="Save"
+					title="{{account.appCodeTemplate['PRJ_PRJSTG_CHANGEORDERNORMALTIME_ADD'] ? '': '!Permission Denied. Contract your admin.'}}">
+			</div>
+			<div class="pull-left">
+				<input type="button" class="btn btn-primary btn-sm" value="Group" ng-click="group();">
+				<input type="button" class="btn btn-primary btn-sm" value="Sort" ng-click="sort();">
+				<input type="button" class="btn btn-primary btn-sm" value="Summarize" ng-click="summarize();">
+				<input type="button" class="btn btn-primary btn-sm" value="Print" ng-click="print();">
+				<input type="button" class="btn btn-primary btn-sm" value="Export" ng-click="export();">
+			</div>
+		</div>
+	</form>
+</div>

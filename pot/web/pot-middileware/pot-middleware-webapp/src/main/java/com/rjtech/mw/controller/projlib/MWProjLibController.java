@@ -622,4 +622,9 @@ public class MWProjLibController {
     public ResponseEntity<ChangeOrderResp> updateCoApproverDetails( @RequestBody ChangeOrderReq changeOrderReq ) {
         return new ResponseEntity<ChangeOrderResp>( mwProjLibService.updateCoApproverDetails( changeOrderReq ), HttpStatus.OK );
     }
+    @RequestMapping(value = ProjLibURLConstants.GET_SOR_TRACK_RECORDS, method = RequestMethod.POST)
+	public ResponseEntity<ProjSORTrackDetailsResp> getProjSORTrackDetails(@RequestBody ProjSORTrackGetReq projSORTrackGetReq) {
+		return new ResponseEntity<ProjSORTrackDetailsResp>(mwProjLibService.getProjSORTrackDetails(projSORTrackGetReq),
+				HttpStatus.OK);
+	}
 }

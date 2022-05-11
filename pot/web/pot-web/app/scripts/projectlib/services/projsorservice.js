@@ -78,6 +78,12 @@ app.factory('ProjSORService', ["Restangular", function(Restangular) {
 						ContentType : 'application/json'
 					});
 			return soractivity;
-		}
+		},
+		getProjSORTrackDetails : function(req){
+			var sorTrackDetails = Restangular.one("projectlib/getProjSORTrackDetails").customPOST(req, '',{},{
+				ContentType : 'application/json'
+			});
+			return sorTrackDetails;
+		},
 	}
 }]);

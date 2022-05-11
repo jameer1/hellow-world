@@ -30,6 +30,8 @@ import com.rjtech.progress.reports.req.ProgressReportGetReq;
 import com.rjtech.projsettings.constans.ProjSettingsURLConstants;
 import com.rjtech.projsettings.dto.ProjGenCurrencyResp;
 import com.rjtech.projsettings.dto.ProjGeneralMstrTO;
+import com.rjtech.projsettings.req.ChangeOrderDetailsGetReq;
+import com.rjtech.projsettings.req.ChangeOrderDetailsSaveReq;
 import com.rjtech.projsettings.req.ProjAttendenceApprSaveReq;
 import com.rjtech.projsettings.req.ProjAttendenceGetReq;
 import com.rjtech.projsettings.req.ProjAttendenceSaveReq;
@@ -97,6 +99,7 @@ import com.rjtech.projsettings.req.ProjectMaterialSaveReq;
 import com.rjtech.projsettings.req.ProjectPlantsGetReq;
 import com.rjtech.projsettings.req.ProjectPlantsSaveReq;
 import com.rjtech.projsettings.req.ProjectTangibleReq;
+import com.rjtech.projsettings.resp.ChangeOrderDetailsResp;
 import com.rjtech.projsettings.resp.ProjAttendenceResp;
 import com.rjtech.projsettings.resp.ProjCostCodeStatusResp;
 import com.rjtech.projsettings.resp.ProjCostStaementsResp;
@@ -149,6 +152,7 @@ import com.rjtech.projsettings.dto.SchofEstimatesApprTO;
 import com.rjtech.projsettings.service.handler.SchofEstimatesHandler;
 import com.rjtech.projsettings.req.SchofEstimatesGetReq;
 import com.rjtech.projsettings.resp.ProjSchofEstimatesResp;
+import com.rjtech.projsettings.model.ChangeOrderNormalTimeEntity;
 import com.rjtech.projsettings.model.SchofEstimateNormalTimeEntity;
 import com.rjtech.projsettings.req.SchofEstimatesGetReq;
 
@@ -1230,4 +1234,25 @@ public class ProjSettingsController {
     public ResponseEntity<ProjResourceBudgetResp> getProjResBudget(@RequestBody ResourceBudgetGetReq resBudgetGetReq){
     	return new ResponseEntity<ProjResourceBudgetResp>(projSettingsService.getProjResBudget(resBudgetGetReq), HttpStatus.OK);
     }
+    
+    @RequestMapping(value= ProjSettingsURLConstants.GET_CHANGE_ORDER_ONLOAD, method=RequestMethod.POST)
+    public ResponseEntity<ChangeOrderDetailsResp> getProjChangeOrderDetail(@RequestBody ChangeOrderDetailsGetReq changeOrderDetailsGetReq){
+    	System.out.println("ChangeOrderDetailsGetReq1239 "+changeOrderDetailsGetReq.getProjId());
+    	return new ResponseEntity<ChangeOrderDetailsResp>(projSettingsService.getProjChangeOrderDetail(changeOrderDetailsGetReq), HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = ProjSettingsURLConstants.SAVE_CHANGE_ORDER_ONLOAD, method = RequestMethod.POST)
+    public ResponseEntity<ChangeOrderDetailsResp> saveProjChangeOrderDetail(@RequestBody ChangeOrderDetailsSaveReq changeOrderDetailsSaveReq){
+    	projSettingsService.saveProjChangeOrderDetail(changeOrderDetailsSaveReq);
+    	
+    	ChangeOrderDetailsGetReq changeOrderDetailsGetReq = new ChangeOrderDetailsGetReq();
+    	changeOrderDetailsGetReq.setProjId(changeOrderDetailsSaveReq.getProjId());
+    	changeOrderDetailsGetReq.setStatus(StatusCodes.ACTIVE.getValue());
+    	
+    	ChangeOrderDetailsResp  changeOrderDetailsResp  = projSettingsService.getProjChangeOrderDetail(changeOrderDetailsGetReq);
+    	changeOrderDetailsResp.cloneAppResp(CommonUtil.getSaveAppResp());
+    	return new ResponseEntity<ChangeOrderDetailsResp>(changeOrderDetailsResp, HttpStatus.OK);
+    }
+    
+    
 }

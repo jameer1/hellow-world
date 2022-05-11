@@ -147,6 +147,7 @@ import com.rjtech.projsettings.dto.ProjectPlantsDtlTO;
 import com.rjtech.projsettings.dto.ProjectPlantsStatusTO;
 import com.rjtech.projsettings.dto.ProjectTangibleTO;
 import com.rjtech.projsettings.model.AttendanceNormalTimeEntity;
+import com.rjtech.projsettings.model.ChangeOrderNormalTimeEntity;
 import com.rjtech.projsettings.model.EmpTransNormalTimeEntity;
 import com.rjtech.projsettings.model.LeaveAddtionalTimeApprEntity;
 import com.rjtech.projsettings.model.LeaveNormalTimeEntity;
@@ -180,6 +181,8 @@ import com.rjtech.projsettings.model.TimesheetNormalTimeEntity;
 import com.rjtech.projsettings.model.WorkDairyNormalTimeEntity;
 import com.rjtech.projsettings.register.emp.dto.EmpChargeOutRateTO;
 import com.rjtech.projsettings.register.plant.dto.PlantChargeOutRateTO;
+import com.rjtech.projsettings.repository.ChangeOrderNormaltimeEntityRepository;
+//import com.rjtech.projsettings.repository.ChangeOrderNormaltimeEntityRepository;
 import com.rjtech.projsettings.repository.ProjAttendenceApprRepository;
 import com.rjtech.projsettings.repository.ProjAttendenceRepository;
 import com.rjtech.projsettings.repository.ProjCostStatementsRepository;
@@ -216,6 +219,8 @@ import com.rjtech.projsettings.repository.ResourceBudgetRepository;
 import com.rjtech.projsettings.repository.SchofEstimatesRepository;
 import com.rjtech.projsettings.repository.SchofRatesRepository;
 import com.rjtech.projsettings.repository.SoeAddltionalTimeRepository;
+import com.rjtech.projsettings.req.ChangeOrderDetailsGetReq;
+import com.rjtech.projsettings.req.ChangeOrderDetailsSaveReq;
 import com.rjtech.projsettings.req.ProjAttendenceApprSaveReq;
 import com.rjtech.projsettings.req.ProjAttendenceGetReq;
 import com.rjtech.projsettings.req.ProjAttendenceSaveReq;
@@ -288,6 +293,7 @@ import com.rjtech.projsettings.req.SchofEstimatesGetReq;
 import com.rjtech.projsettings.req.SchofEstimatesSaveReq;
 import com.rjtech.projsettings.req.SchofRatesGetReq;
 import com.rjtech.projsettings.req.SchofRatesSaveReq;
+import com.rjtech.projsettings.resp.ChangeOrderDetailsResp;
 import com.rjtech.projsettings.resp.ProjAttendenceResp;
 import com.rjtech.projsettings.resp.ProjBudgetResp;
 import com.rjtech.projsettings.resp.ProjCostCodeStatusResp;
@@ -331,6 +337,7 @@ import com.rjtech.projsettings.service.CostCodeActualDetailsService;
 import com.rjtech.projsettings.service.ProjSettingsService;
 import com.rjtech.projsettings.service.handler.ProjAttendenceApprHandler;
 import com.rjtech.projsettings.service.handler.ProjAttendenceHandler;
+import com.rjtech.projsettings.service.handler.ProjChangeorderdetailsHandler;
 import com.rjtech.projsettings.service.handler.ProjCostStmtDtlHandler;
 import com.rjtech.projsettings.service.handler.ProjEmpTransHandler;
 import com.rjtech.projsettings.service.handler.ProjEstimateHandler;
@@ -419,6 +426,9 @@ public class ProjSettingsServiceImpl implements ProjSettingsService {
 
 	@Autowired
 	private EmpProjRegisterRepositoryCopy empProjRegisterRepository;
+	
+	@Autowired
+	private ChangeOrderNormaltimeEntityRepository changeOrderNormaltimeEntityRepository;
 
 	@Autowired
 	private EPSProjRepository projRepository;
@@ -3949,8 +3959,14 @@ public class ProjSettingsServiceImpl implements ProjSettingsService {
 		List<ProjPerformenceThresholdEntity> projPerformenceThresholdEntites = new ArrayList<>();
 		ProjPerformenceThresholdEntity projPerformenceThresholdEntity = null;
 		List<ProjPerformenceThresholdEntity> exProjPerformenceThresholdEntites = projPerformenceThresholdRepository
-				.findDefaultProjPerformenceThresholds();
+				.findDefaultProjPerformenceThresholds();	
+		
+		//1. requirement of changeorder  
+		List<ChangeOrderNormalTimeEntity> projCONEntities = new ArrayList<>();
+		ChangeOrderNormalTimeEntity changeOrderNormalTimeEntity = null;
+		List<ChangeOrderNormalTimeEntity> exProjCONEntities = changeOrderNormaltimeEntityRepository.findDefaultCON();	
 
+		
 		List<ProgressClaimNormalTimeEntity> projProgressClaimEntities = new ArrayList<>();
 		ProgressClaimNormalTimeEntity projProgressClaimEntity = null;
 		List<ProgressClaimNormalTimeEntity> exProjProgressClaimEntities = projProgressClaimRepository
@@ -4127,7 +4143,22 @@ public class ProjSettingsServiceImpl implements ProjSettingsService {
 				projPerformenceThresholdEntity.setIsDefault("Y");
 				projPerformenceThresholdEntites.add(projPerformenceThresholdEntity);
 			}
-
+			
+			for( ChangeOrderNormalTimeEntity exProjCONEntity : exProjCONEntities) {
+				changeOrderNormalTimeEntity = new ChangeOrderNormalTimeEntity();
+				BeanUtils.copyProperties(exProjCONEntity, changeOrderNormalTimeEntity);
+				changeOrderNormalTimeEntity.setId(null);
+				ProjMstrEntity projMstrEntity = epsProjRepository.findOne(projId);
+				if(null != projMstrEntity) {
+					changeOrderNormalTimeEntity.setProjId(projMstrEntity);
+				}
+				changeOrderNormalTimeEntity.setIsDefault("Y");
+				projCONEntities.add(changeOrderNormalTimeEntity);
+				
+			}
+		
+			
+			
 			for (ProgressClaimNormalTimeEntity exProjProgressClaimEntity : exProjProgressClaimEntities) {
 				projProgressClaimEntity = new ProgressClaimNormalTimeEntity();
 				BeanUtils.copyProperties(exProjProgressClaimEntity, projProgressClaimEntity);
@@ -4196,6 +4227,7 @@ public class ProjSettingsServiceImpl implements ProjSettingsService {
 		schofEstimatesRepository.save(projSchofEstimates); // requirement 1
 		schofRatesRepository.save(projSchofRates); // requirement 2
 		resourceBudgetRepository.save(projResBudget); // requirement 3
+		changeOrderNormaltimeEntityRepository.save(projCONEntities);//req1
 	}
 
 	public ProjGenCurrencyResp getProjGeneralsCurrencys(ProjGeneralsGetReq projGeneralsGetReq) {
@@ -5570,6 +5602,27 @@ public class ProjSettingsServiceImpl implements ProjSettingsService {
 		}
 
 	}
+	
+	
+
+	
+	// ....get change order details...
+
+	public ChangeOrderDetailsResp getProjChangeOrderDetail(ChangeOrderDetailsGetReq ChangeOrderDetailsGetReq) {
+		ChangeOrderDetailsResp changeOrderDetailsResp = new ChangeOrderDetailsResp();
+		List<ChangeOrderNormalTimeEntity> ChangeorderDetails= changeOrderNormaltimeEntityRepository.findProjChangeOrder(ChangeOrderDetailsGetReq.getProjId(), ChangeOrderDetailsGetReq.getStatus());
+		for(ChangeOrderNormalTimeEntity changeorderDetails : ChangeorderDetails) {
+			changeOrderDetailsResp.getProjChangeOrderDetailsTOs().add(ProjChangeorderdetailsHandler.convertEntityToPOJO(changeorderDetails));
+		}
+		return changeOrderDetailsResp;
+	}
+	
+	//save change order details
+	public void saveProjChangeOrderDetail(ChangeOrderDetailsSaveReq changeOrderDetailsSaveReq) {
+		changeOrderNormaltimeEntityRepository.save(ProjChangeorderdetailsHandler.convertPOJOToEntity(changeOrderDetailsSaveReq.getProjChangeOrderDetailsTOs(), epsProjRepository));
+	}	
+	
+	
 	
 	
 }
