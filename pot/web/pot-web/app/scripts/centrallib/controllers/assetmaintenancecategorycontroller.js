@@ -48,6 +48,7 @@ app.config(["$stateProvider", function($stateProvider) {
 	};
 
 	$scope.SearchAssetMaintenanceCategory = function () {
+		
 		if ($scope.assetMaintenanceSearch.code || $scope.assetMaintenanceSearch.name) {
 			//$scope.getAssetMaintenanceCategory();
 			const assetMaintenanceTOs = new Array();

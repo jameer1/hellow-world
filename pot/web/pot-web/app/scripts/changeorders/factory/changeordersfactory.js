@@ -103,6 +103,43 @@ function (ngDialog, $q, $rootScope, GenericAlertService, EpsProjectSelectFactory
 				$rootScope.projSowData = [];
 				//$scope.displayCreateButton = ( coEditType == 'CREATE' ) ? true: false;
 				$scope.coEditType = coEditType;
+				$scope.tabsChange=function(val){
+					console.log(val)
+					if(val == 'Head Contract'){
+						$scope.coDetailTabs = [{
+						title: 'Scope of Work',
+						url: '/views/changeorders/tabs/cosow.html',
+						nameOfVariable: 'coSOWTOs',
+					},
+					{
+						title: 'Manpower',
+						url: '/views/changeorders/tabs/comanpower.html',
+						nameOfVariable: 'coManpowerTOs',
+					}, {
+						title: 'Materials',
+						url: '/views/changeorders/tabs/comaterial.html',
+						nameOfVariable: 'coMaterialsTOs',
+					}, {
+						title: 'Plants',
+						url: '/views/changeorders/tabs/coplants.html',
+						nameOfVariable: 'coPlantsTOs',
+					}, 
+					{
+						title: 'Cost',
+						url: '/views/changeorders/tabs/cocost.html',
+						nameOfVariable: 'coCostTOs',
+					}];
+					$scope.CoReqFo();
+					}
+					else {
+						$scope.coDetailTabs = [{
+						title: 'Scope of Work',
+						url: '/views/changeorders/tabs/cosow.html',
+						nameOfVariable: 'coSOWTOs',
+					}];
+					$scope.CoReqFo();
+					}
+				}
 				console.log("before coDetailTabs");
 				$scope.coDetailTabs = [{
 						title: 'Scope of Work',
