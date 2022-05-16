@@ -67,6 +67,10 @@ app
 						CountryProvinceCodeService.getCountryProvinceCodes(countryProvinceCodeGetReq).then(function (data) {
 							//console.log('data===>'+data)
 							$scope.countryProvinceCodeToTOs = data.countryProvinceCodeToTOs;
+							console.log($scope.countryProvinceCodeToTOs)
+							for(var val of $scope.countryProvinceCodeToTOs){
+								val.Countrycode = val.countryName.substring(0, 3).toUpperCase();
+							}
 							$scope.gridOptions.data = angular.copy($scope.countryProvinceCodeToTOs);
 							//console.log('8888'+data.countryProvinceCodeToTOs)
 
@@ -176,7 +180,7 @@ app
 				if (newValue) {
 					let columnDefs = [
 						{ name: 'select', cellTemplate: linkCellTemplate,  displayName: "Select", headerTooltip : "Select" },
-						{ field: 'countryCode', displayName: "Country Code", headerTooltip: "Country Code"},
+						{ field: 'Countrycode', displayName: "Country Code", headerTooltip: "Country Code"},
 						{ field: 'countryName', displayName: "Country Name", headerTooltip: "Country Name", },
 						{ field: 'provisionName', displayName: "Province Name", headerTooltip: "Province Name", },
 						

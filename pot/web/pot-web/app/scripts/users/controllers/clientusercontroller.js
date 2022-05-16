@@ -27,6 +27,7 @@ app.config(["$stateProvider", function($stateProvider) {
 	var editUsers = [];
 	$scope.user = [];
 	$scope.users = [];
+	$scope.datas=[];
 	$scope.userProjects = [];
 	var deferred = $q.defer();
 	$scope.ngDialog = ngDialog, $scope.tableData = [];
@@ -88,6 +89,20 @@ app.config(["$stateProvider", function($stateProvider) {
 
 		});
 	};
+	$scope.searchUsers1 = function(isClick) {
+		$scope.datas=[];
+			  for(var i=0; i<$scope.users.length; i++){
+				if($scope.users[i].userName.toUpperCase() === $scope.userReq.userName.toUpperCase()){
+					$scope.datas.push($scope.users[i])
+				}
+			}
+			$scope.gridOptions1.data = angular.copy($scope.datas)
+			if ($scope.datas.length <= 0) {
+				GenericAlertService.alertMessage('Users not available for given search criteria', "Warning");
+				return;
+			}
+	}
+	
 	$scope.$watch(function () { return stylesService.finishedStyling; },
 			function (newValue, oldValue) {
 				if (newValue) {
@@ -300,7 +315,7 @@ app.config(["$stateProvider", function($stateProvider) {
 		});
 	}
 	addservice.addUserDetails = function(actionType, editUsersList) {
-		if ($scope.exceededMaxUsers && (actionType != 'Edit')) {
+		if ($scope.exceededMaxUsers && !(actionType == 'Edit' && editUsersList <= 0)) {
 			GenericAlertService.alertMessage('Maximum registered usres limit exceeded.', "Warning");
 		} else {
 		var deferred = $q.defer();

@@ -28,7 +28,7 @@
 									 readonly="readonly"
 									 ng-show="item.level==0">
 									<input type="text" class="form-control" ng-if="!item.proj" placeholder="Sub Folder Name" name="epsSubId_{{$index}}"
-									 maxlength="20" ng-model="item.name" 
+									 maxlength="20" ng-model="item.name" required
 									 watch-change="change()"
 									 ng-class="{coloumnHighlightColor:(item.duplicateFlag||item.childProjs.duplicateFlag) }"
 									 ng-blur="checkDuplicate(item);checkDataValidationRecursively(item, $index);" ng-show="item.level>0">
@@ -57,7 +57,7 @@
 			<div class="panel-footer">
 
 				<div class="pull-right">
-					<input type="submit" class="btn btn-primary btn-sm"  ng-click="saveDocFolder(item,epsForm)"
+					<input type="submit" class="btn btn-primary btn-sm"  ng-click="epsForm.$valid && saveDocFolder(item,epsForm)"
 					 value="Save" />
 				</div>
 			</div>
