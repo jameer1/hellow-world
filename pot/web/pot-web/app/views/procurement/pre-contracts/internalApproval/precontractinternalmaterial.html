@@ -91,7 +91,7 @@ account.appCodeTemplate['REQUEST_REQPROC_INTRNLSTAGE1MATERIALS_VIEW'])" class="t
 
             <td class="input-width1">
               <potdate-picker data-test='Stage1Request_viewedit_Maretials_startdate' ng-model="item.startDate"
-                class="form-control" dir-index="$index" min-date="today" max-date="item.finishDate" date-name="matstartDate"
+                class="form-control" dir-index="$index" max-date="item.finishDate" date-name="matstartDate"
                 placeholder="dd-mm-yyyy" required="required" ng-disabled="preContractObj.workFlowStatusTO.value ==5">
                 <potdate-picker>
             </td>
@@ -229,7 +229,7 @@ account.appCodeTemplate['APPROVE_INTRNLSTAGE1APPROVALMANTERIAL_VIEW'])" class="t
 
             <td class="input-width1">
               <potdate-picker data-test='Stage1Approval_viewedit_Maretials_startdate' ng-model="item.startDate"
-                class="form-control" dir-index="$index" min-date="today" max-date="item.finishDate" date-name="matstartDate"
+                class="form-control" dir-index="$index"  max-date="item.finishDate" date-name="matstartDate"
                 placeholder="dd-mm-yyyy" required="required" ng-disabled="preContractObj.workFlowStatusTO.value ==5 "
                 readonly="readonly">
                 <potdate-picker>

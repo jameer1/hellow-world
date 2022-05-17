@@ -79,7 +79,7 @@ account.appCodeTemplate['REQUEST_REQPROC_INTRNLSTAGE1PLANTS_VIEW'])" class="tab-
 
             <td class="input-width1">
               <potdate-picker data-test='Stage1Request_viewedit_Plant_startdate' ng-model="item.startDate" class="form-control"
-                 dir-index="$index" min-date="today1"  max-date="item.finishDate" date-name="plantStartDate" placeholder="dd-mm-yyyy" required
+                 dir-index="$index"  max-date="item.finishDate" date-name="plantStartDate" placeholder="dd-mm-yyyy" required
                  ng-disabled="preContractObj.workFlowStatusTO.value ==5" prevent-events="true"></potdate-picker></td>
             <td class="input-width1">
               <potdate-picker data-test='Stage1Request_viewedit_Plant_finishdate' ng-model="item.finishDate"
@@ -185,7 +185,7 @@ account.appCodeTemplate['APPROVE_INTRNLSTAGE1APPROVALPLANT_VIEW'])" class="tab-p
 
             <td class="input-width"><input data-test='Stage1Approval_viewedit_Plant_deliveryplase' type="text" class="form-control" ng-model="item.deliveryPlace"  ng-disabled="preContractObj.workFlowStatusTO.value ==5 " maxlength="400"/></td>
 
-            <td class="input-width1"><potdate-picker data-test='Stage1Approval_viewedit_Plant_startdate' ng-model="item.startDate" class="form-control" dir-index="$index" min-date="today1" max-date="item.finishDate" date-name="plantStartDate" placeholder="dd-mm-yyyy" required="required" ng-disabled="preContractObj.workFlowStatusTO.value ==5 " readonly="readonly"></potdate-picker></td>
+            <td class="input-width1"><potdate-picker data-test='Stage1Approval_viewedit_Plant_startdate' ng-model="item.startDate" class="form-control" dir-index="$index"  max-date="item.finishDate" date-name="plantStartDate" placeholder="dd-mm-yyyy" required="required" ng-disabled="preContractObj.workFlowStatusTO.value ==5 " readonly="readonly"></potdate-picker></td>
             <td class="input-width1"><potdate-picker data-test='Stage1Approval_viewedit_Plant_finishdate' ng-model="item.finishDate" class="form-control" dir-index="$index" min-date="item.startDate" date-name="plantFinishDate" placeholder="dd-mm-yyyy" required="required" ng-disabled="preContractObj.workFlowStatusTO.value ==5 " readonly="readonly"></potdate-picker></td>
 
 

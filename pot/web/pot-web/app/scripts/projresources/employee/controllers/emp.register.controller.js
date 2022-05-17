@@ -342,9 +342,11 @@ app.config(["$stateProvider", function($stateProvider) {
 		editEmpDetails = [];
 		$scope.searchProject = {};
 		$scope.empDetails = [];
+		$scope.gridOptions.data=[];
 		$rootScope.selectedEmployeeData = null;
 		//$scope.onClickTab($scope.tabs[0]);
 		$scope.employeeSearch($scope.searchProject.projId);
+		$scope.go();
 		$scope.currentTotalTabs && $rootScope.$broadcast($scope.currentTotalTabs.resetMethod);
 		
 	};
