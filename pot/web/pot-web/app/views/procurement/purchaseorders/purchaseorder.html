@@ -64,7 +64,8 @@
                 <tr>
                   <th>EPS Name</th>
                   <th>Project Name</th>
-                  <th>Purchase Order</th>
+                  <th>PreContract Type</th>
+                  <th>Purchase Order Id</th>
                   <th>Purchase Order Description</th>
                   <th>Company</th>
                   <th>Approver Name</th>
@@ -87,6 +88,8 @@
                   <td ng-click="go(purchaseOrder,$index);"
                       ng-class="{selected: $index ==selectedRow}">
                     {{userProjMap[purchaseOrder.projId].name}}</td>
+                  <td ng-click="go(purchaseOrder,$index);"
+                      ng-class="{selected: $index ==selectedRow}">{{purchaseOrder.preContractCmpTO.preContractTO.preContractType}}</td>
                   <td ng-click="go(purchaseOrder,$index);"
                       ng-class="{selected: $index ==selectedRow}">{{purchaseOrder.code}}</td>
                   <td ng-click="go(purchaseOrder,$index);"

@@ -245,17 +245,21 @@ app.config(["$stateProvider", function ($stateProvider) {
 			});
 		};
 		$scope.getIndividualTimeSheets = function (timeSheetSearchReq) {
+			var str = timeSheetSearchReq.weekCommenceDay.split(" ");
+			var weekcommence = str[1];
+			//console.log(weekday);
 			$scope.timeSheetSearchReq.crewLabelKeyTO = {};
 			var timeSheetGetReq = {
 				"status": 1,
 				"projId": timeSheetSearchReq.projectLabelKeyTO.projId,
 				"empId": timeSheetSearchReq.timesheetUserLabelKeyTO.id,
-				"weekCommenceDay": timeSheetSearchReq.weekCommenceDay,
+				"weekCommenceDay": weekcommence,
 				"weekStartDate": timeSheetSearchReq.weekStartDate,
 				"weekEndDate": timeSheetSearchReq.weekEndDate
 			};
 			TimeSheetService.getIndividualTimeSheets(timeSheetGetReq).then(function (data) {
-				$scope.timeSheetList = data.timeSheetTOs;
+				//$scope.timeSheetList = data.timeSheetTOs;
+				timesheetListCopy = data.timeSheetTOs;
 			}, function (error) {
 				GenericAlertService.alertMessage("Error occured while getting TimeSheet Details", 'Error');
 			});
@@ -545,10 +549,10 @@ app.config(["$stateProvider", function ($stateProvider) {
 				GenericAlertService.alertMessage("Please select Commencing Day", 'Warning');
 				return;
 			}
-			if ($scope.timeSheetSearchReq.crewLabelKeyTO.code == null || $scope.timeSheetSearchReq.crewLabelKeyTO.code == undefined) {
+			/*if ($scope.timeSheetSearchReq.crewLabelKeyTO.code == null || $scope.timeSheetSearchReq.crewLabelKeyTO.code == undefined) {
 				GenericAlertService.alertMessage("Please select crew", 'Warning');
 				return;
-			}
+			}*/
 			if ($scope.status == null) {
 				GenericAlertService.alertMessage("Please select Status", 'Warning');
 				return;
@@ -598,11 +602,13 @@ app.config(["$stateProvider", function ($stateProvider) {
 					"weekCommenceDay": formatCommenceDay($scope.timeSheetSearchReq.weekCommenceDay),
 					"selectType": $scope.crew.name,
 					"selectedTypeIds": [$scope.timeSheetSearchReq.timesheetUserLabelKeyTO.id],
-					"apprStatus": [$scope.status.code],
+					"apprStatus": $scope.status.code,
 					"timeSheetIds": [$scope.timeSheetList[0].code],
 					"originatorIds": [$scope.timeSheetList[0].reqUserId],
 					"approverIds": [$scope.timeSheetList[0].apprUserId],
-					"subReportType": $scope.subReportCode
+					"subReportType": $scope.subReportCode,
+					"weekEndDate": $scope.timeSheetSearchReq.timeSheetLabelKeyTo.weekEndDate,
+					"weekStartDate": $scope.timeSheetSearchReq.timeSheetLabelKeyTo.weekStartDate
 				}
 			}
 			TimeSheetReportService.getTimeSheetDailyReport(getTimeSheetDailyReq).then(function (data) {

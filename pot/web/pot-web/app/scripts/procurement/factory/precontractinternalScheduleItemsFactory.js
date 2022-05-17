@@ -17,7 +17,7 @@ app.factory('PreContractInternalScheduleItemsFactory', ["ngDialog", "$q", "$root
 			showClose: false,
 			closeByDocument: false,
 			controller: ['$scope', function ($scope) {
-				console.log('data 62662 =   ', data);
+//				console.log('data 62662 =   ', data);
 				$scope.costcode = [];
 				$scope.defaultcostcode = {};
 				$scope.currentTab1 = null;
@@ -32,9 +32,9 @@ app.factory('PreContractInternalScheduleItemsFactory', ["ngDialog", "$q", "$root
 				$scope.storeClassmap = data.storeMap;
 				$scope.projStoreClassmap = data.projStoreMap;
 				$scope.projcostCodeMap = data.projCostItemMap;
-				console.log('$scope.procureCategoryMap =   ', $scope.projcostCodeMap);
+//				console.log('$scope.procureCategoryMap =   ', $scope.projcostCodeMap);
 				$scope.procureCategoryMap = data.procureCategoryMap;
-				console.log('$scope.procureCategoryMap =   ', $scope.procureCategoryMap);
+//				console.log('$scope.procureCategoryMap =   ', $scope.procureCategoryMap);
 				$scope.preContractObj = data.preContractTO;
 				$scope.showActionButtons = true;
 				if (stateParamsRequestPage == 'showActionButtons'){
@@ -148,7 +148,113 @@ app.factory('PreContractInternalScheduleItemsFactory', ["ngDialog", "$q", "$root
 
 				//request
 				if (stateParamsRequestPage) {
-					$scope.preContrctDetailTabs = [{
+					if($scope.preContractObj.preContractType == "Engineering Services"){
+						$scope.preContrctDetailTabs = [{
+						title: 'Services',
+						url: '/views/procurement/pre-contracts/internalApproval/precontractinternalservices.html',
+						appCodeTemplateKey: 'PROCURMT_INTRNLSTAGE1SERVICES_VIEW',
+						appCodeTemplateKeySubmit: 'PROCURMT_INTRNLSTAGE1SERVICES_SUBMIT',
+						reqappCodeTemplateKey: 'REQUEST_REQPROC_INTRNLSTAGE1SERVICES_VIEW',
+						reqappCodeTemplateKeySubmit: 'REQUEST_REQPROC_INTRNLSTAGE1SERVICES_SUBMIT',
+						stage1seleniumLocator: 'Stage1Request_viewedit_Service',
+						nameOfVariable: 'preContractServiceDtlTOs',
+						}]
+					}
+					if($scope.preContractObj.preContractType == "Labour Hire Agreement"){
+						$scope.preContrctDetailTabs = [{
+						title: 'Manpower',
+						url: '/views/procurement/pre-contracts/internalApproval/precontractinternalmanpower.html',
+						appCodeTemplateKey: 'PROCURMT_INTRNLSTAGE1MANPOWER_VIEW',
+						appCodeTemplateKeySubmit: 'PROCURMT_INTRNLSTAGE1MANPOWER_SUBMIT',
+						reqappCodeTemplateKey: 'REQUEST_REQPROC_INTRNLSTAGE1MANPOWER_VIEW',
+						reqappCodeTemplateKeySubmit: 'REQUEST_REQPROC_INTRNLSTAGE1MANPOWER_SUBMIT',
+						stage1seleniumLocator: 'Stage1Request_viewedit_Manpower',
+						nameOfVariable: 'preContractEmpDtlTOs',
+						}]
+					}
+					if($scope.preContractObj.preContractType == "Plant Hire Agreement"){
+						$scope.preContrctDetailTabs = [{
+						title: 'Plants',
+						url: '/views/procurement/pre-contracts/internalApproval/precontractinternalplants.html',
+						appCodeTemplateKey: 'PROCURMT_INTRNLSTAGE1PLANTS_VIEW',
+						appCodeTemplateKeySubmit: 'PROCURMT_INTRNLSTAGE1PLANTS_SUBMIT',
+						reqappCodeTemplateKey: 'REQUEST_REQPROC_INTRNLSTAGE1PLANTS_VIEW',
+						reqappCodeTemplateKeySubmit: 'REQUEST_REQPROC_INTRNLSTAGE1PLANTS_SUBMIT',
+						stage1seleniumLocator: 'Stage1Request_viewedit_Plant',
+						nameOfVariable: 'preContractPlantDtlTOs',
+						}]
+					}
+					if($scope.preContractObj.preContractType == "Supply Agreement"){
+						$scope.preContrctDetailTabs = [{
+						title: 'Materials',
+						url: '/views/procurement/pre-contracts/internalApproval/precontractinternalmaterial.html',
+						appCodeTemplateKey: 'PROCURMT_INTRNLSTAGE1MATERIALS_VIEW',
+						appCodeTemplateKeySubmit: 'PROCURMT_INTRNLSTAGE1MATERIALS_SUBMIT',
+						reqappCodeTemplateKey: 'REQUEST_REQPROC_INTRNLSTAGE1MATERIALS_VIEW',
+						reqappCodeTemplateKeySubmit: 'REQUEST_REQPROC_INTRNLSTAGE1MATERIALS_SUBMIT',
+						nameOfVariable: 'preContractMaterialDtlTOs',
+						stage1seleniumLocator: 'Stage1Request_viewedit_Maretials'
+						}]
+					}
+					if($scope.preContractObj.preContractType == "Purchase  Order"){
+						$scope.preContrctDetailTabs = [{
+						title: 'Manpower',
+						url: '/views/procurement/pre-contracts/internalApproval/precontractinternalmanpower.html',
+						appCodeTemplateKey: 'PROCURMT_INTRNLSTAGE1MANPOWER_VIEW',
+						appCodeTemplateKeySubmit: 'PROCURMT_INTRNLSTAGE1MANPOWER_SUBMIT',
+						reqappCodeTemplateKey: 'REQUEST_REQPROC_INTRNLSTAGE1MANPOWER_VIEW',
+						reqappCodeTemplateKeySubmit: 'REQUEST_REQPROC_INTRNLSTAGE1MANPOWER_SUBMIT',
+						stage1seleniumLocator: 'Stage1Request_viewedit_Manpower',
+						nameOfVariable: 'preContractEmpDtlTOs',
+						},{
+						title: 'Materials',
+						url: '/views/procurement/pre-contracts/internalApproval/precontractinternalmaterial.html',
+						appCodeTemplateKey: 'PROCURMT_INTRNLSTAGE1MATERIALS_VIEW',
+						appCodeTemplateKeySubmit: 'PROCURMT_INTRNLSTAGE1MATERIALS_SUBMIT',
+						reqappCodeTemplateKey: 'REQUEST_REQPROC_INTRNLSTAGE1MATERIALS_VIEW',
+						reqappCodeTemplateKeySubmit: 'REQUEST_REQPROC_INTRNLSTAGE1MATERIALS_SUBMIT',
+						nameOfVariable: 'preContractMaterialDtlTOs',
+						stage1seleniumLocator: 'Stage1Request_viewedit_Maretials'
+						},{
+						title: 'Plants',
+						url: '/views/procurement/pre-contracts/internalApproval/precontractinternalplants.html',
+						appCodeTemplateKey: 'PROCURMT_INTRNLSTAGE1PLANTS_VIEW',
+						appCodeTemplateKeySubmit: 'PROCURMT_INTRNLSTAGE1PLANTS_SUBMIT',
+						reqappCodeTemplateKey: 'REQUEST_REQPROC_INTRNLSTAGE1PLANTS_VIEW',
+						reqappCodeTemplateKeySubmit: 'REQUEST_REQPROC_INTRNLSTAGE1PLANTS_SUBMIT',
+						stage1seleniumLocator: 'Stage1Request_viewedit_Plant',
+						nameOfVariable: 'preContractPlantDtlTOs'
+						}]
+					}
+					if($scope.preContractObj.preContractType == "Sub Contract agreement"){
+						$scope.preContrctDetailTabs = [{
+						title: 'Project Sub Contract',
+						url: '/views/procurement/pre-contracts/internalApproval/precontractinternalsow.html',
+						appCodeTemplateKey: 'PROCURMT_INTRNLSTAGE1SUBCONTRACT_VIEW',
+						appCodeTemplateKeySubmit: 'PROCURMT_INTRNLSTAGE1SUBCONTRACT_SUBMIT',
+						reqappCodeTemplateKey: 'REQUEST_REQPROC_INTRNLSTAGE1SUBCONTRACT_VIEW',
+						reqappCodeTemplateKeySubmit: 'REQUEST_REQPROC_INTRNLSTAGE1SUBCONTRACT_SUBMIT',
+						stage1seleniumLocator: 'Stage1Request_viewedit_ProjecSubContract',
+						nameOfVariable: 'precontractSowDtlTOs',
+						}]
+					}
+					if($scope.preContractObj.preContractType == "Professional Services agreement"){
+						$scope.preContrctDetailTabs = [{
+						title: 'Services',
+						url: '/views/procurement/pre-contracts/internalApproval/precontractinternalservices.html',
+						appCodeTemplateKey: 'PROCURMT_INTRNLSTAGE1SERVICES_VIEW',
+						appCodeTemplateKeySubmit: 'PROCURMT_INTRNLSTAGE1SERVICES_SUBMIT',
+						reqappCodeTemplateKey: 'REQUEST_REQPROC_INTRNLSTAGE1SERVICES_VIEW',
+						reqappCodeTemplateKeySubmit: 'REQUEST_REQPROC_INTRNLSTAGE1SERVICES_SUBMIT',
+						stage1seleniumLocator: 'Stage1Request_viewedit_Service',
+						nameOfVariable: 'preContractServiceDtlTOs',
+						}]
+					}
+					
+					
+					
+					
+					/*$scope.preContrctDetailTabs = [{
 						title: 'Manpower',
 						url: '/views/procurement/pre-contracts/internalApproval/precontractinternalmanpower.html',
 						appCodeTemplateKey: 'PROCURMT_INTRNLSTAGE1MANPOWER_VIEW',
@@ -198,7 +304,7 @@ app.factory('PreContractInternalScheduleItemsFactory', ["ngDialog", "$q", "$root
 						stage1seleniumLocator: 'Stage1Request_viewedit_ProjecSubContract',
 						nameOfVariable: 'precontractSowDtlTOs',
 
-					}];
+					}];*/
 				}
 
 				$scope.onClickTab1 = function (tab) {

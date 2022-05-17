@@ -97,16 +97,16 @@ app.config(["$stateProvider", function ($stateProvider) {
 			"fromDate": $filter('date')(($scope.searchCriteria.fromDate), "dd-MMM-yyyy"),
 			"toDate": $filter('date')(($scope.searchCriteria.toDate), "dd-MMM-yyyy")
 		};
-		console.log(getReq);
+//		console.log(getReq);
 		PreContractInternalService.getInternalPreContracts(getReq).then(function (data) {
-			console.log(data);
+//			console.log(data);
 			$scope.userProjMap = data.userProjMap;
 			$scope.preContractTOs = data.preContractTOs;
 			for(var val of $scope.preContractTOs){
 				val.userProjMap=$scope.userProjMap;
 			}
 			$scope.gridOptions.data = angular.copy($scope.preContractTOs);
-			console.log($scope.preContractTOs);
+//			console.log($scope.preContractTOs);
 			$scope.usersMap = data.usersMap;
 			if (click == 'click') {
 				if ($scope.preContractTOs.length <= 0) {
@@ -188,7 +188,7 @@ app.config(["$stateProvider", function ($stateProvider) {
 			})
 		}, $scope.viewInternalRequestById = function (preContractObj) {
 			var resultData = $scope.getInternalDetailsById(preContractObj);
-			console.log(preContractObj);
+//			console.log(preContractObj);
 			resultData.then(function (data) {
 				var popupDetails = PreContractInternalScheduleItemsFactory.procInternalApprovalPopUp(data.preContractObj, $scope.stateParamsRequestPage);
 				popupDetails.then(function (data) {
@@ -208,7 +208,7 @@ app.config(["$stateProvider", function ($stateProvider) {
 				"status": 1
 			};
 			PreContractInternalService.getInternalPreContractPopupOnLoad(onLoadReq).then(function (data) {
-				console.log(data);
+//				console.log(data);
 				var returnObj = {
 					"preContractObj": angular.copy(data)
 				};
