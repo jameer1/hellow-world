@@ -47,11 +47,19 @@ public interface EmpAttendanceRepository extends JpaRepository<EmpAttendanceEnti
     List<EmpProjRigisterEntity> getEmpProjMobilizationDates(@Param("projId") long projId,
             @Param("attId") long attId);
 
-    @Query("SELECT DISTINCT emp.id, emp.code, emp.firstName, emp.lastName, emp.gender, emp.empClassMstrEntity.name, "
+   /* @Query("SELECT DISTINCT emp.id, emp.code, emp.firstName, emp.lastName, emp.gender, emp.empClassMstrEntity.name, "
             + "emp.companyMstrEntity.name FROM EmpAttendanceEntity pea JOIN pea.empId emp JOIN emp.empProjRigisterEntities per "
-            + "ON per.projMstrEntity.projectId = :projId AND per.assignStatus = 'Y' and per.status =1 and per.isLatest ='Y' WHERE "
-            + "emp.code = :userName AND emp.projMstrEntity.projectId = :projId")
-    List<Object[]> findEmpDetailsForTimeSheet(@Param("projId") Long projId, @Param("userName") String userName);
+            + "WHERE per.projMstrEntity.projectId = :projId AND per.assignStatus = 'Y' and per.status =1 and per.isLatest ='Y' "
+            + "AND emp.code = :userName AND emp.projMstrEntity.projectId = :projId")
+    List<Object[]> findEmpDetailsForTimeSheet(@Param("projId") Long projId, @Param("userName") String userName); */
+    
+    @Query("SELECT DISTINCT emp.id, emp.code, emp.firstName, emp.lastName, emp.gender, emp.empClassMstrEntity.name, "
+            + "emp.companyMstrEntity.name FROM EmpAttendanceEntity pea JOIN pea.empId emp on pea.empId.id=emp.id "
+            + "JOIN emp.empClassMstrEntity cme on emp.empClassMstrEntity.id = cme.id "
+            + "JOIN emp.companyMstrEntity cse on emp.companyMstrEntity.id = cse.id "
+	        + "WHERE "
+	        + " emp.projMstrEntity.projectId = :projId")
+    List<Object[]> findEmpDetailsForTimeSheet(@Param("projId") Long projId);
 
     @Query("SELECT DISTINCT emp.id,to_char(ptd.attendanceDate, 'Dy DD-Mon') FROM EmpAttendanceEntity pea JOIN pea.empId emp "
             + "JOIN pea.empAttendanceDtlEntities ptd WHERE ptd.attendanceDate between :weekStartDate AND :weekEndDate "

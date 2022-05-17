@@ -85,14 +85,14 @@ app.config(["$stateProvider", function ($stateProvider) {
 	getCountries();
 	$scope.getClients = function () {
 		select1 = false;
-		console.log(select1)
+	//	console.log(select1)
 		var req = {
 			"status": "1"
 		};
 	
 		ClientService.getClients(req).then(function (data) {
 			$scope.clients = data.clientRegTOs;
-			console.log($scope.clients)
+	//		console.log($scope.clients)
 			$scope.gridOptions.data = angular.copy($scope.clients);
 		}, function (error) {
 			GenericAlertService.alertMessage("Error occured while fetching client details", 'Error');
@@ -105,7 +105,7 @@ app.config(["$stateProvider", function ($stateProvider) {
 	var client1;
 	var select1;
 	$scope.clientRowSelect=function(client){
-		console.log(client)
+//		console.log(client)
        client1=client
 		if(client.selected){
 			select1=client.selected;
@@ -115,7 +115,7 @@ app.config(["$stateProvider", function ($stateProvider) {
 		}
 	}
 	$scope.clientDetails = function (actionType, client, index = -1) {
-		console.log(actionType);
+//		console.log(actionType);
 		
 		if (actionType == 'Edit') {
 			if(select1 == true ){
@@ -138,13 +138,13 @@ app.config(["$stateProvider", function ($stateProvider) {
 			GenericAlertService.alertMessage("Error occured while fetching client details", 'Error');
 		});
 		}
-		console.log(select1)
+//		console.log(select1)
 		if(select1 == false && actionType != 'Add' ){
 		GenericAlertService.alertMessage('Please select atleast one row to modify', "Warning");
 		return;
 		}
 		$scope.getClients();
-		console.log(select1)
+//		console.log(select1)
 		currentRow = Number(index);
 	}
 

@@ -1120,12 +1120,12 @@ app.service('potSearchService', function () {
             class: "glyphicon glyphicon-check glyphstyle",
             path: "Requests & Approvals/Approvals"
         },
-        {
+        /*{
             searchkeyWord: "Client Registration",
             url: "clientreg",
             class: "fa fa-user",
             path: "Admin"
-        },
+        },*/
         {
             searchkeyWord: "User List",
             url: "clientusers",

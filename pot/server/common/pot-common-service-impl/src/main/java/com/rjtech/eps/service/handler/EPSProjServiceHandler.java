@@ -120,7 +120,7 @@ public class EPSProjServiceHandler {
         if (projectMstrEntity.isProj()) {
         List<ProjGeneralMstrEntityCopy> projGeneralMstrEntites = projGeneralRepository
 				.findProjGenerals(projectMstrEntity.getProjectId(), projectMstrEntity.getStatus());
-            System.out.println("projGeneralMstrEntites123 "+projGeneralMstrEntites.size());
+     //       System.out.println("projGeneralMstrEntites123 "+projGeneralMstrEntites.size());
 	    	for (ProjGeneralMstrEntityCopy projGeneralMstrEntity : projGeneralMstrEntites) {
 	    		epsProjectTO.setProjGeneralMstrTO(new ProjGeneralMstrTO());
 	    		if (projGeneralMstrEntity.getCountryName() != null) {

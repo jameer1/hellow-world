@@ -680,7 +680,6 @@ app.config(["$stateProvider", function ($stateProvider) {
 							}else if(dateWise.estimatetype == "(BAC-EV)/CPI"){
 								var bac_ev=((dateWise.revisedbudget ? dateWise.originalbudget : dateWise.originalbudget) - dateWise.totalReportEarned);
 								var cpi=(dateWise.totalReportEarned==0 || dateWise.totalReportEarned==null || dateWise.totalReportCost==0) ? 0 : (dateWise.totalReportEarned / dateWise.totalReportCost);
-								alert(cpi);
 								var etcBAC_EV_CPI=(dateWise.totalReportEarned==0 || dateWise.totalReportEarned==null || dateWise.totalReportCost==0)  ? bac_ev :
 				            		((dateWise.revisedbudget ? dateWise.revisedbudget : dateWise.originalbudget) - dateWise.totalReportEarned)/cpi;
 								dateWise.estimateAtCmp = etcBAC_EV_CPI;

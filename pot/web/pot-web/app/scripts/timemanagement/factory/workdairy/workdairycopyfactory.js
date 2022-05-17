@@ -209,6 +209,15 @@ app
 											} else {
 												$scope.selectedEmpLabelKeyTOs.pop(emp);
 											}
+										}	
+										$scope.copyReset = function(){
+											$scope.crewLabelKeyTO.code ="";
+											$scope.fromWorkDairyDate = "";
+											$scope.workDairyEmpDtlTOs = [];
+									        $scope.workDairyPlantDtlTOs = [];
+									        $scope.workDairyMaterialDtlTOs = [];
+									        $scope.workDairyProgressDtlTOs = [];
+									        $scope.selectedEmpLabelKeyTO = [];
 										}
 
 									let resetEmp = function (emp) {

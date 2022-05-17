@@ -192,6 +192,7 @@ app.config(["$stateProvider", function($stateProvider) {
 				},*/ $scope.saveMeasurements = function(measureForm) {
 					
 					var flag = false;
+					var duplicate = false;
 					var measureUnitsMap = [];
 					angular.forEach($scope.measureUnits, function(value, key) {
 						if (measureUnitsMap[value.code.toUpperCase() + " " + value.name.toUpperCase() + " " + value.procurementTO.name] != null) {
@@ -214,6 +215,17 @@ app.config(["$stateProvider", function($stateProvider) {
 						GenericAlertService.alertMessage('Duplicate measurement  codes are not allowed', "Warning");
 						return;
 					}
+					angular.forEach($scope.measureUnits, function(value, key) { 
+						for(var i=0;i<$scope.uniqueCodeMap.length;i++){
+							if (value.code == $scope.uniqueCodeMap[i].code) {
+								duplicate = true;
+							}
+						}		
+					})
+					if(duplicate){
+						GenericAlertService.alertMessage('Duplicate measurement  codes are not allowed', "Warning");
+						return;
+					}	
 					var req = {
 						"measureUnitTOs" : $scope.measureUnits
 					}

@@ -142,6 +142,12 @@ app.factory('DatasetListFactory', ["ngDialog", "$q", "$filter", "$timeout", "$ro
             				newScheduleActivityDataSetTOs.push($scope.scheduleActivityDataSetTOs[i])
             			}
             		}
+            		if(newScheduleActivityDataSetTOs[0].datasetName == newScheduleActivityDataSetTOs[1].datasetName){
+						newScheduleActivityDataSetTOs[0].baseline = true;
+						newScheduleActivityDataSetTOs[0].current = true;
+						newScheduleActivityDataSetTOs[1].baseline = true;
+						newScheduleActivityDataSetTOs[1].current = true;
+					}
             		ProjectScheduleService.saveScheduleActivityDatasets({"scheduleActivityDataSetTOs": newScheduleActivityDataSetTOs}).then(function(data){
             			GenericAlertService.alertMessage("Dataset saved successfully", 'Info');
             			deferred.resolve(data);

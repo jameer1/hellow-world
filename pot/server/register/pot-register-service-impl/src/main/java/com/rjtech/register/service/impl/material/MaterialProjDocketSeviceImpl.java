@@ -304,10 +304,18 @@ public class MaterialProjDocketSeviceImpl implements MaterialProjDocketSevice {
 
     public MaterialProjDocketResp getMaterialProjDocketsByDockType(MaterialGetReq materialGetReq) {
         MaterialProjDocketResp materialProjDocketResp = new MaterialProjDocketResp();
-
-        List<MaterialProjDocketEntity> materialProjDocketEntities = materialProjDocketRepository
-                .findMaterialGeneratedProjDockets(materialGetReq.getProjId(), materialGetReq.getSourceType(), "Generated",
-                        materialGetReq.getStatus(), CommonUtil.convertStringToDate(materialGetReq.getWorkDairyDate()));
+        List<MaterialProjDocketEntity> materialProjDocketEntities = null;
+        if(materialGetReq.getSourceType().equals(CommonConstants.SM)) {
+        	materialProjDocketEntities = materialProjDocketRepository
+                    .findMaterialGeneratedProjDockets(materialGetReq.getProjId(), materialGetReq.getSourceType(), "Generated",
+                            materialGetReq.getStatus(), CommonUtil.convertStringToDate(materialGetReq.getWorkDairyDate()));	
+        }
+        //As per requirement i will create this condition STOCK PILE taken in central library
+        if(materialGetReq.getSourceType().equals(CommonConstants.SPM)) {   
+        	materialProjDocketEntities = materialProjDocketRepository
+                    .findMaterialGeneratedProjDocketsSPMType(materialGetReq.getProjId(), "Generated",
+                            materialGetReq.getStatus(), CommonUtil.convertStringToDate(materialGetReq.getWorkDairyDate()));	
+        } 
         for (MaterialProjDocketEntity MaterialProjDocketEntity : materialProjDocketEntities) {
             materialProjDocketResp.getMaterialProjDocketTOs()
                     .add(MaterialProjDocketHandler.convertEntityToPOJO(MaterialProjDocketEntity));

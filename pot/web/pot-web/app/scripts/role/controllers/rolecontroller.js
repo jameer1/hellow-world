@@ -249,11 +249,6 @@ app.config(["$stateProvider", function ($stateProvider) {
 		};
 		RoleService.getRolePermissions(rolePermissionReq).then(function (data) {
 			var moduleTreeData = angular.copy(moduleservice.modules);
-			console.log(moduleservice.modules)
-			if(moduleservice.modules)
-			for(var s of moduleTreeData){
-				moduleTreeData[5].childModules[1].childModules[15].childModules[2].permissionTOs[1].actionName="APPROVE"
-			}
 			if (data) {
 				setPermissions(data.permissions, moduleTreeData);
 				rolePermissions = data.rolePermissions;
@@ -419,7 +414,7 @@ app.config(["$stateProvider", function ($stateProvider) {
 			GenericAlertService.alertMessage("Error",'Info');
 		})
 	}
-	var linkCellTemplate ='	<input type="checkbox" ng-click="grid.appScope.getRolePermissions(row.entity)" ng-disabled="row.entity.defaultRole" ng-model="row.entity.selected" ng-change="grid.appScope.rowSelect(row.entity)">';
+	var linkCellTemplate ='	<input type="checkbox" ng-disabled="row.entity.defaultRole" ng-model="row.entity.selected" ng-change="grid.appScope.rowSelect(row.entity)">';
 		$scope.$watch(function () { return stylesService.finishedStyling; },
 			function (newValue, oldValue) {
 				if (newValue) {

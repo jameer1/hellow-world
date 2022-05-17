@@ -24,6 +24,13 @@ public interface MaterialProjDocketRepository extends RegisterBaseRepository<Mat
     public List<MaterialProjDocketEntity> findMaterialGeneratedProjDockets(@Param("projId") Long projId,
             @Param("sourceType") String sourceType, @Param("apprStatus") String apprStatus, @Param("status") Integer status, 
             @Param("workDairyDate") Date workDairyDate);
+    
+    @Query("SELECT T FROM MaterialProjDocketEntity T WHERE T.toProjId.projectId=:projId AND T.toStockCodeCategory='Stockpile' AND T.apprStatus=:apprStatus "
+            + "AND (T.docketStatus = null OR T.docketStatus!='C') "
+            + "AND T.status=:status AND T.docketDate <= :workDairyDate")
+    public List<MaterialProjDocketEntity> findMaterialGeneratedProjDocketsSPMType(@Param("projId") Long projId,
+            @Param("apprStatus") String apprStatus, @Param("status") Integer status, 
+            @Param("workDairyDate") Date workDairyDate);
 
     @Query("SELECT T FROM MaterialProjDocketEntity T WHERE T.toProjId.projectId=:projId AND T.status=:status")
     public List<MaterialProjDocketEntity> findMaterialProjDockets(@Param("projId") Long projId,

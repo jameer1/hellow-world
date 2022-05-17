@@ -22,6 +22,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.rjtech.admin.repository.ApplicationGlobalSettingRepository;
 import com.rjtech.common.constants.CommonConstants;
 import com.rjtech.common.dto.LabelKeyTO;
 import com.rjtech.common.model.EmailSettingEntity;
@@ -40,6 +41,7 @@ import com.rjtech.register.emp.model.EmpRegisterDtlEntity;
 //import com.rjtech.register.model.EmpRegisterDtlEntity;
 import com.rjtech.rjs.appuser.utils.AppUserUtils;
 import com.rjtech.rjs.core.annotations.RJSService;
+import com.rjtech.role.model.ApplicationGlobalSettingEntity;
 import com.rjtech.role.repository.RolePermissionRepository;
 import com.rjtech.user.dto.ClientRegTO;
 import com.rjtech.user.dto.EmailSettingTO;
@@ -80,6 +82,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+    
+    @Autowired
+    private ApplicationGlobalSettingRepository applicationGlobalSettingRepository;
 
     @Autowired
     private UserProjectsRepository userProjectsRepository;
@@ -164,7 +169,10 @@ public class UserServiceImpl implements UserService {
     public void saveUser(UserSaveReq saveReq) {
         List<UserEntity> userMstrEntities = UserServiceHandler.converUserPOJOToEntity(saveReq, empRegisterRepository,
                 clientRepository);
-        for (UserEntity userToSave : userMstrEntities) {
+        List<ApplicationGlobalSettingEntity> appGlobalSetting=null;
+        appGlobalSetting= applicationGlobalSettingRepository.findAll();
+      
+		    for (UserEntity userToSave : userMstrEntities) {
             UserEntity userFromDb = null;
             if (userToSave.getUserId() != null) {
                 userFromDb = userRepository.findOne(userToSave.getUserId());
@@ -176,19 +184,26 @@ public class UserServiceImpl implements UserService {
             // Send mail on when profile is assigned
             if ((userFromDb == null || userFromDb.getUserRoleMstrs().isEmpty())
                     && !userToSave.getUserRoleMstrs().isEmpty()) {
-                if (userToSave.isClient()) {
+            	 for (ApplicationGlobalSettingEntity applicationGlobalSettingEntity : appGlobalSetting) {
+              
+            		 String UrlwithDomain=applicationGlobalSettingEntity.getApplicationDomainName()+'/'+applicationGlobalSettingEntity.getAppClientUrl();
+               System.out.println(UrlwithDomain+".................... mamatha");
+               log.info("UrlwithDomain...."+UrlwithDomain);
+            		 if (userToSave.isClient()) {
                     ClientRegMstrEntity clientReg = userToSave.getClientRegMstrEntity();
-                    sendEmail(userToSave.getEmail(), userToSave.getUserName(), userToSave.getPassword(),
+                   
+                    sendEmail(userToSave.getEmail(), userToSave.getUserName(), userToSave.getPassword(),UrlwithDomain,
                             clientReg.getCode(), CommonUtil.convertDateToDDMMYYYYString(clientReg.getLicence()));
-                } else {
+                    } else {
                     /*sendUserEmail(saveReq, null, AppUserUtils.getClientId(),
                             userToSave.getClientRegMstrEntity().getCode());*/
                     
-                    sendUserEmail(userToSave.getEmail(), userToSave.getUserName(), userToSave.getPassword(),AppUserUtils.getClientId(),
+                    sendUserEmail(userToSave.getEmail(), userToSave.getUserName(), userToSave.getPassword(),UrlwithDomain,AppUserUtils.getClientId(),
                             userToSave.getClientRegMstrEntity().getCode());
                 }
             }
-        }
+        }}
+       
         userRepository.save(userMstrEntities);
     }
 
@@ -232,8 +247,7 @@ public class UserServiceImpl implements UserService {
         }else{
 			userEntity = UserServiceHandler.populateUserEntityFromClientTO(clientRegMstrEntity, clientRegReq.getClientRegTO());
 		}
-        sendEmail(clientRegMstrEntity.getEmail(),userEntity.getUserName(),userEntity.getPassword(),clientRegMstrEntity.getCode(),
-        		                CommonUtil.convertDateToDDMMYYYYString(clientRegMstrEntity.getLicence()));
+        
         Long proj_document_file_id = clientRegMstrEntity.getProjDocFile().getId();
         projDocFileRepository.updateCreatedUserAndUpdatedUserById( proj_document_file_id, userEntity.getUserId() );
         return UserServiceHandler.convertClientUserEntiryToPOJO(clientRegMstrEntity, UserServiceHandler.convertUserEntityToPOJO(userEntity));
@@ -334,7 +348,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Async
-    private void sendEmail(String email, String userName, String password, String clientCode, String licence) {
+    private void sendEmail(String email, String userName, String password,String Url, String clientCode, String licence) {
         JavaMailSenderImpl sender = new JavaMailSenderImpl();
         sender.setHost("mail.rajutech.com");
         sender.setPort(587);
@@ -353,8 +367,11 @@ public class UserServiceImpl implements UserService {
         try {
             helper.setFrom("rtadmin@rajutech.com");
             helper.setTo(email);
-            helper.setText("You are registered for Project On Track:\n\n" + "User Name : " + userName
-                    + "\n\nPassword : " + password + "\n\nYour Company Client Code : " + clientCode
+            helper.setText("You are registered for Project On Track:\n\n"
+            		+ "Login URL : " + Url
+                    + "\n\nUser Name : " + userName
+                    + "\n\nPassword : " + password 
+                    + "\n\nYour Company Client Code : " + clientCode
                     + "\n\nYour Company Renewal Date : " + licence + "\n\nRegards - Admin");
             helper.setSubject("Client Registration");
             sender.send(message);
@@ -471,7 +488,7 @@ public class UserServiceImpl implements UserService {
     }
     
     @Async
-    private void sendUserEmail(String email, String userName, String password, Long clientId, String clientCode) {
+    private void sendUserEmail(String email, String userName, String password,String Url, Long clientId, String clientCode) {
 
         EmailSettingGetReq emailSettingGetReq = new EmailSettingGetReq();
         EmailSettingResp emailSettingResp = getEmailSettings(emailSettingGetReq, clientId);
@@ -497,8 +514,11 @@ public class UserServiceImpl implements UserService {
                 helper.setFrom(emailSettingTo.getFromEmail());
                     helper.setTo(email);
                     helper.setSubject("User Registration");
-                    helper.setText("You are registered for Raju Tech India Pvt Ltd:\n\n" + "User Name : " + userName
-                            + "\n\nPassword : " + password + "\n\nYour Company Client Code : " + clientCode);
+                    helper.setText("You are registered for Raju Tech India Pvt Ltd:\n\n" 
+                    + "Go with Url: " + Url 
+                    + "\n\nUser Name : " + userName
+                    + "\n\nPassword : " + password 
+                    + "\n\nYour Company Client Code : " + clientCode);
                     sender.send(message);
             } catch (MailException e) {
                 log.info("Mail Exception {}", e);

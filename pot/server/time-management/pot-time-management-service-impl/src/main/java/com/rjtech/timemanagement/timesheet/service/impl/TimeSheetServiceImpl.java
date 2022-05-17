@@ -340,8 +340,7 @@ public class TimeSheetServiceImpl implements TimeSheetService {
 
     public TimeSheetEmpRegResp getAllIndividualsFromTimeSheet(TimeSheetGetReq timeSheetGetReq) {
 
-        List<Object[]> employeeDetails = empAttendanceRepository.findEmpDetailsForTimeSheet(timeSheetGetReq.getProjId(),
-                AppUserUtils.getUserName());
+        List<Object[]> employeeDetails = empAttendanceRepository.findEmpDetailsForTimeSheet(timeSheetGetReq.getProjId());
         TimeSheetEmpRegResp timeSheetEmpRegResp = new TimeSheetEmpRegResp();
         for (Object[] emp : employeeDetails) {
             LabelKeyTO labelKeyTO = new LabelKeyTO();
