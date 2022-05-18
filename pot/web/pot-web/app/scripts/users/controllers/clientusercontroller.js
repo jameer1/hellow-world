@@ -90,12 +90,25 @@ app.config(["$stateProvider", function($stateProvider) {
 		});
 	};
 	$scope.searchUsers1 = function(isClick) {
-		$scope.datas=[];
-			  for(var i=0; i<$scope.users.length; i++){
-				if($scope.users[i].userName.toUpperCase() === $scope.userReq.userName.toUpperCase()){
-					$scope.datas.push($scope.users[i])
+		$scope.datas=[];			
+			angular.forEach($scope.users,function(value,key){
+				if($scope.userReq.userName != null && $scope.userReq.userName != "" && value.userName !=null){
+					var len=$scope.userReq.userName.length;
+					if(value.userName.substring(0, len).toUpperCase() === $scope.userReq.userName.toUpperCase()){
+					$scope.datas.push(value)
+					}
 				}
-			}
+					if($scope.userReq.empCode != null && $scope.userReq.empCode !=""  && value.empCode != null){
+					var len1=$scope.userReq.empCode.length;
+				if($scope.userReq.empCode.toUpperCase() === value.empCode.substring(0, len1).toUpperCase()){
+					$scope.datas.push(value)
+				}
+				}
+				/*if(value.userName.toUpperCase() === $scope.userReq.userName.toUpperCase() && value.empCode.toUpperCase() === $scope.userReq.empCode.toUpperCase()){
+					console.log(value)
+					$scope.datas.push(value)
+				}*/
+			});
 			$scope.gridOptions1.data = angular.copy($scope.datas)
 			if ($scope.datas.length <= 0) {
 				GenericAlertService.alertMessage('Users not available for given search criteria', "Warning");
