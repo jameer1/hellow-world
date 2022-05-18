@@ -56,7 +56,7 @@ app.config(["$stateProvider", function ($stateProvider) {
             };
         },
         $scope.showMore = function(workDairyTO) {
-        	if (workDairyTO.apprStatus=='SubmittedForApproval' || workDairyTO.apprStatus=='Approved'){
+        	if (workDairyTO.apprStatus=='Submitted For Approval' || workDairyTO.apprStatus=='Approved'){
         		InternalApprovalFactory.openPopup(workDairyTO).then(function(data) {
         			var index = $scope.workDairyTOs.findIndex(workDairyTO => workDairyTO.id == data.workDairyTO.id);
         			$scope.workDairyTOs.splice(index, 0, data.workDairyTO);
@@ -64,7 +64,7 @@ app.config(["$stateProvider", function ($stateProvider) {
         			GenericAlertService.alertMessage("Error occurred while selecting details", 'Info');
         		})
         	}
-        	if (workDairyTO.apprStatus=='SubmittedForClientApproval' || workDairyTO.apprStatus=='Client Approved'){
+        	if (workDairyTO.apprStatus=='Submitted For Client Approval' || workDairyTO.apprStatus=='Client Approved'){
         		ClientApprovalFactory.openPopup(workDairyTO).then(function(data) {
         			$scope.search();
         		}, function(error) {

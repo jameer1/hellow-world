@@ -99,6 +99,7 @@ app
 									$scope.workDairyMaterialDtlTOs = [];
 									$scope.workDairyProgressDtlTOs = [];
 									$scope.selectedEmpLabelKeyTO = [];
+									var flag= false;
                                     console.log(workDairyCostCodes);
                                     angular.forEach(workDairyCostCodes,function(value,key){
 	                                   $scope.costCodes.push(value.costId);
@@ -200,6 +201,7 @@ app
 											//if (emp.id)
 											//		resetEmp(emp);
 											if (emp.select) {
+												var flag = true;
 												$scope.selectedEmpLabelKeyTOs.push(emp);
 												console.log($scope.selectedEmpLabelKeyTOs);
 												for (let i = 0; i < $scope.selectedEmpLabelKeyTOs.length; i++) {
@@ -209,7 +211,10 @@ app
 											} else {
 												$scope.selectedEmpLabelKeyTOs.pop(emp);
 											}
-										}	
+										}
+									for (let i = 0; i < $scope.selectedEmpLabelKeyTOs.length; i++) {
+										$scope.selectedEmpLabelKeyTO[i] = $scope.selectedEmpLabelKeyTOs[i];
+									}	
 										$scope.copyReset = function(){
 											$scope.crewLabelKeyTO.code ="";
 											$scope.fromWorkDairyDate = "";
@@ -352,8 +357,6 @@ app
 										var workDairyPlantCostDtlTOs = [];
 										angular.forEach(workDairyCostCodes, function(value, key) {
 											angular.forEach(selectedPlantLabelKeyTOs,function(values,key){
-												console.log(values.workDairyPlantStatusTOs[key].workDairyPlantCostDtlTOs[key].costId)
-												console.log(value.costId)
 												if(values.workDairyPlantStatusTOs[key].workDairyPlantCostDtlTOs[key].costId == value.costId)
 												workDairyPlantCostDtlTOs.push(angular.copy({
 												"costId": values.workDairyPlantStatusTOs[key].workDairyPlantCostDtlTOs[key].costId,
@@ -383,10 +386,8 @@ app
 												"workDairyPlantCostDtlTOs": workDairyPlantCostDtlTOs
 
 											});
-											console.log(workDairyPlantStatusTOs)
 										var workDairyPlantDtlTOs = [];
 										angular.forEach(selectedPlantLabelKeyTOs, function(value, key) {
-											console.log(value)
 											workDairyPlantDtlTOs.push(angular.copy({
 												"workDairyId": workDairySearchReq.workDairyId,
 												"plantRegId": value.plantRegId,
@@ -408,7 +409,6 @@ app
 										var workDairyEmpTOs = [];
 										var workDairyEmpCostDtlTOs = [];
 										angular.forEach(workDairyCostCodes, function(value, key) {
-											console.log(value)
 											angular.forEach($scope.selectedEmpLabelKeyTO, function(values,key){
 									 if(values.workDairyEmpWageTOs[key].workDairyEmpCostDtlTOs[key] != undefined){
 										if(values.workDairyEmpWageTOs[key].workDairyEmpCostDtlTOs[key].costId == value.costId)		
@@ -434,14 +434,16 @@ app
 											});
 											
 										});
-										console.log(workDairyEmpCostDtlTOs)
-										var workDairyEmpWageTOs = []
-										workDairyEmpWageTOs.push({
-											"wageId": null,
-											"status": 1,
-											"code" : $scope.selectedEmpLabelKeyTO[0].workDairyEmpWageTOs[0].code,
-											"workDairyEmpCostDtlTOs": workDairyEmpCostDtlTOs
-										});
+										if(flag){
+											var workDairyEmpWageTOs = []
+											workDairyEmpWageTOs.push({
+												"wageId": null,
+												"status": 1,
+												"code": $scope.selectedEmpLabelKeyTO[0].workDairyEmpWageTOs[0].code,
+												"workDairyEmpCostDtlTOs": workDairyEmpCostDtlTOs
+											});
+										}
+										
 										angular.forEach($scope.selectedEmpLabelKeyTO, function(value, key) {
 											workDairyEmpTOs.push({
 												"workDairyId": workDairySearchReq.workDairyId,
