@@ -73,6 +73,7 @@ app.config(["$stateProvider", function ($stateProvider) {
 		};
 		$scope.effectiveDates = [];
 		$scope.toggleTable = false;
+		$scope.gridOptions.data=[];
 		$scope.tableData = [];
 		$scope.toggleTable = true;
 	};

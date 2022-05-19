@@ -269,7 +269,7 @@ app.config(["$stateProvider", function($stateProvider) {
 				"weatherIds" : deleteIds,
 				"status" : 1
 			};
-
+			GenericAlertService.confirmMessageModal('Do you really want to Activate the record', 'Warning', 'YES', 'NO').then(function() {
 			WeatherService.deleteWeathers(req).then(function(data) {
 			});
 			angular.forEach(editweatherClassification, function(value, key) {
@@ -281,7 +281,9 @@ app.config(["$stateProvider", function($stateProvider) {
 			editweatherClassification = [];
 			$scope.deleteIds = [];
 
+		})
 		}
+		
 	}
 	$scope.deleteWeathers = function() {
 		if (editweatherClassification.length <= 0) {

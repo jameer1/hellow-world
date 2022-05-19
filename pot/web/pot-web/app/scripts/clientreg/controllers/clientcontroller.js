@@ -220,11 +220,11 @@ app.config(["$stateProvider", function ($stateProvider) {
 					});
 				}
 
-				$scope.checkFile = function (file) {
-					var allowedFiles = [".csv", ".xls", ".xlsx", ".doc", ".docx", ".png",".jpg", ".jpeg"];
+				$scope.checkFile = function (file,clientDoc) {
+					var allowedFiles = [".csv", ".xls", ".pdf", ".xlsx",".doc", ".docx", ".png", ".jpg", ".jpeg"];
 					var regex = new RegExp("([a-zA-Z0-9\s_\\.\(\)\-:])+(" + allowedFiles.join('|') + ")$");
 					if (!regex.test(file.name.toLowerCase().replace(/\s/g, ""))) {
-						$scope.clientDoc.errorMessage = "Supported formats PNG,JPEG,DOC,DOCX,CSV,XLSX,XLS ";
+						$scope.clientDoc.errorMessage = "Supported formats csv,xls,pdf,xlsx,jpg,PNG,JPEG,DOC,DOCX ";
 						$scope.clientDoc.isValid = false;
 					} else if ((file.size > 1000000)) {
 						$scope.clientDoc.errorMessage = "Supported Max. File size 1MB";

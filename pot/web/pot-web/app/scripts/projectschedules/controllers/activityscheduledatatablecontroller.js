@@ -27,15 +27,15 @@ app.config(["$stateProvider", function ($stateProvider) {
 			});
 		},
 		$scope.getDatasets = function(){
-			if (!$scope.searchCriteria.searchProject || !$scope.searchCriteria.searchProject.projId) {
+			if ( $scope.searchCriteria.searchProject != undefined && !$scope.searchCriteria.searchProject || !$scope.searchCriteria.searchProject.projId ) {
 				GenericAlertService.alertMessage("Please select project", 'Info');
 				return;
 			}
 			DatasetListFactory.selectOne($scope.searchCriteria.searchProject, "A").then(function(data){
 				ProjectScheduleService.getScheduleActivity({"id" : data.id}).then(function(data){
-					/*$scope.searchCriteria.searchDataset = data;*/
-					$scope.searchCriteria.searchDataset = data.scheduleActivityDataTOs; 
-				    $scope.gridOptions.data = angular.copy($scope.searchCriteria.searchDataset  );
+					$scope.searchCriteria.searchDataset = data;
+					$scope.searchCriteria.searchDataset1 = data.scheduleActivityDataTOs; 
+				    $scope.gridOptions.data = angular.copy($scope.searchCriteria.searchDataset1);
 					$scope.formatBooleans(data);
 				}, function(error) {
 					cosole.log(error)
