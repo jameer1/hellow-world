@@ -58,7 +58,172 @@ app.factory('PreContractInternalScheduleItemsFactory', ["ngDialog", "$q", "$root
 				//console.log("afds========",$scope.stateParamsRequestPage);
 				//approve false stage1 Request
 				if (stateParamsRequestPage == false) {
-					$scope.preContrctDetailTabs = [{
+					if($scope.preContractObj.preContractType == "Engineering Services"){
+						$scope.preContrctDetailTabs = [{
+						title: 'Services',
+						url: '/views/procurement/pre-contracts/internalApproval/precontractinternalservices.html',
+						stateParamsRequestPage: false,
+						nameOfVariable: 'preContractServiceDtlTOs',
+						appCodeTemplateKey: 'PROCURMT_INTRNLSTAGE1APPROVALSERVICES_VIEW',
+						appCodeTemplateKeyApproval: 'PROCURMT_INTRNLSTAGE1APPROVALSERVICES_APPROVAL',
+						appCodeTemplateKeySendBackToRequestor: 'PROCURMT_INTRNLSTAGE1APPROVALSERVICES_SENDBACKTOREQUESTOR',
+						appCodeTemplateKeyOnHold: 'PROCURMT_INTRNLSTAGE1APPROVALSERVICES_ONHOLD',
+						appCodeTemplateKeyReject: 'PROCURMT_INTRNLSTAGE1APPROVALSERVICES_REJECT',
+						stage1seleniumLocator: 'Stage1Approve_viewedit_Services',
+						approveappCodeTemplateKey: 'APPROVE_INTRNLSTAGE1APPROVALSERVICES_VIEW',
+						approveappCodeTemplateKeyApproval: 'APPROVE_INTRNLSTAGE1APPROVALSERVICES_APPROVAL',
+						approveappCodeTemplateKeySendBackToRequestor: 'APPROVE_INTRNLSTAGE1APPROVALSERVICES_SENDBACKTOREQUESTOR',
+						approveappCodeTemplateKeyOnHold: 'APPROVE_INTRNLSTAGE1APPROVALSERVICES_ONHOLD',
+						approveappCodeTemplateKeyReject: 'APPROVE_INTRNLSTAGE1APPROVALSERVICES_REJECT',
+						}]
+					}
+					if($scope.preContractObj.preContractType == "Labour Hire Agreement"){
+						$scope.preContrctDetailTabs = [{
+						title: 'Manpower',
+						stateParamsRequestPage: false,
+						url: '/views/procurement/pre-contracts/internalApproval/precontractinternalmanpower.html',
+						nameOfVariable: 'preContractEmpDtlTOs',
+						appCodeTemplateKey: 'PROCURMT_INTRNLSTAGE1APPROVALMANPOWER_VIEW',
+						appCodeTemplateKeyApproval: 'PROCURMT_INTRNLSTAGE1APPROVALMANPOWER_APPROVAL',
+						appCodeTemplateKeySendBackToRequestor: 'PROCURMT_INTRNLSTAGE1APPROVALMANPOWER_SENDBACKTOREQUESTOR',
+						appCodeTemplateKeyOnHold: 'PROCURMT_INTRNLSTAGE1APPROVALMANPOWER_ONHOLD',
+						appCodeTemplateKeyReject: 'PROCURMT_INTRNLSTAGE1APPROVALMANPOWER_REJECT',
+						stage1seleniumLocator: 'Stage1Approve_viewedit_manpower',
+						approveappCodeTemplateKey: 'APPROVE_INTRNLSTAGE1APPROVALMANPOWER_VIEW',
+						approveappCodeTemplateKeyApproval: 'APPROVE_INTRNLSTAGE1APPROVALMANPOWER_APPROVAL',
+						approveappCodeTemplateKeySendBackToRequestor: 'APPROVE_INTRNLSTAGE1APPROVALMANPOWER_SENDBACKTOREQUESTOR',
+						approveappCodeTemplateKeyOnHold: 'APPROVE_INTRNLSTAGE1APPROVALMANPOWER_ONHOLD',
+						approveappCodeTemplateKeyReject: 'APPROVE_INTRNLSTAGE1APPROVALMANPOWER_REJECT',
+						}]
+					}
+					if($scope.preContractObj.preContractType == "Plant Hire Agreement"){
+						$scope.preContrctDetailTabs = [{
+						title: 'Plants',
+						url: '/views/procurement/pre-contracts/internalApproval/precontractinternalplants.html',
+						stateParamsRequestPage: false,
+						nameOfVariable: 'preContractPlantDtlTOs',
+						appCodeTemplateKey: 'PROCURMT_INTRNLSTAGE1APPROVALPLANT_VIEW',
+						appCodeTemplateKeyApproval: 'PROCURMT_INTRNLSTAGE1APPROVALPLANT_APPROVAL',
+						appCodeTemplateKeySendBackToRequestor: 'PROCURMT_INTRNLSTAGE1APPROVALPLANT_SENDBACKTOREQUESTOR',
+						appCodeTemplateKeyOnHold: 'PROCURMT_INTRNLSTAGE1APPROVALPLANT_ONHOLD',
+						appCodeTemplateKeyReject: 'PROCURMT_INTRNLSTAGE1APPROVALPLANT_REJECT',
+						stage1seleniumLocator: 'Stage1Approve_viewedit_Plants',
+						approveappCodeTemplateKey: 'APPROVE_INTRNLSTAGE1APPROVALPLANT_VIEW',
+						approveappCodeTemplateKeyApproval: 'APPROVE_INTRNLSTAGE1APPROVALPLANT_APPROVAL',
+						approveappCodeTemplateKeySendBackToRequestor: 'APPROVE_INTRNLSTAGE1APPROVALPLANT_SENDBACKTOREQUESTOR',
+						approveappCodeTemplateKeyOnHold: 'APPROVE_INTRNLSTAGE1APPROVALPLANT_ONHOLD',
+						approveappCodeTemplateKeyReject: 'APPROVE_INTRNLSTAGE1APPROVALPLANT_REJECT',
+						}]
+					}
+					if($scope.preContractObj.preContractType == "Supply Agreement"){
+						$scope.preContrctDetailTabs = [{
+						title: 'Materials',
+						url: '/views/procurement/pre-contracts/internalApproval/precontractinternalmaterial.html',
+						stateParamsRequestPage: false,
+						nameOfVariable: 'preContractMaterialDtlTOs',
+						appCodeTemplateKey: 'PROCURMT_INTRNLSTAGE1APPROVALMANTERIAL_VIEW',
+						appCodeTemplateKeyApproval: 'PROCURMT_INTRNLSTAGE1APPROVALMANTERIAL_APPROVAL',
+						appCodeTemplateKeySendBackToRequestor: 'PROCURMT_INTRNLSTAGE1APPROVALMANTERIAL_SENDBACKTOREQUESTOR',
+						appCodeTemplateKeyOnHold: 'PROCURMT_INTRNLSTAGE1APPROVALMANTERIAL_ONHOLD',
+						appCodeTemplateKeyReject: 'PROCURMT_INTRNLSTAGE1APPROVALMANTERIAL_REJECT',
+						stage1seleniumLocator: 'Stage1Approve_viewedit_materials',
+						approveappCodeTemplateKey: 'APPROVE_INTRNLSTAGE1APPROVALMANTERIAL_VIEW',
+						approveappCodeTemplateKeyApproval: 'APPROVE_INTRNLSTAGE1APPROVALMANTERIAL_APPROVAL',
+						approveappCodeTemplateKeySendBackToRequestor: 'APPROVE_INTRNLSTAGE1APPROVALMANTERIAL_SENDBACKTOREQUESTOR',
+						approveappCodeTemplateKeyOnHold: 'APPROVE_INTRNLSTAGE1APPROVALMANTERIAL_ONHOLD',
+						approveappCodeTemplateKeyReject: 'APPROVE_INTRNLSTAGE1APPROVALMANTERIAL_REJECT',
+						}]
+					}
+					if($scope.preContractObj.preContractType == "Purchase  Order"){
+						$scope.preContrctDetailTabs = [{
+						title: 'Manpower',
+						stateParamsRequestPage: false,
+						url: '/views/procurement/pre-contracts/internalApproval/precontractinternalmanpower.html',
+						nameOfVariable: 'preContractEmpDtlTOs',
+						appCodeTemplateKey: 'PROCURMT_INTRNLSTAGE1APPROVALMANPOWER_VIEW',
+						appCodeTemplateKeyApproval: 'PROCURMT_INTRNLSTAGE1APPROVALMANPOWER_APPROVAL',
+						appCodeTemplateKeySendBackToRequestor: 'PROCURMT_INTRNLSTAGE1APPROVALMANPOWER_SENDBACKTOREQUESTOR',
+						appCodeTemplateKeyOnHold: 'PROCURMT_INTRNLSTAGE1APPROVALMANPOWER_ONHOLD',
+						appCodeTemplateKeyReject: 'PROCURMT_INTRNLSTAGE1APPROVALMANPOWER_REJECT',
+						stage1seleniumLocator: 'Stage1Approve_viewedit_manpower',
+						approveappCodeTemplateKey: 'APPROVE_INTRNLSTAGE1APPROVALMANPOWER_VIEW',
+						approveappCodeTemplateKeyApproval: 'APPROVE_INTRNLSTAGE1APPROVALMANPOWER_APPROVAL',
+						approveappCodeTemplateKeySendBackToRequestor: 'APPROVE_INTRNLSTAGE1APPROVALMANPOWER_SENDBACKTOREQUESTOR',
+						approveappCodeTemplateKeyOnHold: 'APPROVE_INTRNLSTAGE1APPROVALMANPOWER_ONHOLD',
+						approveappCodeTemplateKeyReject: 'APPROVE_INTRNLSTAGE1APPROVALMANPOWER_REJECT',
+						},{
+						title: 'Materials',
+						url: '/views/procurement/pre-contracts/internalApproval/precontractinternalmaterial.html',
+						stateParamsRequestPage: false,
+						nameOfVariable: 'preContractMaterialDtlTOs',
+						appCodeTemplateKey: 'PROCURMT_INTRNLSTAGE1APPROVALMANTERIAL_VIEW',
+						appCodeTemplateKeyApproval: 'PROCURMT_INTRNLSTAGE1APPROVALMANTERIAL_APPROVAL',
+						appCodeTemplateKeySendBackToRequestor: 'PROCURMT_INTRNLSTAGE1APPROVALMANTERIAL_SENDBACKTOREQUESTOR',
+						appCodeTemplateKeyOnHold: 'PROCURMT_INTRNLSTAGE1APPROVALMANTERIAL_ONHOLD',
+						appCodeTemplateKeyReject: 'PROCURMT_INTRNLSTAGE1APPROVALMANTERIAL_REJECT',
+						stage1seleniumLocator: 'Stage1Approve_viewedit_materials',
+						approveappCodeTemplateKey: 'APPROVE_INTRNLSTAGE1APPROVALMANTERIAL_VIEW',
+						approveappCodeTemplateKeyApproval: 'APPROVE_INTRNLSTAGE1APPROVALMANTERIAL_APPROVAL',
+						approveappCodeTemplateKeySendBackToRequestor: 'APPROVE_INTRNLSTAGE1APPROVALMANTERIAL_SENDBACKTOREQUESTOR',
+						approveappCodeTemplateKeyOnHold: 'APPROVE_INTRNLSTAGE1APPROVALMANTERIAL_ONHOLD',
+						approveappCodeTemplateKeyReject: 'APPROVE_INTRNLSTAGE1APPROVALMANTERIAL_REJECT',
+						},{
+						title: 'Plants',
+						url: '/views/procurement/pre-contracts/internalApproval/precontractinternalplants.html',
+						stateParamsRequestPage: false,
+						nameOfVariable: 'preContractPlantDtlTOs',
+						appCodeTemplateKey: 'PROCURMT_INTRNLSTAGE1APPROVALPLANT_VIEW',
+						appCodeTemplateKeyApproval: 'PROCURMT_INTRNLSTAGE1APPROVALPLANT_APPROVAL',
+						appCodeTemplateKeySendBackToRequestor: 'PROCURMT_INTRNLSTAGE1APPROVALPLANT_SENDBACKTOREQUESTOR',
+						appCodeTemplateKeyOnHold: 'PROCURMT_INTRNLSTAGE1APPROVALPLANT_ONHOLD',
+						appCodeTemplateKeyReject: 'PROCURMT_INTRNLSTAGE1APPROVALPLANT_REJECT',
+						stage1seleniumLocator: 'Stage1Approve_viewedit_Plants',
+						approveappCodeTemplateKey: 'APPROVE_INTRNLSTAGE1APPROVALPLANT_VIEW',
+						approveappCodeTemplateKeyApproval: 'APPROVE_INTRNLSTAGE1APPROVALPLANT_APPROVAL',
+						approveappCodeTemplateKeySendBackToRequestor: 'APPROVE_INTRNLSTAGE1APPROVALPLANT_SENDBACKTOREQUESTOR',
+						approveappCodeTemplateKeyOnHold: 'APPROVE_INTRNLSTAGE1APPROVALPLANT_ONHOLD',
+						approveappCodeTemplateKeyReject: 'APPROVE_INTRNLSTAGE1APPROVALPLANT_REJECT',
+						}]
+					}
+					if($scope.preContractObj.preContractType == "Sub Contract agreement"){
+						$scope.preContrctDetailTabs = [{
+						title: 'Project Sub Contract',
+						url: '/views/procurement/pre-contracts/internalApproval/precontractinternalsow.html',
+						stateParamsRequestPage: false,
+						nameOfVariable: 'precontractSowDtlTOs',
+						appCodeTemplateKey: 'PROCURMT_INTRNLSTAGE1APPROVALPRESUBCONTRACT_VIEW',
+						appCodeTemplateKeyApproval: 'PROCURMT_INTRNLSTAGE1APPROVALPRESUBCONTRACT_APPROVAL',
+						appCodeTemplateKeySendBackToRequestor: 'PROCURMT_INTRNLSTAGE1APPROVALPRESUBCONTRACT_SENDBACKTOREQUESTOR',
+						appCodeTemplateKeyOnHold: 'PROCURMT_INTRNLSTAGE1APPROVALPRESUBCONTRACT_ONHOLD',
+						appCodeTemplateKeyReject: 'PROCURMT_INTRNLSTAGE1APPROVALPRESUBCONTRACT_REJECT',
+						stage1seleniumLocator: 'Stage1Approve_viewedit_Projectsubcontract',
+						approveappCodeTemplateKey: 'APPROVE_INTRNLSTAGE1APPROVALPRESUBCONTRACT_VIEW',
+						approveappCodeTemplateKeyApproval: 'APPROVE_INTRNLSTAGE1APPROVALPRESUBCONTRACT_APPROVAL',
+						approveappCodeTemplateKeySendBackToRequestor: 'APPROVE_INTRNLSTAGE1APPROVALPRESUBCONTRACT_SENDBACKTOREQUESTOR',
+						approveappCodeTemplateKeyOnHold: 'APPROVE_INTRNLSTAGE1APPROVALPRESUBCONTRACT_ONHOLD',
+						approveappCodeTemplateKeyReject: 'APPROVE_INTRNLSTAGE1APPROVALPRESUBCONTRACT_REJECT',
+						}]
+					}
+					if($scope.preContractObj.preContractType == "Professional Services agreement"){
+						$scope.preContrctDetailTabs = [{
+						title: 'Services',
+						url: '/views/procurement/pre-contracts/internalApproval/precontractinternalservices.html',
+						stateParamsRequestPage: false,
+						nameOfVariable: 'preContractServiceDtlTOs',
+						appCodeTemplateKey: 'PROCURMT_INTRNLSTAGE1APPROVALSERVICES_VIEW',
+						appCodeTemplateKeyApproval: 'PROCURMT_INTRNLSTAGE1APPROVALSERVICES_APPROVAL',
+						appCodeTemplateKeySendBackToRequestor: 'PROCURMT_INTRNLSTAGE1APPROVALSERVICES_SENDBACKTOREQUESTOR',
+						appCodeTemplateKeyOnHold: 'PROCURMT_INTRNLSTAGE1APPROVALSERVICES_ONHOLD',
+						appCodeTemplateKeyReject: 'PROCURMT_INTRNLSTAGE1APPROVALSERVICES_REJECT',
+						stage1seleniumLocator: 'Stage1Approve_viewedit_Services',
+						approveappCodeTemplateKey: 'APPROVE_INTRNLSTAGE1APPROVALSERVICES_VIEW',
+						approveappCodeTemplateKeyApproval: 'APPROVE_INTRNLSTAGE1APPROVALSERVICES_APPROVAL',
+						approveappCodeTemplateKeySendBackToRequestor: 'APPROVE_INTRNLSTAGE1APPROVALSERVICES_SENDBACKTOREQUESTOR',
+						approveappCodeTemplateKeyOnHold: 'APPROVE_INTRNLSTAGE1APPROVALSERVICES_ONHOLD',
+						approveappCodeTemplateKeyReject: 'APPROVE_INTRNLSTAGE1APPROVALSERVICES_REJECT',
+						}]
+					}
+					/*$scope.preContrctDetailTabs = [{
 						title: 'Manpower',
 						stateParamsRequestPage: false,
 						url: '/views/procurement/pre-contracts/internalApproval/precontractinternalmanpower.html',
@@ -143,7 +308,7 @@ app.factory('PreContractInternalScheduleItemsFactory', ["ngDialog", "$q", "$root
 						approveappCodeTemplateKeyOnHold: 'APPROVE_INTRNLSTAGE1APPROVALPRESUBCONTRACT_ONHOLD',
 						approveappCodeTemplateKeyReject: 'APPROVE_INTRNLSTAGE1APPROVALPRESUBCONTRACT_REJECT',
 
-					}];
+					}];*/
 				}
 
 				//request

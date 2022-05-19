@@ -42,7 +42,64 @@ app
 												$scope.projEmpCatgMap = data.projEmpCatgMap
 												var projId = data.preContractTO.projId;
 												$scope.preContractBidCostCodeSummaryTOs = [];
-												$scope.preContrctDetailTabs = [
+												if($scope.preContractObj.preContractType == "Engineering Services"){
+													$scope.preContrctDetailTabs = [{
+															title : 'Services',
+															url : 'views/procurement/pre-contracts/externalApproval/precontractexternalservices.html',
+															stage2requestSeleniumLocator: 'Stage2Approval_Scheduleofitems_view_services'
+													}]
+												}
+												if($scope.preContractObj.preContractType == "Labour Hire Agreement"){
+													$scope.preContrctDetailTabs = [{
+															title : 'Manpower',
+															url : 'views/procurement/pre-contracts/externalApproval/precontractexternalmanpower.html',
+															stage2requestSeleniumLocator: 'Stage2Approval_Scheduleofitems_view_Manpower'
+													}]
+												}
+												if($scope.preContractObj.preContractType == "Plant Hire Agreement"){
+													$scope.preContrctDetailTabs = [{
+															title : 'Plants',
+															url : 'views/procurement/pre-contracts/externalApproval/precontractexternalplants.html',
+															stage2requestSeleniumLocator: 'Stage2Approval_Scheduleofitems_view_plants'
+													}]
+												}
+												if($scope.preContractObj.preContractType == "Supply Agreement"){
+													$scope.preContrctDetailTabs = [{
+															title : 'Materials',
+															url : 'views/procurement/pre-contracts/externalApproval/precontractexternalmaterial.html',
+															stage2requestSeleniumLocator: 'Stage2Approval_Scheduleofitems_view_materials'
+													}]
+												}
+												if($scope.preContractObj.preContractType == "Purchase  Order"){
+													$scope.preContrctDetailTabs = [{
+															title : 'Manpower',
+															url : 'views/procurement/pre-contracts/externalApproval/precontractexternalmanpower.html',
+															stage2requestSeleniumLocator: 'Stage2Approval_Scheduleofitems_view_Manpower'
+													},{
+															title : 'Plants',
+															url : 'views/procurement/pre-contracts/externalApproval/precontractexternalplants.html',
+															stage2requestSeleniumLocator: 'Stage2Approval_Scheduleofitems_view_plants'
+													},{
+															title : 'Materials',
+															url : 'views/procurement/pre-contracts/externalApproval/precontractexternalmaterial.html',
+															stage2requestSeleniumLocator: 'Stage2Approval_Scheduleofitems_view_materials'
+													}]
+												}
+												if($scope.preContractObj.preContractType == "Sub Contract agreement"){
+													$scope.preContrctDetailTabs = [{
+															title : 'Project Sub Contract',
+															url : 'views/procurement/pre-contracts/externalApproval/precontractexternalsow.html',
+															stage2requestSeleniumLocator: 'Stage2Approval_Scheduleofitems_view_projectsubcontract'
+													}]
+												}
+												if($scope.preContractObj.preContractType == "Professional Services agreement"){
+													$scope.preContrctDetailTabs = [{
+															title : 'Services',
+															url : 'views/procurement/pre-contracts/externalApproval/precontractexternalservices.html',
+															stage2requestSeleniumLocator: 'Stage2Approval_Scheduleofitems_view_services'
+													}]
+												}
+												/*$scope.preContrctDetailTabs = [
 														{
 															title : 'Manpower',
 															url : 'views/procurement/pre-contracts/externalApproval/precontractexternalmanpower.html',
@@ -67,7 +124,7 @@ app
 															title : 'Project Sub Contract',
 															url : 'views/procurement/pre-contracts/externalApproval/precontractexternalsow.html',
 															stage2requestSeleniumLocator: 'Stage2Approval_Scheduleofitems_view_projectsubcontract'
-														} ];
+														} ];*/
 
 												$scope.onClickTab1 = function(tab) {
 													$scope.currentTab1 = tab.url;

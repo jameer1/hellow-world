@@ -44,8 +44,65 @@ app.factory('RfqScheduleItemsEditFactor', ["ngDialog", "$q", "$filter", "$timeou
 				setGivenCompanyAtFirst(data.preContractTO, 'precontractSowDtlTOs', 'precontractSowCmpTOs', preContractCmpTO.id);
 
 				$scope.preContractObj = data.preContractTO;
+				if($scope.preContractObj.preContractType == "Engineering Services"){
+					$scope.preContrctDetailTabs = [{
+					title: 'Services',
+					url: 'views/procurement/RFQ/rfqeditservices.html',
+					rfqscheduleSeleniumLocator: 'PurchaseOrders_RFQ_editquotesviewservice'
+					}]
+				}
+				if($scope.preContractObj.preContractType == "Labour Hire Agreement"){
+					$scope.preContrctDetailTabs = [{
+					title: 'Manpower',
+					url: 'views/procurement/RFQ/rfqeditmanpower.html',
+					rfqscheduleSeleniumLocator: 'PurchaseOrders_RFQ_editquotesviewmanpower'
+					}]
+				}
+				if($scope.preContractObj.preContractType == "Plant Hire Agreement"){
+					$scope.preContrctDetailTabs = [{
+					title: 'Plants',
+					url: 'views/procurement/RFQ/rfqeditplants.html',
+					rfqscheduleSeleniumLocator: 'PurchaseOrders_RFQ_editquotesviewplant'
+					}]
+				}
+				if($scope.preContractObj.preContractType == "Supply Agreement"){
+					$scope.preContrctDetailTabs = [{
+					title: 'Materials',
+					url: 'views/procurement/RFQ/rfqeditmaterial.html',
+					rfqscheduleSeleniumLocator: 'PurchaseOrders_RFQ_editquotesviewmaterials'
+					}]
+				}
+				if($scope.preContractObj.preContractType == "Purchase  Order"){
+					$scope.preContrctDetailTabs = [{
+					title: 'Manpower',
+					url: 'views/procurement/RFQ/rfqeditmanpower.html',
+					rfqscheduleSeleniumLocator: 'PurchaseOrders_RFQ_editquotesviewmanpower'
+					},{
+					title: 'Materials',
+					url: 'views/procurement/RFQ/rfqeditmaterial.html',
+					rfqscheduleSeleniumLocator: 'PurchaseOrders_RFQ_editquotesviewmaterials'
+					},{
+					title: 'Plants',
+					url: 'views/procurement/RFQ/rfqeditplants.html',
+					rfqscheduleSeleniumLocator: 'PurchaseOrders_RFQ_editquotesviewplant'
+					}]
+				}
+				if($scope.preContractObj.preContractType == "Sub Contract agreement"){
+					$scope.preContrctDetailTabs = [{
+					title: 'Project Sub Contract',
+					url: 'views/procurement/RFQ/rfqeditsow.html',
+					rfqscheduleSeleniumLocator: 'PurchaseOrders_RFQ_editquotesviewprojectsubcontract'
+					}]
+				}
+				if($scope.preContractObj.preContractType == "Professional Services agreement"){
+					$scope.preContrctDetailTabs = [{
+					stitle: 'Services',
+					url: 'views/procurement/RFQ/rfqeditservices.html',
+					rfqscheduleSeleniumLocator: 'PurchaseOrders_RFQ_editquotesviewservice'
+					}]
+				}
 
-				$scope.preContrctDetailTabs = [{
+				/*$scope.preContrctDetailTabs = [{
 					title: 'Manpower',
 					url: 'views/procurement/RFQ/rfqeditmanpower.html',
 					rfqscheduleSeleniumLocator: 'PurchaseOrders_RFQ_editquotesviewmanpower'
@@ -69,7 +126,7 @@ app.factory('RfqScheduleItemsEditFactor', ["ngDialog", "$q", "$filter", "$timeou
 					url: 'views/procurement/RFQ/rfqeditsow.html',
 					rfqscheduleSeleniumLocator: 'PurchaseOrders_RFQ_editquotesviewprojectsubcontract'
 
-				}];
+				}];*/
 
 				$scope.onClickTab1 = function (tab) {
 					$scope.currentTab1 = tab.url;
