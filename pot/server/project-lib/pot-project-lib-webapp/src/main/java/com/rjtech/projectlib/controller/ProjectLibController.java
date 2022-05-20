@@ -981,41 +981,6 @@ public class ProjectLibController {
         return new ResponseEntity<ProjSOWItemResp>( projLibService.getAllProjSOWDetails( projSOWItemGetReq ), HttpStatus.OK );
     }
     
-    @RequestMapping(value = ProjLibURLConstants.SAVE_CO_DETAILS, method = RequestMethod.POST)
-    public ResponseEntity<ChangeOrderResp> saveChangeOrderDetails( @RequestBody ChangeOrderReq ChangeOrderReq ) {
-        return new ResponseEntity<ChangeOrderResp>( projLibService.saveChangeOrderDetails( ChangeOrderReq ), HttpStatus.OK );
-    }
-    
-    @RequestMapping(value = ProjLibURLConstants.GET_CO_DETAILS, method = RequestMethod.POST)
-    public ResponseEntity<ChangeOrderResp> getChangeOrderDetails( @RequestBody ChangeOrderReq ChangeOrderReq ) {
-        return new ResponseEntity<ChangeOrderResp>( projLibService.getChangeOrderDetails( ChangeOrderReq ), HttpStatus.OK );
-    }
-    
-    @RequestMapping(value = ProjLibURLConstants.SAVE_CO_MANPOWER_DETAILS, method = RequestMethod.POST)
-    public ResponseEntity<ChangeOrderResp> saveCoManpowerDetails( @RequestBody ChangeOrderReq changeOrderReq ) {
-        return new ResponseEntity<ChangeOrderResp>( projLibService.saveCoManpowerDetails( changeOrderReq ), HttpStatus.OK );
-    }
-    
-    @RequestMapping(value = ProjLibURLConstants.GET_CO_MANPOWER_DETAILS, method = RequestMethod.POST)
-    public ResponseEntity<ChangeOrderResp> getCoManpowerDetails( @RequestBody ChangeOrderReq changeOrderReq ) {
-        return new ResponseEntity<ChangeOrderResp>( projLibService.getCoManpowerDetails( changeOrderReq ), HttpStatus.OK );
-    }
-    
-    @RequestMapping(value = ProjLibURLConstants.SAVE_CO_PLANT_DETAILS, method = RequestMethod.POST)
-    public ResponseEntity<ChangeOrderResp> saveCoPlantDetails( @RequestBody ChangeOrderReq changeOrderReq ) {
-        return new ResponseEntity<ChangeOrderResp>( projLibService.saveCoPlantDetails( changeOrderReq ), HttpStatus.OK );
-    }
-    
-    @RequestMapping(value = ProjLibURLConstants.GET_CO_PLANT_DETAILS, method = RequestMethod.POST)
-    public ResponseEntity<ChangeOrderResp> getCoPlantDetails( @RequestBody ChangeOrderReq changeOrderReq ) {
-        return new ResponseEntity<ChangeOrderResp>( projLibService.getCoPlantDetails( changeOrderReq ), HttpStatus.OK );
-    }
-    
-    @RequestMapping(value = ProjLibURLConstants.UPDATE_CO_APPROVER_DETAILS, method = RequestMethod.POST)
-    public ResponseEntity<ChangeOrderResp> updateCoApproverDetails( @RequestBody ChangeOrderReq changeOrderReq ) {
-        return new ResponseEntity<ChangeOrderResp>( projLibService.updateCoApproverDetails( changeOrderReq ), HttpStatus.OK );
-    }
-    
     @RequestMapping(value = ProjLibURLConstants.GET_SOR_TRACK_RECORDS, method = RequestMethod.POST)
     public ResponseEntity<ProjSORTrackDetailsResp> getProjSORTrackDetails(@RequestBody ProjSORTrackGetReq projSORTrackGetReq){
     	return new ResponseEntity<ProjSORTrackDetailsResp>(projLibService.getProjSORTrackDetails(projSORTrackGetReq),HttpStatus.OK);

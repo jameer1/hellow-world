@@ -213,4 +213,10 @@ public interface MWProjLibService {
     ProjSOETrackLogResp getProjSOETrackDetails(ProjSOETrackGetReq projSOETrackGetReq);
     
     ProjSORTrackDetailsResp getProjSORTrackDetails(ProjSORTrackGetReq projSORTrackGetReq);
+
+	ChangeOrderResp saveCoScopeOfWork(ChangeOrderReq changeOrderReq);
+
+	ChangeOrderResp saveCoMaterialDetails(ChangeOrderReq changeOrderReq);
+
+	ChangeOrderResp saveCoCostDetails(ChangeOrderReq changeOrderReq);
 }

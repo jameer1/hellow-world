@@ -19,8 +19,17 @@ public class PurchaseOrderGetReq extends ProjectTO {
     private boolean loginUser;
     private List<Long> precontractCmpIds;
     private boolean isRepeatPO=true;
+    private String preContractType;
 
-    public Long getPurchaseId() {
+    public String getPreContractType() {
+		return preContractType;
+	}
+
+	public void setPreContractType(String preContractType) {
+		this.preContractType = preContractType;
+	}
+
+	public Long getPurchaseId() {
         return purchaseId;
     }
 

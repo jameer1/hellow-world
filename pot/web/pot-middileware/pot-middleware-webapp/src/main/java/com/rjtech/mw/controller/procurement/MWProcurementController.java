@@ -558,6 +558,12 @@ public class MWProcurementController {
         return new ResponseEntity<LabelKeyTOResp>(mwProcurementService.getPOByProcureType(poProcureTypeReq),
                 HttpStatus.OK);
     }
+    
+    @RequestMapping(value = ProcurementURLConstants.GET_PURCHASE_ORDERS_BY_PRE_CONTRACT_TYPE, method = RequestMethod.POST)
+    public ResponseEntity<LabelKeyTOResp> getPOByPreContranctType(@RequestBody PurchaseOrderGetReq purchaseOrderGetReq) {
+        return new ResponseEntity<LabelKeyTOResp>(mwProcurementService.getPOByPreContranctType(purchaseOrderGetReq),
+                HttpStatus.OK);
+    }
 
     @RequestMapping(value = ProcurementURLConstants.GET_PO_ITEM_DETAILS, method = RequestMethod.POST)
     public ResponseEntity<LabelKeyTOResp> getPOItemDetails(@RequestBody POProcureTypeReq poProcureTypeReq) {

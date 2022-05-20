@@ -593,6 +593,21 @@ public class MWProjLibController {
         return new ResponseEntity<ChangeOrderResp>( mwProjLibService.saveChangeOrderDetails( changeOrderReq ), HttpStatus.OK );
     }
 	
+	@RequestMapping(value = ProjLibURLConstants.SAVE_CO_SOW, method = RequestMethod.POST)
+    public ResponseEntity<ChangeOrderResp> saveCoScopeOfWork( @RequestBody ChangeOrderReq changeOrderReq ) {
+        return new ResponseEntity<ChangeOrderResp>( mwProjLibService.saveCoScopeOfWork( changeOrderReq ), HttpStatus.OK );
+    }
+	
+	@RequestMapping(value = ProjLibURLConstants.SAVE_CO_MATERIAL_DETAILS, method = RequestMethod.POST)
+    public ResponseEntity<ChangeOrderResp> saveCoMaterialDetails( @RequestBody ChangeOrderReq changeOrderReq ) {
+        return new ResponseEntity<ChangeOrderResp>( mwProjLibService.saveCoMaterialDetails( changeOrderReq ), HttpStatus.OK );
+    }
+	
+	@RequestMapping(value = ProjLibURLConstants.SAVE_CO_COST_DETAILS, method = RequestMethod.POST)
+    public ResponseEntity<ChangeOrderResp> saveCoCostDetails( @RequestBody ChangeOrderReq changeOrderReq ) {
+        return new ResponseEntity<ChangeOrderResp>( mwProjLibService.saveCoCostDetails( changeOrderReq ), HttpStatus.OK );
+    }
+	
 	@RequestMapping(value = ProjLibURLConstants.GET_CO_DETAILS, method = RequestMethod.POST)
     public ResponseEntity<ChangeOrderResp> getChangeOrderDetails( @RequestBody ChangeOrderReq changeOrderReq ) {
         return new ResponseEntity<ChangeOrderResp>( mwProjLibService.getChangeOrderDetails( changeOrderReq ), HttpStatus.OK );

@@ -146,4 +146,6 @@ public interface MWProcurementService {
     PreContractResp getLatestPreContractsCostCodeReports(ProcurementFilterReq procurementFilterReq);
      
     InvoiceMaterialResp getInvoiceMaterials(InvoiceMaterialGetReq invoiceMaterialGetReq);
+
+	LabelKeyTOResp getPOByPreContranctType(PurchaseOrderGetReq purchaseOrderGetReq);
 }

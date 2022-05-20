@@ -26,10 +26,16 @@ public class PurchaseOrderController {
 
     @Autowired
     private PurchaseOrdeService purchaseOrdeService;
-
+    
     @RequestMapping(value = ProcurementURLConstants.GET_PURCHASE_ORDERS_BY_PROCURETYPE, method = RequestMethod.POST)
     public ResponseEntity<LabelKeyTOResp> getPOByProcureType(@RequestBody POProcureTypeReq poProcureTypeReq) {
         return new ResponseEntity<LabelKeyTOResp>(purchaseOrdeService.getPOByProcureType(poProcureTypeReq),
+                HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = ProcurementURLConstants.GET_PURCHASE_ORDERS_BY_PRE_CONTRACT_TYPE, method = RequestMethod.POST)
+    public ResponseEntity<LabelKeyTOResp> getPOByPreContranctType(@RequestBody PurchaseOrderGetReq purchaseOrderGetReq) {
+        return new ResponseEntity<LabelKeyTOResp>(purchaseOrdeService.getPOByPreContranctType(purchaseOrderGetReq),
                 HttpStatus.OK);
     }
 

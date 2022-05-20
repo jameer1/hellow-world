@@ -151,20 +151,6 @@ public interface ProjLibService {
     
     public ProjSOWItemResp getAllProjSOWDetails( ProjSOWItemGetReq projSOWItemGetReq );
     
-    public ChangeOrderResp saveChangeOrderDetails( ChangeOrderReq changeOrderReq );
-    
-    public ChangeOrderResp getChangeOrderDetails( ChangeOrderReq changeOrderReq );
-    
-    public ChangeOrderResp saveCoManpowerDetails( ChangeOrderReq changeOrderReq );
-    
-    public ChangeOrderResp getCoManpowerDetails( ChangeOrderReq changeOrderReq );
-    
-    public ChangeOrderResp saveCoPlantDetails( ChangeOrderReq changeOrderReq );
-    
-    public ChangeOrderResp getCoPlantDetails( ChangeOrderReq changeOrderReq );
-    
-    public ChangeOrderResp updateCoApproverDetails( ChangeOrderReq changeOrderReq );
-    
     public void saveProjSOETrackDetails(ProjSOETrackSaveReq projSOETrackSaveReq);
     
     public ProjSOETrackLogResp getProjSOETrackDetails(ProjSOETrackGetReq projSOETrackGetReq);

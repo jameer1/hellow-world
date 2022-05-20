@@ -868,4 +868,28 @@ public class MWProjectLibServiceImpl extends RestConfigServiceImpl implements MW
         strResponse = constructPOSTRestTemplate(url, AppUtils.toJson(projSORTrackGetReq));
         return AppUtils.fromJson(strResponse.getBody(), ProjSORTrackDetailsResp.class);
     }
+
+	@Override
+	public ChangeOrderResp saveCoScopeOfWork(ChangeOrderReq changeOrderReq) {
+        ResponseEntity<String> strResponse = null;
+        String url = getProjectLibExchangeUrl( ProjLibURLConstants.PARH_URL + ProjLibURLConstants.SAVE_CO_SOW );
+        strResponse = constructPOSTRestTemplate( url, AppUtils.toJson( changeOrderReq ) );
+        return AppUtils.fromJson( strResponse.getBody(), ChangeOrderResp.class );
+    }
+	
+	@Override
+	public ChangeOrderResp saveCoMaterialDetails(ChangeOrderReq changeOrderReq) {
+        ResponseEntity<String> strResponse = null;
+        String url = getProjectLibExchangeUrl( ProjLibURLConstants.PARH_URL + ProjLibURLConstants.SAVE_CO_MATERIAL_DETAILS );
+        strResponse = constructPOSTRestTemplate( url, AppUtils.toJson( changeOrderReq ) );
+        return AppUtils.fromJson( strResponse.getBody(), ChangeOrderResp.class );
+    }
+	
+	@Override
+	public ChangeOrderResp saveCoCostDetails(ChangeOrderReq changeOrderReq) {
+        ResponseEntity<String> strResponse = null;
+        String url = getProjectLibExchangeUrl( ProjLibURLConstants.PARH_URL + ProjLibURLConstants.SAVE_CO_COST_DETAILS );
+        strResponse = constructPOSTRestTemplate( url, AppUtils.toJson( changeOrderReq ) );
+        return AppUtils.fromJson( strResponse.getBody(), ChangeOrderResp.class );
+    }
 }

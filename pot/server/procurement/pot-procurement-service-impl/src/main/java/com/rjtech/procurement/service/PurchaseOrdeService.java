@@ -56,4 +56,6 @@ public interface PurchaseOrdeService {
     PurchaseOrderInvoiceResp getInvoiceVendorBankDetails(PurchaseOrderGetReq purchaseOrderGetReq);
 
     PurchaseOrderResp getSOWPurchaseOrders(POProcureTypeReq poProcureTypeReq);
+
+	LabelKeyTOResp getPOByPreContranctType(PurchaseOrderGetReq poGetReq);
 }

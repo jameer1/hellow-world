@@ -41,46 +41,46 @@ CO_PURCHASE_ORDER_ID                      VARCHAR2(150)
     @Column(name = "CO_CODE")
     private String code;
     
-    @Column(name = "CO_CONTRACT_TYPE")
+    @Column(name = "CONTRACT_TYPE")
     private String contractType;  
     
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CO_PROJ_ID_FK")
+    @JoinColumn(name = "PROJ_ID")
     private ProjMstrEntity projectId;
     
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "CO_CREATED_ON", updatable = false)
+    @Column(name = "CREATED_ON", updatable = false)
     private Date createdOn;
 
-    @Column(name = "CO_IS_EXT_APPROVAL_REQUIRED")
+    @Column(name = "IS_EXT_APPRVL_REQ")
     private Integer isExternalApprovalRequired;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CO_CREATED_BY_FK", updatable = false)
+    @JoinColumn(name = "CREATED_BY", updatable = false)
     private UserMstrEntity createdBy;
     
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CO_ORIGINATOR_USER_ID_FK", updatable = false)
+    @JoinColumn(name = "ORIGINATOR_USER_ID", updatable = false)
     private UserMstrEntity originatorUserId;
     
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CO_INTERNAL_APPR_USER_ID_FK", updatable = false)
+    @JoinColumn(name = "INTRNL_APPR_USER_ID", updatable = false)
     private UserMstrEntity internalApproverUserId;
     
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CO_EXTERNAL_APPR_USER_ID_FK", updatable = false)
+    @JoinColumn(name = "EXTERNAL_APPR_USER_ID", updatable = false)
     private UserMstrEntity externalApproverUserId;
     
-    @Column(name = "CO_REASON_FOR_CHANGE")
+    @Column(name = "REASON_FOR_CHANGE")
     private String reasonForChange;
     
-    @Column(name = "CO_APPROVAL_STATUS")
+    @Column(name = "APPROVAL_STATUS")
     private String approvalStatus;
     
-    @Column(name = "CO_DESCRIPTION")
+    @Column(name = "DESCRIPTION")
     private String description;
     
-    @Column(name = "CO_STATUS")
+    @Column(name = "STATUS")
     private Integer status;
 
     

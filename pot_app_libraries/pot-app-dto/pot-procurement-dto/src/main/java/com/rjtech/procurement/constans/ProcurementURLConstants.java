@@ -99,6 +99,7 @@ public class ProcurementURLConstants implements Serializable {
     public final static String GET_PURCHASE_ORDER_DETAILS = "getPurchaseOrderDetails";
 
     public final static String GET_PURCHASE_ORDERS_BY_PROCURETYPE = "getPOByProcureTypes";
+    public final static String GET_PURCHASE_ORDERS_BY_PRE_CONTRACT_TYPE = "getPOByPreContranctType";
     public final static String GET_PO_ITEM_DETAILS = "getPOItemDetails";
     public final static String GET_PO_ITEMS_BY_PROJECT = "getPOItemsByProject";
 

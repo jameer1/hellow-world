@@ -166,6 +166,10 @@ public class ProjLibURLConstants implements Serializable {
     public final static String GET_SOW_ITEMS_BY_PROJID = "getSOWItemsByProjId";
     public final static String SAVE_CO_DETAILS = "saveChangeOrderDetails"; // this constant is for saving the change order details
     public final static String GET_CO_DETAILS = "getChangeOrderDetails";
+    public final static String SAVE_CO_SOW = "saveCoScopeOfWork";
+    public final static String SAVE_CO_MATERIAL_DETAILS = "saveCoMaterialDetails";
+    public final static String SAVE_CO_COST_DETAILS = "saveCoCostDetails";
+    
     public final static String SAVE_CO_MANPOWER_DETAILS = "saveCoManpowerDetails";
     public final static String GET_CO_MANPOWER_DETAILS = "getCoManpowerDetails";
     public final static String SAVE_CO_PLANT_DETAILS = "saveCoPlantDetails";

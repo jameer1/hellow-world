@@ -231,6 +231,48 @@ public class PurchaseOrderServiceImpl implements PurchaseOrdeService {
         }
         return labelKeyTOResp;
     }
+    
+    @Override
+    public LabelKeyTOResp getPOByPreContranctType(PurchaseOrderGetReq poGetReq) {
+        List<Long> projIds = new ArrayList<>();
+        projIds.add(poGetReq.getProjId());
+        List<PurchaseOrderEntity> purchaseOrderEntities = new ArrayList<PurchaseOrderEntity>();
+        System.out.println("getPOByPreContranctType function of PurchaseOrderServiceImpl");
+        
+        purchaseOrderEntities = purchaseOrderRepository.findPOByPreContractType(projIds, poGetReq.getStatus(),poGetReq.getPreContractType());
+        LabelKeyTOResp labelKeyTOResp = new LabelKeyTOResp();
+        for (PurchaseOrderEntity purchaseOrderEntity : purchaseOrderEntities) {
+        	System.out.println(purchaseOrderEntity);
+            LabelKeyTO labelKeyTO = new LabelKeyTO();
+            labelKeyTO.setId(purchaseOrderEntity.getId());
+            boolean isRepeatPO = false;
+            if (AppUtils.isNotNull(purchaseOrderEntity.getParentId()))
+            {
+                isRepeatPO = true;
+            }
+            labelKeyTO.setCode(PurchaseOrderHandler.generatePurchaseOrderCode(purchaseOrderEntity,isRepeatPO));
+            labelKeyTO.setPoDescription( purchaseOrderEntity.getPreContractsCmpEntity().getPreContractEntity().getDesc() );
+            if (CommonUtil.objectNotNull(purchaseOrderEntity.getPreContractsCmpEntity()) && CommonUtil
+                    .objectNotNull(purchaseOrderEntity.getPreContractsCmpEntity().getCompanyMstrEntity())) {
+                CompanyMstrEntity company = purchaseOrderEntity.getPreContractsCmpEntity().getCompanyMstrEntity();
+                labelKeyTO.getDisplayNamesMap().put(CommonConstants.CMP_CODE, company.getCode());
+                labelKeyTO.getDisplayNamesMap().put(CommonConstants.CMP_NAME, company.getName());
+            }
+			if(purchaseOrderEntity.getFinsihDate()!= null && purchaseOrderEntity.getStartDate()!=null) {
+			  labelKeyTO.getDisplayNamesMap().put(CommonConstants.PUR_START_DATE,
+			  CommonUtil.getYYYYMMDDFormat(purchaseOrderEntity.getStartDate()));
+			  labelKeyTO.getDisplayNamesMap().put(CommonConstants.PUR_FINISH_DATE,
+			  CommonUtil.getYYYYMMDDFormat(purchaseOrderEntity.getFinsihDate()));
+			}
+			 
+            labelKeyTO.getDisplayNamesMap().put(CommonConstants.PUR_AMOUNT,
+                    String.valueOf(purchaseOrderEntity.getAmount()));
+            labelKeyTO.getDisplayNamesMap().put(CommonConstants.PUR_PAYMENT_IN_DAYS,
+                    String.valueOf(purchaseOrderEntity.getPaymentInDays()));
+            labelKeyTOResp.getLabelKeyTOs().add(labelKeyTO);
+        }
+        return labelKeyTOResp;
+    }
 
     public LabelKeyTOResp getPOItemDetails(POProcureTypeReq procureTypeReq) {
         PreContractsCmpEntity preContractsCmpEntity = purchaseOrderRepository

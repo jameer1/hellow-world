@@ -45,5 +45,10 @@ public interface PurchaseOrderRepository extends ProcurementBaseRepository<Purch
     
     PurchaseOrderEntity findByPreContractsCmpEntity(
             @Param("preContractsCmpEntity") PreContractsCmpEntity preContractsCmpEntity);
+    
+    @Query("SELECT PUR FROM PurchaseOrderEntity PUR  WHERE PUR.projId.projectId in ( :projIds ) "
+            + " AND PUR.status=:status AND  PUR.preContractsCmpEntity.preContractEntity.preContractType = :preContractType " + " ORDER BY PUR.id")
+    List<PurchaseOrderEntity> findPOByPreContractType(@Param("projIds") List<Long> projIds, @Param("status") Integer status,
+            @Param("preContractType") String preContractType);
 
 }

@@ -372,6 +372,15 @@ public class MWProcurementServiceImpl extends RestConfigServiceImpl implements M
                         + ProcurementURLConstants.GET_PURCHASE_ORDERS_BY_PROCURETYPE);
         return AppUtils.fromJson(strResponse.getBody(), LabelKeyTOResp.class);
     }
+    
+    @Override
+    public LabelKeyTOResp getPOByPreContranctType(PurchaseOrderGetReq purchaseOrderGetReq) {
+        ResponseEntity<String> strResponse = null;
+        strResponse = getProcuremntPOSTRestTemplate(AppUtils.toJson(purchaseOrderGetReq),
+                ProcurementURLConstants.PURCHASE_ORDER_PARH_URL
+                        + ProcurementURLConstants.GET_PURCHASE_ORDERS_BY_PRE_CONTRACT_TYPE);
+        return AppUtils.fromJson(strResponse.getBody(), LabelKeyTOResp.class);
+    }
 
     public LabelKeyTOResp getPOScheudleItemsByProject(POProcureTypeReq poProcureTypeReq) {
         ResponseEntity<String> strResponse = null;
