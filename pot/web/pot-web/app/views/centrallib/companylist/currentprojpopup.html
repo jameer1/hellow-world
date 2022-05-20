@@ -51,13 +51,13 @@
 
 							<td><input data-test='Companylist_CurrentProjects_Create_ContractValue' type="text"
 									ng-model="proj.contractValue" class="form-control" name="cv" ng-trim="false"
-									placeholder="Contract Value" ng-maxlength=15
+									placeholder="Contract Value" minlength="3"  pattern="^[\d\.,%]+$" maxlength="15"
 									ng-required="true"  /> <span class="procurment-pot-errors"
 									ng-show="projForm.cv.$dirty && projForm.cv.$error.required">Contract
 									Value is mandatory</span> <span class="procurment-pot-errors"
 									ng-show="projForm.cv.$error.pattern">Enter
 									only numbers</span> <span class="procurment-pot-errors"
-									ng-show="projForm.cv.$error.minlength">Too
+									ng-show="projForm.cv.$error.minlength">Contact value is too
 									Short!</span></td>
 
 							<td>

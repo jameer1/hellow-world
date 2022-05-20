@@ -37,21 +37,22 @@
 									ng-show="centralform.code.$error.pattern">Alpha numeric
 										data should be allowed </span></td>
 
-								<td ng-form name="centralform1"><input data-test='CentralLibrary_PlantClassification_Create_PlantResourcename' class="form-control type="text"
+								<td ng-form name="centralform"><input data-test='CentralLibrary_PlantClassification_Create_PlantResourcename' class="form-control type="text"
 									name="name" ng-model="central.name"
+									ng-class="{coloumnHighlightColor:central.duplicateFlag}"
+									ng-change="checkDuplicate1(central)"
 									pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
 									minlength="3" maxlength="50" placeholder="Plant Classification Name"
 									ng-required="true"> <span class="procurment-pot-errors"
-									ng-show="centralform1.name.$touched && centralform1.name.$error.required">This
+									ng-show="centralform.name.$touched && centralform.name.$error.required">This
 										field is mandatory</span> 
-									<span ng-show="centralform1.name.$error.pattern" class="procurment-pot-errors">Alpha
+									<span ng-show="centralform.name.$error.pattern" class="procurment-pot-errors">Alpha
 										numeric data should be allowed </span></td>
 
 								<td><select data-test='CentralLibrary_PlantClassification_Create_unitofmeasure' class="form-control"
 									ng-change="updatePlantCode(central.measureUnitTO,central);checkDuplicate(central)"
 									ng-options="cat.name  for cat in proCategory track by cat.name"
-									ng-model="central.measureUnitTO" ng-required="true"
-									ng-class="{coloumnHighlightColor:central.duplicateFlag}">
+									ng-model="central.measureUnitTO" ng-required="true">
 										<option value="">-Select-</option>
 								</select></td>
 							</tr>

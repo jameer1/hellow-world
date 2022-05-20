@@ -154,6 +154,7 @@ app.config(["$stateProvider", function($stateProvider) {
 			});
 	$scope.$on("resetEnroll", function() { 
 		$scope.employeeProjDtlTOs = [];
+		$scope.gridOptions.data=[];
 	});
 
 }]);

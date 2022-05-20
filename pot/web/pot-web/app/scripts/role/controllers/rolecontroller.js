@@ -420,7 +420,7 @@ app.config(["$stateProvider", function ($stateProvider) {
 				if (newValue) {
 					let columnDefs = [
 					    { name: 'select', cellTemplate: linkCellTemplate,  displayName: "Select", headerTooltip : "Select" },
-						{ field: 'roleName',cellTemplate:"<span style='width:750px;' ng-click='grid.appScope.getRolePermissions(row.entity)'>{{row.entity.roleName}}</span>", displayName: "Profile Name", headerTooltip: "Emp ID"}
+						{ field: 'roleName',cellTemplate:"<span style='width:750px;' ng-click='grid.appScope.getRolePermissions(row.entity)'>{{row.entity.roleName}}</span>", displayName: "Profile Name", headerTooltip: "Profile Name"}
 						];
 					let data = [];
 					$scope.getRoles();

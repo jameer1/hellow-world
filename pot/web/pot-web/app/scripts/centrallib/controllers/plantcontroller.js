@@ -131,6 +131,8 @@ app.config(["$stateProvider", function($stateProvider) {
 				$scope.action = actionType;
 				$scope.plantUnits = [];
 				$scope.proCategory = [];
+				var CpcCode="";
+				var CpcName="";
 				var copyEditArray = angular.copy(editplantClassification);
 				var copyEditArray = angular.copy(editplantClassification);
 				if (actionType === 'Add') {
@@ -173,8 +175,20 @@ app.config(["$stateProvider", function($stateProvider) {
 
 				},
 
-				$scope.checkDuplicate = function(plant) {				
-					if(plant.code && plant.measureUnitTO){										
+				$scope.checkDuplicate = function(plant) {
+					plant.duplicateFlag = false;
+					CpcCode=plant.code
+				angular.forEach($scope.plantClassification, function(value,key){
+					if(value.code === plant.code){
+						plant.duplicateFlag = true;
+					}
+				});	
+				if(plant.duplicateFlag){
+					GenericAlertService.alertMessage('Duplicate Plant Classfication codes are not allowed', "Warning");
+							return;
+				}	
+										
+					/*if(plant.code && plant.measureUnitTO){										
 						plant.duplicateFlag = false;
 						plant.code = plant.code.toUpperCase();
 						if ($scope.uniqueCodeMap[plant.code+" "+plant.measureUnitTO.name] != null) {
@@ -184,13 +198,30 @@ app.config(["$stateProvider", function($stateProvider) {
 							return;
 						}
 						plant.duplicateFlag = false;
+					}*/
+				},
+				
+				$scope.checkDuplicate1 = function(plant) {
+					CpcName=plant.name;
+					plant.duplicateFlag1 = false;
+					angular.forEach($scope.plantClassification, function(value,key){
+					if(value.name === plant.name){
+						 plant.duplicateFlag1 = true;
 					}
-				}, $scope.savePlantClasses = function(centralForm) {
+				});
+				if(plant.duplicateFlag1){
+					GenericAlertService.alertMessage('Duplicate Plant Classfication name are not allowed', "Warning");
+					return;
+				}	
+				},
+				 $scope.savePlantClasses = function(centralForm) {
 					var flag = false;
+					var flag1 = false;
 					var plantClassMap = [];
-					angular.forEach($scope.plantUnits, function(value, key) {
+					/*angular.forEach($scope.plantUnits, function(value, key) {
 						if (plantClassMap[value.code.toUpperCase()] != null) {						
 							value.duplicateFlag = true;
+							value.duplicateFlag11 = true;
 							flag = true;
 						} else {												
 							value.duplicateFlag = false;
@@ -201,12 +232,31 @@ app.config(["$stateProvider", function($stateProvider) {
 						angular.forEach($scope.plantUnits, function(value, key) {
 							if ($scope.uniqueCodeMap[value.code.toUpperCase() + " " + value.measureUnitTO.name] != null) {
 								value.duplicateFlag = true;
+								value.duplicateFlag1 = true;
 								flag = true;
 							}
 						});
+					}*/
+					
+					angular.forEach($scope.plantClassification, function(value, key) {
+						if(value.code === CpcCode){
+						flag = true;
 					}
+					});
+					
+					angular.forEach($scope.plantClassification, function(value, key) {
+						if(value.name === CpcName){
+						flag1 = true;
+					}
+					});
+					
+					
 					if (flag) {						
 						GenericAlertService.alertMessage('Duplicate Plant Classfication codes are not allowed', "Warning");						
+						return;
+					}
+					if (flag1) {						
+						GenericAlertService.alertMessage('Duplicate Plant Classfication name are not allowed', "Warning");						
 						return;
 					}
 					var req = {
@@ -281,7 +331,6 @@ app.config(["$stateProvider", function($stateProvider) {
 				"plantClassIds" : deleteIds,
 				"status" : 1
 			};
-			GenericAlertService.confirmMessageModal('Do you really want to Activate the record', 'Warning', 'YES', 'NO').then(function() {
 			PlantClassService.deletePlantClasses(req).then(function(data) {
 			});
 			angular.forEach(editplantClassification, function(value, key) {
@@ -292,7 +341,6 @@ app.config(["$stateProvider", function($stateProvider) {
 			});
 			editplantClassification = [];
 			$scope.deleteIds = [];
-		})
 		}
 	}
 	$scope.deletePlantClasses = function() {
