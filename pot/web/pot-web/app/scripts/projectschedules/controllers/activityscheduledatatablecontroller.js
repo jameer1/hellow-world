@@ -34,7 +34,7 @@ app.config(["$stateProvider", function ($stateProvider) {
 			DatasetListFactory.selectOne($scope.searchCriteria.searchProject, "A").then(function(data){
 				ProjectScheduleService.getScheduleActivity({"id" : data.id}).then(function(data){
 					$scope.searchCriteria.searchDataset = data;
-					$scope.searchCriteria.searchDataset1 = data.scheduleActivityDataTOs; 
+					//$scope.searchCriteria.searchDataset1 = data.scheduleActivityDataTOs; 
 				    $scope.gridOptions.data = angular.copy($scope.searchCriteria.searchDataset1);
 					$scope.formatBooleans(data);
 				}, function(error) {
@@ -87,7 +87,7 @@ app.config(["$stateProvider", function ($stateProvider) {
     	}
     	
     	
-    	$scope.$watch(function () { return stylesService.finishedStyling; }, function (newValue, oldValue) {
+    	/*$scope.$watch(function () { return stylesService.finishedStyling; }, function (newValue, oldValue) {
 			if (newValue) {
 				let columnDefs = [
 					{ field: 'critical', cellFilter:'yesnofilter:row.entity.critical', cellTemplate:'<div>{{row.entity.critical | yesnofilter:row.entity.critical}}</div>', cellClass:"justify-center", headerCellClass:"justify-center", displayName: "Critical", headerTooltip: "Critical", groupingShowAggregationMenu: false},
@@ -111,7 +111,7 @@ app.config(["$stateProvider", function ($stateProvider) {
 				$scope.gridOptions = ngGridService.initGrid($scope, columnDefs, data,"Schedules_Activity Schedule Data Table");
 					$scope.getDatasets()
 			}
-		});
+		});*/
     	
 }]);
 

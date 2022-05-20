@@ -46,13 +46,13 @@
             </div>
             
             
-            <div class="col-sm-12 no-padding">
+            <!-- <div class="col-sm-12 no-padding">
                 <div class="singleTableResHeight_2">
                 
-                <div id="grid" ui-grid="gridOptions" class="singleTableResHeight_3" ng-if="stylesSvc.finishedStyling" ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-resize-columns ui-grid-grouping class="grid"></div> 
+                <div id="grid" ui-grid="gridOptions" class="singleTableResHeight_3" ng-if="stylesSvc.finishedStyling" ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-resize-columns ui-grid-grouping class="grid"></div> --> 
 
                 
-                  <!--  <table class="table table-striped table-hover table-bordered sticky-table">
+                    <table class="table table-striped table-hover table-bordered sticky-table">
                         <thead>
                             <tr>
                                 <th>Critical</th>
@@ -72,7 +72,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat ="scheduleActivityDataTO in searchCriteria.searchDataset.scheduleActivityDataTOs" ng-class="{'info' : scheduleActivityDataTO.id==selectedUniqueIdentifier}" ng-click="setSelectedRow(scheduleActivityDataTO)">
+                            <tr ng-repeat ="scheduleActivityDataTO in searchCriteria.searchDataset.scheduleActivityDataTOs" ng-class="{'info' : scheduleActivityDataTO.id==selectedUniqueIdentifier,'nonwork-class' : scheduleActivityDataTO.wbsCode==null}" ng-click="setSelectedRow(scheduleActivityDataTO)">
                                 <td>{{scheduleActivityDataTO.critical | yesnofilter:scheduleActivityDataTO.critical}}</td>
 								<td>{{scheduleActivityDataTO.wbsCode}}</td>
 								<td>{{scheduleActivityDataTO.wbsName}}</td>
@@ -89,7 +89,7 @@
 								<td><div ng-show="scheduleActivityDataTO.leadLag != 0">{{scheduleActivityDataTO.leadLag}}</div></td>
                             </tr>
                         </tbody>
-                    </table>-->
+                    </table>
                    
                 </div>
             </div>

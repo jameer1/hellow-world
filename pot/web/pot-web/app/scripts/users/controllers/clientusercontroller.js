@@ -695,7 +695,7 @@ app.config(["$stateProvider", function($stateProvider) {
 			blockUI.stop();
 			GenericAlertService.alertMessage(count+ ' Projects Assigned Successfully', "Info");	
 			//window.location.reload();	
-			 $state.go($state.current, {}, {reload: true});
+			 $state.go($state.current, {reload: true});
 		}, function(error) {
 			blockUI.stop();
 			GenericAlertService.alertMessage('Projects Assigned Failed', "Error");
