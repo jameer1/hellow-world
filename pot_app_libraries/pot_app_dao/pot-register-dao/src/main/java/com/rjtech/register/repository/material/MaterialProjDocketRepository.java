@@ -18,14 +18,14 @@ public interface MaterialProjDocketRepository extends RegisterBaseRepository<Mat
             @Param("sourceType") String sourceType, @Param("status") Integer status, 
             @Param("workDairyDate") Date workDairyDate);
 
-    @Query("SELECT T FROM MaterialProjDocketEntity T WHERE T.toProjId.projectId=:projId AND T.sourceType=:sourceType AND T.apprStatus=:apprStatus "
+    @Query("SELECT T FROM MaterialProjDocketEntity T WHERE T.toProjId.projectId=:projId AND T.sourceType=:sourceType AND T.originStockCodeCategory !='Stockpile' AND T.apprStatus=:apprStatus "
             + "AND (T.docketStatus = null OR T.docketStatus!='C') "
             + "AND T.status=:status AND T.docketDate <= :workDairyDate")
     public List<MaterialProjDocketEntity> findMaterialGeneratedProjDockets(@Param("projId") Long projId,
             @Param("sourceType") String sourceType, @Param("apprStatus") String apprStatus, @Param("status") Integer status, 
             @Param("workDairyDate") Date workDairyDate);
     
-    @Query("SELECT T FROM MaterialProjDocketEntity T WHERE T.toProjId.projectId=:projId AND T.toStockCodeCategory='Stockpile' AND T.apprStatus=:apprStatus "
+    @Query("SELECT T FROM MaterialProjDocketEntity T WHERE T.toProjId.projectId=:projId AND T.originStockCodeCategory ='Stockpile' AND T.apprStatus=:apprStatus "
             + "AND (T.docketStatus = null OR T.docketStatus!='C') "
             + "AND T.status=:status AND T.docketDate <= :workDairyDate")
     public List<MaterialProjDocketEntity> findMaterialGeneratedProjDocketsSPMType(@Param("projId") Long projId,
