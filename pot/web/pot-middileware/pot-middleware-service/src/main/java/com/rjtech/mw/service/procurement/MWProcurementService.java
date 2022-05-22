@@ -2,6 +2,9 @@ package com.rjtech.mw.service.procurement;
 
 import com.rjtech.procurement.req.*;
 import com.rjtech.procurement.resp.*;
+
+import java.util.List;
+
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
@@ -9,6 +12,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.rjtech.common.dto.LabelKeyTO;
 import com.rjtech.common.resp.AppResp;
 import com.rjtech.common.resp.LabelKeyTOResp;
+import com.rjtech.finance.dto.VendorBankAccountDetailsTO;
+import com.rjtech.finance.dto.VendorBankAccountDtlsListTO;
 import com.rjtech.procurement.dto.PurchaseOrderDetailsTO;
 
 public interface MWProcurementService {
@@ -148,4 +153,18 @@ public interface MWProcurementService {
     InvoiceMaterialResp getInvoiceMaterials(InvoiceMaterialGetReq invoiceMaterialGetReq);
 
 	LabelKeyTOResp getPOByPreContranctType(PurchaseOrderGetReq purchaseOrderGetReq);
+	
+    ProcurementSubCatResp getProcurementSubcategoryList(ProcurementSubCatReq procurementCat);
+
+	InvoiceMaterialResp searchInvoiceMaterialsByPCName(SearchInvoiceMaterialsReq searchInvoiceMaterialsReq);
+
+	SearchManpowerResp searchInvoiceManpowerByPCName(SearchInvoiceMaterialsReq searchInvoiceMaterialsReq);
+
+	SearchManpowerResp searchInvoicePlantsByPCName(SearchInvoiceMaterialsReq searchInvoiceMaterialsReq);
+
+	SearchManpowerResp searchInvoiceServicesByPCName(SearchInvoiceMaterialsReq searchInvoiceMaterialsReq);
+
+	SearchManpowerResp searchInvoiceSubByPCName(SearchInvoiceMaterialsReq searchInvoiceMaterialsReq);
+
+	VendorBankAccountDtlsListTO gtBankDetailsByProjId();
 }

@@ -25,4 +25,7 @@ public interface ProcureCatgRepository extends CentralLibRepository<ProcureCatgD
 
     @Query("SELECT PCM FROM ProcureCatgDtlEntity PCM  WHERE PCM.clientId.clientId IS NULL OR PCM.clientId.clientId=:clientId")
     List<ProcureCatgDtlEntity> findAllProcureCatgs(@Param("clientId") Long clientId);
+    
+    @Query("SELECT PCM FROM ProcureCatgDtlEntity PCM WHERE UPPER(PCM.procureType) like UPPER(:procureType) ORDER BY PCM.code")
+    List<ProcureCatgDtlEntity> findProcurementsByType(@Param("procureType") String procureType);
 }

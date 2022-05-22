@@ -1,5 +1,6 @@
 package com.rjtech.procurement.repository;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Modifying;
@@ -27,4 +28,15 @@ public interface PrecontractEmpRepository extends ProcurementBaseRepository<PreC
     @Query("SELECT PRC.costStatement.projCostItemEntity.id,SUM(PRC.quantity * PRC.estimateCost)  FROM  PreContractsEmpDtlEntity PRC WHERE "
             + "PRC.preContractEntity.id = :precontractId AND PRC.latest = 1 GROUP BY PRC.costStatement.projCostItemEntity.id")
     List<Object[]> getManpowerCostSummary(@Param("precontractId") Long precontractId);
+    
+    @Query("SELECT PCE FROM com.rjtech.procurement.model.PreContractsEmpDtlEntity PCE JOIN FETCH "
+            + "PCE.preContractsEmpCmpEntities ECM WHERE pce.startDate:fromDate and pce.finishDate=:toDate and pce.procureSubCatgId.procureType='Man Power'"
+            + " and pce.procureSubCatgId.name=:pocSubCatName and  PCE.preContractEntity.id=:precontractId AND "
+            + " pce.unitMeasure=:unitsOfMeasure AND PCE.status=:status ORDER BY PCE.id")
+    List<PreContractsEmpDtlEntity> searchManPowerDtlsByCriteria(@Param("fromDate") Date fromDate, @Param("toDate") Date toDate, @Param("precontractId") Long precontractId,
+ 		 @Param("pocSubCatName") String pocSubCatName,// @Param("payableCat") String payableCat,
+       	  @Param("unitsOfMeasure") String unitsOfMeasure);
+    
+    
+    
 }

@@ -55,6 +55,8 @@ import com.rjtech.common.utils.CommonUtil;
 import com.rjtech.common.utils.ModuleCodes;
 import com.rjtech.common.utils.ProcurmentWorkFlowStatus;
 import com.rjtech.common.utils.StatusCodes;
+import com.rjtech.finance.dto.VendorBankAccountDetailsTO;
+import com.rjtech.finance.dto.VendorBankAccountDtlsListTO;
 import com.rjtech.mw.service.centlib.MWCentralLibService;
 import com.rjtech.mw.service.common.MWCommonService;
 import com.rjtech.mw.service.procurement.MWProcurementService;
@@ -1136,5 +1138,47 @@ public class MWProcurementController {
     	System.out.println("function:"+category);
     	System.out.println("downloadProcurementDocs function of MWProcurementController class");
         return mwProcurementService.downloadProcurementDocs( recordId, category );
+    }
+    
+    @PostMapping(value = ProcurementURLConstants.GET_PROCUREMENT_SUBCATEGORY_LIST)
+    public ResponseEntity<ProcurementSubCatResp> getProcurementSubcategoryList(@RequestBody ProcurementSubCatReq procurementSubCatReq) {
+    	System.out.println("getProcurementSubcategoryList function of MWProcurementController class");
+    	return new ResponseEntity<ProcurementSubCatResp>(mwProcurementService.getProcurementSubcategoryList( procurementSubCatReq ), HttpStatus.OK);
+         
+    }
+    @RequestMapping(value = ProcurementURLConstants.SEARCH_INVOICE_MATERIALS_PCNAME, method = RequestMethod.POST)
+    public ResponseEntity<InvoiceMaterialResp> searchInvoiceMaterialsByPCName(@RequestBody SearchInvoiceMaterialsReq searchInvoiceMaterialsReq) {
+        return new ResponseEntity<InvoiceMaterialResp>(mwProcurementService.searchInvoiceMaterialsByPCName(searchInvoiceMaterialsReq),
+                HttpStatus.OK);
+    }
+   
+    @RequestMapping(value = ProcurementURLConstants.SEARCH_INVOICE_MANPOWER_PCNAME, method = RequestMethod.POST)
+    public ResponseEntity<SearchManpowerResp> searchInvoiceMByPCName(@RequestBody SearchInvoiceMaterialsReq searchInvoiceMaterialsReq) {
+        return new ResponseEntity<SearchManpowerResp>(mwProcurementService.searchInvoiceManpowerByPCName(searchInvoiceMaterialsReq),
+                HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = ProcurementURLConstants.SEARCH_INVOICE_PLANTS_BY_PCNAME, method = RequestMethod.POST)
+    public ResponseEntity<SearchManpowerResp> searchInvoicePlantsByPCName(@RequestBody SearchInvoiceMaterialsReq searchInvoiceMaterialsReq) {
+        return new ResponseEntity<SearchManpowerResp>(mwProcurementService.searchInvoicePlantsByPCName(searchInvoiceMaterialsReq),
+                HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = ProcurementURLConstants.SEARCH_INVOICE_SERVICES_PCNAME, method = RequestMethod.POST)
+    public ResponseEntity<SearchManpowerResp> searchInvoiceServicesByPCName(@RequestBody SearchInvoiceMaterialsReq searchInvoiceMaterialsReq) {
+        return new ResponseEntity<SearchManpowerResp>(mwProcurementService.searchInvoiceServicesByPCName(searchInvoiceMaterialsReq),
+                HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = ProcurementURLConstants.SEARCH_INVOICE_SUB_PCNAME, method = RequestMethod.POST)
+    public ResponseEntity<SearchManpowerResp> searchInvoiceSubByPCName(@RequestBody SearchInvoiceMaterialsReq searchInvoiceMaterialsReq) {
+        return new ResponseEntity<SearchManpowerResp>(mwProcurementService.searchInvoiceSubByPCName(searchInvoiceMaterialsReq),
+                HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = ProcurementURLConstants.GET_BANK_DETAILS_BY_PROJECTId, method = RequestMethod.POST)
+    public ResponseEntity<VendorBankAccountDtlsListTO> gtBankDetailsByProjId() {
+        return new ResponseEntity<VendorBankAccountDtlsListTO>(mwProcurementService.gtBankDetailsByProjId(),
+                HttpStatus.OK);
     }
 }

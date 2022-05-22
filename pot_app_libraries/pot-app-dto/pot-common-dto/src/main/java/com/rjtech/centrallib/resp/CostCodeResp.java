@@ -20,7 +20,13 @@ public class CostCodeResp extends AppResp {
         costCodeTOs = new ArrayList<CostCodeTO>(5);
     }
 
-    public List<CostCodeTO> getCostCodeTOs() {
+    
+    public void setCostCodeTOs(List<CostCodeTO> costCodeTOs) {
+		this.costCodeTOs = costCodeTOs;
+	}
+
+
+	public List<CostCodeTO> getCostCodeTOs() {
         return costCodeTOs;
     }
 

@@ -5,11 +5,17 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ObjectUtils;
 
+import com.rjtech.centrallib.dto.CostCodeTO;
+import com.rjtech.centrallib.model.CmpBankAccountEntity;
+import com.rjtech.centrallib.repository.BankAccountRepository;
 import com.rjtech.centrallib.repository.ProcureCatgRepository;
+import com.rjtech.centrallib.resp.CostCodeResp;
 import com.rjtech.common.dto.CreditCycleTO;
 import com.rjtech.common.dto.LabelKeyTO;
 import com.rjtech.common.dto.PayPeriodCycleTO;
@@ -36,10 +42,12 @@ import com.rjtech.finance.dto.ServiceDeliveryDocketTO;
 import com.rjtech.finance.dto.SubDeliveryDocketTO;
 import com.rjtech.finance.dto.TaxCodeCountryProvisionTO;
 import com.rjtech.finance.dto.VendorBankAccountDetailsTO;
+import com.rjtech.finance.dto.VendorBankDetailsTO;
 import com.rjtech.finance.model.CodeTypesEntity;
 import com.rjtech.finance.model.CompanyTaxEntity;
 import com.rjtech.finance.model.EmployeePayRollTaxEntity;
 import com.rjtech.finance.model.EmployeeWiseCycleEntity;
+import com.rjtech.finance.model.InvoiceRecordsHistory;
 import com.rjtech.finance.model.MedicalTaxEntity;
 import com.rjtech.finance.model.NonRegularPayAllowanceEntity;
 import com.rjtech.finance.model.PayDeductionEntity;
@@ -68,6 +76,7 @@ import com.rjtech.finance.repository.CompanyTaxRepository;
 import com.rjtech.finance.repository.EmployeePayrollTaxRepository;
 import com.rjtech.finance.repository.EmployeeTypeRepository;
 import com.rjtech.finance.repository.FinanceTaxCodesProcRepository;
+import com.rjtech.finance.repository.InvoiceRecordHistoryRepository;
 import com.rjtech.finance.repository.MedicalLeaveTaxRepository;
 import com.rjtech.finance.repository.NonRegularAllowanceRepository;
 import com.rjtech.finance.repository.PayDeductionRepository;
@@ -100,6 +109,7 @@ import com.rjtech.finance.req.EmployeeTypeSaveReq;
 import com.rjtech.finance.req.FinanceTaxCodesGetReq;
 import com.rjtech.finance.req.FinanceTaxDelReq;
 import com.rjtech.finance.req.FinanceTaxGetReq;
+import com.rjtech.finance.req.GetCostCodesReq;
 import com.rjtech.finance.req.GetVendorPostInvoiceRequest;
 import com.rjtech.finance.req.MedicalLeaveSaveReq;
 import com.rjtech.finance.req.NonRegularAllowanceSaveReq;
@@ -125,6 +135,7 @@ import com.rjtech.finance.req.TaxReq;
 import com.rjtech.finance.req.UnitPayRateDelReq;
 import com.rjtech.finance.req.UnitPayRateGetReq;
 import com.rjtech.finance.req.UnitPayRateSaveReq;
+import com.rjtech.finance.req.VendorBankDetailsReq;
 import com.rjtech.finance.req.VendorInvoiceRequest;
 import com.rjtech.finance.resp.CodeTypesResp;
 import com.rjtech.finance.resp.CompanyTaxResp;
@@ -147,6 +158,7 @@ import com.rjtech.finance.resp.TaxCodeCountryProvisionResp;
 import com.rjtech.finance.resp.TaxCodesResp;
 import com.rjtech.finance.resp.TaxCountryProvisionResp;
 import com.rjtech.finance.resp.UnitPayRateResp;
+import com.rjtech.finance.resp.VendorInvocieRecordResponse;
 import com.rjtech.finance.resp.VendorInvocieResponse;
 import com.rjtech.finance.resp.YearsResp;
 import com.rjtech.finance.service.FinanceMasterService;
@@ -167,6 +179,8 @@ import com.rjtech.finance.service.handler.SuperFundTaxHandler;
 import com.rjtech.finance.service.handler.TaxCalculationHandler;
 import com.rjtech.finance.service.handler.UnitPayRateHandler;
 import com.rjtech.finance.service.handler.VendorPostInvoiceHandler;
+import com.rjtech.projectlib.model.ProjCostItemEntity;
+import com.rjtech.projectlib.repository.ProjCostItemRepository;
 import com.rjtech.projsettings.model.ProjGeneralMstrEntity;
 import com.rjtech.rjs.appuser.utils.AppUserUtils;
 import com.rjtech.rjs.core.annotations.RJSService;
@@ -268,6 +282,15 @@ public class FinanceMasterServiceImpl implements FinanceMasterService {
     
     @Autowired
 	private ProjGeneralRepositoryCopy projGeneralRepositoryCopy;
+    
+    @Autowired
+    private InvoiceRecordHistoryRepository invoiceRecordHistoryRepository;
+    
+    @Autowired
+    private ProjCostItemRepository projCostItemRepospitory;
+    
+    @Autowired
+    private BankAccountRepository bankAccountRepository;
     
 
     public UnitPayRateResp getUnitOfRates(UnitPayRateGetReq unitPayRateGetReq) {
@@ -983,7 +1006,7 @@ public class FinanceMasterServiceImpl implements FinanceMasterService {
 				List<ManpowerDeliveryDocketTO> manpowerDeliveryDocketList = VendorPostInvoiceHandler.convertVendorPostInvoiceManpowerDeliveryDocketEntityToManpowerDeliveryDocketTO(vendorPostInvoiceManpowerDeliveryDocketEntityList);
 				response.setManpowerDeliveryDocketTO(manpowerDeliveryDocketList);
 				flagManpower = true;
-				if(flagMateial) {
+				if(flagMateial) { 
 					response.getInvoiceparticularsTO().setProcurmentCategory("Material Manpower");
 				} else {
 					response.getInvoiceparticularsTO().setProcurmentCategory("Manpower");
@@ -1092,12 +1115,96 @@ public class FinanceMasterServiceImpl implements FinanceMasterService {
 					response.getInvoiceparticularsTO().setProcurmentCategory("Sub");
 				}
 			}
-			
-			
-			
-			
 		}
 		return response;
+	}
+	@Override
+	public VendorInvocieRecordResponse getInvoiceTrackingRecords(GetVendorPostInvoiceRequest getVendorPostInvoiceRequest) {
+		System.out.println("Entered into getInvoiceTrackingRecords() ");
+		String  invoiceId = getVendorPostInvoiceRequest.getInvoiceNumber();
+		VendorInvocieRecordResponse  response = null;
+		List<InvoiceRecordsHistory> invoiceList = invoiceRecordHistoryRepository.findByVendorPostInvocieId(invoiceId);
+		for(InvoiceRecordsHistory recordsHistory : invoiceList) {
+			if(response!=null) {
+				response = new VendorInvocieRecordResponse();
+			response.setInvoiceNumber(recordsHistory.getInvoiceNum());
+			response.setDate(recordsHistory.getApprovedDate()!=null ? recordsHistory.getApprovedDate().toString() :"");
+			response.setStatus(recordsHistory.getStatus());
+			response.setComments(recordsHistory.getComments());
+			response.setCompletedBy(recordsHistory.getApprovedBy().getDisplayName());
+			response.setResponisblePersonForPendingSteps(recordsHistory.getResponsiblePersonForPending().getDisplayName());
+			
+				}
+			invoiceList.add(recordsHistory);
+			}
+		
+	return response;
+	}
+
+	@Override
+	public CostCodeResp getCostCodeByProjIds(GetCostCodesReq getCostCodeReq) {
+		CostCodeResp codeCodeResp = new CostCodeResp();
+		List<CostCodeTO> listOfcosts = new ArrayList<CostCodeTO>();
+		List<Long> projIds = getCostCodeReq.getProjIds();
+		int status = 1;
+		List<ProjCostItemEntity> listOfProjCostItems = projCostItemRepospitory.findMultiProjCostItems(projIds,status);
+		if(CollectionUtils.isEmpty(listOfProjCostItems)) {
+		for(ProjCostItemEntity projCostItemEntity : listOfProjCostItems) {
+			CostCodeTO costCodeTO = new CostCodeTO();
+			if(!ObjectUtils.isEmpty(projCostItemEntity.getCostMstrEntity())) {
+				costCodeTO.setId(projCostItemEntity.getCostMstrEntity().getId());
+				costCodeTO.setCode(projCostItemEntity.getCostMstrEntity().getCode());
+				costCodeTO.setName(projCostItemEntity.getCostMstrEntity().getName());
+				costCodeTO.setDispName(projCostItemEntity.getCostMstrEntity().getName());
+			}
+			
+			listOfcosts.add(costCodeTO);
+			}
+		codeCodeResp.setMessage("Fetched successfully from costCodeMaster");
+		codeCodeResp.setMsgCode(HttpStatus.SC_OK+"");
+		codeCodeResp.setCostCodeTOs(listOfcosts);
+		codeCodeResp.setStatus("SUCCESS");
+		}else {
+			codeCodeResp.setCostCodeTOs(listOfcosts);
+			codeCodeResp.setStatus("Failed");
+		}
+		
+		return codeCodeResp;
+		
+		}
+
+	@Override
+	public VendorBankDetailsTO getVendorBankDetailsByPCompanyId(VendorBankDetailsReq vendorBankDetailsReq) {
+		VendorBankDetailsTO VendorBankDetailsTO = new VendorBankDetailsTO();
+		List<VendorBankAccountDetailsTO> venAccountDetailsTOs = new ArrayList<>();
+		List<ApproverValidateDetailsTO> approverValidateDetailsTOs = new ArrayList<>();
+		try {
+			Integer status=1;
+			List<CmpBankAccountEntity> bankList= bankAccountRepository.findByClientId(vendorBankDetailsReq.getCompanyId(),status);
+			for(CmpBankAccountEntity cmpBankAccountEntity : bankList) {
+				VendorBankAccountDetailsTO vendorBankAccountDetailsTO = new VendorBankAccountDetailsTO();
+				ApproverValidateDetailsTO approverValidateDetailsTO = new ApproverValidateDetailsTO();
+				vendorBankAccountDetailsTO.setId(cmpBankAccountEntity.getBankAccountId().intValue());
+				vendorBankAccountDetailsTO.setAccountName(cmpBankAccountEntity.getAccName());
+				vendorBankAccountDetailsTO.setBankName(cmpBankAccountEntity.getBankName());
+				vendorBankAccountDetailsTO.setBankCode(cmpBankAccountEntity.getBankCode());
+				vendorBankAccountDetailsTO.setSwiftCode("");
+				vendorBankAccountDetailsTO.setAccountNumber(cmpBankAccountEntity.getBankAccNo()!=null ? Long.parseLong( cmpBankAccountEntity.getBankAccNo()): null);
+				 venAccountDetailsTOs.add(vendorBankAccountDetailsTO);
+				 approverValidateDetailsTO.setApproverId(null);
+				 approverValidateDetailsTO.setAccountDetailsVerified(false);
+				 approverValidateDetailsTO.setApproverName(null);
+				 approverValidateDetailsTO.setSubmitForApprover(false);
+				 approverValidateDetailsTOs.add(approverValidateDetailsTO);
+				 
+			}
+			VendorBankDetailsTO.setApproverValidateDetailsTOs(approverValidateDetailsTOs);
+			VendorBankDetailsTO.setVendorBankDetailsTOs(venAccountDetailsTOs);
+		}
+		catch (Exception e) {
+			System.out.print("Error occured while fetching bank details ");
+		}
+		return VendorBankDetailsTO;
 	}
 	 
 }

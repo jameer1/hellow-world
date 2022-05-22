@@ -21,8 +21,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.rjtech.centrallib.model.ProcureCatgDtlEntity;
 import com.rjtech.centrallib.model.StockMstrEntity;
 import com.rjtech.centrallib.repository.AddressRepository;
 import com.rjtech.centrallib.repository.CompanyRepository;
@@ -83,8 +85,10 @@ import com.rjtech.procurement.dto.PreContractsEmpCmpTO;
 import com.rjtech.procurement.dto.PrecontractSowCmpTO;
 import com.rjtech.procurement.dto.PrecontractSowDtlTO;
 import com.rjtech.procurement.dto.ProcurementPoRepeatpoTO;
+import com.rjtech.procurement.dto.ProcurementSubCategory;
 import com.rjtech.procurement.dto.PurchaseOrderDetailsTO;
 import com.rjtech.procurement.dto.PurchaseOrderTO;
+import com.rjtech.procurement.dto.SearchManpowerDocketTO;
 import com.rjtech.procurement.dto.TermsAndConditionsTO;
 import com.rjtech.procurement.model.DocumentTransmittalMessageEntity;
 import com.rjtech.procurement.model.MaterialPODeliveryDocketEntityCopy;
@@ -162,11 +166,13 @@ import com.rjtech.procurement.req.ProcurementFilterReq;
 import com.rjtech.procurement.req.ProcurementGetReq;
 import com.rjtech.procurement.req.ProcurementPoRepeatpoSaveReq;
 import com.rjtech.procurement.req.ProcurementSaveReq;
+import com.rjtech.procurement.req.ProcurementSubCatReq;
 import com.rjtech.procurement.req.PurchaseOrderGetReq;
 import com.rjtech.procurement.req.PurchaseOrderRepeatSaveReq;
 import com.rjtech.procurement.req.PurchaseOrderSaveReq;
 import com.rjtech.procurement.req.RepeatPurchaseOrderGetReq;
 import com.rjtech.procurement.req.SaveTermsAndConditionsReq;
+import com.rjtech.procurement.req.SearchInvoiceMaterialsReq;
 import com.rjtech.procurement.req.SinglePurchaseOrderSaveReq;
 import com.rjtech.procurement.resp.InvoiceMaterialResp;
 import com.rjtech.procurement.resp.PreContractCmpDistributionDocResp;
@@ -182,8 +188,10 @@ import com.rjtech.procurement.resp.PreContractResp;
 import com.rjtech.procurement.resp.PreContractServiceResp;
 import com.rjtech.procurement.resp.PreContractSowResp;
 import com.rjtech.procurement.resp.PreContractStatusResp;
+import com.rjtech.procurement.resp.ProcurementSubCatResp;
 import com.rjtech.procurement.resp.PurchaseOrderResp;
 import com.rjtech.procurement.resp.RepeatPurchaseOrderResp;
+import com.rjtech.procurement.resp.SearchManpowerResp;
 import com.rjtech.procurement.resp.TermsAndConditionsResp;
 import com.rjtech.procurement.service.ProcurementService;
 import com.rjtech.procurement.service.handler.PrecontractCmpDocHandler;
@@ -382,6 +390,7 @@ public class ProcurementServiceImpl implements ProcurementService {
 	
 	@Autowired
 	ProcurementAddltionalTimeRepository procurementAddltionalTimeRepository;
+	
 
 	@Autowired
 	private CommonEmailServiceImpl commonEmail;
@@ -3660,4 +3669,180 @@ public class ProcurementServiceImpl implements ProcurementService {
 		return invoiceMaterialResp;
 		
 	}
+	
+	@Override
+	public ProcurementSubCatResp getProcurementSubCatList(ProcurementSubCatReq procuementCat) {
+		ProcurementSubCatResp proCatResp = new ProcurementSubCatResp();
+		System.out.println("Started getProcurementSubCatList in ProcurementServiceImpl with Procurement Cat type =" + procuementCat.getProcurementType());
+		
+		List<ProcureCatgDtlEntity> procurementSubCatList = procureCatgRepository.findProcurementsByType(procuementCat.getProcurementType().trim());
+		List<ProcurementSubCategory> listOfProSubCat = new ArrayList<ProcurementSubCategory>();
+		if(!CollectionUtils.isEmpty(procurementSubCatList)) {
+			for(ProcureCatgDtlEntity procurementSubCat : procurementSubCatList) {
+				ProcurementSubCategory proSubCat = new ProcurementSubCategory();
+				proSubCat.setProcCatId(procurementSubCat.getId());
+				proSubCat.setProcurSubCatCode(procurementSubCat.getCode());
+				proSubCat.setProcurementType(procurementSubCat.getProcureType());
+				proSubCat.setProcurSubCatName(procurementSubCat.getName());
+				proSubCat.setStatus(procurementSubCat.getStatus()==1 ? "Active" : "InActive");
+				listOfProSubCat.add(proSubCat);
+				}
+			proCatResp.setProcurementSubCatList(listOfProSubCat);
+			//proCatResp.setStatus(procuementCat);
+		}
+		
+		return proCatResp;
+	}
+
+	@Override
+	public InvoiceMaterialResp searchInvoiceMaterialsByPCName(SearchInvoiceMaterialsReq searchInvoiceMaterialsReq) {
+		// TODO Auto-generated method stub
+	
+			List<InvoiceMaterialTo> invoiceMaterialTos = new ArrayList<InvoiceMaterialTo>();
+			List<MaterialPODeliveryDocketEntityCopy> materialPODeliveryDocketEntityCopies =
+					copyMaterialDeliveryDocketRepository.searchInvoiceMaterialsByPCName(CommonUtil.convertStringToDate(searchInvoiceMaterialsReq.getInvoceFromDate()),CommonUtil.convertStringToDate(searchInvoiceMaterialsReq.getInvoceToDate()),searchInvoiceMaterialsReq.getPurchaseId(),
+												searchInvoiceMaterialsReq.getPcName(),searchInvoiceMaterialsReq.getPocSubCatName(),searchInvoiceMaterialsReq.getPayableCat(),searchInvoiceMaterialsReq.getUnitsOfMeasure());
+			Integer totaValue = 0;
+			for(MaterialPODeliveryDocketEntityCopy materialPODeliveryDocketEntityCopy: materialPODeliveryDocketEntityCopies) {
+				InvoiceMaterialTo invoiceMaterialTo = new InvoiceMaterialTo();
+				invoiceMaterialTo.setDocketNum(materialPODeliveryDocketEntityCopy.getDocketNumber());
+				invoiceMaterialTo.setDocketDate(CommonUtil.getStrFromDateDDMMYYYY(materialPODeliveryDocketEntityCopy.getDocketDate()));
+				invoiceMaterialTo.setMatReceiveDate(CommonUtil.getStrFromDateDDMMYYYY(materialPODeliveryDocketEntityCopy.getSupplyDeliveryDate()));
+				invoiceMaterialTo.setSchId(materialPODeliveryDocketEntityCopy.getMaterialProjDtlEntityCopy().getPreContractMaterialSchCode());
+				invoiceMaterialTo.setSchDesc(materialPODeliveryDocketEntityCopy.getMaterialProjDtlEntityCopy().getPreContractMaterialSchDesc());
+				invoiceMaterialTo.setMatClassItem(materialPODeliveryDocketEntityCopy.getMaterialProjDtlEntityCopy().getMaterialClassId().getName());
+				invoiceMaterialTo.setUntiOfMeasure(materialPODeliveryDocketEntityCopy.getMaterialProjDtlEntityCopy().getMaterialClassId().getMeasurmentMstrEntity().getName());
+				invoiceMaterialTo.setReceiverComments(materialPODeliveryDocketEntityCopy.getComments());
+				invoiceMaterialTo.setProgressQty(materialPODeliveryDocketEntityCopy.getReceivedQty().intValue());
+				
+				Integer rateValue = 0;
+				for (PreContractsMaterialCmpEntity preContractsMaterialCmpEntity : materialPODeliveryDocketEntityCopy
+						.getMaterialProjDtlEntityCopy().getPreContractMterialId().getPreContractsMaterialCmpEntities()) {
+					if (preContractsMaterialCmpEntity.getPreContractsCmpEntity().getCompanyId()
+							.getId().equals(searchInvoiceMaterialsReq.getCompanyId())) {
+						invoiceMaterialTo.setContractQty(preContractsMaterialCmpEntity.getQuantity());
+						invoiceMaterialTo.setVendorRate(preContractsMaterialCmpEntity.getRate().intValue());
+						rateValue = preContractsMaterialCmpEntity.getRate().intValue();
+					}
+				}
+				totaValue = totaValue + (materialPODeliveryDocketEntityCopy.getReceivedQty().intValue() * rateValue);
+				Integer claimedQty = 0;
+				invoiceMaterialTo.setClaimedQty(claimedQty);
+				invoiceMaterialTos.add(invoiceMaterialTo);
+			}
+			
+			System.out.println("Final Result for search invoice Materials size =   " + invoiceMaterialTos.size());
+			InvoiceMaterialResp invoiceMaterialResp = new InvoiceMaterialResp();
+			invoiceMaterialResp.setTotalValue(totaValue);
+			invoiceMaterialResp.setInvoiceMaterialTos(invoiceMaterialTos);
+			
+			return invoiceMaterialResp;
+		
+	}
+
+	@Override
+	public SearchManpowerResp searchInvoiceManpowerByPCName(SearchInvoiceMaterialsReq searchInvoiceMaterialsReq) {
+		// TODO Auto-generated method stub
+		SearchManpowerResp searchManpowerResp = new SearchManpowerResp();
+		List<SearchManpowerDocketTO> seDocketTOs = new ArrayList<>();
+		List<PreContractsEmpDtlEntity> preEmpDtlEntities =
+				precontractEmpRepository.searchManPowerDtlsByCriteria(CommonUtil.convertStringToDate(searchInvoiceMaterialsReq.getInvoceFromDate()),CommonUtil.convertStringToDate(searchInvoiceMaterialsReq.getInvoceToDate()),searchInvoiceMaterialsReq.getPrecontractId(),
+											//searchInvoiceMaterialsReq.getPcName(),
+											searchInvoiceMaterialsReq.getPocSubCatName(),
+											//searchInvoiceMaterialsReq.getPayableCat(),
+											searchInvoiceMaterialsReq.getUnitsOfMeasure());
+		Integer totaValue = 0;
+		for(PreContractsEmpDtlEntity preDtlEntity: preEmpDtlEntities) {
+			SearchManpowerDocketTO searchManpowerDocketTO = new SearchManpowerDocketTO();
+			searchManpowerDocketTO.setDocketId(preDtlEntity.getId());
+			searchManpowerDocketTO.setAmount(preDtlEntity.getEstimateCost());
+			searchManpowerDocketTO.setClaimedQuantity(preDtlEntity.getQuantity());
+			searchManpowerDocketTO.setProcessQuantity(preDtlEntity.getQuantity());
+			searchManpowerDocketTO.setProgressQuantity(preDtlEntity.getQuantity());
+			searchManpowerDocketTO.setQuantity(preDtlEntity.getQuantity().longValue());
+			searchManpowerDocketTO.setItemCode(preDtlEntity.getDesc());
+			searchManpowerDocketTO.setItemDesc(preDtlEntity.getDesc());
+			searchManpowerDocketTO.setFinishDate(preDtlEntity.getFinishDate());
+			searchManpowerDocketTO.setDocketDate(preDtlEntity.getStartDate());
+			searchManpowerDocketTO.setUnitOfMeasure(preDtlEntity.getUnitMeasure());
+			searchManpowerDocketTO.setMaterildDtoId(preDtlEntity.getId().toString());
+			seDocketTOs.add(searchManpowerDocketTO);
+			}
+		searchManpowerResp.setSearchManpowerTOs(seDocketTOs);
+		return searchManpowerResp;
+	}
+
+	@Override
+	public SearchManpowerResp searchInvoicePlantsByPCName(SearchInvoiceMaterialsReq searchInvoiceMaterialsReq) {
+		// TODO Auto-generated method stub
+		SearchManpowerResp searchManpowerResp = new SearchManpowerResp();
+		List<SearchManpowerDocketTO> seDocketTOs = new ArrayList<>();
+		List<PreContractsPlantDtlEntity> prePlantDtlEntities =
+				precontractPlantRepository.searchPlantsDtlsByCriteria(CommonUtil.convertStringToDate(searchInvoiceMaterialsReq.getInvoceFromDate()),CommonUtil.convertStringToDate(searchInvoiceMaterialsReq.getInvoceToDate()),searchInvoiceMaterialsReq.getPrecontractId(),
+											//searchInvoiceMaterialsReq.getPcName(),
+											searchInvoiceMaterialsReq.getPocSubCatName(),
+											//searchInvoiceMaterialsReq.getPayableCat(),
+											searchInvoiceMaterialsReq.getUnitsOfMeasure());
+		Integer totaValue = 0;
+		for(PreContractsPlantDtlEntity preDtlEntity: prePlantDtlEntities) {
+			SearchManpowerDocketTO searchManpowerDocketTO = new SearchManpowerDocketTO();
+			searchManpowerDocketTO.setDocketId(preDtlEntity.getId());
+			searchManpowerDocketTO.setAmount(preDtlEntity.getEstimateCost());
+			searchManpowerDocketTO.setClaimedQuantity(preDtlEntity.getQuantity());
+			searchManpowerDocketTO.setProcessQuantity(preDtlEntity.getQuantity());
+			searchManpowerDocketTO.setProgressQuantity(preDtlEntity.getQuantity());
+			searchManpowerDocketTO.setQuantity(preDtlEntity.getQuantity().longValue());
+			searchManpowerDocketTO.setItemCode(preDtlEntity.getDesc());
+			searchManpowerDocketTO.setItemDesc(preDtlEntity.getDesc());
+			searchManpowerDocketTO.setFinishDate(preDtlEntity.getFinishDate());
+			searchManpowerDocketTO.setDocketDate(preDtlEntity.getStartDate());
+			searchManpowerDocketTO.setUnitOfMeasure(preDtlEntity.getUnitMeasure());
+			searchManpowerDocketTO.setMaterildDtoId(preDtlEntity.getId().toString());
+			seDocketTOs.add(searchManpowerDocketTO);
+			}
+		searchManpowerResp.setSearchManpowerTOs(seDocketTOs);
+		return searchManpowerResp;
+	}
+
+	@Override
+	public SearchManpowerResp searchInvoiceServicesByPCName(SearchInvoiceMaterialsReq searchInvoiceMaterialsReq) {
+		// TODO Auto-generated method stub
+				SearchManpowerResp searchManpowerResp = new SearchManpowerResp();
+				List<SearchManpowerDocketTO> seDocketTOs = new ArrayList<>();
+				List<PreContractsServiceDtlEntity> preServicesDtlEntities =
+						precontractServiceRepository.searchServiceDtlsByCriteria(CommonUtil.convertStringToDate(searchInvoiceMaterialsReq.getInvoceFromDate()),CommonUtil.convertStringToDate(searchInvoiceMaterialsReq.getInvoceToDate()),searchInvoiceMaterialsReq.getPrecontractId(),
+													//searchInvoiceMaterialsReq.getPcName(),
+													searchInvoiceMaterialsReq.getPocSubCatName(),
+													//searchInvoiceMaterialsReq.getPayableCat(),
+													searchInvoiceMaterialsReq.getUnitsOfMeasure());
+				Integer totaValue = 0;
+				for(PreContractsServiceDtlEntity preDtlEntity: preServicesDtlEntities) {
+					SearchManpowerDocketTO searchManpowerDocketTO = new SearchManpowerDocketTO();
+					searchManpowerDocketTO.setDocketId(preDtlEntity.getId());
+					searchManpowerDocketTO.setAmount(preDtlEntity.getEstimateCost());
+					searchManpowerDocketTO.setClaimedQuantity(preDtlEntity.getQuantity());
+					searchManpowerDocketTO.setProcessQuantity(preDtlEntity.getQuantity());
+					searchManpowerDocketTO.setProgressQuantity(preDtlEntity.getQuantity());
+					searchManpowerDocketTO.setQuantity(preDtlEntity.getQuantity().longValue());
+					searchManpowerDocketTO.setItemCode(preDtlEntity.getDesc());
+					searchManpowerDocketTO.setItemDesc(preDtlEntity.getDesc());
+					searchManpowerDocketTO.setFinishDate(preDtlEntity.getFinishDate());
+					searchManpowerDocketTO.setDocketDate(preDtlEntity.getStartDate());
+					searchManpowerDocketTO.setMaterildDtoId(preDtlEntity.getId().toString());
+					searchManpowerDocketTO.setUnitOfMeasure("");
+					seDocketTOs.add(searchManpowerDocketTO);
+					}
+				searchManpowerResp.setSearchManpowerTOs(seDocketTOs);
+				return searchManpowerResp;
+	}
+
+	@Override
+	public InvoiceMaterialResp searchInvoiceSubByPCName(SearchInvoiceMaterialsReq searchInvoiceMaterialsReq) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	 
+	
+	  
+	
 }

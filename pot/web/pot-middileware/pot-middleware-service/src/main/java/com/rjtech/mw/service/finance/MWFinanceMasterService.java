@@ -1,6 +1,8 @@
 package com.rjtech.mw.service.finance;
 
+import com.rjtech.centrallib.resp.CostCodeResp;
 import com.rjtech.common.resp.LabelKeyTOResp;
+import com.rjtech.finance.dto.VendorBankDetailsTO;
 import com.rjtech.finance.req.CodeTypesSaveReq;
 import com.rjtech.finance.req.CompanyTaxSaveReq;
 import com.rjtech.finance.req.EmployeePayrollSaveReq;
@@ -9,6 +11,7 @@ import com.rjtech.finance.req.FinanceOnLoadReq;
 import com.rjtech.finance.req.FinanceTaxCodesGetReq;
 import com.rjtech.finance.req.FinanceTaxDelReq;
 import com.rjtech.finance.req.FinanceTaxGetReq;
+import com.rjtech.finance.req.GetCostCodesReq;
 import com.rjtech.finance.req.GetVendorPostInvoiceRequest;
 import com.rjtech.finance.req.MedicalLeaveSaveReq;
 import com.rjtech.finance.req.NonRegularAllowanceSaveReq;
@@ -33,6 +36,7 @@ import com.rjtech.finance.req.TaxReq;
 import com.rjtech.finance.req.UnitPayRateDelReq;
 import com.rjtech.finance.req.UnitPayRateGetReq;
 import com.rjtech.finance.req.UnitPayRateSaveReq;
+import com.rjtech.finance.req.VendorBankDetailsReq;
 import com.rjtech.finance.req.VendorInvoiceRequest;
 import com.rjtech.finance.resp.CodeTypesResp;
 import com.rjtech.finance.resp.CompanyTaxResp;
@@ -56,6 +60,7 @@ import com.rjtech.finance.resp.TaxCodeCountryProvisionResp;
 import com.rjtech.finance.resp.TaxCodesResp;
 import com.rjtech.finance.resp.TaxCountryProvisionResp;
 import com.rjtech.finance.resp.UnitPayRateResp;
+import com.rjtech.finance.resp.VendorInvocieRecordResponse;
 import com.rjtech.finance.resp.VendorInvocieResponse;
 import com.rjtech.finance.resp.YearsResp;
 
@@ -200,4 +205,9 @@ public interface MWFinanceMasterService {
     
     public VendorInvocieResponse getVendorPostInvoice(GetVendorPostInvoiceRequest getVendorPostInvoiceRequest);
 
+    VendorInvocieRecordResponse getVendorInvoiceRecord(GetVendorPostInvoiceRequest getVendorPostInvoiceRequest);
+
+    CostCodeResp getCostCodeByProjIds(GetCostCodesReq getCostCodeReq);
+
+	public VendorBankDetailsTO getVendorBankDetailsByPCompanyId(VendorBankDetailsReq vendorBankDetailsReq);
 }

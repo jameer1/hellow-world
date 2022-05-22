@@ -22,6 +22,7 @@ import com.rjtech.procurement.constans.ProcurementURLConstants;
 import com.rjtech.procurement.dto.PurchaseOrderDetailsTO;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -31,6 +32,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import java.io.IOException;
 import com.rjtech.constants.ApplicationConstants;
+import com.rjtech.finance.dto.VendorBankAccountDetailsTO;
+import com.rjtech.finance.dto.VendorBankAccountDtlsListTO;
+
 import org.springframework.core.io.ByteArrayResource;
 import com.rjtech.rjs.core.annotations.RJSService;
 
@@ -568,4 +572,100 @@ public class MWProcurementServiceImpl extends RestConfigServiceImpl implements M
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + "\"")
                 .body(new ByteArrayResource(fileBytes));
     }
+    
+    
+   	@Override
+   	public ProcurementSubCatResp getProcurementSubcategoryList(ProcurementSubCatReq procurementCat) {
+   		try {
+   	    	ResponseEntity<String> strResponse = null;
+   	        strResponse = getProcuremntPOSTRestTemplate(AppUtils.toJson(procurementCat),
+   	                ProcurementURLConstants.PROCUREMENT_PARH_URL
+   	                        + ProcurementURLConstants.GET_PROCUREMENT_SUBCATEGORY_LIST);
+   	        return AppUtils.fromJson(strResponse.getBody(), ProcurementSubCatResp.class);
+   	    	}catch(Exception e){
+   	    		System.out.println("We are in error block");
+   	        	e.printStackTrace();
+   	        	return null;
+   	        }
+   	}
+
+   	@Override
+   	public InvoiceMaterialResp searchInvoiceMaterialsByPCName(SearchInvoiceMaterialsReq searchInvoiceMaterialsReq) {
+   		try {
+   	    	ResponseEntity<String> strResponse = null;
+   	        strResponse = getProcuremntPOSTRestTemplate(AppUtils.toJson(searchInvoiceMaterialsReq),
+   	                ProcurementURLConstants.PROCUREMENT_PARH_URL
+   	                        + ProcurementURLConstants.SEARCH_INVOICE_MATERIALS_PCNAME);
+   	        return AppUtils.fromJson(strResponse.getBody(), InvoiceMaterialResp.class);
+   	    	}catch(Exception e){
+   	        	e.printStackTrace();
+   	        	return null;
+   	        }
+   	}
+   	@Override
+   	public SearchManpowerResp searchInvoiceManpowerByPCName(SearchInvoiceMaterialsReq searchInvoiceMaterialsReq) {
+   		try {
+   	    	ResponseEntity<String> strResponse = null;
+   	        strResponse = getProcuremntPOSTRestTemplate(AppUtils.toJson(searchInvoiceMaterialsReq),
+   	                ProcurementURLConstants.PROCUREMENT_PARH_URL
+   	                        + ProcurementURLConstants.SEARCH_INVOICE_MANPOWER_PCNAME);
+   	        return AppUtils.fromJson(strResponse.getBody(), SearchManpowerResp.class);
+   	    	}catch(Exception e){
+   	        	e.printStackTrace();
+   	        	return null;
+   	        }
+   	}
+   	@Override
+   	public SearchManpowerResp searchInvoicePlantsByPCName(SearchInvoiceMaterialsReq searchInvoiceMaterialsReq) {
+   		try {
+   	    	ResponseEntity<String> strResponse = null;
+   	        strResponse = getProcuremntPOSTRestTemplate(AppUtils.toJson(searchInvoiceMaterialsReq),
+   	                ProcurementURLConstants.PROCUREMENT_PARH_URL
+   	                        + ProcurementURLConstants.SEARCH_INVOICE_PLANTS_BY_PCNAME);
+   	        return AppUtils.fromJson(strResponse.getBody(), SearchManpowerResp.class);
+   	    	}catch(Exception e){
+   	        	e.printStackTrace();
+   	        	return null;
+   	        }
+   	}
+   	@Override
+   	public SearchManpowerResp searchInvoiceServicesByPCName(SearchInvoiceMaterialsReq searchInvoiceMaterialsReq) {
+   		try {
+   	    	ResponseEntity<String> strResponse = null;
+   	        strResponse = getProcuremntPOSTRestTemplate(AppUtils.toJson(searchInvoiceMaterialsReq),
+   	                ProcurementURLConstants.PROCUREMENT_PARH_URL
+   	                        + ProcurementURLConstants.SEARCH_INVOICE_SERVICES_PCNAME);
+   	        return AppUtils.fromJson(strResponse.getBody(), SearchManpowerResp.class);
+   	    	}catch(Exception e){
+   	        	e.printStackTrace();
+   	        	return null;
+   	        }
+   	}
+   	@Override
+   	public SearchManpowerResp searchInvoiceSubByPCName(SearchInvoiceMaterialsReq searchInvoiceMaterialsReq) {
+   		try {
+   	    	ResponseEntity<String> strResponse = null;
+   	        strResponse = getProcuremntPOSTRestTemplate(AppUtils.toJson(searchInvoiceMaterialsReq),
+   	                ProcurementURLConstants.PROCUREMENT_PARH_URL
+   	                        + ProcurementURLConstants.SEARCH_INVOICE_SUB_PCNAME);
+   	        return AppUtils.fromJson(strResponse.getBody(), SearchManpowerResp.class);
+   	    	}catch(Exception e){
+   	        	e.printStackTrace();
+   	        	return null;
+   	        }
+   	}
+
+	@Override
+	public VendorBankAccountDtlsListTO gtBankDetailsByProjId() {
+		try {
+   	    	ResponseEntity<String> strResponse = null;
+   	        strResponse = getProcuremntPOSTRestTemplate(null,
+   	                ProcurementURLConstants.PROCUREMENT_PARH_URL
+   	                        + ProcurementURLConstants.GET_BANK_DETAILS_BY_PROJECTId);
+   	        return AppUtils.fromJson(strResponse.getBody(), VendorBankAccountDtlsListTO.class);
+   	    	}catch(Exception e){
+   	        	e.printStackTrace();
+   	        	return null;
+   	        }
+	}
 }

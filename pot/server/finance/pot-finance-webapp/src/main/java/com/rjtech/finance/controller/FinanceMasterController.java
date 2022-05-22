@@ -8,10 +8,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.rjtech.centrallib.resp.CostCodeResp;
 import com.rjtech.common.resp.LabelKeyTOResp;
 import com.rjtech.common.utils.CommonUtil;
 import com.rjtech.common.utils.StatusCodes;
 import com.rjtech.finance.constants.FinanceURLConstants;
+import com.rjtech.finance.dto.VendorBankDetailsTO;
 import com.rjtech.finance.req.CodeTypesSaveReq;
 import com.rjtech.finance.req.CompanyTaxSaveReq;
 import com.rjtech.finance.req.EmployeePayrollSaveReq;
@@ -20,6 +22,7 @@ import com.rjtech.finance.req.FinanceOnLoadReq;
 import com.rjtech.finance.req.FinanceTaxCodesGetReq;
 import com.rjtech.finance.req.FinanceTaxDelReq;
 import com.rjtech.finance.req.FinanceTaxGetReq;
+import com.rjtech.finance.req.GetCostCodesReq;
 import com.rjtech.finance.req.GetVendorPostInvoiceRequest;
 import com.rjtech.finance.req.MedicalLeaveSaveReq;
 import com.rjtech.finance.req.NonRegularAllowanceSaveReq;
@@ -44,6 +47,7 @@ import com.rjtech.finance.req.TaxReq;
 import com.rjtech.finance.req.UnitPayRateDelReq;
 import com.rjtech.finance.req.UnitPayRateGetReq;
 import com.rjtech.finance.req.UnitPayRateSaveReq;
+import com.rjtech.finance.req.VendorBankDetailsReq;
 import com.rjtech.finance.req.VendorInvoiceRequest;
 import com.rjtech.finance.resp.CodeTypesResp;
 import com.rjtech.finance.resp.CompanyTaxResp;
@@ -67,6 +71,7 @@ import com.rjtech.finance.resp.TaxCodeCountryProvisionResp;
 import com.rjtech.finance.resp.TaxCodesResp;
 import com.rjtech.finance.resp.TaxCountryProvisionResp;
 import com.rjtech.finance.resp.UnitPayRateResp;
+import com.rjtech.finance.resp.VendorInvocieRecordResponse;
 import com.rjtech.finance.resp.VendorInvocieResponse;
 import com.rjtech.finance.resp.YearsResp;
 import com.rjtech.finance.service.FinanceMasterService;
@@ -684,6 +689,23 @@ public class FinanceMasterController {
                 HttpStatus.OK);
     }
     
-    
+    @RequestMapping(value = FinanceURLConstants.INVOICE_TRACKING_RECORDS, method = RequestMethod.POST)
+    public ResponseEntity<VendorInvocieRecordResponse> getInvoiceTrackingRecords(@RequestBody GetVendorPostInvoiceRequest getVendorPostInvoiceRequest) {
+    	System.out.println("*********** getVendorInvoiceRecord  *******************  ");
+        return new ResponseEntity<VendorInvocieRecordResponse>(financeMasterService.getInvoiceTrackingRecords(getVendorPostInvoiceRequest),
+                HttpStatus.OK);
+    }
 
+    @RequestMapping(value = FinanceURLConstants.GET_COST_CODES_BY_PROJIDS, method = RequestMethod.POST)
+    public ResponseEntity<CostCodeResp> getCostCodeByProjIds(@RequestBody GetCostCodesReq getCostCodeReq) {
+    	System.out.println("*********** getVendorInvoiceRecord  *******************  ");
+        return new ResponseEntity<CostCodeResp>(financeMasterService.getCostCodeByProjIds(getCostCodeReq),
+                HttpStatus.OK);
+    }
+    @RequestMapping(value = FinanceURLConstants.GET_VENDOR_BANK_DETAILS_COMPANY_ID, method = RequestMethod.POST)
+    public ResponseEntity<VendorBankDetailsTO> getVendorBankDetailsByPCompanyId(@RequestBody VendorBankDetailsReq vendorBankDetailsReq) {
+    	System.out.println("*********** getCostCodeByProjIds  *******************  ");
+        return new ResponseEntity<VendorBankDetailsTO>(financeMasterService.getVendorBankDetailsByPCompanyId(vendorBankDetailsReq),
+                HttpStatus.OK);
+    }
 }

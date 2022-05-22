@@ -1,11 +1,13 @@
 package com.rjtech.procurement.repository;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import com.rjtech.procurement.model.PreContractsEmpDtlEntity;
 import com.rjtech.procurement.model.PreContractsServiceDtlEntity;
 
 public interface PrecontractServiceRepository extends ProcurementBaseRepository<PreContractsServiceDtlEntity, Long> {
@@ -30,5 +32,13 @@ public interface PrecontractServiceRepository extends ProcurementBaseRepository<
     @Query("SELECT PCS.projcostStatement.projCostItemEntity.id,SUM(PCS.quantity * PCS.estimateCost)  FROM  PreContractsServiceDtlEntity PCS WHERE "
             + "PCS.preContractEntity.id = :precontractId AND PCS.latest = 1 GROUP BY PCS.projcostStatement.projCostItemEntity.id")
     List<Object[]> getServiceCostSummary(@Param("precontractId") Long precontractId);
+    
+    @Query("SELECT PCE FROM com.rjtech.procurement.model.PreContractsServiceDtlEntity PCE JOIN FETCH "
+            + "PCE.preContractsEmpCmpEntities ECM WHERE pce.startDate:fromDate and pce.finishDate=:toDate and pce.procureSubCatgId.procureType='Services'"
+            + " and pce.procureSubCatgId.name=:pocSubCatName and  PCE.preContractEntity.id=:precontractId AND "
+            + " pce.unitMeasure=:unitsOfMeasure AND PCE.status=:status ORDER BY PCE.id")
+    List<PreContractsServiceDtlEntity> searchServiceDtlsByCriteria(@Param("fromDate") Date fromDate, @Param("toDate") Date toDate, @Param("precontractId") Long precontractId,
+ 		 @Param("pocSubCatName") String pocSubCatName,// @Param("payableCat") String payableCat,
+       	  @Param("unitsOfMeasure") String unitsOfMeasure);
 
 }

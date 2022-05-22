@@ -857,4 +857,41 @@ public class ProcurementController {
     	String file_info[] = { fileTo.getName(), fileTo.getFileSize(), fileTo.getFileType(), fileTo.getFolderPath() };
     	return file_info;
     }
+    @PostMapping(value = ProcurementURLConstants.GET_PROCUREMENT_SUBCATEGORY_LIST)
+    public ResponseEntity<ProcurementSubCatResp> getProcurementSubcategoryList(@RequestBody ProcurementSubCatReq procurementCat) {
+    	ProcurementSubCatResp procurementSubCatList = procurementService
+                .getProcurementSubCatList(procurementCat);
+        return new ResponseEntity<ProcurementSubCatResp>(procurementSubCatList, HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = ProcurementURLConstants.SEARCH_INVOICE_MATERIALS_PCNAME, method = RequestMethod.POST)
+    public ResponseEntity<InvoiceMaterialResp> searchInvoiceMaterialsByPCName(@RequestBody SearchInvoiceMaterialsReq searchInvoiceMaterialsReq) {
+        return new ResponseEntity<InvoiceMaterialResp>(procurementService.searchInvoiceMaterialsByPCName(searchInvoiceMaterialsReq),
+                HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = ProcurementURLConstants.SEARCH_INVOICE_MANPOWER_PCNAME, method = RequestMethod.POST)
+    public ResponseEntity<SearchManpowerResp> searchInvoiceMByPCName(@RequestBody SearchInvoiceMaterialsReq searchInvoiceMaterialsReq) {
+        return new ResponseEntity<SearchManpowerResp>(procurementService.searchInvoiceManpowerByPCName(searchInvoiceMaterialsReq),
+                HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = ProcurementURLConstants.SEARCH_INVOICE_PLANTS_BY_PCNAME, method = RequestMethod.POST)
+    public ResponseEntity<SearchManpowerResp> searchInvoicePlantsByPCName(@RequestBody SearchInvoiceMaterialsReq searchInvoiceMaterialsReq) {
+        return new ResponseEntity<SearchManpowerResp>(procurementService.searchInvoicePlantsByPCName(searchInvoiceMaterialsReq),
+                HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = ProcurementURLConstants.SEARCH_INVOICE_SERVICES_PCNAME, method = RequestMethod.POST)
+    public ResponseEntity<SearchManpowerResp> searchInvoiceServicesByPCName(@RequestBody SearchInvoiceMaterialsReq searchInvoiceMaterialsReq) {
+        return new ResponseEntity<SearchManpowerResp>(procurementService.searchInvoiceServicesByPCName(searchInvoiceMaterialsReq),
+                HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = ProcurementURLConstants.SEARCH_INVOICE_SUB_PCNAME, method = RequestMethod.POST)
+    public ResponseEntity<InvoiceMaterialResp> searchInvoiceSubByPCName(@RequestBody SearchInvoiceMaterialsReq searchInvoiceMaterialsReq) {
+        return new ResponseEntity<InvoiceMaterialResp>(procurementService.searchInvoiceSubByPCName(searchInvoiceMaterialsReq),
+                HttpStatus.OK);
+    }
+    
 }

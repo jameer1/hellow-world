@@ -149,5 +149,17 @@ public class ProcurementURLConstants implements Serializable {
 
     public static final String GET_SOW_PURCHASE_ORDERS = "getSOWPurchaseOrders";
     public final static String DOWNLOAD_PROCUREMENT_DOCS = "downloadProcurementDocs";
+    
+  //Sowmya Poloju Vendor and Subcontractors Invoice URLs
+    public static final String SEARCH_INVOICE_MATERIALS_PCNAME ="searchInvoiceMaterialsByPCName";
+    public static final String EDIT_VENDOR_SUBCONTRACTOR_INVOICE_DETAILS ="editVendorSubContratorInvoiceDetails";
+    public static final String GET_PROCUREMENT_SUBCATEGORY_LIST = "getProcurementSubcategoryList";
+  
+    public static final String GET_BANK_DETAILS_BY_PROJECTId="getBankDetailsByProjectId";
+
+	public static final String SEARCH_INVOICE_MANPOWER_PCNAME = "searchInvoiceManpowerByPCName";
+	public static final String SEARCH_INVOICE_PLANTS_BY_PCNAME = "searchInvoicePlantsByPCName";
+	public static final String SEARCH_INVOICE_SERVICES_PCNAME = "searchInvoiceServicesByPCName";
+	public static final String SEARCH_INVOICE_SUB_PCNAME = "searchInvoiceSubByPCName";
 
 }

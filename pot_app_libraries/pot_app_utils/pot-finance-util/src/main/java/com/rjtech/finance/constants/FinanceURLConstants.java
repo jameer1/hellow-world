@@ -104,5 +104,10 @@ public class FinanceURLConstants implements Serializable {
     public final static String SAVE_VENDOR_POST_INVOICE = "saveVendorPostInvoice";
     
     public final static String GET_VENDOR_POST_INVOICE = "getVendorPostInvoice";
+    
+    public final static String INVOICE_TRACKING_RECORDS = "invoiceTrackingRecords";
+    public final static String GET_COST_CODES_BY_PROJIDS = "getCostCodeByProjIds";
+    public final static String GET_VENDOR_BANK_DETAILS_COMPANY_ID = "getVendorBankDetailsByPCompanyId";
+
 
 }

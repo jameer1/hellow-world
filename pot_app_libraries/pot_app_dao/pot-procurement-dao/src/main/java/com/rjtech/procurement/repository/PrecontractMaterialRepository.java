@@ -27,5 +27,7 @@ public interface PrecontractMaterialRepository extends ProcurementBaseRepository
     @Query("SELECT PCM.projcostStatement.projCostItemEntity.id,SUM(PCM.quantity * PCM.estimateCost)  FROM  PreContractsMaterialDtlEntity PCM WHERE "
             + "PCM.preContractEntity.id = :precontractId AND PCM.latest = 1 GROUP BY PCM.projcostStatement.projCostItemEntity.id")
     List<Object[]> getMaterialCostSummary(@Param("precontractId") Long precontractId);
+    
+    
 
 }
