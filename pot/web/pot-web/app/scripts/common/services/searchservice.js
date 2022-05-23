@@ -285,6 +285,12 @@ app.service('potSearchService', function () {
             path:"Documents"
         },
         {
+            searchkeyWord: "Activity Schedule Data Table",
+            url: "activityscheduledatatable",
+            class: "glyphicon glyphicon-calendar glyphstyle",
+            path:"Schedules"
+        },
+        {
             searchkeyWord: "Resource Schedules",
             url: "projschedules",
             class: "glyphicon glyphicon-calendar glyphstyle",

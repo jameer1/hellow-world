@@ -916,10 +916,11 @@ app.config(["$stateProvider", function ($stateProvider) {
 						GenericAlertService.alertMessage("Following employee(s) are exceeded max hours :" + message, "Warning");
 					});
 				} else {
-					$scope.getProjSettingsTimeSheetDetails(crewTypeId);
 					$scope.errorFlag = false;
 					$scope.timeSheetDetails = data.timeSheetEmpDtlTOs;
 					GenericAlertService.alertMessage('Employee(s) saved successfully', "Info");
+					return;
+					$scope.getProjSettingsTimeSheetDetails(crewTypeId);
 				}
 				if ($scope.resetFlag) {
 					$scope.timeSheetDetails = [];
