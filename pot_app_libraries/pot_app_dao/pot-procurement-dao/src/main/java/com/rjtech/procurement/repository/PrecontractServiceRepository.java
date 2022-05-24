@@ -33,12 +33,11 @@ public interface PrecontractServiceRepository extends ProcurementBaseRepository<
             + "PCS.preContractEntity.id = :precontractId AND PCS.latest = 1 GROUP BY PCS.projcostStatement.projCostItemEntity.id")
     List<Object[]> getServiceCostSummary(@Param("precontractId") Long precontractId);
     
-    @Query("SELECT PCE FROM com.rjtech.procurement.model.PreContractsServiceDtlEntity PCE JOIN FETCH "
-            + "PCE.preContractsEmpCmpEntities ECM WHERE pce.startDate:fromDate and pce.finishDate=:toDate and pce.procureSubCatgId.procureType='Services'"
-            + " and pce.procureSubCatgId.name=:pocSubCatName and  PCE.preContractEntity.id=:precontractId AND "
-            + " pce.unitMeasure=:unitsOfMeasure AND PCE.status=:status ORDER BY PCE.id")
+    @Query("SELECT PCE FROM com.rjtech.procurement.model.PreContractsServiceDtlEntity PCE  WHERE PCE.startDate=:fromDate and PCE.finishDate=:toDate and PCE.procureSubCatgId.procureType='Services'"
+            + " and PCE.procureSubCatgId.name=:pocSubCatName and  PCE.preContractEntity.id=:precontractId  "
+            + " ORDER BY PCE.id")
     List<PreContractsServiceDtlEntity> searchServiceDtlsByCriteria(@Param("fromDate") Date fromDate, @Param("toDate") Date toDate, @Param("precontractId") Long precontractId,
- 		 @Param("pocSubCatName") String pocSubCatName,// @Param("payableCat") String payableCat,
-       	  @Param("unitsOfMeasure") String unitsOfMeasure);
+ 		 @Param("pocSubCatName") String pocSubCatName);//,// @Param("payableCat") String payableCat,
+       	  //@Param("unitsOfMeasure") String unitsOfMeasure);
 
 }

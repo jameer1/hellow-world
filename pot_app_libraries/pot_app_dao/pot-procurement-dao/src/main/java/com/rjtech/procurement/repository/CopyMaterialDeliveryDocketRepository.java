@@ -13,11 +13,13 @@ public interface CopyMaterialDeliveryDocketRepository
 	@Query("SELECT t FROM MaterialPODeliveryDocketEntityCopy t  WHERE t.materialProjDtlEntityCopy.purchaseId.id=:purchaseId AND t.docketDate between :fromDate AND :toDate")
 	List<MaterialPODeliveryDocketEntityCopy> getInvoiceMaterials(@Param("fromDate") Date fromDate, @Param("toDate") Date toDate, @Param("purchaseId") Long purchaseId);
 
-	@Query("select dc from MaterialPODeliveryDocketEntityCopy dc join MaterialProjDtlEntityCopy mp on mp.id =dc.materialProjDtlEntityCopy join  PreContractsMaterialDtlEntity pcmd on pcmd.id = mp.preContractMterialId"
-			+ " ProcureCatgDtlEntity pcde on pcde.id = pcmd.procureSubCatgId where pcde.procureType=:pcName and  dc.materialProjDtlEntityCopy.purchaseId.id=:purchaseId AND dc.docketDate between :fromDate AND :toDate")
+	@Query("select dc from MaterialPODeliveryDocketEntityCopy dc join MaterialProjDtlEntityCopy mp on mp.id =dc.materialProjDtlEntityCopy join  "
+			+ "PreContractsMaterialDtlEntity pcmd on pcmd.id = mp.preContractMterialId join"
+			+ " ProcureCatgDtlEntity pcde on pcde.id = pcmd.procureSubCatgId where pcde.procureType=:pcName and"
+			+ "  dc.materialProjDtlEntityCopy.purchaseId.id=:purchaseId AND dc.docketDate between :fromDate AND :toDate")
 	 List<MaterialPODeliveryDocketEntityCopy>  searchInvoiceMaterialsByPCName(@Param("fromDate") Date fromDate, @Param("toDate") Date toDate, @Param("purchaseId") Long purchaseId,
-			 			@Param("pcName") String pcName, @Param("pocSubCatName") String pocSubCatName, @Param("payableCat") String payableCat,
-	             	  @Param("unitsOfMeasure") String unitsOfMeasure);
+			 			@Param("pcName") String pcName);//, @Param("pocSubCatName") String pocSubCatName, @Param("payableCat") String payableCat,
+	             	//  @Param("unitsOfMeasure") String unitsOfMeasure);
 
 	
 

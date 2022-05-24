@@ -3701,7 +3701,7 @@ public class ProcurementServiceImpl implements ProcurementService {
 			List<InvoiceMaterialTo> invoiceMaterialTos = new ArrayList<InvoiceMaterialTo>();
 			List<MaterialPODeliveryDocketEntityCopy> materialPODeliveryDocketEntityCopies =
 					copyMaterialDeliveryDocketRepository.searchInvoiceMaterialsByPCName(CommonUtil.convertStringToDate(searchInvoiceMaterialsReq.getInvoceFromDate()),CommonUtil.convertStringToDate(searchInvoiceMaterialsReq.getInvoceToDate()),searchInvoiceMaterialsReq.getPurchaseId(),
-												searchInvoiceMaterialsReq.getPcName(),searchInvoiceMaterialsReq.getPocSubCatName(),searchInvoiceMaterialsReq.getPayableCat(),searchInvoiceMaterialsReq.getUnitsOfMeasure());
+												searchInvoiceMaterialsReq.getPcName());//,searchInvoiceMaterialsReq.getPocSubCatName(),searchInvoiceMaterialsReq.getPayableCat(),searchInvoiceMaterialsReq.getUnitsOfMeasure());
 			Integer totaValue = 0;
 			for(MaterialPODeliveryDocketEntityCopy materialPODeliveryDocketEntityCopy: materialPODeliveryDocketEntityCopies) {
 				InvoiceMaterialTo invoiceMaterialTo = new InvoiceMaterialTo();
@@ -3778,7 +3778,9 @@ public class ProcurementServiceImpl implements ProcurementService {
 		SearchManpowerResp searchManpowerResp = new SearchManpowerResp();
 		List<SearchManpowerDocketTO> seDocketTOs = new ArrayList<>();
 		List<PreContractsPlantDtlEntity> prePlantDtlEntities =
-				precontractPlantRepository.searchPlantsDtlsByCriteria(CommonUtil.convertStringToDate(searchInvoiceMaterialsReq.getInvoceFromDate()),CommonUtil.convertStringToDate(searchInvoiceMaterialsReq.getInvoceToDate()),searchInvoiceMaterialsReq.getPrecontractId(),
+				precontractPlantRepository.searchPlantsDtlsByCriteria(CommonUtil.convertStringToDate(searchInvoiceMaterialsReq.getInvoceFromDate()),
+						CommonUtil.convertStringToDate(searchInvoiceMaterialsReq.getInvoceToDate()),
+						searchInvoiceMaterialsReq.getPrecontractId(),
 											//searchInvoiceMaterialsReq.getPcName(),
 											searchInvoiceMaterialsReq.getPocSubCatName(),
 											//searchInvoiceMaterialsReq.getPayableCat(),
@@ -3812,9 +3814,9 @@ public class ProcurementServiceImpl implements ProcurementService {
 				List<PreContractsServiceDtlEntity> preServicesDtlEntities =
 						precontractServiceRepository.searchServiceDtlsByCriteria(CommonUtil.convertStringToDate(searchInvoiceMaterialsReq.getInvoceFromDate()),CommonUtil.convertStringToDate(searchInvoiceMaterialsReq.getInvoceToDate()),searchInvoiceMaterialsReq.getPrecontractId(),
 													//searchInvoiceMaterialsReq.getPcName(),
-													searchInvoiceMaterialsReq.getPocSubCatName(),
+													searchInvoiceMaterialsReq.getPocSubCatName());
 													//searchInvoiceMaterialsReq.getPayableCat(),
-													searchInvoiceMaterialsReq.getUnitsOfMeasure());
+													//searchInvoiceMaterialsReq.getUnitsOfMeasure()
 				Integer totaValue = 0;
 				for(PreContractsServiceDtlEntity preDtlEntity: preServicesDtlEntities) {
 					SearchManpowerDocketTO searchManpowerDocketTO = new SearchManpowerDocketTO();
