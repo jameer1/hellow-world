@@ -9,16 +9,16 @@
         <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3">
             <md-input-container>
                 <label>Procurment Sub Category</label>
-                <md-select ng-model="procurmentSubCat">
-                    <md-option value="pending">procurmentSubCategory</md-option>
+                <md-select ng-model="MeterialFilterdata.subcat">
+                    <md-option ng-value="subCat" ng-repeat="subCat in meterialPSubData">{{subCat}}</md-option>
                  </md-select>
             </md-input-container>
         </div>
          <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3"> <!-- combination of Category and subcategory  -->
             <md-input-container>
                 <label>Payable Category</label>
-                <md-select ng-model="payableSubCat">
-                    <md-option value="pending">procurmentSubCategory</md-option>
+                <md-select ng-model="MeterialFilterdata.Payable">
+                    <md-option value="sale price">sale price</md-option>
                  </md-select>
             </md-input-container>
         </div>
@@ -26,8 +26,8 @@
         <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2"> <!-- combination of Category and subcategory and payable  -->
             <md-input-container>
                 <label>Unit of Measure</label>
-                <md-select ng-model="unitOfMeasure">
-                    <md-option value="pending">Unit of Measure</md-option>
+                <md-select ng-model="MeterialFilterdata.UnitMeasure">
+                    <md-option value="Varies">Varies</md-option>
                  </md-select>
             </md-input-container>
         </div>
@@ -35,7 +35,7 @@
         
         <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
             <div class="pull-right marT15">
-                <input type="submit" class="btn btn-primary btn-sm" value="Search">
+                <input type="submit" class="btn btn-primary btn-sm" value="Search" ng-click="MeterialSearch()">
             </div>
         </div> 
    </div>
@@ -65,7 +65,7 @@
                 <tbody> 
                    <tr *ng-if="materialInvoiceDetails" ng-repeat="invoiceMatdetails in materialInvoiceDetails.invoiceMaterialTos">
                            
-                           <td><input type="checkbox" value="id"></td> 
+                           <td><input type="checkbox" value="id" ng-model="invoiceMatdetails.selected" ng-change="rowSelect($index,invoiceMatdetails)"></td> 
                            <td class="input-width5">{{invoiceMatdetails.docketNum}}</td>  
                            <td class="input-width5">{{invoiceMatdetails.docketDate}}</td>  
                            <td class="input-width5">{{invoiceMatdetails.matReceiveDate}}</td>  <!-- Material Released Date -->
@@ -83,11 +83,11 @@
                   		   
                    </tr>
                    <tr>
-                    <div class="panel-footer">
+                <!--     <div class="panel-footer">
 		            
 		                  
 		            
-        		</div>
+        		</div> -->
                    
                    </tr>
                      
@@ -96,7 +96,7 @@
             </table>
               <div class="panel-footer">
 		            <div class="pull-right">
-		                  <span><label>Total Amount: {{ totalValue}}</label></span>
+		                  <span><label>Total Amount: {{ TotalAmout}}</label></span>
 		             </div>
         		</div>
        </div>

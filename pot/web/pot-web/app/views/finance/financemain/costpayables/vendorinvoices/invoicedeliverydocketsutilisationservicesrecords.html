@@ -3,22 +3,24 @@
         <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2 padL-0">
             <md-input-container>
                 <label>Procurment Category</label>
-                <input type="text" value="Material"  readonly class="form-control">
+                <input type="text" value="Services"  readonly class="form-control">
             </md-input-container>
          </div>
         <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3">
             <md-input-container>
                 <label>Procurment Sub Category</label>
-                <md-select>
-                    <md-option value="pending">procurmentSubCategory</md-option>
-                 </md-select>
+       			 <md-select name="weekly" ng-model="ServiceFilterdata.subCat " ng-change="PlantSubchange(ServiceFilterdata.subCat)">
+				 <md-option ng-repeat="weeklist in ServiceSubCat" ng-value="weeklist">
+				 {{weeklist}}
+	   			</md-option>
+	  			</md-select>
             </md-input-container>
         </div>
          <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3"> <!-- combination of Category and subcategory  -->
             <md-input-container>
                 <label>Payable Category</label>
-                <md-select>
-                    <md-option value="pending">procurmentSubCategory</md-option>
+                <md-select ng-model="ServiceFilterdata.payCat">
+                    <md-option value="Service Fee">Service Fee</md-option>
                  </md-select>
             </md-input-container>
         </div>
@@ -26,8 +28,8 @@
         <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2"> <!-- combination of Category and subcategory and payable  -->
             <md-input-container>
                 <label>Unit of Measure</label>
-                <md-select>
-                    <md-option value="pending">Unit of Measure</md-option>
+                <md-select ng-model="ServiceFilterdata.UnitMeas">
+                    <md-option value="Pay Item Unit">Pay Item Unit</md-option>
                  </md-select>
             </md-input-container>
         </div>
@@ -35,7 +37,7 @@
         
         <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
             <div class="pull-right marT15">
-                <input type="submit" class="btn btn-primary btn-sm" value="Search">
+                <input type="submit" class="btn btn-primary btn-sm" ng-click="serviceSearch()" value="Search">
             </div>
         </div> 
    </div>

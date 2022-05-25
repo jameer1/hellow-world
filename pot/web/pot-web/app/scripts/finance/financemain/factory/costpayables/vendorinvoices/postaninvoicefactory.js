@@ -1,6 +1,6 @@
 'use strict';
-app.factory('PostAnInvoiceFactory', ["ngDialog", "$q", "$filter", "$timeout", "$rootScope", "UserService","GenericAlertService", "PostInvoiceDeliveryDocketsFactory","PreContractCostPopupFactory", "ProjectInvoiceService",
-    function (ngDialog, $q, $filter, $timeout, $rootScope,UserService,GenericAlertService, PostInvoiceDeliveryDocketsFactory,PreContractCostPopupFactory, ProjectInvoiceService) {
+app.factory('PostAnInvoiceFactory', ["ngDialog", "$q", "$filter", "$timeout", "$rootScope","ProcureService", "UserService","GenericAlertService", "PostInvoiceDeliveryDocketsFactory","PreContractCostPopupFactory", "ProjectInvoiceService",
+    function (ngDialog, $q, $filter, $timeout, $rootScope,ProcureService,UserService,GenericAlertService, PostInvoiceDeliveryDocketsFactory,PreContractCostPopupFactory, ProjectInvoiceService) {
         var generatePopUp;
         var service = {};
         service.generateInvoiceDetails = function (actionType,data,userProjMap,selectedData) {
@@ -25,10 +25,11 @@ app.factory('PostAnInvoiceFactory', ["ngDialog", "$q", "$filter", "$timeout", "$
                 $scope.procurmentSubCat;
                 $scope.totalValue;
                 $scope.procurmentSubCat;
-                
+                 $scope.meterialPSubData1=[];
+                 $scope.meterialPSubData=[];
                 $scope.totalamount = 0;
                 $scope.dummy_amount;
-                
+                $scope.TotalAmout = 0;
                 $scope.systemNetInvoiceAmount;
                 $scope.systemgstTxtInvoiceAmount;
                 $scope.systemTotalInvoiceAmountInclTax;
@@ -50,7 +51,7 @@ app.factory('PostAnInvoiceFactory', ["ngDialog", "$q", "$filter", "$timeout", "$
                 
                 $scope.manpowerInvoicePeriod = true;
                 $scope.manpowerMobilisationChargesPerProjectPerEmployee = false;
-                $scope.manpowerDeMobilisationChargesPerProjectPerEmployee = false;
+                $scope.manpowerDeMobilisationChargesPerProjectPerEmployee = true;
                 $scope.manpowerUtilisationChargesPerHourly = false;
                 $scope.manpowerUtilisationChargesPerDaily = false;
                 $scope.manpowerUtilisationChargesPerMonthly = false;
@@ -116,12 +117,146 @@ app.factory('PostAnInvoiceFactory', ["ngDialog", "$q", "$filter", "$timeout", "$
                 $scope.paymentDueDate;
                 $scope.invoiceExpenditureType;
                 $scope.docketCurrentTab = $scope.docketTabs[0].url;
-                $scope.docketTabs[1].disabled = true;
-                $scope.docketTabs[2].disabled = true;
-                $scope.docketTabs[3].disabled = true;
-                $scope.docketTabs[4].disabled = true;
-
-                $scope.onClickTab = function (dockettab) {
+                $scope.docketTabs[1].disabled = false;
+                $scope.docketTabs[2].disabled = false;
+                $scope.docketTabs[3].disabled = false;
+                $scope.docketTabs[4].disabled = false;
+                
+                //----------METERIAL------------------------
+                $scope.procReq = {
+						"procureId": 'Services',
+						"subProcureName": null,
+						"status": "1"
+					};
+					console.log($scope.procReq);
+				ProcureService.getProcureCatgs($scope.procReq).then(function(data) {
+					$scope.Meterialdata=data.procureMentCatgTOs;
+					for(var i=0; i<$scope.Meterialdata.length; i++){
+						if($scope.Meterialdata[i].procureId == 'Materials'){
+							 $scope.meterialPSubData1.push($scope.Meterialdata[i].desc);
+						}
+					}
+					$scope.meterialPSubData = $filter('unique')($scope.meterialPSubData1,'$scope.meterialPSubData1');
+					console.log( $scope.meterialPSubData1,"data")					
+					console.log($scope.meterialPSubData,"unique data")
+				})	
+                
+                $scope.MeterialFilterdata={
+				'subcat':null,
+				'Payable':null,
+				'unitMeas':null
+				}
+                //$scope.meterialPSubData=['Civil Items','Electrical Items', 'Admin Items']
+                $scope.MeterialSearch=function(){
+				console.log($scope.MeterialFilterdata.subcat);
+				console.log($scope.MeterialFilterdata.Payable);
+				console.log($scope.MeterialFilterdata.UnitMeasure)				
+				}
+                
+                //-----------MANPOWER------------------------- ---
+                
+                $scope.procurementSubList =  ['Full Time (Own Labour)', 'Casual','Contract','Part Time','Sub Contract'];                  
+                $scope.ManpowerFilterdata={
+				'procurementsub':null,
+				'payableCat':null,
+				'unitMeas':null
+				}           
+              	$scope.payableChange = function(value){
+	              console.log(value);
+	              if(value == 'Full Time (Own Labour)'){
+		           $scope.ManpowerFilterdata.payableCat="";
+		           $scope.payableCatg=['Recruitment Fee'];
+		           $scope.ManpowerFilterdata.unitMeas ="";
+		            } 
+	              else {
+		            $scope.ManpowerFilterdata.payableCat="";
+					$scope.payableCatg=['Mobilisation Charges', 'De-Mobilisation Charges', 'Utilisation Charges'];
+					 $scope.ManpowerFilterdata.unitMeas ="";
+					}
+                }
+				$scope.unitMeasureChange = function(value) {
+                      console.log(value);
+                  if(value == 'Recruitment Fee' || value =='Mobilisation Charges'||value =='De-Mobilisation Charges'){
+	                     $scope.ManpowerFilterdata.unitMeas ="";
+	 					 $scope.unitMeasure = ['Each'];
+			          } 
+			      else
+			      	  {
+						$scope.ManpowerFilterdata.unitMeas ="";
+				 		$scope.unitMeasure = ['Hourly Rate', 'Daily Rate', 'Monthly Rate']
+					  }
+				}
+				$scope.ManpowerSearch=function(){
+                console.log( $scope.ManpowerFilterdata.unitMeas);
+                console.log($scope.ManpowerFilterdata.payableCat );
+                console.log($scope.ManpowerFilterdata.procurementsub)
+                }
+                
+                //-----------------Plant-----------------------------------
+                
+                $scope.platSubCat=['Purchase (Own Plant)', 'Hire Purchase','Lease Purchase','Sub Contract']
+                $scope.PlantFilterdata={
+					'subCat':null,
+					'PayCat':null,
+					'unitMeas':null
+				}
+				$scope.PlantSubchange=function(value){
+					console.log(value)
+					if(value == "Purchase (Own Plant)"){
+						$scope.PlantPayableCat=['Contract Price'];
+						$scope.PlantFilterdata.PayCat="";
+						$scope.PlantFilterdata.unitMeas="";
+					}
+					else{
+						$scope.PlantPayableCat=['Mobilisation Charges', 'De-Mobilisation Charges', 'Utilisation Charges']
+					    $scope.PlantFilterdata.PayCat="";
+						$scope.PlantFilterdata.unitMeas="";
+					}
+				}
+				$scope.PlantPayableChange=function(value){
+					console.log(value)
+					if(value=='Contract Price' || value== 'Mobilisation Charges' || value=='De-Mobilisation Charges' ){
+						$scope.PlantFilterdata.unitMeas="";
+						$scope.PlantUnitMeasure=['Each']
+					}
+					else{
+						$scope.PlantFilterdata.unitMeas="";
+						$scope.PlantUnitMeasure=['Hourly Rate', 'Daily Rate', 'Monthly Rate']
+					}
+				}				
+                $scope.PlantSearch=function(){
+				console.log($scope.PlantFilterdata);
+				
+				}
+				
+				//------------Services-------------------------
+				
+				$scope.ServiceFilterdata={
+					'subCat':null,
+					'payCat':null,
+					'UnitMeas':null
+				}
+				$scope.ServiceSubCat=['Engineering Services','Construction Services','Project Management Services']
+                $scope.serviceSearch=function(){
+				console.log($scope.ServiceFilterdata);
+			
+				}
+				
+				//------------Sub--------------------------------
+				
+				$scope.SubFilterdata={
+					'subCat':null,
+					'pay':null,
+					'UnitMeas':null
+				}
+				$scope.SubproCat=['Schedule of Rates Basis','Cost Plus % Basis','Contract milestones Basis'];
+				$scope.SubSearch=function(){
+					console.log($scope.SubFilterdata.subCat);
+					console.log($scope.SubFilterdata.pay);
+					console.log($scope.SubFilterdata.UnitMeas)
+				}
+			//----------------------------------------------------------
+               $scope.onClickTab = function (dockettab) {
                 	//console.log('onclick tab fired   ',dockettab);
                 	 if(dockettab.disabled)
                 	      return;
@@ -218,8 +353,7 @@ app.factory('PostAnInvoiceFactory', ["ngDialog", "$q", "$filter", "$timeout", "$
 								"companyId" : selectedData.preContractCmpTO.companyTO.id,
 								"precontractId" : $scope.preContractDtoTOs.preContractTO.id
 							};
-							ProjectInvoiceService.getInvoiceMaterial(req).then(
-									function(data) {
+							ProjectInvoiceService.getInvoiceMaterial(req).then(function(data) {
 									console.log(data);
 									$scope.materialInvoiceDetails = data;
 									
@@ -237,6 +371,32 @@ app.factory('PostAnInvoiceFactory', ["ngDialog", "$q", "$filter", "$timeout", "$
                   console.log(data);
                   
                   }
+                  $scope.rowSelect = function (position, company) {
+					console.log(company);
+					  var value1 = 0;
+					  var value2 = 0;
+					if(company.selected== true){
+						for (const [key, value] of Object.entries(company)) {	
+						if(key == "progressQty"){
+							value1=value;
+						}
+						if(key =="vendorRate"){
+						$scope.TotalAmout+=value1*value;
+						}
+						};
+					}
+					else if(company.selected== false){
+						for (const [key, value] of Object.entries(company)) {	
+						if(key == "progressQty"){
+							value2=value;
+						}
+						if(key =="vendorRate"){
+						$scope.TotalAmout-=value2*value;
+						}
+						};
+					}
+				  }
+				  
                   $scope.addcostcode = function(project) {
                 	  console.log('project ', project);
                 	  project.id = '1573';
@@ -272,7 +432,7 @@ app.factory('PostAnInvoiceFactory', ["ngDialog", "$q", "$filter", "$timeout", "$
                   
                   $scope.save = function() {
                 	              	
-                      
+                      console.log($scope.TotalAmout)
                       $scope.asPerSystemVerification = {
                     		'netInvoiceAmount': $scope.systemNetInvoiceAmount,
                     		'gstInvoiceAmount':$scope.systemgstTxtInvoiceAmount,
