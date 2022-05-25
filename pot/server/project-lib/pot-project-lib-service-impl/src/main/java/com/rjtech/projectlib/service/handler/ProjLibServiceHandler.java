@@ -84,8 +84,8 @@ public class ProjLibServiceHandler {
     {
     	ChangeOrderTO changeOrderTO = new ChangeOrderTO();
     	System.out.println("changeordermstr entity id:"+changeOrderMstrEntity.getId());
-    	List<ChangeOrderMapEntity> changeOrderMapEntities = changeOrderMapRepo.findCoManpowerDetails( changeOrderMstrEntity.getId() );    	
-    	System.out.println("changeordermap entities size:"+changeOrderMapEntities.size());
+    	//List<ChangeOrderMapEntity> changeOrderMapEntities = changeOrderMapRepo.findCoManpowerDetails( changeOrderMstrEntity.getId() );    	
+    	//System.out.println("changeordermap entities size:"+changeOrderMapEntities.size());
     	List<ProjManpowerTO> projManpowerTOList = new ArrayList<>();
     	    	
     	changeOrderTO.setId( changeOrderMstrEntity.getId() );
@@ -148,13 +148,13 @@ public class ProjLibServiceHandler {
 			
 			changeOrderTO.setRequestorLabelKeyTO( requestorDetails );
 		}
-		for( ChangeOrderMapEntity changeOrderMapEntity : changeOrderMapEntities )
+		/*for( ChangeOrderMapEntity changeOrderMapEntity : changeOrderMapEntities )
 		{
 			System.out.print("changeordermapentity data:");
 			System.out.println(changeOrderMapEntity.getManpowerId());
 			projManpowerTOList.add( convertCOMapEntityToManpowerPOJO( changeOrderMapEntity.getManpowerId() ) );
 		}
-		System.out.println("size projmanpowerto:"+projManpowerTOList.size());
+		System.out.println("size projmanpowerto:"+projManpowerTOList.size());*/
 		//List<ProjManpowerTO> projManpowerTOList = ProjManpowerHandler.convertEntityToPOJO( projManpowerRepo.findOne( changeOrderMapEntity.getManpowerId() ) );
 		changeOrderTO.setProjManpowerTOs( projManpowerTOList );
 		return changeOrderTO;

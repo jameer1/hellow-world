@@ -44,7 +44,7 @@ CO_PURCHASE_ORDER_ID                      VARCHAR2(150)
     @Column(name = "CONTRACT_TYPE")
     private String contractType;  
     
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "PROJ_ID")
     private ProjMstrEntity projectId;
     
