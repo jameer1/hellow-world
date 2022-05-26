@@ -12,8 +12,8 @@ app.config(["$stateProvider", function($stateProvider) {
 			}
 		}
 	})
-}]).controller("MaterialConsumptionRecordsController", ["$rootScope", "$scope", "$q", "$state", "ngDialog", "MaterialRegisterService", "GenericAlertService", function($rootScope, $scope, $q, $state, ngDialog, MaterialRegisterService, GenericAlertService) {
-
+}]).controller("MaterialConsumptionRecordsController", ["$rootScope", "$scope", "$q", "$state", "ngDialog", "MaterialRegisterService", "GenericAlertService","stylesService", "ngGridService",  function($rootScope, $scope, $q, $state, ngDialog, MaterialRegisterService, GenericAlertService,stylesService, ngGridService) {
+    $scope.stylesSvc = stylesService;
 	$scope.dateWiseConsumptionDetails = [];
 	$scope.companyMap = [];
 	$scope.classificationMap = [];
@@ -38,6 +38,7 @@ app.config(["$stateProvider", function($stateProvider) {
 			}
 		MaterialRegisterService.getMaterialProjConsumption(req).then(function(data) {
 			$scope.dateWiseConsumptionDetails = data.labelKeyTOs;
+			$scope.gridOptions.data = angular.copy($scope.dateWiseConsumptionDetails);
 		}, function(error) {
 			GenericAlertService.alertMessage("Error occured while getting Material Consumption Details", "Error");
 		});
@@ -51,5 +52,33 @@ app.config(["$stateProvider", function($stateProvider) {
 	$scope.$on("searchConsumptionRecords", function() {
 		$scope.getConsumptionRecords();
 	});
-
+	$scope.$watch(function () { return stylesService.finishedStyling; },
+			function (newValue, oldValue) {
+				if (newValue) {
+					let columnDefs = [
+						{ field: 'displayNamesMap.consumptionDate', displayName: "WDM Date", headerTooltip : "WDM Date"},
+						{ field: 'displayNamesMap.parentProjName', displayName: "EPS", headerTooltip: "EPS", groupingShowAggregationMenu: false},
+						{ field: 'displayNamesMap.projName', displayName: "Project", headerTooltip: "Project", groupingShowAggregationMenu: false},
+						{ field: 'displayNamesMap.workDairyCode', displayName: "WDM ID", headerTooltip: "WDM ID", groupingShowAggregationMenu: false},
+						{ field: 'displayNamesMap.reqUser', displayName: "Supervisor", headerTooltip: "Supervisor", groupingShowAggregationMenu: false},
+						{ field: 'displayNamesMap.SOURCE_TYPE', displayName: "Source", headerTooltip: "Source", groupingShowAggregationMenu: false},
+						{ field: 'displayNamesMap.classCode', displayName: "Resource", headerTooltip: "Resource", groupingShowAggregationMenu: false},
+						{ field: 'code', displayName: "PO.SCH.ITM", headerTooltip: "PO.SCH.ITM", groupingShowAggregationMenu: false},
+						{ field: 'name', displayName: "P.O.", headerTooltip: "P.O.", groupingShowAggregationMenu: false},
+						{ field: 'displayNamesMap.deliveryDocket', displayName: "Docket Type", headerTooltip: "Docket Type", groupingShowAggregationMenu: false},
+						{ field: 'displayNamesMap.deliveryDockNo', displayName: "Docket.No", headerTooltip: "Docket.No", groupingShowAggregationMenu: false},
+						{ field: 'displayNamesMap.deliveryDockDate', displayName: "Docket Date", headerTooltip: "Docket Date", groupingShowAggregationMenu: false},
+						{ field: 'displayNamesMap.cmpName',displayName: "Supplier", headerTooltip: "Supplier", groupingShowAggregationMenu: false},
+						{ field: 'displayNamesMap.classTypeUnitOfMeasure', displayName: "Unit", headerTooltip: "Unit", groupingShowAggregationMenu: false},
+						{ field: 'displayNamesMap.unitOfRate', displayName: "Rate", headerTooltip: "Rate", groupingShowAggregationMenu: false},
+						{ field: 'displayNamesMap.consumptionQty', displayName: "Used", headerTooltip: "Used", groupingShowAggregationMenu: false},
+						{ field: 'displayNamesMap.docketCummulativeQty', displayName: "Docket Qty ", headerTooltip: "Docket Qty", groupingShowAggregationMenu: false},
+						{ field: 'displayNamesMap.schCummulativeQty',displayName: "SCH.ITM Qty", headerTooltip: "SCH.ITM Qty", groupingShowAggregationMenu: false}
+						];
+					let data = [];
+					$scope.getConsumptionRecords();
+					$scope.gridOptions = ngGridService.initGrid($scope, columnDefs, data, "Resources_Materials_Consumption Records");
+			        $scope.gridOptions.showColumnFooter = false;
+				}
+				});
 }]);
