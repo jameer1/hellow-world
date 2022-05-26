@@ -335,13 +335,16 @@
                 <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6 padL-0">
                     <md-input-container>
                         <label>Approver ID</label>
-                        <input type="text"  readonly ng-model="approverValidateDetailsTO.approverId">
+                        <input type="text" name="approver" class="form-control"
+						ng-click="getUsersByModulePermission();"
+						ng-model="approverValidateDetailsTO.code"
+						placeholder="Approver ID" maxlength="100" readonly="readonly">
                     </md-input-container>
                 </div>
                 <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
                     <md-input-container>
                         <label>Approver Name</label>
-                        <input type="text" readonly ng-model="approverValidateDetailsTO.approverName">
+                        <input type="text" readonly ng-model="approverValidateDetailsTO.name">
                     </md-input-container>
                 </div>
             </div>
