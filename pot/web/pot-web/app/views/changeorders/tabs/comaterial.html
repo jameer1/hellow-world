@@ -5,7 +5,8 @@
 				<table class="table table-striped table-hover table-bordered tabTable_5_Height">
 		            <thead>
 		                <tr>
-		                    <th>Select</th>
+		                    <th class="text-center" rowspan="2">Select</th>
+		                    <th class="text-center" rowspan="2">Exg or New Item</th>
 		                    <th class="text-center">Material Classification ID</th>
 		                    <th class="text-center">Material Description</th>
 		                    <th class="text-center">Unit Of Measure</th>
@@ -19,26 +20,30 @@
 		            </thead>
 		            <tbody>
 		                <tr ng-repeat="materialrow in coMaterialRows">
-		                    <td>
+		                <td> <input type="checkbox" ng-model="materialrow.coMaterialSelect" /></td>
+		                    <td class="input-width5">
 		                    	<!-- <input type="checkbox" ng-change="progressRowSelect(progress)" ng-model="progress.select">  -->
-		                    	<select ng-model="materialrow.itemType" ng-options="itemType as itemType.name for itemType in materialItemType" ng-change="coChangeMaterialItemType(materialrow,materialrow.itemType)"></select>
+		                    	<select ng-model="materialrow.itemType" class="form-control" ng-options="itemType as itemType.name for itemType in materialItemType" ng-change="coChangeMaterialItemType(materialrow,materialrow.itemType)"></select>
 		                    </td>
-		                    <td><input type="text" ng-model="materialrow.materialClassificationId" ng-click="coMaterialClassification(materialrow)"/></td>
-		                    <td><input type="text" ng-model="materialrow.materialDescription" ng-readonly="true"/></td>
-		                    <td>Hours</td>
-		                    <td><input type="text" ng-model="materialrow.approvedMaterialQty"/></td>
-		                    <td><input type="text" ng-model="materialrow.pendingMaterialQty"/></td>
-		                    <td><input type="text" ng-model="materialrow.currentMaterialQty"/></td>	
-		                    <td><input type="text" ng-model="materialrow.cumulativeMaterialQty"/></td>
-		                    <td><input type="file" ng-model="manpowerUploadFile"/></td>
-		                    <td><input type="text" ng-model="materialrow.notes"/></td>	                    
+		                    <td class="input-width5"><input type="text" class="form-control" ng-model="materialrow.materialClassificationId" ng-click="coMaterialClassification(materialrow)"/></td>
+		                    <td class="input-width5"><input type="text" class="form-control" ng-model="materialrow.materialDescription" ng-readonly="true"/></td>
+		                    <td class="input-width5">Hours</td>
+		                    <td class="input-width5"><input type="text" class="form-control" ng-model="materialrow.approvedMaterialHrs" ng-change="calculateCumulativeQty1(materialrow)"/></td>
+		                    <td class="input-width5"><input type="text" class="form-control" ng-model="materialrow.pendingMaterialHrs" ng-change="calculateCumulativeQty2(materialrow)"/></td>
+		                    <td class="input-width5"><input type="text" class="form-control" ng-model="materialrow.currentMaterialHrs" ng-change="calculateCumulativeQty3(materialrow)"/></td>	
+		                    <td class="input-width5"><input type="text" class="form-control" ng-model="materialrow.cumulativeMaterialHrs"/></td>
+		                    <td class="input-width5"><input type="file" class="form-control" ng-model="manpowerUploadFile"/></td>
+		                    <td class="input-width5"><input type="text" class="form-control" ng-model="materialrow.notes"/></td>	                    
 		                </tr>
 		            </tbody>
 		        </table>	
 			</div>
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
 				<input type="button" class="btn btn-primary" value="Add Rows" ng-click="addMaterialRows()"/>
-				<input type="button" class="btn btn-primary" value="Save"/>
+			   <input type="button" class="btn btn-primary" value="Delete Rows" ng-click="deleteMateralRows()"/>
+			   <div class="pull-right">
+				<input type="button" class="btn btn-primary" value="Save" ng-click="saveMaterial()"/>
+				</div>
 			</div>				
 		</div>
 	</div>

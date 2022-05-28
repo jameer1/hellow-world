@@ -19,7 +19,7 @@ app.factory('ChangeOrdersService', ["Restangular", "$q", "$http", "appUrl", func
 			});
 			return deferred.promise;
 		},
-		saveChangeOrderDetails : function(req) {
+		saveOrderDetails : function(req) {
 			var deferred = $q.defer();
 			$http({
 					url : appUrl.originurl + "/app/projectlib/saveChangeOrderDetails",
@@ -33,7 +33,7 @@ app.factory('ChangeOrdersService', ["Restangular", "$q", "$http", "appUrl", func
 		},
 		saveChangeOrderManpowerDetails : function(req) {
 			var deferred = $q.defer();
-			$http({
+			$http({                                           
 					url : appUrl.originurl + "/app/projectlib/saveCoManpowerDetails",
 					method : "POST",
 					data: JSON.stringify(req),
@@ -55,6 +55,8 @@ app.factory('ChangeOrdersService', ["Restangular", "$q", "$http", "appUrl", func
 			});
 			return deferred.promise;
 		},
+		
+		// pass ayyi frent end lo data kuda vastundi kaani req lo em em accept chestundio teliyatledu
 		fetchChangeOrderDetails : function(req) {
 			var deferred = $q.defer();
 			$http({
@@ -90,6 +92,59 @@ app.factory('ChangeOrdersService', ["Restangular", "$q", "$http", "appUrl", func
 				deferred.resolve(response.data);
 			});
 			return deferred.promise;
+		},
+		//-------------------------
+	/*	getCoMainDetails : function(req) {alert("4")
+
+			var contractDetails = Restangular.one("procurement/getPOByPreContranctType")
+					.customPOST(req, '', {}, {
+						ContentType : 'application/json'
+					});
+			return contractDetails;
+		}*/
+		
+		
+		//------Get po Id ---------
+		getCoMainDetails : function(req) {
+			var deferred = $q.defer();
+			$http({
+					url : appUrl.originurl + "/app/procurement/getPOByPreContranctType",
+					method : "POST",
+					data: JSON.stringify(req),
+					headers: {}
+			}).then(function(response) {
+				deferred.resolve(response.data);
+			});
+			return deferred.promise;
+		},
+		
+		//--------Save Sow----------
+			saveCoScopeOfWorks : function(req) {
+			var deferred = $q.defer();
+			$http({
+					url : appUrl.originurl + "/app/projectlib/saveCoScopeOfWork",
+					method : "POST",
+					data: JSON.stringify(req),
+					headers: {}
+			}).then(function(response) {
+				deferred.resolve(response.data);
+			});
+			return deferred.promise;
+		},
+		//-----Save Material----------- 
+		getCoMeterial: function(req) {
+			var deferred = $q.defer();
+			$http({
+					url : appUrl.originurl + "/app/projectlib/saveCoMaterialDetails",
+					method : "POST",
+					data: JSON.stringify(req),
+					headers: {}
+			}).then(function(response) {
+				deferred.resolve(response.data);
+			});
+			return deferred.promise;
 		}
+		
+		
 	}
 }]);

@@ -8,7 +8,7 @@
 				<div class="col-sm-3 col-xs-12 col-md-3 col-lg-3">
 					<md-input-container>
 						<label class="labelName">Date</label>
-						<input type="text" name="current_date" value="{{current_date|date:'yyyy-MM-dd'}}"/>
+						<input type="text" name="current_date" value="{{current_date|date:'dd-MM-yyyy'}}"/>
 					</md-input-container>
 				</div>
 				<div class="col-sm-3 col-xs-12 col-md-3 col-lg-3" ng-if="coEditType=='CREATE'">
@@ -28,9 +28,9 @@
 					<label class="labelName">Change Required For</label>
 						<md-select placeholder="Contract Type" ng-model="coSearchReq.contractType" ng-blur="CoReqFo()" ng-change="tabsChange(coSearchReq.contractType)">
                             <md-option value="Head Contract">Head Contract</md-option>
-                            <md-option value="Sub Contract">Sub Contract</md-option>
-                            <md-option value="Services Agreement">Services Agreement</md-option>
-                            <md-option value="Purchase Order/Supply Order">Purchase Order/Supply Order</md-option>
+                            <md-option value="Sub Contract agreement">Sub Contract</md-option>
+                            <md-option value="Professional Services agreement">Service Agreement</md-option>
+                            <md-option value="Purchase  Order">Purchase Order</md-option>
                         </md-select>
 					</md-input-container>
 				</div>

@@ -5,6 +5,8 @@
 					<table class="table table-hover table-bordered singleTableHeight_3">
 						<thead>
 							<tr>
+							    <th class="text-center" rowspan="2">Select</th>
+		                   		<th class="text-center" rowspan="2">Exg or New Item</th>
 								<th class="text-center">Select</th>
 							    <th class="text-center">Exg or New Item List</th>
 								<th class="text-center">Plant Classification ID</th>
@@ -20,28 +22,31 @@
 						</thead>
 						<tbody>
 							<tr ng-repeat="plantrow in coPlantRows">
-								<td class="text-center"><input type="checkbox" ng-change="progressRowSelect(progress)" ng-model="progress.select"></td>
-								<td>
-			                    	<select name="plantItems" ng-options="plantItem.name for plantItem in plantItemList" ng-model="coPlantItemSelected">
+							    <td> <input type="checkbox" ng-model="plantrow.coPlantSelect" /></td>
+								<td class="input-width5">
+			                    	<select name="plantItems" class="form-control" ng-options="plantItem.name for plantItem in plantItemList" ng-model="coPlantItemSelected">
 										<option value="">--Select--</option>
 									</select>
 		                    	</td>		                    	
-								<td class="text-center"><input style="width: 7em !important;" type="text" ng-click="coProjPlantClassification(plantrow)" ng-model="plantrow.plantlClassificationId"/></td><!-- Select Item ID from project Plant Budget table and central library plant table -->
-		                    	<td class="text-center"><input type="text" ng-model="plantrow.plantDescription" ng-readonly="true"/></td>
-								<td class="text-center"><span>Hours</span></td>
-							 	<td class="text-center"><input type="text" ng-model="plantrow.approvedPlantHrs" ng-readonly="true"/></td>
-							 	<td class="text-center"><input type="text" ng-model="plantrow.pendingPlantHrs" ng-readonly="true"/></td>
-							 	<td class="text-center"><input type="text" ng-model="plantrow.currentPlantHrs"/></td>	
-							 	<td class="text-center"><input type="text" ng-model="plantrow.cumulativePlantHrs" ng-readonly="true"/></td>
-								<td class="text-center"><input style="width: 14em !important;" type="file"/></td>
-								<td class="text-center"><input type="text" ng-model="notes"/></td>
+								<td class="input-width5"><input  class="form-control" type="text" ng-click="coProjPlantClassification(plantrow)" ng-model="plantrow.plantlClassificationId"/></td><!-- Select Item ID from project Plant Budget table and central library plant table -->
+		                    	<td class="input-width5"><input type="text" class="form-control" ng-model="plantrow.plantDescription" ng-readonly="true"/></td>
+								<td class="input-width5"><span>Hours</span></td>
+							 	<td class="input-width5"><input type="text" class="form-control" ng-model="plantrow.approvedPlantHrs" ng-change="calculateCumulativeQty1(plantrow)"/></td>
+							 	<td class="input-width5"><input type="text" class="form-control" ng-model="plantrow.pendingPlantHrs" ng-change="calculateCumulativeQty2(plantrow)" /></td>
+							 	<td class="input-width5"><input type="text" class="form-control" ng-model="plantrow.currentPlantHrs" ng-change="calculateCumulativeQty3(plantrow)"/></td>	
+							 	<td class="input-width5"><input type="text" class="form-control" ng-model="plantrow.cumulativePlantHrs" ng-readonly="true"/></td>
+							 	<td class="input-width1"><input type="file" class="form-control" ng-model="plantUploadFile"/></td>
+								<td class="input-width5"><input type="text"class="form-control"  ng-model="plantrow.notes"/></td>
 							</tr>
 						</tbody>
 					</table>
 				</div>	
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
 				<input type="button" class="btn btn-primary" value="Add Rows" ng-click="addCoPlantRows()"/>
+				<input type="button" class="btn btn-primary" value="Delete Rows" ng-click="deletePlantRows()"/>
+				<div class="pull-right">
 				<input type="button" class="btn btn-primary" value="Save" ng-click="saveCoPlantDetails()"/>
+				</div>
 			</div>		
 		</div>
 	</div>

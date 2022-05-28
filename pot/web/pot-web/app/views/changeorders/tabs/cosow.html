@@ -4,7 +4,10 @@
 		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding table-responsive" ng-show="displayHeadContractBlock">
 				<table class="table table-striped table-hover table-bordered tabTable_5_Height">
 		            <thead>
+		            
 						<tr>
+		                    <th class="text-center" rowspan="2">Select</th>
+		                    <th class="text-center" rowspan="2">Exg or New Item</th>
 							<th class="text-center" colspan="6">Scope of Works  Items</th>
 							<th class="text-center" colspan="4"> Quantities</th>
 							<th class="text-center" colspan="4"> Schedule of Rates ( Payable Rates)</th>
@@ -12,7 +15,7 @@
 							<th class="text-center" colspan="2"> Documents</th>
 						</tr>
 		                <tr>
-		                    <th>Select</th>
+		                   
 		                    <th class="text-center">SOW Item ID</th>
 		                    <th class="text-center">SOW Item Description</th>
 		                    <th class="text-center">Equivalent SOR Item ID</th>
@@ -40,14 +43,15 @@
 		            </thead>
 		            <tbody>
 		                <tr ng-repeat="row in coHeadContractRows">
+		                <td> <input type="checkbox" ng-model="row.coSowSelect" ng-change="coSowSelectRow(row)"/></td>
 		                    <td>		                    	
-		                    	<select ng-model="coSowItemType" ng-change="changeItemType(row, row.coitemtype)">
+		                    	<select ng-model="coSowItemType" ng-change="changeItemType(coSowItemType)">
 		                    		<option value="existingitem">Existing Item</option>		                    		
 		                    		<option value="newitem">New Item</option>		                    		
 		                    	</select>
 		                    </td>
 		                    <!-- <td>SOW Item ID td</td> -->
-		                    <td><input type="text" ng-click="sowPopup(coSearchReq.projId,coSOwItemType)" ng-model="row.coSowItemId"/></td>
+		                    <td><input type="text"  ng-disabled="coSowItemType == null|| coSowItemType == undefined" ng-click="sowPopup(row)" ng-model="row.coSowItemId"/></td>
 		                    <td><input type="text" ng-model="row.coSowItemDescription" ng-readonly="true"/></td> <!-- SOW Item Description -->
 		                    <td><input type="text" ng-model="row.coSorItemId" ng-readonly="true"/></td> <!-- Equivalent SOR Item ID -->
 		                    <!-- <td><input type="text" ng-click="getSorItems()"/></td>--> <!-- Equivalent SOR Item ID -->
@@ -58,18 +62,18 @@
 		                    		<option>Cms</option>
 		                    	</select>
 		                    </td> --> <!--  Unit Of Measure -->
-		                    <td><input type="text" ng-model="row.approvedSowQty" ng-readonly="true"/></td>	<!--  Approved Scope of work upto previous order -->
-		                    <td><input type="text" ng-model="row.pendingSowQty" ng-readonly="true"/></td><!--  Scope of work - Pending orders for approval -->
-		                    <td><input type="text" ng-model="row.currentSowQty" ng-blur="calculateCumulativeQty(row)"/></td> <!--  Scope of work under current order -->
+		                    <td><input type="text" ng-model="row.approvedSowQty" ng-change="calculateCumulativeQty3(row)" /></td>	<!--  Approved Scope of work upto previous order -->
+		                    <td><input type="text" ng-model="row.pendingSowQty" ng-change="calculateCumulativeQty2(row)"/></td><!--  Scope of work - Pending orders for approval -->
+		                    <td><input type="text" ng-model="row.currentSowQty" ng-change="calculateCumulativeQty1(row)"/></td> <!--  Scope of work under current order -->
 		                    <td><input type="text" ng-model="row.cumulativeSowQty" ng-readonly="true"/></td> <!--  Cumulative Scope of work -->
 		                    <td><input type="text" ng-model="row.currency" ng-readonly="true"/></td> <!--  Currency -->
 		                    <td><input type="text" ng-model="row.approvedRates" ng-readonly="true"/></td> <!--  Approved contract rates for existing items -->
-		                    <td><input type="text" ng-model="row.newRates" ng-readonly="true"/></td> <!--  Proposed new rates for existing items -->
+		                    <td><input type="text" ng-model="row.newRates" /></td> <!--  Proposed new rates for existing items -->
 		                    <td><input type="text" ng-model="row.newItemRate" ng-readonly="true"/></td><!--  Rates for new items -->
-		                    <td><input type="text" ng-model="row.prevApprovedAmt"/></td> <!-- Approved amount upto previous order  -->
-		                    <td><input type="text" ng-model="row.pendingOrderAmt"/></td> <!-- Amount-Pending orders for approval  -->
-		                    <td><input type="text" ng-readonly="true" ng-model="row.currentAmt"/></td> <!-- Amount-current change order -->
-		                    <td><input type="text" ng-readonly="true"/></td> <!-- Cumulative amount  -->
+		                    <td><input type="text" ng-model="row.prevApprovedAmt" ng-change="calculateCumulativeAmt3(row)"/></td> <!-- Approved amount upto previous order  -->
+		                    <td><input type="text" ng-model="row.pendingOrderAmt" ng-change="calculateCumulativeAmt2(row)"/></td> <!-- Amount-Pending orders for approval  -->
+		                    <td><input type="text" ng-readonly="true" ng-model="row.currentAmt" ng-change="calculateCumulativeAmt1(row)"/></td> <!-- Amount-current change order -->
+		                    <td><input type="text" ng-readonly="true" ng-model="row.cumulativeAmt"/></td> <!-- Cumulative amount  -->
 		                    <td><input type="file"/></td>
 		                    <td><input type="text" ng-model="row.notes"/></td>	                    
 		                </tr>
@@ -109,29 +113,29 @@
 		                </tr>
 		            </thead>
 		            <tbody>
-		                <tr>
+		                <tr ng-repeat="row in coSubContractRows">
 		                    <td>
 		                    	<!-- <input type="checkbox" ng-change="progressRowSelect(progress)" ng-model="progress.select">  -->
-		                    	<select ng-model="coitemtype">
+		                    	<select ng-model="coSubItemtype" ng-change="coSubChange(coSubItemtype)">
 		                    		<option value="existingitem">Existing Item</option>		                    		
 		                    		<option value="newitem">New Item</option>		                    		
 		                    	</select>
 		                    </td>
-		                    <td>AAAAA</td>
-		                    <td>BBBBB</td>
-		                    <td>Unit of measure</td>
-		                    <td>Approved Scope of work</td>
-		                    <td>Scope of work for approval</td>
-		                    <td>Scope of work under current order</td>	
-		                    <td>Cumulative Scope of work</td>
-		                    <td>Currency</td>
-		                    <td>Unit Rate</td>
-		                    <td>Approved amount upto previous order</td>
-		                    <td>Amount-Pending orders for approval</td>
-		                    <td>Amount-current change order</td>
-		                    <td>Cumulative amount</td>
-		                    <td>Upload Documents</td>
-		                    <td>Notes</td>	                    
+		                    <td><input type="text"/ ng-model="row.coSowItemId" ng-click="subContractSowid(row)"></td>
+		                    <td><input type="text"/ ng-model="row.coSowItemDescription"></td>
+		                    <td><input type="text"/ ng-model="row.unitOfMeasure"></td>
+		                    <td><input type="text"/ ></td>
+		                    <td><input type="text"/ ng-model="row.approvedSowQty"></td>
+		                    <td><input type="text"/ ng-model="row.pendingSowQty"></td>	
+		                    <td><input type="text"/ ng-model="row.currentSowQty"></td>
+		                    <td><input type="text"/ ng-model="row.currency"></td>
+		                    <td><input type="text"/ ng-model="row.approvedRates"></td>
+		                    <td><input type="text"/ ng-model="row.newRates"></td>
+		                    <td><input type="text"/ ng-model="row.newItemRate"></td>
+		                    <td><input type="text"/ ng-model="row.prevApprovedAmt"></td>
+		                    <td><input type="text"/ ng-model="row.pendingOrderAmt"></td>
+		                    <td><input type="text"/ ng-model="row.currentAmt"></td>
+		                    <td><input type="text"/ ng-model="row.cumulativeAmt"></td>	                    
 		                </tr>
 		            </tbody>
 		        </table>	
@@ -175,31 +179,42 @@
 		                </tr> -->
 		            </thead>
 		            <tbody>
-		                <tr>		                    
-		                    <td>AAAAA</td>
-		                    <td>BBBBB</td>
-		                    <td>Unit of measure</td>
-		                    <td>Approved Scope of work</td>
-		                    <td>Scope of work for approval</td>
-		                    <td>Scope of work under current order</td>	
-		                    <td>Cumulative Scope of work</td>
-		                    <td>Currency</td>
-		                    <td>Unit Rate</td>
-		                    <td>Approved amount upto previous order</td>
-		                    <td>Amount-Pending orders for approval</td>
-		                    <td>Amount-current change order</td>
-		                    <td>Cumulative amount</td>
-		                    <td>Upload Documents</td>
-		                    <td>Notes</td>	                    
+		                <tr>
+		                 <td>
+		                    	<!-- <input type="checkbox" ng-change="progressRowSelect(progress)" ng-model="progress.select">  -->
+		                    	<select ng-model="coSubItemtype">
+		                    		<option value="existingitem">Existing Item</option>		                    		
+		                    		<option value="newitem">New Item</option>		                    		
+		                    	</select>
+		                    </td>		                    
+		                    <td></td>
+		                    <td></td>
+		                    <td></td>
+		                    <td></td>
+		                    <td></td>
+		                    <td></td>	
+		                    <td></td>
+		                    <td></td>
+		                    <td></td>
+		                    <td></td>
+		                    <td></td>
+		                    <td></td>
+		                    <td></td>
+		                    <td></td>
+		                    <td></td>	                    
 		                </tr>
 		            </tbody>
 		        </table>	
 			</div>	
 		</div>
 		<div class="panel-footer">
+		<!--  Display for Head Contract -->
+			<div class="pull-left">
+				<input type="button" value="Add"  class="btn btn-primary btn-sm" ng-click="addCoRows()">
+				<input type="button" class="btn btn-primary" value="Delete Rows" ng-click="deleteSowRows()"/>
+			</div>
 			<div class="pull-right">
-				<input type="button" value="Add" class="btn btn-primary btn-sm" ng-click="addCoRows()">
-				<input type="button" class="btn btn-primary btn-sm" value="Delete">
+				<input type="button" value="save" class="btn btn-primary btn-sm" ng-click="saveScopeOfWorks()">
 			</div>
 		</div>
 	</div>

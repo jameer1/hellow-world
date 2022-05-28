@@ -5,7 +5,8 @@
 				<table class="table table-striped table-hover table-bordered tabTable_5_Height">
 		            <thead>
 		                <tr>
-		                    <th>Select</th>
+		                     <th class="text-center" >Select</th>
+		                    <th class="text-center" >Exg or New Item</th>
 		                    <th class="text-center">Manpower Classification ID</th>
 		                    <th class="text-center">Manpower Description</th>                    
 		                    <th class="text-center">Unit Of Measure</th>
@@ -23,26 +24,30 @@
 		            </thead>
 		            <tbody>
 		                <tr ng-repeat="row in coManpowerRows">
-		                    <td>
+		                <td> <input type="checkbox" ng-model="row.coManpowerSelect" ng-change="coManpowerSelectRow(row)"/></td>
+		                    <td class="input-width5">
 		                    	<!-- <input type="checkbox" ng-change="progressRowSelect(progress)" ng-model="progress.select">  -->
-		                    	<select ng-model="row.coitemtype" ng-options="itemtype as itemtype.name for itemtype in itemTypeData" ng-change="coChangeManpowerItemType(row,row.coitemtype)"></select>
+		                    	<select ng-model="row.coitemtype" class="form-control" ng-options="itemtype as itemtype.name for itemtype in itemTypeData" ng-change="coChangeManpowerItemType(row,row.coitemtype)"></select>
 		                    </td>
-		                    <td><input type="text" ng-model="row.manpowerClassificationId" ng-click="coManpowerClassification(row)"/></td>
-		                    <td><input type="text" ng-model="row.manpowerDescription" ng-readonly="true"/></td>
-		                    <td>Hours</td>
-		                    <td><input type="text" ng-model="row.approvedManpowerHrs" placeholder="{{row.approvedManpowerHrs}}"/></td>
-		                    <td><input type="text" ng-model="row.pendingManpowerHrs"/></td>
-		                    <td><input type="text" ng-model="row.currentManpowerHrs"/></td>
-		                    <td><input type="text" ng-model="row.cumulativeManpowerHrs"/></td>
-		                    <td><input type="file" ng-model="manpowerUploadFile"/></td>
-		                    <td><input type="text" ng-model="row.notes"/></td>	                    
+		                    <td class="input-width5"><input type="text" class="form-control" ng-model="row.manpowerClassificationId" ng-click="coManpowerClassification(row)"/></td>
+		                    <td class="input-width5"><input type="text" class="form-control" ng-model="row.manpowerDescription" ng-readonly="true"/></td>
+		                    <td class="input-width5">Hours</td>
+		                    <td class="input-width5"><input type="text" class="form-control" ng-model="row.approvedManpowerHrs"ng-change="calculateCumulativeQty1(row)" /></td><!-- ng-disabled="true" placeholder="{{row.approvedManpowerHrs}}" -->
+		                    <td class="input-width5"><input type="text" class="form-control" ng-model="row.pendingManpowerHrs" ng-change="calculateCumulativeQty2(row)"/></td>
+		                    <td class="input-width5"><input type="text" class="form-control" ng-model="row.currentManpowerHrs" ng-change="calculateCumulativeQty3(row)"/></td>
+		                    <td class="input-width5"><input type="text" class="form-control" ng-model="row.cumulativeManpowerHrs"/></td>
+		                    <td class="input-width5"><input type="file" class="form-control" ng-model="manpowerUploadFile"/></td>
+		                    <td class="input-width5"><input type="text" class="form-control" ng-model="row.notes"/></td>	                    
 		                </tr>
 		            </tbody>
 		        </table>
 			</div>
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
-				<input type="button" class="btn btn-primary" value="Add Rows" ng-click="addManpowerRows()"/>
+				<input type="button" class="btn btn-primary" value="Add Rows"  ng-click="addManpowerRows()"/>
+				<input type="button" class="btn btn-primary" value="Delete Rows" ng-click="deleteManpowerRows()"/>
+				<div class="pull-right">
 				<input type="button" class="btn btn-primary" value="Save" ng-click="saveCoManpowerDetails()"/>
+				</div>
 			</div>		
 		</div>
 	</div>

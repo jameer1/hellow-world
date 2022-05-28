@@ -18,14 +18,32 @@ function (ngDialog, $q, $rootScope, GenericAlertService, EpsProjectSelectFactory
 				$scope.currentTabTitle = "";
 				var temporaryStoredData = null;
 				var currentActiveTab = null;
+				$rootScope.selectedEmployeeId = null;
 				$scope.SOEData = [];
 				var SelectCo = [];
 				$scope.noteBookList = [];
 				$scope.costDatamoreFlag = 0;
 				$scope.coObj = null;
+				$scope.preContractType="";
 				console.log(coSearchData);
 				console.log(coEditType);
 				$scope.current_date = new Date();
+				var coHeadSelect="";
+				$scope.coSubItemtype=null
+				console.log($scope.coSubItemtype)
+				
+				//Onchange for Head Contract SOW Item ID
+				
+				$scope.changeItemType = function(val) {
+					coHeadSelect=val
+					console.log(val)
+				}
+				
+				//On change for Sub Contract SOW Item ID
+				$scope.coSubChange=function(val){
+					$scope.coSubItemtype=val
+					console.log(val)
+				}
 				if( coEditType == 'CREATE' )
 				{
 					$scope.coSearchReq = {
@@ -58,9 +76,47 @@ function (ngDialog, $q, $rootScope, GenericAlertService, EpsProjectSelectFactory
 				}
 				console.log($scope.coSearchReq);
 				$scope.coHeadContractRowData={
+					coSowSelect:false,
 					approvedSow : null,
 					pendingSow : null,
-					currentSow : null
+					currentSow : null,
+				    coSowItemId:null,
+					coSowItemDescription:null,
+					coSorItemId:null,
+					unitOfMeasure:null,
+					approvedSowQty:null,
+					pendingSowQty:null,
+					currentSowQty:null,
+					cumulativeSowQty:null,
+					approvedRates:null,
+					newRates:null,
+					newItemRate:null,
+					newItemRate:null,
+					prevApprovedAmt:null,
+					pendingOrderAmt:null,
+					currentAmt:null,
+					cumulativeAmt:null,
+					currency:null
+				};
+				$scope.coSubContractRowData={
+					approvedSow : null,
+					pendingSow : null,
+					currentSow : null,
+					coSowItemId:null,
+					coSowItemDescription:null,
+					unitOfMeasure:null,
+					approvedSowQty:null,
+					pendingSowQty:null,
+					currentSowQty:null,
+					cumulativeSowQty:null,
+					currency:null,
+					newRates:null,
+					prevApprovedAmt:null,
+					pendingOrderAmt:null,
+					currentAmt:null,
+					cumulativeAmt:null,
+					notes:null
+					
 				};
 				
 				$scope.coMaterialRowData={
@@ -87,6 +143,7 @@ function (ngDialog, $q, $rootScope, GenericAlertService, EpsProjectSelectFactory
 				$scope.displaySubContractBlock = false;
 				$scope.displayPoContractBlock = false;
 				$scope.coHeadContractRows = [];
+				$scope.coSubContractRows = [];
 				console.log(coSearchData);
 				
 				$scope.disableInternalBtn = ( $scope.coEditType == "EDIT" ) ? ( coSearchData.approvalStatus.indexOf('CO_DRAFT') > 0 ) ? false : true : true;
@@ -104,72 +161,90 @@ function (ngDialog, $q, $rootScope, GenericAlertService, EpsProjectSelectFactory
 				//$scope.displayCreateButton = ( coEditType == 'CREATE' ) ? true: false;
 				$scope.coEditType = coEditType;
 				$scope.tabsChange=function(val){
-					console.log(val)
+					$scope.preContractType=val;
 					if(val == 'Head Contract'){
+						$scope.currentTab1 = 'views/changeorders/tabs/cosow.html';
+						
 						$scope.coDetailTabs = [{
 						title: 'Scope of Work',
-						url: '/views/changeorders/tabs/cosow.html',
+						url: 'views/changeorders/tabs/cosow.html',
 						nameOfVariable: 'coSOWTOs',
 					},
 					{
 						title: 'Manpower',
-						url: '/views/changeorders/tabs/comanpower.html',
+						url: 'views/changeorders/tabs/comanpower.html',
 						nameOfVariable: 'coManpowerTOs',
 					}, {
 						title: 'Materials',
-						url: '/views/changeorders/tabs/comaterial.html',
+						url: 'views/changeorders/tabs/comaterial.html',
 						nameOfVariable: 'coMaterialsTOs',
 					}, {
 						title: 'Plants',
-						url: '/views/changeorders/tabs/coplants.html',
+						url: 'views/changeorders/tabs/coplants.html',
 						nameOfVariable: 'coPlantsTOs',
 					}, 
 					{
 						title: 'Cost',
-						url: '/views/changeorders/tabs/cocost.html',
+						url: 'views/changeorders/tabs/cocost.html',
 						nameOfVariable: 'coCostTOs',
 					}];
 					$scope.CoReqFo();
+					
+						$scope.isActiveTab = function(taburlValue) {
+							return taburlValue == $scope.currentTab1;
+						}
 					}
-					else {
+					
+					
+					if(val == "Sub Contract agreement" || val == "Professional Services agreement" ||val =="Purchase  Order") {
+						$scope.currentTab1 = 'views/changeorders/tabs/cosow.html';
+						
 						$scope.coDetailTabs = [{
 						title: 'Scope of Work',
-						url: '/views/changeorders/tabs/cosow.html',
+						url: 'views/changeorders/tabs/cosow.html',
 						nameOfVariable: 'coSOWTOs',
 					}];
 					$scope.CoReqFo();
+					$scope.isActiveTab = function(taburlValue) {
+							return taburlValue == $scope.currentTab1;
+						}
 					}
 				}
 				console.log("before coDetailTabs");
 				$scope.coDetailTabs = [{
 						title: 'Scope of Work',
-						url: '/views/changeorders/tabs/cosow.html',
+						url: 'views/changeorders/tabs/cosow.html',
 						nameOfVariable: 'coSOWTOs',
 					},
 					{
 						title: 'Manpower',
-						url: '/views/changeorders/tabs/comanpower.html',
+						url: 'views/changeorders/tabs/comanpower.html',
 						nameOfVariable: 'coManpowerTOs',
 					}, {
 						title: 'Materials',
-						url: '/views/changeorders/tabs/comaterial.html',
+						url: 'views/changeorders/tabs/comaterial.html',
 						nameOfVariable: 'coMaterialsTOs',
 					}, {
 						title: 'Plants',
-						url: '/views/changeorders/tabs/coplants.html',
+						url: 'views/changeorders/tabs/coplants.html',
 						nameOfVariable: 'coPlantsTOs',
 					}, 
 					{
 						title: 'Cost',
-						url: '/views/changeorders/tabs/cocost.html',
+						url: 'views/changeorders/tabs/cocost.html',
 						nameOfVariable: 'coCostTOs',
 					}];
-				console.log($scope.coDetailTabs[0]);
-				console.log($scope.coSearchReq);
-				$scope.currentTab1 = $scope.coDetailTabs[0];
+				
+				
+				
 				$scope.coSearchReq.requestorUser = {"id":$rootScope.account.userId,"name":$rootScope.account.name};
 				console.log($rootScope.account);
 				console.log($scope.coSearchReq);
+				/*$scope.coDetailTabs[0].disabled = true;
+				$scope.coDetailTabs[1].disabled = true;
+                $scope.coDetailTabs[2].disabled = true;
+                $scope.coDetailTabs[3].disabled = true;
+                $scope.coDetailTabs[4].disabled = true;*/
 				$scope.onClickTab1 = function (tab) {
 					console.log(tab);
 					if (temporaryStoredData) {
@@ -205,14 +280,23 @@ function (ngDialog, $q, $rootScope, GenericAlertService, EpsProjectSelectFactory
 					}
 				},			
 				$scope.selectCoSubContract = function (projId) {
+					console.log(projId)
 					if (projId == undefined || projId == null) {
 						GenericAlertService.alertMessage("Please select project to get sub-contracts", 'Warning');
 						return;
 					}
+					console.log(coSearchData.projId)
 					var req = {
 						"status": 1,
 						"projId": projId,
-						"procureType": 'SOW'
+						"procureType": 'SOW',
+						"data":[
+							{
+						"status": 1,
+						"projId": projId,
+						"preContractType": $scope.preContractType
+						}
+						]
 					};
 					RegisterPurchaseOrderFactory.getProjectPODetails(req).then(function (data) {
 						console.log(data);
@@ -220,7 +304,7 @@ function (ngDialog, $q, $rootScope, GenericAlertService, EpsProjectSelectFactory
 						$scope.coSearchReq.purchaseOrderId = data.purchaseOrderTO.id;
 					}, function (error) {
 						GenericAlertService.alertMessage("Error occured while selecting sub-contract", 'Error');
-					});	
+					});
 				}
 				$scope.getUserProjects = function (coSearchReq) {
 					var userProjectSelection = EpsProjectSelectFactory.getEPSUserProjects();
@@ -228,6 +312,10 @@ function (ngDialog, $q, $rootScope, GenericAlertService, EpsProjectSelectFactory
 						console.log(data);
 						$scope.searchProject = data.searchProject;
 						$scope.coSearchReq.projId = data.searchProject.projId;
+						$scope.coProjId=data.searchProject.projId;
+						$rootScope.selectedEmployeeId = $scope.coProjId;
+						
+					console.log($rootScope.selectedEmployeeData);
 						//projectLabelKeyTO.parentName = data.searchProject.parentName;
 						$scope.coSearchReq.projName = data.searchProject.projName;
 						//$scope.coSearchReq.contractNo = null;
@@ -262,12 +350,12 @@ function (ngDialog, $q, $rootScope, GenericAlertService, EpsProjectSelectFactory
 						$scope.displaySubContractBlock = false;
 						$scope.displayPoContractBlock = false;
 					}
-					else if ($scope.coSearchReq.contractType == "Sub Contract") {
+					else if ($scope.coSearchReq.contractType == "Sub Contract agreement") {
 						$scope.displaySubContractBlock = true;
 						$scope.displayHeadContractBlock = false;
 						$scope.displayPoContractBlock = false;
 					}
-					else if ($scope.coSearchReq.contractType == "Services Agreement" || "Purchase Order/Supply Order") {
+					else if ($scope.coSearchReq.contractType == "Professional Services agreement" || "Purchase  Order") {
 						$scope.displayPoContractBlock = true;
 						$scope.displayHeadContractBlock = false;
 						$scope.displaySubContractBlock = false;
@@ -275,15 +363,15 @@ function (ngDialog, $q, $rootScope, GenericAlertService, EpsProjectSelectFactory
 					else { return value; }
 				}
 				$scope.createCONew = function() {
-					console.log("createCONew function");
+					
 					console.log($scope.coSearchReq);
 					var co_search = {
 						"changeOrderTOs" : []
 					};
 					co_search.changeOrderTOs.push($scope.coSearchReq);
-					console.log(co_search);
+					console.log(co_search)
 					//enable the below code to save the change order details
-					ChangeOrdersService.saveChangeOrderDetails(co_search).then(function(data) {
+					ChangeOrdersService.saveOrderDetails(co_search).then(function(data) {
 						console.log(data);
 						GenericAlertService.alertMessage("Change Order details saved successfully", 'Info');
 					}, function(error) {
@@ -297,14 +385,16 @@ function (ngDialog, $q, $rootScope, GenericAlertService, EpsProjectSelectFactory
 						$scope.displayHeadContractBlock = true;
 						$scope.displaySubContractBlock = false;
 						$scope.displayPoContractBlock = false;
+						$scope.coHeadContractRows.push(angular.copy($scope.coHeadContractRowData));
 					}
 					else
 					{
-						if( $scope.coSearchReq.contractType == "Sub Contract" )
+						if( $scope.coSearchReq.contractType == "Sub Contract agreement" )
 						{
 							$scope.displaySubContractBlock = true;
 							$scope.displayHeadContractBlock = false;
 							$scope.displayPoContractBlock = false;
+							$scope.coSubContractRows.push(angular.copy($scope.coSubContractRowData));
 						}
 						else
 						{
@@ -313,44 +403,51 @@ function (ngDialog, $q, $rootScope, GenericAlertService, EpsProjectSelectFactory
 							$scope.displaySubContractBlock = false;
 						}
 					}				
-					$scope.coHeadContractRows.push(angular.copy($scope.coHeadContractRowData));
+					//$scope.coHeadContractRows.push(angular.copy($scope.coHeadContractRowData));
 					console.log($scope.coHeadContractRows);
+					console.log($scope.coSubContractRows);
 				}
 				var sowPopupService = {};
-				$scope.sowPopup = function(projId) {
+				$scope.sowPopup = function(sowRowData) {
+					//console.log(projId)
 					console.log($scope.coSearchReq.contractType);
+					console.log(sowRowData)
 					//ChangeOrdersSowFactory.openCreatePopup(projId);
 					//console.log($rootScope.projSowData);
 					//ChangeOrdersSowFactory.openExistingSowPopup(projId);
+					var projId=$rootScope.selectedProject.projId;
+					console.log(projId)
 					var sowpopupservice;					
 					sowpopupservice = sowPopupService.openExistingSowPopup(projId);
 					sowpopupservice.then(function(data){
 						console.log(data);
-						console.log($scope.coHeadContractRows.length);
+						console.log($scope.coSearchReq.projId);
 						//$scope.getProjSettingsForProcurement();
-						for( var k=0;k<$scope.coHeadContractRows.length;k++ )
-						{
-							$scope.getProjSettingsForProcurement();
+
+							$scope.getProjSettingsForProcurement(sowRowData);
 							console.log(data.selectedCostItem.code);
-							$scope.coHeadContractRows[k].coSowItemId = data.selectedCostItem.code;
-							$scope.coHeadContractRows[k].coSowItemDescription = data.selectedCostItem.name;
-							$scope.coHeadContractRows[k].coSorItemId = data.selectedCostItem.projSORItemTO.code;
-							$scope.coHeadContractRows[k].unitOfMeasure = data.selectedCostItem.measureUnitTO.name;
-							$scope.coHeadContractRows[k].approvedSowQty = 0;
-							$scope.coHeadContractRows[k].pendingSowQty = 0;
-							$scope.coHeadContractRows[k].currentSowQty = 0;
-							$scope.coHeadContractRows[k].cumulativeSowQty = $scope.coHeadContractRows[k].currentSowQty;
-							$scope.coHeadContractRows[k].approvedRates = 0;
-							$scope.coHeadContractRows[k].newRates = 0;
-							$scope.coHeadContractRows[k].prevApprovedAmt = 0;
-							$scope.coHeadContractRows[k].currentAmt = 0;
-							$scope.coHeadContractRows[k].cumulativeAmt = 0;
-							//$scope.coHeadContractRows[k].currency = $scope.getProjSettingsForProcurement($scope.coHeadContractRows[k]);
-						}			
+							sowRowData.coSowItemId = data.selectedCostItem.code;
+							sowRowData.coSowItemDescription = data.selectedCostItem.name;
+							sowRowData.coSorItemId =data.selectedCostItem.projSORItemTO.code;
+							sowRowData.unitOfMeasure = data.selectedCostItem.measureUnitTO.name;
+							sowRowData.approvedSowQty = coSubItemtype != "newitem" ? data.selectedCostItem.quantity : 0;
+							sowRowData.pendingSowQty = data.selectedCostItem.code;;
+							sowRowData.currentSowQty = 0;
+							sowRowData.cumulativeSowQty = sowRowData.approvedSowQty + sowRowData.pendingSowQty + sowRowData.currentSowQty;
+							sowRowData.approvedRates = 0;
+							sowRowData.newRates =coSubItemtype != "newitem" ? sowRowData.newRates : "";
+							sowRowData.newItemRate=coSubItemtype != "newitem" ? sowRowData.newItemRate : "";
+							sowRowData.prevApprovedAmt = sowRowData.approvedSowQty + sowRowData.currentSowQty;
+							sowRowData.pendingOrderAmt=0;
+							sowRowData.currentAmt = sowRowData.currentSowQty * sowRowData.approvedRates;
+							sowRowData.cumulativeAmt =sowRowData.prevApprovedAmt + sowRowData.pendingOrderAmt+ sowRowData.currentAmt;
+							//sowRowData.currency = $scope.getProjSettingsForProcurement(sowRowData);
+						
+						//console.log($scope.coHeadContractRows)			
 					});
 				},
 				$scope.getProjSettingsForProcurement = function(currentData) {
-					var req = {"projId": 1573}
+					var req = {"projId": $scope.coSearchReq.projId}
 					PreContractInternalService.getProjSettingsForProcurement(req).then(function (data) {
 						console.log(data);
 						currentData.currency =  data.name;
@@ -358,9 +455,59 @@ function (ngDialog, $q, $rootScope, GenericAlertService, EpsProjectSelectFactory
 						GenericAlertService.alertMessage("Error occured while gettting workflow status",'Error');
 					});
 				}
-				$scope.calculateCumulativeQty = function(currentdata) {
+				$scope.calculateCumulativeQty1 = function(currentdata) {
 					console.log(currentdata.currentSowQty);
-					currentdata.cumulativeSowQty = currentdata.currentSowQty;
+					currentdata.cumulativeSowQty = Number(currentdata.currentSowQty) +Number(currentdata.pendingSowQty)+Number(currentdata.approvedSowQty);
+				}
+				$scope.calculateCumulativeQty2 = function(currentdata) {
+					currentdata.cumulativeSowQty =  Number(currentdata.currentSowQty) +Number(currentdata.pendingSowQty)+Number(currentdata.approvedSowQty);
+				}
+				$scope.calculateCumulativeQty3 = function(currentdata) {
+					currentdata.cumulativeSowQty = Number(currentdata.currentSowQty) +Number(currentdata.pendingSowQty)+Number(currentdata.approvedSowQty);;
+				}
+				//
+				$scope.calculateCumulativeAmt1 = function(currentdata) {
+					console.log(currentdata.currentAmt);
+					currentdata.cumulativeAmt = Number(currentdata.currentAmt) +Number(currentdata.pendingOrderAmt)+Number(currentdata.prevApprovedAmt);
+				}
+				$scope.calculateCumulativeAmt2 = function(currentdata) {
+					currentdata.cumulativeAmt =  Number(currentdata.currentAmt) +Number(currentdata.pendingOrderAmt)+Number(currentdata.prevApprovedAmt);
+				}
+				$scope.calculateCumulativeAmt3 = function(currentdata) {
+					currentdata.cumulativeAmt = Number(currentdata.currentAmt) +Number(currentdata.pendingOrderAmt)+Number(currentdata.prevApprovedAmt);;
+				}
+				
+				//-------------Sub Contract ow id search function----------
+				$scope.subContractSowid=function(rowdata){
+					console.log($scope.coSubItemtype)
+					if($scope.coSubItemtype != "" || $scope.coSubItemtype !=null){
+						var projId=$rootScope.selectedProject.projId;
+					console.log(projId)
+					let sowpopupservice;					
+					sowpopupservice = sowPopupService.openExistingSowPopup(projId);
+					sowpopupservice.then(function(data){
+						console.log(data)
+						
+						$scope.getProjSettingsForProcurement(rowdata);
+							console.log(data.selectedCostItem.code);
+							rowdata.coSowItemId = data.selectedCostItem.code;
+							rowdata.coSowItemDescription = data.selectedCostItem.name;
+							//sowRowData.coSorItemId =data.selectedCostItem.projSORItemTO.code;
+							rowdata.unitOfMeasure = data.selectedCostItem.measureUnitTO.name;
+							rowdata.approvedSowQty = coHeadSelect != "newitem" ? data.selectedCostItem.quantity : 0;
+							rowdata.pendingSowQty = 0;
+							rowdata.currentSowQty = 0;
+							rowdata.cumulativeSowQty = sowRowData.approvedSowQty + sowRowData.pendingSowQty + sowRowData.currentSowQty;
+							rowdata.approvedRates = 0;
+							rowdata.newRates =coHeadSelect != "newitem" ? sowRowData.newRates : "";
+							rowdata.newItemRate=coHeadSelect != "newitem" ? sowRowData.newItemRate : "";
+							rowdata.prevApprovedAmt = sowRowData.approvedSowQty + sowRowData.currentSowQty;
+							rowdata.pendingOrderAmt=0;
+							rowdata.currentAmt = sowRowData.currentSowQty * sowRowData.approvedRates;
+							rowdata.cumulativeAmt =sowRowData.prevApprovedAmt + sowRowData.pendingOrderAmt+ sowRowData.currentAmt;
+
+					});
+					}
 				}
 				sowPopupService.openExistingSowPopup = function(projId) {
 					var deferred = $q.defer();
@@ -435,6 +582,53 @@ function (ngDialog, $q, $rootScope, GenericAlertService, EpsProjectSelectFactory
 					return deferred.promise;
 				}
 				
+				// ---------------------------saveScope Of Work------------------------------------
+				$scope.saveScopeOfWorks=function(){
+				var coProjSOWTOs=$scope.coHeadContractRows;
+					if(coProjSOWTOs.length <= 0){
+					GenericAlertService.alertMessage("Please select project details to save the record", 'Warning');
+					return;
+					}
+					
+				var co_save={
+					"changeOrderTOs":[{"id":$scope.coProjId}],
+					"coProjSOWTOs": coProjSOWTOs
+				}
+				console.log(co_save)
+				ChangeOrdersService.saveCoScopeOfWorks(co_save).then(function(data) {
+					console.log(data)
+					
+						var succMsg = GenericAlertService.alertMessageModal('Change Order Details saved successfully', "Info");
+					}, function(error) {
+						blockUI.stop();
+						GenericAlertService.alertMessage('Change Order details is/are failed to save', "Error");
+				});
+				}
+				
+			  //-----------Delete Scope of Work rowRecord------------------
+				$scope.deleteSowRows = function() {
+				var deleteSowDtlIds = [];
+				var tempInternalRequest = [];
+				var flag = false;
+				angular.forEach($scope.coHeadContractRows, function(value, key) {
+					console.log(value)
+					if (!value.coSowSelect) {
+						tempInternalRequest.push(value);
+					} else {
+						if (value.coSowSelect) {
+							deleteSowDtlIds.push(value.id);
+						}
+						flag = true;
+					}
+				});
+				if (!flag) {
+					GenericAlertService.alertMessage("Please select atleast one row to delete", "Warning");
+
+				}
+				$scope.coHeadContractRows = tempInternalRequest;
+               }
+				
+				//-----------------------------------------------------------------
 				/*$scope.addMaterialRows = function() {
 					$scope.coMaterialRows.push(angular.copy($scope.coMaterialRowData));
 				}
@@ -473,9 +667,9 @@ function (ngDialog, $q, $rootScope, GenericAlertService, EpsProjectSelectFactory
 					});
 					return deferred.promise;
 				}*/
-				$scope.changeItemType = function() {
-					console.log($scope.coSowItemType);
-				}
+			//	$scope.changeItemType = function() {
+					//console.log($scope.coSowItemType);
+				//}
 				$scope.submitForApproval = function(requestType) {
 					console.log(requestType);
 					console.log($scope.coSearchReq);
@@ -608,6 +802,7 @@ function (ngDialog, $q, $rootScope, GenericAlertService, EpsProjectSelectFactory
 					return deferred.promise;
 				}		
 				function switchTab(tab) {
+					console.log(tab)
 					console.log("switchTab function");
 					currentActiveTab = tab;
 					$scope.currentTabTitle = tab.title;
@@ -734,7 +929,7 @@ function (ngDialog, $q, $rootScope, GenericAlertService, EpsProjectSelectFactory
 					$scope.selectedProjManpowerData.push(selectedManpower);
 				}*/
 				$scope.materialItemClick = function (item, expand) {
-					console.log(item);
+					//console.log(item);
 					TreeService.treeItemClick(item, expand, 'projectMaterialDtlTOs');
 				}
 				$scope.materialRowSelect = function (meterialTO) {

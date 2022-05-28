@@ -4,6 +4,7 @@ app.controller( 'CoPlantController',
 		ChangeOrdersService, GenericAlertService, ProjectBudgetService, PreContractProjPlantClassFactory, ChangeOrdersFactory ) {
 			
 	$scope.coPlantRowData={
+		coPlantSelect:false,
 		plantlClassificationId : null,
 		plantDescription : null,
 		approvedPlantHrs : 0,
@@ -45,24 +46,37 @@ app.controller( 'CoPlantController',
 		console.log(coPlantRow);
 		var projPlantPopup = ChangeOrdersFactory.getProjBudgetPopup(coPlantRow,'PLANT','EXISTING');
 		projPlantPopup.then(function(data){
+			console.log(data)
 			coPlantRow.plantlClassificationId = data.plantClassTO.code;
 			coPlantRow.plantDescription = data.plantClassTO.name;
+			coPlantRow.approvedPlantHrs=data.originalQty;
+			coPlantRow.pendingPlantHrs=0;
+			coPlantRow.cumulativePlantHrs=data.originalQty;
 		});
 	}
+	
+		$scope.calculateCumulativeQty1 = function(currentdata) {
+			currentdata.cumulativePlantHrs = Number(currentdata.currentPlantHrs) + Number(currentdata.approvedPlantHrs) + Number(currentdata.pendingPlantHrs);
+		}
+		$scope.calculateCumulativeQty2 = function(currentdata) {
+			currentdata.cumulativePlantHrs = Number(currentdata.currentPlantHrs) + Number(currentdata.approvedPlantHrs) + Number(currentdata.pendingPlantHrs);
+		}
+		$scope.calculateCumulativeQty3 = function(currentdata) {
+			currentdata.cumulativePlantHrs = Number(currentdata.currentPlantHrs) + Number(currentdata.approvedPlantHrs) + Number(currentdata.pendingPlantHrs);
+		}
+			
 	$scope.saveCoPlantDetails = function() {
-		console.log("adskfaksjf",$scope.coPlantRows);
-		console.log($scope.coPlantRows.length);
-		
-		
-		
-		console.log("Plant function");
-		console.log($scope.coPlantRows);
 		var co_plant_request = {
-			"coProjPlantTOs" : []
+			"changeOrderTOs": [
+				{
+					"id": $scope.selectedProject
+				}
+			],
+			"coProjPlantsTOs" : []
 		}
 		angular.forEach($scope.coPlantRows,function(value,key){
 			value.projId = $scope.selectedProject;
-			co_plant_request.coProjPlantTOs.push(value);
+			co_plant_request.coProjPlantsTOs.push(value);
 		});
 		console.log(co_plant_request);
 		// calls service to save the change order manpower details
@@ -72,8 +86,27 @@ app.controller( 'CoPlantController',
 		}, function(error) {
 			GenericAlertService.alertMessage("Error occured while getting EPS Projects", 'Error');
 		});
-		
-		
 	}
-}]);
+		//-----------Delete Scope of Work rowRecord------------------
+		$scope.deletePlantRows = function() {
+			var deletePlantDtlIds = [];
+			var tempInternalRequest = [];
+			var flag = false;
+			angular.forEach($scope.coPlantRows, function(value, key) {
+				if (!value.coPlantSelect) {
+					tempInternalRequest.push(value);
+				} else {
+					if (value.coPlantSelect) {
+						deletePlantDtlIds.push(value.id);
+					}
+					flag = true;
+				}
+			});
+			if (!flag) {
+				GenericAlertService.alertMessage("Please select atleast one row to delete", "Warning");
+
+			}
+			$scope.coPlantRows = tempInternalRequest;
+		}
+	}]);
 
