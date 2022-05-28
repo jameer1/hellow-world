@@ -35,6 +35,11 @@
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
+			<groupId>pot</groupId>
+			<artifactId>pot-project-lib-dao</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
 			<groupId>rjtech</groupId>
 			<artifactId>rjs-core</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
