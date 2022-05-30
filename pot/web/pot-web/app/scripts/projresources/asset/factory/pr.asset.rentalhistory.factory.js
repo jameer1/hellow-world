@@ -101,7 +101,7 @@ app.factory('RentalHistoryFactory', ["ngDialog", "$q", "$filter", "$timeout", "$
 
 					//addRentalHsitoryData
 					addRentalHsitoryData.grossRent = parseInt(addRentalHsitoryData.netRentAmountPerCycle) + parseInt(addRentalHsitoryData.assetMaintenanceCharges) + parseInt(addRentalHsitoryData.taxAmount);
-				}
+				},
 
 				$scope.assetRentalHistoryPopUpRowSelect = function(asset) {
 					if (asset.selected) {
@@ -113,7 +113,7 @@ app.factory('RentalHistoryFactory', ["ngDialog", "$q", "$filter", "$timeout", "$
 
 				$scope.selectactualdate=function(addRentalHsitoryData){
 							addRentalHsitoryData.leaseFinish=	addRentalHsitoryData.leaseActualFinishFinshDate;
-				}
+				},
 
 				$scope.deleteRows = function() {
 					if (selectedRentalHistory.length == 0) {
@@ -173,7 +173,7 @@ app.factory('RentalHistoryFactory', ["ngDialog", "$q", "$filter", "$timeout", "$
 						$scope.rentalHistoryDoc.isValid=true;
 					}
 
-				}
+				},
 				$scope.startDate = $scope.rentalHistory[0].leaseStart;
 				console.log($scope.startDate)
 				$scope.saveRentalHistory = function() {
@@ -181,10 +181,10 @@ app.factory('RentalHistoryFactory', ["ngDialog", "$q", "$filter", "$timeout", "$
 				//	let paymentCycleDueDate = ($scope.rentalHistory[0].paymentCycleDueDate != null) ? new Date($scope.rentalHistory[0].paymentCycleDueDate) : null
 					let leaseExtendedFDate =  ($scope.rentalHistory[0].leaseExtendedFinshDate != null) ? new Date($scope.rentalHistory[0].leaseExtendedFinshDate) : null
 					let leaseExtendedAFininshDate = ($scope.rentalHistory[0].leaseActualFinishFinshDate != null) ? new Date($scope.rentalHistory[0].leaseActualFinishFinshDate) : null
-						if (!$scope.rentalHistoryDoc.isValid) {
+						/*if (!$scope.rentalHistoryDoc.isValid) {
 							GenericAlertService.alertMessage("Please upload valid file !!", 'Warning');
 							return ;
-						}
+						}*/
 						console.log($scope.rentalHistory[0])
 						/*if(paymentCycleDueDate !="" && paymentCycleDueDate != null && leaseStartDate >= paymentCycleDueDate){
 							GenericAlertService.alertMessage("Payment Cycle Due Date should be greater than Lease Start Date !!", 'Info');

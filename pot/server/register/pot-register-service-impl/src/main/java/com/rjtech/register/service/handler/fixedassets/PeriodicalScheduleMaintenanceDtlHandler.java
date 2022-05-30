@@ -55,12 +55,12 @@ public class PeriodicalScheduleMaintenanceDtlHandler {
                 .setPlanResponsibleSupervisor(periodicalScheduleMaintenanceDtlTO.getPlanResponsibleSupervisor());
 
         if (CommonUtil.objectNotNull(actualFile)) {
-            periodicalScheduleMaintenanceDtlEntity.setActualRecordsDetailsFileName(planFile.getOriginalFilename());
-            periodicalScheduleMaintenanceDtlEntity.setActualRecordsDetailsFileType(planFile.getContentType());
+            periodicalScheduleMaintenanceDtlEntity.setActualRecordsDetailsFileName(actualFile.getOriginalFilename());
+            periodicalScheduleMaintenanceDtlEntity.setActualRecordsDetailsFileType(actualFile.getContentType());
         }
         if (CommonUtil.objectNotNull(planFile)) {
-            periodicalScheduleMaintenanceDtlEntity.setPlanRecordsDetailsFileName(actualFile.getOriginalFilename());
-            periodicalScheduleMaintenanceDtlEntity.setPlanRecordsDetailsFileType(actualFile.getContentType());
+            periodicalScheduleMaintenanceDtlEntity.setPlanRecordsDetailsFileName(planFile.getOriginalFilename());
+            periodicalScheduleMaintenanceDtlEntity.setPlanRecordsDetailsFileType(planFile.getContentType());
         }
         if (CommonUtil.isNonBlankLong(AppUserUtils.getClientId())) {
             ClientRegEntity clientRegMstrEntity = new ClientRegEntity();

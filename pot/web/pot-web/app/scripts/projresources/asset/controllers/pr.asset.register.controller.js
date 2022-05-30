@@ -189,8 +189,9 @@ app.config(["$stateProvider", function($stateProvider) {
 		} else if ($scope.assetDetailsTabs[8].title === innerTab.title) {
 			$scope.carParkingTollCollectionsRecords();
 		} else if ($scope.assetDetailsTabs[9].title === innerTab.title) {
-			$scope.tollCollectionsRecords();
+			$scope.TollCollectionsRecords();
 		} else if ($scope.assetDetailsTabs[10].title === innerTab.title) {
+			console.log($scope.assetDetailsTabs[10].title)
 			$scope.getOccupancyUtilityRecords();
 		} else if ($scope.assetDetailsTabs[11].title === innerTab.title) {
 			$scope.getPeriodicalRecords();
@@ -208,6 +209,7 @@ app.config(["$stateProvider", function($stateProvider) {
 $scope.currentAssetDetailsTab = 'views/projresources/projassetreg/assetdetails/assetdetails.html';
 $scope.onClickAssetDetailsTab = function(masterTabs) {
 	$scope.currentAssetDetailsTab = masterTabs.url;
+	console.log($scope.currentAssetDetailsTab)
 }
 $scope.isActiveAssetDetailsTab = function(masterTabsUrl) {
 	return masterTabsUrl == $scope.currentAssetDetailsTab;
@@ -470,7 +472,8 @@ $scope.onClickTimeTab = function(timeTabs) {
 		},
 
 		/* Get Toll Collections Records- Latest tab said by Lakshmi */
-		$scope.tollCollectionsRecords = function() {
+		/* Get Toll collection Records 10 */
+		$scope.TollCollectionsRecords = function() {
 			if ($scope.fixedAssetid == null || $scope.fixedAssetid == undefined) {
 				GenericAlertService.alertMessage("Please select the Sub Asset", "Warning");
 				return;
@@ -481,9 +484,10 @@ $scope.onClickTimeTab = function(timeTabs) {
 			};
 
 			AssetRegisterService.TollCollectionsRecords(carParkingTollGetReq).then(function(data) {
-				console.log("tollCollectionsRecords function");
+				console.log("TollCollectionsRecords function");
 				console.log(data);
-				$scope.CarParkingTollCollectionDtlTO = data.tollCollectionDtlTOs;
+				$scope.TollCollectionDtlTOs = data.tollCollectionDtlTOs;
+			   $scope.gridOptions.data = angular.copy($scope.TollCollectionDtlTOs);
 
 			}, function(error) {
 				GenericAlertService.alertMessage("Error occured while fetching Car Parking Details", "Error");
@@ -1576,7 +1580,7 @@ $scope.onClickTimeTab = function(timeTabs) {
 
 				});
 		},
-		/* Get Periodical Records 12*/
+		/* Get Periodical Records 11*/
 		$scope.getPeriodicalRecords=function() {
 			if ($scope.fixedAssetid == null || $scope.fixedAssetid == undefined) {
 				GenericAlertService.alertMessage("Please select the Sub Asset", "Warning");

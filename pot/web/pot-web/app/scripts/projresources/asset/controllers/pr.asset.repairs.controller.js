@@ -57,8 +57,9 @@ app.config(["$stateProvider", function($stateProvider) {
 		}
 		var repairRecordpopup = RepairsNonScheduleFactory.repairRecordPopUpOnLoad(actionType, editRepairsSchedules);
 		repairRecordpopup.then(function (data) {
-			$scope.getPlantRepairRecordsOnLoad();
+			$scope.fixedAssetRepairsRecordsDtlTO = data.fixedAssetRepairsRecordsDtlTOs;
 			editRepairsSchedules = [];
+			$scope.getPlantRepairRecordsOnLoad();
 
 		}, function (error) {
 			GenericAlertService.alertMessage("Error occurred while fetching repair details", 'Error');

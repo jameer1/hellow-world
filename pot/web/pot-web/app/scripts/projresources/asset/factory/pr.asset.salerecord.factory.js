@@ -20,7 +20,7 @@ app.factory('SaleRecordFactory', ["ngDialog", "$q", "$filter", "$timeout", "$roo
 				var selectedSaleRecordData = [];
 				$scope.saleRecordDoc={};
 				$scope.saleRecordDoc.isValid=true;
-				$scope.saleRecDoc.isValid=true;
+				//$scope.saleRecDoc.isValid=true;
 				$scope.saleTypesList = generalservice.saleTypes;
 				var addSaleRecord = {
 						"id" : null,
@@ -142,10 +142,10 @@ app.factory('SaleRecordFactory', ["ngDialog", "$q", "$filter", "$timeout", "$roo
 
 				$scope.save = function() {
 
-					if (!$scope.saleRecDoc.isValid) {
+				/*	if (!$scope.saleRecDoc.isValid) {
 						GenericAlertService.alertMessage("Please upload valid file !!", 'Warning');
 						return ;
-					}
+					}*/
 
 					var salesRecordsSaveReq = {
 						"salesRecordsDtlTOs" : $scope.saleRecord,

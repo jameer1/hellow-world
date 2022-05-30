@@ -97,8 +97,8 @@ app.config(["$stateProvider", function ($stateProvider) {
             };
 
             AssetRegisterService.TollCollectionsRecords(carParkingTollGetReq).then(function (data) {
-                $scope.CarParkingTollCollectionDtlTO = data.tollCollectionDtlTOs;
-
+                $scope.tollCollectionDtlTOs = data.tollCollectionDtlTOs;
+               
             }, function (error) {
                 GenericAlertService.alertMessage("Error occured while fetching toll details", "Error");
             });
@@ -197,23 +197,30 @@ app.config(["$stateProvider", function ($stateProvider) {
 						{ field: 'forecastTaxAmt', displayName: "Forecast - Cumulative Tax amount", headerTooltip: "Forecast - Cumulative Tax amount",},
 						{ field: 'cumulativeNetRevenue', displayName: "Cumulative Net Revenue", headerTooltip: "Cumulative Net Revenue",},
 						{ field: 'cumulativeTax', displayName: "Cumulative tax amount", headerTooltip: "Cumulative tax amount",},
-						{ name: 'Car Parking', displayName: "Car Parking Toll Records(Upload & View)", headerTooltip: "Car Parking Toll Records(Upload & View)",cellClass: 'justify-center', headerCellClass:"justify-center",
-						cellTemplate: '<div ng-click="grid.appScope.downloadCarParkingFile(row.entity.id, carParkingTollFileName)"  ng-if="carparking.tollFileName" class="fa fa-download">{{carParkingTollFileName}}</div>'},
-						
+				    	{ name: 'Car Parking', displayName: "Car Parking Toll Records(Upload & View)", headerTooltip: "Car Parking Toll Records(Upload & View)",cellClass: 'justify-center', headerCellClass:'justify-center',
+						cellTemplate: '<div  class="fa fa-download" ng-if="row.entity.tollFileName"  ng-click="grid.appScope.downloadTollParkingFile(row.entity.id, row.entity.tollFileName)"  ></div>'},
+						  
 						];
 					let data = [];
 					$scope.gridOptions = ngGridService.initGrid($scope, columnDefs, data, "Resources_Immovableassets_TollCollection");
+					$scope.gridOptions.exporterPdfOrientation = 'landscape';
+					$scope.gridOptions.exporterPdfPageSize = 'A3';
+					$scope.gridOptions.exporterPdfMaxGridWidth = 910;
+					$scope.carParkingTollCollectionsRecords();
 				}
 			});
-    $scope.downloadTollCollectionFile = function (purchaseRecordId,file_name) {
-        //AssetRegisterService.downloadTollFile(purchaseRecordId,file_name);
-        let req = {
-			"recordId" : purchaseRecordId,
+			$scope.downloadTollParkingFile = function(TollId,file_name) {
+		console.log(TollId)
+		console.log(file_name)
+		//AssetRegisterService.downloadShortTermRecordFile(TollId);
+		let req = {
+			"recordId" : TollId,
 			"category" : "Toll Collections Actual Revenue",
 			"fileName" : file_name
 		}
 		EmpRegisterService.downloadRegisterDocs(req);
-		console.log("downloadCarParkingFile");
-    }
+		console.log("downloadTollParkingFile");
+	}
+   
 
 }]);

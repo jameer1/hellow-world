@@ -255,7 +255,7 @@ app.config(["$stateProvider", function($stateProvider) {
 						{ field: 'netTaxAmountReceived', displayName: "Net Tax Amount Received", headerTooltip: "Net Tax Amount Received",},
 						{ field: 'netAmountOfRentRecived', displayName: "Net Amount Of Rent Received", headerTooltip: "Net Amount Of Rent Received",},
 						{ name: 'Tenant Records', displayName: "Tenant Records if any", headerTooltip: "Tenant Records if any",
-						cellTemplate: '<div ng-click="grid.appscope.downloadShortTermRecordFile(row.entity.id, shortterm.tenantRecordDetailsFileName)" ng-if="shortterm.tenantRecordDetailsFileName" class="fa fa-download" >{{shortterm.tenantRecordDetailsFileName}}</div>'},
+						cellTemplate: '<div ng-if="row.entity.tenantRecordDetailsFileName" ng-click="grid.appScope.downloadShortTermRecordFile(row.entity.id, row.entity.tenantRecordDetailsFileName)" class="fa fa-download" ></div>'},
 						{ field: 'curStatus', displayName: "Current Status", headerTooltip: "Current Status",},
 						];
 					let data = [];

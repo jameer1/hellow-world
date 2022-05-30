@@ -330,10 +330,10 @@ else{
 				}
 
                 $scope.saveAssetslongterm = function() {
-					if (!$scope.longTermLeaseDoc.isValid) {
+					/*if (!$scope.longTermLeaseDoc.isValid) {
 						GenericAlertService.alertMessage("Please upload valid file !!", 'Warning');
 						return ;
-					}
+					}*/
 
 
 					// if($scope.longTermLease[0].tenantId!=null	){

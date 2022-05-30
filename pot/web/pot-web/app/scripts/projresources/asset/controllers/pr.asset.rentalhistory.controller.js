@@ -241,7 +241,7 @@ leaseactualfinishdate=true;
 						{ field: 'tenantAddress', displayName: "Tenant Address & Contact Details", headerTooltip: "Tenant Address & Contact Details",},
 						{ field: 'paymentCycle', displayName: "Payment Cycle", headerTooltip: "Payment Cycle"},
 						{ field: 'netRentAmountPerCycle', displayName: "Net Rent Amount per Cycle", headerTooltip: "Net Rent Amount per Cycle", },
-						{ field: 'maintenanceCharge', displayName: "Maintenance Charges", headerTooltip: "Maintenance Charges"},
+						{ field: 'maintenanceCharges', displayName: "Maintenance Charges", headerTooltip: "Maintenance Charges"},
 						{ field: 'assetMaintenanceCharges', displayName: "Asset Maintenance Charges", headerTooltip: "Asset Maintenance Charges",},
 						{ field: 'taxableAmount', displayName: "Taxable Amount", headerTooltip: "Taxable Amount",},
 						{ field: 'tax', displayName: "Tax%", headerTooltip: "Tax%",},
@@ -251,7 +251,7 @@ leaseactualfinishdate=true;
 						{ field: 'leaseExtendedFinshDate', displayName: "Lease Extended Finish Date(if any)", headerTooltip: "Lease Extended Finish Date(if any)",},
 						{ field: 'leaseActualFinishFinshDate', displayName: "Lease Actual Finish Date", headerTooltip: "Lease Actual Finish Date"},
 						{ name: 'Lease Documents', displayName: "Lease Documents", headerTooltip: "Lease Documents",
-						cellTemplate: '<div ng-click="grid.appScope.downloadRentalHistoryFile(row.entity.id, leaseDocumentDetailsFileName)" ng-if="status.leaseDocumentDetailsFileName" class="fa fa-download"></div>'},
+						cellTemplate: '<div  ng-if="row.entity.leaseDocumentDetailsFileName" ng-click="grid.appScope.downloadRentalHistoryFile(row.entity.id, row.entity.leaseDocumentDetailsFileName)"  class="fa fa-download"></div>'},
 						{ field: 'currentStatus', displayName: "Current Status", headerTooltip: "Current Status"},
 						];
 					let data = [];

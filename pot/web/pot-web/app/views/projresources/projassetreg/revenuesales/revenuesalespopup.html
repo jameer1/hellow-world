@@ -244,8 +244,9 @@
 									<ng-form name="payerBankcodeForm">
 										<input type="text" name="payerBankcode" ng-model="asset.payerBankCode"
 											class="form-control" placeholder="Payer Bankcode" ng-required="true"
-											data-test="RevenuefromAssetSales_Create_PayerBankCode"
-											pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))>
+											data-test="RevenuefromAssetSales_Create_PayerBankCode"  maxlength="16" minlength="3"
+											pattern=[^\w\d]*((^[0-9]+$)|(.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))>
+											<div  style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="payerBankcodeForm.payerBankcode.$error.minlength">Length is too short</div>
 									</ng-form>
 								</td>
 

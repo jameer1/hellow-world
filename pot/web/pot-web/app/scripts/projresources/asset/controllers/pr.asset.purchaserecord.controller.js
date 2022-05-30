@@ -152,7 +152,7 @@ function ($rootScope, $scope, $q, $state, $location, ngDialog, PurchaseRecordFac
 						
 						{ field: 'lotIdentificationDetails', displayName: "LOT Identification Details", headerTooltip: "LOT Identification Details"},
 						{ field: 'landSizeAndDimesions', displayName: "Land Size and Dimensions", headerTooltip: "Land Size and Dimensions", },
-						{ field: 'structureDetails.deliveryDockDate', displayName: "Structure Details", headerTooltip: "Structure Details"},
+						{ field: 'structureDetails', displayName: "Structure Details", headerTooltip: "Structure Details"},
 						{ field: 'plantAndEquipmentDetails', displayName: "Plant & Equipment Details", headerTooltip: "Plant & Equipment Details",},
 						{ field: 'landRegisterOfficeDetails', displayName: "Land Register Office Details", headerTooltip: "Land Register Office Details",},
 						{ field: 'landValuation', displayName: "Land Valuation", headerTooltip: "Land Valuation"},

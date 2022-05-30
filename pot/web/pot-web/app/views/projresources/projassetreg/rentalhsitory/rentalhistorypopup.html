@@ -55,9 +55,10 @@
 										<potdate-picker data-test="TermLeasingRentalHistory_Create_LeaseStart"
 											ng-model="addRentalHsitoryData.leaseStart" dir-index="$index"
 											date-name="leaseStart" placeholder="dd-mm-yyyy" class="form-control"
-											ng-required="true" custom-read-only  min-date="addRentalHsitoryData.plantCommissioningDate"/> <span class="procurment-pot-errors"
+											ng-required="true" custom-read-only  min-date="addRentalHsitoryData.plantCommissioningDate"/>
+											<!--  <span class="procurment-pot-errors"
 											ng-show="leaseStartForm.leaseStart.$dirty && leaseStartForm.leaseStart.$error.required">This
-											field is mandatory</span></ng-form>
+											field is mandatory</span> --></ng-form>
 								</td>
 
 								<td>
@@ -83,13 +84,14 @@
 											data-test="TermLeasingRentalHistory_Create_TenantName"
 											ng-model="addRentalHsitoryData.tenantName" placeholder="Tenant Name"
 											maxlength="10" pattern="[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))"
-											minlength="2" class="form-control"> <span class="procurment-pot-errors"
+											minlength="2" class="form-control" ng-required="true"> 
+											<span class="procurment-pot-errors"
 											ng-show="tenantNameForm.tenantName.$error.pattern">Alpha
 											numeric data should be allowed</span> <span class="procurment-pot-errors"
 											ng-show="tenantNameForm.tenantName.$dirty && tenantNameForm.tenantName.$error.required">Mortgage
-											Name is mandatory</span> <span class="procurment-pot-errors"
+											Name is mandatory<!-- </span> <span class="procurment-pot-errors"
 											ng-show="tenantNameForm.tenantName.$error.maxlength">Enter
-											length between 2 to 50 characters only</span> <span class="procurment-pot-errors"
+											length between 2 to 50 characters only</span> --> <span class="procurment-pot-errors"
 											ng-show="tenantNameForm.tenantName.$error.minlength">Too
 											short!</span> </ng-form>
 								</td>
@@ -98,14 +100,14 @@
 									<ng-form name="tenantAddressForm"> <input type="text" name="tenantAddress"
 											data-test="TermLeasingRentalHistory_Create_TenantAddress_Contacts"
 											ng-model="addRentalHsitoryData.tenantAddress" placeholder="Tenant Address"
-											maxlength="10" pattern="[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))"
+											maxlength="50" pattern="[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))"
 											ng-required="true" minlength="2" class="form-control"> <span class="procurment-pot-errors"
 											ng-show="tenantAddressForm.tenantAddress.$error.pattern">Alpha
 											numeric data should be allowed</span> <span class="procurment-pot-errors"
 											ng-show="tenantAddressForm.tenantAddress.$dirty && tenantAddressForm.tenantAddress.$error.required">Mortgage
-											Name is mandatory</span> <span class="procurment-pot-errors"
+											Address is mandatory</span> <!-- <span class="procurment-pot-errors"
 											ng-show="tenantAddressForm.tenantAddress.$error.maxlength">Enter
-											length between 2 to 50 characters only</span> <span class="procurment-pot-errors"
+											length between 2 to 50 characters only</span> --> <span class="procurment-pot-errors"
 											ng-show="tenantAddressForm.tenantAddress.$error.minlength">Too
 											short!</span> </ng-form>
 								</td>
@@ -123,12 +125,12 @@
 											data-test="TermLeasingRentalHistory_Create_NetRentAmountperCycle"
 											type="text" ng-model="addRentalHsitoryData.netRentAmountPerCycle"
 											name="netRentAmountPerCycle" placeholder="Net Rent Amount"
-											pattern="^[\d\.,%]+$" maxlength="4" ng-required="true"
+											 maxlength="4" ng-required="true"
 											class="form-control" ng-change="assetMaintenanceRentTaxAmount(addRentalHsitoryData)" /> <span class="procurment-pot-errors"
 											ng-show="netRentForm.netRentAmountPerCycle.$dirty && netRentForm.netRentAmountPerCycle.$error.required">Estimated
-											Rent is mandatory</span> <span class="procurment-pot-errors"
+											Rent is mandatory</span> <!-- <span class="procurment-pot-errors"
 											ng-show="netRentForm.netRentAmountPerCycle.$error.pattern">Enter only
-											numbers</span> <span class="procurment-pot-errors"
+											numbers</span> --> <span class="procurment-pot-errors"
 											ng-show="netRentForm.netRentAmountPerCycle.$error.minlength">Too
 											Short!</span> </ng-form>
 								</td>
@@ -146,12 +148,12 @@
 											ng-model="addRentalHsitoryData.assetMaintenanceCharges"
 											name="maintenanceCharges" placeholder="Miantenance Charges"
 											data-test="TermLeasingRentalHistory_Create_AssetMaintenanceCharges"
-											pattern="^[\d\.,%]+$" maxlength="4" valid-number
+											 maxlength="4" valid-number
 											class="form-control" ng-change="assetMaintenanceRentTaxAmount(addRentalHsitoryData)" /> <span class="procurment-pot-errors"
 											ng-show="maintenanceChargesForm.assetMaintenanceCharges.$dirty && maintenanceChargesForm.assetMaintenanceCharges.$error.required">Estimated
-											Rent is mandatory</span> <span class="procurment-pot-errors"
+											Rent is mandatory</span><!--  <span class="procurment-pot-errors"
 											ng-show="maintenanceChargesForm.assetMaintenanceCharges.$error.pattern">Enter
-											only numbers</span> <span class="procurment-pot-errors"
+											only numbers</span>  --><span class="procurment-pot-errors"
 											ng-show="maintenanceChargesForm.assetMaintenanceCharges.$error.minlength">Too
 											Short!</span> </ng-form>
 								</td>
@@ -190,23 +192,23 @@
 											pattern="^[\d\.,%]+$" maxlength="4" ng-required="true"
 											class="form-control" /> <span class="procurment-pot-errors"
 											ng-show="taxableAmountForm.taxableAmount.$dirty && taxableAmountForm.taxableAmount.$error.required">Estimated
-											Rent is mandatory</span> <span class="procurment-pot-errors"
+											Rent is mandatory</span> <!-- <span class="procurment-pot-errors"
 											ng-show="taxableAmountForm.taxableAmount.$error.pattern">Enter
-											only numbers</span> <span class="procurment-pot-errors"
+											only numbers</span>  --><span class="procurment-pot-errors"
 											ng-show="taxableAmountForm.taxableAmount.$error.minlength">Too
 											Short!</span> </ng-form>
 								</td>
 
 								<td>
 									<ng-form name="taxPercentForm"> <input type="text"
-											ng-model="addRentalHsitoryData.tax"
+											ng-model="addRentalHsitoryData.tax" valid-number
 											data-test="TermLeasingRentalHistory_Create_TaxPercentage" name="taxPercent"
-											placeholder="Tax%" pattern="^[\d\.,%]+$" maxlength="2"
+											placeholder="Tax%" pattern="^[\d\.,%]+$" maxlength="2"  ng-required="true"
 											class="form-control" /> <span class="procurment-pot-errors"
 											ng-show="taxPercentForm.tax.$dirty && taxPercentForm.taxPercent.$error.required">Estimated
-											Rent is mandatory</span> <span class="procurment-pot-errors"
+											Rent is mandatory</span> <!-- <span class="procurment-pot-errors"
 											ng-show="taxPercentForm.tax.$error.pattern">Enter
-											only numbers</span> <span class="procurment-pot-errors" ng-show="taxPercentForm.tax.$error.minlength">Too
+											only numbers</span> --> <span class="procurment-pot-errors" ng-show="taxPercentForm.tax.$error.minlength">Too
 											Short!</span> </ng-form>
 								</td>
 
@@ -214,7 +216,7 @@
 									<ng-form name="taxAmountForm"> <input type="text"
 											ng-model="addRentalHsitoryData.taxAmount" valid-number
 											data-test="TermLeasingRentalHistory_Create_TaxAmount" name="taxAmount"
-											placeholder="Tax Amount" pattern="^[\d\.,%]+$" maxlength="4"
+											placeholder="Tax Amount" pattern="^[\d\.,%]+$" maxlength="4" ng-required="true"
 											class="form-control" ng-change="assetMaintenanceRentTaxAmount(addRentalHsitoryData)" /> <span class="procurment-pot-errors"
 											ng-show="taxAmountForm.taxAmount.$dirty && taxAmountForm.taxAmount.$error.required">Estimated
 											Rent is mandatory</span> <span class="procurment-pot-errors"
@@ -228,7 +230,7 @@
 									<ng-form name="grossRentForm"> <input type="text"
 											ng-model="addRentalHsitoryData.grossRent" valid-number
 											data-test="TermLeasingRentalHistory_Create_GrossRent" name="grossRent"
-											placeholder="Gross Rent" pattern="^[\d\.,%]+$" maxlength="4"
+											placeholder="Gross Rent" pattern="^[\d\.,%]+$" 
 											ng-required="true" class="form-control" /> <span class="procurment-pot-errors"
 											ng-show="grossRentForm.grossRent.$dirty && grossRentForm.grossRent.$error.required">Estimated
 											Rent is mandatory</span> <span class="procurment-pot-errors"
@@ -281,7 +283,7 @@
 									<ng-form name="extendFinishDateForm">
 										<potdate-picker
 											data-test="TermLeasingRentalHistory_Create_LeaseExtendedFinishDate"
-											ng-model="addRentalHsitoryData.leaseExtendedFinshDate" dir-index="$index"
+											ng-model="addRentalHsitoryData.leaseExtendedFinshDate" dir-index="$index" ng-required="true"
 											date-name="leaseExtendedFinshDate" placeholder="dd-mm-yyyy"
 											class="form-control" custom-read-only /> <span class="procurment-pot-errors"
 											ng-show="extendFinishDateForm.leaseExtendedFinshDate.$dirty && extendFinishDateForm.leaseExtendedFinshDate.$error.required">This
@@ -293,7 +295,7 @@
 									<ng-form name="actualFinishDateForm">
 										<potdate-picker
 											data-test="TermLeasingRentalHistory_Create_LeaseActualFinishDate"
-											ng-model="addRentalHsitoryData.leaseActualFinishFinshDate"
+											ng-model="addRentalHsitoryData.leaseActualFinishFinshDate" ng-required="true"
 											dir-index="$index" date-name="leaseActualFinishFinshDate"
 											placeholder="dd-mm-yyyy" class="form-control" custom-read-only ng-change="selectactualdate(addRentalHsitoryData)" /> <span class="procurment-pot-errors"
 											ng-show="actualFinishDateForm.leaseActualFinishFinshDate.$dirty && actualFinishDateForm.leaseActualFinishFinshDate.$error.required">This

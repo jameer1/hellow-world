@@ -1,7 +1,9 @@
 <div id="tab-pannel" class="panel-group"
 	ng-controller="AssetPeriodicalRecordsController">
 	<div class="tabTable_1_Res_height">
-		<table class="table table-striped table-bordered tabTable_1_height" >
+	<div id="grid" ui-grid="gridOptions" ng-if="stylesSvc.finishedStyling" 
+            ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-resize-columns class="grid"></div>
+		<!-- <table class="table table-striped table-bordered tabTable_1_height" >
 			<thead id="tab-head">
 				<tr>
 					<th rowspan=2 style="width: 40px;" ng-hide="action =='Edit'">Select</th>
@@ -34,7 +36,7 @@
 					<td>{{periodical.maintenanceCategory}}</td>
 					<td>{{periodical.maintenanceSubCategory}}</td>
 					<td>{{periodical.planResponsibleSupervisor}}</td>
-					<!-- <td><span class="fa fa-download" ng-if="periodical.planRecordDocumentFileName" ng-click="downloadRecordPeriodicalFile(periodical.id,Plan)" title="Click To Download {{periodical.planRecordDocumentFileName}}"></span></td> -->
+					<td><span class="fa fa-download" ng-if="periodical.planRecordDocumentFileName" ng-click="downloadRecordPeriodicalFile(periodical.id,Plan)" title="Click To Download {{periodical.planRecordDocumentFileName}}"></span></td>
 					<td><span class="fa fa-download" ng-if="periodical.planRecordDocumentFileName" ng-click="downloadRecordPeriodicalFile(periodical.id,periodical.planRecordDocumentFileName,'Plan')" title="Click To Download {{periodical.planRecordDocumentFileName}}"></span></td>
 					<td>{{periodical.currentStatus}}</td>
 					<td>{{periodical.startDate}}</td>
@@ -42,11 +44,11 @@
 					<td>{{periodical.actualResponsibleSupervisor }}</td>
 					<td>{{periodical.purchaseOrderNumber }}</td>
 					<td>{{periodical.materialsConsumptionRecords }}</td>
-          <!-- <td><a class="fa fa-download" ng-if="periodical.actualRecordsDocumentFileName" href="{{periodical.actualDocUrl}}" title="Click To Download {{periodical.actualRecordsDocumentFileName}}"></a></td> -->
+          <td><a class="fa fa-download" ng-if="periodical.actualRecordsDocumentFileName" href="{{periodical.actualDocUrl}}" title="Click To Download {{periodical.actualRecordsDocumentFileName}}"></a></td>
           <td><span class="fa fa-download" ng-if="periodical.actualRecordsDocumentFileName" ng-click="downloadRecordPeriodicalFile(periodical.id,periodical.actualRecordsDocumentFileName,'Actual')" title="Click To Download {{periodical.actualRecordsDocumentFileName}}"></span></td>
         </tr>
 			</tbody>
-		</table>
+		</table> -->
 	</div>
 	<div class="panel-footer">
 		<div class="pull-right padR-0">

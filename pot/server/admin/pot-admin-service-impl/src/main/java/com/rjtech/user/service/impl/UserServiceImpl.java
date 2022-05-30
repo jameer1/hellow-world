@@ -187,9 +187,7 @@ public class UserServiceImpl implements UserService {
             	 for (ApplicationGlobalSettingEntity applicationGlobalSettingEntity : appGlobalSetting) {
               
             		 String UrlwithDomain=applicationGlobalSettingEntity.getApplicationDomainName()+'/'+applicationGlobalSettingEntity.getAppClientUrl();
-               System.out.println(UrlwithDomain+".................... mamatha");
-               log.info("UrlwithDomain...."+UrlwithDomain);
-            		 if (userToSave.isClient()) {
+                    if (userToSave.isClient()) {
                     ClientRegMstrEntity clientReg = userToSave.getClientRegMstrEntity();
                    
                     sendEmail(userToSave.getEmail(), userToSave.getUserName(), userToSave.getPassword(),UrlwithDomain,

@@ -207,14 +207,14 @@ public class RegisterDownloadServiceImpl implements RegisterDownloadService {
         else if(category.equals("PlanPeriodicalRecords"))
         {
         	PeriodicalScheduleMaintenanceDtlEntity entity = periodicalScheduleMaintenanceRepository.findOne(recordId);
-        	projDocFileEntity = entity.getProjDocFileEntity();
+            projDocFileEntity = entity.getProjDocFileEntity();
         	System.out.println("call here in the "+category);
-        	String folder_path = ApplicationConstants.FILE_DIRECTORY + "/" + projDocFileEntity.getFolderId().getUploadFolder() + projDocFileEntity.getFolderPath() + "/" +"PLAN"+ "/" + projDocFileEntity.getName();
+        	String folder_path = ApplicationConstants.FILE_DIRECTORY + "/" + projDocFileEntity.getFolderId().getUploadFolder() + projDocFileEntity.getFolderPath() + "/" +"PLAN"+ "/" + entity.getPlanRecordsDetailsFileName();
         	 System.out.println("folder path:");
              System.out.println(folder_path);
              projDocFileTO.setFileType( projDocFileEntity.getFileType() );   
              projDocFileTO.setFolderPath( folder_path );
-             projDocFileTO.setName( projDocFileEntity.getName() );
+             projDocFileTO.setName( entity.getPlanRecordsDetailsFileName() );
              projDocFileTO.setFileSize( projDocFileEntity.getFileSize() );
              System.out.println(projDocFileTO);
             return projDocFileTO;

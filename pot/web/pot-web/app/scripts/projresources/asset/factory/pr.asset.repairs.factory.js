@@ -35,7 +35,7 @@ app.factory('RepairsNonScheduleFactory', ["ngDialog", "$q", "$filter", "$timeout
 					$scope.repairsRecord.push(addRepairsRecord);
 				} else {
 					$scope.repairsRecord = angular.copy(editRepairsRecordData)
-					editRepairsRecord = [];
+					//editRepairsRecord = [];
 				}
 
 				 //Assets Maintenance  Category Select Popup

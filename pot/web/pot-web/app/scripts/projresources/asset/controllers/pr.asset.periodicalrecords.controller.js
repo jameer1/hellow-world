@@ -12,8 +12,9 @@ app.config(["$stateProvider", function($stateProvider) {
 			}
 		}
 	})
-}]).controller("AssetPeriodicalRecordsController", ["$rootScope", "$scope", "$q", "$state", "ngDialog", "GenericAlertService", "RepairsNonScheduleFactory", "PeriodicalScheduleFactory", "AssetRegisterService", function($rootScope, $scope, $q, $state, ngDialog, GenericAlertService, RepairsNonScheduleFactory, PeriodicalScheduleFactory,AssetRegisterService) {
+}]).controller("AssetPeriodicalRecordsController", ["$rootScope", "$scope", "$q", "$state", "ngDialog", "GenericAlertService","EmpRegisterService", "RepairsNonScheduleFactory", "PeriodicalScheduleFactory", "AssetRegisterService","stylesService", "ngGridService", function($rootScope, $scope, $q, $state, ngDialog, GenericAlertService,EmpRegisterService, RepairsNonScheduleFactory, PeriodicalScheduleFactory,AssetRegisterService,stylesService, ngGridService) {
 	var editPeriodicalRecords= [];
+	$scope.stylesSvc = stylesService;
 	$scope.nonSchedules = [];
 	$scope.editButtonDisable =false;
 	
@@ -53,7 +54,7 @@ app.config(["$stateProvider", function($stateProvider) {
 
 		AssetRegisterService.getPeriodicalRecordsOnLoad(periodicalRecordsGetReq).then(function(data) {
 			$scope.PeriodicalScheduleMaintenanceDtlTO = data.periodicalScheduleMaintenanceDtlTOs;// data.PeriodicalScheduleMaintenanceDtlTOs;
-			
+			$scope.gridOptions.data = angular.copy(data.periodicalScheduleMaintenanceDtlTOs);
 		}, function(error) {
 			GenericAlertService.alertMessage("Error occured while getting Periodical details", "Error");
 		});
@@ -124,14 +125,53 @@ app.config(["$stateProvider", function($stateProvider) {
 	}
 	$scope.downloadRecordPeriodicalFile = function (periodicalRecordId,file_name,type) {
 		console.log(periodicalRecordId);
-		if(type == "Plan"){
-		AssetRegisterService.downloadRecordPlanPeriodicalFile(periodicalRecordId);
+		if(type == 'Plan'){
+		//AssetRegisterService.downloadRecordPlanPeriodicalFile(periodicalRecordId);
+		//change Service by mamatha
+		let req = {
+					"recordId" : periodicalRecordId,
+					"category" : "PlanPeriodicalRecords",
+					"fileName" : file_name
+				}
+				EmpRegisterService.downloadRegisterDocs(req);
 		}
 		else
 			{
-			AssetRegisterService.downloadRecordActualPeriodicalFile(periodicalRecordId);
+			//AssetRegisterService.downloadRecordActualPeriodicalFile(periodicalRecordId);
+				let request = {
+					"recordId" : periodicalRecordId,
+					"category" : "ActualPeriodicalRecords",
+					"fileName" : file_name
+				}
+				EmpRegisterService.downloadRegisterDocs(request);
 			}
 		
 	}
+	 var linkCellTemplate = '<input type="checkbox" ng-model="row.entity.selected" ng-change="grid.appScope.periodicalRecordsSelect(row.entity)">';
+      	$scope.$watch(function () { return stylesService.finishedStyling; },
+			function (newValue, oldValue) {
+				if (newValue) {
+					let columnDefs = [
+					    {  name: 'select',width:'4%',cellClass:'justify-center',headerCellClass:'justify-center',cellTemplate: linkCellTemplate,displayName: "Select", headerTooltip : "Select", groupingShowAggregationMenu: false},
+						{ name: 'dueDate', displayName: "Plan-Due Date", headerTooltip : "Plan-Due Date"},
+						{ field: 'maintenanceCategory', displayName: "plan-Maintenance Category", headerTooltip: "plan-Maintenance Category", groupingShowAggregationMenu: false},
+						{ field: 'maintenanceSubCategory', displayName: "plan-Maintenance Sub Category", headerTooltip: "plan-Maintenance Sub Category", groupingShowAggregationMenu: false},
+						{ field: 'planResponsibleSupervisor', displayName: "plan-Responsible Supervisor", headerTooltip: "plan-Responsible Supervisor", groupingShowAggregationMenu: false},
+						{ name: 'planRecordDocumentFileName',cellClass:"justify-center", displayName: "plan-Maintenance List(Upload Documents)", headerTooltip: "plan-Maintenance List(Upload Documents)", groupingShowAggregationMenu: false,
+						cellTemplate:'<div ng-click="grid.appScope.downloadRecordPeriodicalFile(row.entity.id, row.entity.planRecordDocumentFileName,\'Plan\')" ng-if="row.entity.planRecordDocumentFileName" class="fa fa-download"></div>'},
+						{ field: 'currentStatus', displayName: "plan-Current Status", headerTooltip: "plan-Current Status", groupingShowAggregationMenu: false},
+						{ field: 'startDate', displayName: "Actual-Start Date", headerTooltip: "Actual-Start Date", groupingShowAggregationMenu: false},
+						{ field: 'finishDate', displayName: "Actual-Finish Date", headerTooltip: "Actual-Finish Date", groupingShowAggregationMenu: false},
+						{ field: 'actualResponsibleSupervisor', displayName: "Actual-Responsible Supervisor", headerTooltip: "Actual-Responsible Supervisor", groupingShowAggregationMenu: false},
+						{ field: 'purchaseOrderNumber', displayName: "Actual-Purchase Order Number(Sub Contractor Services)", headerTooltip: "Actual-Purchase Order Number(Sub Contractor Services)", groupingShowAggregationMenu: false},
+						{ field: 'materialsConsumptionRecords', displayName: "Actual-Materials ConsumptionRecords(ProjectDocket #)", headerTooltip: "Actual-Materials ConsumptionRecords(ProjectDocket #)", groupingShowAggregationMenu: false},
+						{ name: 'actualRecordsDocumentFileName',cellClass:"justify-center",headerCellClass:"justify-center",displayName: "Actual-Completion Records(Upload Documents)", headerTooltip: "Actual-Completion Records(Upload Documents)", groupingShowAggregationMenu: false,
+						cellTemplate:'<div ng-click="grid.appScope.downloadRecordPeriodicalFile(row.entity.id, row.entity.actualRecordsDocumentFileName,\'Actual\')" ng-if="row.entity.actualRecordsDocumentFileName" class="fa fa-download"></div>'},
+						];
+					let data = [];
+					$scope.getPeriodicalRecords();
+					$scope.gridOptions = ngGridService.initGrid($scope, columnDefs, data, "Resources_Immovable Assets_Periodical And Schedule Maintenance Records");
+				}
+				});
 	
 }]);

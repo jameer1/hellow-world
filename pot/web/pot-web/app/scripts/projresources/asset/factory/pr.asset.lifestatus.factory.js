@@ -165,10 +165,10 @@ app.factory('AssestLifeStatusFactory', ["ngDialog", "$q", "$filter", "$timeout",
 				
 				$scope.saveAssetsLifeStatus = function() {
 									
-						if (!$scope.assetLifeStatusDoc.isValid) {
+						/*if (!$scope.assetLifeStatusDoc.isValid) {
 							GenericAlertService.alertMessage("Please upload valid file !!", 'Warning');
 							return ;
-						}
+						}*/
 									
 						var assetsLifeStatusSaveReq = {					
 							"assetLifeStatusDtlTOs" : $scope.assetLifeStatus,

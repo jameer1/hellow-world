@@ -353,10 +353,10 @@ app.factory('ShortTermCasualRecordsFactory', ["ngDialog", "$q", "$filter", "$tim
 				
 				$scope.saveShortTermRecords = function() {
 					
-					if (!$scope.shortTermRecDoc.isValid) {
+					/*if (!$scope.shortTermRecDoc.isValid) {
 						GenericAlertService.alertMessage("Please upload valid file !!", 'Warning');
 						return ;
-					}					
+					}	*/				
 					var saveShortTermReq = {
 							"stcorrReturnsDtlTOs" : $scope.shortTermRecord,
 							"folderCategory" : "Short Term/Casual Occupancy Records and Rental Returns",

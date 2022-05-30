@@ -228,7 +228,7 @@ $scope.$watch(function () { return stylesService.finishedStyling; },
 						{ field: 'shortFallRent', displayName: "Short fall in net Rent Receipts from Tenant", headerTooltip: "Short fall in net Rent Receipts from Tenant", },
 						{ field: 'shortFallTax', displayName: "Short fall in Tax Receipts From Tenant", headerTooltip: "Short fall in Tax Receipts From Tenant"},
 						{ name: 'Upload Documents', displayName: "Upload Money Transaction Documents", headerTooltip: "Upload Money Transaction Documents", cellClass: 'justify-center', headerCellClass:"justify-center",
-						cellTemplate:'<div ng-click="grid.appScope.downloadLongTermLeaseActualRetrunsFile(row.entity.id, longterm.uploadMoneyDocumentFileName)" ng-if="longterm.uploadMoneyDocumentFileName" class="fa fa-download">{{uploadMoneyDocumentFileName}}</div>'},
+						cellTemplate:'<div ng-click="grid.appScope.downloadLongTermLeaseActualRetrunsFile(row.entity.id, row.entity.uploadMoneyDocumentFileName)" ng-if="row.entity.uploadMoneyDocumentFileName" class="fa fa-download">{{uploadMoneyDocumentFileName}}</div>'},
 						];
 					let data = [];
 					$scope.gridOptions = ngGridService.initGrid($scope, columnDefs, data, "Resources_Immovableassets_LongTermLease");
