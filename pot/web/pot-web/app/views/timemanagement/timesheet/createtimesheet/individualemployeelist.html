@@ -1,0 +1,70 @@
+<div id="tab-pannel">
+	<div class="panel-group">
+		<div class="panel panel-default" modal-movable>
+			<div class="panel-heading">
+				<h4 class="panel-title">Employee List</h4>
+			</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+						<md-input-container md-no-float>
+							<label>Please Select Crew</label>
+							<input type="text" ng-click="getCrewList(crewLabelKeyTO)" ng-model="crewLabelKeyTO.code"
+								data-test='AsbuiltRecords_TimeSheets_CreateTimeSheets_Create_Add_SelectCrew'>
+						</md-input-container>
+					</div>
+					<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+						<md-input-container md-no-float>
+							<label>Employee Search</label>
+							<input type="text" ng-model="empcode" class="form-control"
+								data-test='AsbuiltRecords_TimeSheets_CreateTimeSheets_Create_Add_EmployeeSearch'>
+						</md-input-container>
+					</div>
+				</div>
+				<div class="row spacer0 b-sh panel-body-res">
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+						<div class="popUpTableResHeight">
+							<table class="table table-striped table-hover table-bordered popUpTableHeight">
+								<thead id="tab-head">
+									<tr>
+										<th>Select</th>
+										<th>Employee ID</th>
+										<th>First Name</th>
+										<th>Last Name</th>
+										<th>Designation</th>
+										<th>Parent Company</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr fixed-header="" ng-repeat="emp in empRegLabelKeyTOs | filter: empcode"
+										ng-if="existingEmpMap[emp.id]==null">
+										<td><input type="checkbox" ng-model="emp.select" ng-change="empregpopup(emp)"
+												data-test='AsbuiltRecords_TimeSheets_CreateTimeSheets_Create_Add_SelectEmployeeForAdd'>
+										</td>
+										<td>{{emp.code}}</td>
+										<td>{{emp.displayNamesMap['firstName']}}</td>
+										<td>{{emp.displayNamesMap['lastName']}}</td>
+										<td>{{emp.displayNamesMap['classType']}}</td>
+										<td>{{emp.displayNamesMap['cmpCatgName']}}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div ng-show="searchFlag && empRegLabelKeyTOs.length<=0">
+							<br> <br>
+							<h5 align="center" style="color: red">No Employee Records for
+								selected project or crew</h5>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="panel-footer">
+				<div class="pull-right">
+					<input type="button" class="btn btn-brown btn-sm" ng-click="saveManpowerDetails()"
+						data-test='AsbuiltRecords_TimeSheets_CreateTimeSheets_Create_Add_Save' value="Save">
+				</div>
+			</div>
+			<div class="ngdialog-close"></div>
+		</div>
+	</div>
+</div>
