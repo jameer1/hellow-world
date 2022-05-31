@@ -142,7 +142,7 @@ app.factory('TimeSheetCreateFactory', ["ngDialog", "$q", "$filter", "blockUI", "
 						empExistingMap[value.empRegId] = true;
 					});
 
-					var popup = TimesheetCopyFactory.copyTimeSheetEmpRegDetails($scope.projWeekStartNo, $scope.timeSheetSearchReq, timeSheetEmpMap, empExistingMap,crewTypeId);
+					var popup = TimesheetCopyFactory.copyTimeSheetEmpRegDetails($scope.projWeekStartNo, $scope.timeSheetSearchReq, timeSheetEmpMap, empExistingMap,crewTypeId, $scope.timeSheetDetails);
 					popup.then(function(data) {
 						console.log(data)
 						$scope.timeSheetDetails = data;

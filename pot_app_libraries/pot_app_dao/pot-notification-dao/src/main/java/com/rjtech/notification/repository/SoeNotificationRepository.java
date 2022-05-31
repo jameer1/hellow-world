@@ -26,7 +26,7 @@ public interface SoeNotificationRepository extends NotificationsRepository<SoeNo
     Integer countSoe(@Param("clientId") Long clientId, @Param("userId") Long userId,
             @Param("fromDate") Date fromDate, @Param("toDate") Date toDate);
     
-    @Query("SELECT S FROM SoeNotificationsEntity S WHERE "
+    @Query("SELECT S FROM com.rjtech.notification.model.SoeNotificationsEntity S WHERE "
             + " S.projSOEItemEntity.id =:notifyId")
     List<SoeNotificationsEntity> findSoe(@Param("notifyId") Long notifyId);
     

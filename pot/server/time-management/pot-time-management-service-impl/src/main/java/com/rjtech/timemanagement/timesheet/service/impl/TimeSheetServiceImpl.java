@@ -653,22 +653,25 @@ public class TimeSheetServiceImpl implements TimeSheetService {
         List<Object[]> empRegList = empAttendanceRepository.findOtherCrewEmpRegDetailsForTimeSheet(
                 timeSheetGetReq.getProjId(), timeSheetGetReq.getCrewId(), timeSheetGetReq.getFromCrewId(),
                 timeSheetGetReq.getWeekStartDate(), timeSheetGetReq.getWeekEndDate());
+        UserMstrEntity userMstrEntity = loginRepository.findOne(AppUserUtils.getUserId());
         TimeSheetEmpRegResp timeSheetEmpRegResp = new TimeSheetEmpRegResp();
         List<LabelKeyTO> empRegLabelKeyTOs = new ArrayList<>();
         for (Object[] emp : empRegList) {
-
-            LabelKeyTO labelKeyTO = new LabelKeyTO();
-            labelKeyTO.setId((Long) emp[0]);
-            labelKeyTO.setCode((String) emp[1]);
-            Map<String, String> displayMap = new HashMap<>();
-            displayMap.put(CommonConstants.FIRST_NAME, (String) emp[2]);
-            displayMap.put(CommonConstants.LAST_NAME, (String) emp[3]);
-            displayMap.put(CommonConstants.GENDER, (String) emp[4]);
-            displayMap.put(CommonConstants.CLASS_TYPE, (String) emp[5]);
-            //  displayMap.put(CommonConstants.PROCURE_CATG, rs.getString(7));
-            displayMap.put(CommonConstants.COMPANY_CATG_NAME, (String) emp[6]);
-            labelKeyTO.setDisplayNamesMap(displayMap);
-            empRegLabelKeyTOs.add(labelKeyTO);
+        	if(userMstrEntity.getEmpCode().equals(emp[1])) {
+        		LabelKeyTO labelKeyTO = new LabelKeyTO();
+                labelKeyTO.setId((Long) emp[0]);
+                labelKeyTO.setCode((String) emp[1]);
+                Map<String, String> displayMap = new HashMap<>();
+                displayMap.put(CommonConstants.FIRST_NAME, (String) emp[2]);
+                displayMap.put(CommonConstants.LAST_NAME, (String) emp[3]);
+                displayMap.put(CommonConstants.GENDER, (String) emp[4]);
+                displayMap.put(CommonConstants.CLASS_TYPE, (String) emp[5]);
+                displayMap.put(CommonConstants.CLASS_TYPE, (String) emp[5]);
+                //  displayMap.put(CommonConstants.PROCURE_CATG, rs.getString(7));
+                displayMap.put(CommonConstants.COMPANY_CATG_NAME, (String) emp[6]);
+                labelKeyTO.setDisplayNamesMap(displayMap);
+                empRegLabelKeyTOs.add(labelKeyTO);
+            }      
         }
         timeSheetEmpRegResp.setEmpRegLabelKeyTOs(empRegLabelKeyTOs);
         return timeSheetEmpRegResp;

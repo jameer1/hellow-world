@@ -107,7 +107,7 @@ public interface EmpAttendanceRepository extends JpaRepository<EmpAttendanceEnti
 
     @Query("SELECT DISTINCT emp.id, emp.code, emp.firstName, emp.lastName, emp.gender, emp.empClassMstrEntity.name, "
             + "emp.companyMstrEntity.name FROM EmpAttendanceEntity pea JOIN pea.empId emp JOIN emp.empProjRigisterEntities per ON "
-            + "per.projMstrEntity.projectId = :projId AND per.assignStatus= 'Y' AND "
+            + "per.projMstrEntity.projectId = :projId AND (per.assignStatus= 'Y' OR per.assignStatus IS NULL) AND "
             + "((per.mobilaizationDate BETWEEN :weekStartDate AND :weekEndDate OR per.deMobilaizationDate BETWEEN :weekStartDate AND :weekEndDate) "
             + "OR per.mobilaizationDate <= :weekStartDate) AND (per.deMobilaizationDate IS NULL OR per.deMobilaizationDate >= :weekStartDate) "
             + "AND per.status = 1 JOIN emp.empEnrollmentDtlEntities eed ON ((eed.effectiveFrom BETWEEN :weekStartDate AND :weekEndDate "

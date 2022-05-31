@@ -55,8 +55,11 @@
 							</md-input-container>
 							<md-input-container ng-show="crew.id==2">
 								<label>Individual</label>
-								<input type="text" class="form-control"
+								<!-- <input type="text" class="form-control"
 									ng-click="getIndividualTimeSheetsUsers(timeSheetSearchReq)"
+									data-test='AsbuiltRecords_TimeSheets_CreateTimeSheets_Individual'
+									ng-model="timeSheetSearchReq.timesheetUserLabelKeyTO.name " readonly> -->
+									<input type="text" class="form-control"
 									data-test='AsbuiltRecords_TimeSheets_CreateTimeSheets_Individual'
 									ng-model="timeSheetSearchReq.timesheetUserLabelKeyTO.name " readonly>
 							</md-input-container>

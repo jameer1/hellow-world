@@ -14,8 +14,8 @@ app.config(["$stateProvider", function ($stateProvider) {
 	})
 }]).controller(
 	"CreateTimeSheetController",
-	["$q", "$rootScope", "$scope", "$state", "$filter", "ngDialog", "blockUI", "TimeSheetNotificationFactory", "EpsProjectSelectFactory", "TimesheetCopyFactory", "TimesheetSubmitFactory", "TimeSheetCreateFactory", "WageFactory", "TimeSheetEmpRegFactory", "ModuleUserFactory", "TimeSheetCostCodeFactory", "TimesheetEmpPopupFactory", "UserService", "TimeSheetService", "ProjectCrewPopupService", "TimeSheetIndividualUsersFactory", "PotCommonService", "GenericAlertService", function ($q, $rootScope, $scope, $state, $filter, ngDialog, blockUI, TimeSheetNotificationFactory, EpsProjectSelectFactory, TimesheetCopyFactory, TimesheetSubmitFactory, TimeSheetCreateFactory, WageFactory, TimeSheetEmpRegFactory, ModuleUserFactory, TimeSheetCostCodeFactory,
-		TimesheetEmpPopupFactory, UserService, TimeSheetService, ProjectCrewPopupService, TimeSheetIndividualUsersFactory, PotCommonService, GenericAlertService) {
+	["$q", "$rootScope", "$scope", "$state", "$filter", "ngDialog", "blockUI", "TimeSheetNotificationFactory", "EpsProjectSelectFactory", "TimesheetCopyFactory", "TimesheetSubmitFactory", "TimeSheetCreateFactory", "WageFactory", "TimeSheetEmpRegFactory", "ModuleUserFactory", "TimeSheetCostCodeFactory", "TimesheetEmpPopupFactory", "UserService", "TimeSheetService", "ProjectCrewPopupService", "TimeSheetIndividualUsersFactory", "PotCommonService", "GenericAlertService","TimeSheetIndividualFactory", function ($q, $rootScope, $scope, $state, $filter, ngDialog, blockUI, TimeSheetNotificationFactory, EpsProjectSelectFactory, TimesheetCopyFactory, TimesheetSubmitFactory, TimeSheetCreateFactory, WageFactory, TimeSheetEmpRegFactory, ModuleUserFactory, TimeSheetCostCodeFactory,
+		TimesheetEmpPopupFactory, UserService, TimeSheetService, ProjectCrewPopupService, TimeSheetIndividualUsersFactory, PotCommonService, GenericAlertService, TimeSheetIndividualFactory) {
 
 		$scope.selectedEmp = null;
 		$scope.selectedIndex = null;
@@ -333,7 +333,8 @@ app.config(["$stateProvider", function ($stateProvider) {
 							angular.forEach(data.empRegLabelKeyTOs, function (value, key) {
 								timeSheetEmpMap[value.id] = true;
 							});
-							var popup = TimeSheetCreateFactory.createTimesheet($scope.maxHrs, $scope.crew.id, additional, timeSheetEmpMap, timeSheetSearchReq, $scope.timeSheetDays, $scope.empRegMap, $scope.costcodeMap, $scope.empWageFactorMap, $scope.projWeekStartNo);
+							var popup = TimeSheetIndividualFactory.getEmpRegDetails($scope.maxHrs,additional,timeSheetSearchReq, $scope.crew.id, timeSheetEmpMap);
+					 //       var popup = TimeSheetCreateFactory.createTimesheet($scope.maxHrs, $scope.crew.id, additional, timeSheetEmpMap, timeSheetSearchReq, $scope.timeSheetDays, $scope.empRegMap, $scope.costcodeMap, $scope.empWageFactorMap, $scope.projWeekStartNo);
 							popup.then(function (data) {
 
 								$scope.timeSheetDetails = data.timeSheetEmpDtlTOs;
@@ -916,11 +917,10 @@ app.config(["$stateProvider", function ($stateProvider) {
 						GenericAlertService.alertMessage("Following employee(s) are exceeded max hours :" + message, "Warning");
 					});
 				} else {
+					$scope.getProjSettingsTimeSheetDetails(crewTypeId);
 					$scope.errorFlag = false;
 					$scope.timeSheetDetails = data.timeSheetEmpDtlTOs;
 					GenericAlertService.alertMessage('Employee(s) saved successfully', "Info");
-					return;
-					$scope.getProjSettingsTimeSheetDetails(crewTypeId);
 				}
 				if ($scope.resetFlag) {
 					$scope.timeSheetDetails = [];

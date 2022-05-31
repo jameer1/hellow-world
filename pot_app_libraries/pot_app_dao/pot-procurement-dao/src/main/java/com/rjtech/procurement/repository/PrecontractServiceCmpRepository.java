@@ -9,7 +9,7 @@ import com.rjtech.procurement.model.PreContractsServiceCmpEntity;
 
 public interface PrecontractServiceCmpRepository extends ProcurementBaseRepository<PreContractsServiceCmpEntity, Long> {
 
-    @Query("SELECT t FROM PreContractsServiceCmpEntity t  WHERE t.preContractsCmpEntity.id=:serviceCmpId")
+    @Query("SELECT t FROM com.rjtech.procurement.model.PreContractsServiceCmpEntity t  WHERE t.preContractsCmpEntity.id=:serviceCmpId")
     List<PreContractsServiceCmpEntity> preContractsServiceCmpEntities(@Param("serviceCmpId") Long serviceCmpId);
 
 }
