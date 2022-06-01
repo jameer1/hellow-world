@@ -43,19 +43,14 @@ public class ChangeOrderDtlController {
         return new ResponseEntity<ChangeOrderResp>( changeOrderDtlService.saveCoManpowerDetails( changeOrderReq ), HttpStatus.OK );
     }
     
-    @RequestMapping(value = ProjLibURLConstants.GET_CO_MANPOWER_DETAILS, method = RequestMethod.POST)
-    public ResponseEntity<ChangeOrderResp> getCoManpowerDetails( @RequestBody ChangeOrderReq changeOrderReq ) {
-        return new ResponseEntity<ChangeOrderResp>( changeOrderDtlService.getCoManpowerDetails( changeOrderReq ), HttpStatus.OK );
+    @RequestMapping(value = ProjLibURLConstants.GET_CO_DETAILS_BY_CO_ID, method = RequestMethod.POST)
+    public ResponseEntity<ChangeOrderResp> getChangeOrderDetailsByCoId( @RequestBody ChangeOrderReq changeOrderReq ) {
+        return new ResponseEntity<ChangeOrderResp>( changeOrderDtlService.getChangeOrderDetailsByCoId( changeOrderReq ), HttpStatus.OK );
     }
     
     @RequestMapping(value = ProjLibURLConstants.SAVE_CO_PLANT_DETAILS, method = RequestMethod.POST)
     public ResponseEntity<ChangeOrderResp> saveCoPlantDetails( @RequestBody ChangeOrderReq changeOrderReq ) {
         return new ResponseEntity<ChangeOrderResp>( changeOrderDtlService.saveCoPlantDetails( changeOrderReq ), HttpStatus.OK );
-    }
-    
-    @RequestMapping(value = ProjLibURLConstants.GET_CO_PLANT_DETAILS, method = RequestMethod.POST)
-    public ResponseEntity<ChangeOrderResp> getCoPlantDetails( @RequestBody ChangeOrderReq changeOrderReq ) {
-        return new ResponseEntity<ChangeOrderResp>( changeOrderDtlService.getCoPlantDetails( changeOrderReq ), HttpStatus.OK );
     }
     
     @RequestMapping(value = ProjLibURLConstants.SAVE_CO_MATERIAL_DETAILS, method = RequestMethod.POST)

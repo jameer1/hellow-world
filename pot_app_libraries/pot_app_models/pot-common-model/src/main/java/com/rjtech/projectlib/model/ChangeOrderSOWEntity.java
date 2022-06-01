@@ -87,6 +87,9 @@ public class ChangeOrderSOWEntity implements Serializable {
 	@Column(name = "UPDATED_ON")
 	private Date updatedOn;
 	
+	@ManyToOne
+	@JoinColumn(name = "CO_ID", updatable = false)
+	private ChangeOrderMstrEntity changeOrderMstr;
 
 
 	public Long getId() {
@@ -316,6 +319,16 @@ public class ChangeOrderSOWEntity implements Serializable {
 
 	public void setUpdatedOn(Date updatedOn) {
 		this.updatedOn = updatedOn;
+	}
+
+
+	public ChangeOrderMstrEntity getChangeOrderMstr() {
+		return changeOrderMstr;
+	}
+
+
+	public void setChangeOrderMstr(ChangeOrderMstrEntity changeOrderMstr) {
+		this.changeOrderMstr = changeOrderMstr;
 	}
 	
 	

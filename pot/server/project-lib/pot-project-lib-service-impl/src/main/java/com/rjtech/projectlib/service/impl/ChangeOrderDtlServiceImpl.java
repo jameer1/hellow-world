@@ -1,8 +1,12 @@
 package com.rjtech.projectlib.service.impl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,9 +53,6 @@ public class ChangeOrderDtlServiceImpl implements ChangeOrderDtlService{
 	
 	@Autowired
 	private ChangeOrderRepository changeOrderMstrRepository;
-
-	@Autowired
-	private ChangeOrderMapRepository coMstrMapRepository;
 	
 	@Autowired
 	private EPSProjRepository projRepository;
@@ -69,12 +70,89 @@ public class ChangeOrderDtlServiceImpl implements ChangeOrderDtlService{
 	@Autowired
 	private COProjectPlantsRepository coProjPlantsRepository;
 
-	/*
-	 * public ProjSOEItemResp projSOEApproval( ProjSOEItemGetReq projSOEItemGetReq )
-	 * {
-	 * 
-	 * }
-	 */
+	
+	// This function is to fetch the change order details
+	@Override
+	public ChangeOrderResp getChangeOrderDetails(ChangeOrderReq changeOrderReq) {
+		ChangeOrderResp changeOrderResp = new ChangeOrderResp();
+
+		List<ChangeOrderMstrEntity> changeOrderMstrEntities = new ArrayList<ChangeOrderMstrEntity>();
+		List<Long> projIds = new ArrayList<>();
+		List<Long> coIds = new ArrayList<>();
+		for (ChangeOrderTO coTo : changeOrderReq.getChangeOrderTOs()) {
+			if (coTo.getProjId() != null && coTo.getProjId() > 0)
+				projIds.add(coTo.getProjId());
+			if (coTo.getId() != null && coTo.getId() > 0)
+				coIds.add(coTo.getId());
+		}
+		if (coIds.size() > 0) {
+			changeOrderMstrEntities = changeOrderMstrRepository.findProjsCoDetailsByIds(coIds);
+		} else if (projIds.size() > 0) {
+			changeOrderMstrEntities = changeOrderMstrRepository.findCoDetailsByProjIds(projIds);
+		} else {
+			changeOrderMstrEntities = changeOrderMstrRepository.findAllProjsCoDetails();
+		}
+
+		if (changeOrderMstrEntities.size() > 0) {
+			for (ChangeOrderMstrEntity changeOrderMstrEntity : changeOrderMstrEntities) {
+				changeOrderResp.getChangeOrderTOs()
+						.add(ProjLibServiceHandler.convertChangeOrderEntityToPOJO(changeOrderMstrEntity));
+			}
+		}
+		return changeOrderResp;
+	}
+
+	@Override
+	public ChangeOrderResp getChangeOrderDetailsByCoId(ChangeOrderReq changeOrderReq) {
+		ChangeOrderResp changeOrderResp = new ChangeOrderResp();
+
+		List<Long> coIds = new ArrayList<>();
+		for (ChangeOrderTO coTo : changeOrderReq.getChangeOrderTOs()) {
+			if (coTo.getId() != null && coTo.getId() > 0)
+				coIds.add(coTo.getId());
+		}
+		if (coIds.size() > 0) {
+			List<ChangeOrderMstrEntity> changeOrderMstrEntities = changeOrderMstrRepository.findProjsCoDetailsByIds(coIds);
+			
+			if (changeOrderMstrEntities.size() > 0) {
+				ChangeOrderMstrEntity changeOrderMstrEntity = changeOrderMstrEntities.get(0);
+					changeOrderResp.getChangeOrderTOs().add(ProjLibServiceHandler.convertChangeOrderEntityToPOJO(changeOrderMstrEntity));
+
+					if (CollectionUtils.isNotEmpty(changeOrderMstrEntity.getCoProjCostBudget())) {
+						for (COProjCostBudgetEntity coProjMe : changeOrderMstrEntity.getCoProjCostBudget()) {
+							changeOrderResp.getCoProjCostTOs().add(ProjLibServiceHandler.convertCOCostBudgetPOJO(coProjMe));
+						}
+					}
+
+					if (CollectionUtils.isNotEmpty(changeOrderMstrEntity.getCoProjectMaterialBudget())) {
+						for (COProjectMaterialBudgetEntity coProjMe : changeOrderMstrEntity
+								.getCoProjectMaterialBudget()) {
+							changeOrderResp.getCoMaterialTOs().add(ProjLibServiceHandler.convertCOMaterialBudgetPOJO(coProjMe));
+						}
+					}
+					if (CollectionUtils.isNotEmpty(changeOrderMstrEntity.getChangeOrderSow())) {
+						for (ChangeOrderSOWEntity coProjMe : changeOrderMstrEntity.getChangeOrderSow()) {
+							changeOrderResp.getCoProjSOWTO().add(ProjLibServiceHandler.convertCOSOWPOJO(coProjMe));
+						}
+					}
+
+					if (CollectionUtils.isNotEmpty(changeOrderMstrEntity.getCoProjectPlantsDtl())) {
+						for (COProjectPlantsDtlEntity coProjMe : changeOrderMstrEntity.getCoProjectPlantsDtl()) {
+							changeOrderResp.getCoProjPlantsTOs().add(ProjLibServiceHandler.convertCOPlantPOJO(coProjMe));
+						}
+					}
+
+					if (CollectionUtils.isNotEmpty(changeOrderMstrEntity.getCoProjManpowerEntity())) {
+						for (COProjManpowerEntity coProjMe : changeOrderMstrEntity.getCoProjManpowerEntity()) {
+							changeOrderResp.getCoProjManpowerTOs().add(ProjLibServiceHandler.convertCOManpowerPOJO(coProjMe));
+						}
+					}
+			
+			}
+		}
+		return changeOrderResp;
+	}
+
 	// This function is to save the change order details
 	@Override
 	public ChangeOrderResp saveChangeOrderDetails(ChangeOrderReq changeOrderReq) {
@@ -83,54 +161,32 @@ public class ChangeOrderDtlServiceImpl implements ChangeOrderDtlService{
 		System.out.println("saveChangeOrderDetails function from ProjLibServiceImpl class");
 		for (ChangeOrderTO changeOrderTO : changeOrderReq.getChangeOrderTOs()) {
 			System.out.println(changeOrderTO);
-			changeOrderMstrEntity = new ChangeOrderMstrEntity();
-			ProjMstrEntity projMstrEntity = new ProjMstrEntity();
-			projMstrEntity.setProjectId(changeOrderTO.getProjId());
-			UserMstrEntity userMstrEntity = new UserMstrEntity();
-			userMstrEntity.setUserId(AppUserUtils.getUserId());
-			changeOrderMstrEntity.setContractType(changeOrderTO.getContractType());
-			changeOrderMstrEntity.setCode(generateChangeOrderCode(changeOrderTO.getProjId(), 0L));
-			changeOrderMstrEntity.setProjectId(projMstrEntity);
-			changeOrderMstrEntity.setDescription(changeOrderTO.getDescription());
-			changeOrderMstrEntity.setCreatedBy(userMstrEntity);
-			changeOrderMstrEntity.setApprovalStatus("DRAFT");
-			changeOrderMstrEntity.setReasonForChange(changeOrderTO.getReasonForChange());
-			changeOrderMstrEntity.setStatus(StatusCodes.ACTIVE.getValue());
+			
+			if(changeOrderTO.getId() != null && changeOrderTO.getId()>0 ) {
+				changeOrderMstrEntity = changeOrderMstrRepository.findCoDetailsByProjIds(Arrays.asList(changeOrderTO.getId())).get(0);
+				if(StringUtils.isNotEmpty(changeOrderTO.getApprovalStatus())) 
+					changeOrderMstrEntity.setApprovalStatus(changeOrderTO.getApprovalStatus());
+				if(changeOrderTO.getStatus() != null && changeOrderTO.getStatus()>0)
+					changeOrderMstrEntity.setStatus(changeOrderTO.getStatus());
+			} else {
+				changeOrderMstrEntity = new ChangeOrderMstrEntity();
+				ProjMstrEntity projMstrEntity = new ProjMstrEntity();
+				projMstrEntity.setProjectId(changeOrderTO.getProjId());
+				UserMstrEntity userMstrEntity = new UserMstrEntity();
+				userMstrEntity.setUserId(AppUserUtils.getUserId());
+				changeOrderMstrEntity.setContractType(changeOrderTO.getContractType());
+				changeOrderMstrEntity.setCode(generateChangeOrderCode(changeOrderTO.getProjId(), 0L));
+				changeOrderMstrEntity.setProjectId(projMstrEntity);
+				changeOrderMstrEntity.setDescription(changeOrderTO.getDescription());
+				changeOrderMstrEntity.setCreatedBy(userMstrEntity);
+				changeOrderMstrEntity.setApprovalStatus("DRAFT");
+				changeOrderMstrEntity.setReasonForChange(changeOrderTO.getReasonForChange());
+				changeOrderMstrEntity.setStatus(StatusCodes.ACTIVE.getValue());
+			}
+			
 			changeOrderMstrRepository.save(changeOrderMstrEntity);
 			changeOrderTO.setId(changeOrderMstrEntity.getId());
 			changeOrderResp.getChangeOrderTOs().add(changeOrderTO);
-		}
-		return changeOrderResp;
-	}
-
-	// This function is to fetch the change order details
-	@Override
-	public ChangeOrderResp getChangeOrderDetails(ChangeOrderReq changeOrderReq) {
-		ChangeOrderResp changeOrderResp = new ChangeOrderResp();
-		ChangeOrderTO changeOrderTO = null;
-		ChangeOrderMstrEntity coMstrEntity = null;
-		List<ChangeOrderMstrEntity> changeOrderMstrEntities = new ArrayList<ChangeOrderMstrEntity>();
-		List<Long> projIds = new ArrayList<>();
-		if (changeOrderReq.getChangeOrderTOs().size() != 0) {
-			System.out.println("If condition");
-			for (ChangeOrderTO coTo : changeOrderReq.getChangeOrderTOs()) {
-				projIds.add(coTo.getProjId());
-			}
-			changeOrderMstrEntities = changeOrderMstrRepository.findCoDetailsByProjIds(projIds);
-		} else {
-			System.out.println("else condition");
-			changeOrderMstrEntities = changeOrderMstrRepository.findAllProjsCoDetails();
-		}
-		System.out.println(projIds.size());
-		System.out.println(changeOrderMstrEntities.size());
-		if (changeOrderMstrEntities.size() > 0) {
-			for (ChangeOrderMstrEntity changeOrderMstrEntity : changeOrderMstrEntities) {
-				System.out.println(changeOrderMstrEntity);
-				changeOrderResp.getChangeOrderTOs().add(ProjLibServiceHandler.convertChangeOrderEntityToPOJO(
-						changeOrderMstrEntity, coMstrMapRepository, projManpowerRepositoryCopy));
-			}
-			System.out.println("changeorderresp size:" + changeOrderResp.getChangeOrderTOs().size());
-			System.out.println("changeorderresp manpower size:" + changeOrderResp.getCoProjManpowerTOs().size());
 		}
 		return changeOrderResp;
 	}
@@ -139,14 +195,30 @@ public class ChangeOrderDtlServiceImpl implements ChangeOrderDtlService{
 	public ChangeOrderResp saveCoScopeOfWork(ChangeOrderReq changeOrderReq) {
 		System.out.println("Started save change order sow (-)");
 		ChangeOrderResp changeOrderResp = new ChangeOrderResp();
+		ChangeOrderMstrEntity changeOrderMstrEntity = null;
+		
+		if(CollectionUtils.isNotEmpty(changeOrderReq.getChangeOrderTOs())) {
+			Long coId = changeOrderReq.getChangeOrderTOs().get(0).getId();
+			changeOrderMstrEntity = changeOrderMstrRepository.findProjsCoDetailsByIds(Arrays.asList(coId)).get(0);
+		}
+		
+		UserMstrEntity updatedUserMstrEntity = new UserMstrEntity();
+		updatedUserMstrEntity.setUserId(AppUserUtils.getUserId());
+		
 		for(CoProjSOWTO coProjSOWTo : changeOrderReq.getCoProjSOWTOs()) {
-			ChangeOrderSOWEntity entity = new ChangeOrderSOWEntity();
-			BeanUtils.copyProperties(coProjSOWTo, entity);
-			entity.setStatus(1);
-			UserMstrEntity updatedUserMstrEntity = new UserMstrEntity();
-			updatedUserMstrEntity.setUserId(AppUserUtils.getUserId());
-			entity.setUpdatedBy(updatedUserMstrEntity);
-			entity.setCreatedBy(updatedUserMstrEntity);
+			ChangeOrderSOWEntity entity = null;
+			if(coProjSOWTo.getId() != null && coProjSOWTo.getId() > 0) {
+				entity = changeOrderSOWRepository.findOne(coProjSOWTo.getId());
+				BeanUtils.copyProperties(coProjSOWTo, entity);
+				entity.setUpdatedBy(updatedUserMstrEntity);
+			} else {
+				entity = new ChangeOrderSOWEntity();
+				BeanUtils.copyProperties(coProjSOWTo, entity);
+				entity.setStatus(1);
+				entity.setUpdatedBy(updatedUserMstrEntity);
+				entity.setCreatedBy(updatedUserMstrEntity);
+				entity.setChangeOrderMstr(changeOrderMstrEntity);
+			}
 			changeOrderSOWRepository.save(entity);
 			coProjSOWTo.setId(entity.getId());
 			changeOrderResp.getCoProjSOWTO().add(coProjSOWTo);
@@ -158,15 +230,34 @@ public class ChangeOrderDtlServiceImpl implements ChangeOrderDtlService{
 	public ChangeOrderResp saveCoManpowerDetails(ChangeOrderReq changeOrderReq) {
 		System.out.println("Started save change order plant details(-)");
 		ChangeOrderResp resp = new ChangeOrderResp();
+
+		ChangeOrderMstrEntity changeOrderMstrEntity = null;
+
+		if (CollectionUtils.isNotEmpty(changeOrderReq.getChangeOrderTOs())) {
+			Long coId = changeOrderReq.getChangeOrderTOs().get(0).getId();
+			changeOrderMstrEntity = changeOrderMstrRepository.findProjsCoDetailsByIds(Arrays.asList(coId)).get(0);
+		}
+		
+		UserMstrEntity updatedUserMstrEntity = new UserMstrEntity();
+		updatedUserMstrEntity.setUserId(AppUserUtils.getUserId());
 		
 		for(CoProjManpowerTO coProjManpowerTO : changeOrderReq.getCoProjManpowerTOs()) {
-			COProjManpowerEntity entity = new COProjManpowerEntity();
-			BeanUtils.copyProperties(coProjManpowerTO, entity);
-			entity.setStatus(1);
-			UserMstrEntity updatedUserMstrEntity = new UserMstrEntity();
-			updatedUserMstrEntity.setUserId(AppUserUtils.getUserId());
-			entity.setUpdatedBy(updatedUserMstrEntity);
-			entity.setCreatedBy(updatedUserMstrEntity);
+			COProjManpowerEntity entity  = null;
+			
+			if(coProjManpowerTO.getId() != null && coProjManpowerTO.getId() >0) {
+				entity = pmpRepository.getOne(coProjManpowerTO.getId());
+				BeanUtils.copyProperties(coProjManpowerTO, entity);
+				entity.setUpdatedBy(updatedUserMstrEntity);
+			} else {
+				entity = new COProjManpowerEntity();
+				BeanUtils.copyProperties(coProjManpowerTO, entity);
+				entity.setStatus(1);
+				
+				entity.setUpdatedBy(updatedUserMstrEntity);
+				entity.setCreatedBy(updatedUserMstrEntity);
+				entity.setChangeOrderMstr(changeOrderMstrEntity);
+			}
+			
 			pmpRepository.save(entity);
 			coProjManpowerTO.setId(entity.getId());
 			resp.getCoProjManpowerTOs().add(coProjManpowerTO);
@@ -179,32 +270,117 @@ public class ChangeOrderDtlServiceImpl implements ChangeOrderDtlService{
 	public ChangeOrderResp saveCoPlantDetails(ChangeOrderReq changeOrderReq) {
 		System.out.println("Started save change order plant details(-)");
 		ChangeOrderResp resp = new ChangeOrderResp();
+		ChangeOrderMstrEntity changeOrderMstrEntity = null;
+
+		if (CollectionUtils.isNotEmpty(changeOrderReq.getChangeOrderTOs())) {
+			Long coId = changeOrderReq.getChangeOrderTOs().get(0).getId();
+			changeOrderMstrEntity = changeOrderMstrRepository.findProjsCoDetailsByIds(Arrays.asList(coId)).get(0);
+		}
+		
+		UserMstrEntity updatedUserMstrEntity = new UserMstrEntity();
+		updatedUserMstrEntity.setUserId(AppUserUtils.getUserId());
+		
 		for( CoProjPlantTO coProjPlantsTO : changeOrderReq.getCoProjPlantsTOs()) {
-			COProjectPlantsDtlEntity entity= new COProjectPlantsDtlEntity();
-			BeanUtils.copyProperties(coProjPlantsTO, entity);
-			entity.setStatus(1);
-			UserMstrEntity updatedUserMstrEntity = new UserMstrEntity();
-			updatedUserMstrEntity.setUserId(AppUserUtils.getUserId());
-			entity.setUpdatedBy(updatedUserMstrEntity);
-			entity.setCreatedBy(updatedUserMstrEntity);
+			COProjectPlantsDtlEntity entity = null;
+			
+			if(coProjPlantsTO.getId() != null && coProjPlantsTO.getId() >0 ) {
+				entity = coProjPlantsRepository.getOne(coProjPlantsTO.getId());
+				BeanUtils.copyProperties(coProjPlantsTO, entity);
+				entity.setUpdatedBy(updatedUserMstrEntity);
+			} else {
+				entity = new COProjectPlantsDtlEntity();
+				BeanUtils.copyProperties(coProjPlantsTO, entity);
+				entity.setStatus(1);
+				
+				entity.setUpdatedBy(updatedUserMstrEntity);
+				entity.setCreatedBy(updatedUserMstrEntity);
+				entity.setChangeOrderMstr(changeOrderMstrEntity);
+			}
 			coProjPlantsRepository.save(entity);
 			coProjPlantsTO.setId(entity.getId());
 			resp.getCoProjPlantsTOs().add(coProjPlantsTO);
 		}
 		return resp;
 	}
-
-	@Override
-	public ChangeOrderResp getCoPlantDetails(ChangeOrderReq changeOrderReq) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
 	@Override
-	public ChangeOrderResp getCoManpowerDetails(ChangeOrderReq changeOrderReq) {
-		// TODO Auto-generated method stub
-		return null;
+	public ChangeOrderResp saveCoMaterialDetails(ChangeOrderReq changeOrderReq) {
+		System.out.println("Started save change order material details(-)");
+		ChangeOrderResp resp = new ChangeOrderResp();
+		
+		ChangeOrderMstrEntity changeOrderMstrEntity = null;
+
+		if (CollectionUtils.isNotEmpty(changeOrderReq.getChangeOrderTOs())) {
+			Long coId = changeOrderReq.getChangeOrderTOs().get(0).getId();
+			changeOrderMstrEntity = changeOrderMstrRepository.findProjsCoDetailsByIds(Arrays.asList(coId)).get(0);
+		}
+		
+		UserMstrEntity updatedUserMstrEntity = new UserMstrEntity();
+		updatedUserMstrEntity.setUserId(AppUserUtils.getUserId());
+		
+		for(CoMaterialTO  coMaterialTO : changeOrderReq.getCoMaterialTOs()) {
+			COProjectMaterialBudgetEntity entity = null;
+			
+			if(coMaterialTO.getId() != null && coMaterialTO.getId() >0) {
+				entity = cpmRepository.getOne(coMaterialTO.getId());
+				BeanUtils.copyProperties(coMaterialTO, entity);
+				entity.setUpdatedBy(updatedUserMstrEntity);
+			} else {
+				entity = new COProjectMaterialBudgetEntity();
+				BeanUtils.copyProperties(coMaterialTO, entity);
+				entity.setStatus(1);
+				
+				entity.setUpdatedBy(updatedUserMstrEntity);
+				entity.setCreatedBy(updatedUserMstrEntity);
+				entity.setChangeOrderMstr(changeOrderMstrEntity);
+			}
+			
+			cpmRepository.save(entity);
+			coMaterialTO.setId(entity.getId());
+			resp.getCoMaterialTOs().add(coMaterialTO);
+		}
+		return resp;
+		
 	}
+
+	@Override
+	public ChangeOrderResp saveCoCostDetails(ChangeOrderReq changeOrderReq) {
+		System.out.println("Started save change order cost details(-)");
+		ChangeOrderResp resp = new ChangeOrderResp();
+		
+		ChangeOrderMstrEntity changeOrderMstrEntity = null;
+
+		if (CollectionUtils.isNotEmpty(changeOrderReq.getChangeOrderTOs())) {
+			Long coId = changeOrderReq.getChangeOrderTOs().get(0).getId();
+			changeOrderMstrEntity = changeOrderMstrRepository.findProjsCoDetailsByIds(Arrays.asList(coId)).get(0);
+		}
+		
+		UserMstrEntity updatedUserMstrEntity = new UserMstrEntity();
+		updatedUserMstrEntity.setUserId(AppUserUtils.getUserId());
+		
+		for( CoProjCostTO coProjCostTO : changeOrderReq.getCoProjCostTOs()) {
+			COProjCostBudgetEntity entity = null ;
+			
+			if(coProjCostTO.getId() != null && coProjCostTO.getId() >0 ) {
+				entity = coProjCostBudgetRepository.getOne(coProjCostTO.getId());
+				BeanUtils.copyProperties(coProjCostTO, entity);
+				entity.setUpdatedBy(updatedUserMstrEntity);
+			}else {
+				entity = new COProjCostBudgetEntity();
+				BeanUtils.copyProperties(coProjCostTO, entity);
+				entity.setStatus(1);
+				entity.setUpdatedBy(updatedUserMstrEntity);
+				entity.setCreatedBy(updatedUserMstrEntity);
+				entity.setChangeOrderMstr(changeOrderMstrEntity);
+			}
+			
+			coProjCostBudgetRepository.save(entity);
+			coProjCostTO.setId(entity.getId());
+			resp.getCoProjCostTOs().add(coProjCostTO);
+		}
+		return resp;
+	}
+
 	
 	//TODO:Commented this becoz New Version implemented above
 	// This function is to save the manpower details for the Change Order module
@@ -435,46 +611,6 @@ public class ChangeOrderDtlServiceImpl implements ChangeOrderDtlService{
 			co_code = "CO-" + projDetails.getCode();
 		}
 		return co_code;
-	}
-
-	@Override
-	public ChangeOrderResp saveCoMaterialDetails(ChangeOrderReq changeOrderReq) {
-		System.out.println("Started save change order material details(-)");
-		ChangeOrderResp resp = new ChangeOrderResp();
-		
-		for(CoMaterialTO  coMaterialTO : changeOrderReq.getCoMaterialTOs()) {
-			COProjectMaterialBudgetEntity entity = new COProjectMaterialBudgetEntity();
-			BeanUtils.copyProperties(coMaterialTO, entity);
-			entity.setStatus(1);
-			UserMstrEntity updatedUserMstrEntity = new UserMstrEntity();
-			updatedUserMstrEntity.setUserId(AppUserUtils.getUserId());
-			entity.setUpdatedBy(updatedUserMstrEntity);
-			entity.setCreatedBy(updatedUserMstrEntity);
-			cpmRepository.save(entity);
-			coMaterialTO.setId(entity.getId());
-			resp.getCoMaterialTOs().add(coMaterialTO);
-		}
-		return resp;
-		
-	}
-
-	@Override
-	public ChangeOrderResp saveCoCostDetails(ChangeOrderReq changeOrderReq) {
-		System.out.println("Started save change order cost details(-)");
-		ChangeOrderResp resp = new ChangeOrderResp();
-		for( CoProjCostTO coProjCostTO : changeOrderReq.getCoProjCostTOs()) {
-			COProjCostBudgetEntity entity = new COProjCostBudgetEntity();
-			BeanUtils.copyProperties(coProjCostTO, entity);
-			entity.setStatus(1);
-			UserMstrEntity updatedUserMstrEntity = new UserMstrEntity();
-			updatedUserMstrEntity.setUserId(AppUserUtils.getUserId());
-			entity.setUpdatedBy(updatedUserMstrEntity);
-			entity.setCreatedBy(updatedUserMstrEntity);
-			coProjCostBudgetRepository.save(entity);
-			coProjCostTO.setId(entity.getId());
-			resp.getCoProjCostTOs().add(coProjCostTO);
-		}
-		return resp;
 	}
 
 }

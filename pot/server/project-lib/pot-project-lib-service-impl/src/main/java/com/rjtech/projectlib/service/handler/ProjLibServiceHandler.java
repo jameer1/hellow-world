@@ -1,12 +1,14 @@
 package com.rjtech.projectlib.service.handler;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.rjtech.centrallib.model.EmpClassMstrEntity;
-import com.rjtech.centrallib.service.handler.MeasurementHandler;
+import org.apache.commons.collections.CollectionUtils;
+import org.springframework.beans.BeanUtils;
+
 import com.rjtech.common.constants.CommonConstants;
 import com.rjtech.common.dto.EPSProjectTO;
 import com.rjtech.common.dto.LabelKeyTO;
@@ -14,16 +16,21 @@ import com.rjtech.common.model.UserMstrEntity;
 import com.rjtech.common.utils.CommonUtil;
 import com.rjtech.constants.ApplicationConstants;
 import com.rjtech.eps.model.ProjMstrEntity;
-import com.rjtech.projectlib.ProjManpowerTO;
 import com.rjtech.projectlib.dto.ChangeOrderTO;
-import com.rjtech.projectlib.model.ChangeOrderMapEntity;
+import com.rjtech.projectlib.dto.CoMaterialTO;
+import com.rjtech.projectlib.dto.CoProjCostTO;
+import com.rjtech.projectlib.dto.CoProjManpowerTO;
+import com.rjtech.projectlib.dto.CoProjPlantTO;
+import com.rjtech.projectlib.dto.CoProjSOWTO;
 import com.rjtech.projectlib.model.ChangeOrderMstrEntity;
-import com.rjtech.projectlib.repository.ChangeOrderMapRepository;
+import com.rjtech.projectlib.model.ChangeOrderSOWEntity;
 //import com.rjtech.projectlib.repository.ProjManpowerRepositoryCopy;
 import com.rjtech.projectlib.req.ProjSaveReq;
-import com.rjtech.projschedule.repository.ProjManpowerRepositoryCopy;
-import com.rjtech.projsettings.model.ProjManpowerEntity;
-import com.rjtech.projsettings.service.handler.ProjManpowerHandler;
+import com.rjtech.projectlib.resp.ChangeOrderResp;
+import com.rjtech.projsettings.model.COProjCostBudgetEntity;
+import com.rjtech.projsettings.model.COProjManpowerEntity;
+import com.rjtech.projsettings.model.COProjectMaterialBudgetEntity;
+import com.rjtech.projsettings.model.COProjectPlantsDtlEntity;
 
 public class ProjLibServiceHandler {
 
@@ -80,13 +87,10 @@ public class ProjLibServiceHandler {
         return projectMstrEntity;
     }
 
-    public static ChangeOrderTO convertChangeOrderEntityToPOJO( ChangeOrderMstrEntity changeOrderMstrEntity, ChangeOrderMapRepository changeOrderMapRepo, ProjManpowerRepositoryCopy projManpowerRepo )
+    public static ChangeOrderTO convertChangeOrderEntityToPOJO( ChangeOrderMstrEntity changeOrderMstrEntity )
     {
+    	
     	ChangeOrderTO changeOrderTO = new ChangeOrderTO();
-    	System.out.println("changeordermstr entity id:"+changeOrderMstrEntity.getId());
-    	//List<ChangeOrderMapEntity> changeOrderMapEntities = changeOrderMapRepo.findCoManpowerDetails( changeOrderMstrEntity.getId() );    	
-    	//System.out.println("changeordermap entities size:"+changeOrderMapEntities.size());
-    	List<ProjManpowerTO> projManpowerTOList = new ArrayList<>();
     	    	
     	changeOrderTO.setId( changeOrderMstrEntity.getId() );
 		changeOrderTO.setContractType( changeOrderMstrEntity.getContractType() );
@@ -148,47 +152,43 @@ public class ProjLibServiceHandler {
 			
 			changeOrderTO.setRequestorLabelKeyTO( requestorDetails );
 		}
-		/*for( ChangeOrderMapEntity changeOrderMapEntity : changeOrderMapEntities )
-		{
-			System.out.print("changeordermapentity data:");
-			System.out.println(changeOrderMapEntity.getManpowerId());
-			projManpowerTOList.add( convertCOMapEntityToManpowerPOJO( changeOrderMapEntity.getManpowerId() ) );
-		}
-		System.out.println("size projmanpowerto:"+projManpowerTOList.size());*/
-		//List<ProjManpowerTO> projManpowerTOList = ProjManpowerHandler.convertEntityToPOJO( projManpowerRepo.findOne( changeOrderMapEntity.getManpowerId() ) );
-		changeOrderTO.setProjManpowerTOs( projManpowerTOList );
+		
+		
 		return changeOrderTO;
     }
     
-    public static ProjManpowerTO convertCOMapEntityToManpowerPOJO( ProjManpowerEntity entity )
+    public static CoProjManpowerTO convertCOManpowerPOJO( COProjManpowerEntity entity )
     {
-        ProjManpowerTO projManpowerTO = new ProjManpowerTO();
-        projManpowerTO.setId(entity.getId());
-        if (CommonUtil.objectNotNull(entity.getProjMstrEntity()))
-            projManpowerTO.setProjId(entity.getProjMstrEntity().getProjectId());
-
-        projManpowerTO.setOriginalQty( entity.getOriginalQty() );
-        projManpowerTO.setRevisedQty( entity.getRevisedQty() );
-        projManpowerTO.setEstimateComplete( entity.getEstimateComplete() );
-        projManpowerTO.setProjEmpCategory( entity.getProjEmpCategory() );
-        if (CommonUtil.isNotBlankDate(entity.getStartDate())) {
-            projManpowerTO.setStartDate(CommonUtil.convertDateToString(entity.getStartDate()));
-        }
-        if (CommonUtil.isNotBlankDate(entity.getFinishDate())) {
-            projManpowerTO.setFinishDate(CommonUtil.convertDateToString(entity.getFinishDate()));
-        }
-        EmpClassMstrEntity empClass = entity.getEmpClassMstrEntity();
-        if( CommonUtil.objectNotNull( empClass ) ) {
-            projManpowerTO.setEmpClassId( empClass.getId() );
-            projManpowerTO.setEmpClassTO( ProjManpowerHandler.convertEmpClassEntityToPOJO( empClass ) );
-        }
-        if( CommonUtil.objectNotNull( entity.getMeasurmentMstrEntity() ) ) {
-            projManpowerTO.setMeasureId( entity.getMeasurmentMstrEntity().getId() );
-            projManpowerTO.setMeasureUnitTO( MeasurementHandler.convertMeasurePOJOFromEnity( entity.getMeasurmentMstrEntity() ) );
-        }
-
-        projManpowerTO.setStatus(entity.getStatus());
-        projManpowerTO.setItemStatus( entity.getItemStatus() );            
+    	CoProjManpowerTO projManpowerTO = new CoProjManpowerTO();
+        BeanUtils.copyProperties(entity, projManpowerTO);
         return projManpowerTO;        
+    }
+    
+    public static CoProjPlantTO convertCOPlantPOJO( COProjectPlantsDtlEntity entity )
+    {
+    	CoProjPlantTO coProjPlantTO = new CoProjPlantTO();
+        BeanUtils.copyProperties(entity, coProjPlantTO);
+        return coProjPlantTO;        
+    }
+    
+    public static CoMaterialTO convertCOMaterialBudgetPOJO( COProjectMaterialBudgetEntity entity )
+    {
+    	CoMaterialTO coMaterialTO = new CoMaterialTO();
+        BeanUtils.copyProperties(entity, coMaterialTO);
+        return coMaterialTO;        
+    }
+    
+    public static CoProjSOWTO convertCOSOWPOJO( ChangeOrderSOWEntity entity )
+    {
+    	CoProjSOWTO coProjSOWTO = new CoProjSOWTO();
+        BeanUtils.copyProperties(entity, coProjSOWTO);
+        return coProjSOWTO;        
+    }
+    
+    public static CoProjCostTO convertCOCostBudgetPOJO( COProjCostBudgetEntity entity )
+    {
+    	CoProjCostTO coProjCostTO = new CoProjCostTO();
+        BeanUtils.copyProperties(entity, coProjCostTO);
+        return coProjCostTO;        
     }
 }

@@ -1,8 +1,13 @@
 package com.rjtech.projectlib.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,12 +16,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.rjtech.common.model.UserMstrEntity;
 import com.rjtech.eps.model.ProjMstrEntity;
+import com.rjtech.projsettings.model.COProjCostBudgetEntity;
+import com.rjtech.projsettings.model.COProjManpowerEntity;
+import com.rjtech.projsettings.model.COProjectMaterialBudgetEntity;
+import com.rjtech.projsettings.model.COProjectPlantsDtlEntity;
 
 /**
  * The persistent class for the change_order_mstr database table.
@@ -82,6 +92,22 @@ CO_PURCHASE_ORDER_ID                      VARCHAR2(150)
     
     @Column(name = "STATUS")
     private Integer status;
+    
+    
+    @OneToMany(mappedBy = "changeOrderMstr", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<ChangeOrderSOWEntity> ChangeOrderSow = new HashSet<ChangeOrderSOWEntity>();
+    
+    @OneToMany(mappedBy = "changeOrderMstr", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<COProjCostBudgetEntity> coProjCostBudget = new HashSet<COProjCostBudgetEntity>();
+    
+    @OneToMany(mappedBy = "changeOrderMstr", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<COProjectMaterialBudgetEntity> coProjectMaterialBudget = new HashSet<COProjectMaterialBudgetEntity>();
+    
+    @OneToMany(mappedBy = "changeOrderMstr", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<COProjectPlantsDtlEntity> coProjectPlantsDtl = new HashSet<COProjectPlantsDtlEntity>();
+    
+    @OneToMany(mappedBy = "changeOrderMstr", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<COProjManpowerEntity> coProjManpowerEntity = new HashSet<COProjManpowerEntity>();
 
     
     public Long getId() {
@@ -195,6 +221,46 @@ CO_PURCHASE_ORDER_ID                      VARCHAR2(150)
     public void setStatus( Integer status ) {
         this.status = status;
     }
+
+	public Set<ChangeOrderSOWEntity> getChangeOrderSow() {
+		return ChangeOrderSow;
+	}
+
+	public void setChangeOrderSow(Set<ChangeOrderSOWEntity> changeOrderSow) {
+		ChangeOrderSow = changeOrderSow;
+	}
+
+	public Set<COProjCostBudgetEntity> getCoProjCostBudget() {
+		return coProjCostBudget;
+	}
+
+	public void setCoProjCostBudget(Set<COProjCostBudgetEntity> coProjCostBudget) {
+		this.coProjCostBudget = coProjCostBudget;
+	}
+
+	public Set<COProjectMaterialBudgetEntity> getCoProjectMaterialBudget() {
+		return coProjectMaterialBudget;
+	}
+
+	public void setCoProjectMaterialBudget(Set<COProjectMaterialBudgetEntity> coProjectMaterialBudget) {
+		this.coProjectMaterialBudget = coProjectMaterialBudget;
+	}
+
+	public Set<COProjectPlantsDtlEntity> getCoProjectPlantsDtl() {
+		return coProjectPlantsDtl;
+	}
+
+	public void setCoProjectPlantsDtl(Set<COProjectPlantsDtlEntity> coProjectPlantsDtl) {
+		this.coProjectPlantsDtl = coProjectPlantsDtl;
+	}
+
+	public Set<COProjManpowerEntity> getCoProjManpowerEntity() {
+		return coProjManpowerEntity;
+	}
+
+	public void setCoProjManpowerEntity(Set<COProjManpowerEntity> coProjManpowerEntity) {
+		this.coProjManpowerEntity = coProjManpowerEntity;
+	}
     
    /* public String toString() {
     	return " id:"+id+" code:"+code+" status:"+status+" internalApproverUserId:"+this.internalApproverUserId.getUserId();

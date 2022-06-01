@@ -20,6 +20,7 @@ import com.rjtech.centrallib.model.MeasurmentMstrEntity;
 import com.rjtech.centrallib.model.PlantMstrEntity;
 import com.rjtech.common.model.UserMstrEntity;
 import com.rjtech.eps.model.ProjMstrEntity;
+import com.rjtech.projectlib.model.ChangeOrderMstrEntity;
 
 @Entity
 @Table(name = "co_project_plants_dtl")
@@ -66,6 +67,10 @@ public class COProjectPlantsDtlEntity implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "UPDATED_ON")
     private Date updatedOn;
+    
+    @ManyToOne
+	@JoinColumn(name = "CO_ID", updatable = false)
+	private ChangeOrderMstrEntity changeOrderMstr;
 
 	public Long getId() {
 		return id;
@@ -169,6 +174,14 @@ public class COProjectPlantsDtlEntity implements Serializable {
 
 	public void setUpdatedOn(Date updatedOn) {
 		this.updatedOn = updatedOn;
+	}
+
+	public ChangeOrderMstrEntity getChangeOrderMstr() {
+		return changeOrderMstr;
+	}
+
+	public void setChangeOrderMstr(ChangeOrderMstrEntity changeOrderMstr) {
+		this.changeOrderMstr = changeOrderMstr;
 	}
     
 }

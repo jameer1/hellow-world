@@ -13,11 +13,14 @@ import com.rjtech.projectlib.model.ChangeOrderMstrEntity;
 @Repository
 public interface ChangeOrderRepository extends JpaRepository<ChangeOrderMstrEntity, Long> {
 	
-	@Query("SELECT CO FROM ChangeOrderMstrEntity CO WHERE CO.projectId.projectId in :projectIds and CO.status=1")
+	@Query("SELECT CO FROM ChangeOrderMstrEntity CO WHERE CO.projectId.projectId in (:projectIds) and CO.status=1")
 	List<ChangeOrderMstrEntity> findCoDetailsByProjIds( @Param("projectIds") List<Long> projectIds );
 	
 	@Query("SELECT CO FROM ChangeOrderMstrEntity CO WHERE CO.status=1")
 	List<ChangeOrderMstrEntity> findAllProjsCoDetails();
+	
+	@Query("SELECT CO FROM ChangeOrderMstrEntity CO WHERE CO.status=1 and ( ?1 is null or CO.id in (?1)) ")
+	List<ChangeOrderMstrEntity> findProjsCoDetailsByIds(List<Long> ids);
 	
 	@Modifying
     @Query("UPDATE ChangeOrderMstrEntity CO SET CO.approvalStatus=:approvalStatus,CO.isExternalApprovalRequired=:isExternalApprovalRequired,CO.internalApproverUserId.userId=:approverUserId,CO.originatorUserId.userId=:requestorUserId where CO.id=:coId")

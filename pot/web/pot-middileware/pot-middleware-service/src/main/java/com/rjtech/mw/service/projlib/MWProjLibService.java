@@ -199,13 +199,9 @@ public interface MWProjLibService {
     ChangeOrderResp getChangeOrderDetails( ChangeOrderReq changeOrderReq );
     
     ChangeOrderResp saveCoManpowerDetails( ChangeOrderReq changeOrderReq );
-    
-    ChangeOrderResp getCoManpowerDetails( ChangeOrderReq changeOrderReq );
-    
+        
     ChangeOrderResp saveCoPlantDetails( ChangeOrderReq changeOrderReq );
-    
-    ChangeOrderResp getCoPlantDetails( ChangeOrderReq changeOrderReq );
-    
+        
     ChangeOrderResp updateCoApproverDetails( ChangeOrderReq changeOrderReq );
     
     ProjSOETrackLogResp saveProjSOETrackDetails(ProjSOETrackSaveReq projSOETrackSaveReq);
@@ -219,4 +215,6 @@ public interface MWProjLibService {
 	ChangeOrderResp saveCoMaterialDetails(ChangeOrderReq changeOrderReq);
 
 	ChangeOrderResp saveCoCostDetails(ChangeOrderReq changeOrderReq);
+
+	ChangeOrderResp getChangeOrderDetailsByCoId(ChangeOrderReq changeOrderReq);
 }

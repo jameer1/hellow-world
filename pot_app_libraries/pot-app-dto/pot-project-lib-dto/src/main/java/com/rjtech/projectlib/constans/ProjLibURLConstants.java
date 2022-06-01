@@ -171,7 +171,7 @@ public class ProjLibURLConstants implements Serializable {
     public final static String SAVE_CO_COST_DETAILS = "saveCoCostDetails";
     
     public final static String SAVE_CO_MANPOWER_DETAILS = "saveCoManpowerDetails";
-    public final static String GET_CO_MANPOWER_DETAILS = "getCoManpowerDetails";
+    public final static String GET_CO_DETAILS_BY_CO_ID = "getChangeOrderDetailsByCoId";
     public final static String SAVE_CO_PLANT_DETAILS = "saveCoPlantDetails";
     public final static String GET_CO_PLANT_DETAILS = "getCoPlantDetails";
     public final static String UPDATE_CO_APPROVER_DETAILS = "updateCoApproverDetails";

@@ -17,6 +17,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.rjtech.common.model.UserMstrEntity;
+import com.rjtech.projectlib.model.ChangeOrderMstrEntity;
 
 @Entity
 @Table(name = "CO_PROJECT_COST_BUDGET")
@@ -97,6 +98,10 @@ public class COProjCostBudgetEntity implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "UPDATED_ON")
     private Date updatedOn;
+    
+    @ManyToOne
+	@JoinColumn(name = "CO_ID", updatable = false)
+	private ChangeOrderMstrEntity changeOrderMstr;
 
 	public Long getId() {
 		return id;
@@ -328,6 +333,14 @@ public class COProjCostBudgetEntity implements Serializable {
 
 	public void setUpdatedOn(Date updatedOn) {
 		this.updatedOn = updatedOn;
+	}
+
+	public ChangeOrderMstrEntity getChangeOrderMstr() {
+		return changeOrderMstr;
+	}
+
+	public void setChangeOrderMstr(ChangeOrderMstrEntity changeOrderMstr) {
+		this.changeOrderMstr = changeOrderMstr;
 	}
     
     

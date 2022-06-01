@@ -1,13 +1,12 @@
 package com.rjtech.projectlib.dto;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Date;
+import java.util.List;
 
+import com.rjtech.common.dto.LabelKeyTO;
 import com.rjtech.common.dto.ProjectTO;
 import com.rjtech.projectlib.ProjManpowerTO;
-import com.rjtech.common.dto.LabelKeyTO;
 public class ChangeOrderTO extends ProjectTO {
     private static final long serialVersionUID = 2950084862079755848L;
 

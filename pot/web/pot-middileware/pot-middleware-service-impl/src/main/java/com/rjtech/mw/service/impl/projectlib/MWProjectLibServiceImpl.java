@@ -833,10 +833,10 @@ public class MWProjectLibServiceImpl extends RestConfigServiceImpl implements MW
         strResponse = constructPOSTRestTemplate( url, AppUtils.toJson( changeOrderReq ) );
         return AppUtils.fromJson( strResponse.getBody(), ChangeOrderResp.class );
     }
-    
-    public ChangeOrderResp getCoManpowerDetails( ChangeOrderReq changeOrderReq ) {
+    @Override
+    public ChangeOrderResp getChangeOrderDetailsByCoId( ChangeOrderReq changeOrderReq ) {
         ResponseEntity<String> strResponse = null;
-        String url = getProjectLibExchangeUrl( ProjLibURLConstants.PARH_URL + ProjLibURLConstants.GET_CO_MANPOWER_DETAILS );
+        String url = getProjectLibExchangeUrl( ProjLibURLConstants.PARH_URL + ProjLibURLConstants.GET_CO_DETAILS_BY_CO_ID );
         strResponse = constructPOSTRestTemplate( url, AppUtils.toJson( changeOrderReq ) );
         return AppUtils.fromJson( strResponse.getBody(), ChangeOrderResp.class );
     }
@@ -844,13 +844,6 @@ public class MWProjectLibServiceImpl extends RestConfigServiceImpl implements MW
     public ChangeOrderResp saveCoPlantDetails( ChangeOrderReq changeOrderReq ) {
         ResponseEntity<String> strResponse = null;
         String url = getProjectLibExchangeUrl( ProjLibURLConstants.PARH_URL + ProjLibURLConstants.SAVE_CO_PLANT_DETAILS );
-        strResponse = constructPOSTRestTemplate( url, AppUtils.toJson( changeOrderReq ) );
-        return AppUtils.fromJson( strResponse.getBody(), ChangeOrderResp.class );
-    }
-    
-    public ChangeOrderResp getCoPlantDetails( ChangeOrderReq changeOrderReq ) {
-        ResponseEntity<String> strResponse = null;
-        String url = getProjectLibExchangeUrl( ProjLibURLConstants.PARH_URL + ProjLibURLConstants.GET_CO_PLANT_DETAILS );
         strResponse = constructPOSTRestTemplate( url, AppUtils.toJson( changeOrderReq ) );
         return AppUtils.fromJson( strResponse.getBody(), ChangeOrderResp.class );
     }
