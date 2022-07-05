@@ -26,7 +26,10 @@ import com.rjtech.common.resp.UserModulePermissionResp;
 import com.rjtech.common.utils.AppUtils;
 import com.rjtech.common.utils.CommonUtil;
 import com.rjtech.common.utils.StatusCodes;
+import com.rjtech.common.utils.UploadUtil;
 import com.rjtech.constants.ApplicationConstants;
+import com.rjtech.document.model.ProjDocFolderEntity;
+import com.rjtech.document.repository.ProjDocFolderRepository;
 import com.rjtech.projectlib.service.EPSProjService;
 import com.rjtech.rjs.appuser.utils.AppUserUtils;
 import com.rjtech.role.req.RoleGetReq;
@@ -34,6 +37,7 @@ import com.rjtech.role.service.RoleService;
 import com.rjtech.user.dto.ClientRegTO;
 import com.rjtech.user.dto.UserTO;
 import com.rjtech.user.req.ActionReq;
+import com.rjtech.user.req.ChangePasswordRequest;
 import com.rjtech.user.req.ClientGetReq;
 import com.rjtech.user.req.ClientRegReq;
 import com.rjtech.user.req.ClientReq;
@@ -45,6 +49,7 @@ import com.rjtech.user.req.UserProjGetReq;
 import com.rjtech.user.req.UserProjSaveReq;
 import com.rjtech.user.req.UserSaveReq;
 import com.rjtech.user.req.userOnLoadReq;
+import com.rjtech.user.resp.ChangePasswordResponse;
 import com.rjtech.user.resp.ClientRegResp;
 import com.rjtech.user.resp.EmailSettingResp;
 import com.rjtech.user.resp.UserOnLoadResp;
@@ -52,9 +57,6 @@ import com.rjtech.user.resp.UserProjResp;
 import com.rjtech.user.resp.UserResp;
 import com.rjtech.user.resp.UsersByClientResp;
 import com.rjtech.user.service.UserService;
-import com.rjtech.document.repository.ProjDocFolderRepository;
-import com.rjtech.common.utils.UploadUtil;
-import com.rjtech.document.model.ProjDocFolderEntity;
 
 @RestController
 @RequestMapping(AdminURLConstants.USER_PARH_URL)
@@ -299,6 +301,15 @@ public class UserController {
         UserResp userResp = userService.getUsers(clientReq);
         userResp.cloneAppResp(CommonUtil.getActiveAppResp());
         return new ResponseEntity<UserResp>(userResp, HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = AdminURLConstants.CHANGE_PASSWORD, method = RequestMethod.POST)
+    public ResponseEntity<ChangePasswordResponse> getClients(@RequestBody ChangePasswordRequest changePasswordRequest, HttpServletResponse resp) {
+    	
+    	System.out.println("sssteppp 3 inside the USERRESTTT controller");
+
+        resp.setHeader("Access-Control-Allow-Origin", "*");
+        return new ResponseEntity<ChangePasswordResponse>(userService.changePassword(changePasswordRequest), HttpStatus.OK);
     }
 
 }

@@ -5,6 +5,7 @@ import com.rjtech.common.resp.UserModulePermissionResp;
 import com.rjtech.user.dto.ClientRegTO;
 import com.rjtech.user.dto.UserTO;
 import com.rjtech.user.req.ActionReq;
+import com.rjtech.user.req.ChangePasswordRequest;
 import com.rjtech.user.req.ClientGetReq;
 import com.rjtech.user.req.ClientRegReq;
 import com.rjtech.user.req.ClientReq;
@@ -14,6 +15,7 @@ import com.rjtech.user.req.EmailSettingSaveReq;
 import com.rjtech.user.req.UserDeleteReq;
 import com.rjtech.user.req.UserProjSaveReq;
 import com.rjtech.user.req.UserSaveReq;
+import com.rjtech.user.resp.ChangePasswordResponse;
 import com.rjtech.user.resp.ClientRegResp;
 import com.rjtech.user.resp.EmailSettingResp;
 import com.rjtech.user.resp.UserResp;
@@ -60,4 +62,6 @@ public interface UserService {
     ClientRegTO getClientById(Long clientId);
 
     public void activateUsers(UserDeleteReq userDeleteReq);
+    
+    public ChangePasswordResponse changePassword(ChangePasswordRequest changePasswordRequest);
 }

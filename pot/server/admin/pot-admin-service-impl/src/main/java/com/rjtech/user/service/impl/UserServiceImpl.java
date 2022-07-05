@@ -2,11 +2,13 @@ package com.rjtech.user.service.impl;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Properties;
-import java.util.logging.Logger;
+import java.util.Random;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -21,6 +23,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ObjectUtils;
 
 import com.rjtech.admin.repository.ApplicationGlobalSettingRepository;
 import com.rjtech.common.constants.CommonConstants;
@@ -53,6 +56,7 @@ import com.rjtech.user.repository.ClientRepository;
 import com.rjtech.user.repository.UserProjectsRepository;
 import com.rjtech.user.repository.UserRepository;
 import com.rjtech.user.req.ActionReq;
+import com.rjtech.user.req.ChangePasswordRequest;
 import com.rjtech.user.req.ClientGetReq;
 import com.rjtech.user.req.ClientRegReq;
 import com.rjtech.user.req.ClientReq;
@@ -62,13 +66,13 @@ import com.rjtech.user.req.EmailSettingSaveReq;
 import com.rjtech.user.req.UserDeleteReq;
 import com.rjtech.user.req.UserProjSaveReq;
 import com.rjtech.user.req.UserSaveReq;
+import com.rjtech.user.resp.ChangePasswordResponse;
 import com.rjtech.user.resp.ClientRegResp;
 import com.rjtech.user.resp.EmailSettingResp;
 import com.rjtech.user.resp.UserResp;
 import com.rjtech.user.resp.UsersByClientResp;
 import com.rjtech.user.service.UserService;
 import com.rjtech.user.service.handler.UserServiceHandler;
-import org.slf4j.Logger.*;
 @Service(value = "userService")
 @RJSService(modulecode = "userService")
 @Transactional
@@ -538,5 +542,97 @@ public class UserServiceImpl implements UserService {
     public void activateUsers(UserDeleteReq userDeleteReq) {
         userRepository.activateUsers(userDeleteReq.getUserIds(), userDeleteReq.getStatus());
     }
+
+	public ChangePasswordResponse changePassword(ChangePasswordRequest changePasswordRequest) {
+    	System.out.println("sssteppp 4  inside the USERRESTAPIIII ServiceImpl");
+    	
+    	ChangePasswordResponse obj = new ChangePasswordResponse();
+    	
+		Random otp = new Random();
+		int nextInt = otp.nextInt(999999);
+		System.out.println("reeeeequessttt data"+changePasswordRequest.toString());
+		
+		//checking the email is valid or not
+    	if(changePasswordRequest.getEmail()!=null&&changePasswordRequest.getOtp()==null) {
+        List<UserEntity> findClientByUserEmail = userRepository.findClientByUserEmail(changePasswordRequest.getEmail());
+        System.out.println("thissss iss the user "+findClientByUserEmail);
+    	
+        if(ObjectUtils.isEmpty(findClientByUserEmail)) {
+    		obj.setMessage("Please Enter a valid email address");
+    		return obj;
+    	}
+        else {
+        	System.out.println("Innnnssssssside the sendddd email");
+        	String originalInput = String.valueOf(nextInt);
+        	String encodedString = Base64.getEncoder().encodeToString(originalInput.getBytes());
+        	System.out.println("TTTThiiiiiiiiiiiis is before the senddd email String   "+encodedString);
+        	
+        	sendEmailForReset(changePasswordRequest.getEmail(),nextInt);
+        	System.out.println("TTTTTThis isssss the encccoded strrrrring"+encodedString);
+        	obj.setEncodedValue(encodedString);
+        	obj.setMessage("OTP send successfully");
+        	return obj;
+        }
+        
+    	}
+    	///resettinggg the password!!
+    	if(changePasswordRequest.getOtp()!=null && changePasswordRequest.getEmail()!=null ) {
+    		System.out.println("INNNNNNsiddde the ottp null checkersss");
+    		byte[] decodedBytes = Base64.getDecoder().decode(changePasswordRequest.getEncodeOtp());
+    		String decodedString = new String(decodedBytes);
+    		
+    		System.out.println("TTTTTTThis isssthedecoded ssstring "+decodedString);
+    		
+    		if(changePasswordRequest.getOtp()- Integer.valueOf(decodedString)==0) {
+    	        List<UserEntity> findClientByUserEmail = userRepository.findClientByUserEmail(changePasswordRequest.getEmail());
+    	        Optional<UserEntity> findFirst = findClientByUserEmail.stream().findFirst();
+                UserEntity userEntity = findFirst.get();
+    			userRepository.updatePasswords(userEntity.getUserId(),changePasswordRequest.getPassword());
+    		
+    			obj.setMessage("Password reset successfully");	
+    			return obj;
+    		}
+    		
+    		else {
+    			obj.setMessage("OTP mismatch please valid one");
+    			return obj;
+    		}
+    		
+    	}
+		//return "PPPPPlease reessettt the pweeed";
+    	return obj;
+    	
+	}
+	
+	
+	@Async
+    private void sendEmailForReset(String email, Integer otp ) {
+        JavaMailSenderImpl sender = new JavaMailSenderImpl();
+        sender.setHost("mail.rajutech.com");
+        sender.setPort(587);
+        sender.setUsername("rtadmin@rajutech.com");
+        sender.setPassword("RTadmin@2018");
+
+        Properties javaMailProperties = new Properties();
+        javaMailProperties.put("mail.smtp.starttls.enable", "true");
+        javaMailProperties.put("mail.smtp.auth", "true");
+        javaMailProperties.put("mail.transport.protocol", "smtp");
+        javaMailProperties.put("mail.debug", "true");
+
+        sender.setJavaMailProperties(javaMailProperties);
+        MimeMessage message = sender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+        try {
+            helper.setFrom("rtadmin@rajutech.com");
+            helper.setTo(email);
+            helper.setText("Please enter the otp "+otp);
+            helper.setSubject("Forgot Password");
+            sender.send(message);
+        } catch (MailException e) {
+            log.error("Mail Exception ", e);
+        } catch (MessagingException e) {
+            log.error("Messaging Exception ", e);
+        }
+    }  
 
 }
