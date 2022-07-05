@@ -26,8 +26,8 @@ app
 		$rootScope.moduleId = null;
 		$rootScope.moduleState = null;
 		$scope.stylesSvc = stylesService;
-
-		$scope.showSearchBar = false;
+    	$scope.showSearchBar = false;
+		$rootScope.changePasswordData = null;
 
 		let searchPages = potSearchService.searchPages;
 
@@ -86,6 +86,8 @@ app
 				$scope.authenticated.usrAuthSuccess = 'Y';
 				setLocalStorageLoginSuccess(true);
 				getNotificationCount();
+				$rootScope.changePasswordData = account ;
+				
 			}, function(err){
 				$scope.account = null;
 				$rootScope.account = null;

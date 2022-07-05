@@ -15,6 +15,7 @@ import com.rjtech.user.req.ClientReq;
 import com.rjtech.user.req.EmailSettingDelReq;
 import com.rjtech.user.req.EmailSettingGetReq;
 import com.rjtech.user.req.EmailSettingSaveReq;
+import com.rjtech.user.req.UserChangePwdReq;
 import com.rjtech.user.req.UserDeleteReq;
 import com.rjtech.user.req.UserProjGetReq;
 import com.rjtech.user.req.UserProjSaveReq;
@@ -72,5 +73,7 @@ public interface MWUserService {
     ResponseEntity<ByteArrayResource> getClientMailTemplate(Long clientId);
 
     ResponseEntity<UserTO> findByUserId(long userId);
+
+	UserResp ChangeUserPassword(UserChangePwdReq userChangePwdReq);
 
 }

@@ -59,6 +59,7 @@ import com.rjtech.user.req.ClientReq;
 import com.rjtech.user.req.EmailSettingDelReq;
 import com.rjtech.user.req.EmailSettingGetReq;
 import com.rjtech.user.req.EmailSettingSaveReq;
+import com.rjtech.user.req.UserChangePwdReq;
 import com.rjtech.user.req.UserDeleteReq;
 import com.rjtech.user.req.UserProjSaveReq;
 import com.rjtech.user.req.UserSaveReq;
@@ -538,5 +539,16 @@ public class UserServiceImpl implements UserService {
     public void activateUsers(UserDeleteReq userDeleteReq) {
         userRepository.activateUsers(userDeleteReq.getUserIds(), userDeleteReq.getStatus());
     }
-
-}
+    
+    @Override
+	public void ChangeUserPassword(UserChangePwdReq userChangePwd) {
+		// TODO Auto-generated method stub
+		
+	System.out.println("..."+userChangePwd.getOldPwd()+"otp"+userChangePwd.getUserId());
+      	    	
+    if((userChangePwd.getOldPwd()!=userChangePwd.getCurrentPwd()) && (userChangePwd.getCurrentPwd()!=null))
+   	 {
+   	 userRepository.ChangeUserPassword(userChangePwd.getUserId(),userChangePwd.getCurrentPwd());
+   	 }
+    }
+}   

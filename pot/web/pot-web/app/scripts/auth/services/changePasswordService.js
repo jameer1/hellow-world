@@ -8,12 +8,13 @@
 app.factory('changePasswordService', ["Restangular", function(Restangular) {
 	return {
 		changeUserPassword : function(req) {
-			var costcode = Restangular.one("user/changeUserPassword").customPOST(req,
+			console.log(req)
+			var status = Restangular.one("/user/changeUserPassword").customPOST(req,
 					'', {}, {
 						ContentType : 'application/json'
 					});
-			return costcode;
-		}
+			return status;
+		},
 	}
 
 }]);

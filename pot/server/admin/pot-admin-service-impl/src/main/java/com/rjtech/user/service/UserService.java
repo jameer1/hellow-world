@@ -11,6 +11,7 @@ import com.rjtech.user.req.ClientReq;
 import com.rjtech.user.req.EmailSettingDelReq;
 import com.rjtech.user.req.EmailSettingGetReq;
 import com.rjtech.user.req.EmailSettingSaveReq;
+import com.rjtech.user.req.UserChangePwdReq;
 import com.rjtech.user.req.UserDeleteReq;
 import com.rjtech.user.req.UserProjSaveReq;
 import com.rjtech.user.req.UserSaveReq;
@@ -60,4 +61,7 @@ public interface UserService {
     ClientRegTO getClientById(Long clientId);
 
     public void activateUsers(UserDeleteReq userDeleteReq);
+    
+    public void ChangeUserPassword(UserChangePwdReq userChangePwd);
+    
 }

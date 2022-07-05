@@ -67,5 +67,10 @@ public class AdminURLConstants implements Serializable {
     public final static String GET_EMAILSERVICE_MAP = "getEmailServiceMap";
 
     public final static String SAVE_DEFAULT_CLIENT_DATA = "saveDefaultClientData";
+    
+    //=======changepwd
+    
+    public final static String CHANGE_USER_PASSWORD = "changeUserPassword";
+    
 
 }

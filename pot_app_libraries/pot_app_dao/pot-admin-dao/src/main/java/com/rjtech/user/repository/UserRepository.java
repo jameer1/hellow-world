@@ -53,4 +53,8 @@ public interface UserRepository extends AdminRepository<UserEntity, Long> {
     @Query("UPDATE UserEntity USR SET USR.status=:status WHERE USR.userId in :activeUserIds")
     public void activateUsers(@Param("activeUserIds") List<Long> userIds, @Param("status") Integer status);
 
+    @Modifying
+    @Query("UPDATE UserEntity USR SET USR.password=:currentPwd WHERE USR.userId in :activeUserId")
+  	public void ChangeUserPassword(@Param("activeUserId") Long userId, @Param("currentPwd") String currentPwd);
+
 }

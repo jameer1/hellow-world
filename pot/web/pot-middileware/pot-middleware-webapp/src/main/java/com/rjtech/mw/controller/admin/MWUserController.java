@@ -28,6 +28,7 @@ import com.rjtech.user.req.ClientReq;
 import com.rjtech.user.req.EmailSettingDelReq;
 import com.rjtech.user.req.EmailSettingGetReq;
 import com.rjtech.user.req.EmailSettingSaveReq;
+import com.rjtech.user.req.UserChangePwdReq;
 import com.rjtech.user.req.UserDeleteReq;
 import com.rjtech.user.req.UserProjGetReq;
 import com.rjtech.user.req.UserProjSaveReq;
@@ -169,5 +170,13 @@ public class MWUserController {
     public void saveDefaultClientData(@RequestParam("clientId") Long clientId) {
         mwProjLibService.saveDefaultProjLeaveTypes(clientId);
     }
+    
+    @RequestMapping(value = AdminURLConstants.CHANGE_USER_PASSWORD, method = RequestMethod.POST)
+    public ResponseEntity<UserResp> ChangeUserPassword(@RequestBody UserChangePwdReq userChangePwdReq) {
+        return new ResponseEntity<UserResp>(mwUserService.ChangeUserPassword(userChangePwdReq), HttpStatus.OK);
+
+    }
+    
+    
 
 }

@@ -26,6 +26,7 @@ import com.rjtech.user.req.ClientReq;
 import com.rjtech.user.req.EmailSettingDelReq;
 import com.rjtech.user.req.EmailSettingGetReq;
 import com.rjtech.user.req.EmailSettingSaveReq;
+import com.rjtech.user.req.UserChangePwdReq;
 import com.rjtech.user.req.UserDeleteReq;
 import com.rjtech.user.req.UserProjGetReq;
 import com.rjtech.user.req.UserProjSaveReq;
@@ -205,5 +206,13 @@ public class MWUserServiceImpl extends RestConfigServiceImpl implements MWUserSe
         strResponse = constructPOSTRestTemplate(url, "");
         return new ResponseEntity<>(AppUtils.fromJson(strResponse.getBody(), UserTO.class), HttpStatus.OK);
     }
+
+	@Override
+	public UserResp ChangeUserPassword(UserChangePwdReq userChangePwdReq) {
+		 ResponseEntity<String> strResponse = null;
+	        String url = getAdminExchangeUrl(AdminURLConstants.USER_PARH_URL + AdminURLConstants.CHANGE_USER_PASSWORD);
+	        strResponse = constructPOSTRestTemplate(url, AppUtils.toJson(userChangePwdReq));
+	        return AppUtils.fromJson(strResponse.getBody(), UserResp.class);
+	}
 
 }

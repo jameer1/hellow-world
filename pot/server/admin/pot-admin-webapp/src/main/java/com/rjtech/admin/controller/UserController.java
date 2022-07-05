@@ -40,6 +40,7 @@ import com.rjtech.user.req.ClientReq;
 import com.rjtech.user.req.EmailSettingDelReq;
 import com.rjtech.user.req.EmailSettingGetReq;
 import com.rjtech.user.req.EmailSettingSaveReq;
+import com.rjtech.user.req.UserChangePwdReq;
 import com.rjtech.user.req.UserDeleteReq;
 import com.rjtech.user.req.UserProjGetReq;
 import com.rjtech.user.req.UserProjSaveReq;
@@ -300,5 +301,19 @@ public class UserController {
         userResp.cloneAppResp(CommonUtil.getActiveAppResp());
         return new ResponseEntity<UserResp>(userResp, HttpStatus.OK);
     }
+    
+    @PostMapping(value = AdminURLConstants.CHANGE_USER_PASSWORD)
+    public ResponseEntity<UserResp> ChangeUserPassword(@RequestBody UserChangePwdReq userChangePwdReq) {
+
+        userService.ChangeUserPassword(userChangePwdReq);
+
+        ClientReq clientReq = new ClientReq();
+        clientReq.setStatus(StatusCodes.ACTIVE.getValue());
+
+        UserResp userResp = userService.getUsers(clientReq);
+        userResp.cloneAppResp(CommonUtil.getActiveAppResp());
+        return new ResponseEntity<UserResp>(userResp, HttpStatus.OK);
+    }
+    
 
 }
