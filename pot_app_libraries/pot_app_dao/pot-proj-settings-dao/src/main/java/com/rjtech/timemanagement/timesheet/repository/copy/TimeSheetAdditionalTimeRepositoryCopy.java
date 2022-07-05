@@ -14,7 +14,7 @@ import com.rjtech.timemanagement.timesheet.model.TimeSheetAdditionalTimeEntity;
 @Repository
 public interface TimeSheetAdditionalTimeRepositoryCopy extends JpaRepository<TimeSheetAdditionalTimeEntity, Long> {
 
-    @Query("SELECT T FROM TimeSheetAdditionalTimeEntity T WHERE (T.projCrewMstrEntity.projId.projectId=:projId) AND (T.notificationStatus=:notificationStatus) "
+    @Query("SELECT T FROM com.rjtech.timemanagement.timesheet.model.TimeSheetAdditionalTimeEntity T WHERE (T.projCrewMstrEntity.projId.projectId=:projId) AND (T.notificationStatus=:notificationStatus) "
             + "AND (T.notificationMsg=:notificationMsg) AND (T.status=:status)")
     List<TimeSheetAdditionalTimeEntity> findTimeSheetNotificationsByStatus(@Param("projId") Long projId,
             @Param("notificationStatus") String notificationStatus, @Param("notificationMsg") String notificationMsg,
