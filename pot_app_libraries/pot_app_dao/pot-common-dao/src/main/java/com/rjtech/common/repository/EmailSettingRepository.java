@@ -28,5 +28,9 @@ public interface EmailSettingRepository extends JpaRepository<EmailSettingEntity
     @Query("SELECT EMS FROM EmailSettingEntity EMS where EMS.clientId.clientId=:clientId AND EMS.status=:status")
     public List<EmailSettingEntity> findEmailSettingsByClient(@Param("clientId") Long clientId,
             @Param("status") Integer status);
+    
+    @Modifying
+    @Query("update EmailSettingEntity EMS set EMS.status=2 where EMS.clientId.clientId=:clientId")
+    public void deactivateEmailSettingsByClientId(@Param("clientId") Long clientId);
 
 }
