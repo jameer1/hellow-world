@@ -22,6 +22,7 @@ import com.rjtech.mw.service.user.MWUserService;
 import com.rjtech.user.dto.ClientRegTO;
 import com.rjtech.user.dto.UserTO;
 import com.rjtech.user.req.ActionReq;
+import com.rjtech.user.req.ChangePasswordRequest;
 import com.rjtech.user.req.ClientGetReq;
 import com.rjtech.user.req.ClientRegReq;
 import com.rjtech.user.req.ClientReq;
@@ -34,6 +35,7 @@ import com.rjtech.user.req.UserProjGetReq;
 import com.rjtech.user.req.UserProjSaveReq;
 import com.rjtech.user.req.UserSaveReq;
 import com.rjtech.user.req.userOnLoadReq;
+import com.rjtech.user.resp.ChangePasswordResponse;
 import com.rjtech.user.resp.ClientRegResp;
 import com.rjtech.user.resp.EmailSettingResp;
 import com.rjtech.user.resp.UserOnLoadResp;
@@ -177,6 +179,11 @@ public class MWUserController {
 
     }
     
+    @RequestMapping(value = AdminURLConstants.CHANGE_PASSWORD, method = RequestMethod.POST)
+    public ResponseEntity<ChangePasswordResponse> getClients(@RequestBody ChangePasswordRequest changePasswordRequest) {
+    	System.out.println("sssteppp 1 inside the middddleware controller");
+        return new ResponseEntity<ChangePasswordResponse>(mwUserService.changePassword(changePasswordRequest), HttpStatus.OK);
+    }
     
 
 }

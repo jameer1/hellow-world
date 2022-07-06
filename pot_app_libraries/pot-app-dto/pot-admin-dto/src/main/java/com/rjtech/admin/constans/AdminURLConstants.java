@@ -58,6 +58,8 @@ public class AdminURLConstants implements Serializable {
     public final static String SUCCESS = "Success";
 
     public final static String FAILURE = "Failure";
+    
+    public final static String CHANGE_PASSWORD = "changePassword";
 
     // ================================AdminMapUrlConstants==================================================
 
