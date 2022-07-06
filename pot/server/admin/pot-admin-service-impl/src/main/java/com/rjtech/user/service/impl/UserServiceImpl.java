@@ -31,6 +31,7 @@ import com.rjtech.common.repository.LoginRepository;
 import com.rjtech.common.req.UserGetReq;
 import com.rjtech.common.resp.UserModulePermissionResp;
 import com.rjtech.common.service.handler.EmailSettingHandler;
+import com.rjtech.common.utils.AppUtils;
 import com.rjtech.common.utils.CommonUtil;
 import com.rjtech.common.utils.UserTypes;
 import com.rjtech.document.repository.EmpRegisterRepositoryCpy;
@@ -289,6 +290,10 @@ public class UserServiceImpl implements UserService {
     }
 
     public void saveEmailSettings(EmailSettingSaveReq emailSettingSaveReq) {
+    	Long clientId = AppUserUtils.getClientId();
+    	//deactivating the old email settings
+    	 emailSettingRepository.deactivateEmailSettingsByClientId(clientId);
+    	
         List<EmailSettingEntity> emailSettingEntities = new ArrayList<EmailSettingEntity>();
         for (EmailSettingTO emailSettingTO : emailSettingSaveReq.getEmailSettingTOs()) {
             emailSettingEntities.add(EmailSettingHandler.converPOJOToEntity(emailSettingTO));
