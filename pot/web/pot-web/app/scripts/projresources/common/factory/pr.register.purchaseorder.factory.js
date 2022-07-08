@@ -1,5 +1,5 @@
 'use strict';
-app.factory('RegisterPurchaseOrderFactory', ["ngDialog", "$q", "$filter", "$timeout", "$rootScope", "GenericAlertService", "PlantRegisterService","ChangeOrdersService", function(ngDialog, $q, $filter, $timeout, $rootScope, GenericAlertService, PlantRegisterService,ChangeOrdersService) {
+app.factory('RegisterPurchaseOrderFactory', ["ngDialog", "$q", "$filter", "$timeout", "$rootScope", "GenericAlertService", "PlantRegisterService", function(ngDialog, $q, $filter, $timeout, $rootScope, GenericAlertService, PlantRegisterService) {
 	var plantPurchaseOrderPopUp;
 	var service = {};
 	service.plantPurchaseOrderPopUp = function(projectPurchaseOrderDetails) {
@@ -25,15 +25,16 @@ app.factory('RegisterPurchaseOrderFactory', ["ngDialog", "$q", "$filter", "$time
 	},
 
 	service.getProjectPODetails = function(req) {
-		var coreq=req.data;
+		/*var coreq=req.data;
 		var req1 = {
 			"status": 1,
 			"projId": coreq[0].projId,
 			"preContractType":coreq[0].preContractType
 		}
-		console.log(req1)
+		console.log(req1)*/
 		var deferred = $q.defer();
-		ChangeOrdersService.getCoMainDetails(req1).then(function(data) {
+		
+		/* ChangeOrdersService.getCoMainDetails(req1).then(function(data) {
 			console.log(data)
 			if (data.labelKeyTOs != undefined && data.labelKeyTOs.length > 0) {
 				var plantPurchaseOrderDetails = [];
@@ -57,7 +58,8 @@ app.factory('RegisterPurchaseOrderFactory', ["ngDialog", "$q", "$filter", "$time
 			
 		});
 	        //Old code
-/*		var projectPODetailsPromise = PlantRegisterService.getPlantProjectPODetails(req);
+*/
+		var projectPODetailsPromise = PlantRegisterService.getPlantProjectPODetails(req);
 		projectPODetailsPromise.then(function(data) {
 			if (data.labelKeyTOs != undefined && data.labelKeyTOs.length > 0) {
 				var plantPurchaseOrderDetails = [];
@@ -79,7 +81,7 @@ app.factory('RegisterPurchaseOrderFactory', ["ngDialog", "$q", "$filter", "$time
 
 		}, function(error) {
 			GenericAlertService.alertMessage("Error occured while getting purchase order details", "Error");
-		});*/
+		});
 		return deferred.promise;
 	}
 

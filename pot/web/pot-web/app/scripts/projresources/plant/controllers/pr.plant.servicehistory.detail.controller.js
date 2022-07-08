@@ -52,6 +52,7 @@ app.config(["$stateProvider", function($stateProvider) {
 			$scope.plantServiceDtlTable = false;
 			$scope.plantServiceClassMap = data.plantServiceClassMap;
 			$scope.plantServiceHistoryTOs = data.plantServiceHistoryTOs;
+			$scope.gridOptions.data=angular.copy($scope.plantServiceHistoryTOs);
 			$scope.plantServiceDtlTable = true;
 		}, function(error) {
 			GenericAlertService.alertMessage("Error occurred while fetching plant service history details", 'Error');

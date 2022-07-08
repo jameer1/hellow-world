@@ -116,6 +116,32 @@ app.factory('CompanyContactFactory',	["ngDialog", "$q", "$filter", "blockUI", "$
 										GenericAlertService.alertMessage(	'Please leave atleast one row',"Warning");
 									}
 								}
+								
+								$scope.Duplicate=function(val){
+									console.log("Duplicate Contact Name");
+										for(var i=0; i<data.length; i++){
+										if(data[i].contactName == val){
+											console.log("hello")
+											GenericAlertService.alertMessage('Duplicate Contacts are not allowed',"Warning");
+										}
+									}
+								}
+								$scope.Duplicate1=function(val){
+									console.log("Duplicate Email");
+										for(var i=0; i<data.length; i++){
+										if(data[i].email == val){
+											GenericAlertService.alertMessage('Duplicate Email are not allowed',"Warning");
+										}
+									}
+								}
+								$scope.Duplicate2=function(val){
+									console.log("Duplicate mobile number");
+										for(var i=0; i<data.length; i++){
+										if(data[i].mobile == val){
+											GenericAlertService.alertMessage('Duplicate Mobile Number are not allowed',"Warning");
+										}
+									}
+								}
 					} ]
 		});
 						return deferred.promise;

@@ -201,7 +201,7 @@ app.config(["$stateProvider", function($stateProvider) {
 									DocumentService.saveProjDocFolders(folderReq).then(function(data) {
 										blockUI.stop();
 										if (data.status != null && data.status !== undefined && data.status === 'Info') {
-											var succMsg = GenericAlertService.alertMessageModal('Folders(s) popup are saved successfully ',"Info");
+											var succMsg = GenericAlertService.alertMessageModal('Folders(s) are saved successfully ',"Info");
 											succMsg.then(function() {
 												$scope.closeThisDialog();
 	

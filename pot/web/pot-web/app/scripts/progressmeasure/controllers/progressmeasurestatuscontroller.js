@@ -144,7 +144,7 @@ app.config(["$stateProvider", function ($stateProvider) {
 
 
 		$scope.projTabs = [{
-			title: '	Progress Measure',
+			title: '	Based On Schedule Of Rates Contract',
 			url: 'views/projectstatus/progressmeasure.html',
 			appCodeTemplateKey: 'PRJ_PROGRESS_MEASURE_VIEW',
 			SelenumLocator: 'Projects_ProjectStatus_ProgressMeasureTab'

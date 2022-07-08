@@ -21,8 +21,8 @@ app.config(["$stateProvider", function($stateProvider) {
 			}
 		}
 	})
-}]).controller('EPSProjectController', ["$scope", "$state", "$q", "ngDialog", "EpsService", "blockUI", "ProjEmpClassService", "GenericAlertService",
-	"UserEPSProjectService", "ProjectSettingsService", "TreeService", "ProjectStatusService", "CalendarService", function($scope, $state, $q, ngDialog, EpsService, blockUI,
+}]).controller('EPSProjectController', ["$scope", "$state","$filter", "$q", "ngDialog", "EpsService", "blockUI", "ProjEmpClassService", "GenericAlertService",
+	"UserEPSProjectService", "ProjectSettingsService", "TreeService", "ProjectStatusService", "CalendarService", function($scope, $state, $filter, $q, ngDialog, EpsService, blockUI,
 		ProjEmpClassService, GenericAlertService, UserEPSProjectService, ProjectSettingsService, TreeService, ProjectStatusService, CalendarService) {
 		$scope.epsData = [];
 		$scope.calendarList = [];
@@ -257,10 +257,18 @@ app.config(["$stateProvider", function($stateProvider) {
 								return;
 							}
 						}
-
+                        var duplicate = false;
 						$scope.checkDuplicate = function(item) {
 							item.duplicateFlag = false;
 							item.projCode = item.projCode ? item.projCode : item.projCode.toUpperCase();
+							for(var i=0;i<$scope.parent.childProjs[0].childProjs.length;i++){
+								if($scope.parent.childProjs[0].childProjs[i].projCode.toUpperCase()==item.projCode.toUpperCase()){
+									item.duplicateFlag = true;
+									duplicate = true;
+									GenericAlertService.alertMessage('Duplicate eps projects are not allowed', "Warning");
+									return;
+								}
+							}
 							if ($scope.parent.childProjs) {
 								angular.forEach($scope.parent.childProjs, function(data) {
 									if (item.projId != data.projId && item.projCode == data.projCode) {
@@ -303,6 +311,10 @@ app.config(["$stateProvider", function($stateProvider) {
 								});
 								if (dupProjs) {
 									GenericAlertService.alertMessage(dupProjNames + ' are duplicated. Duplicate Eps Projects are not allowed', "Warning");
+									return;
+								}
+								if (duplicate) {
+									GenericAlertService.alertMessage('Duplicate Eps Projects are not allowed', "Warning");
 									return;
 								}
 

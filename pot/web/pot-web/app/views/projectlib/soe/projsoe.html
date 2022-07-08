@@ -1,5 +1,5 @@
 <section class="content-header">
-		<h1>Schedule of Estimate Quantities</h1>	
+		<h1>Schedule of Estimate</h1>	
 		<!-- <input type="submit" value ="Help !"
 		ng-click="helpPage();" class="pull-right btn  btn-primary btn-sm help-each-page"> -->
 	<button class="pull-right btn btn-primary btn-sm help-each-page" 
@@ -46,12 +46,12 @@
 						<thead id="tab-head">
 							<tr>
 								<th class="justify-center">Select</th>
-								<th>SOE ID</th>
-								<th>SOE Name</th>
-								<th>Unit of Measure</th>
-								<th class="justify-right">Estimated Quantity</th>
-								<th class="justify-right">Man Hours</th>
-								<th class="justify-center">Comments</th>
+								<th  class="justify-center">SOE ID</th>
+								<th  class="justify-center">SOE Name</th>
+								<th  class="justify-center">Unit of Measure</th>
+								<th  class="justify-center">Estimated Quantity</th>
+								<th  class="justify-center">Man Hours</th>
+								<th  class="justify-center">Comments</th>
 								<!-- <th><input type="button" class="btn btn-primary btn-sm" value="Return" ng-click="projSOESubmission('INTERNAL','SUBMIT')" ng-disabled="disableBtns.disableInternalSubmitBtn"></th> -->
 								<th class="justify-center">&nbsp;&nbsp;&nbsp;</th>
 							</tr>
@@ -73,13 +73,13 @@
 									<i class="fa fa-edit fa-fw" ng-show="tab.level==0 && !tab.item && account.appCodeTemplate['PRJ_PRJLIB_SCHEDOFESTQTY_ADD'] && disableEditValues"
 									 data-test='Projects_ProjectLibrary_SOE_Edit' ng-click="editSOEDetails('Edit',tab,searchProject.projId)" title="Edit SOE"> </i>
 								</td>
-								<td>{{tab.name}}</td>
-								<td>{{tab.measureUnitTO.name}}</td>
-								<td class="justify-right">{{tab.quantity | number:2}}</td>
-								<td class="justify-right">{{tab.manHours | number:2}}</td>
+								<td  class="justify-center">{{tab.name}}</td>
+								<td  class="justify-center">{{tab.measureUnitTO.name}}</td>
+								<td class="justify-center">{{tab.quantity | number:2}}</td>
+								<td class="justify-center">{{tab.manHours | number:2}}</td>
 								<td class="justify-center"><span class="fa fa-comment fa-flip-horizontal" ng-show="(tab.item)" aria-hidden="true" name="comment" flip="horizontal"
 									 ng-click="show(tab.comments)" role="button" tabindex="0" title="Comments"></span></td>
-								<td ng-show="true"><input type="button" value="Return" class="btn btn-primary" ng-disabled="disableBtns.displayReturnBtn" ng-click="returnWithComments(tab)" ng-show="tab.item"/></td>						
+								<td  class="justify-center" ng-show="true"><input type="button" value="Return" class="btn btn-primary" ng-disabled="disableBtns.displayReturnBtn" ng-click="returnWithComments(tab)" ng-show="tab.item"/></td>						
 							</tr>
 						</tbody>
 					</table>

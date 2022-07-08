@@ -1072,6 +1072,7 @@ app.config(["$stateProvider", function ($stateProvider) {
 		calendarPopup.then(function (data) {
 			$scope.activeFlag = data.type;
 			$scope.generalValues.globalCalenderTO = data.CalendarTO;
+			$scope.generalValues.projCalenderTO = data.CalendarTO;
 		}, function (error) {
 			GenericAlertService.alertMessage("Error occured while getting Store Delivery Details", 'Error');
 		});

@@ -38,7 +38,11 @@ app.config(["$stateProvider", function($stateProvider) {
 		if (actionType == 'Edit' && editResource <= 0) {
 			GenericAlertService.alertMessage("Please select atleast one row to modify", 'Warning');
 			return;
-		} else {
+		}
+		 else {
+			 if(actionType == 'Add'){
+			editResource=$scope.resourcecurves;
+		   }
 			var resourceDetails = ResourceCurveFactory.resourcePopUpDetails(actionType, editResource);
 			resourceDetails.then(function(data) {
 				$scope.resourcecurves = data.projResourceCurveTOs;

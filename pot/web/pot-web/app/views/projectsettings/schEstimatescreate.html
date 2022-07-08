@@ -15,7 +15,7 @@
 					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
 							<md-input-container class="md-block">
 								<label>{{works.apprType}} Cut off Hours</label>
-								<input type="number" data-test="{{works.apprType}}_Projects_ProjectSettings_ScheduleEstimatesTab_Cutoffhours" ng-model="works.cutOffHours" class="form-control" name="hours" min="0" max="24" ng-required="true">
+								<input type="number" data-test="{{works.apprType}}_Projects_ProjectSettings_ScheduleEstimatesTab_Cutoffhours" ng-model="works.cutOffHours" class="form-control" name="hours" min="0" max="23" ng-required="true">
 							    <span ng-show="estimatesForm.hours.$error.max">You reached max length</span>
 							</md-input-container>
 					</div>

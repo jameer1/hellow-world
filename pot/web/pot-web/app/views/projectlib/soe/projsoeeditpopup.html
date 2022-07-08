@@ -45,16 +45,19 @@
 											<input data-test='Projects_ProjectLibrary_SOE_Create_GroupId' type="text"
 												ng-if="tab.level <= 0" autocomplete="off"
 												placeholder="{{tab.item ? 'Item ID' : 'SOE Group ID'}}" name="soeId"
-												maxlength=50 ng-model="tab.code" class="form-control" ng-required="true"
-												pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))>
+												maxlength=50  class="form-control" ng-required="true"
+												pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+												ng-change="coChange(tab)"  ng-model="tab.code" >
 											<input data-test='Projects_ProjectLibrary_SOE_Create_SubGroupId' type="text"
 												ng-if="tab.level >  0" autocomplete="off"
 												placeholder="{{tab.item ? 'Item ID' : 'SOE Sub Group ID'}}" name="soeId"
-												maxlength=50 ng-model="tab.code" class="form-control" ng-required="true"
-												pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))>
+												maxlength=50  class="form-control" ng-required="true"
+												pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
+												ng-change="coChange(tab)" ng-model="tab.code" >
 											<div style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="soeForm1.soeId.$touched && soeForm1.soeId.$error.required">This Field is Mandatory</div>
-											<div style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="(!(soeForm1.soeId.$touched && soeForm1.soeId.$error.required)) && tab.codeErrorMessage">{{tab.codeErrorMessage}}</div>
-										</div>
+									<span style="padding-left:5px;color: rgb(212, 61, 61) !important;" class="procurment-pot-errors" ng-show="soeForm1.soeId.$dirty && soeForm1.soeId.$error.pattern">At Least One Alphabet is Mandatory</span>
+									<div style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="(!(soeForm1.soeId.$touched && soeForm1.soeId.$error.required)) && tab.codeErrorMessage">{{tab.codeErrorMessage}}</div>
+									</div>
 										<span data-test='Projects_ProjectLibrary_SOE_Create_SubGroupIcon'
 											ng-click="addSOESubGroup(tab,searchProject.projId,$index)"
 											ng-hide="tab.item || tab.level > 9" class="fa fa-plus-square"

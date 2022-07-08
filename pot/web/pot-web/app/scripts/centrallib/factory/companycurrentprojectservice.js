@@ -95,6 +95,11 @@ app.factory('CompanyCurrentProjectsFactory', ["ngDialog", "$q", "$filter", "bloc
 							if (data[i].projCode == value.projCode && data[i].contractValue == value.contractValue && data[i].startDate == value.startDate && data[i].finishDate == value.finishDate && data[i].performance == value.performance) {
 								flag = true;
 							}
+						}
+						for (var i=0;i<editProjs.length;i++){
+							if(editProjs[i].projCode == valuee.projCode && editProjs[i].contractValue == value.contractValue && editProjs[i].startDate == value.startDate && editProjs[i].finishDate == value.finishDate && editProjs[i].performance == value.performance ){
+								flag = true;
+							}
 						}	
 					})
 					if (flag) {

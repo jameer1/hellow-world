@@ -1071,7 +1071,7 @@ app.config(["$stateProvider", function($stateProvider) {
  $scope.$watch(function () { return stylesService.finishedStyling; }, function (newValue, oldValue) {
 		if (newValue) {
 			let columnDefs = [
-				{  name: 'select',width:'5%',cellClass:'justify-center',headerCellClass:'justify-center',
+				{  name: 'select1',width:'5%',cellClass:'justify-center',headerCellClass:'justify-center',
 				   cellTemplate: linkCellTemplate, 
 				   displayName: "Select", headerTooltip : "Select", groupingShowAggregationMenu: false},
 				{ name: 'cmpCode',displayName:'Company ID',headerTooltip: "Company ID", cellTemplate: '<div ng-click="grid.appScope.getCmpAddress(row.entity.id)" class="ngCellText">&nbsp{{row.entity.cmpCode}}</div>', groupingShowAggregationMenu: false},				

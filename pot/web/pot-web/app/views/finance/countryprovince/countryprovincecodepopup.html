@@ -23,7 +23,7 @@
 							<td><select class="form-control" data-test="CountryProvinceCodes_CountryCode"
 									ng-options="coun.countryCode as coun.isoAlpha3 for coun in countries"
 									placeholder="Country" ng-init="getCountries(item);"
-									ng-change="getCountryDetailsById(item,$index);" ng-model="item.countryCode" ng-required="true" >
+									ng-change="getCountryDetailsById(item,$index);" ng-model="item.countryCode" ng-required="true" ng-change="checkDuplicate(item.countryCode)" >
 									<option value="">-select-</option>
 								</select>
 							</td>
@@ -32,7 +32,7 @@
 							</td>
 							<td><select class="form-control" data-test="CountryProvinceCodes_Country_Province"
 									ng-options="provision.name as provision.name for provision in item.provisionTOs"
-									ng-model="item.provisionName" ng-required="true"><option value="">-select-</option></select> </td>
+									ng-model="item.provisionName" ng-required="true" ng-change="checkDuplicate1(item.provisionName)"><option value="">-select-</option></select> </td>
 							<td style="text-align: center"><input type="submit" class="btn  btn-primary btn-sm" value="Add/Edit" name="startdate" data-test="CountryProvinceCodes_FinancialYear_AddEdit"
 									ng-click="addFinancialYear(item)" required/></td>
 							<td style="text-align: center"><input type="submit" class="btn  btn-primary btn-sm" value="Add/Edit" data-test="CountryProvinceCodes_FinancialHalfYear_AddEdit"

@@ -393,6 +393,40 @@ app.config(["$stateProvider", function($stateProvider) {
 					var soeData = [];
 					$scope.itemId1 = 1;
 					$scope.isExpand1 = true;
+					$scope.coChange = function(entry) {
+						let isValid = true;
+						//console.log($scope.editSOEData)
+						//console.log($scope.SOEData)
+						if (entry.code != null) {
+							if (entry.id) {
+								if ($scope.SOEData.find(e => e.code != null && e.code.toLowerCase().replace(/\s/g, "") == entry.code.toLowerCase().replace(/\s/g, "") && e.id != entry.id) != null) {
+									console.log(e.code)
+									entry.codeErrorMessage = entry.code + ' is already in use (case insensitive)';
+									isValid = isValid && false;
+								}
+								else {
+									entry.codeErrorMessage = "";
+									isValid = isValid && true;
+								}
+							} else {
+								if ($scope.SOEData.find(e => e.code != null && e.code.toLowerCase().replace(/\s/g, "") == entry.code.toLowerCase().replace(/\s/g, "")) != null) {
+									entry.codeErrorMessage = entry.code + ' is already in use (case insensitive)';
+									isValid = isValid && false;
+								}
+								else {
+									entry.codeErrorMessage = "";
+									isValid = isValid && true;
+								}
+								let count = 0;
+								for (let i = 0; i < ($scope.editSOEData.length) - 1; i++)
+									if ($scope.editSOEData[i].code.toLowerCase() == entry.code.toLowerCase()) count++;
+								if (count > 1) {
+									entry.codeErrorMessage = entry.code + ' is already in use (case insensitive)';
+									isValid = isValid && false;
+								}
+							}
+						}
+					}
 					$scope.projSoePopupItemClick = function (item, expand) {
 						TreeService.dynamicTreeItemClick($scope.editSOEData, item, expand);
 					};
@@ -578,26 +612,37 @@ app.config(["$stateProvider", function($stateProvider) {
 								isValid = isValid && false;
 							}
 						}
-						if (entry.code != null) {
+						/*if (entry.code != null) {
 							if (entry.id) {
-				    			if (projectSoeList.find(e => e.code.toLowerCase().replace(/\s/g, "") == entry.code.toLowerCase().replace(/\s/g, "") && e.id != entry.id) != null) {
+				    			if (projectSoeList.find(e => e.code != null && e.code.toLowerCase().replace(/\s/g, "") == entry.code.toLowerCase().replace(/\s/g, "") && e.id != entry.id) != null) {
+									//GenericAlertService.alertMessage(entry.code + ' is already in use (case insensitive)', 'Warning');
 				    				entry.codeErrorMessage = entry.code + ' is already in use (case insensitive)';
 				    				isValid = isValid && false;
 				    			}
+				    			else{
+								    entry.codeErrorMessage = null;
+				    				isValid = isValid && true;
+									}
 				    		} else {
-				    			if (projectSoeList.find(e => e.code.toLowerCase().replace(/\s/g, "") == entry.code.toLowerCase().replace(/\s/g, "")) != null) {
+				    			if (projectSoeList.find(e =>e.code != null &&  e.code.toLowerCase().replace(/\s/g, "") == entry.code.toLowerCase().replace(/\s/g, "")) != null) {
+									//GenericAlertService.alertMessage(entry.code + ' is already in use (case insensitive)', 'Warning');
 				    				entry.codeErrorMessage = entry.code + ' is already in use (case insensitive)';
 				    				isValid = isValid && false;
 				    			}
+				    			else{
+								    entry.codeErrorMessage = "";
+				    				isValid = isValid && true;
+									}
 				    			let count = 0;
 				    			for (let i=0; i<(currentSoeList.length)-1; i++)
 				    				if (currentSoeList[i].code.toLowerCase() == entry.code.toLowerCase()) count++;
 				    			if (count > 1) {
+									//GenericAlertService.alertMessage(entry.code + ' is already in use (case insensitive)', 'Warning');
 				    				entry.codeErrorMessage = entry.code + ' is already in use (case insensitive)';
 				    				isValid = isValid && false;
 				    			}
 				    		}
-						}
+						}*/
 						return isValid;
 					};
 				}]

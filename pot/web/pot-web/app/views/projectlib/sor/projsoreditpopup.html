@@ -38,19 +38,20 @@
 										ng-show="!tab.item && !tab.expand" class="fa fa-plus" style="margin-top:14px;">
 									</span>
 									<i class="fa fa-leaf" ng-show="tab.item" style="margin-top:14px;"></i>
-									<div style="width:70%;">
+									<div style="width:82%;">
 									<input data-test='Projects_ProjectLibrary_SOR_Create_GroupId' type="text"
 										ng-if="tab.level <= 0" placeholder="{{tab.item ? 'Item ID' : 'SOR Group ID'}}"
-										name="sorId" maxlength="50" ng-model="tab.code"
+										name="sorId" maxlength="50" 
 										class="form-control" pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
-										ng-required="true" autocomplete="off">
+										ng-required="true" autocomplete="off" ng-change="coChange1(tab)" ng-model="tab.code">
 									<input data-test='Projects_ProjectLibrary_SOR_Create_SubGroupId' type="text"
 										ng-if="tab.level >  0" class="form-control"
 										placeholder="{{tab.item ? 'Item ID' : 'SOR Sub Group ID'}}" name="sorId"
-										maxlength="50" ng-model="tab.code" autocomplete="off"
+										maxlength="50" autocomplete="off"
 										pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
-										ng-required="true">
-									<div ng-show="sorForm1.sorId.$touched && sorForm1.sorId.$error.required" style="color: red!important;">This Field is Mandatory</div>
+										ng-required="true" ng-change="coChange1(tab)" ng-model="tab.code" >
+									<span ng-show="sorForm1.sorId.$touched && sorForm1.sorId.$error.required" style="color: red!important;">This Field is Mandatory</span>
+									<span style="padding-left:5px;color: rgb(212, 61, 61) !important;" class="procurment-pot-errors" ng-show="sorForm1.sorId.$dirty && sorForm1.sorId.$error.pattern">At Least One Alphabet is Mandatory</span>
 									<div style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="(!(sorForm1.sorId.$touched && sorForm1.sorId.$error.required)) && tab.codeErrorMessage">{{tab.codeErrorMessage}}</div>
 									</div>
 									<span data-test='Projects_ProjectLibrary_SOR_Create_SubGroupIcon'
@@ -86,6 +87,7 @@
 										pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*)) ng-model="tab.name"
 										ng-required="true">
 									<span style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="sorForm2.itemName.$touched && sorForm2.itemName.$error.required">This Field is Mandatory</span>
+									<span style="padding-left:5px;color: rgb(212, 61, 61) !important;" class="procurment-pot-errors" ng-show="sorForm2.itemName.$dirty && sorForm2.itemName.$error.pattern">At Least One Alphabet is Mandatory</span>
 									<span style="padding-left:5px;color: rgb(212, 61, 61) !important;" ng-show="(!(sorForm2.itemName.$touched && sorForm2.itemName.$error.required)) && tab.nameErrorMessage">{{tab.nameErrorMessage}}</span>
 								</td>
 								<td ng-form name='sorFormUom'>

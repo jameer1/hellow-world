@@ -44,7 +44,7 @@
 							<label>Calendar</label>
 							<input type="text"  ng-model="generalValues.projCalenderTO.name"
 								ng-disabled="generalValues.primaveraIntegration == 'Yes'"
-								ng-click="selectCalendars(globalCalenderTO,generalValues.projCalenderTO);" readonly />
+								ng-click="selectCalendars(generalValues.globalCalenderTO,generalValues.projCalenderTO);" readonly />
 							<span ng-show="generalFrm.calender.$touched && generalFrm.calender.$error.required"
 								class="procurment-pot-errors">This field is mandatory</span>
 						</md-input-container>
@@ -54,10 +54,10 @@
 							<label>Standard Hours/Day</label>
 							<input data-test='Projects_ProjectSettings_GeneralValuesTab_DefaultHoursPerDay'
 								type="number" name="defHrs" class="form-control" name="hours" ng-required="true"
-								ng-model="generalValues.defualtHrs" min="0" max="24">
+								ng-model="generalValues.defualtHrs" min="0" max="23">
 							<span ng-show="generalFrm.hours.$error.min || generalFrm.hours.$error.max"
 								class="procurment-pot-errors">
-								The value must be in range 0 to 24</span>
+								The value must be in range 0 to 23</span>
 							<span ng-show="generalFrm.defHrs.$touched && generalFrm.defHrs.$error.required"
 								class="procurment-pot-errors">This field is mandatory</span>
 						</md-input-container>
@@ -71,10 +71,10 @@
 							<label>Max Hours/Day</label>
 							<input data-test='Projects_ProjectSettings_GeneralValuesTab_MaximumHoursPerDay'
 								type="number" ng-model="generalValues.maxHrs" class="form-control" name="maxnumner"
-								min="0" max="24" ng-required="true">
+								min="0" max="23" ng-required="true">
 							<span ng-show="generalForm1.maxnumner.$error.min || gegeneralForm1.maxnumner.$error.max"
 								class="procurment-pot-errors">
-								The value must be in range 0 to 24</span>
+								The value must be in range 0 to 23</span>
 							<span ng-show="generalFrm.maxnumner.$touched && generalFrm.maxnumner.$error.required"
 								class="procurment-pot-errors">This field is mandatory</span>
 						</md-input-container>
@@ -174,7 +174,8 @@
 							<label>Contract Number</label>
 							<input data-test='Projects_ProjectSettings_GeneralValuesTab_ContractNumber' type="text"
 								name="number" class="form-control" ng-model="generalValues.contractNumber" 
-								ng-required="true">
+								ng-required="true" pattern="^[\d]+$" tabindex="19" maxlength="15" minlength="6"
+										valid-number>
 							<span ng-show="generalFrm.number.$touched && generalFrm.number.$error.required"
 								class="procurment-pot-errors">This field is mandatory</span>
 						</md-input-container>

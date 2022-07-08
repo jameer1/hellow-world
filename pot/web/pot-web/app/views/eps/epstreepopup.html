@@ -26,7 +26,7 @@
 									<span ng-show="item.expand && !tab.item" ng-click="popupItemClick(item, true);" class="fa fa-minus"></span> 
 									<span ng-show="!item.expand && !tab.item" data-test='EPS_create_Plusicon_toget_SubEps'  ng-click="popupItemClick(item, false);" class="fa fa-plus"> </span> 
 									<input data-test='EPS_create_EpsID' type="text" class="form-control" ng-if="!item.proj" placeholder="EPS Id" name="epsId_{{$index}}"
-									 maxlength="20" ng-model="item.projCode" ng-required="true" watch-change="change()" 
+									 maxlength="20" ng-model="item.projCode" ng-required="true" watch-change="change()" ng-change=Duplicate(item.projCode)
 									 pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
 									 ng-class="{coloumnHighlightColor:(item.duplicateFlag||item.childProjs.duplicateFlag) }" 
 									 ng-blur="checkDuplicate(item)"

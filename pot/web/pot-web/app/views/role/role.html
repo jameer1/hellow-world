@@ -9,15 +9,32 @@
 	</button>
   </section>
   <section class="content" id="tab-pannel" ng-init="getRoles()">
-      <div class="panel panel-default topBlock footer-parent">
+      <div class="panel panel-default topBlock footer-parent" style="height:320px;">
     <form name="roleForm">
         <div class="panel-heading">
           <h4 class="panel-title">User Profiles</h4>
         </div>
-        <div class="panel-body">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 padL-0">
+							 <md-input-container class="md-block" > 
+								<label>Profile Name</label>
+								 <input data-test='Admin_ClientUser_UserProfile_ProfileName' type="text"
+									ng-model="userprofile.roleName" class="form-control" autocomplete="off">
+							 </md-input-container>  
+						</div> 
+						<div class="col-lg-9 col-md-9 col-xs-9 col-sm-9 padR-0">
+							<div class="pull-right" >
+								<input data-test='Admin_ClientUser_UserProfile_Search' type="submit"
+									class="btn btn-primary btn-sm" ng-click="profileSearch('click')" value="Search"/> <input
+									data-test='Admin_ClientUser_UserProfile_Refresh' ng-click="reset2()" type="reset"
+									class="btn btn-secondary btn-sm" value="Reset" />
+							</div>
+						</div>
+        </div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">			
           <div class="topHeaderFooterTableResHeight">
           	<div id="grid" ui-grid="gridOptions" ng-if="stylesSvc.finishedStyling" 
-							ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-grouping class="grid" style="height:145px";></div>
+							ui-grid-exporter ui-grid-move-columns ui-grid-auto-resize ui-grid-grouping class="grid" style="height:205px;"></div>
            <!--  <table class="table table-striped table-hover table-bordered topHeaderFooterTableHeight" >
               <thead>
                 <tr>
@@ -46,14 +63,14 @@
     </form>
       </div>
   <div>
-    <form name="permissionsForm" validate>
-      <div class="panel panel-default bottomBlock footer-parent">
+    <form name="permissionsForm" validate style="margin-top:5px;">
+      <div class="panel panel-default bottomBlock footer-parent" style="height:290px !important">
         <div class="panel-heading no-border">
           <h4 class="panel-title">User Privileges</h4>
         </div>
         <div class="panel-body">
-          <div class="bottomHeaderFooterTableResHeight">
-            <table id="tree" class="table table-striped table-hover table-bordered bottomHeaderFooterTableHeight" >
+         <div  class="singleTableResHeight_3"> 
+            <table id="tree" class="table table-striped table-hover table-bordered firstTableHeight">
               <thead>
                 <tr>
                   <th style="width: 740px;">Module Name</th>
@@ -81,8 +98,6 @@
                 </tr>
               </tbody>
             </table>
-          </div>
-        </div>
         <div class="panel-footer">
           <div class="pull-right">
             <input data-test='Admin_ClientUser_UserProfile_SavePermissions' type="submit" value="Save Permissions" class="btn btn-primary btn-sm" ng-click="permissionsForm.$valid && saveRolePermission()"
@@ -91,5 +106,9 @@
         </div>
       </div>
     </form>
+  </div>
+  </div>
+  </div>
+  </div>
   </div>
 </section>

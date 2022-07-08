@@ -314,6 +314,39 @@ app.config(["$stateProvider", function ($stateProvider) {
 					$scope.projSorId = null;
 					$scope.subCategoryRateNotRequired = subCategoryRateNotRequired;
 					var sorData = [];
+					$scope.coChange1 = function(entry) {
+						console.log(entry)
+						let isValid = true;
+						//$scope.addSORData, sorList
+					if (entry.code != null) {
+							if (entry.id) {
+				    			if (sorList.find(e => e.code.toLowerCase().replace(/\s/g, "") == entry.code.toLowerCase().replace(/\s/g, "") && e.id != entry.id) != null) {
+				    				entry.codeErrorMessage = entry.code + ' is already in use (case insensitive)';
+				    				isValid = isValid && false;
+				    			}
+				    			else{
+									entry.codeErrorMessage =""
+									isValid = isValid && true;
+								}
+				    		} else {
+				    			if (sorList.find(e => e.code.toLowerCase().replace(/\s/g, "") == entry.code.toLowerCase().replace(/\s/g, "")) != null) {
+				    				entry.codeErrorMessage = entry.code + ' is already in use (case insensitive)';
+				    				isValid = isValid && false;
+				    			}
+				    			else{
+									entry.codeErrorMessage =""
+									isValid = isValid && true;
+								}
+				    			let count = 0;
+				    			for (let i=0; i<$scope.addSORData.length; i++)
+				    				if ($scope.addSORData[i].code.toLowerCase() == entry.code.toLowerCase()) count++;
+				    			if (count > 1) {
+				    				entry.codeErrorMessage = entry.code + ' is already in use (case insensitive)';
+				    				isValid = isValid && false;
+				    			}
+				    		}
+						}
+					}
 					$scope.projSorPopupItemClick = function (item, expand) {
 						TreeService.dynamicTreeItemClick($scope.addSORData, item, expand);
 					};
@@ -531,7 +564,7 @@ app.config(["$stateProvider", function ($stateProvider) {
 								isValid = isValid && false;
 							}*/
 						}
-						if (entry.code != null) {
+						/*if (entry.code != null) {
 							if (entry.id) {
 				    			if (projectSorList.find(e => e.code.toLowerCase().replace(/\s/g, "") == entry.code.toLowerCase().replace(/\s/g, "") && e.id != entry.id) != null) {
 				    				entry.codeErrorMessage = entry.code + ' is already in use (case insensitive)';
@@ -550,7 +583,7 @@ app.config(["$stateProvider", function ($stateProvider) {
 				    				isValid = isValid && false;
 				    			}
 				    		}
-						}
+						}*/
 						return isValid;						
 					};
 				}]

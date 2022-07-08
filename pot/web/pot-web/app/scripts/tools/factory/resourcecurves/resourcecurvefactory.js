@@ -114,6 +114,14 @@ app.factory('ResourceCurveFactory', ["ngDialog", "$q", "$filter", "$timeout", "b
 					$scope.closeThisDialog();
 
 				}
+				$scope.Duplicate = function(val){
+					
+					for(var i=0;i<editResource.length;i++){
+						if(editResource[i].curveType==val){
+							GenericAlertService.alertMessage('Duplicate Resource Curve Name(s) should not be allowed', "Warning");
+						}
+					}	
+				}
 			} ]
 		});
 		return deferred.promise;

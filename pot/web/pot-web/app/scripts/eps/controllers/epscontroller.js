@@ -91,6 +91,20 @@ app.config(["$stateProvider", function ($stateProvider) {
 				if (itemData) {
 					$scope.pcode = itemData.projCode;
 				}
+				$scope.Duplicate=function(val){
+					for(var i=0; i<$scope.epsData.length; i++){
+						if($scope.epsData[i].parent == val){
+							GenericAlertService.alertMessage('Duplicate EPS ID(s) are not allowed',"Warning");
+						}
+					}
+				}
+				$scope.Duplicate1=function(val){
+					for(var i=0;i<$scope.epsData.length;i++){
+						if($scope.epsData[i].projName==val){
+							GenericAlertService.alertMessage('Duplicate EPS Name(s) are not allowed',"Warning");	
+						}
+					}
+				}
 
 				if (actionType === 'Add') {
 					$scope.editTreeData.push({

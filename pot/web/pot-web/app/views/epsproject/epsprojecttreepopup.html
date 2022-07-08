@@ -40,7 +40,7 @@
                                         class="fa fa-plus" ng-show="(!item.leaf && !item.expand)">
                                     </span> <span ng-show="(item.proj)" name="leaf" class="fa fa-leaf"></span> <input type="text" class="form-control" pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
                                         ng-show="item.proj" data-test="{{item.proj ? 'Projects_ProjectList_Create_ProjectId' : 'Projects_ProjectList_Create_EpsId'}}" placeholder="Project ID" name="epsProjectId" maxlength="20"
-                                        ng-model="item.projCode" ng-required="true" ng-class="{coloumnHighlightColor: item.duplicateFlag }"
+                                        ng-model="item.projCode" ng-required="true" ng-class="{coloumnHighlightColor: item.duplicateFlag }" ng-change=Duplicate(item.projCode)
                                         ng-blur="checkDuplicate(item)"> <span style="padding-left: 15px;">
                                         <span ng-show="!item.proj">{{item.projCode}}</span>
                                     </span>
@@ -49,7 +49,7 @@
                                         At least one alphabet is mandatory</span>
                                 </td>
                                 <td ng-form name="epsform1">
-                                    <input data-test="{{item.proj ? 'Projects_ProjectList_Create_ProjectName' : 'Projects_ProjectList_Create_EpsName'}}" type="text" name="name" class="form-control" ng-show="item.proj" ng-model="item.projName"
+                                    <input data-test="{{item.proj ? 'Projects_ProjectList_Create_ProjectName' : 'Projects_ProjectList_Create_EpsName'}}" type="text" name="name" class="form-control" ng-show="item.proj" ng-model="item.projName" ng-change=Duplicate(item.projName)
                                         placeholder="{{item.proj ? 'Project Name' : 'EPS Name'}}" pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
                                         maxlength="50" required> <span ng-show="!item.proj">{{item.projName}}</span>
                                     <span ng-show="epsform1.name.$touched && epsform1.name.$error.required" style="color: red !important;">required</span>

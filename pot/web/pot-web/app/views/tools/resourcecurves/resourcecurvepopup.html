@@ -101,7 +101,7 @@
                                 </td>
                                 <td class="input-width3" ng-form name="resourceFormtype">
                                     <input data-test='ResourceCurves_Create_Curvename' class="form-control" type="text"
-                                        ng-model="resource.curveType" name="Curve Type"
+                                        ng-model="resource.curveType" name="Curve Type" ng-change=Duplicate(resource.curveType)
                                         pattern=^[a-zA-Z][^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
                                         placeholder="CurveType" ng-required="true" />
                                     <span class="procurment-pot-errors"

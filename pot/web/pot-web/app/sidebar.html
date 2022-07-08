@@ -423,7 +423,7 @@
 								ui-sref-opts="{reload: true}">Stage 1 Approval</a>
 						</li>
 						<li ng-if="account.appCodeTemplate['PROCURMT_PROCURMTRFQ_VIEW']">
-							<a data-test='Precontracts_RFQ' ui-sref="rfq" ui-sref-opts="{reload: true}">RFQ </a>
+							<a data-test='Precontracts_RFQ' ui-sref="rfq" ui-sref-opts="{reload: true}">RFQ / Tendering</a>
 						</li>
 						<!-- <li
 														ng-if="account.appCodeTemplate['PROCURMT_INTRNLSTAGE1APRVL_VIEW']"><a
@@ -431,7 +431,7 @@
 						<li>
 							<a data-test='Procurement_Stage2Request'
 								ng-if="account.appCodeTemplate['PROCURMT_EXTRNLSTAGE2REQUEST_VIEW']"
-								ui-sref="externalApproval({request: 'request'})" ui-sref-opts="{reload: true}">Stage 2
+								ui-sref="externalApproval({request: 'request'})" ui-sref-opts="{reload: true}">Bid Analysis <br>Stage 2
 								Request</a>
 						</li>
 						<li>
@@ -442,12 +442,25 @@
 						</li>
 					</ul>
 				</li>
-				<li ng-if="account.appCodeTemplate['PROCURMT_PURCHASEORDR_VIEW']">
-					<a data-test='Procurement_PurchaseOrders' ui-sref="purchaseorder"
-						ui-sref-opts="{reload: true}">Purchase
-						Orders
+				
+				<li class="treeview" ng-if="account.appCodeTemplate['PRE_CONTRACTS_VIEW']">
+					<a data-test='Procurement_PreContracts'>
+						<span>Post-Contracts</span>
+						<span class="pull-right-container">
+							<i class="fa fa-angle-left pull-right"></i>
+						</span>
 					</a>
+
+					<ul class="treeview-menu">
+						<li ng-if="account.appCodeTemplate['PROCURMT_PURCHASEORDR_VIEW']">
+							<a data-test='Procurement_PurchaseOrders' ui-sref="purchaseorder"
+							ui-sref-opts="{reload: true}">Purchase Orders </a>
+						</li>
+
+
+					</ul>
 				</li>
+
 			</ul>
 		</li>
 		<li class="treeview">

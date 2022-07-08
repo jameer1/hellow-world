@@ -177,6 +177,10 @@ app.factory('CountryProvinceCodeFactory', ["ngDialog", "$q", "$filter", "$timeou
 						"financialHalfYearData": $scope.CountryProvinceDetails[0].financialHalfYearData,
 						"financialQuarterYearData": $scope.CountryProvinceDetails[0].financialQuarterYearData
 					}
+					if (duplicate) {
+						GenericAlertService.alertMessage("Duplicate Country & Province Codes are not allowed", "Warning");
+						return;
+					}
 					if(countryProvinceCodeSaveReq.countryCode == '' || countryProvinceCodeSaveReq.countryCode == null || countryProvinceCodeSaveReq.countryCode == undefined) {
 						GenericAlertService.alertMessage('Country not selected', "Warning");
 						return;
@@ -209,6 +213,23 @@ app.factory('CountryProvinceCodeFactory', ["ngDialog", "$q", "$filter", "$timeou
 						GenericAlertService.alertMessage('Country Province codes  is/are failed to save"', "Error");
 					});
 
+				}
+				var duplicate = false;
+				$scope.checkDuplicate = function(val){
+				for(var i=0;i<editCountryProvinceDetails.length;i++){
+						if(editCountryProvinceDetails[i].Countrycode==val){
+							duplicate = true;
+							GenericAlertService.alertMessage("Duplicate Country code(s) should not be allowed","warning");
+						}
+					}
+				}
+				$scope.checkDuplicate1 = function(value){
+					for(var i=0;i<editCountryProvinceDetails.length;i++){
+						if(editCountryProvinceDetails[i].provisionName == value){
+							duplicate = true;
+							GenericAlertService.alertMessage("Duplicate provision Name(s) should not be allowed","Warning");
+						}
+					}
 				}
 			}]
 		});

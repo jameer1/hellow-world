@@ -15,13 +15,13 @@
 					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
 							<md-input-container class="md-block">
 								<label>{{works.apprType}} Cut off Hours</label>
-								<input type="text" data-test="{{works.apprType}}_Projects_ProjectSettings_ScheduleEstimatesTab_Cutoffhours" ng-model="works.cutOffHours" min=0 max=23 class="form-control" name="hours" ng-required="true">
+								<input type="number" data-test="{{works.apprType}}_Projects_ProjectSettings_ScheduleEstimatesTab_Cutoffhours" ng-model="works.cutOffHours" min=0 max=23 class="form-control" name="hours" ng-required="true">
 							</md-input-container>
 					</div>
 					<div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
 							<md-input-container class="md-block">
 								<label>{{works.apprType}} Cut off Minutes</label>
-								<input type="text" data-test="{{works.apprType}}_Projects_ProjectSettings_ScheduleEstimatesTab_Cutoffminutes" name="Minutes" min=0 max=59 ng-model="works.cutOffMinutes" class="form-control" ng-required="true">
+								<input type="number" data-test="{{works.apprType}}_Projects_ProjectSettings_ScheduleEstimatesTab_Cutoffminutes" name="Minutes" min=0 max=59 ng-model="works.cutOffMinutes" class="form-control" ng-required="true">
 							</md-input-container>
 					</div><!-- row 1 -->
 				</div> 

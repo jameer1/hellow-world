@@ -25,7 +25,7 @@
 							ng-change="contactsPopUpRowSelect(contact)"></td>
 
 						<td> <ng-form name="desgForm1"><input data-test='Companylist_Contact_Create_ContactName' type="text"
-							ng-model="contact.contactName" name="Cname" class="form-control"
+							ng-model="contact.contactName" name="Cname" class="form-control"  ng-change="Duplicate(contact.contactName)"
 							pattern=[^\w\d]*((.*[A-Za-z]+.*)|[A-Za-z]+.*([0-9]+.*))
 							minlength=3 maxlength=50  placeholder="Contact Name" ng-required="true"/> <span
 							class="procurment-pot-errors"
@@ -36,7 +36,7 @@
 								data should be allowed </span> </ng-form> </td>
 
 						<td ng-form="emailFrm"><input data-test='Companylist_Contact_Create_Email' type="email"
-							ng-model="contact.email" name="email" ng-trim="false" class="form-control"
+							ng-model="contact.email" name="email" ng-trim="false" class="form-control" ng-change="Duplicate1(contact.email)"
 							placeholder="Email" maxlength=50 ng-required="true"/> 
 							<span class="procurment-pot-errors"
 							ng-show="emailFrm.email.$touched && emailFrm.email.$error.required">Email
@@ -46,7 +46,7 @@
 								Email </span></td>
 
 						<td ng-form="mobileFrm"><input data-test='Companylist_Contact_Create_Mobile' type="text"
-							ng-model="contact.mobile" name="mobile" ng-trim="false" class="form-control"
+							ng-model="contact.mobile" name="mobile" ng-trim="false" class="form-control" ng-change="Duplicate2(contact.mobile)"
 							placeholder="Mobile" pattern="^[\d\s\+\.,]+$" minlength=10
 							maxlength=15 ng-required="true" valid-number/> <span class="procurment-pot-errors"
 							ng-show="mobileFrm.mobile.$touched && mobileFrm.mobile.$error.required">Mobile

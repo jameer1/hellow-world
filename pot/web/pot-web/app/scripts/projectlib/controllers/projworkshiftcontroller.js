@@ -177,13 +177,16 @@ app.config(["$stateProvider", function($stateProvider) {
 				"projWorkShiftIds" : deleteIds,
 				"status" : 1
 			};
+			
+			GenericAlertService.confirmMessageModal('Do you really want to Activate the record', 'Warning', 'YES', 'NO').then(function() {
 			ProjWorkShiftService.deleteProjWorkShifts(req).then(function(data) {
 				GenericAlertService.alertMessage('Working Shift(s) Activated Successfully', 'Info');
+				$scope.getProjWorkShifts();
 			});
-
+},
 			angular.forEach(editTableData, function(value, key) {
 				$scope.tableData.splice($scope.tableData.indexOf(value), 1);
-			}, function(error) {
+			}), function(error) {
 				GenericAlertService.alertMessage('Working Shift(s) is/are failed to Activate', "Error");
 			});
 			editTableData = [];

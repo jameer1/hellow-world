@@ -18,11 +18,11 @@ app.config(["$stateProvider", function ($stateProvider) {
 			}
 		}
 	})
-}]).controller('ProjectStatusController', ["$rootScope", "$scope", "ProjSOWService", "$q", "blockUI",
+}]).controller('ProjectStatusController', ["$rootScope", "$scope","uiGridGroupingConstants", "uiGridConstants","ProjSOWService", "$q", "blockUI",
 	"ProjectStatusService", "GenericAlertService", "ProjManPowerFactory", "ProjectCrewPopupService", "EpsService",
 	"ProjectSettingCostItemFactory", "ProjectSettingSOWItemFactory", "ProjStatusMileStonesFactory",
 	"ProjStatusSubContractFactory", "$filter", "TreeService", "ProjectStatusResourceStatusValueService","ngDialog", "ProjectScheduleService", "stylesService", "ngGridService",
-	function ($rootScope, $scope, ProjSOWService, $q, blockUI,
+	function ($rootScope, $scope,uiGridGroupingConstants,uiGridConstants, ProjSOWService, $q, blockUI,
 		ProjectStatusService, GenericAlertService, ProjManPowerFactory, ProjectCrewPopupService, EpsService,
 		ProjectSettingCostItemFactory, ProjectSettingSOWItemFactory, ProjStatusMileStonesFactory,
 		ProjStatusSubContractFactory, $filter, TreeService, ProjectStatusResourceStatusValueService,ngDialog, ProjectScheduleService, stylesService, ngGridService) {
@@ -664,8 +664,19 @@ app.config(["$stateProvider", function ($stateProvider) {
 				"projId": $rootScope.projId
 			};
 			ProjectStatusService.getMeasureUnits(getMeasureUnitsReq).then(function (data) {
+				
+				for(var measure of data.projManPowerStatusTOs){
+							measure.revisedQty=(measure.revisedQty > 0 ? measure.revisedQty : '');
+							}
+		        for(var measure of data.projManPowerStatusTOs){
+							measure.remainingQty=(measure.revisedQty > 0 ? measure.revisedQty : measure.originalQty)-(measure.actualQty);
+							}					
+				
+				
 				$scope.measureunits = data.projManPowerStatusTOs;
 				$scope.gridOptions1.data = angular.copy($scope.measureunits);
+				//console.log($scope.measureunits); 
+				
 				console.log("$scope.measureunits", $scope.measureunits);
 				if (fromTitle && $scope.projTabs[2].childTabs[2].title == fromTitle) {
 					angular.forEach($scope.measureunits, function (unit) {
@@ -690,14 +701,46 @@ app.config(["$stateProvider", function ($stateProvider) {
 				if (newValue) {
 					let columnDefs = [
 						{ field: 'empCatgName', displayName: "Category ID", headerTooltip: "Category ID", },
-						{ field: 'originalQty', displayName: "Budget Units", headerTooltip: "Budget Units",},
-						{ field: 'revisedQty', displayName: "Revised Units", headerTooltip: "Revised Units",},
-						{ field: 'actualQty', displayName: "Actual Units", headerTooltip: "Actual Units", },
-						{ field: 'originalQty', displayName: "Remaining Units", headerTooltip: "Remaining Units",},
-						{ field: 'percentageSpent', cellFilter: 'number: 2', displayName: "% Spent", headerTooltip: "% Spent",},
-						{ field: 'estimateComplete', cellFilter: 'number: 2', displayName: "Estimate to Complete", headerTooltip: "Estimate to Complete",},
-						{ field: 'estimateCompletion', cellFilter: 'number: 2', displayName: "Estimate at Completion", headerTooltip: "Estimate at Completion",},
-						{ field: 'compVariance', cellFilter: 'number: 2', displayName: "Completion Variance", headerTooltip: "Completion Variance",},
+						{ field: 'originalQty', displayName: "Budget Units", headerTooltip: "Budget Units",
+						aggregationType: uiGridConstants.aggregationTypes.sum, treeAggregationType: uiGridGroupingConstants.aggregation.SUM,
+					customTreeAggregationFinalizerFn: function (aggregation) { 
+					aggregation.rendered = aggregation.value;
+					} },
+						{ name: 'revisedQty', displayName: "Revised Units", headerTooltip: "Revised Units",
+						aggregationType: uiGridConstants.aggregationTypes.sum, treeAggregationType: uiGridGroupingConstants.aggregation.SUM,
+					customTreeAggregationFinalizerFn: function (aggregation) { 
+					aggregation.rendered = aggregation.value;
+					} },
+						{ field: 'actualQty', displayName: "Actual Units", headerTooltip: "Actual Units", 
+						aggregationType: uiGridConstants.aggregationTypes.sum, treeAggregationType: uiGridGroupingConstants.aggregation.SUM,
+					customTreeAggregationFinalizerFn: function (aggregation) { 
+					aggregation.rendered = aggregation.value;
+					} },
+						{ name: 'remainingQty', displayName: "Remaining Units", headerTooltip: "Remaining Units",
+						aggregationType: uiGridConstants.aggregationTypes.sum, treeAggregationType: uiGridGroupingConstants.aggregation.SUM,
+					customTreeAggregationFinalizerFn: function (aggregation) { 
+					aggregation.rendered = aggregation.value;
+					} },
+						{ field: 'percentageSpent', cellFilter: 'number: 2', displayName: "% Spent", headerTooltip: "% Spent",
+						aggregationType: uiGridConstants.aggregationTypes.sum, treeAggregationType: uiGridGroupingConstants.aggregation.SUM,
+					customTreeAggregationFinalizerFn: function (aggregation) { 
+					aggregation.rendered = aggregation.value;
+					} },
+						{ field: 'estimateComplete', cellFilter: 'number: 2', displayName: "Estimate to Complete", headerTooltip: "Estimate to Complete",
+						aggregationType: uiGridConstants.aggregationTypes.sum, treeAggregationType: uiGridGroupingConstants.aggregation.SUM,
+					customTreeAggregationFinalizerFn: function (aggregation) { 
+					aggregation.rendered = aggregation.value;
+					} },
+						{ field: 'estimateCompletion', cellFilter: 'number: 2', displayName: "Estimate at Completion", headerTooltip: "Estimate at Completion",
+						aggregationType: uiGridConstants.aggregationTypes.sum, treeAggregationType: uiGridGroupingConstants.aggregation.SUM,
+					customTreeAggregationFinalizerFn: function (aggregation) { 
+					aggregation.rendered = aggregation.value;
+					} },
+						{ field: 'compVariance', cellFilter: 'number: 2', displayName: "Completion Variance", headerTooltip: "Completion Variance",
+						aggregationType: uiGridConstants.aggregationTypes.sum, treeAggregationType: uiGridGroupingConstants.aggregation.SUM,
+					customTreeAggregationFinalizerFn: function (aggregation) { 
+					aggregation.rendered = aggregation.value;
+					} },
 					];
 					let data = [];
 					$scope.gridOptions1 = ngGridService.initGrid($scope, columnDefs, data, "Project_ProjectStatus_Manpower");

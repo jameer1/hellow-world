@@ -51,6 +51,9 @@ app
 							GenericAlertService.alertMessage("Please select only one country province to Edit", 'Warning');
 		        			return;
 							}
+							if(actionType == 'Add'){
+								editCountryProvinceDetails=$scope.countryProvinceCodeToTOs;
+							}
 							var popupDetails = CountryProvinceCodeFactory.countryprovincecodePopUpDetails(actionType,editCountryProvinceDetails);
 							popupDetails.then(function(data) {
 								$scope.getCountryProvinceCodes();

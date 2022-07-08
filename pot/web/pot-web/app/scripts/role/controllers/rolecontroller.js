@@ -20,6 +20,7 @@ app.config(["$stateProvider", function ($stateProvider) {
 		}
 	})
 }]).controller('RoleController', ["$scope", "ngDialog", "$q", "$state", "RoleService", "UserService", "blockUI", "GenericAlertService", "moduleservice","stylesService", "ngGridService", function ($scope, ngDialog, $q, $state, RoleService, UserService, blockUI, GenericAlertService, moduleservice, stylesService, ngGridService) {
+	$scope.userProfiles = [];
 	$scope.users = {};
 	$scope.currentRole = null;
 	$scope.moduleTreeData = [];
@@ -34,6 +35,33 @@ app.config(["$stateProvider", function ($stateProvider) {
 	$scope.setClickedRow = function (row) {
 		$scope.selectedRow = row;
 	}
+	$scope.userprofile={
+		'roleName':null
+	}
+	$scope.profileSearch=function(){
+		console.log($scope.userprofile.roleName);
+		if($scope.userprofile.roleName != "" && $scope.userprofile.roleName != null ){
+		$scope.datas=[];
+		for(var i=0; i<$scope.userProfiles.length;i++){
+			if($scope.userProfiles[i].roleName == $scope.userprofile.roleName ){
+		$scope.datas.push($scope.userProfiles[i]);
+		}
+		}
+		if($scope.datas !=""){
+			$scope.gridOptions.data = angular.copy($scope.datas);
+		}
+		else{
+			$scope.gridOptions.data=[];
+			GenericAlertService.alertMessage('profile details are not available for given search criteria', "Warning");
+		}
+		}
+		}
+		$scope.reset2=function(){
+		$scope.userprofile.roleName = '';
+		$scope.gridOptions.data = [];
+		$scope.gridOptions.data = angular.copy($scope.userProfiles);
+	}
+		
 	var rolePermissions = [];
 	var permissions = [];
 
@@ -414,12 +442,30 @@ app.config(["$stateProvider", function ($stateProvider) {
 			GenericAlertService.alertMessage("Error",'Info');
 		})
 	}
+	
+	$scope.profileSearch = function(isClick) {
+		$scope.datas=[];
+		angular.forEach($scope.userProfiles,function(value,key){
+				if($scope.userprofile.roleName != null && $scope.userprofile.roleName != "" && value.roleName !=null){
+					var len=$scope.userprofile.roleName.length;
+					if(value.roleName.substring(0, len).toUpperCase() === $scope.userprofile.roleName.toUpperCase()){
+					$scope.datas.push(value)
+					}
+				}	
+				});
+				$scope.gridOptions.data = angular.copy($scope.datas)
+			if ($scope.datas.length <= 0) {
+				GenericAlertService.alertMessage('Profiles not available for given search criteria', "Warning");
+				return;
+			}
+	}
+	
 	var linkCellTemplate ='	<input type="checkbox" ng-disabled="row.entity.defaultRole" ng-model="row.entity.selected" ng-change="grid.appScope.rowSelect(row.entity)">';
 		$scope.$watch(function () { return stylesService.finishedStyling; },
 			function (newValue, oldValue) {
 				if (newValue) {
 					let columnDefs = [
-					    { name: 'select', cellTemplate: linkCellTemplate,  displayName: "Select", headerTooltip : "Select" },
+					    { name: 'select1', cellTemplate: linkCellTemplate,  displayName: "Select", headerTooltip : "Select",groupingShowAggregationMenu: false},
 						{ field: 'roleName',cellTemplate:"<span style='width:750px;' ng-click='grid.appScope.getRolePermissions(row.entity)'>{{row.entity.roleName}}</span>", displayName: "Profile Name", headerTooltip: "Profile Name"}
 						];
 					let data = [];
