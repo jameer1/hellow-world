@@ -1,5 +1,5 @@
 # POT_LATEST
-# Operating System Files List
+# Operating System Files 
 
 *.DS_Store
 Thumbs.db
